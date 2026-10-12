@@ -31,10 +31,19 @@ class SelectionTests(unittest.TestCase):
                 ci.select(self.manifest, "release", ref)
 
     def test_actual_portal_navigation_is_checked(self):
-        core = "nav:\n  - Guides:\n    - API: guides/api.md\n"
-        ci.check_navigation(core, core)
-        with self.assertRaisesRegex(ValueError, "guides/api.md"):
-            ci.check_navigation(core, "nav:\n  - Home: index.md\n# guides/api.md\n")
+        with tempfile.TemporaryDirectory() as temp:
+            docs = Path(temp)
+            (docs / "guides").mkdir()
+            (docs / "README.md").write_text("# GitHub index\n", encoding="utf-8")
+            (docs / "guides/api.md").write_text("# API\n", encoding="utf-8")
+            nav = "nav:\n  - Guides:\n    - API: guides/api.md\n"
+            ci.check_navigation(docs, nav)
+            with self.assertRaisesRegex(ValueError, "guides/api.md"):
+                ci.check_navigation(docs, "nav:\n  - Home: index.md\n# guides/api.md\n")
+            # New pages must be discoverable even without any Core mkdocs.yml.
+            (docs / "guides/README.md").write_text("# Guides\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "guides/README.md"):
+                ci.check_navigation(docs, nav)
 
 
 class PublicationTests(unittest.TestCase):

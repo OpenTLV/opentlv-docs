@@ -43,12 +43,15 @@ def nav_paths(value):
     return set().union(*(nav_paths(child) for child in children)) if children else set()
 
 
-def check_navigation(core_config, portal_config):
-    required = nav_paths(yaml.safe_load(core_config).get("nav", []))
+def check_navigation(docs, portal_config):
+    # The assembled sources, not a second MkDocs configuration in Core, are
+    # authoritative. Only the root GitHub index is intentionally site-excluded.
+    required = {path.relative_to(docs).as_posix() for path in docs.rglob("*.md")}
+    required.discard("README.md")
     present = nav_paths(yaml.safe_load(portal_config).get("nav", []))
     missing = required - present
     if missing:
-        raise ValueError("Portal navigation omits Core documentation: " + ", ".join(sorted(missing)))
+        raise ValueError("Portal navigation omits documentation: " + ", ".join(sorted(missing)))
 
 
 def check_core(portal):
@@ -65,9 +68,9 @@ def check_core(portal):
             output.write(f"OPENTLV_CORE_REF={source['commit']}\n")
     for script in ("check_doc_examples.py", "test_doc_inventory.py", "check_doc_inventory.py"):
         subprocess.run([sys.executable, str(core / "scripts" / script)], cwd=core, check=True)
-    check_navigation((core / "mkdocs.yml").read_text(encoding="utf-8"),
-                     (portal / "mkdocs.yml").read_text(encoding="utf-8"))
     assembly.assemble(portal)
+    check_navigation(portal / "build/assembled/docs",
+                     (portal / "mkdocs.yml").read_text(encoding="utf-8"))
 
 
 def main():

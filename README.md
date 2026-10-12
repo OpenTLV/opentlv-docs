@@ -189,7 +189,8 @@ in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 - `assets/opentlv-light.svg`
 - `assets/opentlv-dark.svg`
 
-These portal-owned assets are temporarily still present in Core. New overrides
+These portal-owned assets may still be present in older Core revisions; after
+Core cleanup only its README logo and attribution page remain. New overrides
 require an explicit ownership decision and an entry in that list; neither an
 entire directory nor arbitrary Core pages may be overwritten. File/directory
 conflicts always fail. Input collisions are checked before replacing the previous
@@ -228,8 +229,9 @@ concurrent publication conflicts. They do not contact GitHub.
 
 `tools/docs/ci.py check` invokes the selected Core's example synchronization,
 inventory tests, and inventory validator alongside their original inputs. It
-also checks that the portal's actual navigation includes Core's declared pages,
-then assembles Markdown for linting. These checks inspect source files without
+assembles Markdown and checks navigation against every assembled Markdown page
+except the root GitHub `README.md`. It does not read or require a Core
+`mkdocs.yml`; nested README pages still require navigation entries. These checks inspect source files without
 building or running Core examples, bindings, or CLI. Strict MkDocs validation
 checks the resulting navigation, links and anchors.
 
@@ -331,3 +333,23 @@ The existing Core pipeline remains operational during migration. Follow-ups own:
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of
 the replacement pipeline; it is not part of this migration step.
+
+### Core cutover (#608)
+
+The navigation check supports Core before and after removal of its MkDocs
+configuration. Merge this portal change first, keeping the current Core pin.
+After Core cleanup is merged, update `core-source.json` to that actual full
+commit SHA and publish again. Local integration with uncommitted Core changes
+uses `OPENTLV_DOCS_LOCAL=1` and is not deployment evidence.
+
+Follow the [Core cutover procedure](https://github.com/OpenTLV/opentlv/blob/main/docs/development/documentation-ownership.md#cutover-for-issue-608)
+before removing the old publisher: a real successful Pages deployment and
+content checks are prerequisites. Preserve the old Core `gh-pages` site and its
+historical versions; the new portal does not import, relabel or delete them.
+The original workflow must be disabled and pending publishers cancelled.
+
+The portal's publication workflow still does not supply WASM artifacts. Keep
+the historical playground available until #6 supplies verified artifacts and
+transfers its UI sources. The Core playground page links to the archive and
+states its version limitation; a successful Markdown/API build alone does not
+prove equivalent interactive behavior.
