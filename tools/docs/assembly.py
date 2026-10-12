@@ -1,17 +1,23 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Marek Cingel
 
-"""Assemble Core-owned Markdown without changing its external checkout."""
+"""Assemble repository-owned Markdown and navigation without editing sources."""
 
+import copy
+import importlib.util
 import json
 import logging
 import os
 from pathlib import Path
-import re
 import shutil
-import subprocess
+import yaml
 
 from mkdocs.exceptions import PluginError
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_sources", Path(__file__).with_name("sources.py"))
+sources = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(sources)
+git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
 
@@ -36,42 +42,33 @@ def on_startup(command, dirty):
     reject_local_publication(command=command)
 
 
-def git(root, *args):
-    result = subprocess.run(
-        ["git", "-C", str(root), *args], capture_output=True, check=False,
-    )
-    if result.returncode:
-        detail = result.stderr.decode("utf-8", errors="replace").strip()
-        raise PluginError(detail or f"Git rejected the source selection: {' '.join(args)}")
-    return result.stdout.decode("utf-8").strip()
+def selected_sources(portal):
+    reject_local_publication()
+    return sources.resolve(portal)
 
 
 def selected_source(portal):
-    reject_local_publication()
-    manifest = json.loads((portal / "core-source.json").read_text(encoding="utf-8"))
-    root = Path(os.environ.get("OPENTLV_CORE_DIR", str(portal.parent / "opentlv"))).resolve()
-    revision = os.environ.get("OPENTLV_CORE_REF", manifest["revision"])
-    local = os.environ.get("OPENTLV_DOCS_LOCAL") == "1"
-    # Branches and abbreviated SHAs are deliberately not reproducible selectors.
-    ref = revision if re.fullmatch(r"[0-9a-fA-F]{40}", revision) else f"refs/tags/{revision}"
-    if ref.startswith("refs/tags/"):
-        git(root, "check-ref-format", ref)
-    commit = git(root, "rev-parse", "HEAD")
-    if not local:
-        configured_commit = git(root, "rev-parse", "--verify", "--end-of-options", f"{ref}^{{commit}}")
-        if commit != configured_commit:
-            raise PluginError(f"Core checkout HEAD does not match {revision} ({configured_commit}). Check out that revision first.")
-    if Path(git(root, "rev-parse", "--show-toplevel")).resolve() != root:
-        raise PluginError("OPENTLV_CORE_DIR must be the Core repository root.")
-    dirty = bool(git(root, "status", "--porcelain", "--untracked-files=all"))
-    if dirty and not local:
-        raise PluginError("Core checkout is dirty. Use a clean checkout or explicitly set OPENTLV_DOCS_LOCAL=1 for a local preview.")
-    if not (root / "docs" / "index.md").is_file():
-        raise PluginError(f"Core documentation not found in {root / 'docs'}")
-    return root, {
-        "repository": manifest["repository"], "revision": revision, "commit": commit,
-        "local": local, "dirty": dirty,
-    }
+    return next((root, item) for root, item in selected_sources(portal) if item["id"] == "core")
+
+
+def navigation(base, selected):
+    result = copy.deepcopy(base)
+    for _root, item in selected:
+        if item["id"] == "core" or not item["included"]:
+            continue
+        nav = item["navigation"]
+        parent = result
+        for title in nav["section"]:
+            matches = [entry[title] for entry in parent if isinstance(entry, dict) and title in entry]
+            if len(matches) > 1 or (matches and not isinstance(matches[0], list)):
+                raise PluginError(f"Ambiguous navigation destination: {title}")
+            if not matches:
+                parent.append({title: []})
+            parent = matches[0] if matches else parent[-1][title]
+        if any(isinstance(entry, dict) and nav["title"] in entry for entry in parent):
+            raise PluginError(f"Duplicate navigation title: {nav['title']}")
+        parent.append({nav["title"]: sources.prefix_nav(nav["items"], item["mount"])})
+    return result
 
 
 def reset_output(portal):
@@ -88,49 +85,67 @@ def reset_output(portal):
     return output
 
 
-def assemble(portal):
-    root, source = selected_source(portal)
-    # Only version-controlled sources are included, with non-ignored new pages
-    # added for an explicitly requested local preview. Build debris stays out.
-    args = ["ls-files", "-z", "--cached"]
-    if source["local"]:
-        args += ["--others", "--exclude-standard"]
-    paths = git(root, *args, "--", "docs/").split("\0")
-    core_files = {}
-    for name in sorted(set(filter(None, paths))):
-        path = root / name
-        if not path.exists() and source["local"]:
-            continue  # A locally deleted tracked page should disappear too.
-        if not path.resolve().is_relative_to(root) or path.is_symlink():
-            raise PluginError(f"Documentation source must be a regular file inside Core: {name}")
-        core_files[Path(name).relative_to("docs").as_posix()] = path
-    portal_files = {
-        path.relative_to(portal / "docs").as_posix(): path
-        for path in sorted((portal / "docs").rglob("*")) if path.is_file()
-    }
-    # Validate the complete input set before replacing any previous assembly.
-    owners = {os.path.normcase(name): name for name in core_files}
-    for name in portal_files:
-        key = os.path.normcase(name)
-        if key in owners and (name not in PORTAL_OVERRIDES or owners[key] != name):
-            raise PluginError(f"Unexpected documentation collision at '{name}' between Core and portal. Declare an intentional ownership override explicitly.")
-        owners[key] = name
-    for name in owners.values():
+def assemble(portal, selected=None):
+    selected = selected if selected is not None else selected_sources(portal)
+    root, source = next((root, item) for root, item in selected if item["id"] == "core")
+    inputs, owners, names = {}, {}, {}
+
+    def add(name, path, owner):
+        key = name.casefold()
+        previous = owners.get(names.get(key))
+        if key in names and not (owner == "portal" and isinstance(previous, dict) and previous["id"] == "core"
+                                 and name in PORTAL_OVERRIDES and names[key] == name):
+            raise PluginError(f"Unexpected documentation collision at '{name}' between Core and portal or components.")
+        names[key] = name
+        inputs[name] = path
+        owners[name] = owner if owner == "portal" else dict(owner)
+
+    for checkout, item in selected:
+        if not item["included"]:
+            continue
+        args = ["ls-files", "-z", "--cached"]
+        if item["local"]:
+            args += ["--others", "--exclude-standard"]
+        paths = git(checkout, *args, "--", ":(literal)" + item["docs_path"] + "/").split("\0")
+        for name in sorted(set(filter(None, paths))):
+            path = checkout / name
+            if not path.exists() and item["local"]:
+                continue
+            if not path.resolve().is_relative_to(checkout) or path.is_symlink() or not path.is_file():
+                raise PluginError(f"Documentation source must be a regular file inside {item['id']}: {name}")
+            relative = Path(name).relative_to(item["docs_path"]).as_posix()
+            target = (Path(item["mount"]) / relative).as_posix()
+            add(target, path, {"id": item["id"], "path": name, "root": str(checkout)})
+    for path in sorted((portal / "docs").rglob("*")):
+        if path.is_file():
+            if path.is_symlink() or not path.resolve().is_relative_to(portal / "docs"):
+                raise PluginError("Portal documentation must stay inside docs/.")
+            add(path.relative_to(portal / "docs").as_posix(), path, "portal")
+    for name in names.values():
         for parent in Path(name).parents:
-            if os.path.normcase(parent.as_posix()) in owners:
+            if parent.as_posix().casefold() in names:
                 raise PluginError(f"Documentation file/directory collision at '{parent.as_posix()}' involving '{name}'.")
+    # Reserve generated output paths too: component assets cannot shadow API HTML.
+    for name in inputs:
+        folded = name.casefold()
+        if (folded in ("source-revision.json", "reference", "reference/api")
+                or folded.startswith(("source-revision.json/", "reference/api/"))):
+            raise PluginError(f"Documentation collision with generated output: {name}")
+    config_file = portal / "mkdocs.yml"
+    nav = navigation(yaml.safe_load(config_file.read_text(encoding="utf-8")).get("nav", []), selected) if config_file.exists() else []
     output = reset_output(portal)
     docs = output / "docs"
-    for inputs in (core_files, portal_files):
-        for name, path in inputs.items():
-            target = docs / name
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(path, target)
-    (output / "source-revision.json").write_text(
-        json.dumps(source, indent=2) + "\n", encoding="utf-8",
-    )
-    log.info("Core documentation: %s%s", source["commit"], " (local preview)" if source["local"] else "")
-    return root, source
+    for name, path in inputs.items():
+        target = docs / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(path, target)
+    metadata = dict(source, sources=[item for _, item in selected])
+    (output / "source-revision.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+    (output / "owners.json").write_text(json.dumps(owners, indent=2) + "\n", encoding="utf-8")
+    (output / "navigation.json").write_text(json.dumps({"nav": nav}, indent=2) + "\n", encoding="utf-8")
+    for _, item in selected:
+        log.info("Documentation source %s: %s", item["id"], item.get("commit", item.get("reason")))
+    return root, metadata
 
 
 def on_config(config):
@@ -138,10 +153,14 @@ def on_config(config):
     portal = Path(config.config_file_path).resolve().parent
     config.docs_dir = str(portal / "build" / "assembled" / "docs")
     config.watch.append(str(portal / "docs"))
-    config.watch.append(str(portal / "core-source.json"))
+    config.watch.append(str(portal / sources.MANIFEST))
     config.watch.append(str(Path(__file__).resolve().parent))
-    root, _source = selected_source(portal)
-    config.watch.append(str(root / "docs"))
+    selected = selected_sources(portal)
+    root = next(root for root, item in selected if item["id"] == "core")
+    for checkout, item in selected:
+        if checkout:
+            config.watch.append(str(checkout / item["docs_path"]))
+    config.extra["base_navigation"] = copy.deepcopy(config.nav)
     for name in ("tlv/include", "tlv/resources", "tlv++/include", "tools/docs", "cmake", "CMakeLists.txt"):
         if (root / name).exists():
             config.watch.append(str(root / name))
@@ -150,7 +169,11 @@ def on_config(config):
 
 def on_pre_build(config):
     portal = Path(config.config_file_path).resolve().parent
-    root, source = assemble(portal)
+    selected = selected_sources(portal)
+    root, source = assemble(portal, selected)
+    config.nav = navigation(config.extra["base_navigation"], selected)
+    config.extra["sources"] = source["sources"]
+    config.extra["sources_dirty"] = any(item["dirty"] for item in source["sources"])
     config.extra["core_source"] = source
     config.extra["core_checkout"] = str(root)
 

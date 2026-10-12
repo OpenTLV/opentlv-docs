@@ -5,20 +5,21 @@ shared assets, and assembly of the OpenTLV documentation portal. Core owns its
 technical Markdown, examples, public headers, and Doxygen configuration in
 [`OpenTLV/opentlv`](https://github.com/OpenTLV/opentlv).
 
-Each build reads an external Core checkout and assembles disposable content in
-`build/assembled/`. Core documentation is never maintained as a second copy here.
+Each build reads independently selected repository checkouts and assembles
+disposable content in `build/assembled/`. Component documentation is never
+maintained as a second copy here.
 The Core build does not depend on this repository.
 
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- An external Core checkout at the revision selected in `core-source.json`.
+- An external Core checkout at the revision selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-No binding or CLI repository, binding runtime, or Emscripten installation is
-required. C++ remains part of Core; generating its reference does not require
+The default manifest requires no binding or CLI repository, binding runtime,
+or Emscripten installation. C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
 
 ## Setup
@@ -41,7 +42,7 @@ python -m venv .venv
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-docs.txt
 $env:OPENTLV_CORE_DIR = (Resolve-Path ../opentlv-docs-core).Path
-$coreRevision = (Get-Content core-source.json | ConvertFrom-Json).revision
+$coreRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq core).revision
 git -C $env:OPENTLV_CORE_DIR checkout --detach $coreRevision
 ```
 
@@ -52,14 +53,15 @@ python3 -m venv .venv
 . .venv/bin/activate
 python -m pip install -r requirements-docs.txt
 export OPENTLV_CORE_DIR="$(cd ../opentlv-docs-core && pwd)"
-core_revision=$(python -c 'import json; print(json.load(open("core-source.json"))["revision"])')
+core_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "core"))')
 git -C "$OPENTLV_CORE_DIR" checkout --detach "$core_revision"
 ```
 
 For an existing workspace checkout, set `OPENTLV_CORE_DIR` to that checkout or
 leave it unset for the sibling default. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
-The portal never checks out, fetches, resets, or edits Core on your behalf.
+MkDocs never checks out, fetches, resets, or edits workspace sources.
+The explicit `ci.py fetch` command creates separate managed checkouts as described below.
 
 ## Generate or consume API references
 
@@ -132,7 +134,8 @@ validated by MkDocs.
 `source-revision.json` in the assembled output and final site records the selected
 repository, configured revision (`revision`), effective checkout HEAD (`commit`),
 and local/dirty status. In normal builds, `commit` must resolve from `revision`;
-in local preview it may differ. Every page displays the effective Core commit.
+in local preview it may differ. Every page displays the included component commits; the `sources` list records
+all components, including omitted optional repositories and their omission reason.
 Core source and edit links target that commit;
 portal-owned asset pages link to this repository.
 The `api` field records the corresponding generated-reference provenance and
@@ -141,14 +144,14 @@ input artifacts; embedded HTML has its guide links adapted for the site.
 
 ### Revision selection and local changes
 
-`core-source.json` pins the default Core commit. Update it deliberately together
+`docs-sources.json` pins every component independently, including the default Core commit. Update it deliberately together
 with any required navigation changes. `OPENTLV_CORE_REF` can override it with a
 full 40-character commit SHA or a tag name (including annotated tags). Branches
 and abbreviated SHAs are rejected. Check out that revision in the external
 repository before building; the portal records a tag's resolved SHA. Published
 build inputs should be pinned by full SHA.
 
-A normal build rejects tracked changes and non-ignored untracked files in Core.
+A normal build rejects tracked changes and non-ignored untracked files in every included source.
 For an explicit workspace preview using the current Core HEAD, set:
 
 ```powershell
@@ -175,6 +178,127 @@ presentation, not deployment, and release rejects local mode.
 A clean Core source revision is reproducible, but
 the portal does not claim byte-identical builds across Python package
 or Doxygen versions; dependency ranges are retained from the existing portal.
+
+### Multi-repository assembly
+
+`docs-sources.json` is the single source manifest (schema version `1`). Core is
+required and retains its existing root URLs and Doxygen integration. Additional
+components choose their own tags or full commit SHAs; they do not need matching
+Core version numbers. The published portal version still follows the selected
+Core release tag, while its metadata records the independently selected inputs.
+
+Add a component entry to `sources`, for example (replace the example repository
+and tag with an existing component release):
+
+```json
+{
+  "id": "python",
+  "repository": "https://github.com/OpenTLV/opentlv-python",
+  "revision": "v2.3.0",
+  "docs_path": "docs",
+  "mount": "bindings/python",
+  "required": false,
+  "navigation": {
+    "title": "Python",
+    "section": ["Language APIs"],
+    "items": [
+      {"Overview": "index.md"},
+      {"Examples": "examples.md"}
+    ]
+  }
+}
+```
+
+`id` is unique, lowercase, and uses letters, digits or underscores, starting with
+a letter. `docs_path` and `mount` are contained POSIX paths. Only Core uses an
+empty mount. `navigation.items` uses standard MkDocs nested lists and titles,
+with Markdown paths relative to the component's documentation directory.
+`section` is a sequence of parent navigation titles; an empty list adds a
+section at the top level. Duplicate section titles at the insertion destination
+are errors. Every assembled Markdown page must appear in the resulting
+navigation, except Core's root GitHub `README.md`.
+
+Navigation configuration belongs to the portal. Component Markdown and assets
+remain in their owning repositories; no component needs a MkDocs configuration,
+portal dependency, or synchronized build/release. Assembly copies tracked files
+only, plus non-ignored additions in explicit local preview. It rejects path
+escapes, file/directory conflicts, case-insensitive collisions and collisions
+with generated API output before replacing the previous assembly.
+
+By default, each checkout is a sibling directory named after its repository.
+`OPENTLV_PYTHON_DIR` overrides the example component checkout, just as
+`OPENTLV_CORE_DIR` overrides Core. `OPENTLV_DOCS_SOURCE_ROOT` instead selects a
+parent directory containing checkouts named by source ID. Per-component directory
+overrides take precedence. An explicitly supplied missing override is an error.
+Local preview applies to all components and cannot be published.
+
+A missing optional workspace checkout is omitted. During explicit fetching, an
+optional repository that Git cannot contact is recorded as unavailable; Git
+cannot reliably distinguish a missing private repository from an access or
+transport failure. Required repositories always fail in that case. Once a
+repository is available, invalid tags, wrong HEADs, missing documentation and
+dirty checkouts are errors even when the component is optional. Omitted
+components contribute neither files nor navigation. Their status remains in
+`source-revision.json` and in the page footer.
+
+For reproducible managed inputs, run from the portal in a fresh build directory:
+
+```powershell
+python tools/docs/ci.py select
+python tools/docs/ci.py fetch
+$env:OPENTLV_DOCS_SOURCE_ROOT = (Resolve-Path build/sources).Path
+$env:OPENTLV_DOCS_LOCK = (Resolve-Path build/sources.lock.json).Path
+python tools/docs/ci.py check
+python -m mkdocs build --strict
+```
+
+In POSIX shells, use `export OPENTLV_DOCS_SOURCE_ROOT="$PWD/build/sources"` and
+`export OPENTLV_DOCS_LOCK="$PWD/build/sources.lock.json"` after fetching. Unset any
+per-component directory overrides when using the managed checkouts. `select`
+accepts `INPUT_CHANNEL` and `INPUT_CORE_REF`, matching the CI manual inputs.
+
+Fetching uses standard `git clone --no-checkout` and detached checkout of the
+resolved SHA. It refuses existing managed checkout directories; it never resets
+or deletes them. The lock records the manifest, exact selected commits and
+omitted components. All later build steps use the lock and reject changed
+configuration or checkout HEADs. Preserve the lock and the published
+`source-revision.json` when auditing a build. Unset `OPENTLV_DOCS_LOCK` before
+switching to local preview. No byte-identical rendering across different Python
+or Doxygen versions is claimed.
+
+### Links between components
+
+Relative links within component documentation retain their original layout.
+Relative source links leaving that documentation directory target the owning
+repository at its actual commit, and edit links use the original source path.
+
+For cross-repository documentation links, use ordinary GitHub URLs of the form
+`https://github.com/OWNER/REPO/blob/REVISION/DOCS_PATH/page.md#anchor`, with the
+manifest's selected tag or resolved SHA. Links to included sources are converted
+to local site links and their destination pages and anchors are validated.
+Reference-style Markdown links and HTML links are supported too. This keeps the
+original Markdown usable on GitHub without portal-specific link syntax.
+Links to omitted optional components remain external, so Core can still build;
+external HTTP availability is not checked. Links to other revisions remain
+external rather than silently pointing at different content.
+
+### Integration mechanism decision
+
+We evaluated the existing
+[mkdocs-multirepo-plugin](https://github.com/jdoiro3/mkdocs-multirepo-plugin) and
+[mkdocs-monorepo-plugin](https://github.com/backstage/mkdocs-monorepo-plugin).
+Multirepo supplies remote imports, branch/tag selection and navigation imports;
+its `nav_repos` mode also supports portal-owned navigation. Its README marks the
+project as inactive. Monorepo merges local documentation through included MkDocs
+configurations and does not supply the required Git revision selection.
+
+The portal uses standard Git, MkDocs navigation and its existing assembly hooks.
+This preserves workspace checkout ownership and the Core cutover contract
+without requiring MkDocs configurations in component repositories. The custom
+layer is limited to manifest validation, source locks, assembly, navigation and
+link/provenance integration. Neither plugin replaces the required immutable
+source-set validation, publication guards and Core API artifact verification.
+No additional MkDocs plugin dependency is introduced.
 
 ### Transitional component content
 
@@ -252,9 +376,9 @@ default sibling checkout).
 
 `.github/workflows/docs.yml` validates every PR targeting `main`, pushes to
 `main`, and manual runs. Validation has only `contents: read`. It checks out the
-Core revision from `core-source.json` (or the manual override) with full history
-and tags, resolves it to a commit SHA, and pins that SHA for all builds in the
-run. Doxygen, source validation, linting, tests and strict builds must all pass.
+sources from `docs-sources.json` (with an optional Core override) with full history
+and tags. It resolves all revisions once into `build/sources.lock.json`; validation,
+API generation and both MkDocs/mike builds use that exact selection. Doxygen, source validation, linting, tests and strict builds must all pass.
 
 The read-only job also runs mike against a local `gh-pages` branch, including a
 strict build under the version's actual URL prefix. It checks site/API metadata
@@ -267,7 +391,7 @@ with the official GitHub Pages Actions. It does not run Core or build scripts.
 | Trigger | Result |
 | --- | --- |
 | Pull request to `main` | Validate and prepare artifacts; never publish. |
-| Push to `main` | Validate and publish `latest` using the manifest's Core revision. |
+| Push to `main` | Validate and publish `latest` using all manifest revisions. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
 | Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
 | Manual run on another branch | Validate only, regardless of `publish`. |
@@ -278,7 +402,11 @@ or tag. Release requires a Core tag `X.Y.Z` or `vX.Y.Z`; branches, bare SHAs and
 prerelease tags cannot label a stable release. The resolved Core SHA is recorded
 in each version's `source-revision.json`. Release directories use the full
 `X.Y.Z`, retaining patch releases independently. Rebuilding the same version is
-allowed only for the same Core repository and SHA, for documentation corrections.
+allowed only for the same complete source set: repositories, revisions, SHAs,
+mounts, navigation and optional inclusion state. A moved component tag or a
+newly available optional repository cannot silently replace a published release.
+Older publications without multi-source metadata cannot be overwritten by the
+new assembler; publish a new version instead.
 
 The newest published release owns `stable`; publishing an older release does
 not move that alias backwards. The site root redirects to `stable` once a release
@@ -322,12 +450,12 @@ unverified artifacts. Playground integration belongs to #6.
 
 The standalone build, API integration, and CI/publication infrastructure implement
 [#1](https://github.com/OpenTLV/opentlv-docs/issues/1),
-[#2](https://github.com/OpenTLV/opentlv-docs/issues/2), and
-[#3](https://github.com/OpenTLV/opentlv-docs/issues/3). The configured site URL is
+[#2](https://github.com/OpenTLV/opentlv-docs/issues/2),
+[#3](https://github.com/OpenTLV/opentlv-docs/issues/3), and
+[#4](https://github.com/OpenTLV/opentlv-docs/issues/4). The configured site URL is
 the intended GitHub Pages destination; deployment still requires the setup above.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- [#4: Versioned multi-repository assembly](https://github.com/OpenTLV/opentlv-docs/issues/4).
 - Language example integration, compatibility metadata, and ecosystem updates.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
@@ -338,7 +466,7 @@ the replacement pipeline; it is not part of this migration step.
 
 The navigation check supports Core before and after removal of its MkDocs
 configuration. Merge this portal change first, keeping the current Core pin.
-After Core cleanup is merged, update `core-source.json` to that actual full
+After Core cleanup is merged, update `docs-sources.json` to that actual full
 commit SHA and publish again. Local integration with uncommitted Core changes
 uses `OPENTLV_DOCS_LOCAL=1` and is not deployment evidence.
 

@@ -55,39 +55,45 @@ def check_navigation(docs, portal_config):
 
 
 def check_core(portal):
-    core, source = assembly.selected_source(portal)
-    # Pin a tag's resolved commit for every subsequent build in this job.
-    os.environ["OPENTLV_CORE_REF"] = source["commit"]
+    selected = assembly.selected_sources(portal)
+    core, source = next((root, item) for root, item in selected if item["id"] == "core")
     selection_path = portal / "build/selection.json"
     if selection_path.exists():
         selection = json.loads(selection_path.read_text(encoding="utf-8"))
         selection["commit"] = source["commit"]
+        selection["sources"] = [item for _, item in selected]
         selection_path.write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
-    if os.environ.get("GITHUB_ENV"):
-        with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as output:
-            output.write(f"OPENTLV_CORE_REF={source['commit']}\n")
     for script in ("check_doc_examples.py", "test_doc_inventory.py", "check_doc_inventory.py"):
         subprocess.run([sys.executable, str(core / "scripts" / script)], cwd=core, check=True)
-    assembly.assemble(portal)
+    assembly.assemble(portal, selected)
     check_navigation(portal / "build/assembled/docs",
-                     (portal / "mkdocs.yml").read_text(encoding="utf-8"))
+                     (portal / "build/assembled/navigation.json").read_text(encoding="utf-8"))
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("select", "check"))
+    parser.add_argument("command", choices=("select", "fetch", "check"))
     args = parser.parse_args()
     if args.command == "check":
         check_core(ROOT)
         return
-    selection = select(json.loads((ROOT / "core-source.json").read_text(encoding="utf-8")),
+    if args.command == "fetch":
+        selection = json.loads((ROOT / "build/selection.json").read_text(encoding="utf-8"))
+        lock = assembly.sources.fetch(ROOT, selection["revision"])
+        selection["sources"] = lock["sources"]
+        selection["commit"] = next(item["commit"] for item in lock["sources"] if item["id"] == "core")
+        (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
+        return
+    core = next(item for item in assembly.sources.manifest(ROOT) if item["id"] == "core")
+    selection = select(core,
                        os.environ.get("INPUT_CHANNEL") or "development",
                        os.environ.get("INPUT_CORE_REF", ""))
     (ROOT / "build").mkdir(exist_ok=True)
     (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
-    with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-        for key, value in selection.items():
-            output.write(f"{key}={value}\n")
+    if os.environ.get("GITHUB_OUTPUT"):
+        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+            for key, value in selection.items():
+                output.write(f"{key}={value}\n")
 
 
 if __name__ == "__main__":

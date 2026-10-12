@@ -175,7 +175,7 @@ class Links(HTMLParser):
             self.hrefs.append(attrs["href"])
 
 
-def validate_links(site):
+def validate_links(site, all_links=False):
     """Validate links between C API, C++ API and guides, including IDs."""
     site = site.resolve()
     pages = {path.resolve(): Links(path.read_text(encoding="utf-8")) for path in site.rglob("*.html")}
@@ -202,7 +202,7 @@ def validate_links(site):
             target = Path(os.path.abspath(page.parent / unquote(parts.path))) if parts.path else page
             # Doxygen owns navigation within each reference (including its
             # version-specific self-fragments); this checks integration edges.
-            if tree(page) == tree(target):
+            if tree(page) == tree(target) and (tree(page) is not None or not all_links):
                 continue
             target, exists = destination(target)
             if not target.is_relative_to(site):

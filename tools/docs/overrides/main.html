@@ -4,8 +4,8 @@
     page; released versions carry no banner. -#}
 {% block announce %}
   {% if config.extra.core_source.local %}
-    <strong>Local preview</strong> of Core {{ config.extra.core_source.commit[:12] }}.
-    {% if config.extra.core_source.dirty %}Includes uncommitted changes.{% endif %}
+    <strong>Local preview</strong> of the documentation sources.
+    {% if config.extra.sources_dirty %}Includes uncommitted changes.{% endif %}
     Source links show the base commit; this is not a release build.
   {% elif config.extra.docs_channel == "development" %}
     This is the <strong>development</strong> documentation. It may describe
@@ -17,8 +17,15 @@
 {% block content %}
   {{ super() }}
   <p class="md-typeset"><small>
-    Core source:
-    <a href="{{ config.extra.core_source.repository }}/tree/{{ config.extra.core_source.commit }}">{{ config.extra.core_source.commit[:12] }}</a>
-    {% if config.extra.core_source.local %}(local preview){% endif %}
+    Sources:
+    {% for source in config.extra.sources %}
+      {% if source.included %}
+        {{ source.id }}
+        <a href="{{ source.repository }}/tree/{{ source.commit }}">{{ source.commit[:12] }}</a>
+        {% if source.local %}(local preview){% endif %}
+      {% else %}
+        {{ source.id }} (not included)
+      {% endif %}
+    {% endfor %}
   </small></p>
 {% endblock %}
