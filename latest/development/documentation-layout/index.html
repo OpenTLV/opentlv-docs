@@ -3816,7 +3816,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/eeb9bed151c2b0406d9def2086ff190a05af936a/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3937,15 +3937,17 @@ hand-written pages <a href="../../reference/c-api/">c-api.md</a> and
 Guides and concepts link to those pages (and to their per-area sections) rather
 than into the generated files, which do not exist in the repository. Generated
 pages link back to the guides through the <code>@docs</code> Doxygen alias. Generate the
-references before <code>mkdocs build</code>; see
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
+references independently with Core CMake, or let the standalone portal generate
+them during its site build; see
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
 <h2 id="versioned-documentation">Versioned documentation<a class="headerlink" href="#versioned-documentation" title="Permanent link">&para;</a></h2>
 <p>The site is published per release: <code>latest</code> is the development documentation
-built from <code>main</code>, and each released <code>X.Y</code> is built from its release tag and
-stays available after later releases. Write pages for the current sources; do
+built from the portal's pinned Core revision, and each new released <code>X.Y.Z</code> is
+built from its selected release tag and stays available after later releases.
+Historical <code>X.Y</code> versions remain on the archived Core site. Write pages for the current sources; do
 not copy the documentation tree or add version-specific pages by hand. Links
 that leave <code>docs/</code> point at the source of the same version. See
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
 published.</p>
 <h2 id="executable-examples">Executable examples<a class="headerlink" href="#executable-examples" title="Permanent link">&para;</a></h2>
 <p>Important examples (introductory C and C++ usage) are compiled sources under
@@ -4040,18 +4042,18 @@ does not require placeholder pages or new OTLV, binding or tool documentation.</
 <li>Give a section or topic a <code>README.md</code> when it needs an overview; a directory
   used only to group pages does not need a placeholder index.</li>
 <li>Record every new page in the <a href="../documentation-ownership/#page-inventory">ownership inventory</a>.
-  During the transition, add it to the <code>nav</code> in <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/mkdocs.yml">mkdocs.yml</a>. Keep the
+  Add it to the <code>nav</code> in the <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/mkdocs.yml">portal configuration</a>. Keep the
   GitHub index <a href="../../">docs/README.md</a>, site landing page
-  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/README.md">README.md</a>
+  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/README.md">README.md</a>
   aligned with the sections and entry points they describe. The GitHub index
   may link to an overview that leads to individual topic pages.</li>
 <li>When moving a page, update inbound links throughout the repository,
   including contributor documentation, examples and test documentation.
   Preserve heading anchors where possible and update fragment links when
   headings change.</li>
-<li>Run <code>mkdocs build --strict</code> to check site pages and anchors. Also check
-  repository-relative links outside the site: the site build does not validate
-  their targets after the hook rewrites them to GitHub URLs.</li>
+<li>Run <code>python -m mkdocs build --strict</code> in the portal to check assembled site
+  pages, anchors and source-file links. Review external links separately; the
+  site build does not fetch external HTTP destinations.</li>
 <li>Preserve technical content and examples when reorganizing. Move detailed
   landing-page material to its canonical source, and use introductory bridges
   where prerequisite concepts are missing.</li>
@@ -4064,8 +4066,10 @@ when extracted. A Core documentation change does not require unrelated binding
 updates, and inventory success is not evidence of binding feature support.</p>
 <p>Run <code>python scripts/check_doc_inventory.py</code> and
 <code>python scripts/test_doc_inventory.py</code> alongside the existing example check,
-Markdown lint, generated API references and strict MkDocs build. CI runs both
-and watches native configuration, bindings, CLI sources, examples and doc tools.</p>
+Markdown lint and generated API references. Core CI runs these checks without
+MkDocs or the portal. The portal checks navigation against assembled Markdown
+and runs the strict MkDocs build. Both retain binding/CLI checks while those
+sources remain here.</p>
 <p>The inventory check derives these small facts directly from repository sources:</p>
 <table>
 <thead>
@@ -4093,7 +4097,7 @@ and watches native configuration, bindings, CLI sources, examples and doc tools.
 </tr>
 <tr>
 <td>Official binding directories</td>
-<td>User guide and MkDocs navigation entry (WASM uses its tooling guide)</td>
+<td>User guide exists (WASM uses its tooling guide); navigation is checked by the portal</td>
 </tr>
 <tr>
 <td>C/C++/Rust/Python/Lua/Go/WASM example sources</td>
@@ -4217,7 +4221,7 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
                 
   <p class="md-typeset"><small>
     Core source:
-    <a href="https://github.com/OpenTLV/opentlv/tree/eeb9bed151c2b0406d9def2086ff190a05af936a">eeb9bed151c2</a>
+    <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
     
   </small></p>
 

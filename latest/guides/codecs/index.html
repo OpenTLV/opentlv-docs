@@ -3772,7 +3772,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/eeb9bed151c2b0406d9def2086ff190a05af936a/docs/guides/codecs.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/guides/codecs.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3943,7 +3943,7 @@ fails before the Writer is invoked. Codec failures preserve the output cursor;
 Writer failures also preserve it under the usual Writer contract, though bytes
 past the cursor may change. Custom codecs may allocate even with caller-owned
 scratch. The selected Format still generates all element framing.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/examples/tlv%2B%2B/src/typed_fields.cpp">compiled typed-field example</a>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/typed_fields.cpp">compiled typed-field example</a>
 uses C++11 with no optional protocol component and exercises Document lookup
 when Document is enabled. <code>tlv::codec_registry</code> maps Tags to decoders selected
 at runtime.</p>
@@ -3975,8 +3975,8 @@ Object storage and encoded storage belong to the caller.</p>
 <code>tlv++/codec/structure.hpp</code> adapt this descriptor without allocating temporary output.
 T must match the descriptor's representation and be default constructible.
 For a tested two-field mapping, see
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/tests/integration/architecture_test.cpp"><code>architecture_test.cpp</code></a> and
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/tests/integration/layers_test.cpp"><code>layers_test.cpp</code></a>.</p>
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/tests/integration/architecture_test.cpp"><code>architecture_test.cpp</code></a> and
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/tests/integration/layers_test.cpp"><code>layers_test.cpp</code></a>.</p>
 <p>Raw C++ readers and writers include only <code>tlv++/types.hpp</code> and the C I/O
 contracts; they do not depend on codecs.</p>
 <h2 id="other-languages">Other languages<a class="headerlink" href="#other-languages" title="Permanent link">&para;</a></h2>
@@ -4088,7 +4088,7 @@ and neither codec performs allocation, tag lookup or domain selection.</p>
                 
   <p class="md-typeset"><small>
     Core source:
-    <a href="https://github.com/OpenTLV/opentlv/tree/eeb9bed151c2b0406d9def2086ff190a05af936a">eeb9bed151c2</a>
+    <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
     
   </small></p>
 

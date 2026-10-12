@@ -3762,7 +3762,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/eeb9bed151c2b0406d9def2086ff190a05af936a/docs/development/cxx-facade-performance.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/cxx-facade-performance.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3804,7 +3804,7 @@ unchanged.</p>
 public layouts are preserved. Updated C++ Document headers need a matching native
 library that exports it.</p>
 <h2 id="workloads">Workloads<a class="headerlink" href="#workloads" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/README.md">benchmark guide</a> documents the 38 permanent
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/README.md">benchmark guide</a> documents the 38 permanent
 <code>cxx_reader/*</code> and <code>cxx_document/*</code> Google Benchmark cases. Reader cases cover
 BER and Fixed framing, explicit pulls, ranges, EOF, malformed input, incremental
 pauses, initialization failure and pause/resume. Each timed result is checked
@@ -3835,10 +3835,10 @@ not a confidence interval. Near-noise differences do not establish improvements.
 reverses that order. Raw samples, iteration counts, medians, compiler/CPU context
 and source hashes are retained in four files:</p>
 <ul>
-<li>Forward <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/cxx-facade-440-baseline.json">baseline</a> and
-  <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/cxx-facade-440-candidate.json">candidate</a>.</li>
-<li>Reverse-order <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/cxx-facade-440-baseline-reverse.json">baseline</a>
-  and <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/cxx-facade-440-candidate-reverse.json">candidate</a>.</li>
+<li>Forward <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/cxx-facade-440-baseline.json">baseline</a> and
+  <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/cxx-facade-440-candidate.json">candidate</a>.</li>
+<li>Reverse-order <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/cxx-facade-440-baseline-reverse.json">baseline</a>
+  and <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/cxx-facade-440-candidate-reverse.json">candidate</a>.</li>
 </ul>
 <p>These contain 1,064 raw measurements in total. They are local observations from
 one host, not release thresholds. The reverse baseline has substantial outliers,
@@ -4037,16 +4037,16 @@ were not rerun for this change.</p>
 They now use compact standard JSON and generic host/executable identifiers; no
 timing was changed during that metadata cleanup.</p>
 <h3 id="comparison-with-main">Comparison with main<a class="headerlink" href="#comparison-with-main" title="Permanent link">&para;</a></h3>
-<p>The separate <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/scripts/reader_api_comparison.py">collector</a> and
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/tools/reader_api_comparison.cpp">benchmark source</a> build exact
+<p>The separate <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/scripts/reader_api_comparison.py">collector</a> and
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/tools/reader_api_comparison.cpp">benchmark source</a> build exact
 revisions <code>89991d9f</code> (<code>main</code>), <code>a2d1fd3</code> (prior PR) and the working candidate with
 the C diagnostic change. Each uses its own native library and C++ headers, with
 matching generated capabilities, GCC 13.3, C++11 and <code>-O2 -DNDEBUG</code> without LTO.
 The old Fixed template argument type is the only compatibility adapter.</p>
 <p>The 2026-10-07 run uses the same WSL2 host and CPU affinity 2, without concurrent
 project builds or tests. Each of 60 cases has seven shuffled repetitions. The
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/reader-api-440.csv">420 raw timings</a> and
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/benchmarks/evidence/reader-api-440.json">build provenance and summaries</a>
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/reader-api-440.csv">420 raw timings</a> and
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/reader-api-440.json">build provenance and summaries</a>
 retain source commits/patches, checksums, hashes and every observation, without
 hostnames or absolute paths. The benchmark uses a typed <code>reader&lt;Format&gt;</code> and an
 elapsed wall-clock timer; its absolute times should not be mixed with the earlier
@@ -4170,7 +4170,7 @@ time after actual retirement remains separate work.</p>
                 
   <p class="md-typeset"><small>
     Core source:
-    <a href="https://github.com/OpenTLV/opentlv/tree/eeb9bed151c2b0406d9def2086ff190a05af936a">eeb9bed151c2</a>
+    <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
     
   </small></p>
 

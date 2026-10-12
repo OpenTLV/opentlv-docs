@@ -1,18 +1,18 @@
 {
   "repository": "https://github.com/OpenTLV/opentlv",
-  "revision": "eeb9bed151c2b0406d9def2086ff190a05af936a",
-  "commit": "eeb9bed151c2b0406d9def2086ff190a05af936a",
+  "revision": "91ac1c91b91df6bc845b379476423d51725b32e6",
+  "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
   "local": false,
   "dirty": false,
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "eeb9bed151c2b0406d9def2086ff190a05af936a",
-    "source_sha256": "7828d82359c35c9fafadd31d724f027550b4576666ee7eedd5130f4e9cbb539d",
+    "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
+    "source_sha256": "9c2516c5ccabf669c1363bd5cb1e5ee5e4f93d88f33c9f4600ef4e96c55f969e",
     "local": false,
     "dirty": false,
     "doxygen_version": "1.9.8",
-    "guide_base": "https://marekcingel.github.io/OpenTLV/",
+    "guide_base": "https://opentlv.github.io/opentlv-docs/latest/",
     "manifest": "reference/api/api-source.json"
   }
 }

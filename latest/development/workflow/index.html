@@ -3684,7 +3684,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/eeb9bed151c2b0406d9def2086ff190a05af936a/docs/development/workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3862,12 +3862,6 @@ question, so the expensive checks stay off the path of everyday development.</p>
 <td style="text-align: center;">yes</td>
 <td style="text-align: center;">yes</td>
 </tr>
-<tr>
-<td>Documentation publishing</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"><code>latest</code></td>
-<td style="text-align: center;"><code>stable</code> (not for <code>-rc</code> tags)</td>
-</tr>
 </tbody>
 </table>
 <p>"If ... changed" rows use path filters, so a pull request that touches only
@@ -3909,13 +3903,14 @@ scope; its PR check is not required for merging.</p>
 <li>Fix anything the release candidate finds on <code>main</code> and tag <code>1.0.0-rc.2</code>,
    and so on.</li>
 <li>Tag the release, for example <code>1.0.0</code>. The same checks run again on the
-   released commit and the versioned documentation is published.</li>
+   released commit. Documentation publication is a separate operation in the
+   standalone portal and is not a Core release prerequisite.</li>
 </ol>
-<p>Push release tags in ascending order, because the most recently published tag
-becomes <code>stable</code> (see <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/CONTRIBUTING.md#publishing">Publishing</a>).</p>
+<p>The portal selects a Core tag explicitly for release documentation. See
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md#publishing">Publishing</a> for version selection.</p>
 <h2 id="running-the-checks-locally">Running the checks locally<a class="headerlink" href="#running-the-checks-locally" title="Permanent link">&para;</a></h2>
 <p>The pull request checks are reproducible locally; see
-<a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/CONTRIBUTING.md">CONTRIBUTING.md</a> for <code>pre-commit</code>, <code>clang-tidy</code>,
+<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md">CONTRIBUTING.md</a> for <code>pre-commit</code>, <code>clang-tidy</code>,
 <code>cppcheck</code> and the documentation build.</p>
 
 
@@ -3932,7 +3927,7 @@ becomes <code>stable</code> (see <a href="https://github.com/OpenTLV/opentlv/blo
                 
   <p class="md-typeset"><small>
     Core source:
-    <a href="https://github.com/OpenTLV/opentlv/tree/eeb9bed151c2b0406d9def2086ff190a05af936a">eeb9bed151c2</a>
+    <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
     
   </small></p>
 

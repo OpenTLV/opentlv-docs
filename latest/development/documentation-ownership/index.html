@@ -3211,6 +3211,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cutover-for-issue-608" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cutover for issue #608
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cutover for issue #608">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#existing-urls-and-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existing URLs and content
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documenting-new-core-functionality" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3722,6 +3750,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#cutover-for-issue-608" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cutover for issue #608
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cutover for issue #608">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#existing-urls-and-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existing URLs and content
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#documenting-new-core-functionality" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3750,7 +3806,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/eeb9bed151c2b0406d9def2086ff190a05af936a/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3896,8 +3952,8 @@ structure; this table records ownership rather than replacing that audit.</p>
 </tr>
 <tr>
 <td><a href="../../assets/">assets/README.md</a></td>
-<td>Portal</td>
-<td>Portal: shared visual assets</td>
+<td>Core / Portal</td>
+<td>Retained Core README logo; shared site variants are maintained in the portal</td>
 </tr>
 <tr>
 <td><a href="../../cli/">cli/README.md</a></td>
@@ -4334,20 +4390,20 @@ API generation inputs and portal code.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>favicon.svg</code>, <code>logo-mark.svg</code>, <code>opentlv.svg</code>, <code>opentlv-light.svg</code>, <code>opentlv-dark.svg</code> (all under <code>docs/assets/</code>)</td>
-<td>Portal: move the shared site assets with their presentation configuration; preserve other repository users</td>
+<td><code>docs/assets/opentlv.svg</code> and <code>docs/assets/README.md</code></td>
+<td>Retain the Core README logo and attribution; shared visual design, favicon, header mark and variants are maintained in the portal</td>
 </tr>
 <tr>
 <td><code>docs/playground/playground.js</code>, <code>docs/playground/playground.css</code></td>
 <td>Portal: browser UI and styling; WebAssembly implementation remains component-owned</td>
 </tr>
 <tr>
-<td><code>mkdocs.yml</code>, <code>requirements-docs.txt</code>, <code>tools/docs/hooks.py</code>, <code>tools/docs/overrides/main.html</code></td>
-<td>Portal: configuration, dependencies, source-link rewriting, generated artifact integration and version banner</td>
+<td><code>mkdocs.yml</code>, <code>requirements-docs.txt</code>, <code>tools/docs/hooks.py</code>, <code>tools/docs/overrides/main.html</code> in the portal repository</td>
+<td>Portal: configuration, dependencies, source-link rewriting, generated artifact integration and version banner; removed from Core by #608</td>
 </tr>
 <tr>
-<td><code>.github/workflows/docs.yml</code></td>
-<td>Mixed: portal build/mike publication and current orchestration of component artifacts/checks; separate before removal</td>
+<td><code>.github/workflows/docs-validation.yml</code></td>
+<td>Core: read-only Markdown, example/inventory and Doxygen validation with API artifacts; replaces the removed <code>docs.yml</code> publisher</td>
 </tr>
 <tr>
 <td><code>tools/docs/Doxyfile.in</code>, <code>Doxyfile.cxx.in</code>, <code>Doxyfile.common.in</code>, <code>c-api.dox</code>, <code>cxx-api.dox</code> (all under <code>tools/docs/</code>)</td>
@@ -4379,7 +4435,7 @@ API generation inputs and portal code.</p>
 </tr>
 <tr>
 <td><code>scripts/check_doc_inventory.py</code>, <code>scripts/test_doc_inventory.py</code></td>
-<td>Mixed: native capability/Doxygen checks stay with Core; CLI/binding inventories follow components; global navigation checks follow Portal</td>
+<td>Native capability/Doxygen and existing component checks stay with Core; CLI/binding inventories follow components when extracted; assembled navigation is checked only in Portal</td>
 </tr>
 <tr>
 <td><code>.pre-commit-config.yaml</code>, <code>.markdownlint.json</code>, source/license checks</td>
@@ -4436,12 +4492,12 @@ single-repository base URL.</p>
 <td>WebAssembly distribution/API and browser assets: component produces the module; Portal owns its selected-version integration</td>
 </tr>
 <tr>
-<td><code>mkdocs.yml</code> (<code>repo_url</code>, <code>edit_uri</code>, <code>site_url</code>), <code>tools/docs/hooks.py</code> (<code>REPO_URL</code>, <code>REF</code>) and theme links</td>
-<td>Current single-repository source/edit/version assumptions, including legacy <code>marekcingel/OpenTLV</code> URLs: portal migration must select the owning repository and revision for each source</td>
+<td>Portal <code>mkdocs.yml</code>, source hooks and theme links</td>
+<td>The portal selects the owning repository and revision for each source; Core has no site configuration</td>
 </tr>
 <tr>
-<td><code>development/workflow.md</code>, documentation layout, <code>CONTRIBUTING.md</code> and <code>.github/workflows/docs.yml</code></td>
-<td>Build/publishing commands, artifacts and deployment destinations: update together after the replacement pipeline is validated</td>
+<td><code>development/workflow.md</code>, documentation layout, <code>CONTRIBUTING.md</code> and <code>.github/workflows/docs-validation.yml</code></td>
+<td>Core validation and API artifacts remain independent; portal build/publication commands live in the portal README</td>
 </tr>
 </tbody>
 </table>
@@ -4468,6 +4524,85 @@ the extraction work which sources to retain, separate or move. This issue does
 not define an assembly engine, component version manifest, compatibility service
 or new publication workflow. Those belong to subsequent epic work. Remove the
 old portal infrastructure only after its replacement has been validated.</p>
+<h2 id="cutover-for-issue-608">Cutover for issue #608<a class="headerlink" href="#cutover-for-issue-608" title="Permanent link">&para;</a></h2>
+<p>The cleanup is prepared across Core and
+<a href="https://github.com/OpenTLV/opentlv-docs"><code>OpenTLV/opentlv-docs</code></a>. Do not merge the
+Core cleanup until the replacement has successfully built and deployed to
+<a href="https://opentlv.github.io/opentlv-docs/">https://opentlv.github.io/opentlv-docs/</a>. A successful validation job or local
+preview alone is insufficient. Record the successful hosted run and its live
+<code>latest/source-revision.json</code> in the cleanup PR; check the selected Core SHA,
+guide pages and both generated API references.</p>
+<p>Apply the changes in this order:</p>
+<ol>
+<li>Enable GitHub Pages with <strong>Source: GitHub Actions</strong> in the portal repository
+   and allow <code>main</code> in the <code>github-pages</code> environment. Complete a real deployment
+   and verify the published content and its API/guide links.</li>
+<li>Merge the portal navigation change first. It checks assembled Markdown rather
+   than Core's removed <code>mkdocs.yml</code>, and works with the existing pinned Core
+   revision. When publishing release documentation, validate its selection using
+   an actual Core release tag; do not retarget historical release links to development.</li>
+<li>Preserve the Core <code>gh-pages</code> branch and its branch-based Pages configuration
+   as the historical archive. Disable the old <strong>Documentation</strong> (<code>docs.yml</code>)
+   workflow in Core's Actions settings and cancel any queued or running publisher
+   before merging cleanup. Do not rerun or re-enable that workflow from old tags.
+   Update any repository rules that explicitly refer to its old check name.</li>
+<li>Merge Core cleanup after the publication and content checks pass. Its new
+   <strong>Documentation validation</strong> workflow only reads repository content and
+   generates API artifacts; it has no deployment job or write permission.
+   Core builds and releases neither check out the portal nor wait for it.</li>
+<li>Update the portal's <code>core-source.json</code> to the full merged Core commit SHA and
+   publish again. Do not pin an uncommitted preview or invent a future SHA. Check
+   the live source metadata and both API trees after this final publication.</li>
+</ol>
+<p>The repositories have separate Pages deployments and repository-scoped tokens.
+The retained Core validator cannot overwrite the new deployment. Changing
+repository settings and publishing are deployment operations; a local cleanup
+branch does not perform them.</p>
+<h3 id="existing-urls-and-content">Existing URLs and content<a class="headerlink" href="#existing-urls-and-content" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>URL family</th>
+<th>Preservation policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>https://opentlv.github.io/opentlv/</code></td>
+<td>Retain the existing site and root default as an archive</td>
+</tr>
+<tr>
+<td>Core site <code>0.6/</code>, <code>0.7/</code>, <code>stable/</code>, <code>latest/</code> and their page fragments</td>
+<td>Preserve existing <code>gh-pages</code> contents unchanged, including working playground assets; historical <code>latest</code> stops updating</td>
+</tr>
+<tr>
+<td><code>https://opentlv.github.io/opentlv-docs/</code></td>
+<td>New maintained portal; preserve guide paths and anchors under <code>latest/</code>, <code>stable/</code> and new full <code>X.Y.Z</code> releases</td>
+</tr>
+<tr>
+<td><code>https://marekcingel.github.io/OpenTLV/</code></td>
+<td>The former account URL returned 404 during cutover preparation; redirects require control of that account's Pages site and cannot be installed by either current repository</td>
+</tr>
+</tbody>
+</table>
+<p>Keep old versions in their original location rather than relabeling <code>0.7</code> as a
+particular patch release. New README and Doxygen links use the new portal;
+standalone development API artifacts link to its <code>latest/</code> guides. The portal
+adapts those links to its actual version prefix when embedding the references.
+Do not delete or rewrite historical release content to create redirects.</p>
+<p>Core keeps all technical Markdown, public API comments, Doxygen inputs and
+targets, native examples, and existing binding/CLI documentation. Only migrated
+site configuration, Python site dependencies, hooks, theme and unused site asset
+variants are removed. The README logo remains usable offline.</p>
+<p>The playground page, JavaScript and stylesheet remain in Core as a documented
+transitional exception. Portal <a href="https://github.com/OpenTLV/opentlv-docs/issues/6">#6</a>
+owns verified WASM artifact integration and eventual UI source transfer; Core's
+WebAssembly workflow remains its producer. The portal currently accepts an
+explicit <code>OPENTLV_WASM_DIR</code>, but its publication workflow does not supply one.
+Until integration is delivered, the historical site retains the working
+playground, linked from the current playground page with its version limitation.
+This preserves access without claiming that the new portal supplies a WASM
+module matching its selected Core revision.</p>
 <h2 id="documenting-new-core-functionality">Documenting new Core functionality<a class="headerlink" href="#documenting-new-core-functionality" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Update public C/C++ declarations and Doxygen comments with the implementation.</li>
@@ -4485,7 +4620,7 @@ old portal infrastructure only after its replacement has been validated.</p>
    when the portal moves, site assembly/publication checks belong to its CI,
    while Core retains checks of its own sources and API generation.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/eeb9bed151c2b0406d9def2086ff190a05af936a/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -4503,7 +4638,7 @@ sequencing and preservation requirements.</p>
                 
   <p class="md-typeset"><small>
     Core source:
-    <a href="https://github.com/OpenTLV/opentlv/tree/eeb9bed151c2b0406d9def2086ff190a05af936a">eeb9bed151c2</a>
+    <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
     
   </small></p>
 
