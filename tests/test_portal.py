@@ -246,6 +246,11 @@ theme:
   custom_dir: '{(ROOT / 'tools/docs/overrides').as_posix()}'
   features:
     - content.action.edit
+    - content.tabs.link
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.blocks.tab:
+      alternate_style: true
 extra:
   docs_channel: development
 exclude_docs: /README.md
