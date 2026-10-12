@@ -66,7 +66,7 @@ extra:
   # tools/docs/hooks.py reads OPENTLV_DOCS_CHANNEL; local previews always use
   # development presentation (tools/docs/overrides/main.html).
   docs_channel: development
-  # Retain mike rendering; publication is introduced in issue #3.
+  # CI prepares versioned builds with mike before deploying the complete site.
   version:
     provider: mike
     alias: true

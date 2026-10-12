@@ -163,9 +163,10 @@ cannot show uncommitted changes. No checkout, fetch, or reset is performed.
 Remove the variable to restore strict revision and clean-checkout validation.
 
 Local preview is rejected for `OPENTLV_DOCS_CHANNEL=release`, `mkdocs gh-deploy`,
-and mike commands. Future publication workflows must also set
+and mike commands. The publication workflow sets
 `OPENTLV_DOCS_PUBLISH=1`, including development/latest publication and any custom
-artifact upload path, so build validation rejects local mode. The portal cannot
+artifact upload path, so build validation rejects local mode. Any additional
+publication workflow must set this guard too. The portal cannot
 prevent manual uploading of an already generated directory; publication must
 build with this guard and reject artifacts whose metadata has `local: true`.
 
@@ -208,6 +209,7 @@ its existing unavailable message. Set `OPENTLV_WASM_DIR` to a directory containi
 
 ```sh
 python -m unittest discover -s tests -v
+python tools/docs/ci.py check
 python -m mkdocs build --strict
 git diff --check
 ```
@@ -219,19 +221,113 @@ also runs the real build against the selected Core checkout and Doxygen.
 The tests cover configured/effective revisions, publication guards, dirty-checkout
 handling, collision checks, repeatable assembly, source ownership, link rewriting,
 the local root preview URL, required/optional artifacts, API generation failures,
-artifact provenance and integrity, local source changes, and API links/anchors. Core's
-implementation/example inventory checks remain in Core, alongside their inputs.
+artifact provenance and integrity, local source changes, and API links/anchors.
+Publication tests run real mike builds and Git transfers between disposable local
+repositories, covering preserved history, failed builds, metadata rejection, and
+concurrent publication conflicts. They do not contact GitHub.
 
-The standalone build and API integration implement
-[#1](https://github.com/OpenTLV/opentlv-docs/issues/1) and
-[#2](https://github.com/OpenTLV/opentlv-docs/issues/2). The configured site URL is
-the intended GitHub Pages destination, not a claim that deployment is active.
+`tools/docs/ci.py check` invokes the selected Core's example synchronization,
+inventory tests, and inventory validator alongside their original inputs. It
+also checks that the portal's actual navigation includes Core's declared pages,
+then assembles Markdown for linting. These checks inspect source files without
+building or running Core examples, bindings, or CLI. Strict MkDocs validation
+checks the resulting navigation, links and anchors.
+
+CI uses `markdownlint-cli@0.45.0` with `.markdownlint.json`, without automatic
+fixes, on portal Markdown, Core's README, and assembled documentation. With Node
+22 available, the same lint can be run after `ci.py check`:
+
+```sh
+npx --yes markdownlint-cli@0.45.0 --config .markdownlint.json \
+  README.md CHANGELOG.md 'docs/**/*.md' \
+  "$OPENTLV_CORE_DIR/README.md" 'build/assembled/docs/**/*.md'
+```
+
+Set `OPENTLV_CORE_DIR` explicitly for this command (use `../opentlv` for the
+default sibling checkout).
+
+## CI and versioned publication
+
+`.github/workflows/docs.yml` validates every PR targeting `main`, pushes to
+`main`, and manual runs. Validation has only `contents: read`. It checks out the
+Core revision from `core-source.json` (or the manual override) with full history
+and tags, resolves it to a commit SHA, and pins that SHA for all builds in the
+run. Doxygen, source validation, linting, tests and strict builds must all pass.
+
+The read-only job also runs mike against a local `gh-pages` branch, including a
+strict build under the version's actual URL prefix. It checks site/API metadata
+and prepares both a Git bundle and the complete versioned Pages artifact. Mike
+aliases use copies so assets and JSON work through `stable/` without symlinks.
+Only the separate deployment job can write: it imports the validated bundle,
+pushes the prepared history once without force, and deploys the prepared artifact
+with the official GitHub Pages Actions. It does not run Core or build scripts.
+
+| Trigger | Result |
+| --- | --- |
+| Pull request to `main` | Validate and prepare artifacts; never publish. |
+| Push to `main` | Validate and publish `latest` using the manifest's Core revision. |
+| Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
+| Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
+| Manual run on another branch | Validate only, regardless of `publish`. |
+
+Manual inputs are `channel` (`development` or `release`), `core_ref` (empty uses
+the manifest), and `publish` (defaults to false). Development accepts a full SHA
+or tag. Release requires a Core tag `X.Y.Z` or `vX.Y.Z`; branches, bare SHAs and
+prerelease tags cannot label a stable release. The resolved Core SHA is recorded
+in each version's `source-revision.json`. Release directories use the full
+`X.Y.Z`, retaining patch releases independently. Rebuilding the same version is
+allowed only for the same Core repository and SHA, for documentation corrections.
+
+The newest published release owns `stable`; publishing an older release does
+not move that alias backwards. The site root redirects to `stable` once a release
+exists, otherwise to `latest`. Later development builds preserve that default
+and all release directories. Core tags do not trigger this repository directly;
+automated cross-repository release events remain a follow-up.
+
+### GitHub Pages setup and recovery
+
+Before the first publication, a repository administrator must select **Settings
+→ Pages → Build and deployment → Source: GitHub Actions**. Configure the
+`github-pages` environment to allow deployments from `main`. No personal access
+token is required. `gh-pages` stores mike history; Pages serves the uploaded
+artifact, rather than relying on a bot push to trigger a branch-based Pages build.
+See GitHub's [custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+All non-PR runs share one concurrency group and do not cancel active publication.
+GitHub may replace a pending run with a newer pending run; dispatch a particular
+release again if it was superseded. A failed validation or preparation cannot
+change the published site or remote history. A conflicting remote history update
+rejects the normal fast-forward push and blocks Pages deployment.
+
+The history push and Pages deployment are two separate services, not a single
+transaction. If Pages deployment fails after the push, the previous live site
+remains available, while `gh-pages` already contains the prepared version. Rerun
+the failed deployment job while its artifact is available, or dispatch a fresh
+run from `main` with the same Core revision and channel. Prefer a fresh run if
+another publication has since succeeded. Successful publication replaces the
+whole site, including the preserved historical versions.
+
+For a release rehearsal, dispatch with `channel: release`, a Core release tag,
+and `publish: false`. Inspect the logs and artifacts, then dispatch on `main` with
+the same inputs and `publish: true`. `tools/docs/publication.py` is intended for
+disposable CI checkouts: it creates local mike commits but never pushes itself.
+
+The existing Core publication workflow remains in place until the replacement
+has passed hosted validation and a real Pages deployment. Local checks cannot
+verify repository Pages settings, environment protection, or hosted deployment.
+WASM remains optional; this workflow does not compile the playground or download
+unverified artifacts. Playground integration belongs to #6.
+
+The standalone build, API integration, and CI/publication infrastructure implement
+[#1](https://github.com/OpenTLV/opentlv-docs/issues/1),
+[#2](https://github.com/OpenTLV/opentlv-docs/issues/2), and
+[#3](https://github.com/OpenTLV/opentlv-docs/issues/3). The configured site URL is
+the intended GitHub Pages destination; deployment still requires the setup above.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- [#3: CI and mike publication](https://github.com/OpenTLV/opentlv-docs/issues/3).
 - [#4: Versioned multi-repository assembly](https://github.com/OpenTLV/opentlv-docs/issues/4).
 - Language example integration, compatibility metadata, and ecosystem updates.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of
-the replacement pipeline; it is not part of local build or API integration work.
+the replacement pipeline; it is not part of this migration step.
