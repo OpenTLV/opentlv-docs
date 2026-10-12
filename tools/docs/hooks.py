@@ -12,6 +12,8 @@ The WebAssembly module used by the playground is added under playground/wasm/.
 """
 
 import logging
+import importlib.util
+import json
 import os
 from pathlib import Path
 import posixpath
@@ -23,11 +25,14 @@ from mkdocs.structure.files import File
 
 log = logging.getLogger("mkdocs.hooks.opentlv")
 
+_api_spec = importlib.util.spec_from_file_location("opentlv_docs_api", Path(__file__).with_name("api.py"))
+api = importlib.util.module_from_spec(_api_spec)
+_api_spec.loader.exec_module(api)
+
 # Directory holding the c-api/html and cxx-api/html trees produced by the
 # c-api-docs and cxx-api-docs CMake targets. The two trees stay siblings, as
 # the C++ reference links to C declarations through a relative path.
 API_DIR_ENV = "OPENTLV_API_DOCS_DIR"
-API_DIR_DEFAULT = os.path.join("build", "api", "docs")
 API_TREES = ("c-api", "cxx-api")
 API_SITE_PREFIX = "reference/api"
 
@@ -54,31 +59,40 @@ def on_config(config):
 
 def on_files(files, config):
     portal = Path(config.config_file_path).resolve().parent
-    api_dir = os.environ.get(API_DIR_ENV, str(portal / API_DIR_DEFAULT))
+    api_dir, manifest = api.prepare(
+        portal, Path(config.extra["core_checkout"]), config.extra["core_source"],
+        os.environ.get(API_DIR_ENV),
+    )
     for tree in API_TREES:
         html_dir = os.path.join(api_dir, tree, "html")
-        if not os.path.isfile(os.path.join(html_dir, "index.html")):
-            raise PluginError(
-                f"generated API reference not found in '{html_dir}'. Generate it first: "
-                "follow the external Core API generation commands in the portal README "
-                f"and set {API_DIR_ENV} to the directory containing c-api/ and cxx-api/."
-            )
         for root, _dirs, names in os.walk(html_dir):
             for name in sorted(names):
                 rel = os.path.relpath(os.path.join(root, name), html_dir).replace(os.sep, "/")
-                files.append(
-                    File.generated(
-                        config,
-                        f"{API_SITE_PREFIX}/{tree}/html/{rel}",
-                        abs_src_path=os.path.abspath(os.path.join(root, name)),
-                    )
-                )
+                uri = f"{API_SITE_PREFIX}/{tree}/html/{rel}"
+                path = Path(root) / name
+                if path.suffix == ".html":
+                    content = api.adapt_html(path.read_text(encoding="utf-8"), uri, manifest["guide_base"], files)
+                    files.append(File.generated(config, uri, content=content))
+                else:
+                    files.append(File.generated(config, uri, abs_src_path=str(path.resolve())))
+    metadata = dict(config.extra["core_source"])
+    metadata["api"] = {key: value for key, value in manifest.items() if key != "files"}
+    metadata["api"]["manifest"] = f"{API_SITE_PREFIX}/{api.MANIFEST}"
+    (portal / "build/assembled/source-revision.json").write_text(
+        json.dumps(metadata, indent=2) + "\n", encoding="utf-8",
+    )
+    files.append(File.generated(config, f"{API_SITE_PREFIX}/{api.MANIFEST}",
+                                abs_src_path=str(api_dir / api.MANIFEST)))
     add_wasm_files(files, config)
     files.append(File.generated(
         config, "source-revision.json",
         abs_src_path=str(portal / "build" / "assembled" / "source-revision.json"),
     ))
     return files
+
+
+def on_post_build(config):
+    api.validate_links(Path(config.site_dir).resolve())
 
 
 def add_wasm_files(files, config):

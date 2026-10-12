@@ -13,8 +13,9 @@ The Core build does not depend on this repository.
 
 - Python 3.10 or newer and Git.
 - An external Core checkout at the revision selected in `core-source.json`.
-- Generated C and C++ Doxygen HTML from that same checkout (instructions below).
-  Generation requires CMake, a C compiler, and Doxygen 1.9.1 or newer.
+- CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
+  These tools are not required when consuming verified API artifacts generated
+  elsewhere from the same Core sources (instructions below).
 
 No binding or CLI repository, binding runtime, or Emscripten installation is
 required. C++ remains part of Core; generating its reference does not require
@@ -60,34 +61,50 @@ leave it unset for the sibling default. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 The portal never checks out, fetches, resets, or edits Core on your behalf.
 
-## Generate the API prerequisites
+## Generate or consume API references
 
-The existing hook requires both HTML reference trees because Core guides link
-directly to them. Reuse Core's own targets; Doxygen declarations and configuration
-stay in Core. These are manual prerequisites for the initial portal build;
-automated generation and artifact provenance belong to
-[#2](https://github.com/OpenTLV/opentlv-docs/issues/2).
+The MkDocs build automatically configures the selected external Core checkout
+and invokes its `cxx-api-docs` target, which depends on `c-api-docs`. Core's
+Doxygen declarations, aliases, source comments, and warning-as-error policy
+remain authoritative. Generation disables libraries' optional consumers, tests,
+and examples; it does not compile the C++ library or any bindings.
 
-In PowerShell, using the checkout selected above:
-
-```powershell
-cmake -S $env:OPENTLV_CORE_DIR -B build/api -DOPENTLV_BUILD_DOCS=ON -DOPENTLV_BUILD_CXX=OFF -DOPENTLV_BUILD_CLI=OFF -DOPENTLV_BUILD_TESTS=OFF -DOPENTLV_BUILD_EXAMPLES=OFF
-cmake --build build/api --target cxx-api-docs
-```
-
-In a POSIX shell:
+The portal owns disposable `build/api/`. A regeneration replaces that directory
+to prevent stale CMake settings or HTML from leaking between revisions. Do not
+store manually maintained files there. Valid artifacts are reused when their
+provenance and checksums match. To force regeneration or prepare artifacts for
+another machine, run from the activated documentation environment:
 
 ```sh
-cmake -S "$OPENTLV_CORE_DIR" -B build/api -DOPENTLV_BUILD_DOCS=ON -DOPENTLV_BUILD_CXX=OFF -DOPENTLV_BUILD_CLI=OFF -DOPENTLV_BUILD_TESTS=OFF -DOPENTLV_BUILD_EXAMPLES=OFF
-cmake --build build/api --target cxx-api-docs
+python tools/docs/api.py
 ```
 
-The C++ target also generates C references. Keep `c-api/html/` and
-`cxx-api/html/` as siblings under `build/api/docs/`. To consume references generated
-elsewhere, set `OPENTLV_API_DOCS_DIR` to the directory containing those two trees.
-Regenerate both whenever the Core revision changes. The initial portal verifies
-their presence, not the revision that produced them. Doxygen's existing
-API-to-guide URLs remain controlled by Core until #2 adapts that integration.
+Copy the complete `build/api/docs/` directory, including `api-source.json`,
+`c-api/`, and `cxx-api/`. Set `OPENTLV_API_DOCS_DIR` to that copied directory to
+consume it without invoking CMake or Doxygen. An explicit override must pass all
+checks; it never silently falls back to generation. Bare HTML generated directly
+by CMake lacks provenance and is rejected. Use the portal command above to
+produce the manifest after a successful generation.
+
+The manifest records the effective Core commit, repository, local/dirty status,
+Doxygen version, source-content SHA-256, and checksums of both output trees.
+The source fingerprint includes tracked and non-ignored untracked files and
+detects edits and deletions even when HEAD is unchanged. Git branch, tags and
+history used by Core's generated version header are included too. Ignored build
+products are excluded. Transfer the same source bytes (including line endings)
+and Git metadata when
+using artifacts on another machine. Local artifacts cannot enter a normal or
+publication build. Checksums detect stale or modified artifacts; this is not
+cryptographic authentication of an untrusted producer.
+
+Both references are included under `reference/api/`, retaining the sibling layout
+used by C++ links to C declarations. When embedding HTML, the portal translates
+Core's expanded guide URLs into relative links to the assembled MkDocs pages.
+This also preserves the C reference's link to the C++ overview and works under
+local, project, and versioned URL prefixes. Original artifacts remain unchanged.
+After rendering, missing local links or anchors between C API, C++ API and guides
+fail the build. Navigation within each individual Doxygen reference remains
+owned by Doxygen. Unrelated external HTTP destinations are not fetched.
 
 ## Build and preview
 
@@ -108,7 +125,7 @@ and artifact overrides are resolved from the current working directory.
 
 The build preserves strict navigation, link, and anchor validation, Material
 content tabs, search, code highlighting, and the development banner. Missing API
-references are errors. Broken source-file links are checked against the external
+references in explicitly supplied artifacts are errors. Broken source-file links are checked against the external
 Core checkout and fail the build. External HTTP destinations are not fetched or
 validated by MkDocs.
 
@@ -118,6 +135,9 @@ and local/dirty status. In normal builds, `commit` must resolve from `revision`;
 in local preview it may differ. Every page displays the effective Core commit.
 Core source and edit links target that commit;
 portal-owned asset pages link to this repository.
+The `api` field records the corresponding generated-reference provenance and
+links to `reference/api/api-source.json`. That manifest describes the original
+input artifacts; embedded HTML has its guide links adapted for the site.
 
 ### Revision selection and local changes
 
@@ -152,7 +172,7 @@ build with this guard and reject artifacts whose metadata has `local: true`.
 `OPENTLV_DOCS_CHANNEL` accepts `development` (default) or `release`; it controls
 presentation, not deployment, and release rejects local mode.
 A clean Core source revision is reproducible, but
-this initial setup does not claim byte-identical builds across Python package
+the portal does not claim byte-identical builds across Python package
 or Doxygen versions; dependency ranges are retained from the existing portal.
 
 ### Transitional component content
@@ -192,21 +212,26 @@ python -m mkdocs build --strict
 git diff --check
 ```
 
+Tests require CMake but no C compiler or Doxygen: disposable fixtures exercise
+the Core target contract without compiling a library. Full integration validation
+also runs the real build against the selected Core checkout and Doxygen.
+
 The tests cover configured/effective revisions, publication guards, dirty-checkout
 handling, collision checks, repeatable assembly, source ownership, link rewriting,
-the local root preview URL, and required/optional artifacts. Core's
+the local root preview URL, required/optional artifacts, API generation failures,
+artifact provenance and integrity, local source changes, and API links/anchors. Core's
 implementation/example inventory checks remain in Core, alongside their inputs.
 
-This is the initial local build for
-[#1](https://github.com/OpenTLV/opentlv-docs/issues/1). The configured site URL is
+The standalone build and API integration implement
+[#1](https://github.com/OpenTLV/opentlv-docs/issues/1) and
+[#2](https://github.com/OpenTLV/opentlv-docs/issues/2). The configured site URL is
 the intended GitHub Pages destination, not a claim that deployment is active.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- [#2: Doxygen integration](https://github.com/OpenTLV/opentlv-docs/issues/2).
 - [#3: CI and mike publication](https://github.com/OpenTLV/opentlv-docs/issues/3).
 - [#4: Versioned multi-repository assembly](https://github.com/OpenTLV/opentlv-docs/issues/4).
 - Language example integration, compatibility metadata, and ecosystem updates.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of
-the replacement pipeline; it is not part of this initial build.
+the replacement pipeline; it is not part of local build or API integration work.
