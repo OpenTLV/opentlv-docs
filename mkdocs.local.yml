@@ -1,0 +1,3 @@
+# Keep the local server at / independently of the GitHub Pages mount path.
+INHERIT: mkdocs.yml
+site_url: http://127.0.0.1:8000/
