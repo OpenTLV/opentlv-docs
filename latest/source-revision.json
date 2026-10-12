@@ -1,9 +1,28 @@
 {
+  "id": "core",
   "repository": "https://github.com/OpenTLV/opentlv",
   "revision": "91ac1c91b91df6bc845b379476423d51725b32e6",
-  "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
+  "docs_path": "docs",
+  "mount": "",
+  "required": true,
   "local": false,
   "dirty": false,
+  "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
+  "included": true,
+  "sources": [
+    {
+      "id": "core",
+      "repository": "https://github.com/OpenTLV/opentlv",
+      "revision": "91ac1c91b91df6bc845b379476423d51725b32e6",
+      "docs_path": "docs",
+      "mount": "",
+      "required": true,
+      "local": false,
+      "dirty": false,
+      "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
+      "included": true
+    }
+  ],
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
