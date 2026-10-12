@@ -174,6 +174,11 @@ def on_config(config):
     for checkout, item in selected:
         if checkout:
             config.watch.append(str(checkout / item["docs_path"]))
+        if "compatibility" in item and not os.environ.get("OPENTLV_DOCS_LOCK"):
+            settings = item["compatibility"]
+            feed = (f"build/compatibility/{settings['sha256']}.json"
+                    if settings["feed"].startswith("https:") else settings["feed"])
+            config.watch.append(str(portal / feed))
     catalog = examples.Catalog(selected, git)
     checkouts = {item["id"]: checkout for checkout, item in selected}
     for item in catalog.inputs:

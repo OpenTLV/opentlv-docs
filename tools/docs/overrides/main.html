@@ -21,10 +21,14 @@
     {% for source in config.extra.sources %}
       {% if source.included %}
         {{ source.id }}
+        {% if source.compatibility_result and source.compatibility_result.record %}
+          {{ source.compatibility_result.record.component.version }}
+          (Core {{ source.compatibility_result.record.core.version }})
+        {% endif %}
         <a href="{{ source.repository }}/tree/{{ source.commit }}">{{ source.commit[:12] }}</a>
         {% if source.local %}(local preview){% endif %}
       {% else %}
-        {{ source.id }} (not included)
+        {{ source.id }} (not included: {{ source.reason }})
       {% endif %}
     {% endfor %}
   </small></p>

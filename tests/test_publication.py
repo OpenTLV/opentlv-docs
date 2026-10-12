@@ -228,6 +228,29 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "clean, immutable source set"):
             publication.verify_site(self.portal / "docs", self.selection)
 
+    def test_existing_release_locks_compatibility_evidence(self):
+        def prepare_selection(result_id):
+            self.set_selection("1.0.0")
+            self.add_component()
+            self.selection["sources"][1]["compatibility_result"] = {
+                "status": "verified", "record": {"id": result_id},
+                "feed": {"source": "https://example.invalid/results.json", "sha256": "e" * 64},
+            }
+            metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+            metadata["sources"] = self.selection["sources"]
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            self.write("build/sources.lock.json", json.dumps({"sources": self.selection["sources"]}))
+
+        prepare_selection("original-record")
+        self.prepare()
+        self.deploy_bundle()
+        before = self.remote_head()
+        self.fresh_checkout()
+        prepare_selection("replacement-record")
+        with self.assertRaisesRegex(ValueError, "different source set"):
+            self.prepare()
+        self.assertEqual(self.remote_head(), before)
+
     def test_concurrent_remote_update_rejects_stale_publication(self):
         self.prepare()
         self.deploy_bundle()

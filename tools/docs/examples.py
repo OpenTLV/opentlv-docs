@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Marek Cingel
 
-"""Render owner-supplied examples; compatibility selection belongs to issue #7."""
+"""Render owner-supplied examples with exact, scoped compatibility evidence."""
 
 import hashlib
 import html
@@ -61,6 +61,11 @@ def settings(item):
     if (not isinstance(languages, list) or not all(isinstance(x, str) and x in LANGUAGES for x in languages)
             or len(set(languages)) != len(languages)):
         fail(f"{item['id']}: invalid or duplicate languages")
+    if "compatibility" in item:
+        if not languages:
+            fail(f"{item['id']}: compatibility selection requires explicit example languages")
+        if "results" in value:
+            fail(f"{item['id']}: compatibility selection cannot use inline example results")
     return value
 
 
@@ -106,7 +111,11 @@ class Catalog:
             evidence = results(config.get("results", []))
             languages = config.get("languages", [])
             entries = {}
-            version = item["revision"]
+            selection = item.get("compatibility_result", {})
+            selected_record = (selection.get("record")
+                               if selection.get("status") == "verified" else None)
+            version = (selected_record["component"]["version"] if selected_record
+                       else "none selected" if "compatibility" in item else item["revision"])
             if item["included"]:
                 args = ["ls-files", "-z", "--cached"]
                 if item["local"]:
@@ -123,7 +132,15 @@ class Catalog:
                             or type(data.get("version")) is not int or data["version"] != 1
                             or not isinstance(data.get("examples"), list)):
                         fail(f"{item['id']}: invalid version 1 example manifest")
-                    version = plain(data.get("component_version", version))
+                    catalog_version = plain(data.get("component_version", version))
+                    if selected_record:
+                        if (not item["local"]
+                                and catalog_version.removeprefix("v") != version.removeprefix("v")):
+                            fail(f"{item['id']}: catalog component version does not match the selected release")
+                        if item["local"]:
+                            version = catalog_version
+                    else:
+                        version = catalog_version
                     self.inputs.append({"source": item["id"], "path": name,
                                         "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
                     for entry in data["examples"]:
@@ -177,8 +194,10 @@ class Catalog:
             item, version, entries, evidence = self.providers[language]
             entry = entries.get((feature, language))
             text = [f"/// tab | {label}", "", f"Component version: {escape(version)}.  ",
-                    f"Selected revision: {escape(item['revision'])}.", ""]
-            if not item["included"]:
+                    f"Selected revision: {escape(item.get('revision', 'none selected'))}.", ""]
+            if "compatibility" in item:
+                text += self.render_compatibility(item, entry, feature, language, lexer)
+            elif not item["included"]:
                 text += ["Repository unavailable; example not included."]
             elif entry is None:
                 text += ["No example supplied for this feature; support is unknown."]
@@ -204,15 +223,86 @@ class Catalog:
                 if matches and record["result"] != "passed":
                     text += ["Example withheld for this unverified combination."]
                 else:
-                    url = item["repository"].rstrip("/") + "/blob/" + item["commit"] + "/" + quote(entry["path"], safe="/")
-                    text += [f"[Example source]({url})", ""]
-                    # Longer fences protect source containing Markdown and block delimiters.
-                    code = entry["code"].removesuffix("\n")
-                    fence = "`" * max(3, 1 + max((len(m[0]) for m in re.finditer(r"`+", code)), default=0))
-                    text += [fence + lexer, code, fence]
+                    text += self.render_source(item, entry, lexer)
             text += ["", "///"]
             blocks.append("\n".join(text))
         return "\n\n".join(blocks)
+
+    @staticmethod
+    def render_source(item, entry, lexer):
+        url = item["repository"].rstrip("/") + "/blob/" + item["commit"] + "/" + quote(entry["path"], safe="/")
+        # Longer fences protect source containing Markdown and block delimiters.
+        code = entry["code"].removesuffix("\n")
+        fence = "`" * max(3, 1 + max((len(m[0]) for m in re.finditer(r"`+", code)), default=0))
+        return [f"[Example source]({url})", "", fence + lexer, code, fence]
+
+    def render_compatibility(self, item, entry, feature, language, lexer):
+        selection = item.get("compatibility_result", {})
+        record = selection.get("record")
+        core = selection.get("core", {})
+        core_commit = self.core["commit"]
+        core_version = (core.get("version") if core.get("commit") == core_commit else None)
+        if not core_version and record and record["core"]["commit"] == core_commit:
+            core_version = record["core"]["version"]
+        text = [f"Selected Core: {escape(core_version or 'version unknown')} ({core_commit}).  "]
+        if not core_version:
+            text += [f"Core revision: {escape(self.core['revision'])}.  "]
+        if record:
+            text += [f"Declared Core dependency: {escape(record['declared_core'])}.  "]
+            if selection.get("status") != "verified":
+                text += [f"Candidate component: {escape(record['component']['version'])} "
+                         f"({record['component']['commit']}).  "]
+            elif item["local"]:
+                text += [f"Selected release: {escape(record['component']['version'])} "
+                         f"({record['component']['commit']}).  "]
+            text += [f"Tested Core: {escape(record['core']['version'])} ({record['core']['commit']}).  ",
+                     f"Build: {record['build']}; tests: {record['test']}.  "]
+        scope = item["compatibility"]
+        text += [f"Platform: {escape(scope['platform'])}; configuration: {escape(scope['configuration'])}.  "]
+        if record:
+            url = quote(record["evidence"], safe=":/?=&%#@+;,$-_.!~*")
+            text += [f"[Verification evidence]({url})"]
+        text += [""]
+        status = selection.get("status", "missing")
+        if status != "verified":
+            reason = {"missing": "no compatibility result supplied for this Core and scope",
+                      "failed": "compatibility build or tests failed",
+                      "untested": "this combination has not passed both build and tests"}[status]
+            text += [f"Verified Core: not established ({reason}).",
+                     "Example withheld; no verified component release was selected."]
+            return text
+        if not item["included"]:
+            text += ["Selected component unavailable: " + escape(item.get("reason", "checkout missing")),
+                     "Example not included."]
+            return text
+        matches = (record and record["component"]["commit"] == item.get("commit") == item.get("revision")
+                   and record["core"]["commit"] == core_commit
+                   and record["component"]["repository"] == item["repository"]
+                   and record["core"]["repository"] == self.core["repository"]
+                   and record["build"] == "passed" and record["test"] == "passed"
+                   and record["platform"] == scope["platform"]
+                   and record["configuration"] == scope["configuration"]
+                   and not any(source.get("local") or source.get("dirty") for source in (item, self.core)))
+        if not matches:
+            return text + ["Verified Core: not established (result does not match this checkout or local preview).",
+                           "Example withheld for this unverified combination."]
+        text += [f"Verified Core: {escape(record['core']['version'])} ({core_commit}).", ""]
+        support = next((value for value in record["features"] if value["id"] == feature), None)
+        if support is None or support["support"] == "unknown":
+            return text + ["Feature support is unknown for the selected component; example withheld."]
+        if support["support"] == "unsupported":
+            return text + ["Unsupported: this feature is not supported by the selected component."]
+        if entry is None:
+            return text + ["No example supplied for this feature by the selected component."]
+        if entry["status"] == "unsupported":
+            return text + ["Unsupported: " + escape(entry["reason"])]
+        proof = next((value for value in support["examples"]
+                      if value["language"] == language and value["path"] == entry["path"]), None)
+        if proof is None:
+            return text + ["No verification result for this example; example withheld."]
+        if proof["result"] != "passed":
+            return text + [f"Example test result: {proof['result']}; example withheld."]
+        return text + self.render_source(item, entry, lexer)
 
     def transform(self, markdown):
         """Replace paired slots outside code fences, keeping fallback text without providers."""

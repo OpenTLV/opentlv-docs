@@ -186,14 +186,13 @@ def on_page_content(content, page, config, files):
         parts = urlsplit(target)
         path = unquote(urlunsplit((parts.scheme, parts.netloc, parts.path, "", "")))
         for source in config.extra["core_source"]["sources"]:
+            if not source["included"]:
+                continue
             repository = source["repository"].removesuffix(".git").rstrip("/")
             for revision in {source["revision"], source.get("commit", source["revision"])}:
                 base = f"{repository}/blob/{revision}/{source['docs_path']}/"
                 if not path.startswith(base):
                     continue
-                if not source["included"]:
-                    # Missing optional components remain usable external links.
-                    return match.group(0)
                 relative = path[len(base):]
                 if source["id"] == "core" and relative == "README.md":
                     relative = "index.md"
