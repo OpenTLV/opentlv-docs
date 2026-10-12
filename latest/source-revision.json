@@ -23,6 +23,7 @@
       "included": true
     }
   ],
+  "example_inputs": [],
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
