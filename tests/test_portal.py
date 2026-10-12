@@ -58,6 +58,7 @@ class PortalTests(unittest.TestCase):
             "repository": "https://github.com/OpenTLV/opentlv", "revision": self.sha,
         }))
         self.write(self.portal / "docs/assets/README.md", "# Assets\n\n[License](../../LICENSE)\n")
+        self.write(self.portal / "docs/assets/logo-mark.svg", "<svg/>")
         self.write(self.portal / "LICENSE", "Portal license\n")
         for tree in ("c-api", "cxx-api"):
             self.write(self.portal / f"build/api/docs/{tree}/html/index.html", "<html>Fixture</html>")
@@ -93,9 +94,27 @@ class PortalTests(unittest.TestCase):
         self.assertIn("# Assets", (docs / "assets/README.md").read_text())
         self.assertIn("# Old asset page", (self.core / "docs/assets/README.md").read_text())
         self.assertEqual(self.git("status", "--porcelain"), before)
+        snapshot = {p.relative_to(docs): p.read_bytes() for p in docs.rglob("*") if p.is_file()}
         self.write(docs / "stale.md", "stale")
         assembly.assemble(self.portal)
         self.assertFalse((docs / "stale.md").exists())
+        self.assertEqual(snapshot, {p.relative_to(docs): p.read_bytes() for p in docs.rglob("*") if p.is_file()})
+        self.assertEqual((docs / "assets/logo-mark.svg").read_text(), "<svg/>")
+
+    def test_unexpected_collision_rejected_before_replacing_output(self):
+        assembly.assemble(self.portal)
+        docs = self.portal / "build/assembled/docs"
+        before = (docs / "index.md").read_bytes()
+        self.write(self.portal / "docs/index.md", "# Unexpected replacement")
+        with self.assertRaisesRegex(PluginError, "collision.*index.md.*Core and portal"):
+            assembly.assemble(self.portal)
+        self.assertEqual((docs / "index.md").read_bytes(), before)
+        self.assertEqual((self.core / "docs/index.md").read_bytes(), before)
+
+    def test_file_directory_collision_rejected(self):
+        self.write(self.portal / "docs/index.md/child.md", "# Invalid child")
+        with self.assertRaisesRegex(PluginError, "file/directory collision"):
+            assembly.assemble(self.portal)
 
     def test_tag_and_annotated_tag_resolve_to_commit(self):
         for tag in ("v1", "v1-annotated"):
@@ -108,14 +127,44 @@ class PortalTests(unittest.TestCase):
                 with self.assertRaises(PluginError):
                     assembly.selected_source(self.portal)
 
-    def test_wrong_checkout_revision_rejected_even_in_local_mode(self):
+    def advance_core(self):
         self.write(self.core / "LICENSE", "changed")
         self.git("add", "LICENSE")
         self.git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
                  "-c", "commit.gpgsign=false", "commit", "-m", "New fixture revision")
+        return self.git("rev-parse", "HEAD")
+
+    def test_wrong_checkout_revision_rejected_by_normal_and_release_builds(self):
+        self.advance_core()
+        for channel in ("development", "release"):
+            with patch.dict(os.environ, {"OPENTLV_DOCS_CHANNEL": channel}):
+                with self.assertRaisesRegex(PluginError, "HEAD does not match"):
+                    assembly.selected_source(self.portal)
+
+    def test_local_preview_uses_current_head_and_preserves_configured_revision(self):
+        head = self.advance_core()
+        before = self.git("status", "--porcelain")
         with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
-            with self.assertRaisesRegex(PluginError, "HEAD does not match"):
-                assembly.selected_source(self.portal)
+            result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        source = json.loads((self.portal / "site/source-revision.json").read_text())
+        self.assertEqual(source["revision"], self.sha)
+        self.assertEqual(source["commit"], head)
+        self.assertTrue(source["local"])
+        self.assertFalse(source["dirty"])
+        html = (self.portal / "site/index.html").read_text(encoding="utf-8")
+        self.assertIn(f"/blob/{head}/LICENSE", html)
+        self.assertIn(f"/edit/{head}/docs/index.md", html)
+        self.assertIn("Local preview", html)
+        self.assertEqual(self.git("status", "--porcelain"), before)
+        self.assertEqual(self.git("rev-parse", "HEAD"), head)
+
+    def test_local_preview_does_not_require_pinned_commit_in_checkout(self):
+        missing_commit = "0" * 40
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1", "OPENTLV_CORE_REF": missing_commit}):
+            _, source = assembly.selected_source(self.portal)
+        self.assertEqual(source["revision"], missing_commit)
+        self.assertEqual(source["commit"], self.sha)
 
     def test_dirty_and_untracked_sources_rejected_by_default(self):
         self.write(self.core / "docs/new.md", "# New page")
@@ -127,6 +176,7 @@ class PortalTests(unittest.TestCase):
             assembly.selected_source(self.portal)
 
     def test_local_preview_includes_changes_additions_and_deletions(self):
+        head = self.advance_core()
         self.write(self.core / "docs/index.md", "# Modified")
         self.write(self.core / "docs/new.md", "# New")
         (self.core / "docs/README.md").unlink()
@@ -134,6 +184,8 @@ class PortalTests(unittest.TestCase):
         with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
             _, source = assembly.assemble(self.portal)
         self.assertTrue(source["local"] and source["dirty"])
+        self.assertEqual(source["revision"], self.sha)
+        self.assertEqual(source["commit"], head)
         docs = self.portal / "build/assembled/docs"
         self.assertEqual((docs / "index.md").read_text(), "# Modified")
         self.assertTrue((docs / "new.md").exists())
@@ -167,6 +219,7 @@ class PortalTests(unittest.TestCase):
 
     def mkdocs(self):
         self.write(self.portal / "mkdocs.yml", f"""site_name: Fixture
+site_url: https://opentlv.github.io/opentlv-docs/
 docs_dir: docs
 strict: true
 repo_url: https://github.com/OpenTLV/opentlv-docs
@@ -194,7 +247,8 @@ nav:
                               cwd=self.portal, capture_output=True, text=True, encoding="utf-8", errors="replace")
 
     def test_strict_build_and_published_provenance_without_optional_components(self):
-        result = self.mkdocs()
+        with patch.dict(os.environ, {"OPENTLV_DOCS_PUBLISH": "1"}):
+            result = self.mkdocs()
         self.assertEqual(result.returncode, 0, result.stderr)
         site = self.portal / "site"
         source = json.loads((site / "source-revision.json").read_text())
@@ -205,12 +259,43 @@ nav:
         self.assertIn("development", html)
         self.assertTrue((site / "reference/api/cxx-api/html/index.html").exists())
 
-    def test_local_preview_banner_overrides_release_channel(self):
-        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1", "OPENTLV_DOCS_CHANNEL": "release"}):
-            result = self.mkdocs()
+    def test_publication_and_release_builds_reject_local_preview(self):
+        for flag in ({"OPENTLV_DOCS_CHANNEL": "release"}, {"OPENTLV_DOCS_PUBLISH": "1"}):
+            with self.subTest(flag=flag), patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1", **flag}):
+                result = self.mkdocs()
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Local preview cannot be used for publication", result.stdout + result.stderr)
+
+    def test_deployment_commands_reject_local_preview_before_writing(self):
+        for command in ("gh-deploy", "mike"):
+            with self.subTest(command=command), patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+                with self.assertRaisesRegex(PluginError, "Local preview cannot be used for publication"):
+                    assembly.on_startup(command=command, dirty=False)
+        self.assertFalse((self.portal / "build/assembled").exists())
+
+    def test_deployment_entry_points_enforce_local_guard(self):
+        from mike.mkdocs_utils import load_config
+
+        result = self.mkdocs()  # Create a valid config before probing entry points.
         self.assertEqual(result.returncode, 0, result.stderr)
-        html = (self.portal / "site/index.html").read_text(encoding="utf-8")
-        self.assertIn("Local preview", html)
+        before = (self.portal / "site/source-revision.json").read_bytes()
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            with self.assertRaisesRegex(PluginError, "Local preview cannot be used for publication"):
+                load_config(str(self.portal / "mkdocs.yml"))
+            # MkDocs runs startup before any deployment operation. This fixture
+            # has no portal Git repository or remote to publish even on failure.
+            result = subprocess.run([sys.executable, "-m", "mkdocs", "gh-deploy"],
+                                    cwd=self.portal, capture_output=True, text=True,
+                                    encoding="utf-8", errors="replace")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Local preview cannot be used for publication", result.stdout + result.stderr)
+        self.assertEqual((self.portal / "site/source-revision.json").read_bytes(), before)
+
+    def test_release_channel_in_config_rejects_local_preview(self):
+        config = SimpleNamespace(extra={"docs_channel": "release"})
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            with self.assertRaisesRegex(PluginError, "Local preview cannot be used for publication"):
+                assembly.on_config(config)
 
     def test_missing_api_reference_fails_build(self):
         (self.portal / "build/api/docs/cxx-api/html/index.html").unlink()
@@ -236,6 +321,9 @@ nav:
     def test_live_preview_reassembles_inputs_without_rebuild_loop(self):
         result = self.mkdocs()  # Write config and verify the initial input.
         self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('https://opentlv.github.io/opentlv-docs/',
+                      (self.portal / 'site/index.html').read_text(encoding='utf-8'))
+        self.write(self.portal / "mkdocs.local.yml", (ROOT / "mkdocs.local.yml").read_text())
         with socket.socket() as sock:
             sock.bind(("127.0.0.1", 0))
             port = sock.getsockname()[1]
@@ -244,7 +332,7 @@ nav:
         env = dict(os.environ, OPENTLV_DOCS_LOCAL="1", PYTHONIOENCODING="utf-8")
         with log_path.open("w", encoding="utf-8") as log:
             process = subprocess.Popen(
-                [sys.executable, "-m", "mkdocs", "serve", "--dev-addr", f"127.0.0.1:{port}"],
+                [sys.executable, "-m", "mkdocs", "serve", "-f", "mkdocs.local.yml", "--dev-addr", f"127.0.0.1:{port}"],
                 cwd=self.portal, env=env, stdout=log, stderr=subprocess.STDOUT,
                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
             )
@@ -255,6 +343,7 @@ nav:
                         self.assertIsNone(process.poll(), log_path.read_text(encoding="utf-8"))
                         try:
                             with urlopen(url, timeout=1) as response:
+                                self.assertEqual(response.url, url)
                                 if text in response.read().decode("utf-8"):
                                     return
                         except (URLError, TimeoutError):

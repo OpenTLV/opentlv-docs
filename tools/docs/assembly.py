@@ -15,6 +15,26 @@ from mkdocs.exceptions import PluginError
 
 log = logging.getLogger("mkdocs.hooks.assembly")
 
+# Exact, portal-owned presentation files still present in transitional Core.
+# Adding a new override requires an explicit ownership decision here.
+PORTAL_OVERRIDES = frozenset({
+    "assets/README.md", "assets/favicon.svg", "assets/logo-mark.svg",
+    "assets/opentlv.svg", "assets/opentlv-light.svg", "assets/opentlv-dark.svg",
+})
+
+
+def reject_local_publication(command=None, channel=None):
+    if os.environ.get("OPENTLV_DOCS_LOCAL") == "1" and (
+        command in ("gh-deploy", "mike")
+        or os.environ.get("OPENTLV_DOCS_PUBLISH") == "1"
+        or os.environ.get("OPENTLV_DOCS_CHANNEL", channel) == "release"
+    ):
+        raise PluginError("Local preview cannot be used for publication or release builds. Unset OPENTLV_DOCS_LOCAL.")
+
+
+def on_startup(command, dirty):
+    reject_local_publication(command=command)
+
 
 def git(root, *args):
     result = subprocess.run(
@@ -27,6 +47,7 @@ def git(root, *args):
 
 
 def selected_source(portal):
+    reject_local_publication()
     manifest = json.loads((portal / "core-source.json").read_text(encoding="utf-8"))
     root = Path(os.environ.get("OPENTLV_CORE_DIR", str(portal.parent / "opentlv"))).resolve()
     revision = os.environ.get("OPENTLV_CORE_REF", manifest["revision"])
@@ -35,9 +56,11 @@ def selected_source(portal):
     ref = revision if re.fullmatch(r"[0-9a-fA-F]{40}", revision) else f"refs/tags/{revision}"
     if ref.startswith("refs/tags/"):
         git(root, "check-ref-format", ref)
-    commit = git(root, "rev-parse", "--verify", "--end-of-options", f"{ref}^{{commit}}")
-    if git(root, "rev-parse", "HEAD") != commit:
-        raise PluginError(f"Core checkout HEAD does not match {revision} ({commit}). Check out that revision first.")
+    commit = git(root, "rev-parse", "HEAD")
+    if not local:
+        configured_commit = git(root, "rev-parse", "--verify", "--end-of-options", f"{ref}^{{commit}}")
+        if commit != configured_commit:
+            raise PluginError(f"Core checkout HEAD does not match {revision} ({configured_commit}). Check out that revision first.")
     if Path(git(root, "rev-parse", "--show-toplevel")).resolve() != root:
         raise PluginError("OPENTLV_CORE_DIR must be the Core repository root.")
     dirty = bool(git(root, "status", "--porcelain", "--untracked-files=all"))
@@ -73,20 +96,36 @@ def assemble(portal):
     if source["local"]:
         args += ["--others", "--exclude-standard"]
     paths = git(root, *args, "--", "docs/").split("\0")
-    output = reset_output(portal)
-    docs = output / "docs"
+    core_files = {}
     for name in sorted(set(filter(None, paths))):
         path = root / name
         if not path.exists() and source["local"]:
             continue  # A locally deleted tracked page should disappear too.
         if not path.resolve().is_relative_to(root) or path.is_symlink():
             raise PluginError(f"Documentation source must be a regular file inside Core: {name}")
-        target = output / name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(path, target)
-    # Shared presentation assets are portal-owned. Other Core content is never
-    # edited or checked into this repository.
-    shutil.copytree(portal / "docs", docs, dirs_exist_ok=True)
+        core_files[Path(name).relative_to("docs").as_posix()] = path
+    portal_files = {
+        path.relative_to(portal / "docs").as_posix(): path
+        for path in sorted((portal / "docs").rglob("*")) if path.is_file()
+    }
+    # Validate the complete input set before replacing any previous assembly.
+    owners = {os.path.normcase(name): name for name in core_files}
+    for name in portal_files:
+        key = os.path.normcase(name)
+        if key in owners and (name not in PORTAL_OVERRIDES or owners[key] != name):
+            raise PluginError(f"Unexpected documentation collision at '{name}' between Core and portal. Declare an intentional ownership override explicitly.")
+        owners[key] = name
+    for name in owners.values():
+        for parent in Path(name).parents:
+            if os.path.normcase(parent.as_posix()) in owners:
+                raise PluginError(f"Documentation file/directory collision at '{parent.as_posix()}' involving '{name}'.")
+    output = reset_output(portal)
+    docs = output / "docs"
+    for inputs in (core_files, portal_files):
+        for name, path in inputs.items():
+            target = docs / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path, target)
     (output / "source-revision.json").write_text(
         json.dumps(source, indent=2) + "\n", encoding="utf-8",
     )
@@ -95,6 +134,7 @@ def assemble(portal):
 
 
 def on_config(config):
+    reject_local_publication(channel=config.extra.get("docs_channel"))
     portal = Path(config.config_file_path).resolve().parent
     config.docs_dir = str(portal / "build" / "assembled" / "docs")
     config.watch.append(str(portal / "docs"))

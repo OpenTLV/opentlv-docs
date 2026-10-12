@@ -56,7 +56,8 @@ git -C "$OPENTLV_CORE_DIR" checkout --detach "$core_revision"
 ```
 
 For an existing workspace checkout, set `OPENTLV_CORE_DIR` to that checkout or
-leave it unset for the sibling default. Its HEAD must match the selected revision.
+leave it unset for the sibling default. Normal builds require HEAD to match the
+selected revision; local preview can use the current HEAD as described below.
 The portal never checks out, fetches, resets, or edits Core on your behalf.
 
 ## Generate the API prerequisites
@@ -94,10 +95,14 @@ With the environment activated:
 
 ```sh
 python -m mkdocs build --strict
-python -m mkdocs serve
+python -m mkdocs serve -f mkdocs.local.yml
 ```
 
-Open `http://127.0.0.1:8000/opentlv-docs/` for the preview. The static site is in `site/`.
+Open `http://127.0.0.1:8000/` for the preview. `mkdocs.local.yml` inherits the portal
+configuration and sets only the local URL. Keep the published GitHub Pages URL,
+`https://opentlv.github.io/opentlv-docs/`, in `mkdocs.yml` for static builds.
+Serving `mkdocs.yml` directly also inherits its `/opentlv-docs/` mount path, so use
+the local configuration for the root preview URL. The static site is in `site/`.
 Assembly runs before every build, including live rebuilds. Relative checkout
 and artifact overrides are resolved from the current working directory.
 
@@ -108,8 +113,10 @@ Core checkout and fail the build. External HTTP destinations are not fetched or
 validated by MkDocs.
 
 `source-revision.json` in the assembled output and final site records the selected
-repository, requested revision, resolved commit, and local/dirty status. Every
-page displays the Core commit. Core source and edit links target that commit;
+repository, configured revision (`revision`), effective checkout HEAD (`commit`),
+and local/dirty status. In normal builds, `commit` must resolve from `revision`;
+in local preview it may differ. Every page displays the effective Core commit.
+Core source and edit links target that commit;
 portal-owned asset pages link to this repository.
 
 ### Revision selection and local changes
@@ -122,23 +129,50 @@ repository before building; the portal records a tag's resolved SHA. Published
 build inputs should be pinned by full SHA.
 
 A normal build rejects tracked changes and non-ignored untracked files in Core.
-For an explicit local preview of work based on the selected revision, set:
+For an explicit workspace preview using the current Core HEAD, set:
 
 ```powershell
 $env:OPENTLV_DOCS_LOCAL = '1'
 ```
 
 or `export OPENTLV_DOCS_LOCAL=1` in a POSIX shell. This includes local Markdown
-changes and non-ignored new files, and displays a local-preview banner. Source
-links still show the base commit. Remove the variable to restore clean-checkout
-validation. Local preview always uses the development channel.
+changes and non-ignored new files, and displays a local-preview banner. HEAD may
+differ from the configured revision, which is retained in metadata without
+requiring that commit to exist locally. Source links use the actual HEAD; they
+cannot show uncommitted changes. No checkout, fetch, or reset is performed.
+Remove the variable to restore strict revision and clean-checkout validation.
+
+Local preview is rejected for `OPENTLV_DOCS_CHANNEL=release`, `mkdocs gh-deploy`,
+and mike commands. Future publication workflows must also set
+`OPENTLV_DOCS_PUBLISH=1`, including development/latest publication and any custom
+artifact upload path, so build validation rejects local mode. The portal cannot
+prevent manual uploading of an already generated directory; publication must
+build with this guard and reject artifacts whose metadata has `local: true`.
 
 `OPENTLV_DOCS_CHANNEL` accepts `development` (default) or `release`; it controls
-presentation, not deployment. A clean Core source revision is reproducible, but
+presentation, not deployment, and release rejects local mode.
+A clean Core source revision is reproducible, but
 this initial setup does not claim byte-identical builds across Python package
 or Doxygen versions; dependency ranges are retained from the existing portal.
 
 ### Transitional component content
+
+Assembly rejects duplicate documentation paths between Core and the portal.
+The only intentional overrides are the exact shared presentation paths declared
+in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
+
+- `assets/README.md`
+- `assets/favicon.svg`
+- `assets/logo-mark.svg`
+- `assets/opentlv.svg`
+- `assets/opentlv-light.svg`
+- `assets/opentlv-dark.svg`
+
+These portal-owned assets are temporarily still present in Core. New overrides
+require an explicit ownership decision and an entry in that list; neither an
+entire directory nor arbitrary Core pages may be overwritten. File/directory
+conflicts always fail. Input collisions are checked before replacing the previous
+assembly, and Core sources remain untouched.
 
 The selected Core tree still contains binding/CLI guides and language tabs.
 Assembly preserves those existing pages without building their components or
@@ -158,8 +192,9 @@ python -m mkdocs build --strict
 git diff --check
 ```
 
-The tests cover revision selection, dirty-checkout handling, disposable assembly,
-source ownership, link rewriting, and required/optional artifacts. Core's
+The tests cover configured/effective revisions, publication guards, dirty-checkout
+handling, collision checks, repeatable assembly, source ownership, link rewriting,
+the local root preview URL, and required/optional artifacts. Core's
 implementation/example inventory checks remain in Core, alongside their inputs.
 
 This is the initial local build for

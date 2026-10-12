@@ -49,8 +49,6 @@ def on_config(config):
     config.extra["docs_channel"] = os.environ.get("OPENTLV_DOCS_CHANNEL", config.extra["docs_channel"])
     if config.extra["docs_channel"] not in ("development", "release"):
         raise PluginError("OPENTLV_DOCS_CHANNEL must be development or release.")
-    if os.environ.get("OPENTLV_DOCS_LOCAL") == "1":
-        config.extra["docs_channel"] = "development"
     return config
 
 
