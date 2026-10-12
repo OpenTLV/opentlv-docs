@@ -46,6 +46,23 @@ class PortalTests(unittest.TestCase):
         self.write(self.core / "docs/assets/README.md", "# Old asset page\n")
         self.write(self.core / "LICENSE", "Core license\n")
         self.write(self.core / ".gitignore", "ignored/\n")
+        # A compiler-free stand-in for Core's generation contract. Real Doxygen
+        # is also exercised separately against the selected Core checkout.
+        self.write(self.core / "fixture.html", '<html><a id="api" href="https://fixture.invalid/docs/">Guide</a></html>')
+        self.write(self.core / "CMakeLists.txt", f'''cmake_minimum_required(VERSION 3.20)
+project(Fixture NONE)
+set(DOXYGEN_EXECUTABLE "{Path(sys.executable).as_posix()}" CACHE FILEPATH "Fixture version provider")
+file(WRITE "${{CMAKE_BINARY_DIR}}/Doxyfile.common" [=[WARN_AS_ERROR = YES
+ALIASES = "docs{{2}}=<a href=\\"https://fixture.invalid/docs/\\1/\\">\\2</a>"
+]=])
+add_custom_target(c-api-docs
+  COMMAND "${{CMAKE_COMMAND}}" -E make_directory "${{CMAKE_BINARY_DIR}}/docs/c-api/html"
+  COMMAND "${{CMAKE_COMMAND}}" -E copy "${{CMAKE_SOURCE_DIR}}/fixture.html" "${{CMAKE_BINARY_DIR}}/docs/c-api/html/index.html")
+add_custom_target(cxx-api-docs
+  COMMAND "${{CMAKE_COMMAND}}" -E make_directory "${{CMAKE_BINARY_DIR}}/docs/cxx-api/html"
+  COMMAND "${{CMAKE_COMMAND}}" -E copy "${{CMAKE_SOURCE_DIR}}/fixture.html" "${{CMAKE_BINARY_DIR}}/docs/cxx-api/html/index.html")
+add_dependencies(cxx-api-docs c-api-docs)
+''')
         self.git("init", "-b", "main")
         self.git("add", ".")
         self.git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
@@ -298,8 +315,10 @@ nav:
                 assembly.on_config(config)
 
     def test_missing_api_reference_fails_build(self):
+        self.assertEqual(self.mkdocs().returncode, 0)
         (self.portal / "build/api/docs/cxx-api/html/index.html").unlink()
-        result = self.mkdocs()
+        with patch.dict(os.environ, {"OPENTLV_API_DOCS_DIR": str(self.portal / "build/api/docs")}):
+            result = self.mkdocs()
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("generated API reference not found", result.stdout + result.stderr)
 
@@ -308,6 +327,113 @@ nav:
             result = self.mkdocs()
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("WebAssembly module files", result.stdout + result.stderr)
+
+    def test_external_artifacts_require_matching_provenance_and_checksums(self):
+        result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        directory = self.portal / "build/api/docs"
+        manifest_path = directory / hooks.api.MANIFEST
+        original = manifest_path.read_text()
+        manifest = json.loads(original)
+        self.assertEqual(manifest["commit"], self.sha)
+        self.assertEqual(manifest["source_sha256"], hooks.api.fingerprint(self.core))
+        with patch.dict(os.environ, {"OPENTLV_API_DOCS_DIR": str(directory)}):
+            for change, error in (({"commit": "0" * 40}, "does not match"),
+                                  ({"source_sha256": "old"}, "does not match"),
+                                  ({"local": True}, "Local API artifacts"),
+                                  ({"files": {}}, "checksums")):
+                self.write(manifest_path, json.dumps({**manifest, **change}))
+                result = self.mkdocs()
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(error, result.stdout + result.stderr)
+            manifest_path.unlink()
+            result = self.mkdocs()
+            self.assertIn("Missing or invalid API provenance", result.stdout + result.stderr)
+            self.write(manifest_path, original)
+            self.write(directory / "c-api/html/index.html", "changed artifact")
+            result = self.mkdocs()
+            self.assertIn("checksums", result.stdout + result.stderr)
+
+    def test_local_header_changes_invalidate_cache_at_same_head(self):
+        self.assertEqual(self.mkdocs().returncode, 0)
+        directory = self.portal / "build/api/docs"
+        before = json.loads((directory / hooks.api.MANIFEST).read_text())
+        self.write(self.core / "new-header.h", "/** local API */")
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1", "OPENTLV_API_DOCS_DIR": str(directory)}):
+            result = self.mkdocs()
+            self.assertIn("does not match", result.stdout + result.stderr)
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        after = json.loads((directory / hooks.api.MANIFEST).read_text())
+        self.assertEqual(before["commit"], after["commit"])
+        self.assertNotEqual(before["source_sha256"], after["source_sha256"])
+        self.assertTrue(after["local"] and after["dirty"])
+
+    def test_failed_generator_leaves_no_valid_artifact_manifest(self):
+        self.assertEqual(self.mkdocs().returncode, 0)
+        with (self.core / "CMakeLists.txt").open("a") as stream:
+            stream.write('\nadd_custom_command(TARGET cxx-api-docs POST_BUILD COMMAND "${CMAKE_COMMAND}" -E false)\n')
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            result = self.mkdocs()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("API command failed", result.stdout + result.stderr)
+        self.assertFalse((self.portal / "build/api/docs" / hooks.api.MANIFEST).exists())
+
+    def test_disabling_doxygen_warning_errors_is_rejected(self):
+        cmake = self.core / "CMakeLists.txt"
+        self.write(cmake, cmake.read_text().replace("WARN_AS_ERROR = YES", "WARN_AS_ERROR = NO"))
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            result = self.mkdocs()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("must keep WARN_AS_ERROR = YES", result.stdout + result.stderr)
+        self.assertFalse((self.portal / "build/api/docs" / hooks.api.MANIFEST).exists())
+
+    def test_version_metadata_changes_invalidate_source_fingerprint(self):
+        before = hooks.api.fingerprint(self.core)
+        self.git("tag", "1.0.0")
+        self.assertNotEqual(hooks.api.fingerprint(self.core), before)
+
+    def test_guide_mapping_supports_readme_and_flat_html_urls(self):
+        from mkdocs.structure.files import File, Files
+
+        page = File("standards/emv/README.md", str(self.core / "docs"), str(self.portal / "site"), False)
+        files = Files([page])
+        text = '<a href="https://fixture.invalid/docs/standards/emv/?q=1&amp;x=2#tag">EMV</a>'
+        adapted = hooks.api.adapt_html(text, "reference/api/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+        self.assertIn('../../../../standards/emv/index.html?q=1&amp;x=2#tag', adapted)
+
+    def test_api_links_and_anchors_are_validated_in_both_directions(self):
+        site = self.portal / "link-site"
+        c_page = site / "reference/api/c-api/html/index.html"
+        cxx_page = site / "reference/api/cxx-api/html/index.html"
+        self.write(site / "guide/index.html", '<h1 id="guide">Guide</h1><a href="../reference/api/c-api/html/index.html#c">C</a>')
+        self.write(c_page, '<h1 id="c">C</h1><a href="../../cxx-api/html/index.html#cxx">C++</a>')
+        self.write(cxx_page, '<h1 id="cxx">C++</h1><a href="../../c-api/html/index.html#c">C</a><a href="../../../../guide/#guide">Guide</a>')
+        hooks.api.validate_links(site)
+        for page, text, error in (
+            (c_page, '<h1 id="c">C</h1><a href="../../cxx-api/html/missing.html">Missing API</a>', "Broken API link"),
+            (c_page, '<h1 id="c">C</h1><a href="../../">Missing API index</a>', "Broken API link"),
+            (cxx_page, '<h1 id="cxx">C++</h1><a href="../../../../guide/#missing">Guide</a>', "Missing API link anchor"),
+            (site / "guide/index.html", '<a href="../reference/api/c-api/html/index.html#missing">C</a>', "Missing API link anchor"),
+        ):
+            original = page.read_text()
+            self.write(page, text)
+            with self.assertRaisesRegex(PluginError, error):
+                hooks.api.validate_links(site)
+            self.write(page, original)
+
+    def test_api_guide_links_relocate_and_missing_guides_fail(self):
+        result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        html = (self.portal / "site/reference/api/c-api/html/index.html").read_text()
+        self.assertIn('href="../../../../index.html"', html)
+        self.assertNotIn("fixture.invalid", html)
+        self.write(self.core / "fixture.html", '<a href="https://fixture.invalid/docs/missing/">Bad guide</a>')
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            result = self.mkdocs()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("no assembled page", result.stdout + result.stderr)
 
     def test_strict_build_rejects_broken_links_and_missing_anchors(self):
         for text in ("[Missing](missing.md)", "[Source](../missing.c)", "[Anchor](#missing)"):

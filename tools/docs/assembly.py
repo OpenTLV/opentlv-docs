@@ -142,6 +142,9 @@ def on_config(config):
     config.watch.append(str(Path(__file__).resolve().parent))
     root, _source = selected_source(portal)
     config.watch.append(str(root / "docs"))
+    for name in ("tlv/include", "tlv/resources", "tlv++/include", "tools/docs", "cmake", "CMakeLists.txt"):
+        if (root / name).exists():
+            config.watch.append(str(root / name))
     return config
 
 
