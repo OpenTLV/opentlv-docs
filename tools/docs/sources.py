@@ -3,6 +3,7 @@
 
 """Explicit Git inputs shared by local assembly, CI and publication."""
 
+import importlib.util
 import json
 import logging
 import os
@@ -15,6 +16,10 @@ from mkdocs.exceptions import PluginError
 
 log = logging.getLogger("mkdocs.hooks.sources")
 MANIFEST = "docs-sources.json"
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_compatibility", Path(__file__).with_name("compatibility.py"))
+compatibility = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(compatibility)
 
 
 def git(root, *args):
@@ -67,7 +72,20 @@ def manifest(portal):
                 or url.fragment or url.username or url.password
                 or (url.scheme == "https" and not url.netloc)):
             raise PluginError(f"Invalid repository URL for {identifier}.")
-        revision_ref(item.get("revision"))
+        if "compatibility_result" in item:
+            raise PluginError("Compatibility results belong to the generated source lock.")
+        if "compatibility" in item:
+            if identifier == "core" or "revision" in item:
+                raise PluginError("Only non-Core sources may select compatibility instead of an explicit revision.")
+            compatibility.validate_settings(item["compatibility"])
+            examples = item.get("examples", {})
+            languages = examples.get("languages") if isinstance(examples, dict) else None
+            if (not isinstance(languages, list) or not languages
+                    or not all(isinstance(lang, str) and lang in ("c", "cpp", "rust", "python", "lua", "go") for lang in languages)
+                    or len(set(languages)) != len(languages) or "results" in examples):
+                raise PluginError("Compatibility selection requires explicit example languages and no inline results.")
+        else:
+            revision_ref(item.get("revision"))
         relative_path(item.get("docs_path"))
         relative_path(item.get("mount"), empty=identifier == "core")
         if type(item.get("required")) is not bool:
@@ -130,20 +148,37 @@ def resolve(portal):
         if [s.get("id") for s in locked] != [s["id"] for s in definitions]:
             raise PluginError("Source lock has a different component set.")
     result = []
-    for index, definition in enumerate(definitions):
+    # Resolve Core first even when it is not first in the manifest. Return the
+    # original order so source locks and publication retain their existing shape.
+    for index in sorted(range(len(definitions)), key=lambda i: definitions[i]["id"] != "core"):
+        definition = definitions[index]
         item = dict(definition)
-        revision = (os.environ.get("OPENTLV_CORE_REF", item["revision"])
-                    if item["id"] == "core" else item["revision"])
         expected = locked[index] if locked else None
+        automatic = "compatibility" in item
+        revision = (os.environ.get("OPENTLV_CORE_REF", item.get("revision"))
+                    if item["id"] == "core" else item.get("revision"))
         if expected:
             for key in definition:
                 if key != "revision" and expected.get(key) != definition[key]:
                     raise PluginError("Source lock configuration mismatch.")
-            if item["id"] != "core" and expected["revision"] != revision:
+            if item["id"] != "core" and not automatic and expected["revision"] != revision:
                 raise PluginError("Source lock revision mismatch.")
             if os.environ.get("OPENTLV_CORE_REF") and item["id"] == "core" and revision != expected["revision"]:
                 raise PluginError("Core override conflicts with the source lock.")
-            revision = expected["revision"]
+            revision = expected.get("revision")
+        if automatic:
+            core = next(source for _, source in result if source["id"] == "core")
+            item = compatible_source(portal, item, core, expected=expected)
+            if item["compatibility_result"]["status"] != "verified":
+                if os.environ.get(f"OPENTLV_{item['id'].upper()}_DIR"):
+                    raise PluginError(f"{item['id']}: explicit directory override conflicts with compatibility omission.")
+                if expected and (expected.get("included") is not False or expected.get("reason") != item["reason"]):
+                    raise PluginError("Source lock compatibility omission mismatch.")
+                result.append((None, dict(expected) if expected else item))
+                continue
+            revision = item["revision"]
+            if expected and expected.get("revision") != revision:
+                raise PluginError("Source lock compatibility revision mismatch.")
         item.update(revision=revision, local=local, dirty=False)
         ref = revision_ref(revision)
         root = checkout_root(portal, item)
@@ -177,7 +212,35 @@ def resolve(portal):
             raise PluginError("Core documentation requires docs/index.md.")
         item.update(commit=commit, included=True, dirty=dirty)
         result.append((root, item))
-    return result
+    by_id = {item["id"]: (root, item) for root, item in result}
+    return [by_id[item["id"]] for item in definitions]
+
+
+def compatible_source(portal, item, core, *, expected=None, download=False):
+    """Select once, then preserve the exact evidence in the publication source set."""
+    settings = item["compatibility"]
+    if expected is not None:
+        evidence = expected.get("compatibility_result")
+        if not isinstance(evidence, dict):
+            raise PluginError("Source lock is missing compatibility evidence.")
+        record = evidence.get("record")
+        feed = {"version": 1, "records": [record] if record is not None else []}
+    else:
+        feed = compatibility.load(portal, settings, allow_download=download)
+    selection = compatibility.select(feed, settings, item["repository"], core["repository"], core["commit"])
+    if expected is not None and selection != evidence:
+        raise PluginError("Source lock compatibility evidence does not match the selected sources.")
+    item = dict(item, compatibility_result=selection)
+    if selection["status"] == "verified":
+        item["revision"] = selection["record"]["component"]["commit"]
+        if expected and expected.get("included") and expected.get("commit") != item["revision"]:
+            raise PluginError("Source lock component commit differs from compatibility evidence.")
+    else:
+        reason = "no verified compatible release: " + selection["status"]
+        if item["required"]:
+            raise PluginError(f"{item['id']}: {reason}")
+        item.update(included=False, reason=reason, local=os.environ.get("OPENTLV_DOCS_LOCAL") == "1", dirty=False)
+    return item
 
 
 def fetch(portal, core_revision):
@@ -188,10 +251,16 @@ def fetch(portal, core_revision):
         raise PluginError("Managed sources must stay inside the portal build directory.")
     base.mkdir(parents=True, exist_ok=True)
     selected = []
-    for definition in definitions:
+    for definition in sorted(definitions, key=lambda item: item["id"] != "core"):
         item = dict(definition)
         if item["id"] == "core":
             item["revision"] = core_revision
+        elif "compatibility" in item:
+            core = next(source for source in selected if source["id"] == "core")
+            item = compatible_source(portal, item, core, download=True)
+            if item["compatibility_result"]["status"] != "verified":
+                selected.append(item)
+                continue
         ref = revision_ref(item["revision"])
         root = base / item["id"]
         # Refuse stale checkouts rather than reset user data or reuse stale tags.
@@ -209,7 +278,8 @@ def fetch(portal, core_revision):
             git(root, "checkout", "--detach", commit)
             item.update(included=True, commit=commit, local=False, dirty=False)
         selected.append(item)
-    lock = {"manifest": definitions, "sources": selected}
+    by_id = {item["id"]: item for item in selected}
+    lock = {"manifest": definitions, "sources": [by_id[item["id"]] for item in definitions]}
     path = portal / "build/sources.lock.json"
     path.write_text(json.dumps(lock, indent=2) + "\n", encoding="utf-8")
     return lock

@@ -144,9 +144,10 @@ supported example is shown with **Verified Core: not established**. A selected
 Core commit, a declared dependency, a version label, or successful documentation
 generation does not prove a test pass.
 
-The optional `examples.results` list is a narrow input for already selected
-external results. Each object contains exactly these fields (replace the
-illustrative commits and evidence URL with the actual test record):
+For explicitly pinned components, the optional `examples.results` list is a
+narrow input for already selected external results. Each object contains exactly
+these fields (replace the illustrative commits and evidence URL with the actual
+test record):
 
 ```json
 {
@@ -174,10 +175,9 @@ comparison. An existing release cannot silently acquire different evidence.
 
 The portal validates and presents supplied evidence; it does not authenticate
 the producer, fetch the evidence URL, or execute binding tests. Use immutable
-published test records. Importing compatibility feeds and choosing the latest
-verified binding release belong to [#7](https://github.com/OpenTLV/opentlv-docs/issues/7).
-There is no automatic compatibility selection in #5. Keep executable-source
-tests in the owning repositories and reuse their existing example checks.
+published test records. For automatic release selection and stricter example
+verification, configure a [compatibility feed](#compatibility-based-release-selection).
+Keep executable-source tests in the owning repositories and reuse their existing example checks.
 Core's native quick starts already participate in its source synchronization
 and build/execution checks.
 
@@ -272,8 +272,11 @@ input artifacts; embedded HTML has its guide links adapted for the site.
 
 ### Revision selection and local changes
 
-`docs-sources.json` pins every component independently, including the default Core commit. Update it deliberately together
-with any required navigation changes. `OPENTLV_CORE_REF` can override it with a
+`docs-sources.json` selects every component independently, including the explicitly
+pinned Core commit. Components use either an explicit revision or the
+[compatibility selection](#compatibility-based-release-selection) described below.
+Update the manifest deliberately together with any required navigation changes.
+`OPENTLV_CORE_REF` can override the Core revision with a
 full 40-character commit SHA or a tag name (including annotated tags). Branches
 and abbreviated SHAs are rejected. Check out that revision in the external
 repository before building; the portal records a tag's resolved SHA. Published
@@ -311,7 +314,8 @@ or Doxygen versions; dependency ranges are retained from the existing portal.
 
 `docs-sources.json` is the single source manifest (schema version `1`). Core is
 required and retains its existing root URLs and Doxygen integration. Additional
-components choose their own tags or full commit SHAs; they do not need matching
+components choose their own tags or full commit SHAs, or select a verified
+release from a compatibility feed; they do not need matching
 Core version numbers. The published portal version still follows the selected
 Core release tag, while its metadata records the independently selected inputs.
 
@@ -387,12 +391,213 @@ accepts `INPUT_CHANNEL` and `INPUT_CORE_REF`, matching the CI manual inputs.
 
 Fetching uses standard `git clone --no-checkout` and detached checkout of the
 resolved SHA. It refuses existing managed checkout directories; it never resets
-or deletes them. The lock records the manifest, exact selected commits and
-omitted components. All later build steps use the lock and reject changed
-configuration or checkout HEADs. Preserve the lock and the published
+or deletes them. The lock records the manifest, exact selected commits, imported
+compatibility results and omitted components. All later build steps use the lock
+and reject changed configuration or checkout HEADs. Preserve the lock and the published
 `source-revision.json` when auditing a build. Unset `OPENTLV_DOCS_LOCK` before
 switching to local preview. No byte-identical rendering across different Python
 or Doxygen versions is claimed.
+
+### Compatibility-based release selection
+
+A non-Core source can replace `revision` with `compatibility`. Core always has
+an explicit revision; the importer resolves it before selecting any binding.
+The default manifest remains Core-only. No live producer or binding repository
+is enabled by this change.
+
+For example, add this source entry, using a real repository, catalog, navigation
+and feed digest in place of the illustrative values:
+
+```json
+{
+  "id": "python",
+  "repository": "https://github.com/OpenTLV/opentlv-python",
+  "compatibility": {
+    "feed": "compatibility/python.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "platform": "linux-x86_64",
+    "configuration": "default"
+  },
+  "examples": {
+    "manifest": "docs-examples.json",
+    "languages": ["python"]
+  },
+  "docs_path": "docs",
+  "mount": "bindings/python",
+  "required": false,
+  "navigation": {
+    "title": "Python",
+    "section": ["Language APIs"],
+    "items": [{"Overview": "index.md"}]
+  }
+}
+```
+
+`revision` and `compatibility` are mutually exclusive. Automatic selection
+requires a nonempty explicit `examples.languages` list and forbids inline
+`examples.results`. Its `feed` is either an HTTPS URL or a contained POSIX path
+relative to this portal, such as the local JSON file above. The file must be
+UTF-8 JSON, at most 16 MiB, without symlinks. `sha256` is the lowercase digest of
+the exact feed bytes, including whitespace and line endings. Calculate it after
+writing the local copy:
+
+```powershell
+(Get-FileHash compatibility/python.json -Algorithm SHA256).Hash.ToLowerInvariant()
+```
+
+or `sha256sum compatibility/python.json` in a POSIX shell. Copy that digest into
+the manifest; the all-zero value in the example is only a placeholder.
+
+The external producer supplies schema version `1`:
+
+```json
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "python-2.3.0-core-0.7.1-linux-default-run-42",
+      "component": {
+        "repository": "https://github.com/OpenTLV/opentlv-python",
+        "version": "2.3.0",
+        "commit": "1111111111111111111111111111111111111111"
+      },
+      "declared_core": ">=0.7.0 <0.8.0",
+      "core": {
+        "repository": "https://github.com/OpenTLV/opentlv",
+        "version": "0.7.1",
+        "commit": "2222222222222222222222222222222222222222"
+      },
+      "platform": "linux-x86_64",
+      "configuration": "default",
+      "build": "passed",
+      "test": "passed",
+      "evidence": "https://example.invalid/results/immutable-run-42",
+      "features": [
+        {
+          "id": "fixed.roundtrip",
+          "support": "supported",
+          "examples": [
+            {
+              "language": "python",
+              "path": "examples/quick_start.py",
+              "result": "passed"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Every object has exactly the fields shown. `records`, `features` and `examples`
+may be empty. Record IDs are unique immutable identifiers. Commits are full
+lowercase SHAs; repository URLs identify the tested owners, independently of
+the version labels. The producer publishes records for component releases:
+`component.version` identifies a released version, not a projected version from
+a development branch. The importer consumes that release identity without
+querying a package registry or GitHub release status.
+`declared_core` records the component's declared dependency
+as text. The importer does not evaluate that range or use it as proof of
+compatibility. `core` records what was actually tested. `platform` and
+`configuration` are exact, case-sensitive scope labels shared with the manifest.
+`evidence` is an HTTPS URL identifying the producer's result.
+
+`build`, `test` and each example's `result` accept `passed`, `failed` or
+`untested`. Passed tests require a passed build. Feature `support` accepts
+`supported`, `unsupported` or `unknown`; passed examples require a supported
+feature. A feature ID matches the Core slot and component catalog, and the
+example path is relative to the component repository root. Missing feature or
+example entries establish neither support nor verification. Duplicate scopes,
+contradictory release commits, duplicate fields and invalid records fail import,
+including for optional components.
+
+Schema version 1 permits at most one example per language within each feature.
+A second entry with the same language is rejected even when its path differs.
+This matches the owner catalog's feature/language identity. Multiple examples
+of one feature in the same language would require extending both contracts and
+the portal's selection rules; changing only the duplicate check is insufficient.
+
+Selection first matches the component repository, actual Core repository and
+commit, platform and configuration. It then chooses the greatest stable
+component version whose build and tests both passed. Versions are compared as
+numeric `X.Y.Z`, so `2.10.0` sorts after `2.9.0`; an optional `v` prefix and SemVer
+build metadata are accepted, while prereleases are excluded. Build metadata
+does not change precedence. Different commits claiming the same release are
+rejected. If a newer release failed or was not tested, an older verified release
+can be selected. This chooses one binding commit for the entire build, before
+its checkout, documentation or examples are loaded. If the selected owner catalog
+declares `component_version`, it must agree with the feed's selected version
+(with or without a leading `v`); a mismatch fails strict assembly. Local preview
+can display an edited catalog version alongside the feed-selected release,
+while withholding its example code and verified claim.
+
+An optional binding with no verified release is omitted, with its unavailable
+status and verification scope retained in metadata and example tabs. A required
+binding with no verified release fails preparation. No matching result, an
+untested combination and a failed verification remain distinct states. A
+successful general build/test record allows selecting the binding, but its
+example code is shown only when the feature is explicitly supported and that
+language and exact catalog path have their own passed result. Missing evidence,
+failed or untested examples, unknown support and unsupported features withhold
+code and explain why. The tab identifies the selected binding release and commit,
+declared Core dependency, actually verified Core version and commit, platform,
+configuration and evidence. Local preview never presents verified code from an
+automatically selected binding. Explicitly pinned sources retain the
+[manual evidence behavior](#verification-displayed-with-examples) described above.
+
+Use the `ci.py select`, `ci.py fetch`, `OPENTLV_DOCS_SOURCE_ROOT` and
+`OPENTLV_DOCS_LOCK` workflow from [multi-repository assembly](#multi-repository-assembly)
+after configuring the feed. `fetch` imports compatibility data before checking
+out the selected binding commit. HTTPS feeds are downloaded only by this
+explicit preparation command and cached at `build/compatibility/<sha256>.json`.
+An unlocked build reads the local feed or verified cache; it never downloads a
+feed itself. A locked build uses the recorded selection without needing the
+original feed or cache. Remote cache bytes are checked against the pinned digest
+when imported, and a changed manifest requires a new selection and lock.
+
+The lock and `source-revision.json` retain the feed identity, digest, full selected
+record and selection scope in `compatibility_result`, including the reason when
+no verified release is available. Preserve these with published artifacts.
+Updating a feed, its digest, selected binding or verification result cannot
+silently replace an existing Core documentation release. Rebuild it from the
+preserved manifest, lock and checkouts; use a new release for changed inputs.
+
+Checksums establish input integrity, not producer authenticity. The portal does
+not authenticate the producer, follow evidence links, run an ecosystem test
+suite or update component dependencies. Producing and publishing the records
+belongs to the owning test infrastructure; no test runner is introduced here.
+
+#### Production feed activation
+
+Use results published by a trusted CI workflow maintained by the component or
+ecosystem owners. Review the producing workflow and its run evidence before
+trusting a feed. Add or update the feed location and SHA-256 digest through a
+reviewed pull request in this repository, linking the producing CI run and its
+immutable result artifact. Documentation builds must not automatically refresh
+the digest from a moving feed URL. These are operational requirements; the
+importer does not enforce producer trust or pull-request review.
+
+Before enabling the first production binding source, validate the complete
+flow with an actual released binding and its published compatibility results:
+
+1. Review the producer, exact component and Core commits, platform,
+   configuration, feature coverage and individual example results.
+2. In a fresh checkout, import the pinned feed with `ci.py fetch` and run the
+   source checks and strict build using the generated source lock.
+3. Check the selected release, displayed versions, evidence links and example
+   availability against the CI record, including missing, failed or untested
+   results where available.
+4. Rebuild with the preserved lock without access to the original feed and
+   confirm that the same component and evidence remain selected. Record the
+   outcome in the activation pull request before publishing the binding source.
+
+The automated integration tests use controlled feeds and disposable Git
+repositories. They exercise import, selection, rendering, lock replay and
+publication behavior, but do not establish that a production binding's CI
+producer emits correct records. The real Core strict build likewise validates
+the Core-only portal. A production feed and real binding end-to-end validation
+are still required before activating that integration.
 
 ### Links between components
 
@@ -531,8 +736,9 @@ prerelease tags cannot label a stable release. The resolved Core SHA is recorded
 in each version's `source-revision.json`. Release directories use the full
 `X.Y.Z`, retaining patch releases independently. Rebuilding the same version is
 allowed only for the same complete source set: repositories, revisions, SHAs,
-mounts, navigation and optional inclusion state. A moved component tag or a
-newly available optional repository cannot silently replace a published release.
+mounts, navigation, compatibility evidence and optional inclusion state. A moved
+component tag, changed feed or newly available optional repository cannot silently
+replace a published release.
 Older publications without multi-source metadata cannot be overwritten by the
 new assembler; publish a new version instead.
 
@@ -582,11 +788,13 @@ The standalone build, API integration, and CI/publication infrastructure impleme
 [#3](https://github.com/OpenTLV/opentlv-docs/issues/3), and
 [#4](https://github.com/OpenTLV/opentlv-docs/issues/4). Language example rendering
 implements [#5](https://github.com/OpenTLV/opentlv-docs/issues/5), with the native
-slot activation described above. The configured site URL is
+slot activation described above. External compatibility import and verified
+binding release selection implement [#7](https://github.com/OpenTLV/opentlv-docs/issues/7).
+The configured site URL is
 the intended GitHub Pages destination; deployment still requires the setup above.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- Compatibility feed integration, verified release selection, and ecosystem updates.
+- External compatibility test producers and automated ecosystem updates.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of
