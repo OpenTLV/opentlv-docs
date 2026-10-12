@@ -157,7 +157,21 @@ def on_page_markdown(markdown, page, config, files):
         target = urlunsplit(("", "", f"{repo_url}/{kind}/{ref}/{quote(repo_path, safe='/')}", parts.query, parts.fragment))
         return f"{prefix}{target}{suffix}"
 
-    return LINK.sub(rewrite, markdown)
+    # Imported example sources can themselves contain Markdown-looking text.
+    # Never adapt links inside fenced source code.
+    output, fence = [], None
+    for line in markdown.splitlines(keepends=True):
+        match = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line.rstrip("\r\n"))
+        if fence:
+            if match and match[1][0] == fence[0] and len(match[1]) >= len(fence) and not match[2].strip():
+                fence = None
+            output.append(line)
+        elif match:
+            fence = match[1]
+            output.append(line)
+        else:
+            output.append(LINK.sub(rewrite, line))
+    return "".join(output)
 
 
 def on_page_content(content, page, config, files):
@@ -193,4 +207,8 @@ def on_page_content(content, page, config, files):
                 return prefix + html.escape(url, quote=True) + suffix
         return match.group(0)
 
-    return re.sub(r'(\b(?:href|src)\s*=\s*["\x27])([^"\x27]*)(["\x27])', rewrite, content, flags=re.IGNORECASE)
+    parts = re.split(r'(<pre\b[^>]*>.*?</pre>|<code\b[^>]*>.*?</code>)', content,
+                     flags=re.IGNORECASE | re.DOTALL)
+    return "".join(part if index % 2 else re.sub(
+        r'(\b(?:href|src)\s*=\s*["\x27])([^"\x27]*)(["\x27])', rewrite, part,
+        flags=re.IGNORECASE) for index, part in enumerate(parts))

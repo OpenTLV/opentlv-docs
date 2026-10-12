@@ -63,6 +63,134 @@ selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
 The explicit `ci.py fetch` command creates separate managed checkouts as described below.
 
+## Language example integration
+
+Core pages can contain a feature slot with ordinary Markdown fallback content:
+
+```markdown
+<!-- opentlv-examples: fixed.roundtrip -->
+See the native executable sources linked here when reading outside the portal.
+<!-- /opentlv-examples -->
+```
+
+Use paired, standalone markers outside code fences. Feature IDs are stable
+lowercase identifiers such as `fixed.roundtrip`; they identify one operation
+and input contract shared by every language in that group. Do not derive them
+from page filenames, line numbers or API spellings. Core owns the shared
+explanation and fallback; each component owns its executable example. Nested,
+malformed or unclosed slots fail assembly. Literal markers inside fenced code
+are preserved.
+
+Each selected checkout may supply a root `docs-examples.json`:
+
+```json
+{
+  "version": 1,
+  "component_version": "2.3.0",
+  "examples": [
+    {
+      "feature": "fixed.roundtrip",
+      "language": "python",
+      "status": "supported",
+      "path": "examples/quick_start.py"
+    },
+    {
+      "feature": "schema.validate",
+      "language": "python",
+      "status": "unsupported",
+      "reason": "This release does not expose this operation."
+    }
+  ]
+}
+```
+
+`component_version` is the owner's version label; if omitted, the selected tag
+or full commit is displayed instead. The source link always includes the exact
+resolved commit, independently of that label. A `supported` entry requires a
+UTF-8 source file relative to the repository root. An `unsupported` entry
+requires a reason and must not reference code. A missing entry says only that
+no example was supplied; it does not imply lack of API support. Supported
+languages, in tab order, are `c`, `cpp`, `rust`, `python`, `lua` and `go`.
+Labels stay `C`, `C++`, `Rust`, `Python`, `Lua` and `Go` so Material's existing
+`content.tabs.link` preference works across pages.
+
+To customize discovery, add an `examples` object to the component's entry in
+`docs-sources.json`:
+
+```json
+"examples": {
+  "manifest": "docs-examples.json",
+  "languages": ["python"],
+  "results": []
+}
+```
+
+An explicit manifest is required to exist when its repository is included;
+otherwise the conventional root manifest is optional, preserving older Core
+revisions. Explicit `languages` also lets the portal display an unavailable
+optional repository or a missing example. Without that list, languages are
+discovered from its catalog. Configure at most one provider per language.
+Duplicate feature/language entries, escaping paths, symlinks, ignored inputs
+and missing declared files fail before replacing the previous assembly.
+Local preview also permits non-ignored new files. Assembly reads complete
+source files directly; no example code is maintained in this repository.
+`source-revision.json` records catalog and source checksums in `example_inputs`.
+Live preview watches those source files as well as Markdown.
+
+### Verification displayed with examples
+
+Catalog availability is independent of compatibility evidence. By default, a
+supported example is shown with **Verified Core: not established**. A selected
+Core commit, a declared dependency, a version label, or successful documentation
+generation does not prove a test pass.
+
+The optional `examples.results` list is a narrow input for already selected
+external results. Each object contains exactly these fields (replace the
+illustrative commits and evidence URL with the actual test record):
+
+```json
+{
+  "feature": "fixed.roundtrip",
+  "language": "python",
+  "component_commit": "1111111111111111111111111111111111111111",
+  "core_commit": "2222222222222222222222222222222222222222",
+  "core_version": "0.7.1",
+  "result": "passed",
+  "evidence": "https://example.invalid/results/immutable-result-id",
+  "platform": "linux-x86_64",
+  "configuration": "default"
+}
+```
+
+A passed record is displayed as verified only when both full SHAs match the
+selected checkouts and local preview is disabled. The tab shows the verified
+Core version and commit, platform, configuration and evidence link. Matching
+`failed` or `untested` records withhold code and explain the result. Missing or
+stale records leave code explicitly unverified; unsupported entries never show
+code. Select one result per feature/language, including one explicit platform
+and configuration; the portal does not aggregate results into a broader claim.
+These records are included in the existing source lock and release source-set
+comparison. An existing release cannot silently acquire different evidence.
+
+The portal validates and presents supplied evidence; it does not authenticate
+the producer, fetch the evidence URL, or execute binding tests. Use immutable
+published test records. Importing compatibility feeds and choosing the latest
+verified binding release belong to [#7](https://github.com/OpenTLV/opentlv-docs/issues/7).
+There is no automatic compatibility selection in #5. Keep executable-source
+tests in the owning repositories and reuse their existing example checks.
+Core's native quick starts already participate in its source synchronization
+and build/execution checks.
+
+### Enabling the first native slot
+
+Core's companion change adds `fixed.roundtrip` to its catalog and example guide.
+Preview it with the sibling Core checkout and `OPENTLV_DOCS_LOCAL=1`. After that
+change is committed and merged, update the Core pin in `docs-sources.json` to
+the actual merged SHA. The current immutable pin is deliberately retained until
+then; older selected Core revisions still build normally. Bindings can opt in
+independently by adding their catalog and a portal source entry. Without binding
+repositories, Core examples and ordinary documentation remain usable.
+
 ## Generate or consume API references
 
 The MkDocs build automatically configures the selected external Core checkout
@@ -452,11 +580,13 @@ The standalone build, API integration, and CI/publication infrastructure impleme
 [#1](https://github.com/OpenTLV/opentlv-docs/issues/1),
 [#2](https://github.com/OpenTLV/opentlv-docs/issues/2),
 [#3](https://github.com/OpenTLV/opentlv-docs/issues/3), and
-[#4](https://github.com/OpenTLV/opentlv-docs/issues/4). The configured site URL is
+[#4](https://github.com/OpenTLV/opentlv-docs/issues/4). Language example rendering
+implements [#5](https://github.com/OpenTLV/opentlv-docs/issues/5), with the native
+slot activation described above. The configured site URL is
 the intended GitHub Pages destination; deployment still requires the setup above.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- Language example integration, compatibility metadata, and ecosystem updates.
+- Compatibility feed integration, verified release selection, and ecosystem updates.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of

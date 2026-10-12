@@ -17,6 +17,10 @@ from mkdocs.exceptions import PluginError
 _spec = importlib.util.spec_from_file_location("opentlv_docs_sources", Path(__file__).with_name("sources.py"))
 sources = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(sources)
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_examples", Path(__file__).with_name("examples.py"))
+examples = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(examples)
 git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
@@ -133,13 +137,23 @@ def assemble(portal, selected=None):
             raise PluginError(f"Documentation collision with generated output: {name}")
     config_file = portal / "mkdocs.yml"
     nav = navigation(yaml.safe_load(config_file.read_text(encoding="utf-8")).get("nav", []), selected) if config_file.exists() else []
+    catalog = examples.Catalog(selected, git)
+    rendered = {}
+    for name, path in inputs.items():
+        if name.endswith(".md"):
+            original = path.read_text(encoding="utf-8")
+            if "<!-- opentlv-examples:" in original or examples.END in original:
+                rendered[name] = catalog.transform(original)
     output = reset_output(portal)
     docs = output / "docs"
     for name, path in inputs.items():
         target = docs / name
         target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(path, target)
-    metadata = dict(source, sources=[item for _, item in selected])
+        if name in rendered:
+            target.write_text(rendered[name], encoding="utf-8", newline="\n")
+        else:
+            shutil.copyfile(path, target)
+    metadata = dict(source, sources=[item for _, item in selected], example_inputs=catalog.inputs)
     (output / "source-revision.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     (output / "owners.json").write_text(json.dumps(owners, indent=2) + "\n", encoding="utf-8")
     (output / "navigation.json").write_text(json.dumps({"nav": nav}, indent=2) + "\n", encoding="utf-8")
@@ -160,6 +174,10 @@ def on_config(config):
     for checkout, item in selected:
         if checkout:
             config.watch.append(str(checkout / item["docs_path"]))
+    catalog = examples.Catalog(selected, git)
+    checkouts = {item["id"]: checkout for checkout, item in selected}
+    for item in catalog.inputs:
+        config.watch.append(str(checkouts[item["source"]] / item["path"]))
     config.extra["base_navigation"] = copy.deepcopy(config.nav)
     for name in ("tlv/include", "tlv/resources", "tlv++/include", "tools/docs", "cmake", "CMakeLists.txt"):
         if (root / name).exists():
