@@ -44,6 +44,14 @@ def verify_site(site, selection):
             or api.get("commit") != selection["commit"]
             or api.get("local") is not False or api.get("dirty") is not False):
         raise ValueError("Publication requires clean site and API metadata for the selected Core commit.")
+    selected = selection["sources"]
+    if source.get("sources") != selected:
+        raise ValueError("Publication source set differs from the validated selection.")
+    for item in selected:
+        if (item.get("local") is not False or item.get("dirty") is not False
+                or (item.get("included") and not re.fullmatch(r"[0-9a-f]{40}", item.get("commit", "")))
+                or (item.get("required") and not item.get("included"))):
+            raise ValueError("Publication requires a clean, immutable source set.")
 
 
 def prepare(portal, selection):
@@ -56,8 +64,12 @@ def prepare(portal, selection):
             raise ValueError("Release version must match the selected Core release tag.")
     elif channel != "development" or version != "latest":
         raise ValueError("Development publication must use latest.")
-    env = dict(os.environ, OPENTLV_DOCS_PUBLISH="1", OPENTLV_DOCS_CHANNEL=channel,
-               OPENTLV_CORE_REF=selection["commit"])
+    env = dict(os.environ, OPENTLV_DOCS_PUBLISH="1", OPENTLV_DOCS_CHANNEL=channel)
+    lock_path = portal / "build/sources.lock.json"
+    lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    if lock.get("sources") != selection["sources"]:
+        raise ValueError("Publication source lock differs from the validated selection.")
+    env["OPENTLV_DOCS_LOCK"] = str(lock_path)
     if env.get("OPENTLV_DOCS_LOCAL") == "1":
         raise ValueError("Local preview cannot be published.")
     # Errors contacting the remote must never be mistaken for a first deployment.
@@ -74,6 +86,8 @@ def prepare(portal, selection):
         if (previous.get("commit") != selection["commit"]
                 or previous.get("repository") != "https://github.com/" + selection["repository"]):
             raise ValueError("An existing release cannot be replaced with a different Core source.")
+        if previous.get("sources") != selection.get("sources"):
+            raise ValueError("An existing release cannot be replaced with a different source set.")
     aliases = release_aliases(version, versions) if channel == "release" else []
     mike = [sys.executable, "-c", "from mike.driver import main; raise SystemExit(main())"]
     # Copy aliases include JSON, API assets and all other non-HTML files too.

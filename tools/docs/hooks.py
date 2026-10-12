@@ -12,6 +12,7 @@ The WebAssembly module used by the playground is added under playground/wasm/.
 """
 
 import logging
+import html
 import importlib.util
 import json
 import os
@@ -92,7 +93,7 @@ def on_files(files, config):
 
 
 def on_post_build(config):
-    api.validate_links(Path(config.site_dir).resolve())
+    api.validate_links(Path(config.site_dir).resolve(), all_links=True)
 
 
 def add_wasm_files(files, config):
@@ -119,14 +120,21 @@ def add_wasm_files(files, config):
 
 
 def on_page_markdown(markdown, page, config, files):
-    page_dir = posixpath.dirname(page.file.src_uri)
     portal = Path(config.config_file_path).resolve().parent
     portal_owned = (portal / "docs" / page.file.src_uri).is_file()
     source = config.extra["core_source"]
     root = portal if portal_owned else Path(config.extra["core_checkout"])
+    owner_path = portal / "build/assembled/owners.json"
+    owner = json.loads(owner_path.read_text(encoding="utf-8")).get(page.file.src_uri) if owner_path.exists() else None
+    repo_path = "docs/" + page.file.src_uri
+    if isinstance(owner, dict):
+        source = next(item for item in config.extra["core_source"]["sources"] if item["id"] == owner["id"])
+        root, repo_path = Path(owner["root"]), owner["path"]
+    docs_path = "docs" if portal_owned else source.get("docs_path", "docs")
+    page_dir = posixpath.dirname(posixpath.relpath(repo_path, docs_path))
     repo_url = config.repo_url.rstrip("/") if portal_owned else source["repository"].rstrip("/")
     ref = "main" if portal_owned else source["commit"]
-    page.edit_url = f"{repo_url}/edit/{ref}/docs/{quote(page.file.src_uri, safe='/')}"
+    page.edit_url = f"{repo_url}/edit/{ref}/{quote(repo_path, safe='/')}"
 
     def rewrite(match):
         prefix, target, suffix = match.groups()
@@ -135,12 +143,12 @@ def on_page_markdown(markdown, page, config, files):
         parts = urlsplit(target)
         path = unquote(parts.path)
         resolved = posixpath.normpath(posixpath.join(page_dir, path))
-        if resolved == "README.md":
+        if resolved == "README.md" and source.get("id", "core") == "core":
             target = urlunsplit(("", "", posixpath.relpath('index.md', page_dir or '.'), parts.query, parts.fragment))
             return f"{prefix}{target}{suffix}"
         if resolved != ".." and not resolved.startswith("../"):
             return match.group(0)
-        repo_path = posixpath.normpath(posixpath.join("docs", resolved))
+        repo_path = posixpath.normpath(posixpath.join(docs_path, resolved))
         local_path = root / repo_path
         if not local_path.resolve().is_relative_to(root) or not local_path.exists():
             # A warning fails the strict build, like a broken link inside docs/.
@@ -150,3 +158,39 @@ def on_page_markdown(markdown, page, config, files):
         return f"{prefix}{target}{suffix}"
 
     return LINK.sub(rewrite, markdown)
+
+
+def on_page_content(content, page, config, files):
+    """Map revision-qualified repository documentation links after Markdown parsing.
+
+    This covers inline/reference links and HTML links without rewriting examples
+    inside code blocks. Unrelated external links keep their original targets.
+    """
+    def rewrite(match):
+        prefix, encoded, suffix = match.groups()
+        target = html.unescape(encoded)
+        parts = urlsplit(target)
+        path = unquote(urlunsplit((parts.scheme, parts.netloc, parts.path, "", "")))
+        for source in config.extra["core_source"]["sources"]:
+            repository = source["repository"].removesuffix(".git").rstrip("/")
+            for revision in {source["revision"], source.get("commit", source["revision"])}:
+                base = f"{repository}/blob/{revision}/{source['docs_path']}/"
+                if not path.startswith(base):
+                    continue
+                if not source["included"]:
+                    # Missing optional components remain usable external links.
+                    return match.group(0)
+                relative = path[len(base):]
+                if source["id"] == "core" and relative == "README.md":
+                    relative = "index.md"
+                uri = posixpath.normpath(posixpath.join(source["mount"], relative))
+                destination = files.get_file_from_path(uri)
+                if destination is None:
+                    raise PluginError(f"Cross-repository link has no assembled target: {target}")
+                from mkdocs.utils import get_relative_url
+                url = get_relative_url(destination.url, page.file.url)
+                url = urlunsplit(("", "", url, parts.query, parts.fragment))
+                return prefix + html.escape(url, quote=True) + suffix
+        return match.group(0)
+
+    return re.sub(r'(\b(?:href|src)\s*=\s*["\x27])([^"\x27]*)(["\x27])', rewrite, content, flags=re.IGNORECASE)

@@ -92,10 +92,29 @@ class PublicationTests(unittest.TestCase):
         metadata = {"repository": "https://github.com/OpenTLV/opentlv", "commit": commit,
                     "local": False, "dirty": False,
                     "api": {"commit": commit, "local": False, "dirty": False}}
+        sources = [{"id": "core", "repository": metadata["repository"], "revision": self.selection["revision"],
+                    "commit": commit, "required": True, "included": True, "local": False, "dirty": False}]
+        self.selection["sources"] = sources
+        metadata["sources"] = sources
+        self.write("build/sources.lock.json", json.dumps({"sources": sources}))
         self.write("docs/source-revision.json", json.dumps(metadata))
 
     def prepare(self):
         return publication.prepare(self.portal, self.selection)
+
+    def add_component(self, included=True, commit="c" * 40):
+        item = {"id": "python", "repository": "https://github.com/OpenTLV/python",
+                "revision": "v2", "required": False, "included": included,
+                "local": False, "dirty": False}
+        if included:
+            item["commit"] = commit
+        else:
+            item["reason"] = "repository unavailable"
+        self.selection["sources"].append(item)
+        metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+        metadata["sources"] = self.selection["sources"]
+        self.write("docs/source-revision.json", json.dumps(metadata))
+        self.write("build/sources.lock.json", json.dumps({"sources": self.selection["sources"]}))
 
     def remote_head(self):
         return self.git("ls-remote", "origin", "refs/heads/gh-pages")
@@ -176,6 +195,38 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "different Core source"):
             self.prepare()
         self.assertEqual(self.remote_head(), before)
+
+    def test_existing_release_locks_component_commit_and_inclusion(self):
+        self.set_selection("1.0.0")
+        self.add_component()
+        self.prepare()
+        self.deploy_bundle()
+        before = self.remote_head()
+        for included, commit in ((True, "d" * 40), (False, "c" * 40)):
+            self.fresh_checkout()
+            self.set_selection("1.0.0")
+            self.add_component(included, commit)
+            with self.assertRaisesRegex(ValueError, "different source set"):
+                self.prepare()
+            self.assertEqual(self.remote_head(), before)
+        self.fresh_checkout()
+        self.set_selection("1.0.0")
+        self.add_component()
+        self.prepare()  # The identical complete source set remains rebuildable.
+
+    def test_component_metadata_and_lock_cannot_disagree_with_selection(self):
+        self.add_component()
+        self.selection["sources"][1]["commit"] = "d" * 40
+        with self.assertRaisesRegex(ValueError, "source lock differs"):
+            self.prepare()
+        with self.assertRaisesRegex(ValueError, "source set differs"):
+            publication.verify_site(self.portal / "docs", self.selection)
+        self.selection["sources"][1]["dirty"] = True
+        metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+        metadata["sources"] = self.selection["sources"]
+        self.write("docs/source-revision.json", json.dumps(metadata))
+        with self.assertRaisesRegex(ValueError, "clean, immutable source set"):
+            publication.verify_site(self.portal / "docs", self.selection)
 
     def test_concurrent_remote_update_rejects_stale_publication(self):
         self.prepare()

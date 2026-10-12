@@ -71,8 +71,9 @@ add_dependencies(cxx-api-docs c-api-docs)
         self.git("tag", "v1")
         self.git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
                  "-c", "tag.gpgsign=false", "tag", "-a", "v1-annotated", "-m", "Fixture release")
-        self.write(self.portal / "core-source.json", json.dumps({
-            "repository": "https://github.com/OpenTLV/opentlv", "revision": self.sha,
+        self.write(self.portal / "docs-sources.json", json.dumps({
+            "version": 1, "sources": [{"id": "core", "docs_path": "docs", "mount": "", "required": True,
+            "repository": "https://github.com/OpenTLV/opentlv", "revision": self.sha}],
         }))
         self.write(self.portal / "docs/assets/README.md", "# Assets\n\n[License](../../LICENSE)\n")
         self.write(self.portal / "docs/assets/logo-mark.svg", "<svg/>")
