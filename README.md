@@ -512,6 +512,12 @@ example entries establish neither support nor verification. Duplicate scopes,
 contradictory release commits, duplicate fields and invalid records fail import,
 including for optional components.
 
+Schema version 1 permits at most one example per language within each feature.
+A second entry with the same language is rejected even when its path differs.
+This matches the owner catalog's feature/language identity. Multiple examples
+of one feature in the same language would require extending both contracts and
+the portal's selection rules; changing only the duplicate check is insufficient.
+
 Selection first matches the component repository, actual Core repository and
 commit, platform and configuration. It then chooses the greatest stable
 component version whose build and tests both passed. Versions are compared as
@@ -561,6 +567,37 @@ Checksums establish input integrity, not producer authenticity. The portal does
 not authenticate the producer, follow evidence links, run an ecosystem test
 suite or update component dependencies. Producing and publishing the records
 belongs to the owning test infrastructure; no test runner is introduced here.
+
+#### Production feed activation
+
+Use results published by a trusted CI workflow maintained by the component or
+ecosystem owners. Review the producing workflow and its run evidence before
+trusting a feed. Add or update the feed location and SHA-256 digest through a
+reviewed pull request in this repository, linking the producing CI run and its
+immutable result artifact. Documentation builds must not automatically refresh
+the digest from a moving feed URL. These are operational requirements; the
+importer does not enforce producer trust or pull-request review.
+
+Before enabling the first production binding source, validate the complete
+flow with an actual released binding and its published compatibility results:
+
+1. Review the producer, exact component and Core commits, platform,
+   configuration, feature coverage and individual example results.
+2. In a fresh checkout, import the pinned feed with `ci.py fetch` and run the
+   source checks and strict build using the generated source lock.
+3. Check the selected release, displayed versions, evidence links and example
+   availability against the CI record, including missing, failed or untested
+   results where available.
+4. Rebuild with the preserved lock without access to the original feed and
+   confirm that the same component and evidence remain selected. Record the
+   outcome in the activation pull request before publishing the binding source.
+
+The automated integration tests use controlled feeds and disposable Git
+repositories. They exercise import, selection, rendering, lock replay and
+publication behavior, but do not establish that a production binding's CI
+producer emits correct records. The real Core strict build likewise validates
+the Core-only portal. A production feed and real binding end-to-end validation
+are still required before activating that integration.
 
 ### Links between components
 
