@@ -936,6 +936,12 @@ the proposed manifest pin. Published releases keep their
 complete source set and compatibility evidence frozen; changed inputs fail
 rather than replace an existing release.
 
+Automated proposals stage only `docs-sources.json` and JSON evidence under
+`compatibility/`. The workflow resolves matching Git paths before creating the
+PR, so Core-only updates work without a compatibility directory or JSON files.
+Unrelated files remain excluded, and no new PR is created when these selected
+files have no changes relative to the base branch.
+
 Configure `OPENTLV_DOCS_DISPATCH_TOKEN` in Core as a fine-grained PAT
 with Contents write access to `OpenTLV/opentlv-docs`, sufficient
 for repository dispatch. Core's own `GITHUB_TOKEN` cannot write across repositories.

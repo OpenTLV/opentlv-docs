@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Allow automated source update PRs without compatibility JSON files while staging only the source manifest and available compatibility evidence. (#17)
 - Link the documentation header to the main OpenTLV repository while preserving repository-specific page edit and source links. (#6)
 - Preserve verified artifact bytes when preparing version history on Windows with Git line-ending conversion enabled. (#6)
 - Include `query.mjs` in the playground distribution and reject missing, stale or modified WASM artifacts. (#6)
