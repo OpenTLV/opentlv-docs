@@ -94,14 +94,18 @@ def validate_settings(value):
 
 
 def validate_feed(data):
-    """Validate schema version 1 and reject ambiguous or contradictory evidence."""
+    """Validate release/development evidence without treating branch labels as releases."""
     _object(data, ("version", "records"), "feed")
-    if type(data["version"]) is not int or data["version"] != 1 or not isinstance(data["records"], list):
-        fail("feed requires version 1 and a records list")
+    if type(data["version"]) is not int or data["version"] not in (1, 2) or not isinstance(data["records"], list):
+        fail("feed requires version 1 or 2 and a records list")
     ids, scopes, releases, core_versions = set(), set(), {}, {}
     for record in data["records"]:
-        _object(record, ("id", "component", "declared_core", "core", "platform", "configuration",
-                         "build", "test", "evidence", "features"), "record")
+        fields = ("id", "component", "declared_core", "core", "platform", "configuration",
+                  "build", "test", "evidence", "features")
+        _object(record, fields + (("channel",) if data["version"] == 2 else ()), "record")
+        channel = record.get("channel", "release")
+        if channel not in ("release", "development"):
+            fail("record channel must be release or development")
         identifier = _plain(record["id"], "record id")
         if identifier in ids:
             fail(f"duplicate record id: {identifier}")
@@ -113,16 +117,19 @@ def validate_feed(data):
             _plain(identity["version"], f"{kind} version")
             _commit(identity["commit"])
         component, core = record["component"], record["core"]
-        version, prerelease = _version(component["version"])
-        # Prefixes and build metadata do not distinguish release precedence.
-        release_key = (component["repository"], version, prerelease)
-        if release_key in releases and releases[release_key] != component["commit"]:
-            fail("contradictory component version commits")
-        releases[release_key] = component["commit"]
-        core_key = (core["repository"], core["version"])
-        if core_key in core_versions and core_versions[core_key] != core["commit"]:
-            fail("contradictory Core version commits")
-        core_versions[core_key] = core["commit"]
+        if channel == "release":
+            version, prerelease = _version(component["version"])
+            # Prefixes and build metadata do not distinguish release precedence.
+            release_key = (component["repository"], version, prerelease)
+            if release_key in releases and releases[release_key] != component["commit"]:
+                fail("contradictory component version commits")
+            releases[release_key] = component["commit"]
+            core_key = (core["repository"], core["version"])
+            if core_key in core_versions and core_versions[core_key] != core["commit"]:
+                fail("contradictory Core version commits")
+            core_versions[core_key] = core["commit"]
+        # Development labels may repeat across commits. Only the exact component
+        # and Core SHAs identify their immutable verification scope.
         for field in ("declared_core", "platform", "configuration"):
             _plain(record[field], field)
         for field in ("build", "test"):
@@ -237,28 +244,41 @@ def load(portal, settings, allow_download=False):
     return feed
 
 
-def select(feed, settings, component_repository, core_repository, core_commit):
-    """Choose one stable version for the exact Core commit and requested scope."""
+def select(feed, settings, component_repository, core_repository, core_commit, *,
+           channel="release", component_commit=None):
+    """Choose a stable release, or evidence for an explicitly pinned development pair."""
     validate_settings(settings)
     validate_feed(feed)
     _url(component_repository, "component repository", repository=True)
     _url(core_repository, "Core repository", repository=True)
     _commit(core_commit)
+    if channel not in ("release", "development"):
+        fail("selection channel must be release or development")
+    if component_commit is not None:
+        _commit(component_commit)
+    development = channel == "development" and component_commit is not None
     candidates = [record for record in feed["records"]
                   if record["component"]["repository"] == component_repository
                   and record["core"]["repository"] == core_repository
                   and record["core"]["commit"] == core_commit
                   and record["platform"] == settings["platform"]
                   and record["configuration"] == settings["configuration"]
-                  and _version(record["component"]["version"])[1] is None]
+                  and (component_commit is None or record["component"]["commit"] == component_commit)
+                  and ((development and record.get("channel") == "development")
+                       or (record.get("channel", "release") == "release"
+                           and _version(record["component"]["version"])[1] is None))]
     passed = [record for record in candidates if record["build"] == record["test"] == "passed"]
     record = max(passed or candidates,
-                 key=lambda r: (_version(r["component"]["version"])[0], r["component"]["version"], r["id"]),
+                 key=lambda r: (r["id"] if development else
+                                (_version(r["component"]["version"])[0], r["component"]["version"], r["id"])),
                  default=None)
     status = ("verified" if passed else "missing" if record is None else
               "failed" if "failed" in (record["build"], record["test"]) else "untested")
-    return {"status": status, "feed": {"source": settings["feed"], "sha256": settings["sha256"]},
-            "core": {"repository": core_repository, "commit": core_commit,
-                     "version": record["core"]["version"] if record else None},
-            "platform": settings["platform"], "configuration": settings["configuration"],
-            "record": deepcopy(record)}
+    selection = {"status": status, "feed": {"source": settings["feed"], "sha256": settings["sha256"]},
+                 "core": {"repository": core_repository, "commit": core_commit,
+                          "version": record["core"]["version"] if record else None},
+                 "platform": settings["platform"], "configuration": settings["configuration"],
+                 "record": deepcopy(record)}
+    if feed["version"] == 2:
+        selection["schema_version"] = 2
+    return selection

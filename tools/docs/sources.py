@@ -74,9 +74,25 @@ def manifest(portal):
             raise PluginError(f"Invalid repository URL for {identifier}.")
         if "compatibility_result" in item:
             raise PluginError("Compatibility results belong to the generated source lock.")
+        if "updates" in item:
+            updates = item["updates"]
+            if (identifier == "core" or "compatibility" not in item or not isinstance(updates, dict)
+                    or not {"workflow", "asset"} <= set(updates)
+                    or set(updates) - {"workflow", "asset", "development_artifact"}
+                    or not isinstance(updates["workflow"], str)
+                    or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", updates["workflow"])
+                    or not isinstance(updates["asset"], str)
+                    or not re.fullmatch(r"[A-Za-z0-9_-][A-Za-z0-9_.-]*\.json", updates["asset"])):
+                raise PluginError("updates requires a trusted workflow and JSON asset on a compatibility source.")
+            if "development_artifact" in updates and (not isinstance(updates["development_artifact"], str)
+                    or not re.fullmatch(r"[A-Za-z0-9_-][A-Za-z0-9_.-]{0,127}", updates["development_artifact"])):
+                raise PluginError("updates.development_artifact requires an explicit artifact name.")
         if "compatibility" in item:
-            if identifier == "core" or "revision" in item:
-                raise PluginError("Only non-Core sources may select compatibility instead of an explicit revision.")
+            if identifier == "core":
+                raise PluginError("Only non-Core sources may select compatibility.")
+            if "revision" in item and (not isinstance(item["revision"], str)
+                    or not re.fullmatch(r"[0-9a-f]{40}", item["revision"])):
+                raise PluginError("A compatibility development pin must be a full lowercase commit SHA.")
             compatibility.validate_settings(item["compatibility"])
             examples = item.get("examples", {})
             languages = examples.get("languages") if isinstance(examples, dict) else None
@@ -138,10 +154,16 @@ def resolve(portal):
     local = os.environ.get("OPENTLV_DOCS_LOCAL") == "1"
     lock_path = os.environ.get("OPENTLV_DOCS_LOCK")
     locked = None
+    channel = os.environ.get("OPENTLV_DOCS_CHANNEL", "development")
     if lock_path:
         if local:
             raise PluginError("Unset OPENTLV_DOCS_LOCK for a local preview.")
         lock = json.loads(Path(lock_path).read_text(encoding="utf-8"))
+        if "channel" in lock:
+            if (lock["channel"] not in ("development", "release")
+                    or ("OPENTLV_DOCS_CHANNEL" in os.environ and channel != lock["channel"])):
+                raise PluginError("Source lock channel does not match the requested documentation channel.")
+            channel = lock["channel"]
         if lock.get("manifest") != definitions:
             raise PluginError("Source lock does not match docs-sources.json; fetch sources again.")
         locked = lock["sources"]
@@ -168,7 +190,7 @@ def resolve(portal):
             revision = expected.get("revision")
         if automatic:
             core = next(source for _, source in result if source["id"] == "core")
-            item = compatible_source(portal, item, core, expected=expected)
+            item = compatible_source(portal, item, core, expected=expected, channel=channel)
             if item["compatibility_result"]["status"] != "verified":
                 if os.environ.get(f"OPENTLV_{item['id'].upper()}_DIR"):
                     raise PluginError(f"{item['id']}: explicit directory override conflicts with compatibility omission.")
@@ -216,7 +238,7 @@ def resolve(portal):
     return [by_id[item["id"]] for item in definitions]
 
 
-def compatible_source(portal, item, core, *, expected=None, download=False):
+def compatible_source(portal, item, core, *, expected=None, download=False, channel=None):
     """Select once, then preserve the exact evidence in the publication source set."""
     settings = item["compatibility"]
     if expected is not None:
@@ -224,10 +246,13 @@ def compatible_source(portal, item, core, *, expected=None, download=False):
         if not isinstance(evidence, dict):
             raise PluginError("Source lock is missing compatibility evidence.")
         record = evidence.get("record")
-        feed = {"version": 1, "records": [record] if record is not None else []}
+        feed = {"version": evidence.get("schema_version", 1), "records": [record] if record is not None else []}
     else:
         feed = compatibility.load(portal, settings, allow_download=download)
-    selection = compatibility.select(feed, settings, item["repository"], core["repository"], core["commit"])
+    channel = channel or os.environ.get("OPENTLV_DOCS_CHANNEL", "development")
+    selection = compatibility.select(feed, settings, item["repository"], core["repository"], core["commit"],
+                                     channel=channel,
+                                     component_commit=item.get("revision") if channel == "development" else None)
     if expected is not None and selection != evidence:
         raise PluginError("Source lock compatibility evidence does not match the selected sources.")
     item = dict(item, compatibility_result=selection)
@@ -279,7 +304,8 @@ def fetch(portal, core_revision):
             item.update(included=True, commit=commit, local=False, dirty=False)
         selected.append(item)
     by_id = {item["id"]: item for item in selected}
-    lock = {"manifest": definitions, "sources": [by_id[item["id"]] for item in definitions]}
+    lock = {"manifest": definitions, "sources": [by_id[item["id"]] for item in definitions],
+            "channel": os.environ.get("OPENTLV_DOCS_CHANNEL", "development")}
     path = portal / "build/sources.lock.json"
     path.write_text(json.dumps(lock, indent=2) + "\n", encoding="utf-8")
     return lock

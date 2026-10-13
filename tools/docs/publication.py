@@ -12,6 +12,8 @@ import subprocess
 import sys
 import zipfile
 
+import wasm
+
 from ci import RELEASE
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -52,6 +54,16 @@ def verify_site(site, selection):
                 or (item.get("included") and not re.fullmatch(r"[0-9a-f]{40}", item.get("commit", "")))
                 or (item.get("required") and not item.get("included"))):
             raise ValueError("Publication requires a clean, immutable source set.")
+    if os.environ.get("OPENTLV_DOCS_REQUIRE_WASM") == "1" or "wasm" in source:
+        metadata = source.get("wasm", {})
+        if (metadata.get("commit") != selection["commit"]
+                or metadata.get("repository") != source["repository"]
+                or metadata.get("local") is not False or metadata.get("dirty") is not False):
+            raise ValueError("Publication requires WebAssembly for the exact clean Core source.")
+        directory = site / "playground/wasm"
+        verified = wasm.verify(directory, source, metadata.get("source_sha256"))
+        if metadata != dict(verified, manifest="playground/wasm/wasm-source.json"):
+            raise ValueError("Published WebAssembly provenance differs from the site metadata.")
 
 
 def prepare(portal, selection):
@@ -81,6 +93,7 @@ def prepare(portal, selection):
     elif subprocess.run(["git", "show-ref", "--verify", "--quiet", "refs/heads/gh-pages"],
                         cwd=portal).returncode == 0:
         raise ValueError("Use a fresh disposable checkout; a local-only gh-pages branch already exists.")
+    previous = None
     if channel == "release" and any(item["version"] == version for item in versions):
         previous = json.loads(run(portal, "git", "show", f"gh-pages:{version}/source-revision.json"))
         if (previous.get("commit") != selection["commit"]
@@ -96,11 +109,17 @@ def prepare(portal, selection):
         "--title", "latest (development)" if version == "latest" else version,
         version, *aliases, env=env)
     verify_site(portal / "site", selection)
+    if previous and previous.get("wasm") is not None:
+        current = json.loads((portal / "site/source-revision.json").read_text(encoding="utf-8"))
+        if current.get("wasm") != previous["wasm"]:
+            raise ValueError("An existing release cannot be replaced with different WebAssembly artifacts.")
     has_stable = bool(aliases) or any("stable" in item["aliases"] for item in versions)
     run(portal, *mike, "set-default", "stable" if has_stable else "latest", env=env)
     output = portal / "build/publication"
     output.mkdir(parents=True, exist_ok=False)
-    archive = subprocess.check_output(["git", "archive", "--format=zip", "gh-pages"], cwd=portal)
+    # Git archive applies working-tree conversions too. Preserve the verified
+    # bytes rather than applying a contributor's global Windows autocrlf setting.
+    archive = subprocess.check_output(["git", "-c", "core.autocrlf=false", "archive", "--format=zip", "gh-pages"], cwd=portal)
     with zipfile.ZipFile(io.BytesIO(archive)) as files:
         for item in files.infolist():
             path = Path(item.filename)

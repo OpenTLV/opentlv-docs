@@ -97,8 +97,9 @@ add_dependencies(cxx-api-docs c-api-docs)
         root, source = assembly.assemble(self.portal)
         return SimpleNamespace(
             config_file_path=str(self.portal / "mkdocs.yml"),
-            repo_url="https://github.com/OpenTLV/opentlv-docs",
-            extra={"core_source": source, "core_checkout": str(root)},
+            repo_url="https://github.com/OpenTLV/opentlv",
+            extra={"core_source": source, "core_checkout": str(root),
+                   "portal_repository": "https://github.com/OpenTLV/opentlv-docs"},
         )
 
     def test_clean_assembly_preserves_core_and_overlays_portal_assets(self):
@@ -220,6 +221,21 @@ add_dependencies(cxx-api-docs c-api-docs)
         result = hooks.on_page_markdown("[License](../../LICENSE)", page, config, [])
         self.assertEqual(result, "[License](https://github.com/OpenTLV/opentlv-docs/blob/main/LICENSE)")
         self.assertEqual(page.edit_url, "https://github.com/OpenTLV/opentlv-docs/edit/main/docs/assets/README.md")
+        owners_path = self.portal / "build/assembled/owners.json"
+        owners = json.loads(owners_path.read_text(encoding="utf-8"))
+        for language in ("python", "lua"):
+            root = self.base / language
+            self.write(root / "LICENSE", f"{language} license\n")
+            repository = f"https://github.com/OpenTLV/opentlv-{language}"
+            config.extra["core_source"]["sources"].append({
+                "id": language, "repository": repository, "commit": "a" * 40, "docs_path": "manual",
+            })
+            page.file.src_uri = f"bindings/{language}/index.md"
+            owners[page.file.src_uri] = {"id": language, "root": str(root), "path": "manual/index.md"}
+            owners_path.write_text(json.dumps(owners), encoding="utf-8")
+            result = hooks.on_page_markdown("[License](../LICENSE)", page, config, [])
+            self.assertEqual(page.edit_url, f"{repository}/edit/{'a' * 40}/manual/index.md")
+            self.assertEqual(result, f"[License]({repository}/blob/{'a' * 40}/LICENSE)")
 
     def test_index_rewrite_preserves_fragment_and_other_links(self):
         config = self.config()
@@ -240,7 +256,8 @@ add_dependencies(cxx-api-docs c-api-docs)
 site_url: https://opentlv.github.io/opentlv-docs/
 docs_dir: docs
 strict: true
-repo_url: https://github.com/OpenTLV/opentlv-docs
+repo_url: https://github.com/OpenTLV/opentlv
+repo_name: OpenTLV/opentlv
 theme:
   name: material
   custom_dir: '{(ROOT / 'tools/docs/overrides').as_posix()}'
@@ -253,6 +270,7 @@ markdown_extensions:
       alternate_style: true
 extra:
   docs_channel: development
+  portal_repository: https://github.com/OpenTLV/opentlv-docs
 exclude_docs: /README.md
 validation:
   nav:
@@ -278,6 +296,10 @@ nav:
         self.assertEqual(source["commit"], self.sha)
         self.assertNotIn(str(self.core), json.dumps(source))
         html = (site / "index.html").read_text(encoding="utf-8")
+        self.assertRegex(html, r'<a\b[^>]*href="https://github.com/OpenTLV/opentlv"[^>]*class="md-source"')
+        self.assertIn(f'https://github.com/OpenTLV/opentlv/edit/{self.sha}/docs/index.md', html)
+        asset_html = (site / "assets/index.html").read_text(encoding="utf-8")
+        self.assertIn('https://github.com/OpenTLV/opentlv-docs/edit/main/docs/assets/README.md', asset_html)
         self.assertIn(f"/edit/{self.sha}/docs/index.md", html)
         self.assertIn("development", html)
         self.assertTrue((site / "reference/api/cxx-api/html/index.html").exists())

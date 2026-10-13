@@ -1,0 +1,51 @@
+name: Documentation source update
+
+on:
+  repository_dispatch:
+    types: [core-docs-updated, component-docs-updated, component-docs-released]
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  # Distinct source/commit proposals must not replace each other's pending run.
+  group: docs-source-${{ github.event.client_payload.source }}-${{ github.event.client_payload.commit }}
+  cancel-in-progress: false
+
+jobs:
+  propose:
+    if: >-
+      github.repository == 'OpenTLV/opentlv-docs' &&
+      (github.event.action != 'core-docs-updated' || github.event.client_payload.ref == 'main')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install source validation dependencies
+        run: python -m pip install -r requirements-docs.txt
+      - name: Verify producer and prepare pinned source update
+        env:
+          GH_TOKEN: ${{ secrets.DOCS_SOURCE_READ_TOKEN || github.token }}
+        run: python tools/docs/events.py
+      # An App/PAT is needed so the resulting PR starts the normal docs checks.
+      # Stage only the manifest and verified JSON evidence, never producer code.
+      - name: Open reviewed source update
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.DOCS_UPDATES_TOKEN }}
+          add-paths: |
+            docs-sources.json
+            compatibility/**/*.json
+          branch: automation/component-${{ github.event.client_payload.source }}-${{ github.event.client_payload.commit }}
+          title: Update pinned documentation sources
+          commit-message: Update pinned documentation sources and compatibility evidence
+          body: |
+            Proposes exact source pins from a successful configured producer, with verified compatibility evidence for components.
+            Review the producer, feed records and documentation validation before merging. Existing releases remain frozen.
+            Producer: https://github.com/${{ github.event.client_payload.repository }}/actions/runs/${{ github.event.client_payload.run_id }}

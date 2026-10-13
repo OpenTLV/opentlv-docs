@@ -30,6 +30,10 @@ _api_spec = importlib.util.spec_from_file_location("opentlv_docs_api", Path(__fi
 api = importlib.util.module_from_spec(_api_spec)
 _api_spec.loader.exec_module(api)
 
+_wasm_spec = importlib.util.spec_from_file_location("opentlv_docs_wasm", Path(__file__).with_name("wasm.py"))
+wasm = importlib.util.module_from_spec(_wasm_spec)
+_wasm_spec.loader.exec_module(wasm)
+
 # Directory holding the c-api/html and cxx-api/html trees produced by the
 # c-api-docs and cxx-api-docs CMake targets. The two trees stay siblings, as
 # the C++ reference links to C declarations through a relative path.
@@ -37,14 +41,8 @@ API_DIR_ENV = "OPENTLV_API_DOCS_DIR"
 API_TREES = ("c-api", "cxx-api")
 API_SITE_PREFIX = "reference/api"
 
-# Directory holding the opentlv-wasm artifacts (opentlv.mjs, opentlv-core.js,
-# opentlv-core.wasm). They need an Emscripten build, so they are optional
-# locally, where the playground then explains it is unavailable. Future
-# publication can require them through OPENTLV_DOCS_REQUIRE_WASM=1.
-WASM_DIR_ENV = "OPENTLV_WASM_DIR"
-WASM_DIR_DEFAULT = os.path.join("build-wasm", "bindings", "wasm", "dist")
-WASM_REQUIRE_ENV = "OPENTLV_DOCS_REQUIRE_WASM"
-WASM_FILES = ("opentlv.mjs", "opentlv-core.js", "opentlv-core.wasm")
+# Optional in local previews; publication builds and verifies the exact source.
+WASM_FILES = wasm.FILES
 WASM_SITE_PREFIX = "playground/wasm"
 
 # Inline Markdown links: [text](target). Image links are left alone.
@@ -79,12 +77,14 @@ def on_files(files, config):
     metadata = dict(config.extra["core_source"])
     metadata["api"] = {key: value for key, value in manifest.items() if key != "files"}
     metadata["api"]["manifest"] = f"{API_SITE_PREFIX}/{api.MANIFEST}"
+    wasm_manifest = add_wasm_files(files, config)
+    if wasm_manifest:
+        metadata["wasm"] = dict(wasm_manifest, manifest=f"{WASM_SITE_PREFIX}/{wasm.MANIFEST}")
     (portal / "build/assembled/source-revision.json").write_text(
         json.dumps(metadata, indent=2) + "\n", encoding="utf-8",
     )
     files.append(File.generated(config, f"{API_SITE_PREFIX}/{api.MANIFEST}",
                                 abs_src_path=str(api_dir / api.MANIFEST)))
-    add_wasm_files(files, config)
     files.append(File.generated(
         config, "source-revision.json",
         abs_src_path=str(portal / "build" / "assembled" / "source-revision.json"),
@@ -97,26 +97,20 @@ def on_post_build(config):
 
 
 def add_wasm_files(files, config):
-    wasm_dir = os.environ.get(WASM_DIR_ENV, WASM_DIR_DEFAULT)
-    missing = [name for name in WASM_FILES if not os.path.isfile(os.path.join(wasm_dir, name))]
-    if missing:
-        message = (
-            f"WebAssembly module files {', '.join(missing)} not found in '{wasm_dir}'; the playground "
-            "will be unavailable. Build them as described in docs/development/webassembly.md "
-            f"(or set {WASM_DIR_ENV})."
-        )
-        if os.environ.get(WASM_REQUIRE_ENV) == "1":
-            raise PluginError(message)
-        log.info(message)
+    portal = Path(config.config_file_path).resolve().parent
+    directory, manifest = wasm.prepare(portal, Path(config.extra["core_checkout"]), config.extra["core_source"])
+    if directory is None:
+        log.info("WebAssembly artifacts absent; local playground unavailable. Run tools/docs/wasm.py.")
         return
-    for name in WASM_FILES:
+    for name in (*WASM_FILES, wasm.MANIFEST):
         files.append(
             File.generated(
                 config,
                 f"{WASM_SITE_PREFIX}/{name}",
-                abs_src_path=os.path.abspath(os.path.join(wasm_dir, name)),
+                abs_src_path=str(directory / name),
             )
         )
+    return manifest
 
 
 def on_page_markdown(markdown, page, config, files):
@@ -132,7 +126,7 @@ def on_page_markdown(markdown, page, config, files):
         root, repo_path = Path(owner["root"]), owner["path"]
     docs_path = "docs" if portal_owned else source.get("docs_path", "docs")
     page_dir = posixpath.dirname(posixpath.relpath(repo_path, docs_path))
-    repo_url = config.repo_url.rstrip("/") if portal_owned else source["repository"].rstrip("/")
+    repo_url = (config.extra["portal_repository"] if portal_owned else source["repository"]).rstrip("/")
     ref = "main" if portal_owned else source["commit"]
     page.edit_url = f"{repo_url}/edit/{ref}/{quote(repo_path, safe='/')}"
 

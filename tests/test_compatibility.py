@@ -211,7 +211,7 @@ class CompatibilityTests(unittest.TestCase):
         for candidate in bad_records:
             with self.subTest(candidate=candidate), self.assertRaises(PluginError):
                 compatibility.validate_feed(self.feed(candidate))
-        for malformed in ({"version": True, "records": []}, {"version": 2, "records": []},
+        for malformed in ({"version": True, "records": []}, {"version": 3, "records": []},
                           {"version": 1, "records": {}}, {"version": 1, "records": [], "extra": True}):
             with self.subTest(feed=malformed), self.assertRaises(PluginError):
                 compatibility.validate_feed(malformed)

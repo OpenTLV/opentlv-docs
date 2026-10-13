@@ -1,8 +1,8 @@
 site_name: OpenTLV
 site_description: Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.
 site_url: https://opentlv.github.io/opentlv-docs/
-repo_url: https://github.com/OpenTLV/opentlv-docs
-repo_name: OpenTLV/opentlv-docs
+repo_url: https://github.com/OpenTLV/opentlv
+repo_name: OpenTLV/opentlv
 # The source hook sets page-specific links to the owning repository.
 edit_uri: edit/main/docs/
 
@@ -63,6 +63,8 @@ theme:
     - content.tabs.link
 
 extra:
+  # Source ownership is independent of the product repository in the header.
+  portal_repository: https://github.com/OpenTLV/opentlv-docs
   # tools/docs/hooks.py reads OPENTLV_DOCS_CHANNEL; local previews always use
   # development presentation (tools/docs/overrides/main.html).
   docs_channel: development

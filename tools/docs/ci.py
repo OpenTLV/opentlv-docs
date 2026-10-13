@@ -14,6 +14,7 @@ import sys
 import yaml
 
 import assembly
+import events
 
 ROOT = Path(__file__).resolve().parents[2]
 RELEASE = re.compile(r"v?((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))")
@@ -79,20 +80,49 @@ def main():
         return
     if args.command == "fetch":
         selection = json.loads((ROOT / "build/selection.json").read_text(encoding="utf-8"))
+        os.environ["OPENTLV_DOCS_CHANNEL"] = selection.get("channel", "development")
         lock = assembly.sources.fetch(ROOT, selection["revision"])
         selection["sources"] = lock["sources"]
         selection["commit"] = next(item["commit"] for item in lock["sources"] if item["id"] == "core")
+        if selection.get("event_commit", selection["commit"]) != selection["commit"]:
+            raise ValueError("Fetched Core differs from the verified event commit.")
         (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
         return
     core = next(item for item in assembly.sources.manifest(ROOT) if item["id"] == "core")
     selection = select(core,
                        os.environ.get("INPUT_CHANNEL") or "development",
                        os.environ.get("INPUT_CORE_REF", ""))
+    if os.environ.get("GITHUB_EVENT_NAME") == "repository_dispatch":
+        event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
+        payload = event["client_payload"]
+        item = events.validate(payload, assembly.sources.manifest(ROOT))
+        if item["id"] != "core":
+            raise ValueError("Core publication events must select Core.")
+        if payload["ref"] == "main":
+            raise ValueError("Core development events require a reviewed manifest pin update PR.")
+        selection = select(core, "release", payload["ref"])
+        selection["event_commit"] = payload["commit"]
+    # Never silently replace the reviewed manifest pin with another revision.
+    # A stale proposal or manual run must fail rather than regress latest.
+    if (os.environ.get("GITHUB_EVENT_NAME") in ("push", "pull_request", "workflow_dispatch")
+            and selection["channel"] == "development"):
+        remote = assembly.git(ROOT, "ls-remote", "--heads", "origin", "refs/heads/gh-pages")
+        if remote:
+            assembly.git(ROOT, "fetch", "origin", "refs/heads/gh-pages")
+            names = assembly.git(ROOT, "ls-tree", "--name-only", "FETCH_HEAD", "latest/source-revision.json")
+            if names:
+                previous = json.loads(assembly.git(ROOT, "show", "FETCH_HEAD:latest/source-revision.json"))
+                if previous.get("repository") != core["repository"]:
+                    raise ValueError("Published latest belongs to a different Core repository.")
+                ref = events.resolve_revision(selection["repository"], selection["revision"])
+                if events.newer(selection["repository"], previous["commit"], ref) != ref:
+                    raise ValueError("Core pin is older than published latest; update docs-sources.json before publishing.")
     (ROOT / "build").mkdir(exist_ok=True)
     (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-            for key, value in selection.items():
+            for key in ("repository", "revision", "channel", "version"):
+                value = selection[key]
                 output.write(f"{key}={value}\n")
 
 
