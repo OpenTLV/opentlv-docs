@@ -34,5 +34,21 @@
     "doxygen_version": "1.9.8",
     "guide_base": "https://opentlv.github.io/opentlv-docs/latest/",
     "manifest": "reference/api/api-source.json"
+  },
+  "wasm": {
+    "schema": 1,
+    "repository": "https://github.com/OpenTLV/opentlv",
+    "commit": "91ac1c91b91df6bc845b379476423d51725b32e6",
+    "local": false,
+    "dirty": false,
+    "source_sha256": "9c2516c5ccabf669c1363bd5cb1e5ee5e4f93d88f33c9f4600ef4e96c55f969e",
+    "emscripten": "4.0.10",
+    "files": {
+      "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
+      "query.mjs": "4a966ea90a314c1d3e017713d4e842831ba593a21915ab5eafa7ceafb9d6a5de",
+      "opentlv-core.js": "600e1fac532c89aa92b4b72877268cb14d1f824c5e27eb747e6a27dc90a8ab5c",
+      "opentlv-core.wasm": "328ad3310e8521a00a491afc85922c668c3840e73e6309929a36f4a6a46db520"
+    },
+    "manifest": "playground/wasm/wasm-source.json"
   }
 }

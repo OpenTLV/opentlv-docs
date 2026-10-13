@@ -2,346 +2,346 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/assets/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/cli/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/cli/json-schema/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/architectural-rules/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/architecture/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/bindings/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/core-types/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/cxx-builtins/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/cxx-formats/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/cxx-native-boundary/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/definition-boundaries/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/endian/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/error-model/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/field-policies/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/format-capabilities/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/format-contract/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/learning-model/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/length/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/processing-pipeline/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/query-language/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/runtime-model/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/concepts/value/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/abi-compatibility/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/cxx-facade-performance/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/documentation-audit/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/documentation-layout/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/documentation-ownership/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/fuzzing/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/go/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/indefinite-boundary-reuse/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/lua/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/python/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/query-adversarial/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/query-phase-audit/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/query-release/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/reader-decode-performance/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/rust/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/valgrind/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/webassembly/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/workflow/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/format-catalogue/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/format-examples/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/format-roadmap/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/lldp-review/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/packed/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/support/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/variable/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/asn1/ber/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/asn1/cer/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/asn1/der/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/bluetooth/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/custom/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/dhcp/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/fixed/configurable/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/lldp/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/lldp/conformance/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/formats/nfc/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/getting-started/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/codecs/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/copy/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/cxx-examples/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/diagnostics/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/document/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/examples/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/go/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/lua/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/memory/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/processing/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/python/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/queries/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/reader/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/rust/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/schemas/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/select-components/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/writer/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/playground/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/reference/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/reference/c-api/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/reference/compilers/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/reference/cxx-api/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/reference/errors/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/standards/cer/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/standards/der/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/standards/emv/</loc>
-         <lastmod>2026-10-12</lastmod>
+         <lastmod>2026-10-13</lastmod>
     </url>
 </urlset>
