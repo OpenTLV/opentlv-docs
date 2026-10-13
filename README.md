@@ -265,8 +265,10 @@ repository, configured revision (`revision`), effective checkout HEAD (`commit`)
 and local/dirty status. In normal builds, `commit` must resolve from `revision`;
 in local preview it may differ. Every page displays the included component commits; the `sources` list records
 all components, including omitted optional repositories and their omission reason.
-Core source and edit links target that commit;
-portal-owned asset pages link to this repository.
+The header links to the main product repository, `OpenTLV/opentlv`, and mike
+versions follow Core. Page edit and source links follow each page's owner and
+selected commit. Portal-owned pages use `extra.portal_repository` from
+`mkdocs.yml` to link to `OpenTLV/opentlv-docs`, independently of the header.
 The `api` field records the corresponding generated-reference provenance and
 links to `reference/api/api-source.json`. That manifest describes the original
 input artifacts; embedded HTML has its guide links adapted for the site.

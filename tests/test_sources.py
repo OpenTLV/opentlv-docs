@@ -62,8 +62,8 @@ class MultiRepositoryTests(unittest.TestCase):
         self.assertEqual([s["commit"] for s in metadata["sources"]], [self.sha, self.component_sha])
         self.assertNotIn(str(self.component), json.dumps(metadata))
         html = (self.portal / "site/bindings/python/index.html").read_text(encoding="utf-8")
-        self.assertIn(f"/edit/{self.component_sha}/manual/index.md", html)
-        self.assertIn(f"/blob/{self.component_sha}/LICENSE", html)
+        self.assertIn(f"https://github.com/OpenTLV/python/edit/{self.component_sha}/manual/index.md", html)
+        self.assertIn(f"https://github.com/OpenTLV/python/blob/{self.component_sha}/LICENSE", html)
         self.assertIn("Bindings", html)
         assembly.assemble(self.portal)
         # Assembly metadata has no API addition; repeated assemblies are deterministic.

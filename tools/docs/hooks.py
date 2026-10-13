@@ -126,7 +126,7 @@ def on_page_markdown(markdown, page, config, files):
         root, repo_path = Path(owner["root"]), owner["path"]
     docs_path = "docs" if portal_owned else source.get("docs_path", "docs")
     page_dir = posixpath.dirname(posixpath.relpath(repo_path, docs_path))
-    repo_url = config.repo_url.rstrip("/") if portal_owned else source["repository"].rstrip("/")
+    repo_url = (config.extra["portal_repository"] if portal_owned else source["repository"]).rstrip("/")
     ref = "main" if portal_owned else source["commit"]
     page.edit_url = f"{repo_url}/edit/{ref}/{quote(repo_path, safe='/')}"
 

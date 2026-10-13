@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Link the documentation header to the main OpenTLV repository while preserving repository-specific page edit and source links. (#6)
 - Preserve verified artifact bytes when preparing version history on Windows with Git line-ending conversion enabled. (#6)
 - Include `query.mjs` in the playground distribution and reject missing, stale or modified WASM artifacts. (#6)
 - Allow local workspace previews at the current Core HEAD while retaining the configured revision in metadata, reject local mode for publication, enforce explicit documentation overrides, and provide a root-URL preview configuration. (#1)
