@@ -33,15 +33,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DOCS_SOURCE_READ_TOKEN || github.token }}
         run: python tools/docs/events.py
+      - name: Select source update files
+        id: update-paths
+        shell: bash
+        run: |
+          # git add rejects unmatched pathspecs; resolve optional evidence first.
+          paths="$(git ls-files --cached --others --exclude-standard -- docs-sources.json ':(glob)compatibility/**/*.json')"
+          {
+            echo 'paths<<EOF'
+            printf '%s\n' "$paths"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
       # An App/PAT is needed so the resulting PR starts the normal docs checks.
       # Stage only the manifest and verified JSON evidence, never producer code.
       - name: Open reviewed source update
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.DOCS_UPDATES_TOKEN }}
-          add-paths: |
-            docs-sources.json
-            compatibility/**/*.json
+          add-paths: ${{ steps.update-paths.outputs.paths }}
           branch: automation/component-${{ github.event.client_payload.source }}-${{ github.event.client_payload.commit }}
           title: Update pinned documentation sources
           commit-message: Update pinned documentation sources and compatibility evidence
