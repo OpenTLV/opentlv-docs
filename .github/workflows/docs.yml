@@ -29,12 +29,14 @@ permissions:
 # Publication includes validation so a later run cannot deploy ahead of it.
 # GitHub may replace a pending run; an active publication is never cancelled.
 concurrency:
-  group: docs-${{ github.event_name == 'pull_request' && github.ref || 'publication' }}
+  group: docs-${{ github.event_name == 'pull_request' && github.ref || github.event_name == 'repository_dispatch' && github.event.client_payload.ref == 'main' && 'proposal-notification' || 'publication' }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   validate:
     name: Validate and prepare documentation
+    # Development notifications propose a manifest PR in component-updates.yml.
+    if: github.event_name != 'repository_dispatch' || github.event.client_payload.ref != 'main'
     runs-on: ubuntu-24.04
     outputs:
       pages_commit: ${{ steps.prepare.outputs.pages_commit }}
@@ -90,6 +92,8 @@ jobs:
           version: '4.0.10'
 
       - name: Build and test selected Core WebAssembly
+        env:
+          OPENTLV_DOCS_CHANNEL: ${{ steps.source.outputs.channel }}
         run: python tools/docs/wasm.py
 
       - name: Check Core examples, inventories, and portal navigation

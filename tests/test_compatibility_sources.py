@@ -159,7 +159,7 @@ class CompatibilitySourceTests(unittest.TestCase):
 
     def test_invalid_selection_settings_do_not_silently_fall_back(self):
         original = deepcopy(self.source)
-        changes = ({"revision": self.component_sha}, {"examples": {}},
+        changes = ({"revision": "main"}, {"examples": {}},
                    {"examples": {"languages": ["python"], "results": []}})
         for change in changes:
             with self.subTest(change=change):

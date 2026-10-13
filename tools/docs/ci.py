@@ -80,6 +80,7 @@ def main():
         return
     if args.command == "fetch":
         selection = json.loads((ROOT / "build/selection.json").read_text(encoding="utf-8"))
+        os.environ["OPENTLV_DOCS_CHANNEL"] = selection.get("channel", "development")
         lock = assembly.sources.fetch(ROOT, selection["revision"])
         selection["sources"] = lock["sources"]
         selection["commit"] = next(item["commit"] for item in lock["sources"] if item["id"] == "core")
@@ -97,12 +98,13 @@ def main():
         item = events.validate(payload, assembly.sources.manifest(ROOT))
         if item["id"] != "core":
             raise ValueError("Core publication events must select Core.")
-        channel = "development" if payload["ref"] == "main" else "release"
-        selection = select(core, channel, payload["commit"] if channel == "development" else payload["ref"])
+        if payload["ref"] == "main":
+            raise ValueError("Core development events require a reviewed manifest pin update PR.")
+        selection = select(core, "release", payload["ref"])
         selection["event_commit"] = payload["commit"]
-    # Portal pushes must retain the newest validated development Core, rather
-    # than reverting latest to the bootstrap manifest pin after every docs edit.
-    if (os.environ.get("GITHUB_EVENT_NAME") in ("push", "repository_dispatch", "workflow_dispatch")
+    # Never silently replace the reviewed manifest pin with another revision.
+    # A stale proposal or manual run must fail rather than regress latest.
+    if (os.environ.get("GITHUB_EVENT_NAME") in ("push", "pull_request", "workflow_dispatch")
             and selection["channel"] == "development"):
         remote = assembly.git(ROOT, "ls-remote", "--heads", "origin", "refs/heads/gh-pages")
         if remote:
@@ -112,19 +114,9 @@ def main():
                 previous = json.loads(assembly.git(ROOT, "show", "FETCH_HEAD:latest/source-revision.json"))
                 if previous.get("repository") != core["repository"]:
                     raise ValueError("Published latest belongs to a different Core repository.")
-                ref = assembly.sources.revision_ref(selection["revision"])
-                if events.SHA.fullmatch(ref.lower()):
-                    ref = ref.lower()
-                else:
-                    # Resolve annotated and lightweight tags through the GitHub API.
-                    obj = events.github(f"{selection['repository']}/git/ref/tags/{selection['revision']}")["object"]
-                    while obj["type"] == "tag":
-                        obj = events.github(f"{selection['repository']}/git/tags/{obj['sha']}")["object"]
-                    ref = obj["sha"]
-                selection["revision"] = events.newer(selection["repository"], previous["commit"], ref)
-                # A superseded event rebuilds the current latest selection.
-                if "event_commit" in selection:
-                    selection["event_commit"] = selection["revision"]
+                ref = events.resolve_revision(selection["repository"], selection["revision"])
+                if events.newer(selection["repository"], previous["commit"], ref) != ref:
+                    raise ValueError("Core pin is older than published latest; update docs-sources.json before publishing.")
     (ROOT / "build").mkdir(exist_ok=True)
     (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("GITHUB_OUTPUT"):

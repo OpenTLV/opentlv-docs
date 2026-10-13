@@ -306,7 +306,8 @@ prevent manual uploading of an already generated directory; publication must
 build with this guard and reject artifacts whose metadata has `local: true`.
 
 `OPENTLV_DOCS_CHANNEL` accepts `development` (default) or `release`; it controls
-presentation, not deployment, and release rejects local mode.
+presentation and compatibility selection, not deployment. Release rejects local
+mode and excludes development compatibility records.
 A clean Core source revision is reproducible, but
 the portal does not claim byte-identical builds across Python package
 or Doxygen versions; dependency ranges are retained from the existing portal.
@@ -315,8 +316,9 @@ or Doxygen versions; dependency ranges are retained from the existing portal.
 
 `docs-sources.json` is the single source manifest (schema version `1`). Core is
 required and retains its existing root URLs and Doxygen integration. Additional
-components choose their own tags or full commit SHAs, or select a verified
-release from a compatibility feed; they do not need matching
+components choose their own tags or full commit SHAs, select a verified
+release from a compatibility feed, or pin a development commit with exact-pair
+compatibility evidence; they do not need matching
 Core version numbers. The published portal version still follows the selected
 Core release tag, while its metadata records the independently selected inputs.
 
@@ -401,8 +403,9 @@ or Doxygen versions is claimed.
 
 ### Compatibility-based release selection
 
-A non-Core source can replace `revision` with `compatibility`. Core always has
-an explicit revision; the importer resolves it before selecting any binding.
+A non-Core source can replace `revision` with `compatibility`, or combine a full
+commit `revision` with `compatibility` to verify that exact development input.
+Core always has an explicit revision; the importer resolves it before selecting any binding.
 The default manifest remains Core-only. No live producer or binding repository
 is enabled by this change.
 
@@ -434,8 +437,15 @@ and feed digest in place of the illustrative values:
 }
 ```
 
-`revision` and `compatibility` are mutually exclusive. Automatic selection
-requires a nonempty explicit `examples.languages` list and forbids inline
+When both `revision` and `compatibility` are present, `revision` must be a full
+lowercase commit SHA. Development builds require a passed record for that exact
+component/Core pair and configured scope; they cannot fall back to another
+component commit. Without the pin, development builds retain stable release
+selection. Release builds ignore this development pin and choose a verified
+stable release from the feed, excluding development records. A feed containing
+only development records cannot provide a release component.
+
+Compatibility selection requires a nonempty explicit `examples.languages` list and forbids inline
 `examples.results`. Its `feed` is either an HTTPS URL or a contained POSIX path
 relative to this portal, such as the local JSON file above. The file must be
 UTF-8 JSON, at most 16 MiB, without symlinks. `sha256` is the lowercase digest of
@@ -513,13 +523,66 @@ example entries establish neither support nor verification. Duplicate scopes,
 contradictory release commits, duplicate fields and invalid records fail import,
 including for optional components.
 
-Schema version 1 permits at most one example per language within each feature.
+Both schema versions permit at most one example per language within each feature.
 A second entry with the same language is rejected even when its path differs.
 This matches the owner catalog's feature/language identity. Multiple examples
 of one feature in the same language would require extending both contracts and
 the portal's selection rules; changing only the duplicate check is insufficient.
 
-Selection first matches the component repository, actual Core repository and
+#### Development compatibility records
+
+Schema version `2` adds a required `channel` field to every record. All other
+fields and exact repository/commit/scope requirements are unchanged. A `release`
+record follows the version `1` release rules; a `development` record is eligible
+only for a development build with an explicit component commit pin:
+
+```json
+{
+  "version": 2,
+  "records": [
+    {
+      "id": "python-main-core-main-linux-default-run-43",
+      "channel": "development",
+      "component": {
+        "repository": "https://github.com/OpenTLV/opentlv-python",
+        "version": "2.4.0-dev",
+        "commit": "3333333333333333333333333333333333333333"
+      },
+      "declared_core": ">=0.7.0 <0.8.0",
+      "core": {
+        "repository": "https://github.com/OpenTLV/opentlv",
+        "version": "main",
+        "commit": "4444444444444444444444444444444444444444"
+      },
+      "platform": "linux-x86_64",
+      "configuration": "default",
+      "build": "passed",
+      "test": "passed",
+      "evidence": "https://example.invalid/results/immutable-run-43",
+      "features": []
+    }
+  ]
+}
+```
+
+Development version labels are display text and may repeat across commits.
+They do not establish release identity or ordering; the two full SHAs identify
+what was tested. A stable-looking version label on a development record never
+makes that record eligible for a release build. A pinned development build can
+also use a stable release record for the same exact commit. Duplicate evidence
+for the same component/Core pair and scope remains invalid across both channels.
+
+A version `2` feed may retain earlier `release` records alongside development
+snapshots, allowing release builds to select stable evidence independently of
+the development pin. Version `1` retains its original release-only contract and
+cannot contain `channel`. Source locks and published metadata preserve the
+selected record and the schema version, so offline replay applies the same rules.
+Generated source locks also preserve the documentation channel. Offline consumers
+inherit that channel when none is specified and reject a conflicting explicit channel.
+
+#### Selection and imported evidence
+
+Stable selection first matches the component repository, actual Core repository and
 commit, platform and configuration. It then chooses the greatest stable
 component version whose build and tests both passed. Versions are compared as
 numeric `X.Y.Z`, so `2.10.0` sorts after `2.9.0`; an optional `v` prefix and SemVer
@@ -544,7 +607,7 @@ failed or untested examples, unknown support and unsupported features withhold
 code and explain why. The tab identifies the selected binding release and commit,
 declared Core dependency, actually verified Core version and commit, platform,
 configuration and evidence. Local preview never presents verified code from an
-automatically selected binding. Explicitly pinned sources retain the
+automatically selected binding. Explicitly pinned sources without `compatibility` retain the
 [manual evidence behavior](#verification-displayed-with-examples) described above.
 
 Use the `ci.py select`, `ci.py fetch`, `OPENTLV_DOCS_SOURCE_ROOT` and
@@ -564,10 +627,12 @@ Updating a feed, its digest, selected binding or verification result cannot
 silently replace an existing Core documentation release. Rebuild it from the
 preserved manifest, lock and checkouts; use a new release for changed inputs.
 
-Checksums establish input integrity, not producer authenticity. The portal does
+Checksums establish input integrity, not producer authenticity. The importer does
 not authenticate the producer, follow evidence links, run an ecosystem test
-suite or update component dependencies. Producing and publishing the records
-belongs to the owning test infrastructure; no test runner is introduced here.
+suite or update component dependencies. The automated update receiver additionally
+verifies the configured producer workflow and its GitHub run before preparing a
+proposal. Producing correct records belongs to the owning test infrastructure;
+no ecosystem test runner is introduced here.
 
 #### Production feed activation
 
@@ -712,7 +777,7 @@ default sibling checkout).
 ## CI and versioned publication
 
 `.github/workflows/docs.yml` validates every PR targeting `main`, pushes to
-`main`, and manual runs. Validation has only `contents: read`. It checks out the
+`main`, verified Core release notifications, and manual runs. Validation has only `contents: read`. It checks out the
 sources from `docs-sources.json` (with an optional Core override) with full history
 and tags. It resolves all revisions once into `build/sources.lock.json`; validation,
 API generation and both MkDocs/mike builds use that exact selection. Doxygen, source validation, linting, tests and strict builds must all pass.
@@ -728,9 +793,11 @@ with the official GitHub Pages Actions. It does not run Core or build scripts.
 | Trigger | Result |
 | --- | --- |
 | Pull request to `main` | Validate and prepare artifacts; never publish. |
-| Push to `main` | Validate and publish `latest`, retaining the newer of the manifest Core and already published Core. |
-| Verified Core notification | Publish `latest` for a main commit, or its immutable release version for a stable tag. |
-| Verified component release notification | Open a reviewed compatibility feed update PR. |
+| Push to `main` | Validate and publish `latest` from the manifest pin; reject a Core regression against the published version. |
+| Verified Core main notification | Open a reviewed PR updating the explicit Core commit in `docs-sources.json`. |
+| Verified Core stable-tag notification | Validate and publish the immutable release version. |
+| Verified component release notification | Open a reviewed PR pinning the component commit and release feed digest. |
+| Verified component main notification | With development opt-in, open a reviewed PR pinning the component commit and verified exact-pair evidence. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
 | Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
 | Manual run on another branch | Validate only, regardless of `publish`. |
@@ -758,12 +825,14 @@ repository through the event contract below.
 
 Before the first publication, a repository administrator must select **Settings
 → Pages → Build and deployment → Source: GitHub Actions**. Configure the
-`github-pages` environment to allow deployments from `main`. No personal access
-token is required. `gh-pages` stores mike history; Pages serves the uploaded
+`github-pages` environment to allow deployments from `main`. Pages publication
+itself needs no personal access token; cross-repository notifications and update
+PRs use the tokens described below. `gh-pages` stores mike history; Pages serves the uploaded
 artifact, rather than relying on a bot push to trigger a branch-based Pages build.
 See GitHub's [custom Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
-All non-PR runs share one concurrency group and do not cancel active publication.
+Publication runs share one concurrency group and do not cancel active publication.
+Development notifications only propose source updates and use separate groups.
 GitHub may replace a pending run with a newer pending run; dispatch a particular
 release again if it was superseded. A failed validation or preparation cannot
 change the published site or remote history. A conflicting remote history update
@@ -833,7 +902,9 @@ It sends `core-docs-updated` to this repository using `repository_dispatch`.
 The receiver verifies the configured repository, successful completed push run,
 workflow path `.github/workflows/wasm.yml`, SHA and main/tag reference through
 GitHub's API. Fork/PR runs, unknown sources, prereleases and moved tags fail.
-Tags may be lightweight or annotated. Sources are resolved once and the fetched
+Tags may be lightweight or annotated. A main notification prepares a reviewed
+manifest pin update; it does not publish directly. A stable-tag notification
+starts release validation, where sources are resolved once and the fetched
 Core commit must match the verified event before building.
 
 Example payload (use actual producer evidence):
@@ -852,11 +923,14 @@ Example payload (use actual producer evidence):
 ```
 
 `ref` is `main` or a stable `X.Y.Z`/`vX.Y.Z` tag. The sender sends no commands,
-checkout URLs, artifact paths or deployment instructions. Repeated development
-notifications rebuild the same selection. An older notification retains the
-newer published Core; unrelated portal pushes and manual development runs also
-cannot regress `latest`. Diverged Core histories fail for maintainer review.
-PR validation continues to use the manifest pin. Published releases keep their
+checkout URLs, artifact paths or deployment instructions. Development proposals
+persist a full Core commit SHA in `docs-sources.json`. Repeated notifications
+update the same source/commit proposal; an older notification cannot undo a newer
+merged pin. Portal pushes publish the reviewed manifest selection and reject a
+Core revision older than the published `latest`, rather than silently selecting
+a different revision. Manual development publications apply the same regression
+guard. Diverged Core histories fail for maintainer review. PR validation uses
+the proposed manifest pin. Published releases keep their
 complete source set and compatibility evidence frozen; changed inputs fail
 rather than replace an existing release.
 
@@ -866,6 +940,13 @@ for repository dispatch. Core's own `GITHUB_TOKEN` cannot write across repositor
 The notification job performs no checkout. Install the receiver on docs `main`
 before enabling the sender on Core `main`. A missing token fails notification
 visibly; it does not change the successful producer result or publish anything.
+
+Configure `DOCS_UPDATES_TOKEN` in this repository with Contents and Pull requests
+write permissions for Core and component proposals. Use a PAT or an externally
+refreshed App token so the created PR triggers normal documentation validation.
+Enable Actions PR creation in repository settings. Proposals require review and
+have no auto-merge configured. The successful Core build and release do not
+depend on the separate notification or portal workflows.
 
 ### Component releases and reviewed evidence
 
@@ -886,28 +967,100 @@ exact commit and successful run ID. Use the Core notification workflow as the
 sender pattern, with the component's workflow name and event type.
 
 The portal verifies the producer, tag and release asset and prepares a PR changing
-only that source's feed URL and GitHub-reported SHA-256 digest. It preserves the
-platform/configuration, other sources and navigation. Configure `DOCS_UPDATES_TOKEN`
-in this repository with Contents and Pull requests write permissions. Use a PAT
-(or an externally refreshed App token) so the created PR triggers normal documentation validation. Enable Actions
-PR creation in repository settings. The branch is keyed by source and commit,
-so repeated notifications update the same proposal. Review remains mandatory:
-the automatic proposal does not establish compatibility or producer trust.
-Merge only after the production activation checks above; no auto-merge is set.
+that source's full commit pin, feed URL and GitHub-reported SHA-256 digest. It
+preserves the platform/configuration, other sources and navigation. The branch
+is keyed by source and commit, so repeated notifications update the same proposal.
+PR validation imports the feed and checks the notified component commit against
+the selected Core. Missing verification omits an optional component or fails a
+required component; a successful producer alone is not proof of that pair.
+Merge only after the production activation checks above and normal documentation
+validation.
+
+### Component development notifications
+
+To accept main-branch updates, additionally configure the trusted producer's
+Actions artifact name:
+
+```json
+"updates": {
+  "workflow": ".github/workflows/compatibility.yml",
+  "asset": "compatibility.json",
+  "development_artifact": "documentation-compatibility"
+}
+```
+
+The configured workflow must finish successfully for a push to the component's
+`main`, upload that artifact containing exactly the configured regular JSON file
+at its root, and notify the
+portal with `event_type: component-docs-updated`. Use the same five payload fields
+as the Core example with the component source ID, repository, exact commit,
+`ref: main` and producer run ID. The receiver verifies main ancestry and the
+trusted run before inspecting the artifact. The artifact must belong to that
+run and have a GitHub SHA-256 digest; expired, ambiguous, modified or malformed
+artifacts fail. Archive paths cannot select files to write in the portal.
+
+The imported feed must verify the exact notified component commit, the currently
+pinned Core commit, and the configured platform/configuration. Version `2`
+development records support this evidence; an existing stable record for the
+exact pair is also accepted. Failed, untested or missing evidence prevents the
+proposal. The receiver stores only verified JSON at
+`compatibility/<source>/<sha256>.json` and proposes that file plus the updated
+`docs-sources.json` pin and digest. It never executes producer code or tests.
+Review and the normal source, API, WASM and strict documentation checks still
+run before a merged proposal can publish `latest`.
+
+If the default token cannot read the producer's Actions artifacts, configure
+`DOCS_SOURCE_READ_TOKEN` with `Actions: read` and `Contents: read` access in the
+configured repositories. This read token is separate from the token used to
+create update PRs. Optional sources without `development_artifact` remain
+release-only for automatic updates.
 
 No production binding producer is configured in the default Core-only manifest.
 New feeds must still pass the importer checksum/schema/selection checks and real
 binding validation. Core events never refresh a moving feed digest automatically.
 
+### Acceptance criteria for issue #6
+
+1. Verified Core and opted-in component main notifications prepare reviewed
+   updates with explicit full commit pins in `docs-sources.json`. Repeated events
+   target the same proposal; delayed events cannot revert a newer merged main pin.
+2. Every compatibility-selected component has passed evidence for the actual
+   Core/component pair and requested scope. A development pin is not permission
+   to publish an unverified combination. Version `1` feeds retain the #7 contract.
+3. Release selection excludes development snapshots and freezes the complete
+   source set, compatibility evidence and WASM provenance. A changed source or
+   artifact cannot replace an existing release.
+4. Failed event verification, source validation, build or browser checks preserve
+   the previous successful publication. Publication uses a normal fast-forward
+   history push and never force-pushes over concurrent history.
+5. Every published playground contains all four WASM distribution files from
+   the selected exact Core commit, passes provenance and integrity checks, and
+   passes browser checks under the prepared version and applicable aliases.
+6. Notification and proposal failures remain independent of Core build/release
+   success. Integration tests cover event rejection and replay, pin selection,
+   development/release separation and failed or conflicting publication.
+
+These contracts are exercised locally with controlled feeds and Git repositories.
+Hosted completion still requires the first real producer notification, proposal
+validation and Pages deployment; production binding activation additionally
+requires a trusted live feed and actual binding validation as described above.
+
 ### Recovery
 
-All publication events share the existing serialized publication group. GitHub
-may replace a pending run; an active publication is never cancelled. Re-send a
-missed notification after its producer succeeds, or use the existing manual
+Publication events share the existing serialized publication group. Source
+proposals use separate groups per source and commit, so unrelated updates do not
+replace one another; repeated notifications serialize the same proposal. Each
+proposal starts from the current portal `main` manifest. GitHub may replace a pending publication run;
+an active publication is never cancelled. Re-send a missed notification after
+its producer succeeds, or use the existing manual
 workflow with an exact Core ref and `publish: false` for a rehearsal. A release
 notification can be replayed provided its entire selected source set is unchanged.
+If a merged proposal is stale relative to the published Core, update the manifest
+through a new reviewed proposal; publication will not silently substitute a pin.
 For an expired token, restore the appropriate repository secret and rerun the
-notification. Failed checks leave the previous deployed site intact.
+notification. If a development evidence artifact has expired, run the trusted
+producer again and notify with the new successful run ID. Failed checks leave
+the previous deployed site intact.
 
 ## Playground builds
 

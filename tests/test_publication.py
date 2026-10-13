@@ -3,6 +3,7 @@
 
 """Exercise actual mike builds and fast-forward deployment in disposable Git repos."""
 
+import io
 import json
 import os
 from pathlib import Path
@@ -307,6 +308,149 @@ class PublicationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "different WebAssembly"):
                 self.prepare()
             self.assertEqual(self.remote_head(), before)
+
+
+class EventPublicationTests(unittest.TestCase):
+    """Replay real publication jobs, mocking only GitHub's event evidence API."""
+
+    git = PublicationTests.git
+    write = PublicationTests.write
+    set_selection = PublicationTests.set_selection
+    prepare = PublicationTests.prepare
+    remote_head = PublicationTests.remote_head
+    deploy_bundle = PublicationTests.deploy_bundle
+    fresh_checkout = PublicationTests.fresh_checkout
+
+    def setUp(self):
+        PublicationTests.setUp(self)
+        self.core = self.base / "core"
+        self.core.mkdir()
+        publication.run(self.core, "git", "init", "-b", "main")
+        (self.core / "docs").mkdir()
+        self.releases = {}
+        for version in ("1.0.0", "2.0.0"):
+            (self.core / "docs/index.md").write_text(f"# Core {version}\n", encoding="utf-8")
+            publication.run(self.core, "git", "add", ".")
+            publication.run(self.core, "git", "commit", "-m", f"Core {version}")
+            publication.run(self.core, "git", "tag", version)
+            self.releases[version] = publication.run(self.core, "git", "rev-parse", "HEAD")
+        manifest = {"version": 1, "sources": [{
+            "id": "core", "repository": "https://github.com/OpenTLV/opentlv",
+            "revision": self.releases["1.0.0"], "docs_path": "docs", "mount": "", "required": True,
+        }]}
+        self.write("docs-sources.json", json.dumps(manifest))
+        self.git("add", "docs-sources.json")
+        self.git("commit", "-m", "Pin fixture Core")
+        self.git("push", "origin", "main")
+        # Keep the configured GitHub identity while fetching actual local Git
+        # commits and tags. No GitHub or Core build is needed for this fixture.
+        config = patch.dict(os.environ, {
+            "GIT_CONFIG_COUNT": "3", "GIT_CONFIG_KEY_2": f"url.{self.core.as_uri()}.insteadOf",
+            "GIT_CONFIG_VALUE_2": "https://github.com/OpenTLV/opentlv",
+        })
+        config.start()
+        self.addCleanup(config.stop)
+
+    def select_event(self, version, conclusion="success"):
+        payload = {"source": "core", "repository": "OpenTLV/opentlv",
+                   "commit": self.releases[version], "ref": version, "run_id": 123}
+        event_path = self.portal / "build/event.json"
+        self.write("build/event.json", json.dumps({"client_payload": payload}))
+
+        def github_response(request, timeout):
+            path = request.full_url.removeprefix("https://api.github.com/repos/OpenTLV/opentlv/")
+            if path == "actions/runs/123":
+                result = {"conclusion": conclusion, "status": "completed", "event": "push",
+                          "head_sha": payload["commit"], "head_branch": version,
+                          "path": ".github/workflows/wasm.yml",
+                          "head_repository": {"full_name": payload["repository"]}}
+            elif path == f"git/ref/tags/{version}":
+                result = {"object": {"type": "commit", "sha": publication.run(
+                    self.core, "git", "rev-parse", f"refs/tags/{version}")}}
+            else:
+                self.fail(f"Unexpected GitHub request: {request.full_url}")
+            return io.StringIO(json.dumps(result))
+
+        with patch.dict(os.environ, {"GITHUB_EVENT_NAME": "repository_dispatch",
+                                     "GITHUB_EVENT_PATH": str(event_path)}), \
+                patch.object(ci, "ROOT", self.portal), \
+                patch.object(ci.events, "urlopen", side_effect=github_response):
+            for command in ("select", "fetch"):
+                with patch.object(sys, "argv", ["ci.py", command]):
+                    ci.main()
+        self.selection = json.loads((self.portal / "build/selection.json").read_text(encoding="utf-8"))
+        self.assertEqual(self.selection["commit"], payload["commit"])
+        self.assertEqual(self.selection["event_commit"], payload["commit"])
+        self.assertEqual(self.selection["version"], version)
+        self.assertEqual(self.selection["channel"], "release")
+        self.assertEqual(publication.run(self.portal / "build/sources/core", "git", "rev-parse", "HEAD"),
+                         payload["commit"])
+        # API generation is outside this publication fixture; keep its existing
+        # clean metadata stub while using the real fetched source lock verbatim.
+        metadata = {"repository": "https://github.com/OpenTLV/opentlv", "commit": payload["commit"],
+                    "local": False, "dirty": False,
+                    "api": {"commit": payload["commit"], "local": False, "dirty": False},
+                    "sources": self.selection["sources"]}
+        self.write("docs/source-revision.json", json.dumps(metadata))
+
+    def remote_file(self, path):
+        return publication.run(self.remote, "git", "show", f"refs/heads/gh-pages:{path}")
+
+    def test_duplicate_release_event_preserves_versions_aliases_and_newer_history(self):
+        self.select_event("1.0.0")
+        first_selection = self.selection
+        self.prepare()
+        self.deploy_bundle()
+        first_metadata = self.remote_file("1.0.0/source-revision.json")
+
+        self.fresh_checkout()
+        self.select_event("2.0.0")
+        self.prepare()
+        self.deploy_bundle()
+        before = self.remote_head().split()[0]
+        versions = json.loads(self.remote_file("versions.json"))
+        stable = self.remote_file("stable/source-revision.json")
+        default = self.remote_file("index.html")
+        newer_tree = publication.run(self.remote, "git", "rev-parse", "gh-pages:2.0.0")
+
+        self.fresh_checkout()
+        self.select_event("1.0.0")
+        self.assertEqual(self.selection, first_selection)
+        self.prepare()
+        self.deploy_bundle()
+        self.assertEqual(self.remote_file("1.0.0/source-revision.json"), first_metadata)
+        self.assertEqual(json.loads(self.remote_file("versions.json")), versions)
+        self.assertEqual({item["version"] for item in versions}, {"1.0.0", "2.0.0"})
+        self.assertEqual(next(item["version"] for item in versions if "stable" in item["aliases"]), "2.0.0")
+        self.assertEqual(self.remote_file("stable/source-revision.json"), stable)
+        self.assertEqual(self.remote_file("index.html"), default)
+        self.assertEqual(publication.run(self.remote, "git", "rev-parse", "gh-pages:2.0.0"), newer_tree)
+        publication.run(self.remote, "git", "merge-base", "--is-ancestor", before, "gh-pages")
+
+    def test_failed_event_and_failed_event_build_preserve_last_publication(self):
+        self.select_event("1.0.0")
+        self.prepare()
+        self.deploy_bundle()
+        before = self.remote_head()
+        versions = self.remote_file("versions.json")
+        stable = self.remote_file("stable/source-revision.json")
+
+        self.fresh_checkout()
+        with self.assertRaisesRegex(ValueError, "trusted push"):
+            self.select_event("2.0.0", conclusion="failure")
+        self.assertEqual(self.remote_head(), before)
+        self.assertFalse((self.portal / "build/selection.json").exists())
+        self.assertFalse((self.portal / "build/publication/history.bundle").exists())
+
+        self.fresh_checkout()
+        self.select_event("2.0.0")
+        self.write("docs/index.md", "# Broken update\n\n[Missing](missing.md)\n")
+        with self.assertRaisesRegex(RuntimeError, "Command failed"):
+            self.prepare()
+        self.assertEqual(self.remote_head(), before)
+        self.assertEqual(self.remote_file("versions.json"), versions)
+        self.assertEqual(self.remote_file("stable/source-revision.json"), stable)
+        self.assertFalse((self.portal / "build/publication/history.bundle").exists())
 
 
 if __name__ == "__main__":
