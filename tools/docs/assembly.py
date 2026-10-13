@@ -30,6 +30,7 @@ log = logging.getLogger("mkdocs.hooks.assembly")
 PORTAL_OVERRIDES = frozenset({
     "assets/README.md", "assets/favicon.svg", "assets/logo-mark.svg",
     "assets/opentlv.svg", "assets/opentlv-light.svg", "assets/opentlv-dark.svg",
+    "playground/index.md", "playground/playground.js", "playground/playground.css",
 })
 
 

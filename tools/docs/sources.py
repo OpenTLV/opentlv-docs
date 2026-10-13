@@ -74,6 +74,15 @@ def manifest(portal):
             raise PluginError(f"Invalid repository URL for {identifier}.")
         if "compatibility_result" in item:
             raise PluginError("Compatibility results belong to the generated source lock.")
+        if "updates" in item:
+            updates = item["updates"]
+            if (identifier == "core" or "compatibility" not in item or not isinstance(updates, dict)
+                    or set(updates) != {"workflow", "asset"}
+                    or not isinstance(updates["workflow"], str)
+                    or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", updates["workflow"])
+                    or not isinstance(updates["asset"], str)
+                    or not re.fullmatch(r"[A-Za-z0-9_-][A-Za-z0-9_.-]*\.json", updates["asset"])):
+                raise PluginError("updates requires a trusted workflow and JSON asset on a compatibility source.")
         if "compatibility" in item:
             if identifier == "core" or "revision" in item:
                 raise PluginError("Only non-Core sources may select compatibility instead of an explicit revision.")

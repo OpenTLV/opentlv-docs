@@ -268,6 +268,46 @@ class PublicationTests(unittest.TestCase):
             self.deploy_bundle()
         self.assertEqual(self.remote_head(), before)
 
+    def test_wasm_publication_checks_exact_core_manifest_and_payload(self):
+        self.set_selection("1.0.0")
+        directory = self.portal / "docs/playground/wasm"
+        directory.mkdir(parents=True)
+        for name in publication.wasm.FILES:
+            data = b"\0asm\x01\0\0\0" if name.endswith(".wasm") else b"export {};\n"
+            if name == "query.mjs":
+                data = b"export {};\r\n"
+            (directory / name).write_bytes(data)
+        manifest = {"schema": 1, "repository": "https://github.com/OpenTLV/opentlv",
+                    "commit": self.selection["commit"], "local": False, "dirty": False,
+                    "source_sha256": "f" * 64, "emscripten": publication.wasm.EMSCRIPTEN,
+                    "files": publication.wasm.hashes(directory)}
+        self.write("docs/playground/wasm/wasm-source.json", json.dumps(manifest))
+        metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+        with patch.dict(os.environ, {"OPENTLV_DOCS_REQUIRE_WASM": "1", "GIT_CONFIG_COUNT": "3",
+                                    "GIT_CONFIG_KEY_2": "core.autocrlf", "GIT_CONFIG_VALUE_2": "true"}):
+            with self.assertRaisesRegex(ValueError, "WebAssembly"):
+                publication.verify_site(self.portal / "docs", self.selection)
+            metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            publication.verify_site(self.portal / "docs", self.selection)
+            (directory / "query.mjs").write_text("tampered", encoding="utf-8")
+            with self.assertRaisesRegex(Exception, "checksums"):
+                publication.verify_site(self.portal / "docs", self.selection)
+            (directory / "query.mjs").write_bytes(b"export {};\r\n")
+            self.prepare()
+            self.deploy_bundle()
+            before = self.remote_head()
+            # A self-consistent replacement manifest still must not mutate an
+            # already published release's module bytes.
+            (directory / "query.mjs").write_bytes(b"export const changed = true;")
+            manifest["files"] = publication.wasm.hashes(directory)
+            self.write("docs/playground/wasm/wasm-source.json", json.dumps(manifest))
+            metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            with self.assertRaisesRegex(ValueError, "different WebAssembly"):
+                self.prepare()
+            self.assertEqual(self.remote_head(), before)
+
 
 if __name__ == "__main__":
     unittest.main()

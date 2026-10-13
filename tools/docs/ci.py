@@ -14,6 +14,7 @@ import sys
 import yaml
 
 import assembly
+import events
 
 ROOT = Path(__file__).resolve().parents[2]
 RELEASE = re.compile(r"v?((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))")
@@ -82,17 +83,54 @@ def main():
         lock = assembly.sources.fetch(ROOT, selection["revision"])
         selection["sources"] = lock["sources"]
         selection["commit"] = next(item["commit"] for item in lock["sources"] if item["id"] == "core")
+        if selection.get("event_commit", selection["commit"]) != selection["commit"]:
+            raise ValueError("Fetched Core differs from the verified event commit.")
         (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
         return
     core = next(item for item in assembly.sources.manifest(ROOT) if item["id"] == "core")
     selection = select(core,
                        os.environ.get("INPUT_CHANNEL") or "development",
                        os.environ.get("INPUT_CORE_REF", ""))
+    if os.environ.get("GITHUB_EVENT_NAME") == "repository_dispatch":
+        event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
+        payload = event["client_payload"]
+        item = events.validate(payload, assembly.sources.manifest(ROOT))
+        if item["id"] != "core":
+            raise ValueError("Core publication events must select Core.")
+        channel = "development" if payload["ref"] == "main" else "release"
+        selection = select(core, channel, payload["commit"] if channel == "development" else payload["ref"])
+        selection["event_commit"] = payload["commit"]
+    # Portal pushes must retain the newest validated development Core, rather
+    # than reverting latest to the bootstrap manifest pin after every docs edit.
+    if (os.environ.get("GITHUB_EVENT_NAME") in ("push", "repository_dispatch", "workflow_dispatch")
+            and selection["channel"] == "development"):
+        remote = assembly.git(ROOT, "ls-remote", "--heads", "origin", "refs/heads/gh-pages")
+        if remote:
+            assembly.git(ROOT, "fetch", "origin", "refs/heads/gh-pages")
+            names = assembly.git(ROOT, "ls-tree", "--name-only", "FETCH_HEAD", "latest/source-revision.json")
+            if names:
+                previous = json.loads(assembly.git(ROOT, "show", "FETCH_HEAD:latest/source-revision.json"))
+                if previous.get("repository") != core["repository"]:
+                    raise ValueError("Published latest belongs to a different Core repository.")
+                ref = assembly.sources.revision_ref(selection["revision"])
+                if events.SHA.fullmatch(ref.lower()):
+                    ref = ref.lower()
+                else:
+                    # Resolve annotated and lightweight tags through the GitHub API.
+                    obj = events.github(f"{selection['repository']}/git/ref/tags/{selection['revision']}")["object"]
+                    while obj["type"] == "tag":
+                        obj = events.github(f"{selection['repository']}/git/tags/{obj['sha']}")["object"]
+                    ref = obj["sha"]
+                selection["revision"] = events.newer(selection["repository"], previous["commit"], ref)
+                # A superseded event rebuilds the current latest selection.
+                if "event_commit" in selection:
+                    selection["event_commit"] = selection["revision"]
     (ROOT / "build").mkdir(exist_ok=True)
     (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-            for key, value in selection.items():
+            for key in ("repository", "revision", "channel", "version"):
+                value = selection[key]
                 output.write(f"{key}={value}\n")
 
 

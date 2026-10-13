@@ -18,8 +18,9 @@ The Core build does not depend on this repository.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-The default manifest requires no binding or CLI repository, binding runtime,
-or Emscripten installation. C++ remains part of Core; generating its reference does not require
+Local documentation previews require no binding or CLI repository, binding runtime,
+or Emscripten installation. Publishing the playground requires the additional
+[WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
 
 ## Setup
@@ -645,6 +646,9 @@ in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 - `assets/opentlv.svg`
 - `assets/opentlv-light.svg`
 - `assets/opentlv-dark.svg`
+- `playground/index.md`
+- `playground/playground.js`
+- `playground/playground.css`
 
 These portal-owned assets may still be present in older Core revisions; after
 Core cleanup only its README logo and attribution page remain. New overrides
@@ -658,10 +662,10 @@ Assembly preserves those existing pages without building their components or
 requiring separate repositories. Their documented ownership is unchanged.
 Future component extraction will update the selected content and navigation.
 
-The playground assets are preserved. Without optional WASM artifacts it displays
-its existing unavailable message. Set `OPENTLV_WASM_DIR` to a directory containing
-`opentlv.mjs`, `opentlv-core.js`, and `opentlv-core.wasm` to include them;
-`OPENTLV_DOCS_REQUIRE_WASM=1` makes missing artifacts an error.
+The portal owns the playground UI. Exact-path overlays also support old Core
+revisions that still contain its page, JavaScript and stylesheet. The component
+continues to own the WASM implementation, CMake target and native smoke tests.
+See [Playground builds](#playground-builds) for verified artifacts and preview.
 
 ## Validation and scope
 
@@ -724,7 +728,9 @@ with the official GitHub Pages Actions. It does not run Core or build scripts.
 | Trigger | Result |
 | --- | --- |
 | Pull request to `main` | Validate and prepare artifacts; never publish. |
-| Push to `main` | Validate and publish `latest` using all manifest revisions. |
+| Push to `main` | Validate and publish `latest`, retaining the newer of the manifest Core and already published Core. |
+| Verified Core notification | Publish `latest` for a main commit, or its immutable release version for a stable tag. |
+| Verified component release notification | Open a reviewed compatibility feed update PR. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
 | Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
 | Manual run on another branch | Validate only, regardless of `publish`. |
@@ -745,8 +751,8 @@ new assembler; publish a new version instead.
 The newest published release owns `stable`; publishing an older release does
 not move that alias backwards. The site root redirects to `stable` once a release
 exists, otherwise to `latest`. Later development builds preserve that default
-and all release directories. Core tags do not trigger this repository directly;
-automated cross-repository release events remain a follow-up.
+and all release directories. Successful Core WASM workflows notify this
+repository through the event contract below.
 
 ### GitHub Pages setup and recovery
 
@@ -779,8 +785,9 @@ disposable CI checkouts: it creates local mike commits but never pushes itself.
 The existing Core publication workflow remains in place until the replacement
 has passed hosted validation and a real Pages deployment. Local checks cannot
 verify repository Pages settings, environment protection, or hosted deployment.
-WASM remains optional; this workflow does not compile the playground or download
-unverified artifacts. Playground integration belongs to #6.
+Publication builds the selected Core WASM target, verifies provenance, and
+exercises the prepared playground in Chromium. WASM remains optional only for
+local documentation previews.
 
 The standalone build, API integration, and CI/publication infrastructure implement
 [#1](https://github.com/OpenTLV/opentlv-docs/issues/1),
@@ -794,7 +801,7 @@ The configured site URL is
 the intended GitHub Pages destination; deployment still requires the setup above.
 The existing Core pipeline remains operational during migration. Follow-ups own:
 
-- External compatibility test producers and automated ecosystem updates.
+- External compatibility test producers and production binding feed activation.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 Removal of the old Core portal configuration and workflow follows validation of
@@ -814,8 +821,133 @@ content checks are prerequisites. Preserve the old Core `gh-pages` site and its
 historical versions; the new portal does not import, relabel or delete them.
 The original workflow must be disabled and pending publishers cancelled.
 
-The portal's publication workflow still does not supply WASM artifacts. Keep
-the historical playground available until #6 supplies verified artifacts and
-transfers its UI sources. The Core playground page links to the archive and
-states its version limitation; a successful Markdown/API build alone does not
-prove equivalent interactive behavior.
+Merge and validate #6 in this repository before merging the companion Core UI
+removal. Preserve the historical playground; the new portal does not overwrite
+its versions. Browser validation runs against the actual prepared site before
+upload and deployment, separately from Markdown/API validation.
+
+## Automated ecosystem updates
+
+Core's `docs-notify.yml` runs after a successful `WebAssembly Build` push run.
+It sends `core-docs-updated` to this repository using `repository_dispatch`.
+The receiver verifies the configured repository, successful completed push run,
+workflow path `.github/workflows/wasm.yml`, SHA and main/tag reference through
+GitHub's API. Fork/PR runs, unknown sources, prereleases and moved tags fail.
+Tags may be lightweight or annotated. Sources are resolved once and the fetched
+Core commit must match the verified event before building.
+
+Example payload (use actual producer evidence):
+
+```json
+{
+  "event_type": "core-docs-updated",
+  "client_payload": {
+    "source": "core",
+    "repository": "OpenTLV/opentlv",
+    "commit": "1111111111111111111111111111111111111111",
+    "ref": "main",
+    "run_id": 123456
+  }
+}
+```
+
+`ref` is `main` or a stable `X.Y.Z`/`vX.Y.Z` tag. The sender sends no commands,
+checkout URLs, artifact paths or deployment instructions. Repeated development
+notifications rebuild the same selection. An older notification retains the
+newer published Core; unrelated portal pushes and manual development runs also
+cannot regress `latest`. Diverged Core histories fail for maintainer review.
+PR validation continues to use the manifest pin. Published releases keep their
+complete source set and compatibility evidence frozen; changed inputs fail
+rather than replace an existing release.
+
+Configure `OPENTLV_DOCS_DISPATCH_TOKEN` in Core as a fine-grained PAT
+with Contents write access to `OpenTLV/opentlv-docs`, sufficient
+for repository dispatch. Core's own `GITHUB_TOKEN` cannot write across repositories.
+The notification job performs no checkout. Install the receiver on docs `main`
+before enabling the sender on Core `main`. A missing token fails notification
+visibly; it does not change the successful producer result or publish anything.
+
+### Component releases and reviewed evidence
+
+Opt in an existing compatibility source with:
+
+```json
+"updates": {
+  "workflow": ".github/workflows/compatibility.yml",
+  "asset": "compatibility.json"
+}
+```
+
+The trusted producer must complete successfully on a stable tag push and publish
+a stable GitHub release containing the configured JSON asset. After that run
+completes, its notification workflow sends the same five payload fields using
+`event_type: component-docs-released`, the configured source ID/repository, tag,
+exact commit and successful run ID. Use the Core notification workflow as the
+sender pattern, with the component's workflow name and event type.
+
+The portal verifies the producer, tag and release asset and prepares a PR changing
+only that source's feed URL and GitHub-reported SHA-256 digest. It preserves the
+platform/configuration, other sources and navigation. Configure `DOCS_UPDATES_TOKEN`
+in this repository with Contents and Pull requests write permissions. Use a PAT
+(or an externally refreshed App token) so the created PR triggers normal documentation validation. Enable Actions
+PR creation in repository settings. The branch is keyed by source and commit,
+so repeated notifications update the same proposal. Review remains mandatory:
+the automatic proposal does not establish compatibility or producer trust.
+Merge only after the production activation checks above; no auto-merge is set.
+
+No production binding producer is configured in the default Core-only manifest.
+New feeds must still pass the importer checksum/schema/selection checks and real
+binding validation. Core events never refresh a moving feed digest automatically.
+
+### Recovery
+
+All publication events share the existing serialized publication group. GitHub
+may replace a pending run; an active publication is never cancelled. Re-send a
+missed notification after its producer succeeds, or use the existing manual
+workflow with an exact Core ref and `publish: false` for a rehearsal. A release
+notification can be replayed provided its entire selected source set is unchanged.
+For an expired token, restore the appropriate repository secret and rerun the
+notification. Failed checks leave the previous deployed site intact.
+
+## Playground builds
+
+Install Emscripten **4.0.10**, Ninja and Node.js **24** in addition to the normal
+documentation tools, then run from the activated portal environment:
+
+```sh
+python tools/docs/wasm.py
+python -m mkdocs serve -f mkdocs.local.yml
+```
+
+The command invokes the selected Core's `opentlv-wasm` CMake target and its WASM
+CTest smoke tests. It records repository, exact commit, local/dirty state,
+source fingerprint, toolchain and SHA-256 hashes in `wasm-source.json` next to
+`opentlv.mjs`, `query.mjs`, `opentlv-core.js` and `opentlv-core.wasm` in
+`build/wasm/bindings/wasm/dist/`. Local source changes invalidate old artifacts.
+Build with `OPENTLV_DOCS_LOCAL=1` when previewing an uncommitted Core checkout.
+
+Alternatively set `OPENTLV_WASM_DIR` to a complete previously generated directory
+including its manifest. Explicit missing, stale, modified or unproven artifacts
+fail; they never silently fall back. Transferred source bytes and Git metadata
+must match the selected checkout, as with API artifacts. Checksums establish
+integrity, not authentication of an arbitrary external producer.
+
+Ordinary previews may omit artifacts and display the unavailable message.
+CI sets `OPENTLV_DOCS_REQUIRE_WASM=1`, builds and tests the module, and verifies
+its provenance again in both the site and versioned publication. Metadata is
+included in `source-revision.json` and `playground/wasm/wasm-source.json`.
+Existing archived versions are preserved; they are not rebuilt by a new event.
+
+Browser validation uses an optional isolated dependency set:
+
+```sh
+python -m pip install -r requirements-browser.txt
+python -m playwright install chromium
+python tools/docs/browser_smoke.py build/publication/site --version latest
+```
+
+It serves the prepared output under the project URL prefix and checks module
+loading, successful BER parsing and a truncated-input error. It checks the
+selected version and its aliases, including `stable` when publishing the newest
+release. A browser failure prevents artifact upload and deployment. CI installs
+Chromium OS dependencies with `playwright install --with-deps chromium`.
