@@ -3169,6 +3169,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Executable examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#portal-example-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portal example slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3741,6 +3758,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Executable examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#portal-example-slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Portal example slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3816,7 +3850,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3939,7 +3973,7 @@ than into the generated files, which do not exist in the repository. Generated
 pages link back to the guides through the <code>@docs</code> Doxygen alias. Generate the
 references independently with Core CMake, or let the standalone portal generate
 them during its site build; see
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
 <h2 id="versioned-documentation">Versioned documentation<a class="headerlink" href="#versioned-documentation" title="Permanent link">&para;</a></h2>
 <p>The site is published per release: <code>latest</code> is the development documentation
 built from the portal's pinned Core revision, and each new released <code>X.Y.Z</code> is
@@ -3947,7 +3981,7 @@ built from its selected release tag and stays available after later releases.
 Historical <code>X.Y</code> versions remain on the archived Core site. Write pages for the current sources; do
 not copy the documentation tree or add version-specific pages by hand. Links
 that leave <code>docs/</code> point at the source of the same version. See
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
 published.</p>
 <h2 id="executable-examples">Executable examples<a class="headerlink" href="#executable-examples" title="Permanent link">&para;</a></h2>
 <p>Important examples (introductory C and C++ usage) are compiled sources under
@@ -3956,6 +3990,23 @@ directly above a fenced block to embed a source file verbatim; run
 <code>python scripts/check_doc_examples.py --fix</code> to refresh the copy. CI fails when a
 block differs from its source or the source no longer builds. Small illustrative
 fragments may stay inline.</p>
+<h3 id="portal-example-slots">Portal example slots<a class="headerlink" href="#portal-example-slots" title="Permanent link">&para;</a></h3>
+<p>Core's root <code>docs-examples.json</code> associates stable feature IDs with native
+executable sources. The portal reads these files from the selected Core revision;
+Core builds and documentation checks do not require the portal. A feature ID
+describes a specific operation and input contract, not an entire API subsystem.
+<code>fixed.roundtrip</code> means the Fixed <code>Hello, world!</code> round trip described in the
+<a href="../../guides/examples/#fixed-round-trip-by-language">example guide</a>.</p>
+<p>A paired <code>&lt;!-- opentlv-examples: fixed.roundtrip --&gt;</code> and
+<code>&lt;!-- /opentlv-examples --&gt;</code> slot wraps ordinary Markdown fallback links.
+Keep that fallback useful when reading Core without the portal. Assembly replaces
+the slot with source-backed language tabs without editing the original page.
+Binding repositories own their own catalogs and examples; do not add their
+future sources to Core's native catalog. Existing <code>&lt;!-- example: PATH --&gt;</code>
+blocks and their synchronization checks remain supported.</p>
+<p>The portal documents the catalog format, unavailable states and verification
+inputs in its <a href="https://github.com/OpenTLV/opentlv-docs#language-example-integration">integration guide</a>.
+Declaring a source is not evidence of a successful test run.</p>
 <h2 id="language-tabs">Language tabs<a class="headerlink" href="#language-tabs" title="Permanent link">&para;</a></h2>
 <p>OpenTLV provides an idiomatic C++ API and official language bindings over the
 canonical C execution engine (see the <a href="../../concepts/bindings/">language bindings conceptual
@@ -4044,7 +4095,7 @@ does not require placeholder pages or new OTLV, binding or tool documentation.</
 <li>Record every new page in the <a href="../documentation-ownership/#page-inventory">ownership inventory</a>.
   Add it to the <code>nav</code> in the <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/mkdocs.yml">portal configuration</a>. Keep the
   GitHub index <a href="../../">docs/README.md</a>, site landing page
-  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/README.md">README.md</a>
+  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/README.md">README.md</a>
   aligned with the sections and entry points they describe. The GitHub index
   may link to an overview that leads to individual topic pages.</li>
 <li>When moving a page, update inbound links throughout the repository,
@@ -4225,7 +4276,7 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     

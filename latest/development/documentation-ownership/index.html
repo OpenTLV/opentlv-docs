@@ -3806,7 +3806,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4394,8 +4394,8 @@ API generation inputs and portal code.</p>
 <td>Retain the Core README logo and attribution; shared visual design, favicon, header mark and variants are maintained in the portal</td>
 </tr>
 <tr>
-<td><code>docs/playground/playground.js</code>, <code>docs/playground/playground.css</code></td>
-<td>Portal: browser UI and styling; WebAssembly implementation remains component-owned</td>
+<td><code>docs/playground/playground.js</code>, <code>docs/playground/playground.css</code> in <code>opentlv-docs</code></td>
+<td>Portal: browser UI and styling, transferred by portal #6; Core retains a Markdown entry-point link</td>
 </tr>
 <tr>
 <td><code>mkdocs.yml</code>, <code>requirements-docs.txt</code>, <code>tools/docs/hooks.py</code>, <code>tools/docs/overrides/main.html</code> in the portal repository</td>
@@ -4594,15 +4594,14 @@ Do not delete or rewrite historical release content to create redirects.</p>
 targets, native examples, and existing binding/CLI documentation. Only migrated
 site configuration, Python site dependencies, hooks, theme and unused site asset
 variants are removed. The README logo remains usable offline.</p>
-<p>The playground page, JavaScript and stylesheet remain in Core as a documented
-transitional exception. Portal <a href="https://github.com/OpenTLV/opentlv-docs/issues/6">#6</a>
-owns verified WASM artifact integration and eventual UI source transfer; Core's
-WebAssembly workflow remains its producer. The portal currently accepts an
-explicit <code>OPENTLV_WASM_DIR</code>, but its publication workflow does not supply one.
-Until integration is delivered, the historical site retains the working
-playground, linked from the current playground page with its version limitation.
-This preserves access without claiming that the new portal supplies a WASM
-module matching its selected Core revision.</p>
+<p>Portal <a href="https://github.com/OpenTLV/opentlv-docs/issues/6">#6</a> transfers the
+playground UI to <code>opentlv-docs</code>. Core retains a Markdown entry point and the
+component-owned WebAssembly implementation, CMake target and tests. The portal
+builds that target for its selected Core commit, verifies provenance and runs
+the browser smoke test before publication. Its exact-path overlays support
+older Core revisions that still contain the UI.
+Merge and validate the portal integration before merging the Core UI removal.
+The historical playground and its version history remain unchanged.</p>
 <h2 id="documenting-new-core-functionality">Documenting new Core functionality<a class="headerlink" href="#documenting-new-core-functionality" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Update public C/C++ declarations and Doxygen comments with the implementation.</li>
@@ -4620,7 +4619,7 @@ module matching its selected Core revision.</p>
    when the portal moves, site assembly/publication checks belong to its CI,
    while Core retains checks of its own sources and API generation.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -4642,7 +4641,7 @@ sequencing and preservation requirements.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     

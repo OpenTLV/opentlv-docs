@@ -993,6 +993,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#fixed-round-trip-by-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed round trip by language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#workflow-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3612,6 +3623,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#fixed-round-trip-by-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed round trip by language
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#workflow-coverage" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3662,7 +3684,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/guides/examples.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/guides/examples.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3677,6 +3699,93 @@ is explicit in the C++ runtime Fixed, advanced-control and Schema examples;
 it is not the default application path. Go examples import only the public
 package. Rust uses <code>opentlv</code>, Python uses <code>opentlv</code>, Lua uses <code>require("opentlv")</code>
 and WebAssembly uses the supported JavaScript loader.</p>
+<h2 id="fixed-round-trip-by-language">Fixed round trip by language<a class="headerlink" href="#fixed-round-trip-by-language" title="Permanent link">&para;</a></h2>
+<p>These examples write and read <code>Hello, world!</code> using Fixed framing, a one-byte
+Tag <code>01</code>, and a one-byte Length. See the <a href="../../getting-started/#quick-start">quick start</a>
+for setup, ownership notes and expected output.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">C</label><label for="__tabbed_1_2">C++</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Component version: e9cbb29897652fa75753ea89459e3f5e26671d3a.<br />
+Selected revision: e9cbb29897652fa75753ea89459e3f5e26671d3a.</p>
+<p>Verified Core: not established (no result supplied).</p>
+<p><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/quick_start.c">Example source</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// SPDX-License-Identifier: MIT</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// Copyright (c) 2026 Marek Cingel</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/formats/fixed.h"</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/reader/reader.h"</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/writer/writer.h"</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="cm">/* One tag byte and one length byte; config must outlive its readers and writers. */</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">tlv_fixed_format_t</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.</span><span class="n">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TLV_BYTE_ORDER_BIG_ENDIAN</span><span class="p">}};</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="n">tlv_format_t</span><span class="w">             </span><span class="n">format</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tlv_fixed_format_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">config</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">TLV_OK</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">value</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Hello, world!"</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w">       </span><span class="n">buffer</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="kt">size_t</span><span class="w">        </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">consumed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">    </span><span class="n">tlv_element_t</span><span class="w"> </span><span class="n">element</span><span class="p">;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="cm">/* sizeof(value) - 1 excludes the trailing NUL. */</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tlv_write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="n">TLV_TAG</span><span class="p">(</span><span class="mh">0x01</span><span class="p">),</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">                  </span><span class="o">&amp;</span><span class="n">written</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">TLV_OK</span><span class="p">)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tlv_read</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">written</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">format</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">consumed</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">TLV_OK</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="cm">/* element.value borrows buffer; keep it alive while using the element. */</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">"%.*s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">element</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">element</span><span class="p">.</span><span class="n">value</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Component version: e9cbb29897652fa75753ea89459e3f5e26671d3a.<br />
+Selected revision: e9cbb29897652fa75753ea89459e3f5e26671d3a.</p>
+<p>Verified Core: not established (no result supplied).</p>
+<p><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/quick_start.cpp">Example source</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// SPDX-License-Identifier: MIT</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1">// Copyright (c) 2026 Marek Cingel</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/tlv.hpp&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">using</span><span class="w"> </span><span class="n">Format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">fixed_format</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">byte_order</span><span class="o">::</span><span class="n">big_endian</span><span class="o">&gt;</span><span class="p">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">using</span><span class="w"> </span><span class="n">Greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">field</span><span class="o">&lt;</span><span class="n">tlv</span><span class="o">::</span><span class="n">tag_constant</span><span class="o">&lt;</span><span class="mh">0x01</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">tlv</span><span class="o">::</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output</span><span class="p">{};</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">encode</span><span class="o">&lt;</span><span class="n">Format</span><span class="o">&gt;</span><span class="p">(</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="n">tlv</span><span class="o">::</span><span class="n">writer_builder</span><span class="o">&amp;</span><span class="w"> </span><span class="n">writer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="o">&lt;</span><span class="mh">0x01</span><span class="o">&gt;</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">);</span><span class="w"> </span><span class="c1">// Character arrays omit the trailing NUL.</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="p">});</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">written</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">written</span><span class="p">.</span><span class="n">error</span><span class="p">().</span><span class="n">message</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">// Parse only the written prefix. Decoding Greeting checks the tag and owns its string.</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">parse</span><span class="o">&lt;</span><span class="n">Format</span><span class="o">&gt;</span><span class="p">({</span><span class="n">output</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="o">*</span><span class="n">written</span><span class="p">}))</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">            </span><span class="k">auto</span><span class="w"> </span><span class="n">greeting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="n">decode</span><span class="o">&lt;</span><span class="n">Greeting</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">greeting</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Greeting decode failed</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">greeting</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">parse_error</span><span class="o">&amp;</span><span class="w"> </span><span class="n">failure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">"Parse error at "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">failure</span><span class="p">.</span><span class="n">offset</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">": "</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">failure</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">'\n'</span><span class="p">;</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="workflow-coverage">Workflow coverage<a class="headerlink" href="#workflow-coverage" title="Permanent link">&para;</a></h2>
 <p>Links below name existing programs, not promised parity. A dash means there is
 no dedicated example for that workflow; the binding may still implement it.
@@ -3809,7 +3918,7 @@ every example is runtime-tested. Python and Lua CI run their example programs.
 Go CI runs applicable examples in default/minimal builds, excluding Document
 and Query where Document is disabled. WASM's Node example is runnable after an
 Emscripten build; a WASM build alone does not prove that example was run.
-The CLI's <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/tools/cli/examples.cmake">acceptance script</a> exercises the
+The CLI's <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/tools/cli/examples.cmake">acceptance script</a> exercises the
 shared Fixed round trip and nested BER decode/encode/query workflows.</p>
 <p>Embedded complete programs use <code>&lt;!-- example: PATH --&gt;</code>; run
 <code>python scripts/check_doc_examples.py</code> to keep the copies identical. Small
@@ -3832,327 +3941,327 @@ removals and stale links. This is an inventory, not evidence of a CI runtime pas
 <tbody>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/builtins/asn1/ber.c">builtins/asn1/ber.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/builtins/asn1/ber.c">builtins/asn1/ber.c</a></td>
 <td>BER framing / construction</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/builtins/asn1/cer.c">builtins/asn1/cer.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/builtins/asn1/cer.c">builtins/asn1/cer.c</a></td>
 <td>CER framing</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/builtins/emv/tag_decoding.c">builtins/emv/tag_decoding.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/builtins/emv/tag_decoding.c">builtins/emv/tag_decoding.c</a></td>
 <td>EMV definitions / codecs</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/codecs_and_endian.c">codecs_and_endian.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/codecs_and_endian.c">codecs_and_endian.c</a></td>
 <td>Value codecs and byte order</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/copies.c">copies.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/copies.c">copies.c</a></td>
 <td>Explicit copy / preservation</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/custom_format.c">custom_format.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/custom_format.c">custom_format.c</a></td>
 <td>Application Format</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/dhcpv4.c">dhcpv4.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/dhcpv4.c">dhcpv4.c</a></td>
 <td>DHCPv4 framing / End policy</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/formats/fixed_format.c">formats/fixed_format.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/formats/fixed_format.c">formats/fixed_format.c</a></td>
 <td>Generic Fixed Format</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/incremental_reader.c">incremental_reader.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/incremental_reader.c">incremental_reader.c</a></td>
 <td>Resumable input</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/lldp.c">lldp.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/lldp.c">lldp.c</a></td>
 <td>LLDP validation / codecs</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/nfc_type2.c">nfc_type2.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/nfc_type2.c">nfc_type2.c</a></td>
 <td>NFC Type 2 framing</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/parse.c">parse.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/parse.c">parse.c</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/query.c">query.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/query.c">query.c</a></td>
 <td>Path Query</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/quick_start.c">quick_start.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/quick_start.c">quick_start.c</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/schema_visitor.c">schema_visitor.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/schema_visitor.c">schema_visitor.c</a></td>
 <td>Schema and Visitor</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/sequential_io.c">sequential_io.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/sequential_io.c">sequential_io.c</a></td>
 <td>Sequential Reader / Writer</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/tree_reader.c">tree_reader.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/tree_reader.c">tree_reader.c</a></td>
 <td>Pull Tree Reader</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/tree_writer.c">tree_writer.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/tree_writer.c">tree_writer.c</a></td>
 <td>Tree Writer</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/validate.c">validate.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/validate.c">validate.c</a></td>
 <td>Schema / validation</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/visitor.c">visitor.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/visitor.c">visitor.c</a></td>
 <td>Visitor traversal</td>
 </tr>
 <tr>
 <td>C</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/write.c">write.c</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/write.c">write.c</a></td>
 <td>Nested construction</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/advanced_control.cpp">advanced_control.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/advanced_control.cpp">advanced_control.cpp</a></td>
 <td>Input control, scratch and explicit native interop</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/basic_usage.cpp">basic_usage.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/basic_usage.cpp">basic_usage.cpp</a></td>
 <td>Reader / Writer / codecs</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/document.cpp">document.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/document.cpp">document.cpp</a></td>
 <td>Owned Document / traversal</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/document_edit.cpp">document_edit.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/document_edit.cpp">document_edit.cpp</a></td>
 <td>Document mutation</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/formats/custom_format.cpp">formats/custom_format.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/formats/custom_format.cpp">formats/custom_format.cpp</a></td>
 <td>Application Format</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/formats/fixed_format.cpp">formats/fixed_format.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/formats/fixed_format.cpp">formats/fixed_format.cpp</a></td>
 <td>Generic Fixed Format</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/formats/fixed_format_runtime.cpp">formats/fixed_format_runtime.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/formats/fixed_format_runtime.cpp">formats/fixed_format_runtime.cpp</a></td>
 <td>Runtime Fixed / explicit native interop</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/generate.cpp">generate.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/generate.cpp">generate.cpp</a></td>
 <td>Deterministic wire generation / owned cases</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/lldp.cpp">lldp.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/lldp.cpp">lldp.cpp</a></td>
 <td>LLDP validation / codecs</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/parse.cpp">parse.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/parse.cpp">parse.cpp</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/query.cpp">query.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/query.cpp">query.cpp</a></td>
 <td>Path Query</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/quick_start.cpp">quick_start.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/quick_start.cpp">quick_start.cpp</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/typed_fields.cpp">typed_fields.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/typed_fields.cpp">typed_fields.cpp</a></td>
 <td>Typed fields / Values</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/validate.cpp">validate.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/validate.cpp">validate.cpp</a></td>
 <td>Schema / validation</td>
 </tr>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/write.cpp">write.cpp</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/write.cpp">write.cpp</a></td>
 <td>Nested construction</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/parse.rs">parse.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/parse.rs">parse.rs</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/query_conformance.rs">query_conformance.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/query_conformance.rs">query_conformance.rs</a></td>
 <td>Common compiled Query corpus runner</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/quick_start.rs">quick_start.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/quick_start.rs">quick_start.rs</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/reader.rs">reader.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/reader.rs">reader.rs</a></td>
 <td>Sequential Reader and input control</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/validate.rs">validate.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/validate.rs">validate.rs</a></td>
 <td>Schema / validation</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/write.rs">write.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/write.rs">write.rs</a></td>
 <td>Nested construction</td>
 </tr>
 <tr>
 <td>Rust</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/writer.rs">writer.rs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/writer.rs">writer.rs</a></td>
 <td>Sequential Writer</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/codec.py">codec.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/codec.py">codec.py</a></td>
 <td>Typed Value codecs</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/document.py">document.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/document.py">document.py</a></td>
 <td>Owned Document / traversal</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/parse.py">parse.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/parse.py">parse.py</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/query.py">query.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/query.py">query.py</a></td>
 <td>Path Query</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/quick_start.py">quick_start.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/quick_start.py">quick_start.py</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/validate.py">validate.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/validate.py">validate.py</a></td>
 <td>Schema / validation</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/write.py">write.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/write.py">write.py</a></td>
 <td>Nested construction</td>
 </tr>
 <tr>
 <td>Python</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/writer.py">writer.py</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/writer.py">writer.py</a></td>
 <td>Sequential Writer</td>
 </tr>
 <tr>
 <td>Lua</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/lua/examples/codec.lua">codec.lua</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/lua/examples/codec.lua">codec.lua</a></td>
 <td>Typed Value codecs</td>
 </tr>
 <tr>
 <td>Lua</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/lua/examples/parse.lua">parse.lua</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/lua/examples/parse.lua">parse.lua</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 <tr>
 <td>Lua</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/lua/examples/quick_start.lua">quick_start.lua</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/lua/examples/quick_start.lua">quick_start.lua</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>Lua</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/lua/examples/schema.lua">schema.lua</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/lua/examples/schema.lua">schema.lua</a></td>
 <td>Structural Schema</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/codec/main.go">codec/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/codec/main.go">codec/main.go</a></td>
 <td>Typed Value codecs</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/document/main.go">document/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/document/main.go">document/main.go</a></td>
 <td>Owned Document / traversal</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/errors/main.go">errors/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/errors/main.go">errors/main.go</a></td>
 <td>Owned diagnostics / error matching</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/query/main.go">query/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/query/main.go">query/main.go</a></td>
 <td>Path Query</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/query_conformance/main.go">query_conformance/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/query_conformance/main.go">query_conformance/main.go</a></td>
 <td>Common compiled Query corpus runner</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/quick_start/main.go">quick_start/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/quick_start/main.go">quick_start/main.go</a></td>
 <td>Quick start / round trip</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/reader/main.go">reader/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/reader/main.go">reader/main.go</a></td>
 <td>Sequential Reader and input control</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/version/main.go">version/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/version/main.go">version/main.go</a></td>
 <td>Version / native integration</td>
 </tr>
 <tr>
 <td>Go</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/writer/main.go">writer/main.go</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/writer/main.go">writer/main.go</a></td>
 <td>Sequential Writer</td>
 </tr>
 <tr>
 <td>WebAssembly</td>
-<td><a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/wasm/examples/parse.mjs">parse.mjs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/wasm/examples/parse.mjs">parse.mjs</a></td>
 <td>Nested parsing / traversal</td>
 </tr>
 </tbody>
@@ -4177,7 +4286,7 @@ removals and stale links. This is an inventory, not evidence of a CI runtime pas
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     

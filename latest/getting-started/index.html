@@ -676,6 +676,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#consume-core-from-another-cmake-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consume Core from another CMake project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consume Core from another CMake project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installed-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installed dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-and-generate-distribution-archives" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3656,6 +3695,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#consume-core-from-another-cmake-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consume Core from another CMake project
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consume Core from another CMake project">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installed-dependency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installed dependency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-and-generate-distribution-archives" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3706,7 +3784,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/getting-started/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/getting-started/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3771,7 +3849,7 @@ the same order as the tabs.</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Save the example as <code>main.c</code>. It is
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/quick_start.c">examples/tlv/src/quick_start.c</a>. Place
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/quick_start.c">examples/tlv/src/quick_start.c</a>. Place
 the checkout at <code>external/OpenTLV</code> in your application.</p>
 <!-- example: examples/tlv/src/quick_start.c -->
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// SPDX-License-Identifier: MIT</span>
@@ -3815,7 +3893,7 @@ the checkout at <code>external/OpenTLV</code> in your application.</p>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">external/OpenTLV</span><span class="p">)</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">main.c</span><span class="p">)</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">tlv</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv</span><span class="p">)</span>
 </code></pre></div>
 <p>Configure and build with the CMake commands from
 <a href="#build-from-a-checkout">Build from a checkout</a>, then run <code>build/tlv_demo</code>
@@ -3824,9 +3902,9 @@ zero indicates a successful round trip.</p>
 </div>
 <div class="tabbed-block">
 <p>Save the example as <code>main.cpp</code>. It is
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/quick_start.cpp">examples/tlv++/src/quick_start.cpp</a>.
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/quick_start.cpp">examples/tlv++/src/quick_start.cpp</a>.
 Place the checkout at <code>external/OpenTLV</code> in your application. Enable <code>CXX</code> in
-<code>project</code>, set <code>OPENTLV_BUILD_CXX</code> to <code>ON</code>, and link <code>tlv++</code> instead of <code>tlv</code>;
+<code>project</code>, set <code>OPENTLV_BUILD_CXX</code> to <code>ON</code>, and link <code>OpenTLV::tlv++</code> instead of <code>OpenTLV::tlv</code>;
 this target propagates the C library and include paths. <code>tlv::fixed_format</code>
 selects the same Fixed configuration at compile time. The range visits one level
 and borrows input; malformed
@@ -3887,7 +3965,7 @@ Document, typed fields, Query and explicit control.</p>
 <a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">external/OpenTLV</span><span class="p">)</span>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">tlv++</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">tlv_demo</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv++</span><span class="p">)</span>
 </code></pre></div>
 <p>Configure and build with the CMake commands from
 <a href="#build-from-a-checkout">Build from a checkout</a>, then run <code>build/tlv_demo</code>
@@ -3896,7 +3974,7 @@ Document, typed fields, Query and explicit control.</p>
 <div class="tabbed-block">
 <p>Save the example as <code>examples/quick_start.rs</code> in a crate that depends on
 <code>opentlv</code>. It is
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/rust/opentlv/examples/quick_start.rs">bindings/rust/opentlv/examples/quick_start.rs</a>.
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/rust/opentlv/examples/quick_start.rs">bindings/rust/opentlv/examples/quick_start.rs</a>.
 The crate is not published to crates.io yet; depend on it by path from a
 checkout of the repository. See <a href="../guides/rust/">Using OpenTLV from Rust</a>
 for the full setup, including how to link a prebuilt library.
@@ -3943,7 +4021,7 @@ saved under its <code>examples/</code>. Exit code zero indicates a successful ro
 <div class="tabbed-block">
 <p>Save the example as <code>quick_start.py</code> in a checkout with both Python packages
 installed. It is
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/python/opentlv/examples/quick_start.py">bindings/python/opentlv/examples/quick_start.py</a>.
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/python/opentlv/examples/quick_start.py">bindings/python/opentlv/examples/quick_start.py</a>.
 The <code>opentlv</code> package is not published to PyPI yet; install it, and the
 <code>opentlv-core</code> extension it depends on, by path from a checkout of the
 repository. See <a href="../guides/python/">Using OpenTLV from Python</a> for the full
@@ -3988,7 +4066,7 @@ iteration and UTF-8 decoding use normal Python exceptions.</p>
 <p>Exit code zero indicates a successful round trip.</p>
 </div>
 <div class="tabbed-block">
-<p>This is <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/lua/examples/quick_start.lua">bindings/lua/examples/quick_start.lua</a>.
+<p>This is <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/lua/examples/quick_start.lua">bindings/lua/examples/quick_start.lua</a>.
 Build the native module as described in <a href="../guides/lua/">Using OpenTLV from Lua</a>.
 Lua strings carry binary Tag and Value bytes; failed native operations raise errors.
 The Writer uses its default bounded capacity, and Reader works directly in a
@@ -4013,7 +4091,7 @@ generic <code>for</code> loop.</p>
 <code>LUA_PATH</code>/<code>LUA_CPATH</code>.</p>
 </div>
 <div class="tabbed-block">
-<p>This is <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/bindings/go/examples/quick_start/main.go">bindings/go/examples/quick_start/main.go</a>.
+<p>This is <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/bindings/go/examples/quick_start/main.go">bindings/go/examples/quick_start/main.go</a>.
 Build the C library and configure cgo as described in the
 <a href="../guides/go/#install-and-integrate">Go user guide</a>. Import the public
 <code>opentlv</code> package; no cgo or native package is needed in application code.
@@ -4069,19 +4147,99 @@ in the Rust bindings CI workflow, and the Python
 program is run directly in the Python bindings CI workflow. Lua CI runs the
 Lua quick start, and Go CI runs its quick start in both default and minimal
 configurations. The
-<a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src">C examples</a>, one topic per file (sequential I/O,
+<a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src">C examples</a>, one topic per file (sequential I/O,
 explicit copies, schema validation, codecs, a custom format, and the BER and
-CER builtins), the <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv%2B%2B/src/basic_usage.cpp">C++ example</a>
-with BER, the <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/examples/tlv/src/builtins/emv/tag_decoding.c">EMV example</a>,
+CER builtins), the <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv%2B%2B/src/basic_usage.cpp">C++ example</a>
+with BER, the <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/examples/tlv/src/builtins/emv/tag_decoding.c">EMV example</a>,
 the further <a href="../guides/rust/">Rust examples</a> (reading, writing, and the
 <code>parse</code>, <code>write</code> and <code>validate</code> use cases), and the further
 <a href="../guides/python/">Python examples</a> (reading, writing, validating, codecs
 and documents) are further runnable examples.</p>
+<h2 id="consume-core-from-another-cmake-project">Consume Core from another CMake project<a class="headerlink" href="#consume-core-from-another-cmake-project" title="Permanent link">&para;</a></h2>
+<p>Use the same public targets with <code>add_subdirectory()</code>, <code>FetchContent</code>, or an
+installed CMake package:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Public interface</th>
+<th>Transitive requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OpenTLV::tlv</code></td>
+<td>C headers under <code>tlv/</code>, including generated configuration, version and export headers</td>
+<td>C99; no third-party libraries</td>
+</tr>
+<tr>
+<td><code>OpenTLV::tlv++</code></td>
+<td>C++ headers under <code>tlv++/</code></td>
+<td>C++11 and <code>OpenTLV::tlv</code></td>
+</tr>
+</tbody>
+</table>
+<p>Link only the target for your language. Its usage requirements provide the
+public include directories and language features; do not add Core source paths,
+private headers or library filenames to your application. <code>OpenTLV::tlv++</code> is
+available only when Core was built with <code>OPENTLV_BUILD_CXX=ON</code>.
+The installed C++ target was previously named <code>OpenTLV::tlvpp</code>; migrate existing
+consumers to <code>OpenTLV::tlv++</code>. No compatibility alias is provided.</p>
+<h3 id="source-dependency">Source dependency<a class="headerlink" href="#source-dependency" title="Permanent link">&para;</a></h3>
+<p>For a local checkout, CMake 3.16+ is sufficient:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.16</span><span class="p">)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">project</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">LANGUAGES</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">FetchContent_Declare</span><span class="p">(</span><span class="s">opentlv_core</span><span class="w"> </span><span class="s">SOURCE_DIR</span><span class="w"> </span><span class="s2">"${CMAKE_CURRENT_SOURCE_DIR}/external/opentlv"</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">opentlv_core</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nb">add_executable</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">main.cpp</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv++</span><span class="p">)</span>
+</code></pre></div>
+<p>Alternatively, declare <code>GIT_REPOSITORY https://github.com/OpenTLV/opentlv.git</code>
+and <code>GIT_TAG</code> with a verified Core commit containing these public targets.
+Override the declared source explicitly for local or offline development:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DFETCHCONTENT_SOURCE_DIR_OPENTLV_CORE<span class="o">=</span>/path/to/opentlv
+</code></pre></div>
+<p>When embedded, Core defaults <code>OPENTLV_BUILD_TESTS</code>, <code>OPENTLV_BUILD_EXAMPLES</code>
+and <code>OPENTLV_BUILD_CLI</code> to <code>OFF</code>. These options remain explicitly configurable;
+standalone Core builds retain their <code>ON</code> defaults. Core's convenience targets
+(<code>format</code>, <code>format-check</code>, <code>cppcheck</code>, <code>clang-tidy</code>) are added only in standalone
+builds. The C++ facade remains enabled by default; a C-only application can set
+<code>OPENTLV_BUILD_CXX=OFF</code> before adding Core. Core version metadata always comes
+from Core's own checkout, independently of the application's Git tags.</p>
+<h3 id="installed-dependency">Installed dependency<a class="headerlink" href="#installed-dependency" title="Permanent link">&para;</a></h3>
+<p>After <code>cmake --install</code>, provide the installation prefix through
+<code>CMAKE_PREFIX_PATH</code> and use:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">OpenTLV</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv++</span><span class="p">)</span>
+</code></pre></div>
+<p>The package name is <strong><code>OpenTLV</code></strong>, even if the FetchContent dependency is named
+<code>opentlv_core</code>. On CMake 3.24+, a consumer combining package discovery with
+FetchContent can use <code>FIND_PACKAGE_ARGS CONFIG NAMES OpenTLV</code> in its declaration.
+An explicit <code>FETCHCONTENT_SOURCE_DIR_OPENTLV_CORE</code> override takes precedence
+over package discovery and avoids downloading Core. See the
+<a href="https://cmake.org/cmake/help/latest/module/FetchContent.html#integrating-with-find-package">CMake FetchContent documentation</a>
+for this resolution mechanism.</p>
+<p>The existing package version policy is exact numeric version matching: use
+<code>find_package(OpenTLV &lt;major.minor.patch&gt; EXACT CONFIG REQUIRED)</code> when requesting
+a particular version. An unversioned request imposes no version constraint.
+The package does not promise compatibility with arbitrary newer Core releases.
+For shared builds, the application must also arrange runtime library discovery;
+on Windows, for example, place the Core DLL beside the executable or add its
+directory to <code>PATH</code>. This requirement applies to both source and installed modes.</p>
+<p>The integration check builds and runs external C and optional C++ applications
+against a source override and a relocated installation, and also exercises
+FetchContent package discovery on CMake 3.24+:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>python<span class="w"> </span>scripts/check_cmake_integration.py<span class="w"> </span>--shared<span class="w"> </span>ON<span class="w"> </span>--cxx<span class="w"> </span>ON
+</code></pre></div>
+<p>Use <code>--shared OFF</code> for static libraries and <code>--cxx OFF</code> for C-only Core.
+The check requires Git, Python 3 and a native CMake toolchain; it downloads no
+dependencies. CI covers all four combinations on Linux and Windows.</p>
 <h2 id="install-and-generate-distribution-archives">Install and generate distribution archives<a class="headerlink" href="#install-and-generate-distribution-archives" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_EXAMPLES<span class="o">=</span>OFF
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>cmake<span class="w"> </span>--install<span class="w"> </span>build<span class="w"> </span>--prefix<span class="w"> </span>/path/to/install
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>cpack<span class="w"> </span>--config<span class="w"> </span>build/CPackConfig.cmake<span class="w"> </span>-C<span class="w"> </span>Release
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_EXAMPLES<span class="o">=</span>OFF
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--parallel
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>cmake<span class="w"> </span>--install<span class="w"> </span>build<span class="w"> </span>--prefix<span class="w"> </span>/path/to/install
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>cpack<span class="w"> </span>--config<span class="w"> </span>build/CPackConfig.cmake<span class="w"> </span>-C<span class="w"> </span>Release
 </code></pre></div>
 <p>With Visual Studio, omit <code>-G Ninja</code> and use <code>--config Release</code> when building
 and installing. CPack defaults to ZIP on Windows and TGZ elsewhere. Archives
@@ -4099,17 +4257,17 @@ and license, README and changelog in <code>share/doc/OpenTLV</code>. GNUInstallD
 such as <code>CMAKE_INSTALL_LIBDIR</code> customize the shared installation layout.
 Use relative install directories to keep packages relocatable.</p>
 <p>After extracting, point <code>CMAKE_PREFIX_PATH</code> at that enclosing directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">OpenTLV</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv</span><span class="p">)</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c"># For C++ applications, use OpenTLV::tlvpp instead.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">OpenTLV</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">OpenTLV::tlv</span><span class="p">)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c"># For C++ applications, use OpenTLV::tlv++ instead.</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>my-app<span class="w"> </span>-B<span class="w"> </span>my-app/build<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/path/to/extracted/OpenTLV-0.1.0-Linux-x86_64-GNU
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>my-app/build<span class="w"> </span>--config<span class="w"> </span>Release
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>my-app<span class="w"> </span>-B<span class="w"> </span>my-app/build<span class="w"> </span>-DCMAKE_PREFIX_PATH<span class="o">=</span>/path/to/extracted/OpenTLV-0.1.0-Linux-x86_64-GNU
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>my-app/build<span class="w"> </span>--config<span class="w"> </span>Release
 </code></pre></div>
 <p>The source checkout is unnecessary. Use a compatible compiler, architecture
 and runtime for the binary library. For shared builds, make the installed
 runtime library discoverable by the platform loader (for example, Windows <code>PATH</code>).
-<code>OPENTLV_BUILD_CXX=OFF</code> omits C++ headers and the <code>OpenTLV::tlvpp</code> target.
+<code>OPENTLV_BUILD_CXX=OFF</code> omits C++ headers and the <code>OpenTLV::tlv++</code> target.
 CPack only packages <code>install()</code> output; it requires neither Conan nor vcpkg.
 On version-tag pushes (for example <code>0.1.0</code> or <code>0.2.0-rc.1</code>), the standard
 GCC, Clang and MSVC Release jobs each package their tested builds. GCC and Clang
@@ -4129,8 +4287,8 @@ directories, and checks consumers with the original compiler and the extracted
 CMake package. Use <code>--cxx OFF</code> for a C-only build. Checks also run under <code>python -O</code>.
 Native OS installers are not generated.</p>
 <h2 id="c-only-build">C-only build<a class="headerlink" href="#c-only-build" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-c<span class="w"> </span>-DOPENTLV_BUILD_CXX<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_BENCHMARKS<span class="o">=</span>OFF
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-c<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-c<span class="w"> </span>-DOPENTLV_BUILD_CXX<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_BENCHMARKS<span class="o">=</span>OFF
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-c<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
 </code></pre></div>
 <p>The <a href="../concepts/architecture/#build-configuration">component configuration</a> lists the
 protocol extension switches. The Fixed format used by the README example
@@ -4153,21 +4311,21 @@ by what they verify. See <a href="../concepts/architecture/#repository-layout">a
 <code>OPENTLV_BUILD_UNIT_TESTS</code> and <code>OPENTLV_BUILD_INTEGRATION_TESTS</code> default to <code>ON</code>.
 An unfiltered CTest run executes both enabled groups. To select a group in an
 existing build, use its CTest label:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>-L<span class="w"> </span>unit<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>-L<span class="w"> </span>integration<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>-L<span class="w"> </span>unit<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>-L<span class="w"> </span>integration<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
 </code></pre></div>
 <p><code>OPENTLV_BUILD_QUERY_TESTS</code> also defaults to <code>ON</code> and makes the independent C
 Query conformance runner available when both groups are disabled. It requires
 neither C++ nor GoogleTest. Unit, integration and property configurations also
 include this runner; the main <code>OPENTLV_BUILD_TESTS</code> switch disables all of them.</p>
 <p>To configure and build each group independently:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-unit<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_UNIT_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_INTEGRATION_TESTS<span class="o">=</span>OFF
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-unit<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-unit<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
-<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-integration<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_UNIT_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_INTEGRATION_TESTS<span class="o">=</span>ON
-<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-integration<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
-<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-integration<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-unit<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_UNIT_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_INTEGRATION_TESTS<span class="o">=</span>OFF
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-unit<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-unit<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-integration<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_UNIT_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_INTEGRATION_TESTS<span class="o">=</span>ON
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-integration<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-integration<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
 </code></pre></div>
 <p>Both groups follow the enabled format/component options and <code>OPENTLV_BUILD_CXX</code>.
 Generic contract tests use controlled callbacks where appropriate and remain
@@ -4180,9 +4338,9 @@ or installed-package checks execute. Package verification remains available via
 <code>python scripts/check_package.py &lt;release-build&gt; --cxx ON</code> (or <code>OFF</code> for C-only).</p>
 <p>To build and run both groups together:</p>
 <p>Tests require a C++17-capable toolchain and access to the GoogleTest dependency.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-tests<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_CXX_STANDARD<span class="o">=</span><span class="m">17</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-tests<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-tests<span class="w"> </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>ON<span class="w"> </span>-DCMAKE_CXX_STANDARD<span class="o">=</span><span class="m">17</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-tests<span class="w"> </span>--config<span class="w"> </span>Release<span class="w"> </span>--parallel
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-tests<span class="w"> </span>-C<span class="w"> </span>Release<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
 </code></pre></div>
 <p>See <a href="../reference/compilers/">compiler-specific settings</a> for strict builds. GitHub Actions
 runs build and test jobs for GCC, Clang, and MSVC; the README badges follow <code>main</code>.</p>
@@ -4205,7 +4363,7 @@ runs build and test jobs for GCC, Clang, and MSVC; the README badges follow <cod
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     

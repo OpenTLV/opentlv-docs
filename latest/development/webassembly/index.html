@@ -3740,7 +3740,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/webassembly.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/development/webassembly.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3965,18 +3965,26 @@ when memory runs out. Input is processed entirely in the browser. A single
 call reads at most 65,536 elements and 64 levels of nesting.</p>
 <h2 id="documentation-playground">Documentation playground<a class="headerlink" href="#documentation-playground" title="Permanent link">&para;</a></h2>
 <p>The <a href="../../playground/">TLV playground</a> in the documentation site is built
-on this module: <code>docs/playground/playground.js</code> calls <code>parse</code> once and renders
+on this module: the portal's <code>docs/playground/playground.js</code> calls <code>parse</code> once and renders
 the result as tree, hex and JSON views, with no parsing logic of its own; the
-JSON view serializes the parse result itself. Core's WebAssembly workflow owns
-module build and validation. The standalone portal embeds supplied artifacts
-under <code>playground/wasm/</code>; it does not compile the module. To preview it, build
-the module as above, set <code>OPENTLV_WASM_DIR</code> to the absolute path of
-<code>build-wasm/bindings/wasm/dist</code>, then run the portal's local preview command.
-Without the module the site still builds and reports that the playground is
-unavailable. Automated artifact integration belongs to
-<a href="https://github.com/OpenTLV/opentlv-docs/issues/6">portal #6</a>. Keep the existing
-Core playground sources until that migration preserves the working application;
-the historical site remains available during this transition.</p>
+JSON view serializes the parse result itself. Core owns the CMake WASM target
+and smoke tests. The portal invokes them against its selected Core checkout,
+verifies source provenance and all four distribution files, then embeds them
+under <code>playground/wasm/</code>. In the portal, run <code>python tools/docs/wasm.py</code> before
+previewing, or supply an already verified distribution with <code>OPENTLV_WASM_DIR</code>.
+Bare CMake output lacks the portal's <code>wasm-source.json</code> provenance manifest.
+Local previews may omit WASM; publication requires it and a browser smoke test.</p>
+<p>After a successful WebAssembly push workflow on <code>main</code> or a stable release tag,
+<code>.github/workflows/docs-notify.yml</code> notifies the portal. Configure
+<code>OPENTLV_DOCS_DISPATCH_TOKEN</code> with access to dispatch events in
+<code>OpenTLV/opentlv-docs</code>; the ordinary Core <code>GITHUB_TOKEN</code> is repository-scoped.
+Main notifications open a portal PR that pins the Core SHA in <code>docs-sources.json</code>;
+publication follows successful validation after that PR is merged. Stable tag
+notifications request the corresponding immutable documentation release.
+The notification job executes no checked-out code and runs separately after the
+producer succeeds, so notification failure does not change the Core build result.
+Portal configuration, recovery and component notification contracts are documented
+in its README.</p>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <p><code>bindings/wasm/test/smoke.mjs</code> runs the module in Node.js and is registered with CTest
 when <code>node</code> is found:</p>
@@ -4001,7 +4009,7 @@ when <code>node</code> is found:</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     

@@ -3762,7 +3762,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/91ac1c91b91df6bc845b379476423d51725b32e6/docs/development/reader-decode-performance.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/e9cbb29897652fa75753ea89459e3f5e26671d3a/docs/development/reader-decode-performance.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3806,7 +3806,7 @@ and publishes a decoded result only after validation. Source metadata and the
 transactional result copy remain intact. Configuration checks remain in place;
 this change introduces no pointer-keyed cache or new immutability assumption.</p>
 <h2 id="workloads-and-measurement-method">Workloads and measurement method<a class="headerlink" href="#workloads-and-measurement-method" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/README.md">benchmark guide</a> defines the datasets, exact
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/benchmarks/README.md">benchmark guide</a> defines the datasets, exact
 element denominators, allocation counters and commands. Reader reads roots;
 Tree Reader visits all elements and validates matching END events. Dataset
 generation and caller-owned traversal workspace allocation are outside timing.
@@ -3832,8 +3832,8 @@ matrix ran baseline then A; the independent Reader repeat ran A then baseline.
 The same benchmark executable loaded saved baseline/A libraries through
 <code>LD_LIBRARY_PATH</code>; <code>ldd</code> confirmed selection. The only library source difference
 is the retained <code>tlv_read_impl()</code> change described above.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/reader-decode-538.json">full evidence</a> and
-<a href="https://github.com/OpenTLV/opentlv/blob/91ac1c91b91df6bc845b379476423d51725b32e6/benchmarks/evidence/reader-decode-538-repeat.json">reverse-order repeat</a>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/benchmarks/evidence/reader-decode-538.json">full evidence</a> and
+<a href="https://github.com/OpenTLV/opentlv/blob/e9cbb29897652fa75753ea89459e3f5e26671d3a/benchmarks/evidence/reader-decode-538-repeat.json">reverse-order repeat</a>
 retain context, dataset counters, every repetition's iteration count and CPU/wall
 times, medians and sample coefficient of variation (CV). Times below are CPU
 microseconds per complete input, not per element. Negative changes mean less
@@ -4006,7 +4006,7 @@ input, workspace and lifetime constraints for a future design.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/91ac1c91b91df6bc845b379476423d51725b32e6">91ac1c91b91d</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/e9cbb29897652fa75753ea89459e3f5e26671d3a">e9cbb2989765</a>
         
       
     
