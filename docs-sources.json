@@ -8,6 +8,25 @@
       "docs_path": "docs",
       "mount": "",
       "required": true
+    },
+    {
+      "id": "cli",
+      "repository": "https://github.com/OpenTLV/opentlv-cli",
+      "revision": "abd2bce09a9f25071a41d7c1f3249fd48e8a0b20",
+      "docs_path": "docs",
+      "mount": "cli",
+      "required": true,
+      "link_aliases": ["main"],
+      "navigation": {
+        "title": "CLI",
+        "section": [],
+        "items": [
+          {"otlv command line": "README.md"},
+          {"TLV JSON document": "json-schema.md"},
+          {"Development": "development.md"},
+          {"Versions and releases": "releases.md"}
+        ]
+      }
     }
   ]
 }

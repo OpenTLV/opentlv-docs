@@ -47,9 +47,12 @@ def nav_paths(value):
 def check_navigation(docs, portal_config):
     # The assembled sources, not a second MkDocs configuration in Core, are
     # authoritative. Only the root GitHub index is intentionally site-excluded.
-    required = {path.relative_to(docs).as_posix() for path in docs.rglob("*.md")}
-    required.discard("README.md")
+    available = {path.relative_to(docs).as_posix() for path in docs.rglob("*.md")}
+    required = available - {"README.md"}
     present = nav_paths(yaml.safe_load(portal_config).get("nav", []))
+    stale = present - available
+    if stale:
+        raise ValueError("Portal navigation references missing documentation: " + ", ".join(sorted(stale)))
     missing = required - present
     if missing:
         raise ValueError("Portal navigation omits documentation: " + ", ".join(sorted(missing)))

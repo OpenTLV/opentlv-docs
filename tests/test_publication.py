@@ -36,8 +36,9 @@ class SelectionTests(unittest.TestCase):
             docs = Path(temp)
             (docs / "guides").mkdir()
             (docs / "README.md").write_text("# GitHub index\n", encoding="utf-8")
+            (docs / "index.md").write_text("# Home\n", encoding="utf-8")
             (docs / "guides/api.md").write_text("# API\n", encoding="utf-8")
-            nav = "nav:\n  - Guides:\n    - API: guides/api.md\n"
+            nav = "nav:\n  - Home: index.md\n  - Guides:\n    - API: guides/api.md\n"
             ci.check_navigation(docs, nav)
             with self.assertRaisesRegex(ValueError, "guides/api.md"):
                 ci.check_navigation(docs, "nav:\n  - Home: index.md\n# guides/api.md\n")
@@ -45,6 +46,13 @@ class SelectionTests(unittest.TestCase):
             (docs / "guides/README.md").write_text("# Guides\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "guides/README.md"):
                 ci.check_navigation(docs, nav)
+
+    def test_removed_cli_pages_fail_navigation_check(self):
+        with tempfile.TemporaryDirectory() as temp:
+            docs = Path(temp)
+            (docs / "index.md").write_text("# Home\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "missing documentation: cli/README.md"):
+                ci.check_navigation(docs, "nav:\n  - Home: index.md\n  - CLI: cli/README.md\n")
 
 
 class PublicationTests(unittest.TestCase):

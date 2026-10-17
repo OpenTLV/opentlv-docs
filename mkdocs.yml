@@ -154,9 +154,6 @@ nav:
       - DER: standards/der/README.md
       - CER: standards/cer/README.md
       - EMV: standards/emv/README.md
-  - CLI:
-      - otlv command line: cli/README.md
-      - TLV JSON document: cli/json-schema.md
   - Playground:
       - TLV playground: playground/index.md
   - Reference:

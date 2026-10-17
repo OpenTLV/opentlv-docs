@@ -169,7 +169,7 @@ def on_page_markdown(markdown, page, config, files):
 
 
 def on_page_content(content, page, config, files):
-    """Map revision-qualified repository documentation links after Markdown parsing.
+    """Map selected revisions and explicit link aliases to assembled documentation.
 
     This covers inline/reference links and HTML links without rewriting examples
     inside code blocks. Unrelated external links keep their original targets.
@@ -183,7 +183,9 @@ def on_page_content(content, page, config, files):
             if not source["included"]:
                 continue
             repository = source["repository"].removesuffix(".git").rstrip("/")
-            for revision in {source["revision"], source.get("commit", source["revision"])}:
+            revisions = {source["revision"], source.get("commit", source["revision"])}
+            revisions.update(source.get("link_aliases", []))
+            for revision in revisions:
                 base = f"{repository}/blob/{revision}/{source['docs_path']}/"
                 if not path.startswith(base):
                     continue
