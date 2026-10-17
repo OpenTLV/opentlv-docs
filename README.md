@@ -13,24 +13,26 @@ The Core build does not depend on this repository.
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- An external Core checkout at the revision selected in `docs-sources.json`.
+- External Core and CLI checkouts at the revisions selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-Local documentation previews require no binding or CLI repository, binding runtime,
-or Emscripten installation. Publishing the playground requires the additional
+Local documentation previews require the CLI documentation source but do not
+build the CLI executable or require binding repositories, binding runtimes,
+or Emscripten. Publishing the playground requires the additional
 [WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
 
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core directory is the sibling `../opentlv`. A separate checkout can be prepared
-without changing your development checkout:
+Core and CLI directories are the siblings `../opentlv` and `../opentlv-cli`.
+Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
 git clone --no-checkout https://github.com/OpenTLV/opentlv.git ../opentlv-docs-core
+git clone --no-checkout https://github.com/OpenTLV/opentlv-cli.git ../opentlv-docs-cli
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -45,6 +47,9 @@ python -m pip install -r requirements-docs.txt
 $env:OPENTLV_CORE_DIR = (Resolve-Path ../opentlv-docs-core).Path
 $coreRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq core).revision
 git -C $env:OPENTLV_CORE_DIR checkout --detach $coreRevision
+$env:OPENTLV_CLI_DIR = (Resolve-Path ../opentlv-docs-cli).Path
+$cliRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq cli).revision
+git -C $env:OPENTLV_CLI_DIR checkout --detach $cliRevision
 ```
 
 POSIX shell:
@@ -56,13 +61,43 @@ python -m pip install -r requirements-docs.txt
 export OPENTLV_CORE_DIR="$(cd ../opentlv-docs-core && pwd)"
 core_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "core"))')
 git -C "$OPENTLV_CORE_DIR" checkout --detach "$core_revision"
+export OPENTLV_CLI_DIR="$(cd ../opentlv-docs-cli && pwd)"
+cli_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "cli"))')
+git -C "$OPENTLV_CLI_DIR" checkout --detach "$cli_revision"
 ```
 
-For an existing workspace checkout, set `OPENTLV_CORE_DIR` to that checkout or
-leave it unset for the sibling default. Normal builds require HEAD to match the
+For existing workspace checkouts, set `OPENTLV_CORE_DIR` and `OPENTLV_CLI_DIR`
+or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
 The explicit `ci.py fetch` command creates separate managed checkouts as described below.
+
+### CLI documentation source
+
+The required `cli` source in `docs-sources.json` mounts the standalone CLI's
+`docs/` directory at `cli/`. Its manifest navigation owns the command guide,
+JSON schema, development guide and release guide. Existing command/schema URLs
+remain under `cli/`; the pages no longer depend on Core's removed `docs/cli/`.
+Core and CLI are independently pinned, recorded in the source lock and shown
+in published provenance. No CLI compilation or dependency download is needed
+to assemble these Markdown sources.
+
+The Core pin must include the CLI extraction when enabling this source.
+Selecting an older Core with its own `docs/cli/` correctly fails collision
+checks; do not add an override or silently drop one copy. Existing published
+versions retain their original content and source set. Updating `latest` does
+not rebuild those versions. The CLI pin includes the standalone development
+guide from CLI #5; update it deliberately alongside documentation validation.
+
+The optional `link_aliases` source field lists named Git refs used only to
+recognize documentation links. CLI opts in to `["main"]` because Core's
+repository-readable guides link to `opentlv-cli/blob/main/docs/...`. The portal
+maps those links to the selected CLI pages, preserving query strings and
+anchors. It never fetches or builds the alias ref: `revision` still selects the
+immutable source. Other repositories, unlisted refs, historical commit links,
+links outside the mounted docs directory, and code examples remain unchanged.
+Aliases are validated, included in source locks and published metadata, and
+require matching assembled pages and anchors under strict validation.
 
 ## Language example integration
 
@@ -724,10 +759,11 @@ entire directory nor arbitrary Core pages may be overwritten. File/directory
 conflicts always fail. Input collisions are checked before replacing the previous
 assembly, and Core sources remain untouched.
 
-The selected Core tree still contains binding/CLI guides and language tabs.
+The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or
 requiring separate repositories. Their documented ownership is unchanged.
-Future component extraction will update the selected content and navigation.
+CLI pages come from the required independent CLI source. Future binding
+extraction will update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component

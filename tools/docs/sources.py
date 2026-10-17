@@ -74,6 +74,15 @@ def manifest(portal):
             raise PluginError(f"Invalid repository URL for {identifier}.")
         if "compatibility_result" in item:
             raise PluginError("Compatibility results belong to the generated source lock.")
+        if "link_aliases" in item:
+            aliases = item["link_aliases"]
+            if (not isinstance(aliases, list) or not aliases
+                    or not all(isinstance(alias, str) and alias
+                               and not re.fullmatch(r"[0-9a-fA-F]{40}", alias) for alias in aliases)
+                    or len(set(aliases)) != len(aliases)):
+                raise PluginError(f"{identifier}: link_aliases requires unique named Git refs, not commit SHAs.")
+            for alias in aliases:
+                git(portal, "check-ref-format", "refs/heads/" + alias)
         if "updates" in item:
             updates = item["updates"]
             if (identifier == "core" or "compatibility" not in item or not isinstance(updates, dict)
