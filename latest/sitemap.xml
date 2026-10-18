@@ -133,10 +133,6 @@
          <lastmod>2026-10-18</lastmod>
     </url>
     <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/development/lua/</loc>
-         <lastmod>2026-10-18</lastmod>
-    </url>
-    <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/development/python/</loc>
          <lastmod>2026-10-18</lastmod>
     </url>
@@ -277,10 +273,6 @@
          <lastmod>2026-10-18</lastmod>
     </url>
     <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/guides/lua/</loc>
-         <lastmod>2026-10-18</lastmod>
-    </url>
-    <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/memory/</loc>
          <lastmod>2026-10-18</lastmod>
     </url>
@@ -314,6 +306,34 @@
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/guides/writer/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/api/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/development/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/implementation/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/migration/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/releases/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/testing/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/lua/versioning/</loc>
          <lastmod>2026-10-18</lastmod>
     </url>
     <url>

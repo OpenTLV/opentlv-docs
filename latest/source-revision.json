@@ -1,25 +1,31 @@
 {
   "id": "core",
   "repository": "https://github.com/OpenTLV/opentlv",
-  "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
+  "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
   "docs_path": "docs",
   "mount": "",
   "required": true,
+  "link_aliases": [
+    "main"
+  ],
   "local": false,
   "dirty": false,
-  "commit": "56b95a6754b4bd7210cc63252885db2c919f7178",
+  "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
   "included": true,
   "sources": [
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
+      "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
       "docs_path": "docs",
       "mount": "",
       "required": true,
+      "link_aliases": [
+        "main"
+      ],
       "local": false,
       "dirty": false,
-      "commit": "56b95a6754b4bd7210cc63252885db2c919f7178",
+      "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
       "included": true
     },
     {
@@ -54,6 +60,50 @@
       "dirty": false,
       "commit": "abd2bce09a9f25071a41d7c1f3249fd48e8a0b20",
       "included": true
+    },
+    {
+      "id": "lua",
+      "repository": "https://github.com/OpenTLV/opentlv-lua",
+      "revision": "c463066ca24f524d3ae9c7dff949796629367d03",
+      "docs_path": "docs",
+      "mount": "lua",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Lua",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Lua": "api.md"
+          },
+          {
+            "Build and installation": "development.md"
+          },
+          {
+            "Tests and CI": "testing.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release quality gate": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "c463066ca24f524d3ae9c7dff949796629367d03",
+      "included": true
     }
   ],
   "example_inputs": [
@@ -76,8 +126,8 @@
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "56b95a6754b4bd7210cc63252885db2c919f7178",
-    "source_sha256": "51b7479ed1a6e1c919b9b5f5f046350db56abc4fd58ec7e57844e5e7b87d4aac",
+    "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+    "source_sha256": "16adacd3adb23f1645808d975ff896de621259aff709e8cfd40019bcc4fdef65",
     "local": false,
     "dirty": false,
     "doxygen_version": "1.9.8",
@@ -87,10 +137,10 @@
   "wasm": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "56b95a6754b4bd7210cc63252885db2c919f7178",
+    "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
     "local": false,
     "dirty": false,
-    "source_sha256": "51b7479ed1a6e1c919b9b5f5f046350db56abc4fd58ec7e57844e5e7b87d4aac",
+    "source_sha256": "16adacd3adb23f1645808d975ff896de621259aff709e8cfd40019bcc4fdef65",
     "emscripten": "4.0.10",
     "files": {
       "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
