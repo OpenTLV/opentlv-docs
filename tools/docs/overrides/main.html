@@ -3,7 +3,7 @@
 {#- Development builds (see extra.docs_channel in mkdocs.yml) say so on every
     page; released versions carry no banner. -#}
 {% block announce %}
-  {% if config.extra.core_source.local %}
+  {% if config.extra.core_source and config.extra.core_source.local %}
     <strong>Local preview</strong> of the documentation sources.
     {% if config.extra.sources_dirty %}Includes uncommitted changes.{% endif %}
     Source links show the base commit; this is not a release build.

@@ -130,6 +130,12 @@ def on_page_markdown(markdown, page, config, files):
     ref = "main" if portal_owned else source["commit"]
     page.edit_url = f"{repo_url}/edit/{ref}/{quote(repo_path, safe='/')}"
 
+    return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir)
+
+
+def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir):
+    """Adapt repository-relative Markdown links for an independently owned source."""
+
     def rewrite(match):
         prefix, target, suffix = match.groups()
         if re.match(r"^([a-z][a-z0-9+.-]*:|#|/)", target, re.IGNORECASE):
@@ -179,7 +185,8 @@ def on_page_content(content, page, config, files):
         target = html.unescape(encoded)
         parts = urlsplit(target)
         path = unquote(urlunsplit((parts.scheme, parts.netloc, parts.path, "", "")))
-        for source in config.extra["core_source"]["sources"]:
+        selected = config.extra.get("sources") or config.extra["core_source"]["sources"]
+        for source in selected:
             if not source["included"]:
                 continue
             repository = source["repository"].removesuffix(".git").rstrip("/")
