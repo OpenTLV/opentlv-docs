@@ -4,7 +4,7 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "d87dcf96b2707e817dd51163a9f9efa36651e929",
+      "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
       "docs_path": "docs",
       "mount": "",
       "required": true
@@ -16,15 +16,25 @@
       "docs_path": "docs",
       "mount": "cli",
       "required": true,
-      "link_aliases": ["main"],
+      "link_aliases": [
+        "main"
+      ],
       "navigation": {
         "title": "CLI",
         "section": [],
         "items": [
-          {"otlv command line": "README.md"},
-          {"TLV JSON document": "json-schema.md"},
-          {"Development": "development.md"},
-          {"Versions and releases": "releases.md"}
+          {
+            "otlv command line": "README.md"
+          },
+          {
+            "TLV JSON document": "json-schema.md"
+          },
+          {
+            "Development": "development.md"
+          },
+          {
+            "Versions and releases": "releases.md"
+          }
         ]
       }
     }
