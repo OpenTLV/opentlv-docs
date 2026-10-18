@@ -4,10 +4,13 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "d87dcf96b2707e817dd51163a9f9efa36651e929",
+      "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
       "docs_path": "docs",
       "mount": "",
-      "required": true
+      "required": true,
+      "link_aliases": [
+        "main"
+      ]
     },
     {
       "id": "cli",
@@ -16,15 +19,65 @@
       "docs_path": "docs",
       "mount": "cli",
       "required": true,
-      "link_aliases": ["main"],
+      "link_aliases": [
+        "main"
+      ],
       "navigation": {
         "title": "CLI",
         "section": [],
         "items": [
-          {"otlv command line": "README.md"},
-          {"TLV JSON document": "json-schema.md"},
-          {"Development": "development.md"},
-          {"Versions and releases": "releases.md"}
+          {
+            "otlv command line": "README.md"
+          },
+          {
+            "TLV JSON document": "json-schema.md"
+          },
+          {
+            "Development": "development.md"
+          },
+          {
+            "Versions and releases": "releases.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lua",
+      "repository": "https://github.com/OpenTLV/opentlv-lua",
+      "revision": "5ab2ee882a1a7b0653e6db9e0f37b2e36366d1ff",
+      "docs_path": "docs",
+      "mount": "lua",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Lua",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Lua": "api.md"
+          },
+          {
+            "Build and installation": "development.md"
+          },
+          {
+            "Tests and CI": "testing.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release quality gate": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          }
         ]
       }
     }

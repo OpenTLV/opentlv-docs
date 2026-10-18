@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Assemble Lua API, build, test and versioning documentation from the standalone Lua repository with explicit source provenance and cross-repository links, while retaining Core-driven portal versions and existing published snapshots. (#27)
 - Route automatic Core and component development updates through reviewed commit pins, reject stale Core pins, and keep release selection independent of development snapshots. (#6)
 - Move playground UI ownership into the portal and require verified, matching WASM artifacts and browser validation before publication. (#6)
 - Document trusted CI producers, reviewed feed and digest updates, and real binding end-to-end validation as production activation requirements; clarify the schema v1 limit of one example per feature and language and distinguish test fixtures from production integration coverage. (#7)

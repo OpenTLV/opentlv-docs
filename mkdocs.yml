@@ -127,7 +127,6 @@ nav:
       - C++ examples: guides/cxx-examples.md
       - Using OpenTLV from Rust: guides/rust.md
       - Using OpenTLV from Python: guides/python.md
-      - Using OpenTLV from Lua: guides/lua.md
       - Language bindings: concepts/bindings.md
       - Using OpenTLV from Go: guides/go.md
       - WebAssembly tooling: development/webassembly.md
@@ -196,6 +195,5 @@ nav:
       - Query adversarial verification: development/query-adversarial.md
       - Rust bindings: development/rust.md
       - Python bindings: development/python.md
-      - Lua bindings: development/lua.md
       - Go bindings: development/go.md
       - Logo assets: assets/README.md
