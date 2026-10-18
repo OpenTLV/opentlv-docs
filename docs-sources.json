@@ -4,7 +4,7 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
+      "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
       "docs_path": "docs",
       "mount": "",
       "required": true,
@@ -44,7 +44,7 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "revision": "5ab2ee882a1a7b0653e6db9e0f37b2e36366d1ff",
+      "revision": "c463066ca24f524d3ae9c7dff949796629367d03",
       "docs_path": "docs",
       "mount": "lua",
       "required": true,

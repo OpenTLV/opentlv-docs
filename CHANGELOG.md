@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Align the pinned Core and Lua documentation revisions with the completed manual migration, restoring standalone Lua pages and navigation. (#27)
 - Preserve the original rendered Core release snapshot on repeated publication instead of rebuilding it with the current portal layout. (#21)
 - Restore CLI pages from an independently pinned CLI repository after Core extraction, including navigation, cross-repository links and missing-page checks. (#25)
 - Allow automated source update PRs without compatibility JSON files while staging only the source manifest and available compatibility evidence. (#17)
