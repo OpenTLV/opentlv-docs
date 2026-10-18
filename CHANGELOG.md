@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Preserve the original rendered Core release snapshot on repeated publication instead of rebuilding it with the current portal layout. (#21)
 - Restore CLI pages from an independently pinned CLI repository after Core extraction, including navigation, cross-repository links and missing-page checks. (#25)
 - Allow automated source update PRs without compatibility JSON files while staging only the source manifest and available compatibility evidence. (#17)
 - Link the documentation header to the main OpenTLV repository while preserving repository-specific page edit and source links. (#6)
@@ -23,6 +24,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Publish independently versioned CLI documentation under `cli/<version>/` from verified release-gate notifications, with immutable snapshots, a separate version selector, safe retries and shared serialized Pages deployment. (#21)
 - Import schema v2 development compatibility records for exact pinned component/Core pairs and propose verified JSON evidence from trusted component workflow artifacts, while retaining schema v1 release selection. (#6)
 - Automate reviewed development updates and immutable release documentation from verified Core workflow events, and propose reviewed commit and compatibility feed updates from configured component release producers. (#6)
 - Import checksum-pinned compatibility feeds to select the latest verified stable binding release for an exact Core commit, platform and configuration; gate examples on their own evidence and preserve selected results in source locks and published release provenance. (#7)

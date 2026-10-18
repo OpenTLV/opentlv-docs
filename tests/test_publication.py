@@ -306,15 +306,15 @@ class PublicationTests(unittest.TestCase):
             self.prepare()
             self.deploy_bundle()
             before = self.remote_head()
-            # A self-consistent replacement manifest still must not mutate an
-            # already published release's module bytes.
-            (directory / "query.mjs").write_bytes(b"export const changed = true;")
-            manifest["files"] = publication.wasm.hashes(directory)
-            self.write("docs/playground/wasm/wasm-source.json", json.dumps(manifest))
-            metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
-            self.write("docs/source-revision.json", json.dumps(metadata))
-            with self.assertRaisesRegex(ValueError, "different WebAssembly"):
-                self.prepare()
+            # Replaying a release reuses its archived bytes even when today's
+            # renderer or generated assets differ.
+            original = self.git("rev-parse", "gh-pages:1.0.0")
+            self.fresh_checkout()
+            self.set_selection("1.0.0")
+            self.write("docs/playground/wasm/query.mjs", "export const changed = true;")
+            self.write("mkdocs.yml", "invalid: [changed renderer\n")
+            self.prepare()
+            self.assertEqual(self.git("rev-parse", "gh-pages:1.0.0"), original)
             self.assertEqual(self.remote_head(), before)
 
 

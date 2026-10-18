@@ -89,7 +89,8 @@ def prepare(portal, selection):
     versions = []
     if remote:
         run(portal, "git", "fetch", "origin", "refs/heads/gh-pages:refs/heads/gh-pages")
-        versions = json.loads(run(portal, "git", "show", "gh-pages:versions.json"))
+        if run(portal, "git", "ls-tree", "--name-only", "gh-pages", "versions.json"):
+            versions = json.loads(run(portal, "git", "show", "gh-pages:versions.json"))
     elif subprocess.run(["git", "show-ref", "--verify", "--quiet", "refs/heads/gh-pages"],
                         cwd=portal).returncode == 0:
         raise ValueError("Use a fresh disposable checkout; a local-only gh-pages branch already exists.")
@@ -101,6 +102,9 @@ def prepare(portal, selection):
             raise ValueError("An existing release cannot be replaced with a different Core source.")
         if previous.get("sources") != selection.get("sources"):
             raise ValueError("An existing release cannot be replaced with a different source set.")
+        # A matching source set does not make a rebuild immutable: the theme,
+        # navigation and renderer may have changed. Reuse the original bytes.
+        return export_history(portal, version, selection)
     aliases = release_aliases(version, versions) if channel == "release" else []
     mike = [sys.executable, "-c", "from mike.driver import main; raise SystemExit(main())"]
     # Copy aliases include JSON, API assets and all other non-HTML files too.
@@ -109,12 +113,13 @@ def prepare(portal, selection):
         "--title", "latest (development)" if version == "latest" else version,
         version, *aliases, env=env)
     verify_site(portal / "site", selection)
-    if previous and previous.get("wasm") is not None:
-        current = json.loads((portal / "site/source-revision.json").read_text(encoding="utf-8"))
-        if current.get("wasm") != previous["wasm"]:
-            raise ValueError("An existing release cannot be replaced with different WebAssembly artifacts.")
     has_stable = bool(aliases) or any("stable" in item["aliases"] for item in versions)
     run(portal, *mike, "set-default", "stable" if has_stable else "latest", env=env)
+    return export_history(portal, version, selection)
+
+
+def export_history(portal, version, selection, verify=verify_site):
+    """Export the complete history without changing any stored snapshot."""
     output = portal / "build/publication"
     output.mkdir(parents=True, exist_ok=False)
     # Git archive applies working-tree conversions too. Preserve the verified
@@ -127,7 +132,7 @@ def prepare(portal, selection):
                     or (item.external_attr >> 16) & 0o170000 == 0o120000):
                 raise ValueError(f"Unsafe path or symlink in publication: {item.filename}")
         files.extractall(output / "site")
-    verify_site(output / "site" / version, selection)
+    verify(output / "site" / version, selection)
     run(portal, "git", "bundle", "create", str(output / "history.bundle"), "refs/heads/gh-pages")
     return run(portal, "git", "rev-parse", "gh-pages")
 

@@ -99,6 +99,95 @@ links outside the mounted docs directory, and code examples remain unchanged.
 Aliases are validated, included in source locks and published metadata, and
 require matching assembled pages and anchors under strict validation.
 
+## Independent CLI release publication
+
+CLI release documentation is published at `cli/<version>/`, for example
+`cli/0.1.0/` or `cli/0.2.0-rc.1/`. Its version comes exclusively from the CLI
+tag `v<version>`. The CLI header and version selector identify the displayed
+release; `cli/versions.json` is independent of Core's root `versions.json`.
+The portal navigation links to `cli/`, whose default is `cli/stable/` once a
+stable CLI release exists. Prereleases are selectable but never replace stable.
+Out-of-order stable releases cannot move stable backwards. Before the first
+stable release, the first published prerelease remains the default.
+
+The existing CLI section in `latest` continues to use the reviewed CLI commit
+in `docs-sources.json`. Publishing a CLI release does not change that pin,
+Core's `latest`/`stable`, existing Core snapshots, or the Docs version.
+CLI-only publication fetches CLI Markdown and assets, without building CLI,
+fetching Core, generating Doxygen, or building WASM. CLI source remains owned
+by `opentlv-cli`; the portal owns presentation and publication.
+
+After **CLI release gate** completes successfully, CLI's separate
+`docs-notify.yml` workflow sends `cli-docs-released` to this repository:
+
+```json
+{
+  "source": "cli",
+  "repository": "OpenTLV/opentlv-cli",
+  "commit": "<full CLI commit SHA>",
+  "ref": "v0.1.0",
+  "run_id": 123,
+  "run_attempt": 1
+}
+```
+
+Docs checks the configured repository, the completed successful
+`.github/workflows/release.yml` run on `main`, and its current attempt.
+It downloads the digest-verified `release-result-<attempt>` artifact and
+requires its request to match the notified tag, CLI SHA, workflow SHA and run
+identity. The CLI candidate may precede the workflow commit; Docs verifies
+that ancestry and resolves the tag independently. Failed jobs, stale attempts,
+expired/missing evidence, moved tags and invalid versions fail closed. This
+flow consumes CLI release evidence, not binding compatibility feeds.
+
+Each CLI snapshot records the tag, CLI commit, producer identity, evidence
+digest, Docs infrastructure commit and rendered-file SHA-256 digests in
+`source-revision.json`. Repeating publication of the same release verifies
+and reuses the archived snapshot, without fetching sources or rebuilding it.
+A different commit at the same version is rejected. Core release retries
+also reuse their original snapshot after validating their selected source set.
+Changing current navigation, theme or renderer never rebuilds historical
+release directories. Version catalogs and moving aliases are intentionally
+mutable; the release directories remain unchanged.
+
+Core and CLI publications share the workflow's `docs-publication` concurrency
+group and deployment job. Validation prepares a complete site and Git bundle
+without remote writes. Deployment uses a normal fast-forward push and then
+Pages deployment. A failed build leaves both remote history and the served
+site untouched; a concurrent external history update rejects the push.
+If Pages deployment fails after the history push, the served site remains at
+the last successful deployment; rerunning deployment can publish the already
+prepared artifact. Never force-push publication history.
+
+### Activation and retry
+
+1. Merge the Docs receiver and CLI notifier workflows onto their respective
+   `main` branches before releasing a CLI revision.
+2. Configure `OPENTLV_DOCS_DISPATCH_TOKEN` in `opentlv-cli` with permission to
+   [dispatch events](https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event)
+   to `OpenTLV/opentlv-docs` (fine-grained token: target repository Contents
+   write). CLI's ordinary token reads its release evidence;
+   the cross-repository token is used only by the notification step.
+3. Configure `OPENTLV_CLI_READ_TOKEN` in `opentlv-docs`, scoped to
+   `OpenTLV/opentlv-cli` with Actions read and Contents read. It verifies the
+   gate, tag and [release artifact](https://docs.github.com/en/rest/actions/artifacts#download-an-artifact).
+   The Docs repository's ordinary token is scoped to Docs and is not the
+   cross-repository artifact credential. The read token cannot publish Pages.
+4. Run a real CLI release gate and check the notifier, Docs validation and
+   Pages deployment separately. Confirm `cli/<version>/source-revision.json`
+   and the CLI selector, and compare pre-existing Core and CLI snapshot bytes.
+
+If notification fails, rerun **Notify CLI documentation portal** for the same
+successful gate. Do not rerun the release gate just to resend a notification:
+the gate intentionally refuses an existing tag. A failed Docs run can be
+rerun while the original release evidence remains available. Keep release
+evidence available under the repository's artifact retention policy; expired
+evidence is rejected even when a snapshot already exists.
+
+The first CLI release creates the `cli/` entry point. Until then, use the
+existing CLI section in development documentation. Local synthetic tests do
+not prove the dispatch credential, hosted gate or production Pages deployment.
+
 ## Language example integration
 
 Core pages can contain a feature slot with ordinary Markdown fallback content:
