@@ -13,13 +13,13 @@ The Core build does not depend on this repository.
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- External Core and CLI checkouts at the revisions selected in `docs-sources.json`.
+- External Core, CLI and Lua checkouts at the revisions selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-Local documentation previews require the CLI documentation source but do not
-build the CLI executable or require binding repositories, binding runtimes,
+Local documentation previews require the CLI and Lua documentation sources but do not
+build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
 [WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
@@ -27,12 +27,14 @@ building the C++ library, bindings, CLI, examples, or tests.
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core and CLI directories are the siblings `../opentlv` and `../opentlv-cli`.
+Core, CLI and Lua directories are the siblings `../opentlv`, `../opentlv-cli`
+and `../opentlv-lua`.
 Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
 git clone --no-checkout https://github.com/OpenTLV/opentlv.git ../opentlv-docs-core
 git clone --no-checkout https://github.com/OpenTLV/opentlv-cli.git ../opentlv-docs-cli
+git clone --no-checkout https://github.com/OpenTLV/opentlv-lua.git ../opentlv-docs-lua
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -50,6 +52,9 @@ git -C $env:OPENTLV_CORE_DIR checkout --detach $coreRevision
 $env:OPENTLV_CLI_DIR = (Resolve-Path ../opentlv-docs-cli).Path
 $cliRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq cli).revision
 git -C $env:OPENTLV_CLI_DIR checkout --detach $cliRevision
+$env:OPENTLV_LUA_DIR = (Resolve-Path ../opentlv-docs-lua).Path
+$luaRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq lua).revision
+git -C $env:OPENTLV_LUA_DIR checkout --detach $luaRevision
 ```
 
 POSIX shell:
@@ -64,9 +69,12 @@ git -C "$OPENTLV_CORE_DIR" checkout --detach "$core_revision"
 export OPENTLV_CLI_DIR="$(cd ../opentlv-docs-cli && pwd)"
 cli_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "cli"))')
 git -C "$OPENTLV_CLI_DIR" checkout --detach "$cli_revision"
+export OPENTLV_LUA_DIR="$(cd ../opentlv-docs-lua && pwd)"
+lua_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "lua"))')
+git -C "$OPENTLV_LUA_DIR" checkout --detach "$lua_revision"
 ```
 
-For existing workspace checkouts, set `OPENTLV_CORE_DIR` and `OPENTLV_CLI_DIR`
+For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR` and `OPENTLV_LUA_DIR`
 or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
@@ -98,6 +106,32 @@ immutable source. Other repositories, unlisted refs, historical commit links,
 links outside the mounted docs directory, and code examples remain unchanged.
 Aliases are validated, included in source locks and published metadata, and
 require matching assembled pages and anchors under strict validation.
+
+### Lua documentation source
+
+The required `lua` source mounts `opentlv-lua/docs/` at `lua/` and contributes
+the Lua section under Language APIs. Lua owns the API guide, implementation
+notes, build and LuaRocks instructions, tests, versioning and migration history.
+The original import README remains a historical artifact outside the mounted
+docs directory; it is linked from the provenance guide, not presented as setup.
+
+Core and Lua both declare `link_aliases: ["main"]` so repository-readable
+cross-references resolve to the selected immutable pages in either direction.
+Source and example links outside `docs/` point to their owning repository at
+the selected commit. This does not verify runtime compatibility or select a
+Lua release automatically.
+
+Pin a Core commit that removes its Lua manuals and a Lua commit that contains
+`docs/api.md` and `docs/implementation.md`. Merge the Lua documentation first,
+then the Core link/ownership update, and finally update both portal pins to
+those available commits. A local preview can validate the coordinated working
+trees before those commits exist; it cannot be published.
+
+Portal version selection continues to follow Core. Lua tags and the binding's
+version metadata remain independent; this source adds no separate Lua release
+publication workflow. Existing published snapshots keep their original bytes
+and source set. Their old Lua URLs remain part of those snapshots; the current
+navigation and links use `lua/api/` and `lua/implementation/`.
 
 ## Independent CLI release publication
 

@@ -4,10 +4,13 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "56b95a6754b4bd7210cc63252885db2c919f7178",
+      "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
       "docs_path": "docs",
       "mount": "",
-      "required": true
+      "required": true,
+      "link_aliases": [
+        "main"
+      ]
     },
     {
       "id": "cli",
@@ -34,6 +37,46 @@
           },
           {
             "Versions and releases": "releases.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lua",
+      "repository": "https://github.com/OpenTLV/opentlv-lua",
+      "revision": "c463066ca24f524d3ae9c7dff949796629367d03",
+      "docs_path": "docs",
+      "mount": "lua",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Lua",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Lua": "api.md"
+          },
+          {
+            "Build and installation": "development.md"
+          },
+          {
+            "Tests and CI": "testing.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release quality gate": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
           }
         ]
       }
