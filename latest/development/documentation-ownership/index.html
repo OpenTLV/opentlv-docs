@@ -3930,7 +3930,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/d87dcf96b2707e817dd51163a9f9efa36651e929/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/56b95a6754b4bd7210cc63252885db2c919f7178/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -3946,8 +3946,10 @@ and <a href="../documentation-layout/">documentation layout</a> first.</p>
 under <a href="https://github.com/OpenTLV/opentlv/issues/603">the documentation extraction epic</a>.
 The inventory records both retained Core sources and component destinations.
 The standalone portal owns publication; CLI sources, tests and manuals now
-belong to <code>OpenTLV/opentlv-cli</code> (#622). Remaining transitional exceptions
-are identified below.</p>
+belong to <code>OpenTLV/opentlv-cli</code> (#622). Lua sources, tests and CI belong to <code>OpenTLV/opentlv-lua</code> (#633).
+The Lua API guide and implementation notes remain here until the portal
+documentation migration (OpenTLV/opentlv-docs#27); setup links already point to
+the standalone repository. Remaining transitional exceptions are identified below.</p>
 <h2 id="ownership-rules">Ownership rules<a class="headerlink" href="#ownership-rules" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3975,9 +3977,11 @@ are identified below.</p>
 </tr>
 </tbody>
 </table>
-<p>C++ remains part of Core. Rust, Python and Lua documentation will move with
-their implementations to <code>OpenTLV/opentlv-rust</code>, <code>OpenTLV/opentlv-python</code> and
-<code>OpenTLV/opentlv-lua</code>; CLI documentation is maintained in <code>OpenTLV/opentlv-cli</code>.
+<p>C++ remains part of Core. Rust and Python documentation will move with
+their implementations to <code>OpenTLV/opentlv-rust</code> and <code>OpenTLV/opentlv-python</code>.
+Lua's standalone build and test documentation is maintained in <code>OpenTLV/opentlv-lua</code>;
+its API guide remains a transitional Core source as described above.
+CLI documentation is maintained in <code>OpenTLV/opentlv-cli</code>.
 Go and WebAssembly follow the same component ownership rule; their destination
 repository names must be recorded when their extraction is scheduled. These
 binding destinations are ownership assignments, not claims that their migrations are complete.</p>
@@ -4758,7 +4762,7 @@ The historical playground and its version history remain unchanged.</p>
    when the portal moves, site assembly/publication checks belong to its CI,
    while Core retains checks of its own sources and API generation.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/d87dcf96b2707e817dd51163a9f9efa36651e929/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/56b95a6754b4bd7210cc63252885db2c919f7178/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -4780,7 +4784,7 @@ sequencing and preservation requirements.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/d87dcf96b2707e817dd51163a9f9efa36651e929">d87dcf96b270</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/56b95a6754b4bd7210cc63252885db2c919f7178">56b95a6754b4</a>
         
       
     

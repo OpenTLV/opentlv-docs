@@ -3952,7 +3952,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/d87dcf96b2707e817dd51163a9f9efa36651e929/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/56b95a6754b4bd7210cc63252885db2c919f7178/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -4075,7 +4075,7 @@ than into the generated files, which do not exist in the repository. Generated
 pages link back to the guides through the <code>@docs</code> Doxygen alias. Generate the
 references independently with Core CMake, or let the standalone portal generate
 them during its site build; see
-<a href="https://github.com/OpenTLV/opentlv/blob/d87dcf96b2707e817dd51163a9f9efa36651e929/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv/blob/56b95a6754b4bd7210cc63252885db2c919f7178/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
 <h2 id="versioned-documentation">Versioned documentation<a class="headerlink" href="#versioned-documentation" title="Permanent link">&para;</a></h2>
 <p>The site is published per release: <code>latest</code> is the development documentation
 built from the portal's pinned Core revision, and each new released <code>X.Y.Z</code> is
@@ -4083,7 +4083,7 @@ built from its selected release tag and stays available after later releases.
 Historical <code>X.Y</code> versions remain on the archived Core site. Write pages for the current sources; do
 not copy the documentation tree or add version-specific pages by hand. Links
 that leave <code>docs/</code> point at the source of the same version. See
-<a href="https://github.com/OpenTLV/opentlv/blob/d87dcf96b2707e817dd51163a9f9efa36651e929/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
+<a href="https://github.com/OpenTLV/opentlv/blob/56b95a6754b4bd7210cc63252885db2c919f7178/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
 published.</p>
 <h2 id="executable-examples">Executable examples<a class="headerlink" href="#executable-examples" title="Permanent link">&para;</a></h2>
 <p>Important examples (introductory C and C++ usage) are compiled sources under
@@ -4197,7 +4197,7 @@ does not require placeholder pages or new OTLV, binding or tool documentation.</
 <li>Record every new page in the <a href="../documentation-ownership/#page-inventory">ownership inventory</a>.
   Add it to the <code>nav</code> in the <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/mkdocs.yml">portal configuration</a>. Keep the
   GitHub index <a href="../../">docs/README.md</a>, site landing page
-  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/d87dcf96b2707e817dd51163a9f9efa36651e929/README.md">README.md</a>
+  <a href="../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/56b95a6754b4bd7210cc63252885db2c919f7178/README.md">README.md</a>
   aligned with the sections and entry points they describe. The GitHub index
   may link to an overview that leads to individual topic pages.</li>
 <li>When moving a page, update inbound links throughout the repository,
@@ -4222,7 +4222,8 @@ updates, and inventory success is not evidence of binding feature support.</p>
 Markdown lint and generated API references. Core CI runs these checks without
 MkDocs or the portal. The portal checks navigation against assembled Markdown
 and runs the strict MkDocs build. Core retains binding checks while those
-sources remain here. CLI checks belong to <code>opentlv-cli</code>.</p>
+sources remain here. CLI checks belong to <code>opentlv-cli</code>; Lua example and test
+execution belongs to <code>opentlv-lua</code>.</p>
 <p>The inventory check derives these small facts directly from repository sources:</p>
 <table>
 <thead>
@@ -4249,8 +4250,8 @@ sources remain here. CLI checks belong to <code>opentlv-cli</code>.</p>
 <td>User guide exists (WASM uses its tooling guide); navigation is checked by the portal</td>
 </tr>
 <tr>
-<td>C/C++/Rust/Python/Lua/Go/WASM example sources</td>
-<td>Marked source inventory in the examples guide</td>
+<td>Core-local C/C++/Rust/Python/Go/WASM example sources</td>
+<td>Marked source inventory in the examples guide; standalone Lua sources are external links</td>
 </tr>
 <tr>
 <td>Doxygen public roots, recursion and file patterns</td>
@@ -4374,7 +4375,7 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/d87dcf96b2707e817dd51163a9f9efa36651e929">d87dcf96b270</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/56b95a6754b4bd7210cc63252885db2c919f7178">56b95a6754b4</a>
         
       
     
