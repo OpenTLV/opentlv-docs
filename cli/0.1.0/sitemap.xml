@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/cli/0.1.0/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/cli/0.1.0/development/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/cli/0.1.0/json-schema/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/cli/0.1.0/releases/</loc>
+         <lastmod>2026-10-18</lastmod>
+    </url>
+</urlset>
