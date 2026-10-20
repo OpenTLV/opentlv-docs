@@ -90,12 +90,21 @@ Core and CLI are independently pinned, recorded in the source lock and shown
 in published provenance. No CLI compilation or dependency download is needed
 to assemble these Markdown sources.
 
-The Core pin must include the CLI extraction when enabling this source.
-Selecting an older Core with its own `docs/cli/` correctly fails collision
-checks; do not add an override or silently drop one copy. Existing published
+When selecting a historical Core such as `0.7.1`, the standalone CLI owns the
+two extracted pages `cli/README.md` and `cli/json-schema.md`. Assembly explicitly
+replaces Core's `docs/cli/` copies with the matching CLI `docs/` files, preserving
+their URLs and recording CLI ownership and its pinned revision. This rule is
+limited to those exact paths and source owners; every other collision fails.
+Core tags and source files remain untouched. Existing published
 versions retain their original content and source set. Updating `latest` does
 not rebuild those versions. The CLI pin includes the standalone development
 guide from CLI #5; update it deliberately alongside documentation validation.
+
+Core `0.7.1` also uses an explicit navigation adjustment keyed to its immutable
+commit `e12a52ff69a64468eecab084795a0530c273efea`: it retains the two historical
+Core Lua guides and omits the two development pages introduced later.
+Other revisions use the current navigation. Missing and unlisted pages remain
+errors; assembly never prunes navigation based on which files happen to exist.
 
 The optional `link_aliases` source field lists named Git refs used only to
 recognize documentation links. CLI opts in to `["main"]` because Core's
@@ -864,7 +873,7 @@ No additional MkDocs plugin dependency is introduced.
 ### Transitional component content
 
 Assembly rejects duplicate documentation paths between Core and the portal.
-The only intentional overrides are the exact shared presentation paths declared
+The portal presentation overrides are the exact shared paths declared
 in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 
 - `assets/README.md`
@@ -883,6 +892,13 @@ require an explicit ownership decision and an entry in that list; neither an
 entire directory nor arbitrary Core pages may be overwritten. File/directory
 conflicts always fail. Input collisions are checked before replacing the previous
 assembly, and Core sources remain untouched.
+
+`CLI_MIGRATED_PAGES` additionally transfers `cli/README.md` and
+`cli/json-schema.md` from historical Core to the selected standalone CLI.
+It requires the exact original source paths and keeps CLI ownership regardless
+of source order. Without a selected CLI replacement, Core's pages remain.
+If CLI is selected but lacks a migrated page, assembly fails instead of falling
+back to historical Core content.
 
 The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or

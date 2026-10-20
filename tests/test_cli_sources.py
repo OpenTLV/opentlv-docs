@@ -1,18 +1,52 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Marek Cingel
 
-"""CLI extraction regression: Core has no CLI pages; the pinned CLI owns them."""
+"""CLI ownership before and after extraction from historical Core sources."""
 
 import json
 import os
+from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
 from mkdocs.exceptions import PluginError
+import yaml
 
 import test_portal as fixture
 from test_publication import ci
+
+
+class HistoricalNavigationTests(unittest.TestCase):
+    def test_exact_core_release_navigation_keeps_strict_inventory(self):
+        base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
+        core = {"id": "core", "repository": "https://github.com/OpenTLV/opentlv",
+                "commit": "e12a52ff69a64468eecab084795a0530c273efea"}
+        result = fixture.assembly.navigation(base, [(None, core)])
+        expected = (ci.nav_paths(base) - {"development/quality-gates.md",
+                                         "development/documentation-ownership.md"}
+                    | {"guides/lua.md", "development/lua.md"})
+        self.assertEqual(ci.nav_paths(result), expected)
+        # Other revisions/repositories keep today's navigation, even if pages
+        # are missing. The compatibility rule cannot conceal new regressions.
+        for other in (dict(core, commit="a" * 40), dict(core, repository="https://github.com/Other/core")):
+            self.assertEqual(fixture.assembly.navigation(base, [(None, other)]), base)
+        self.assertEqual(base, yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"])
+        with tempfile.TemporaryDirectory() as temp:
+            docs = Path(temp)
+            for name in expected:
+                (docs / name).parent.mkdir(parents=True, exist_ok=True)
+                (docs / name).write_text("# Page\n")
+            config = yaml.safe_dump({"nav": result})
+            ci.check_navigation(docs, config)
+            (docs / "guides/lua.md").unlink()
+            with self.assertRaisesRegex(ValueError, "missing documentation: guides/lua.md"):
+                ci.check_navigation(docs, config)
+            (docs / "guides/lua.md").write_text("# Historical Lua\n")
+            (docs / "unexpected.md").write_text("# Unexpected\n")
+            with self.assertRaisesRegex(ValueError, "omits documentation: unexpected.md"):
+                ci.check_navigation(docs, config)
 
 
 class CliSourceTests(unittest.TestCase):
@@ -114,13 +148,93 @@ class CliSourceTests(unittest.TestCase):
                 result = self.mkdocs()
                 self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
 
-    def test_required_cli_missing_and_legacy_core_collision_fail(self):
+    def test_required_cli_missing_fails(self):
         with patch.dict(os.environ, {"OPENTLV_CLI_DIR": str(self.base / "absent")}):
             with self.assertRaisesRegex(PluginError, "explicitly selected"):
                 fixture.assembly.assemble(self.portal)
-        self.write(self.core / "docs/cli/README.md", "# Old Core CLI\n")
+
+    def test_historical_core_uses_cli_pages_links_and_provenance(self):
+        for name in ("README.md", "json-schema.md"):
+            self.write(self.core / f"docs/cli/{name}", "# Historical Core CLI\n")
+        self.home("[CLI](cli/README.md#first-inspection) | [JSON](cli/json-schema.md#json-schema)\n")
+        self.git("tag", "0.7.1")
+        self.manifest["sources"][0]["revision"] = "0.7.1"
+        self.save_manifest()
+        before = self.git("rev-parse", "0.7.1^{tree}")
+        selected = fixture.assembly.selected_sources(self.portal)
+        lock = self.portal / "build/sources.lock.json"
+        self.write(lock, json.dumps({"manifest": self.manifest["sources"],
+                                    "sources": [item for _, item in selected]}))
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCK": str(lock),
+                                    "OPENTLV_DOCS_CHANNEL": "release", "OPENTLV_DOCS_PUBLISH": "1"}):
+            result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        home = (self.portal / "site/index.html").read_text(encoding="utf-8")
+        self.assertIn('href="cli/#first-inspection"', home)
+        self.assertIn('href="cli/json-schema/#json-schema"', home)
+        cli_html = (self.portal / "site/cli/index.html").read_text(encoding="utf-8")
+        self.assertIn(f"/opentlv-cli/edit/{self.cli_sha}/docs/README.md", cli_html)
+        metadata = json.loads((self.portal / "site/source-revision.json").read_text())
+        self.assertEqual([item["commit"] for item in metadata["sources"]], [self.sha, self.cli_sha])
+        # Ownership must not depend on source enumeration order.
+        for ordered in (selected, list(reversed(selected))):
+            fixture.assembly.assemble(self.portal, ordered)
+            owners = json.loads((self.portal / "build/assembled/owners.json").read_text())
+            for name in ("README.md", "json-schema.md"):
+                self.assertEqual((self.portal / f"build/assembled/docs/cli/{name}").read_bytes(),
+                                 (self.cli / f"docs/{name}").read_bytes())
+                self.assertEqual(owners[f"cli/{name}"]["id"], "cli")
+                self.assertEqual(owners[f"cli/{name}"]["path"], f"docs/{name}")
+                self.assertEqual((self.core / f"docs/cli/{name}").read_text(), "# Historical Core CLI\n")
+        ci.check_navigation(self.portal / "build/assembled/docs",
+                            (self.portal / "build/assembled/navigation.json").read_text())
+        self.assertEqual(self.git("rev-parse", "0.7.1^{tree}"), before)
+        self.assertEqual(self.git("status", "--porcelain"), "")
+        self.assertEqual(self.cli_git("status", "--porcelain"), "")
+
+    def test_migration_does_not_allow_other_collisions_or_replace_previous_output(self):
+        fixture.assembly.assemble(self.portal)
+        output = self.portal / "build/assembled/docs/cli/README.md"
+        before = output.read_bytes()
+        for name in ("development.md", "readme.md"):
+            with self.subTest(name=name):
+                path = self.core / f"docs/cli/{name}"
+                self.write(path, "# Unexpected Core page\n")
+                with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+                    with self.assertRaisesRegex(PluginError, "collision"):
+                        fixture.assembly.assemble(self.portal)
+                self.assertEqual(output.read_bytes(), before)
+                path.unlink()
+        self.write(self.portal / "docs/cli/README.md", "# Unexpected portal page\n")
+        with self.assertRaisesRegex(PluginError, "collision"):
+            fixture.assembly.assemble(self.portal)
+        self.assertEqual(output.read_bytes(), before)
+
+    def test_migration_requires_exact_source_owners_and_paths(self):
+        core = {"id": "core", "path": "docs/cli/README.md"}
+        cli = {"id": "cli", "path": "docs/README.md"}
+        for old, new in ((dict(core, id="other"), cli), (core, dict(cli, id="other")),
+                         (dict(core, path="manual/cli/README.md"), cli),
+                         (core, dict(cli, path="manual/README.md"))):
+            with self.subTest(old=old, new=new):
+                self.assertFalse(fixture.assembly.cli_replaces_core("cli/README.md", old, new))
+
+    def test_without_cli_selection_historical_core_pages_remain(self):
+        self.write(self.core / "docs/cli/README.md", "# Historical Core CLI\n")
+        self.home("[CLI](cli/README.md)\n")
+        selected = fixture.assembly.selected_sources(self.portal)
+        fixture.assembly.assemble(self.portal, selected[:1])
+        self.assertEqual((self.portal / "build/assembled/docs/cli/README.md").read_text(),
+                         "# Historical Core CLI\n")
+        owners = json.loads((self.portal / "build/assembled/owners.json").read_text())
+        self.assertEqual(owners["cli/README.md"]["id"], "core")
+
+    def test_historical_core_cannot_hide_missing_selected_cli_page(self):
+        self.write(self.core / "docs/cli/README.md", "# Historical Core CLI\n")
+        self.home("[CLI](cli/README.md)\n")
+        (self.cli / "docs/README.md").unlink()
         with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
-            with self.assertRaisesRegex(PluginError, "collision"):
+            with self.assertRaisesRegex(PluginError, "CLI must supply.*cli/README.md"):
                 fixture.assembly.assemble(self.portal)
 
     def test_alias_validation_and_lock_mismatch(self):
