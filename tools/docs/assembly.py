@@ -33,6 +33,24 @@ PORTAL_OVERRIDES = frozenset({
     "playground/index.md", "playground/playground.js", "playground/playground.css",
 })
 
+# Exact pages extracted from Core into the standalone CLI. This is an ownership
+# transfer, not a directory overlay: all other collisions still fail.
+CLI_MIGRATED_PAGES = {
+    "cli/README.md": ("docs/cli/README.md", "docs/README.md"),
+    "cli/json-schema.md": ("docs/cli/json-schema.md", "docs/json-schema.md"),
+}
+
+# Core 0.7.1 predates the documentation-ownership/quality-gates pages and Lua
+# extraction. Match its immutable commit, never a mutable tag or missing files.
+CORE_071_COMMIT = "e12a52ff69a64468eecab084795a0530c273efea"
+
+
+def cli_replaces_core(name, previous, owner):
+    paths = CLI_MIGRATED_PAGES.get(name)
+    return bool(paths and isinstance(previous, dict) and isinstance(owner, dict)
+                and previous["id"] == "core" and previous["path"] == paths[0]
+                and owner["id"] == "cli" and owner["path"] == paths[1])
+
 
 def reject_local_publication(command=None, channel=None):
     if os.environ.get("OPENTLV_DOCS_LOCAL") == "1" and (
@@ -58,6 +76,23 @@ def selected_source(portal):
 
 def navigation(base, selected):
     result = copy.deepcopy(base)
+    core = next(item for _, item in selected if item["id"] == "core")
+    if (core.get("repository") == "https://github.com/OpenTLV/opentlv"
+            and core.get("commit") == CORE_071_COMMIT):
+        for entry in result:
+            if not isinstance(entry, dict):
+                continue
+            if "Development" in entry:
+                entry["Development"] = [
+                    page for page in entry["Development"]
+                    if page not in (
+                        {"Core quality gates": "development/quality-gates.md"},
+                        {"Documentation ownership": "development/documentation-ownership.md"},
+                    )
+                ]
+                entry["Development"].append({"Historical Core Lua development": "development/lua.md"})
+            if "Language APIs" in entry:
+                entry["Language APIs"].append({"Historical Core Lua API": "guides/lua.md"})
     for _root, item in selected:
         if item["id"] == "core" or not item["included"]:
             continue
@@ -98,9 +133,14 @@ def assemble(portal, selected=None):
     def add(name, path, owner):
         key = name.casefold()
         previous = owners.get(names.get(key))
-        if key in names and not (owner == "portal" and isinstance(previous, dict) and previous["id"] == "core"
-                                 and name in PORTAL_OVERRIDES and names[key] == name):
-            raise PluginError(f"Unexpected documentation collision at '{name}' between Core and portal or components.")
+        if key in names:
+            exact = names[key] == name
+            if exact and cli_replaces_core(name, owner, previous):
+                return  # Retain CLI ownership even if Core is enumerated later.
+            portal_override = (owner == "portal" and isinstance(previous, dict)
+                               and previous["id"] == "core" and name in PORTAL_OVERRIDES)
+            if not exact or not (portal_override or cli_replaces_core(name, previous, owner)):
+                raise PluginError(f"Unexpected documentation collision at '{name}' between Core and portal or components.")
         names[key] = name
         inputs[name] = path
         owners[name] = owner if owner == "portal" else dict(owner)
@@ -121,6 +161,10 @@ def assemble(portal, selected=None):
             relative = Path(name).relative_to(item["docs_path"]).as_posix()
             target = (Path(item["mount"]) / relative).as_posix()
             add(target, path, {"id": item["id"], "path": name, "root": str(checkout)})
+    if any(item["id"] == "cli" and item["included"] for _, item in selected):
+        for name in CLI_MIGRATED_PAGES:
+            if owners.get(name, {}).get("id") == "core":
+                raise PluginError(f"Selected CLI must supply migrated documentation: {name}")
     for path in sorted((portal / "docs").rglob("*")):
         if path.is_file():
             if path.is_symlink() or not path.resolve().is_relative_to(portal / "docs"):
