@@ -190,8 +190,10 @@ without remote writes. Deployment uses a normal fast-forward push and then
 Pages deployment. A failed build leaves both remote history and the served
 site untouched; a concurrent external history update rejects the push.
 If Pages deployment fails after the history push, the served site remains at
-the last successful deployment; rerunning deployment can publish the already
-prepared artifact. Never force-push publication history.
+the last successful deployment. Rerun all Docs Release jobs to produce verified
+evidence for the new attempt; release snapshots reuse their archived bytes.
+Rerunning only deployment cannot reuse another attempt's artifacts.
+Never force-push publication history.
 
 ### Activation and retry
 
@@ -914,8 +916,8 @@ Publication tests run real mike builds and Git transfers between disposable loca
 repositories, covering preserved history, failed builds, metadata rejection, and
 concurrent publication conflicts. They do not contact GitHub.
 
-`tools/docs/ci.py check` invokes the selected Core's example synchronization,
-inventory tests, and inventory validator alongside their original inputs. It
+`tools/docs/ci.py check` invokes the selected Core's example synchronization
+and inventory validators alongside their original inputs. It
 assembles Markdown and checks navigation against every assembled Markdown page
 except the root GitHub `README.md`. It does not read or require a Core
 `mkdocs.yml`; nested README pages still require navigation entries. These checks inspect source files without
@@ -924,7 +926,7 @@ checks the resulting navigation, links and anchors.
 
 CI uses `markdownlint-cli@0.45.0` with `.markdownlint.json`, without automatic
 fixes, on portal Markdown, Core's README, and assembled documentation. With Node
-22 available, the same lint can be run after `ci.py check`:
+24 available, the same lint can be run after `ci.py check`:
 
 ```sh
 npx --yes markdownlint-cli@0.45.0 --config .markdownlint.json \
@@ -937,31 +939,68 @@ default sibling checkout).
 
 ## CI and versioned publication
 
-`.github/workflows/docs.yml` validates every PR targeting `main`, pushes to
-`main`, verified Core release notifications, and manual runs. Validation has only `contents: read`. It checks out the
-sources from `docs-sources.json` (with an optional Core override) with full history
-and tags. It resolves all revisions once into `build/sources.lock.json`; validation,
-API generation and both MkDocs/mike builds use that exact selection. Doxygen, source validation, linting, tests and strict builds must all pass.
+Four entry points separate fast feedback from comprehensive publication checks:
 
-The read-only job also runs mike against a local `gh-pages` branch, including a
-strict build under the version's actual URL prefix. It checks site/API metadata
-and prepares both a Git bundle and the complete versioned Pages artifact. Mike
+| Workflow | Trigger | Required work |
+| --- | --- | --- |
+| `docs-pr.yml` / Docs PR | PR to `main` | Exact source assembly, strict MkDocs/Doxygen build, links, navigation, Markdown and workflow/evidence contract regressions; `Docs PR gate`. |
+| `docs-main.yml` / Docs Main | Push to `main` | Pinned source assembly, navigation and strict site generation smoke; `Docs Main gate`. |
+| `docs-full.yml` / Docs Full | Manual or called by Publishing Gate | All Docs tests, source inventories, formatting, API and playground generation, browser checks, versioned build and immutable history verification; `Docs Full gate`. |
+| `docs-release.yml` / Docs Release | Release dispatch or controlled manual request | Same-commit Full CI, exact attempt evidence verification and optional deployment; `Docs Publishing gate`. |
+
+Require **Docs PR gate** in branch protection or a ruleset. Aggregate gates reject
+failed, cancelled, missing and unexpectedly skipped prerequisites. Main does not
+dispatch Full CI or publish. PR/Main skip Emscripten, browser installation,
+publication preparation and publication regression suites. Main also skips the
+PR formatting and contract suites.
+
+Full resolves all revisions once into `build/sources.lock.json`; source checks,
+API generation and the single strict mike build use that selection. The existing
+API cache is reused only after source fingerprints and file checksums match.
+Full builds the playground distribution but does not run Core CTest or any
+component behavioral suites. Its browser smoke validates the published UI.
+Core retains native tests, ABI, fuzzing and performance; CLI and bindings retain
+their executable/API tests. Docs owns generation, navigation, links and snapshots.
+
+Full has read-only repository permissions. It runs mike against a local
+`gh-pages` branch, under the version's actual URL prefix, checks site/API/WASM
+metadata and prepares a Git bundle plus the complete versioned Pages artifact. Mike
 aliases use copies so assets and JSON work through `stable/` without symlinks.
 Only the separate deployment job can write: it imports the validated bundle,
 pushes the prepared history once without force, and deploys the prepared artifact
 with the official GitHub Pages Actions. It does not run Core or build scripts.
 
+`docs-candidate-<attempt>` contains the bundle, site archive and `evidence.json`.
+Evidence records the repository, infrastructure SHA, workflow ref, run ID,
+attempt, exact source selection, source-manifest digest, artifact digests and
+immutable historical tree IDs. The Full gate downloads only its own attempt,
+verifies the bundle, source metadata, archive paths and unchanged historical
+trees, then uploads `docs-pages-<attempt>`. Deployment checks the gate's evidence
+digest and identity again before a fast-forward history push.
+Missing or mismatched evidence fails closed; no unrelated run can authorize
+deployment. Core version policy and the independent CLI release flow are retained.
+
+Every aggregate gate uploads `docs-<stage>-timings-<attempt>`. Timing JSON separates
+elapsed workflow time through the named predecessor jobs from summed runner job
+time, excluding the collecting gate. The collector paginates the exact attempt
+and retries delayed job metadata six times before failing. For PRs it records
+both the API's head SHA and the tested merge SHA. Compare like-for-like successful
+scenarios; a failed old monolithic run is diagnostic evidence, not a speedup baseline.
+After pushing this change, collect hosted PR, Main and manual Full artifacts.
+Local tests do not establish hosted success or production deployment.
+
 | Trigger | Result |
 | --- | --- |
-| Pull request to `main` | Validate and prepare artifacts; never publish. |
-| Push to `main` | Validate and publish `latest` from the manifest pin; reject a Core regression against the published version. |
+| Pull request to `main` | Fast documentation verification; never prepare publication or publish. |
+| Push to `main` | Documentation integration smoke only; never Full CI or publication. |
 | Verified Core main notification | Open a reviewed PR updating the explicit Core commit in `docs-sources.json`. |
 | Verified Core stable-tag notification | Validate and publish the immutable release version. |
 | Verified component release notification | Open a reviewed PR pinning the component commit and release feed digest. |
 | Verified component main notification | With development opt-in, open a reviewed PR pinning the component commit and verified exact-pair evidence. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
 | Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
-| Manual run on another branch | Validate only, regardless of `publish`. |
+| Manual Full run | Complete verification and prepared artifacts; no deployment. |
+| Manual Release run on another branch, `publish: true` | Deployment is refused and the Publishing gate fails. |
 
 Manual inputs are `channel` (`development` or `release`), `core_ref` (empty uses
 the manifest), and `publish` (defaults to false). Development accepts a full SHA
@@ -1002,9 +1041,9 @@ rejects the normal fast-forward push and blocks Pages deployment.
 The history push and Pages deployment are two separate services, not a single
 transaction. If Pages deployment fails after the push, the previous live site
 remains available, while `gh-pages` already contains the prepared version. Rerun
-the failed deployment job while its artifact is available, or dispatch a fresh
-run from `main` with the same Core revision and channel. Prefer a fresh run if
-another publication has since succeeded. Successful publication replaces the
+all Docs Release jobs, or dispatch a fresh run from `main` with the same Core
+revision and channel. Each attempt must produce and verify its own evidence.
+Successful publication replaces the
 whole site, including the preserved historical versions.
 
 For a release rehearsal, dispatch with `channel: release`, a Core release tag,
@@ -1016,8 +1055,8 @@ The existing Core publication workflow remains in place until the replacement
 has passed hosted validation and a real Pages deployment. Local checks cannot
 verify repository Pages settings, environment protection, or hosted deployment.
 Publication builds the selected Core WASM target, verifies provenance, and
-exercises the prepared playground in Chromium. WASM remains optional only for
-local documentation previews.
+exercises the prepared playground in Chromium. PR/Main builds and local previews
+may omit WASM; Full and publication require the verified playground.
 
 The standalone build, API integration, and CI/publication infrastructure implement
 [#1](https://github.com/OpenTLV/opentlv-docs/issues/1),
@@ -1086,8 +1125,8 @@ Example payload (use actual producer evidence):
 `ref` is `main` or a stable `X.Y.Z`/`vX.Y.Z` tag. The sender sends no commands,
 checkout URLs, artifact paths or deployment instructions. Development proposals
 persist a full Core commit SHA in `docs-sources.json`. Repeated notifications
-update the same source/commit proposal; an older notification cannot undo a newer
-merged pin. Portal pushes publish the reviewed manifest selection and reject a
+update one `automation/component-<source>` proposal per source; an older
+notification cannot undo a newer merged or pending pin. Portal checks use the reviewed manifest selection and reject a
 Core revision older than the published `latest`, rather than silently selecting
 a different revision. Manual development publications apply the same regression
 guard. Diverged Core histories fail for maintainer review. PR validation uses
@@ -1111,8 +1150,26 @@ visibly; it does not change the successful producer result or publish anything.
 Configure `DOCS_UPDATES_TOKEN` in this repository with Contents and Pull requests
 write permissions for Core and component proposals. Use a PAT or an externally
 refreshed App token so the created PR triggers normal documentation validation.
-Enable Actions PR creation in repository settings. Proposals require review and
-have no auto-merge configured. The successful Core build and release do not
+Enable Actions PR creation in repository settings. Proposals require review by
+default. To opt in to auto-merge, enable GitHub repository auto-merge, require
+`Docs PR gate` on `main` with an up-to-date branch requirement, and set the
+repository variable `DOCS_UPDATES_AUTOMERGE=true`. The update token needs read
+access to the applicable rules/protection metadata as well as PR write access.
+The helper refuses auto-merge without that required gate and binds its request
+to the generated PR head SHA; it never bypasses protection or failing checks.
+The helper reads active [branch rules](https://docs.github.com/en/rest/repos/rules#get-rules-for-a-branch)
+or classic [required-check protection](https://docs.github.com/en/rest/branches/branch-protection#get-status-checks-protection)
+to verify these prerequisites.
+Remove the variable to stop enabling auto-merge on subsequent proposals; disable
+auto-merge separately on any already queued PRs.
+
+Source updates do not invent navigation entries. A new Core page still requires
+a reviewed change to `mkdocs.yml`; keep that check strict. For example, the
+superseded #32/#33 pin proposals failed because `development/quality-gates.md`
+was missing from portal navigation. #31 incorporates the newer #33 pin and its
+navigation entry. One proposal per source prevents a new PR accumulating for
+each subsequent commit while such an integration fix is pending.
+The successful Core build and release do not
 depend on the separate notification or portal workflows.
 
 ### Component releases and reviewed evidence
@@ -1173,8 +1230,8 @@ exact pair is also accepted. Failed, untested or missing evidence prevents the
 proposal. The receiver stores only verified JSON at
 `compatibility/<source>/<sha256>.json` and proposes that file plus the updated
 `docs-sources.json` pin and digest. It never executes producer code or tests.
-Review and the normal source, API, WASM and strict documentation checks still
-run before a merged proposal can publish `latest`.
+Review and PR documentation checks run before merge. Publishing `latest` then
+requires an explicit Docs Release request and successful Full verification.
 
 If the default token cannot read the producer's Actions artifacts, configure
 `DOCS_SOURCE_READ_TOKEN` with `Actions: read` and `Contents: read` access in the
@@ -1215,8 +1272,8 @@ requires a trusted live feed and actual binding validation as described above.
 ### Recovery
 
 Publication events share the existing serialized publication group. Source
-proposals use separate groups per source and commit, so unrelated updates do not
-replace one another; repeated notifications serialize the same proposal. Each
+proposals serialize per source and update one branch, so newer notifications
+replace superseded pending updates for that source. Each
 proposal starts from the current portal `main` manifest. GitHub may replace a pending publication run;
 an active publication is never cancelled. Re-send a missed notification after
 its producer succeeds, or use the existing manual
@@ -1239,8 +1296,8 @@ python tools/docs/wasm.py
 python -m mkdocs serve -f mkdocs.local.yml
 ```
 
-The command invokes the selected Core's `opentlv-wasm` CMake target and its WASM
-CTest smoke tests. It records repository, exact commit, local/dirty state,
+The command invokes the selected Core's `opentlv-wasm` CMake target with component
+tests disabled. It records repository, exact commit, local/dirty state,
 source fingerprint, toolchain and SHA-256 hashes in `wasm-source.json` next to
 `opentlv.mjs`, `query.mjs`, `opentlv-core.js` and `opentlv-core.wasm` in
 `build/wasm/bindings/wasm/dist/`. Local source changes invalidate old artifacts.
@@ -1253,7 +1310,7 @@ must match the selected checkout, as with API artifacts. Checksums establish
 integrity, not authentication of an arbitrary external producer.
 
 Ordinary previews may omit artifacts and display the unavailable message.
-CI sets `OPENTLV_DOCS_REQUIRE_WASM=1`, builds and tests the module, and verifies
+Full CI sets `OPENTLV_DOCS_REQUIRE_WASM=1`, generates playground assets, and verifies
 its provenance again in both the site and versioned publication. Metadata is
 included in `source-revision.json` and `playground/wasm/wasm-source.json`.
 Existing archived versions are preserved; they are not rebuilt by a new event.

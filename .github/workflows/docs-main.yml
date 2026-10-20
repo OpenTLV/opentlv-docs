@@ -1,0 +1,53 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
+name: Docs Main
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: docs-main
+  cancel-in-progress: false
+jobs:
+  smoke:
+    name: Main documentation smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/docs-check
+        with:
+          mode: main
+  gate:
+    name: Docs Main gate
+    if: always()
+    needs: [smoke]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Require integration smoke
+        env:
+          RESULT: ${{ needs.smoke.result }}
+        run: test "$RESULT" = success
+      - uses: actions/checkout@v5
+        if: always()
+        with:
+          persist-credentials: false
+      - name: Record Main timings
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -B tools/docs/ci_timings.py --current --job 'Main documentation smoke' --output build/timings/main.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docs-main-timings-${{ github.run_attempt }}
+          path: build/timings/main.json
+          if-no-files-found: error

@@ -181,6 +181,7 @@ nav:
       - Format and Element contract: concepts/format-contract.md
       - Definition boundaries: concepts/definition-boundaries.md
       - Development workflow: development/workflow.md
+      - Core quality gates: development/quality-gates.md
       - C ABI compatibility: development/abi-compatibility.md
       - Where documentation belongs: development/documentation-layout.md
       - Documentation ownership: development/documentation-ownership.md

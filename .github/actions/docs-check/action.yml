@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
+name: Documentation smoke
+description: Build exact pinned documentation without publication or component tests
+inputs:
+  mode:
+    description: pr enables formatting and contract regressions; main builds integration smoke
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        cache: pip
+        cache-dependency-path: requirements-docs.txt
+    - shell: bash
+      run: |
+        python -m pip install -r requirements-docs.txt
+        sudo apt-get update
+        sudo apt-get install -y doxygen ninja-build
+    - name: Lock, assemble and build documentation
+      shell: bash
+      env:
+        OPENTLV_DOCS_SOURCE_ROOT: ${{ github.workspace }}/build/sources
+        OPENTLV_DOCS_LOCK: ${{ github.workspace }}/build/sources.lock.json
+        OPENTLV_DOCS_LOCAL: '0'
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        python -B tools/docs/ci.py select
+        python -B tools/docs/ci.py fetch
+        python -B tools/docs/ci.py smoke
+        python -B -m mkdocs build --strict
+    - name: Test PR contracts
+      if: inputs.mode == 'pr'
+      shell: bash
+      run: |
+        python -B -m unittest discover -s tests -p test_workflows.py -v
+        python -B -m unittest discover -s tests -p test_events.py -v
+        python -B -m unittest discover -s tests -p test_quality.py -v
+        python -B -m unittest discover -s tests -p test_update_staging.py -v
+    - uses: actions/setup-node@v4
+      if: inputs.mode == 'pr'
+      with:
+        node-version: '24'
+    - name: Check Markdown formatting
+      if: inputs.mode == 'pr'
+      shell: bash
+      run: |
+        npm install --global markdownlint-cli@0.45.0
+        markdownlint --config .markdownlint.json README.md CHANGELOG.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'

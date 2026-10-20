@@ -2,6 +2,7 @@
 # Copyright (c) 2026 Marek Cingel
 
 import copy
+import base64
 import hashlib
 import json
 import os
@@ -68,6 +69,31 @@ class EventTests(unittest.TestCase):
         self.payload["ref"] = self.run["head_branch"] = "1.2.3"
         with self.assertRaisesRegex(ValueError, "main development"):
             events.core_proposal(self.payload, {"sources": [self.item]}, self.api)
+
+    def test_delayed_event_cannot_regress_pending_unmerged_source_proposal(self):
+        pending = {"sources": [dict(self.item, revision="c" * 40)]}
+        def api(path):
+            if "/contents/" in path:
+                return {"encoding": "base64", "content": base64.b64encode(json.dumps(pending).encode()).decode()}
+            if "/compare/" + "c" * 40 in path:
+                return {"status": "behind"}
+            return self.api(path)
+        self.assertTrue(events.pending_is_newer(self.payload, {"sources": [self.item]}, api))
+        pending["sources"][0]["revision"] = self.sha
+        self.assertFalse(events.pending_is_newer(self.payload, {"sources": [self.item]}, api))
+
+    def test_missing_pending_branch_is_allowed_but_authentication_failure_is_not(self):
+        from urllib.error import HTTPError
+        for code in (404, 403, 500):
+            def api(path):
+                if "/contents/" in path:
+                    raise HTTPError(path, code, "fixture", {}, None)
+                return self.api(path)
+            if code == 404:
+                self.assertFalse(events.pending_is_newer(self.payload, {"sources": [self.item]}, api))
+            else:
+                with self.assertRaises(HTTPError):
+                    events.pending_is_newer(self.payload, {"sources": [self.item]}, api)
 
     def test_core_proposal_resolves_existing_lightweight_and_annotated_tag_pins(self):
         self.item["revision"] = "v1.2.3"
