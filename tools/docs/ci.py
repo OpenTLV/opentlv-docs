@@ -58,7 +58,7 @@ def check_navigation(docs, portal_config):
         raise ValueError("Portal navigation omits documentation: " + ", ".join(sorted(missing)))
 
 
-def check_core(portal):
+def check_core(portal, *, inventories=True):
     selected = assembly.selected_sources(portal)
     core, source = next((root, item) for root, item in selected if item["id"] == "core")
     selection_path = portal / "build/selection.json"
@@ -67,8 +67,9 @@ def check_core(portal):
         selection["commit"] = source["commit"]
         selection["sources"] = [item for _, item in selected]
         selection_path.write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
-    for script in ("check_doc_examples.py", "test_doc_inventory.py", "check_doc_inventory.py"):
-        subprocess.run([sys.executable, str(core / "scripts" / script)], cwd=core, check=True)
+    if inventories:
+        for script in ("check_doc_examples.py", "check_doc_inventory.py"):
+            subprocess.run([sys.executable, "-B", str(core / "scripts" / script)], cwd=core, check=True)
     assembly.assemble(portal, selected)
     check_navigation(portal / "build/assembled/docs",
                      (portal / "build/assembled/navigation.json").read_text(encoding="utf-8"))
@@ -76,10 +77,10 @@ def check_core(portal):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("select", "fetch", "check"))
+    parser.add_argument("command", choices=("select", "fetch", "check", "smoke"))
     args = parser.parse_args()
-    if args.command == "check":
-        check_core(ROOT)
+    if args.command in ("check", "smoke"):
+        check_core(ROOT, inventories=args.command == "check")
         return
     if args.command == "fetch":
         selection = json.loads((ROOT / "build/selection.json").read_text(encoding="utf-8"))

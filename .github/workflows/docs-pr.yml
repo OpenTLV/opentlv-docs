@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
+name: Docs PR
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: docs-pr-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  fast:
+    name: PR documentation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/docs-check
+        with:
+          mode: pr
+  gate:
+    name: Docs PR gate
+    if: always()
+    needs: [fast]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Require documentation checks
+        env:
+          RESULT: ${{ needs.fast.result }}
+        run: test "$RESULT" = success
+      - uses: actions/checkout@v5
+        if: always()
+        with:
+          persist-credentials: false
+      - name: Record PR timings
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TIMING_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python -B tools/docs/ci_timings.py --current --job 'PR documentation' --output build/timings/pr.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docs-pr-timings-${{ github.run_attempt }}
+          path: build/timings/pr.json
+          if-no-files-found: error

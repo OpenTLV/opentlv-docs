@@ -1,0 +1,144 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
+name: Docs Release
+on:
+  repository_dispatch:
+    types: [core-docs-updated, cli-docs-released]
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Documentation channel (release requires a Core release tag)
+        type: choice
+        options: [development, release]
+        default: development
+      core_ref:
+        description: Core SHA or release tag (empty uses reviewed pin)
+        type: string
+        default: ''
+      publish:
+        description: Publish the verified candidate (main only)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+# Serialize validation through deployment for both Core and CLI.
+concurrency:
+  group: docs-${{ github.event_name == 'repository_dispatch' && github.event.client_payload.ref == 'main' && 'proposal-notification' || 'publication' }}
+  cancel-in-progress: false
+jobs:
+  full:
+    name: Full
+    if: >-
+      github.repository == 'OpenTLV/opentlv-docs' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.action == 'cli-docs-released' ||
+       (github.event.action == 'core-docs-updated' && github.event.client_payload.ref != 'main'))
+    uses: ./.github/workflows/docs-full.yml
+    with:
+      channel: ${{ inputs.channel || 'development' }}
+      core_ref: ${{ inputs.core_ref || '' }}
+    secrets:
+      OPENTLV_CLI_READ_TOKEN: ${{ secrets.OPENTLV_CLI_READ_TOKEN }}
+  deploy:
+    name: Publish verified documentation
+    needs: [full]
+    if: >-
+      needs.full.result == 'success' &&
+      github.repository == 'OpenTLV/opentlv-docs' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'repository_dispatch' || inputs.publish)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: true
+      - uses: actions/download-artifact@v5
+        with:
+          name: docs-candidate-${{ github.run_attempt }}
+          path: build/candidate
+      # Only trusted inline integrity checks run with write credentials.
+      - name: Bind deployment to Full gate evidence
+        env:
+          EVIDENCE_SHA256: ${{ needs.full.outputs.evidence_sha256 }}
+          PAGES_COMMIT: ${{ needs.full.outputs.pages_commit }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          root = Path("build/candidate")
+          raw = (root / "evidence.json").read_bytes()
+          if hashlib.sha256(raw).hexdigest() != os.environ["EVIDENCE_SHA256"]:
+              raise SystemExit("Full evidence digest mismatch")
+          evidence = json.loads(raw)
+          identity = {k: os.environ["GITHUB_" + k.upper()] for k in
+                      ("repository", "sha", "run_id", "run_attempt", "workflow_ref")}
+          if evidence["identity"] != identity or evidence["pages_commit"] != os.environ["PAGES_COMMIT"]:
+              raise SystemExit("Full evidence identity mismatch")
+          for name in ("site.tar", "history.bundle"):
+              if hashlib.sha256((root / name).read_bytes()).hexdigest() != evidence["files"][name]:
+                  raise SystemExit("Full artifact checksum mismatch")
+          PY
+          git bundle verify build/candidate/history.bundle
+          git fetch build/candidate/history.bundle refs/heads/gh-pages:refs/heads/gh-pages
+          test "$(git rev-parse refs/heads/gh-pages)" = "$PAGES_COMMIT"
+      - uses: actions/configure-pages@v5
+      - name: Store verified immutable history
+        run: git push origin refs/heads/gh-pages:refs/heads/gh-pages
+      - name: Deploy verified site
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: docs-pages-${{ github.run_attempt }}
+  gate:
+    name: Docs Publishing gate
+    if: always() && needs.full.result != 'skipped'
+    needs: [full, deploy]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require verification and requested publication
+        env:
+          FULL: ${{ needs.full.result }}
+          DEPLOY: ${{ needs.deploy.result }}
+          PUBLISH: ${{ github.event_name == 'repository_dispatch' || inputs.publish }}
+          MAIN: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          test "$FULL" = success
+          if [ "$PUBLISH" = true ]; then
+            test "$MAIN" = true
+            test "$DEPLOY" = success
+          else
+            test "$DEPLOY" = skipped
+          fi
+      - uses: actions/checkout@v5
+        if: always()
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Record publishing timings
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          python -B tools/docs/ci_timings.py --current
+          --job 'Full / Full documentation verification'
+          --job 'Full / Docs Full gate' --job 'Publish verified documentation'
+          --output build/timings/release.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docs-release-timings-${{ github.run_attempt }}
+          path: |
+            build/timings/release.json
+          if-no-files-found: error

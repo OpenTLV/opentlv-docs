@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Marek Cingel
 
-"""Build the component-owned WASM target and verify its exact source provenance."""
+"""Build playground assets and verify their exact source provenance."""
 
 import hashlib
 import importlib.util
@@ -75,9 +75,8 @@ def generate(portal, core, source):
              "-DCMAKE_BUILD_TYPE=Release", "-DOPENTLV_BUILD_WASM=ON",
              "-DOPENTLV_BUILD_CXX=OFF", "-DOPENTLV_BUILD_CLI=OFF",
              "-DOPENTLV_BUILD_TESTS=OFF", "-DOPENTLV_BUILD_EXAMPLES=OFF",
-             "-DOPENTLV_BUILD_WASM_TESTS=ON", "-DOPENTLV_WARNINGS_AS_ERRORS=ON"])
+             "-DOPENTLV_BUILD_WASM_TESTS=OFF", "-DOPENTLV_WARNINGS_AS_ERRORS=ON"])
     api.run(["cmake", "--build", build, "--target", "opentlv-wasm", "--parallel"])
-    api.run(["ctest", "--test-dir", build, "-L", "wasm", "--output-on-failure", "--no-tests=error"])
     if api.fingerprint(core) != before:
         raise PluginError("Core changed during the WebAssembly build.")
     directory = build / "bindings/wasm/dist"

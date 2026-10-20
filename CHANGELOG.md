@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Separate PR, Main, Full and Publishing CI with exact-attempt publication evidence, immutable snapshot checks and workflow timings; ordinary main pushes no longer publish. (#31)
+
 - Assemble Lua API, build, test and versioning documentation from the standalone Lua repository with explicit source provenance and cross-repository links, while retaining Core-driven portal versions and existing published snapshots. (#27)
 - Route automatic Core and component development updates through reviewed commit pins, reject stale Core pins, and keep release selection independent of development snapshots. (#6)
 - Move playground UI ownership into the portal and require verified, matching WASM artifacts and browser validation before publication. (#6)
@@ -14,6 +16,8 @@ All notable changes to this project will be documented in this file.
 - Validate navigation against assembled Markdown without requiring a MkDocs configuration in Core, preserving page coverage after the Core documentation cutover. (OpenTLV/opentlv#608)
 
 ### Fixed
+
+- Include the updated Core quality-gates page in navigation and keep one monotonic source-update proposal per component, with optional auto-merge requiring the Docs PR gate. (#31)
 
 - Align the pinned Core and Lua documentation revisions with the completed manual migration, restoring standalone Lua pages and navigation. (#27)
 - Preserve the original rendered Core release snapshot on repeated publication instead of rebuilding it with the current portal layout. (#21)

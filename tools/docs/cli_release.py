@@ -192,6 +192,8 @@ def main():
     if event.get("action") != "cli-docs-released":
         raise ValueError("Expected cli-docs-released dispatch.")
     selection = validate(event["client_payload"], sources.manifest(ROOT))
+    (ROOT / "build").mkdir(exist_ok=True)
+    (ROOT / "build/selection.json").write_text(json.dumps(selection, indent=2) + "\n", encoding="utf-8")
     commit = prepare(ROOT, selection)
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:

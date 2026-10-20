@@ -4,12 +4,14 @@
 """Authenticate event evidence against GitHub; payloads never choose repositories or code."""
 
 import copy
+import base64
 import hashlib
 import json
 import os
 from pathlib import Path
 import re
 from urllib.parse import quote
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 SHA = re.compile(r"[0-9a-f]{40}\Z")
@@ -168,6 +170,27 @@ def component_proposal(payload, manifest, api=None, *, portal=None):
     return result
 
 
+def pending_is_newer(payload, manifest, api=None):
+    """Do not let a delayed event replace a newer, still unmerged proposal."""
+    api = api or github
+    item = validate(payload, manifest["sources"], api)
+    branch = "automation/component-" + item["id"]
+    try:
+        contents = api("OpenTLV/opentlv-docs/contents/docs-sources.json?ref=" + quote(branch, safe=""))
+    except HTTPError as error:
+        if error.code == 404:
+            return False
+        raise
+    if contents.get("encoding") != "base64":
+        raise ValueError("Pending source proposal has invalid manifest encoding")
+    pending = json.loads(base64.b64decode(contents["content"], validate=False))
+    previous = next(source for source in pending["sources"] if source["id"] == item["id"])
+    if previous["repository"] != item["repository"]:
+        raise ValueError("Pending source proposal belongs to another repository")
+    commit = resolve_revision(repository(item), previous["revision"], api)
+    return newer(repository(item), commit, payload["commit"], api) != payload["commit"]
+
+
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[2]
     event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
@@ -176,6 +199,12 @@ if __name__ == "__main__":
     # Source configuration is reviewed repository data, never supplied by events.
     import sources
     sources.manifest(root)
-    proposed = (core_proposal(payload, manifest) if payload.get("source") == "core"
-                else component_proposal(payload, manifest, portal=root))
-    (root / "docs-sources.json").write_text(json.dumps(proposed, indent=2) + "\n", encoding="utf-8")
+    stale = pending_is_newer(payload, manifest)
+    proposed = manifest if stale else (
+        core_proposal(payload, manifest) if payload.get("source") == "core"
+        else component_proposal(payload, manifest, portal=root))
+    if proposed != manifest:
+        (root / "docs-sources.json").write_text(json.dumps(proposed, indent=2) + "\n", encoding="utf-8")
+    if os.environ.get("GITHUB_OUTPUT"):
+        with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+            output.write(f"changed={str(proposed != manifest).lower()}\n")
