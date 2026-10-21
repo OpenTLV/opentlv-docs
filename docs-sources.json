@@ -47,6 +47,10 @@
       "revision": "6f610f5552a64efa21aeeb863ad161c91154dbc8",
       "docs_path": "docs",
       "mount": "lua",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/lua-main.yml"
+      },
       "required": true,
       "link_aliases": [
         "main"
