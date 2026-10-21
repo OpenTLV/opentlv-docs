@@ -4,7 +4,7 @@
 name: Docs Release
 on:
   repository_dispatch:
-    types: [core-docs-updated, cli-docs-released]
+    types: [core-docs-updated, cli-docs-released, component-release-published]
   workflow_dispatch:
     inputs:
       channel:
@@ -23,7 +23,7 @@ on:
 permissions:
   contents: read
   actions: read
-# Serialize validation through deployment for both Core and CLI.
+# Serialize validation through deployment for Core and all components.
 concurrency:
   group: docs-${{ github.event_name == 'repository_dispatch' && github.event.client_payload.ref == 'main' && 'proposal-notification' || 'publication' }}
   cancel-in-progress: false
@@ -34,6 +34,7 @@ jobs:
       github.repository == 'OpenTLV/opentlv-docs' &&
       (github.event_name == 'workflow_dispatch' ||
        github.event.action == 'cli-docs-released' ||
+       github.event.action == 'component-release-published' ||
        (github.event.action == 'core-docs-updated' && github.event.client_payload.ref != 'main'))
     uses: ./.github/workflows/docs-full.yml
     with:
@@ -41,6 +42,7 @@ jobs:
       core_ref: ${{ inputs.core_ref || '' }}
     secrets:
       OPENTLV_CLI_READ_TOKEN: ${{ secrets.OPENTLV_CLI_READ_TOKEN }}
+      OPENTLV_COMPONENT_READ_TOKEN: ${{ secrets.OPENTLV_COMPONENT_READ_TOKEN }}
   deploy:
     name: Publish verified documentation
     needs: [full]

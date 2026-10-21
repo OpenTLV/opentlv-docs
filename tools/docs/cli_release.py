@@ -8,16 +8,11 @@ import json
 import os
 from pathlib import Path
 import re
-import shutil
-import sys
-
-import yaml
-
-import ci
 import event_artifacts
 import events
-import publication
 import sources
+import component_publication
+from component_publication import assemble, verify_site
 
 ROOT = Path(__file__).resolve().parents[2]
 TAG = re.compile(r"v((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?)\Z")
@@ -79,110 +74,10 @@ def validate(payload, definitions, api=None, download=None):
                          "workflow_commit": run["head_sha"], "evidence_sha256": hashlib.sha256(raw).hexdigest()}}
 
 
-def verify_site(site, selection):
-    metadata = json.loads((site / "source-revision.json").read_text(encoding="utf-8"))
-    for key in ("source", "repository", "commit", "tag", "version", "local", "dirty"):
-        if metadata.get(key) != selection[key]:
-            raise ValueError("CLI snapshot identity differs from the validated release.")
-    files = metadata.get("files")
-    if not isinstance(files, dict) or not files or "index.html" not in files:
-        raise ValueError("CLI snapshot requires a complete file digest manifest.")
-    actual = {path.relative_to(site).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
-              for path in site.rglob("*") if path.is_file() and path != site / "source-revision.json"}
-    if actual != files:
-        raise ValueError("CLI snapshot file checksums differ from its immutable manifest.")
-
-
-def assemble(portal, checkout, item, selection):
-    """Copy only tracked docs; use portal configuration and trusted hooks."""
-    if (sources.git(checkout, "rev-parse", "HEAD") != selection["commit"]
-            or sources.git(checkout, "status", "--porcelain", "--untracked-files=all")):
-        raise ValueError("CLI documentation requires the exact clean release checkout.")
-    output = portal / "build/cli"
-    docs = output / "docs"
-    docs.mkdir(parents=True, exist_ok=False)
-    paths = sources.git(checkout, "ls-files", "-z", "--", ":(literal)" + item["docs_path"] + "/")
-    for name in filter(None, paths.split("\0")):
-        path = checkout / name
-        if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(checkout):
-            raise ValueError("CLI documentation sources must be contained regular files.")
-        relative = path.relative_to(checkout / item["docs_path"])
-        if relative.as_posix().casefold() == "source-revision.json":
-            raise ValueError("CLI source cannot replace publication provenance.")
-        target = docs / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(path, target)
-    config = yaml.safe_load((portal / "mkdocs.yml").read_text(encoding="utf-8"))
-    # Retain the portal's presentation, without executing Core assembly/build hooks.
-    config.update(site_name="OpenTLV CLI " + selection["version"],
-                  site_description="OpenTLV command-line documentation",
-                  site_url=config["site_url"].rstrip("/") + "/cli/",
-                  repo_url=item["repository"], repo_name=events.repository(item),
-                  docs_dir=str(docs), site_dir=str(output / "site"),
-                  hooks=[str(portal / "tools/docs/cli_hooks.py")],
-                  nav=item["navigation"]["items"] + [{"OpenTLV portal": config["site_url"]}],
-                  exclude_docs="", extra_css=[], extra_javascript=[], plugins=["search"])
-    config["theme"] = dict(config["theme"], custom_dir=str(portal / "tools/docs/overrides"))
-    for key in ("logo", "favicon"):
-        config["theme"].pop(key, None)
-    source = dict(item, commit=selection["commit"], revision=selection["tag"], mount="",
-                  included=True, local=False, dirty=False)
-    config["extra"] = {"docs_channel": "release", "sources": [source],
-                       "cli_checkout": str(checkout), "version": {"provider": "mike", "alias": True},
-                       "release_identity": dict(selection, infrastructure_commit=sources.git(portal, "rev-parse", "HEAD"))}
-    ci.check_navigation(docs, yaml.safe_dump(config))
-    path = output / "mkdocs.yml"
-    path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
-    return path
-
-
 def prepare(portal, selection, checkout=None):
-    if (selection.get("source") != "cli" or version(selection.get("tag")) != selection.get("version")
-            or not events.SHA.fullmatch(selection.get("commit", ""))
-            or selection.get("local") is not False or selection.get("dirty") is not False
-            or os.environ.get("OPENTLV_DOCS_LOCAL") == "1"):
-        raise ValueError("CLI publication requires a clean validated release identity.")
-    item = next(item for item in sources.manifest(portal) if item["id"] == "cli")
-    if selection["repository"] != item["repository"]:
-        raise ValueError("CLI publication repository differs from configuration.")
-    run = publication.run
-    remote = run(portal, "git", "ls-remote", "--heads", "origin", "refs/heads/gh-pages")
-    versions = []
-    if remote:
-        run(portal, "git", "fetch", "origin", "refs/heads/gh-pages:refs/heads/gh-pages")
-        if run(portal, "git", "ls-tree", "--name-only", "gh-pages", "cli/versions.json"):
-            versions = json.loads(run(portal, "git", "show", "gh-pages:cli/versions.json"))
-    elif run(portal, "git", "branch", "--list", "gh-pages"):
-        raise ValueError("Use a fresh checkout; local-only gh-pages cannot authorize publication.")
-    prefix = "cli/" + selection["version"]
-    if any(item["version"] == selection["version"] for item in versions):
-        return publication.export_history(portal, prefix, selection, verify_site)
-    if remote and run(portal, "git", "ls-tree", "--name-only", "gh-pages", prefix):
-        raise ValueError("CLI snapshot path exists without a registered version.")
-    if checkout is None:
-        checkout = portal / "build/cli-source"
-        if checkout.exists():
-            raise ValueError("CLI managed checkout already exists; use a fresh build directory.")
-        checkout.parent.mkdir(parents=True, exist_ok=True)
-        run(portal, "git", "clone", "--no-checkout", "--", item["repository"], str(checkout))
-        commit = run(checkout, "git", "rev-parse", "--verify", "--end-of-options", f"refs/tags/{selection['tag']}^{{commit}}")
-        if commit != selection["commit"]:
-            raise ValueError("Fetched CLI tag differs from the authenticated release.")
-        run(checkout, "git", "checkout", "--detach", commit)
-    config = assemble(portal, checkout, item, selection)
-    aliases = publication.release_aliases(selection["version"], versions) if "-" not in selection["version"] else []
-    mike = [sys.executable, "-B", "-c", "from mike.driver import main; raise SystemExit(main())"]
-    run(portal, *mike, "deploy", "--config-file", str(config), "--deploy-prefix", "cli",
-        "--alias-type=copy", "--update-aliases", "--title", "CLI " + selection["version"],
-        selection["version"], *aliases)
-    verify_site(portal / "build/cli/site", selection)
-    has_stable = bool(aliases) or any("stable" in item["aliases"] for item in versions)
-    # Preserve the initial prerelease entry point until a stable release exists.
-    # Catalog ordering must not implicitly choose a different default on replay.
-    if has_stable or not versions:
-        default = "stable" if has_stable else selection["version"]
-        run(portal, *mike, "set-default", "--config-file", str(config), "--deploy-prefix", "cli", default)
-    return publication.export_history(portal, prefix, selection, verify_site)
+    if selection.get("source") != "cli":
+        raise ValueError("CLI publication requires a CLI release identity.")
+    return component_publication.prepare(portal, selection, checkout)
 
 
 def main():

@@ -25,6 +25,8 @@ on:
     secrets:
       OPENTLV_CLI_READ_TOKEN:
         required: false
+      OPENTLV_COMPONENT_READ_TOKEN:
+        required: false
     outputs:
       pages_commit:
         description: Verified history commit
@@ -72,7 +74,7 @@ jobs:
         run: python -B tools/docs/quality.py baseline
       - name: Select and lock Core documentation
         id: source
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         env:
           INPUT_CHANNEL: ${{ inputs.channel }}
           INPUT_CORE_REF: ${{ inputs.core_ref }}
@@ -81,7 +83,7 @@ jobs:
           python -B tools/docs/ci.py select
           python -B tools/docs/ci.py fetch
       - name: Check source inventories and navigation before generation
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         env:
           OPENTLV_DOCS_CHANNEL: ${{ steps.source.outputs.channel }}
         run: python -B tools/docs/ci.py check
@@ -89,22 +91,22 @@ jobs:
         with:
           node-version: '24'
       - name: Lint portal and assembled documentation
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         run: |
           npm install --global markdownlint-cli@0.45.0
           markdownlint --config .markdownlint.json README.md CHANGELOG.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'
       - uses: mymindstorm/setup-emsdk@v14
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         with:
           version: '4.0.10'
       - name: Generate playground assets
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         env:
           OPENTLV_DOCS_CHANNEL: ${{ steps.source.outputs.channel }}
         run: python -B tools/docs/wasm.py
       # mike performs the one strict build under the actual version prefix.
       - name: Build and prepare Core snapshot
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         env:
           OPENTLV_DOCS_CHANNEL: ${{ steps.source.outputs.channel }}
           OPENTLV_DOCS_REQUIRE_WASM: '1'
@@ -114,8 +116,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.OPENTLV_CLI_READ_TOKEN }}
         run: python -B tools/docs/cli_release.py
+      - name: Authenticate and prepare component snapshot
+        if: github.event.action == 'component-release-published'
+        env:
+          GH_TOKEN: ${{ secrets.OPENTLV_COMPONENT_READ_TOKEN }}
+        run: python -B tools/docs/component_release.py
       - name: Verify published playground in Chromium
-        if: github.event.action != 'cli-docs-released'
+        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         run: |
           python -m pip install -r requirements-browser.txt
           python -m playwright install --with-deps chromium
@@ -161,7 +168,7 @@ jobs:
       - name: Verify exact attempt, sources, checksums and history
         id: verify
         env:
-          OPENTLV_DOCS_REQUIRE_WASM: ${{ github.event.action == 'cli-docs-released' && '0' || '1' }}
+          OPENTLV_DOCS_REQUIRE_WASM: ${{ (github.event.action == 'cli-docs-released' || github.event.action == 'component-release-published') && '0' || '1' }}
         run: python -B tools/docs/quality.py verify
       - uses: actions/upload-pages-artifact@v4
         with:
