@@ -13,12 +13,12 @@ The Core build does not depend on this repository.
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- External Core, CLI and Lua checkouts at the revisions selected in `docs-sources.json`.
+- External Core, CLI, Lua and Python checkouts at the revisions selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-Local documentation previews require the CLI and Lua documentation sources but do not
+Local documentation previews require the CLI, Lua and Python documentation sources but do not
 build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
 [WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
@@ -27,14 +27,15 @@ building the C++ library, bindings, CLI, examples, or tests.
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core, CLI and Lua directories are the siblings `../opentlv`, `../opentlv-cli`
-and `../opentlv-lua`.
+Core, CLI, Lua and Python directories are the siblings `../opentlv`,
+`../opentlv-cli`, `../opentlv-lua` and `../opentlv-python`.
 Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
 git clone --no-checkout https://github.com/OpenTLV/opentlv.git ../opentlv-docs-core
 git clone --no-checkout https://github.com/OpenTLV/opentlv-cli.git ../opentlv-docs-cli
 git clone --no-checkout https://github.com/OpenTLV/opentlv-lua.git ../opentlv-docs-lua
+git clone --no-checkout https://github.com/OpenTLV/opentlv-python.git ../opentlv-docs-python
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -55,6 +56,9 @@ git -C $env:OPENTLV_CLI_DIR checkout --detach $cliRevision
 $env:OPENTLV_LUA_DIR = (Resolve-Path ../opentlv-docs-lua).Path
 $luaRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq lua).revision
 git -C $env:OPENTLV_LUA_DIR checkout --detach $luaRevision
+$env:OPENTLV_PYTHON_DIR = (Resolve-Path ../opentlv-docs-python).Path
+$pythonRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq python).revision
+git -C $env:OPENTLV_PYTHON_DIR checkout --detach $pythonRevision
 ```
 
 POSIX shell:
@@ -72,9 +76,13 @@ git -C "$OPENTLV_CLI_DIR" checkout --detach "$cli_revision"
 export OPENTLV_LUA_DIR="$(cd ../opentlv-docs-lua && pwd)"
 lua_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "lua"))')
 git -C "$OPENTLV_LUA_DIR" checkout --detach "$lua_revision"
+export OPENTLV_PYTHON_DIR="$(cd ../opentlv-docs-python && pwd)"
+python_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "python"))')
+git -C "$OPENTLV_PYTHON_DIR" checkout --detach "$python_revision"
 ```
 
-For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR` and `OPENTLV_LUA_DIR`
+For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR`,
+`OPENTLV_LUA_DIR` and `OPENTLV_PYTHON_DIR`
 or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
@@ -141,6 +149,45 @@ version metadata remain independent; this source adds no separate Lua release
 publication workflow. Existing published snapshots keep their original bytes
 and source set. Their old Lua URLs remain part of those snapshots; the current
 navigation and links use `lua/api/` and `lua/implementation/`.
+
+### Python documentation source
+
+The required `python` source mounts `opentlv-python/docs/` at `python/` under
+Language APIs. It owns the Python user guide, standalone build and installation,
+workspace development, supported Python versions, contribution instructions,
+quality gates, versioning, release preparation and validation records.
+The portal consumes these manuals without compiling or installing the binding.
+Core remains the source of truth for shared architecture and TLV semantics.
+
+Python is pinned independently of Core. `OPENTLV_PYTHON_DIR` selects an explicit
+checkout; its default is the workspace sibling `../opentlv-python`.
+`OPENTLV_DOCS_LOCAL=1` previews working-tree documentation; normal builds require
+the selected clean commit and publication rejects local mode. This portal
+variable selects documentation only. Building the Python extension against a
+local Core uses the separate `OPENTLV_PYTHON_CORE_SOURCE` setting documented in
+the [Python build guide](https://github.com/OpenTLV/opentlv-python/blob/main/docs/development/python.md).
+The portal's Python 3.10 minimum does not change the binding's Python 3.11 minimum.
+
+Repository-relative source and example links and page edit links resolve to
+`OpenTLV/opentlv-python` at its selected commit. The explicit `main` link alias
+maps cross-repository documentation links to the assembled pages. Historical
+commit links remain historical. Python bugs and contributions belong to the
+[Python repository](https://github.com/OpenTLV/opentlv-python/issues); portal
+presentation belongs here. Do not create a second maintained Python manual in
+this repository.
+
+The current Core pin includes the Python implementation removal and standalone
+repository references. Its transitional `guides/python.md` and
+`development/python.md` pages remain available at their existing URLs, explicitly
+labelled as Core transition/ownership pages. The Python section consumes the
+canonical standalone manuals. Removing those transitional Core files requires
+a coordinated Core change and navigation update; missing pages still fail.
+
+When updating Python manuals, merge the component change first and then select
+its available full commit in `docs-sources.json`. Validate the exact pins as
+well as any local preview. Portal version selection continues to follow Core;
+this integration neither publishes Python packages nor asserts verified runtime
+compatibility. Existing published snapshots keep their original source set.
 
 ## Independent CLI release publication
 
@@ -493,8 +540,10 @@ compatibility evidence; they do not need matching
 Core version numbers. The published portal version still follows the selected
 Core release tag, while its metadata records the independently selected inputs.
 
-Add a component entry to `sources`, for example (replace the example repository
-and tag with an existing component release):
+Add a component entry to `sources`. The illustrative entry below shows the
+schema, not the active Python configuration: Python is already required at
+`python/` in the checked-in manifest. Do not append a duplicate `python` entry;
+use an existing component release and its actual documentation paths:
 
 ```json
 {
@@ -577,11 +626,13 @@ or Doxygen versions is claimed.
 A non-Core source can replace `revision` with `compatibility`, or combine a full
 commit `revision` with `compatibility` to verify that exact development input.
 Core always has an explicit revision; the importer resolves it before selecting any binding.
-The default manifest remains Core-only. No live producer or binding repository
-is enabled by this change.
+The default manifest pins Core, CLI, Lua and Python documentation explicitly.
+It does not enable a compatibility-feed producer or claim runtime compatibility
+for those component/Core pairs.
 
-For example, add this source entry, using a real repository, catalog, navigation
-and feed digest in place of the illustrative values:
+For example, replace the explicit Python source entry with a compatibility
+selection only after activation, using a real catalog, navigation and feed
+digest in place of the illustrative values:
 
 ```json
 {
@@ -832,8 +883,8 @@ flow with an actual released binding and its published compatibility results:
 The automated integration tests use controlled feeds and disposable Git
 repositories. They exercise import, selection, rendering, lock replay and
 publication behavior, but do not establish that a production binding's CI
-producer emits correct records. The real Core strict build likewise validates
-the Core-only portal. A production feed and real binding end-to-end validation
+producer emits correct records. The strict portal build validates documentation
+assembly and links. A production feed and real binding end-to-end validation
 are still required before activating that integration.
 
 ### Links between components
@@ -902,9 +953,10 @@ back to historical Core content.
 
 The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or
-requiring separate repositories. Their documented ownership is unchanged.
-CLI pages come from the required independent CLI source. Future binding
-extraction will update the selected content and navigation.
+requiring their runtimes. CLI, Lua and canonical Python manuals come from their
+required independent sources. Core's transitional Python pages retain their
+existing URLs until their coordinated removal; other binding extraction will
+update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
@@ -1255,7 +1307,7 @@ configured repositories. This read token is separate from the token used to
 create update PRs. Optional sources without `development_artifact` remain
 release-only for automatic updates.
 
-No production binding producer is configured in the default Core-only manifest.
+No production binding compatibility producer is configured in the default manifest.
 New feeds must still pass the importer checksum/schema/selection checks and real
 binding validation. Core events never refresh a moving feed digest automatically.
 

@@ -80,6 +80,56 @@
           }
         ]
       }
+    },
+    {
+      "id": "python",
+      "repository": "https://github.com/OpenTLV/opentlv-python",
+      "revision": "76767ba52419baf86728a5014e0a128935ed672b",
+      "docs_path": "docs",
+      "mount": "python",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Python",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Python": "guides/python.md"
+          },
+          {
+            "Build, workspace and contributing": "development/python.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release preparation": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
