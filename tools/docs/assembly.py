@@ -25,6 +25,10 @@ _spec.loader.exec_module(examples)
 _spec = importlib.util.spec_from_file_location("opentlv_docs_onboarding", Path(__file__).with_name("onboarding.py"))
 onboarding = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(onboarding)
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_formats", Path(__file__).with_name("formats.py"))
+formats = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(formats)
 git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
@@ -212,6 +216,19 @@ def assemble(portal, selected=None):
     if split_onboarding:
         original = rendered.get(first_program, inputs[first_program].read_text(encoding="utf-8"))
         rendered[first_program], rendered[onboarding.CORE_BUILD] = onboarding.split(original)
+    if (portal / "docs/formats/overview.md").is_file():
+        for name in formats.PLANS:
+            if name not in inputs or not isinstance(owners[name], dict) or owners[name]["id"] != "core":
+                raise PluginError(f"Formats presentation requires the Core source: {name}")
+        for target in formats.PLANS.keys() - formats.MERGES.keys():
+            parts = [target] + [name for name, destination in formats.MERGES.items() if destination == target]
+            rendered[target] = formats.render(target, [
+                (name, rendered.get(name, inputs[name].read_text(encoding="utf-8"))) for name in parts
+            ])
+            owners[target]["parts"] = [owners[name]["path"] for name in parts]
+        for name in formats.MERGES:
+            del inputs[name]
+            del owners[name]
     output = reset_output(portal)
     docs = output / "docs"
     for name, path in inputs.items():

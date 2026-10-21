@@ -13,6 +13,8 @@ from mkdocs.structure.nav import Link, Navigation
 # Source names remain repository-owned; only portal output paths change.
 # This is a routing table, not a redirect/alias table. No old page is emitted.
 PAGE_ROUTES = {
+    "formats/overview.md": "formats/index.md",
+    "formats/README.md": "formats/guide.md",
     "getting-started/overview.md": "getting-started/index.md",
     "getting-started/README.md": "getting-started/first-program.md",
     "getting-started/core-build.md": "development/building/core.md",
@@ -27,8 +29,6 @@ PAGE_ROUTES = {
     "concepts/field-policies.md": "formats/concepts/field-policies.md",
     "concepts/format-capabilities.md": "formats/concepts/capabilities.md",
     "standards/emv/README.md": "formats/emv/index.md",
-    "standards/der/README.md": "formats/asn1/der-validation.md",
-    "standards/cer/README.md": "formats/asn1/cer-validation.md",
     "concepts/bindings.md": "bindings/contracts.md",
     "guides/reader.md": "bindings/c/guides/reader.md",
     "guides/writer.md": "bindings/c/guides/writer.md",

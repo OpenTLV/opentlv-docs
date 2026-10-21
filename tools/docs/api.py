@@ -29,6 +29,14 @@ _spec = importlib.util.spec_from_file_location("opentlv_docs_onboarding", Path(_
 onboarding = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(onboarding)
 
+_spec = importlib.util.spec_from_file_location("opentlv_docs_formats", Path(__file__).with_name("formats.py"))
+formats = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(formats)
+
+
+def destination(uri, fragment, files):
+    return formats.destination(onboarding.destination(uri, fragment, files), files)
+
 
 def run(args):
     try:
@@ -156,11 +164,12 @@ def adapt_html(text, uri, guide_base, files):
         candidates = (f"{path}.md", f"{path}/index.md", f"{path}/README.md") if path else ("index.md",)
         if path == "getting-started" and parts.fragment:
             candidates = (onboarding.FIRST_PROGRAM, *candidates)
+        candidates = tuple(destination(name, parts.fragment, files) for name in candidates)
         target = next((files.get_file_from_path(name) for name in candidates
                        if files.get_file_from_path(name) is not None), None)
         if target is None:
             raise PluginError(f"API guide link has no assembled page: {url} in {uri}")
-        target = files.get_file_from_path(onboarding.destination(target.src_uri, parts.fragment, files))
+        target = files.get_file_from_path(destination(target.src_uri, parts.fragment, files))
         relative = posixpath.relpath(target.dest_uri, posixpath.dirname(uri))
         return f'{match[1]}{escape(urlunsplit(("", "", quote(relative, safe="/"), parts.query, parts.fragment)), quote=True)}{match[3]}'
     return re.sub(r'(\bhref\s*=\s*[\"\x27])([^\"\x27]*)([\"\x27])', rewrite, text, flags=re.IGNORECASE)

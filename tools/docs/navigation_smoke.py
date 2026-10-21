@@ -60,6 +60,48 @@ def check_navigation(page, base_url):
             back.click()
             expect(page).to_have_url(base_url)
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
+    check_formats(page, base_url)
+
+
+def check_formats(page, base_url):
+    targets = (
+        ("Fixed-width TLV", "formats/fixed/configurable/"),
+        ("Variable-width TLV", "formats/variable/"),
+        ("Packed Tag/Length", "formats/packed/"),
+        ("Escaped lengths", "formats/escaped/"),
+        ("BER-TLV", "formats/asn1/ber/"),
+        ("DER-TLV", "formats/asn1/der/"),
+        ("CER-TLV", "formats/asn1/cer/"),
+        ("EMV", "formats/emv/"),
+        ("Bluetooth LTV", "formats/bluetooth/"),
+        ("LLDP", "formats/lldp/"),
+        ("DHCPv4 options", "formats/dhcp/"),
+        ("NFC Type 2", "formats/nfc/"),
+    )
+    for width in (1440, 390):
+        page.set_viewport_size({"width": width, "height": 900})
+        for title, path in targets:
+            page.goto(base_url + "formats/")
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
+            page.locator("article").get_by_role("link", name=title, exact=True).click()
+            expect(page).to_have_url(base_url + path)
+            expect(page.locator("article h1")).to_be_visible()
+            assert page.locator("article h2").evaluate_all("nodes => nodes.map(node => node.id)") == [
+                "overview", "format-structure", "encoding-rules", "supported-capabilities",
+                "examples", "limitations", "references",
+            ], path
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, path)
+        for kind, fragment in (("der", "schema-aware-validation-and-encoding"),
+                               ("cer", "canonical-string-segmentation")):
+            page.goto(base_url + f"formats/asn1/{kind}/#{fragment}")
+            expect(page.locator("#" + fragment)).to_be_visible()
+            for source in (f"formats/asn1/{kind}.md", f"standards/{kind}/README.md"):
+                expect(page.locator(f'a[href*="/blob/"][href$="/docs/{source}"]')).to_have_count(1)
+                expect(page.locator(f'a[href*="/edit/"][href$="/docs/{source}"]')).not_to_have_count(0)
+        page.goto(base_url + "formats/")
+        page.locator("article").get_by_role("link", name="Core format guide", exact=True).click()
+        expect(page).to_have_url(base_url + "formats/guide/")
+        expect(page.locator("#reading-one-element")).to_have_count(1)
 
 
 def check(site, prefix=""):
