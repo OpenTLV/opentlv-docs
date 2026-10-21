@@ -6,7 +6,7 @@ which operations each binding exposes and the shared C boundary.
 
 | Language | Start here | Detailed documentation |
 | --- | --- | --- |
-| C | [Getting started](../getting-started/README.md) | [Reader](../guides/reader.md), [Writer](../guides/writer.md), [Document](../guides/document.md), [C reference](../reference/c-api.md) |
+| C | [First program and integration](../getting-started/README.md) | [Reader](../guides/reader.md), [Writer](../guides/writer.md), [Document](../guides/document.md), [C reference](../reference/c-api.md) |
 | C++ | [C++ examples](../guides/cxx-examples.md) | [Public/native boundary](../concepts/cxx-native-boundary.md), [C++ reference](../reference/cxx-api.md) |
 | Python | [Python manual](../python/guides/python.md) | [Build and contribution guide](../python/development/python.md) |
 | Lua | [Lua manual](../lua/api.md) | [Build and installation](../lua/development.md) |

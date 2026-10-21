@@ -111,9 +111,10 @@ extra_javascript:
 nav:
   - Home: index.md
   - Getting Started:
-      - Getting started: getting-started/README.md
-      - Choose a processing API: guides/processing.md
+      - Getting started: getting-started/overview.md
       - Understand the basic model: concepts/learning-model.md
+      - First program and Core integration: getting-started/README.md
+      - Choose a processing API: guides/processing.md
       - Executable examples: guides/examples.md
       - Building only the components you need: guides/select-components.md
       - Core concepts:
@@ -193,6 +194,7 @@ nav:
           - Format and Element contract: concepts/format-contract.md
           - Definition boundaries: concepts/definition-boundaries.md
       - Building from source:
+          - Core installation and developer builds: getting-started/core-build.md
           - Compilers and build settings: reference/compilers.md
       - Contributing:
           - Development workflow: development/workflow.md

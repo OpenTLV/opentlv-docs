@@ -13,6 +13,9 @@ from mkdocs.structure.nav import Link, Navigation
 # Source names remain repository-owned; only portal output paths change.
 # This is a routing table, not a redirect/alias table. No old page is emitted.
 PAGE_ROUTES = {
+    "getting-started/overview.md": "getting-started/index.md",
+    "getting-started/README.md": "getting-started/first-program.md",
+    "getting-started/core-build.md": "development/building/core.md",
     "concepts/learning-model.md": "getting-started/concepts/learning-model.md",
     "concepts/core-types.md": "getting-started/concepts/core-types.md",
     "concepts/value.md": "getting-started/concepts/value.md",
@@ -85,6 +88,8 @@ def on_files(files, config):
                 break
         if target:
             destination = File(target, file.src_dir, file.dest_dir, config.use_directory_urls)
+            # Material identifies section indexes by File.name, not URL alone.
+            file.name = destination.name
             file.dest_uri = destination.dest_uri
             file.url = destination.url
             file.abs_dest_path = destination.abs_dest_path

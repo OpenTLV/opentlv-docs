@@ -21,8 +21,8 @@ The central portal has six top-level sections: Home, Getting Started, Formats,
 Bindings, Tools and Development. Their landing URLs are `/`, `/getting-started/`,
 `/formats/`, `/bindings/`, `/tools/` and `/development/`, relative to the selected
 portal version (for example `/opentlv-docs/latest/`). MkDocs maps both `README.md`
-and `index.md` to a directory index; the existing Home, Getting Started and
-Formats sources therefore remain usable as landings without moving their URLs.
+and `index.md` to a directory index. Home and Getting Started are portal-owned
+introductions; Formats still uses the selected Core landing.
 
 Material's tabs expose the six sections on desktop; its mobile drawer exposes
 the same hierarchy. Section indexes and grouped secondary navigation keep
@@ -47,8 +47,21 @@ compatibility aliases. Product manuals selected for a portal version live under
 `tools/otlv/manual/`, `bindings/lua/manual/` and `bindings/python/manual/`.
 Independent product publication remains separate from these selected manuals.
 
-Content merges, splits and ownership transfers assigned to #46–#49 remain
-pending, including the Home transfer, format catalog split and DER/CER merges.
+Issue #46 transfers Home to the portal and adds a practical Getting Started
+path through TLV concepts, a first element, Document, formats, languages and CLI.
+It reuses the selected manuals and examples. The landing source is `docs/getting-started/overview.md`
+(rendered as the section index), avoiding MkDocs' source-level `index.md`/`README.md`
+collision. During assembly, `tools/docs/onboarding.py` splits
+Core's existing guide at the archive/install heading: first
+build, all language examples and consumer integration render at
+`getting-started/first-program/`; installation/archives, C-only builds and tests
+render at `development/building/core/`. Both retain their original Core source
+and edit links. No technical source is copied into portal maintenance. A changed
+split boundary or unexpected developer section fails assembly for review.
+Internal links to moved sections use the new destination without old fragments.
+
+Content merges and splits assigned to #47–#49 remain pending, including the
+format catalog split and DER/CER merges.
 Until merged, the DER/CER validation pages remain distinct under
 `formats/asn1/{der,cer}-validation/`; the Core Python transition guide stays at
 `bindings/python/core-transition/`. All technical content remains available.
@@ -56,6 +69,8 @@ Existing published snapshots are not rewritten by this change.
 
 Check the navigation contract with
 `python -B -m unittest discover -s tests -p test_navigation.py -v`.
+Check onboarding preservation, ownership and link routing with
+`python -B -m unittest discover -s tests -p test_onboarding.py -v`.
 After building the site and installing `requirements-browser.txt` plus
 Playwright Chromium, run `python -B tools/docs/navigation_smoke.py site` for
 desktop/mobile navigation without requiring WASM. The publishing browser smoke
@@ -1052,6 +1067,7 @@ Assembly rejects duplicate documentation paths between Core and the portal.
 The portal presentation overrides are the exact shared paths declared
 in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 
+- `index.md` (portal introduction transferred from Core in #46)
 - `assets/README.md`
 - `assets/favicon.svg`
 - `assets/logo-mark.svg`
@@ -1062,8 +1078,8 @@ in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 - `playground/playground.js`
 - `playground/playground.css`
 
-These portal-owned assets may still be present in older Core revisions; after
-Core cleanup only its README logo and attribution page remain. New overrides
+These portal-owned presentation files may still be present in selected Core
+revisions. Home ownership transfers in #46; technical pages remain Core-owned. New overrides
 require an explicit ownership decision and an entry in that list; neither an
 entire directory nor arbitrary Core pages may be overwritten. File/directory
 conflicts always fail. Input collisions are checked before replacing the previous
