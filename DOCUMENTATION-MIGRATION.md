@@ -34,8 +34,8 @@ Existing published immutable snapshots are not rewritten.
 `tools/docs/navigation.py` defines the canonical rendered paths for the Move
 rows while preserving repository-owned source paths. MkDocs resolves internal
 links and generated API guide links to those destinations. The #47 format
-presentation is described below. Content migrations assigned to #48–#49 are
-still pending: the full reference overview renders at `bindings/reference.md`,
+presentation and #48 catalogs are described below. Development restructuring
+assigned to #49 is still pending. The full reference overview renders at `bindings/reference.md`,
 and Core's Python transition manual remains at
 `bindings/python/core-transition.md` until its unique content is merged. No
 row's technical content is removed by #45.
@@ -104,6 +104,31 @@ The inventory remains 110 navigable pages: two new portal pages (catalog and
 Escaped entry) replace the two separately rendered validation pages. All four
 source pins and published snapshots remain unchanged. No parser, encoder,
 binding API or format capability is changed by this presentation work.
+
+## Bindings and Tools phase (#48)
+
+The catalogs now link lightweight portal-owned overviews for C, C++, Python,
+Lua, Rust, Go and WebAssembly, and for otlv, the playground and planned imtlv.
+Each available product identifies its purpose, runtime or capabilities,
+availability, technical owner, installation/access and detailed documentation.
+Experimental in-tree interfaces are distinguished from native APIs and
+standalone bindings; imtlv has no asserted implementation, download or manual.
+
+The existing CLI, Lua and Python selected-source manuals retain their paths,
+source/edit ownership, separate menus and return links. The live CLI entry and
+`/cli/stable/` manual remain linked. The reserved `/python/` and `/lua/` entries
+returned HTTP 404 during #48 validation, so the catalogs describe those paths
+without dead links and direct users to the selected manuals. C/C++ references
+and technical guides remain Core-owned.
+The playground application retains `tools/playground/`; its new introduction
+uses `tools/playground/overview/` to avoid replacing the application URL.
+
+The inventory grows from 110 to 121 navigable pages: ten product overviews and
+one [registration convention](docs/development/product-catalogs.md). No existing
+technical page is removed or copied into portal maintenance. In particular,
+the Core reference overview and Python transition guide retain their unique
+content; consolidating those technical sources is outside the catalog task.
+All four source pins and independent publication workflows remain unchanged.
 
 ## Baseline and inventory method
 

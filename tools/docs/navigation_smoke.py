@@ -61,6 +61,48 @@ def check_navigation(page, base_url):
             expect(page).to_have_url(base_url)
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
     check_formats(page, base_url)
+    check_catalogs(page, base_url)
+
+
+def check_catalogs(page, base_url):
+    """Follow discovery links into the actual selected manuals and application."""
+    bindings = (
+        ("C", "bindings/c/", "C API reference", "bindings/c/reference/"),
+        ("C++", "bindings/cpp/", "C++ API reference", "bindings/cpp/reference/"),
+        ("Python", "bindings/python/", "Python manual", "bindings/python/manual/guides/python/"),
+        ("Lua", "bindings/lua/", "Lua manual", "bindings/lua/manual/api/"),
+        ("Rust", "bindings/rust/", "Rust manual", "bindings/rust/manual/"),
+        ("Go", "bindings/go/", "Go manual", "bindings/go/manual/"),
+        ("WebAssembly", "bindings/wasm/", "WebAssembly manual", "bindings/wasm/development/"),
+    )
+    tools = (
+        ("otlv CLI", "tools/otlv/", "otlv manual", "tools/otlv/manual/"),
+        ("TLV playground", "tools/playground/overview/", "Open the TLV playground", "tools/playground/"),
+        ("imtlv", "tools/imtlv/", None, None),
+    )
+    for width in (1440, 390):
+        page.set_viewport_size({"width": width, "height": 900})
+        for catalog, entries in (("bindings/", bindings), ("tools/", tools)):
+            for title, overview, manual_title, manual in entries:
+                page.goto(base_url + catalog)
+                page.locator("article").get_by_role("link", name=title, exact=True).click()
+                expect(page).to_have_url(base_url + overview)
+                expect(page.locator("article h1")).to_contain_text(title)
+                expect(page.locator("article")).to_contain_text("Status:")
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, overview)
+                if manual:
+                    page.locator("article").get_by_role("link", name=manual_title, exact=True).click()
+                    expect(page).to_have_url(base_url + manual)
+                    expect(page.locator("article h1")).to_be_visible()
+                    if title in ("Python", "Lua", "otlv CLI"):
+                        expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
+                        page.get_by_role("link", name="Return to the OpenTLV portal", exact=True).click()
+                        expect(page).to_have_url(base_url)
+                else:
+                    expect(page.locator("article")).to_contain_text("planned; not available")
+            page.goto(base_url + catalog)
+            page.locator("article").get_by_role("link", name="product registration convention").click()
+            expect(page).to_have_url(base_url + "development/product-catalogs/")
 
 
 def check_formats(page, base_url):

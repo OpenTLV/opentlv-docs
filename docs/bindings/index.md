@@ -1,15 +1,20 @@
 # Bindings
 
-Choose a language API, then follow its guides and reference. The
+Choose a language interface, then open its overview for setup and documentation.
+Availability below describes the sources selected for this portal version;
+experimental interfaces do not promise the same coverage as the native APIs. The
 [language contracts and capability matrix](../concepts/bindings.md) describe
 which operations each binding exposes and the shared C boundary.
 
-| Language | Start here | Detailed documentation |
+| Interface | Purpose | Availability |
 | --- | --- | --- |
-| C | [First program and integration](../getting-started/README.md) | [Reader](../guides/reader.md), [Writer](../guides/writer.md), [Document](../guides/document.md), [C reference](../reference/c-api.md) |
-| C++ | [C++ examples](../guides/cxx-examples.md) | [Public/native boundary](../concepts/cxx-native-boundary.md), [C++ reference](../reference/cxx-api.md) |
-| Python | [Python manual](../python/guides/python.md) | [Build and contribution guide](../python/development/python.md) |
-| Lua | [Lua manual](../lua/api.md) | [Build and installation](../lua/development.md) |
+| [C](c/index.md) | Native engine and public C API | Available in Core |
+| [C++](cpp/index.md) | C++ facade over the C engine | Available in Core |
+| [Python](python/index.md) | Python objects and iterators | Available; experimental standalone binding |
+| [Lua](lua/index.md) | Lua module for scripts and embedded applications | Available; experimental standalone binding |
+| [Rust](rust/index.md) | Safe Rust API over the C library | Available; experimental in-tree binding |
+| [Go](go/index.md) | Go types, slices and errors | Available; experimental in-tree binding |
+| [WebAssembly](wasm/index.md) | JavaScript access to Core in the browser | Available; experimental optional Core build |
 
 C and C++ share the [memory and lifetime contracts](../guides/memory.md),
 [diagnostics](../guides/diagnostics.md), [Query](../guides/queries.md),
@@ -19,16 +24,14 @@ These technical manuals and generated references are maintained by Core.
 ## Product manuals and versions
 
 Python and Lua maintain their own manuals and release schedules. The manual
-links above open the exact source selected for this portal version, with
-product-specific navigation and a return link to the portal. Use the
-[Python documentation entry](https://opentlv.github.io/opentlv-docs/python/) or
-[Lua documentation entry](https://opentlv.github.io/opentlv-docs/lua/) to browse
-independently published versions when available; the selected manuals remain
-accessible here without requiring a matching product release.
+links on their overview pages open the exact source selected for this portal version, with
+product-specific navigation and a return link to the portal. Independent
+publication reserves `/python/` and `/lua/`, relative to the documentation site
+root. Those entries are not available yet; use the selected manuals, which
+remain accessible without requiring a matching product release.
 
-## In-tree bindings
+## Catalog maintenance
 
-[Rust](../guides/rust.md), [Go](../guides/go.md) and
-[WebAssembly](../development/webassembly.md) have in-tree documentation.
-Consult their guides and the capability matrix for experimental status,
-integration requirements and limitations.
+Follow the [product registration convention](../development/product-catalogs.md)
+to add an interface or update its status. Catalog entries introduce products;
+API references, limitations and tutorials remain with their technical owners.

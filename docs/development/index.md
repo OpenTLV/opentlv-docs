@@ -31,6 +31,8 @@ instructions in the relevant product guide. The
 [ownership guide](documentation-ownership.md) describe where technical sources
 belong. The [portal repository](https://github.com/OpenTLV/opentlv-docs) owns
 site assembly, navigation and presentation.
+Follow [Register a binding or tool](product-catalogs.md) when adding product
+overviews or changing catalog availability.
 
 ## Testing and quality gates
 
