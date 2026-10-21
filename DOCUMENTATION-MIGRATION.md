@@ -34,11 +34,39 @@ Existing published immutable snapshots are not rewritten.
 `tools/docs/navigation.py` defines the canonical rendered paths for the Move
 rows while preserving repository-owned source paths. MkDocs resolves internal
 links and generated API guide links to those destinations. Content splits and
-merges assigned to #46–#49 are still pending: DER/CER validation remains in
+merges assigned to #47–#49 are still pending: DER/CER validation remains in
 `formats/asn1/{der,cer}-validation.md`, the full reference overview renders at
 `bindings/reference.md`, and Core's Python transition manual remains at
 `bindings/python/core-transition.md` until its unique content is merged. No
 row's technical content is removed by #45.
+
+## Home and Getting Started phase (#46)
+
+Home is now portal-owned and routes all previous audiences through Getting
+Started, Formats, Bindings, Tools and Development. The portal's new Getting
+Started landing introduces TLV, the first element, owned Document parsing,
+format choice, language setup and CLI inspection. It links to the existing
+component examples and manuals rather than duplicating their tutorials.
+
+Assembly splits Core `docs/getting-started/README.md` at the reviewed
+`Install and generate distribution archives` heading. Everything before it
+(first build, every language tab, wire bytes/output and CMake consumption)
+renders at `getting-started/first-program/`. The three remaining sections
+(installation/archives, C-only build, tests) render at
+`development/building/core/`. Every original text block remains, with the same
+Core source/edit target; `tools/docs/onboarding.py` rejects a changed boundary
+or unexpected developer section. The virtual build page shares the original
+source directory for link resolution. Internal and generated API links target
+the moved sections directly; no compatibility fragments are retained.
+
+The inventory now contains 110 navigable pages: the 108 pages from #45, a new
+Getting Started landing and one additional rendered part of the Core guide.
+Home replaces its previous routing content. Core README quick-start callers
+still target the retained source section; immutable repository files and
+already-published snapshots are unchanged. The original Home audiences,
+reference, compiler/component, roadmap and project-policy routes remain
+reachable from Home or its linked catalogs. Concept diagrams and executable
+examples remain Core/product-owned and unchanged.
 
 ## Baseline and inventory method
 
@@ -224,7 +252,7 @@ Core owns the source of every row in this table at the baseline.
 | [docs/formats/packed.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/packed.md) | `P/formats/packed/` | Formats | `formats/packed.md` | Core | Keep | K | Packed Tag/Length configuration; Configuration and lifetime; Length and source ranges; Protocol and binding scope |
 | [docs/formats/support.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/support.md) | `P/formats/support/` | Formats | `formats/support.md` | Core | Keep | K | Implemented format and standard capabilities; Native and tool inventory; Semantics beyond framing; Language framing presets |
 | [docs/formats/variable.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/variable.md) | `P/formats/variable/` | Formats | `formats/variable.md` | Core | Keep | K | Configurable variable-width TLV; Identifier encoding; Length encoding; Complete format; Declarative policies |
-| [docs/getting-started/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/getting-started/README.md) | `P/getting-started/` | Getting Started | `getting-started/index.md + development/building/core.md` | Portal onboarding; Core build | Split | R | Keep first build, C/C++ quick start and consuming Core under Getting Started. Route archive/install packaging, C-only recipes and contributor test builds to Development; retain every technical section. |
+| [docs/getting-started/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/getting-started/README.md) | `P/getting-started/` | Getting Started | `getting-started/first-program.md + development/building/core.md`, linked from `getting-started/index.md` | Core technical content; Portal onboarding | Split | R | Implemented in #46: first build, all language quick starts and consuming Core stay under Getting Started. Archive/install packaging, C-only recipes and contributor test builds move to Development; every original block is retained. |
 | [docs/guides/codecs.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/codecs.md) | `P/guides/codecs/` | Bindings | `bindings/c/guides/codecs.md` | Core | Move | R | C value codecs; C++11 typed fields and Value codecs; ASN.1 universal-type codecs; Complete object mappings; Other languages |
 | [docs/guides/copy.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/copy.md) | `P/guides/copy/` | Bindings | `bindings/c/guides/copy.md` | Core | Move | R | Explicit TLV copies |
 | [docs/guides/cxx-examples.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/cxx-examples.md) | `P/guides/cxx-examples/` | Bindings | `bindings/cpp/examples.md` | Core / C++ | Move | R | C++ examples; Borrowed parsing and sequential iteration; Nested writing and traversal; Owning Document and Query; Typed Values and custom Formats |
@@ -410,8 +438,8 @@ compare the full actual output manifest, not only representative index pages.
 | --- | --- |
 | Core Formats index: Choose a format; overview lists and discovery links | Portal-owned `formats/index.md`: retain the catalog and short introductions, linking to Core-owned detailed pages and support evidence. Keep the existing `P/formats/` entry. |
 | Core Formats index: Compare formats, technical capability tables, Reading one element, Traversing multiple elements, Writing one element, Generic interface, Nested traversal and Formats whose length precedes the tag | Core-owned source rendered at `formats/guide.md`: preserve every technical table, rule, example and limitation. Link to the new destinations; no technical source ownership transfers to Portal. |
-| Getting Started: Build from a checkout; Quick start (all language tabs); Consume Core from another CMake project (source and installed dependency) | `getting-started/index.md`: keep first-task flow, toolchain prerequisites, static/shared linkage and runtime-loader guidance. First-run examples for every existing language remain available. |
-| Getting Started: Install and generate distribution archives; C-only build; Build and run tests | `development/building/core.md`: preserve commands/options and distribution layout; keep old anchors at `P/getting-started/` linking to these sections. Consumer install/consume routing remains in Getting Started. |
+| Getting Started: Build from a checkout; Quick start (all language tabs); Consume Core from another CMake project (source and installed dependency) | `getting-started/first-program.md`, linked from the portal `getting-started/index.md`: retains every block, toolchain prerequisite, static/shared linkage and runtime-loader guidance. First-run examples for every existing language remain available. |
+| Getting Started: Install and generate distribution archives; C-only build; Build and run tests | `development/building/core.md`: retains commands/options and distribution layout. Internal links target these sections directly, with no old anchors at `P/getting-started/`. Consumer install/consume routing remains in Getting Started. |
 | Reference: C and C++ API entry points, generated-reference explanation and lookup-versus-guide distinction | `bindings/reference.md`, linking to the two native reference destinations; preserve existing reference-generation links and source provenance. |
 | Reference: supported compilers/build settings and future manual placement rule | Link to `development/building/compilers.md`; replace the placement rule with owner-specific manual links, retaining the useful API lookup guidance. |
 | Core Python development: Build; Versioning; Continuous integration; Migration and documentation cutover | Python standalone build, versioning, quality-gate and migration manuals own their details. `development/bindings/python.md` retains only Core coordination and links, including Core's continued Python-interpreter use. |
@@ -427,7 +455,7 @@ compare the full actual output manifest, not only representative index pages.
 | Follow-up | Input from this map | Evidence required before completion |
 | --- | --- | --- |
 | [#45 Navigation](https://github.com/OpenTLV/opentlv-docs/issues/45) | Six sections, canonical target paths and the revised R/P routing policy | All landing/secondary navigation targets exist; no silent content omission; internal links resolve to new paths without old-URL aliases; source ownership remains explicit. |
-| [#46 Home and Getting Started](https://github.com/OpenTLV/opentlv-docs/issues/46) | Home, onboarding, model, examples and split build guidance | Retain entry points, all first-task examples, diagrams and consumer integration requirements; check Core README callers. |
+| [#46 Home and Getting Started](https://github.com/OpenTLV/opentlv-docs/issues/46) | Implemented: portal Home/onboarding and split Core build guidance | All first-task blocks, diagrams and consumer integration requirements retained; existing Core README source callers still resolve. |
 | [#47 Formats](https://github.com/OpenTLV/opentlv-docs/issues/47) | All format/standard rows, merge ledger and support/planned distinctions | Keep detailed format sources and DER/CER merges in Core; Portal owns only discovery. Preserve every protocol's unique examples, limits and references; review both DER/CER sources and the new internal links. |
 | [#48 Bindings and Tools](https://github.com/OpenTLV/opentlv-docs/issues/48) | Catalog entries, native references, product maps, Python duplicate and playground | Validate actual product entry/version URLs, fallback links and return navigation; no copied product manuals; imtlv remains planned. |
 | [#49 Development](https://github.com/OpenTLV/opentlv-docs/issues/49) | Architecture, build/contribution/test/release routing, historical evidence and ownership-policy reconciliation | Maintain one technical source of truth per repository and distinguish current instructions from historical validation/planned architecture. |

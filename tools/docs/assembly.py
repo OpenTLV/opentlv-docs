@@ -21,6 +21,10 @@ _spec.loader.exec_module(sources)
 _spec = importlib.util.spec_from_file_location("opentlv_docs_examples", Path(__file__).with_name("examples.py"))
 examples = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(examples)
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_onboarding", Path(__file__).with_name("onboarding.py"))
+onboarding = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(onboarding)
 git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
@@ -28,6 +32,7 @@ log = logging.getLogger("mkdocs.hooks.assembly")
 # Exact, portal-owned presentation files still present in transitional Core.
 # Adding a new override requires an explicit ownership decision here.
 PORTAL_OVERRIDES = frozenset({
+    "index.md",
     "assets/README.md", "assets/favicon.svg", "assets/logo-mark.svg",
     "assets/opentlv.svg", "assets/opentlv-light.svg", "assets/opentlv-dark.svg",
     "playground/index.md", "playground/playground.js", "playground/playground.css",
@@ -172,6 +177,14 @@ def assemble(portal, selected=None):
         for name in CLI_MIGRATED_PAGES:
             if owners.get(name, {}).get("id") == "core":
                 raise PluginError(f"Selected CLI must supply migrated documentation: {name}")
+    # The virtual sibling keeps the original relative-link base and Core owner.
+    # Its rendered destination belongs to Development, as defined in navigation.
+    first_program = onboarding.FIRST_PROGRAM
+    split_onboarding = (portal / "docs/getting-started/overview.md").is_file()
+    if split_onboarding:
+        if first_program not in inputs or owners[first_program]["id"] != "core":
+            raise PluginError("Portal onboarding requires the Core first-program source.")
+        add(onboarding.CORE_BUILD, inputs[first_program], owners[first_program])
     for path in sorted((portal / "docs").rglob("*")):
         if path.is_file():
             if path.is_symlink() or not path.resolve().is_relative_to(portal / "docs"):
@@ -196,6 +209,9 @@ def assemble(portal, selected=None):
             original = path.read_text(encoding="utf-8")
             if "<!-- opentlv-examples:" in original or examples.END in original:
                 rendered[name] = catalog.transform(original)
+    if split_onboarding:
+        original = rendered.get(first_program, inputs[first_program].read_text(encoding="utf-8"))
+        rendered[first_program], rendered[onboarding.CORE_BUILD] = onboarding.split(original)
     output = reset_output(portal)
     docs = output / "docs"
     for name, path in inputs.items():

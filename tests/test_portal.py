@@ -124,8 +124,8 @@ add_dependencies(cxx-api-docs c-api-docs)
         assembly.assemble(self.portal)
         docs = self.portal / "build/assembled/docs"
         before = (docs / "index.md").read_bytes()
-        self.write(self.portal / "docs/index.md", "# Unexpected replacement")
-        with self.assertRaisesRegex(PluginError, "collision.*index.md.*Core and portal"):
+        self.write(self.portal / "docs/README.md", "# Unexpected replacement")
+        with self.assertRaisesRegex(PluginError, "collision.*README.md.*Core and portal"):
             assembly.assemble(self.portal)
         self.assertEqual((docs / "index.md").read_bytes(), before)
         self.assertEqual((self.core / "docs/index.md").read_bytes(), before)

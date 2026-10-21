@@ -64,6 +64,8 @@ class NavigationTests(unittest.TestCase):
         landings = [item if item.is_page else item.children[0] for item in nav.items]
         self.assertEqual([page.url for page in landings],
                          ["", "getting-started/", "formats/", "bindings/", "tools/", "development/"])
+        self.assertTrue(all(page.is_index for page in landings))
+        self.assertFalse(files.get_file_from_path("getting-started/README.md").page.is_index)
         ci.check_navigation(self.root / "docs", self.path.read_text())
         # An undeclared page must still fail; splitting menus is not an exclusion.
         (self.root / "docs/lua/lost.md").write_text("# Lost content\n")

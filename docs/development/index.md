@@ -14,7 +14,9 @@ from the existing implementation.
 
 ## Building from source
 
-The [Core getting-started guide](../getting-started/README.md) covers building
+Use [Core installation and developer builds](../getting-started/core-build.md)
+for distribution archives, C-only builds and tests. The
+[first-program guide](../getting-started/README.md) covers the initial build
 and consuming the library. Check [compiler support](../reference/compilers.md)
 and [component selection](../guides/select-components.md) for build constraints.
 Use the owner-maintained [CLI](../cli/development.md),
