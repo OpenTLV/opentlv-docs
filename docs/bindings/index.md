@@ -29,8 +29,9 @@ Python and Lua maintain their own manuals and release schedules. The manual
 links on their overview pages open the exact source selected for this portal version, with
 product-specific navigation and a return link to the portal. Independent
 publication reserves `/python/` and `/lua/`, relative to the documentation site
-root. Those entries are not available yet; use the selected manuals, which
-remain accessible without requiring a matching product release.
+root. Publication and release availability are described by the owners'
+[Python release guide](../python/releases.md) and [Lua release guide](../lua/releases.md).
+The selected manuals remain accessible without requiring a matching product release.
 
 ## Catalog maintenance
 

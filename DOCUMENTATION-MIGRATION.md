@@ -14,9 +14,9 @@ The updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) and
 **Home, Tutorials, API, Standards, Languages, Tools, Development**.
 The original six-section mapping records the completed foundation; the #63
 section below records its implemented seven-section successor. Issues #44–#49
-and the example repair #51 are closed. Issue #63 is implemented locally;
-ownership review #62, content disposition #61 and final published validation #50
-remain separate follow-ups.
+and the example repair #51 are closed. The #63 implementation is merged;
+ownership corrections #62 are prepared locally with the owner dependencies below.
+Content disposition #61 and final published validation #50 remain separate follow-ups.
 
 | Follow-up | Responsibility |
 | --- | --- |
@@ -37,6 +37,21 @@ requirements. Its final audit must use #63's approved seven-section target and
 the maintainer's no-redirect amendment below; the old wording is not evidence
 that either decision was reversed. This records the discrepancy without changing
 remote issues or claiming final epic acceptance.
+
+## Ownership corrections (#62)
+
+The [cross-repository review](DOCUMENTATION-OWNERSHIP.md) records current ownership,
+source revisions, duplicated or stale guidance and the required owner corrections.
+Core #667, Workspace #35 and Lua #21 are blocking dependencies of #62. Local
+corrections and integration previews do not imply that these dependencies are
+merged or that the portal has selected their corrected commits.
+
+The portal's ownership contract now points changing setup requirements, version
+inspection and detailed Escaped rules to their canonical owners. Existing source,
+example and compatibility metadata remain authoritative. Source registration
+checks reject malformed or ambiguous metadata before replacing the assembly;
+generated API links accept both original source paths and current rendered routes.
+The seven-section navigation and source pins remain unchanged.
 
 ## Seven-section implementation (#63)
 

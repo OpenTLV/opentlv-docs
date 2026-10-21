@@ -3,7 +3,7 @@
 The native C API is OpenTLV's canonical engine for reading, writing and
 processing TLV data, including Query, Schema and owned Documents.
 
-- **Language:** C99 or newer.
+- **Language:** C; see the owner-maintained [compiler requirements](../../reference/compilers.md).
 - **Status:** available as part of Core; enabled capabilities depend on the build.
 - **Owner:** [OpenTLV Core](https://github.com/OpenTLV/opentlv), including all
   technical guides and generated C reference.

@@ -3,7 +3,7 @@
 The `opentlv` package exposes the C engine through Go types, slices and errors,
 keeping cgo and native handles inside the binding.
 
-- **Language:** Go 1.22 or newer, with cgo enabled.
+- **Language:** Go with cgo; supported versions belong to the [selected setup guide](../../guides/go.md#install-and-integrate).
 - **Status:** available as an experimental in-tree binding; requires a matching
   separately built native library and headers.
 - **Owner:** [Core's Go binding](https://github.com/OpenTLV/opentlv/tree/main/bindings/go).

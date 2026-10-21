@@ -37,6 +37,10 @@ runs:
       shell: bash
       run: |
         python -B -m unittest discover -s tests -p test_workflows.py -v
+        python -B -m unittest discover -s tests -p test_sources.py -k registration -v
+        python -B -m unittest discover -s tests -p test_sources.py -k overlapping_component_mounts -v
+        python -B -m unittest discover -s tests -p test_sources.py -k keep_distinct_git_suffixes -v
+        python -B -m unittest discover -s tests -p test_portal.py -k api_guide_links -v
         python -B -m unittest discover -s tests -p test_navigation.py -v
         python -B -m unittest discover -s tests -p test_onboarding.py -v
         python -B -m unittest discover -s tests -p test_events.py -v
@@ -53,4 +57,4 @@ runs:
       shell: bash
       run: |
         npm install --global markdownlint-cli@0.45.0
-        markdownlint --config .markdownlint.json README.md CHANGELOG.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'
+        markdownlint --config .markdownlint.json README.md CHANGELOG.md DOCUMENTATION-MIGRATION.md DOCUMENTATION-OWNERSHIP.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'

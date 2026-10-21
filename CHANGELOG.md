@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Define the cross-repository documentation ownership contract, route changing component requirements and version details to their owners, and track coordinated Core, Lua and Workspace corrections. (#62)
 - Complete the seven-section portal with Tutorials, shared API documentation, Standards and Languages; preserve contributor guidance, component ownership and independent manuals while updating page and generated-reference destinations. (#63)
 - Organize Development around architecture, builds, contributing, quality gates and releases, with repository-owned entry points and current portal conventions; distinguish historical migration guidance while preserving Core technical sources. (#49)
 - Add Bindings and Tools catalogs with lightweight product overviews, explicit experimental and planned status, links to independently owned manuals, and a documented registration convention; preserve Core ownership of C/C++ references. (#48)
@@ -26,6 +27,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Reject ambiguous or malformed source registrations before replacing assembled documentation, and resolve generated API links from both original source paths and current portal routes. (#62)
 - Correct the migration map to reflect the current epic sub-issues, follow-up order and requirement to complete corrections in owning repositories before closing the ownership review. (#63)
 - Pin Python documentation to the merged standalone documentation fixes, resolving the Markdown lint failure and obsolete example links. (#34)
 - Support Core 0.7.1 with explicit standalone CLI page ownership and revision-specific navigation, preserving source tags, published snapshots and strict collision checks. (#31)
