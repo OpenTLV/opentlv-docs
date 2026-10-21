@@ -17,6 +17,12 @@ distinguishes the navigation change from the subsequent content migrations.
 
 ## Portal navigation
 
+The implemented six-section foundation below is an intermediate stage. The
+updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) targets
+Home, Tutorials, API, Standards, Languages, Tools and Development.
+[#63](https://github.com/OpenTLV/opentlv-docs/issues/63) owns that navigation
+transition and reuses #49's Development work; it does not reopen #44–#48.
+
 The central portal has six top-level sections: Home, Getting Started, Formats,
 Bindings, Tools and Development. Their landing URLs are `/`, `/getting-started/`,
 `/formats/`, `/bindings/`, `/tools/` and `/development/`, relative to the selected
@@ -102,6 +108,16 @@ After building the site and installing `requirements-browser.txt` plus
 Playwright Chromium, run `python -B tools/docs/navigation_smoke.py site` for
 desktop/mobile navigation without requiring WASM. The publishing browser smoke
 also runs these checks under the prepared version and project prefixes.
+
+Issue #49 adds contributor entry points for Architecture, Building from Source,
+Contributing, Testing and Quality Gates, and CI and Release Process. A portal
+conventions page distinguishes the implemented hierarchy from #63's target and
+routes contributors to their source owners. Short, explicitly portal-authored
+context notes accompany Core's historical layout, ownership, Python cutover and
+historical #513 audit pages; their original content and source/edit links are retained.
+Repository-wide ownership corrections remain tracked by #62, content disposition
+by #61, and final published validation by #50. These notes do not correct the
+upstream technical sources or establish current release/deployment evidence.
 
 ## Prerequisites
 

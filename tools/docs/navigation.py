@@ -74,6 +74,33 @@ PAGE_ROUTES = {
 PRODUCT_ROUTES = {"cli/": "tools/otlv/manual/", "lua/": "bindings/lua/manual/",
                   "python/": "bindings/python/manual/"}
 
+# Presentation notes reconcile old portal instructions without maintaining an
+# edited copy of the owner's technical Markdown. Keep the original text intact.
+DEVELOPMENT_NOTES = {
+    "development/documentation-layout.md": (
+        "Core writing conventions remain authoritative for its sources. The portal "
+        "hierarchy and combined DER/CER presentation have evolved; the "
+        "source directories and former navigation described below are not the "
+        "current portal hierarchy."
+    ),
+    "development/documentation-ownership.md": (
+        "Retain this Core ownership inventory and extraction history as source "
+        "evidence. CLI, Lua and Python manuals are already selected from their "
+        "standalone repositories in this portal. Pending portal-cutover statements "
+        "and the old deployment sequence below describe the historical migration."
+    ),
+    "development/documentation-audit.md": (
+        "This is the historical Core #513 audit. Its paths, inventory and validation "
+        "describe that review, not the current portal hierarchy or a fresh validation run."
+    ),
+    "development/python.md": (
+        "This portal already selects the standalone Python manual. The pending "
+        "portal-cutover statement below is historical. Core still owns the diagnostic "
+        "vocabulary generator, native fixtures and dependency coordination; "
+        "[Python development](../python/development/python.md) owns standalone build instructions."
+    ),
+}
+
 
 @event_priority(50)
 def on_files(files, config):
@@ -107,7 +134,8 @@ def on_page_markdown(markdown, page, config, files):
     # The new contributor landing also supports the exact historical Core
     # revision accepted by assembly; do not hide missing pages in other builds.
     core = config.extra.get("core_source", {})
-    if (page.file.src_uri == "development/index.md"
+    if (page.file.src_uri in {"development/index.md", "development/testing.md",
+                             "development/releases.md", "development/documentation.md"}
             and core.get("repository") == "https://github.com/OpenTLV/opentlv"
             and core.get("commit") == "e12a52ff69a64468eecab084795a0530c273efea"):
         markdown = markdown.replace("[quality gates](quality-gates.md)",
@@ -116,8 +144,19 @@ def on_page_markdown(markdown, page, config, files):
                                     "[Core development workflow](workflow.md)")
         markdown = markdown.replace("[ownership guide](documentation-ownership.md)",
                                     "[documentation audit](documentation-audit.md)")
+        markdown = markdown.replace("[ownership inventory](documentation-ownership.md)",
+                                    "[documentation audit](documentation-audit.md)")
         markdown += ("\nThis historical Core version predates the separate quality-gates and\n"
                      "documentation-ownership pages; the links above use its workflow and audit.\n")
+    note = DEVELOPMENT_NOTES.get(page.file.src_uri)
+    if note and files.get_file_from_path("development/documentation.md") is not None:
+        # A component's independent manual has no portal guidance page. Add notes
+        # only in an assembled portal and retain its original source/edit owner.
+        title, separator, body = markdown.partition("\n")
+        markdown = (title + '\n\n!!! note "Portal context"\n\n    ' + note
+                    + " See [current portal conventions](documentation.md) for "
+                    "hierarchy, ownership and publication entry points.\n"
+                    + separator + body)
     return markdown
 
 

@@ -7,6 +7,60 @@ issue #44 closed as completed.** The maintainer's subsequent #45 implementation 
 authorizes the navigation phase below. #50 verifies the completed migrations
 against this map. A local inventory check is not deployed-site validation.
 
+## Updated epic scope (2026-10-21)
+
+The updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) and
+[#63](https://github.com/OpenTLV/opentlv-docs/issues/63) establish the final target:
+**Home, Tutorials, API, Standards, Languages, Tools, Development**.
+The six-section mapping below records the completed foundation, not the final
+epic hierarchy. #44–#48 and the example repair #51 are closed; #49, #63, #62,
+issues #61 and #50 remain open at this review.
+
+| Follow-up | Responsibility |
+| --- | --- |
+| #49 | Contributor entry points in Development; retain owner-maintained architecture, build, contribution, test and release details. |
+| #63 | Implement seven sections; move shared public contracts, generic formats and C/C++ references into API; reorganize Tutorials, Standards and Languages while reusing Development. |
+| #62 | Review cross-repository ownership and stale component information, track corrections in owning repositories and extend integration validation. |
+| #61 | Review content against the final hierarchy; record Keep, Relocate, Archive or Remove with destinations and justification. |
+| #50 | Final content, navigation, product-version and published integration verification after the preceding work. |
+
+Issue #63 also coordinates with #19 (Home wire explorer) and #20 (visual identity).
+They are related issues, not direct children in the current epic's sub-issue list.
+The current #50 text still names six sections and the original URL compatibility
+requirements. Its final audit must use #63's approved seven-section target and
+the maintainer's no-redirect amendment below; the old wording is not evidence
+that either decision was reversed. This records the discrepancy without changing
+remote issues or claiming final epic acceptance.
+
+## Development phase (#49)
+
+Six new portal-owned pages provide five contributor entry points plus current
+documentation conventions:
+
+| Source / rendered destination | Disposition and ownership |
+| --- | --- |
+| `development/index.md` / `development/` | Keep the Portal landing; replace its inline routing with links to the five entry points. All original destinations remain reachable through them. |
+| `development/architecture/index.md` / `development/architecture/` | Add Portal routing to Core's canonical architecture and relevant component contracts, with planned work identified. |
+| `development/building/index.md` / `development/building/` | Add Portal build entry points; reuse the Core build split from #46 and repository-owned commands. |
+| `development/contributing.md` / `development/contributing/` | Add Portal contribution-policy and ownership routing. |
+| `development/testing.md` / `development/testing/` | Add Portal quality-tier overview and owner-specific validation links; retain performance and audit evidence with its scope. |
+| `development/releases.md` / `development/releases/` | Add Portal release/publication overview and links to the existing detailed processes. |
+| `development/documentation.md` / `development/documentation/` | Add current Portal conventions, distinguish the implemented six-section foundation from #63's seven-section target, and link #61/#62 follow-ups. |
+
+The Core layout, ownership, Python coordination and #513 audit pages retain all
+original text. `navigation.py` adds visibly labeled Portal context during
+rendering, pointing to current conventions and standalone Python guidance.
+The notes do not replace Core's source/edit attribution or rewrite its technical
+instructions. The original generator commands, shared fixtures, examples,
+diagrams, historical inventories and migration evidence are retained.
+Core source corrections and later archive/removal decisions remain with #62/#61.
+
+No existing component page is removed or rerouted by #49, and all four source
+pins remain unchanged. The expected inventory is 127 navigable pages (121 from
+issue #48 plus six Portal pages). Local build and navigation evidence belongs to
+`build/issue49-validation.json`; hosted CI, publication and final #50 validation
+are separate evidence and are not implied by a local pass.
+
 ## Navigation phase (#45)
 
 Source pins still match the four source revisions inventoried below. The six
@@ -35,7 +89,7 @@ Existing published immutable snapshots are not rewritten.
 rows while preserving repository-owned source paths. MkDocs resolves internal
 links and generated API guide links to those destinations. The #47 format
 presentation and #48 catalogs are described below. Development restructuring
-assigned to #49 is still pending. The full reference overview renders at `bindings/reference.md`,
+for #49 is recorded above. The full reference overview renders at `bindings/reference.md`,
 and Core's Python transition manual remains at
 `bindings/python/core-transition.md` until its unique content is merged. No
 row's technical content is removed by #45.
