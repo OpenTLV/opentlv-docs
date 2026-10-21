@@ -15,8 +15,9 @@ The updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) and
 The original six-section mapping records the completed foundation; the #63
 section below records its implemented seven-section successor. Issues #44–#49
 and the example repair #51 are closed. The #63 implementation is merged;
-ownership corrections #62 are prepared locally with the owner dependencies below.
-Content disposition #61 and final published validation #50 remain separate follow-ups.
+ownership corrections #62 are merged, selected and closed. The #61 content
+disposition implementation is recorded below; final published validation #50
+remains a separate follow-up.
 
 | Follow-up | Responsibility |
 | --- | --- |
@@ -30,7 +31,7 @@ Content disposition #61 and final published validation #50 remain separate follo
 
 Issue #63 also coordinates with #19 (Home wire explorer) and #20 (visual identity).
 Both are direct children of epic #43. The remaining work follows the epic order:
-issues #62, #61, #20, #19 and #50. This is a working sequence, not enforced blocking
+issues #61, #20, #19 and #50 after the completed #62. This is a working sequence, not enforced blocking
 dependencies in GitHub.
 The current #50 text still names six sections and the original URL compatibility
 requirements. Its final audit must use #63's approved seven-section target and
@@ -42,16 +43,38 @@ remote issues or claiming final epic acceptance.
 
 The [cross-repository review](DOCUMENTATION-OWNERSHIP.md) records current ownership,
 source revisions, duplicated or stale guidance and the required owner corrections.
-Core #667, Workspace #35 and Lua #21 are blocking dependencies of #62. Local
-corrections and integration previews do not imply that these dependencies are
-merged or that the portal has selected their corrected commits.
+Core #667, Workspace #35 and Lua #21 are complete. Docs #66 supplied portal
+support; #67 and #68 selected the merged Core and Lua correction commits.
+The exact combined source set passed hosted PR/Main and local integration
+validation, and #62 is closed. The dated ownership review retains the original
+review baseline and its subsequent completion record.
 
 The portal's ownership contract now points changing setup requirements, version
 inspection and detailed Escaped rules to their canonical owners. Existing source,
 example and compatibility metadata remain authoritative. Source registration
 checks reject malformed or ambiguous metadata before replacing the assembly;
 generated API links accept both original source paths and current rendered routes.
-The seven-section navigation and source pins remain unchanged.
+The seven-section navigation remains unchanged by #62.
+
+## Content disposition (#61)
+
+The [complete content review](DOCUMENTATION-CONTENT-REVIEW.md) records the current
+129-page baseline after #62 and each Keep, Relocate or Archive decision. It
+supersedes the proposed destinations in the older inventory only where an
+explicit disposition is recorded; the original inventory and evidence below
+remain historical records.
+
+Eleven historical pages move to Development history, eight component contributor
+guides move to Development, and two active proposals move to Planning and reviews.
+Two new portal indexes explain current contributor and historical entry points.
+No original technical source or supporting evidence file is removed. Archived
+records retain their original owner, body, anchors and links; normal search and
+product menus lead to current guides instead.
+
+Two confirmed stale planning statements are corrected separately in Core. Keep
+issue #61 open until those owner corrections are merged, their exact Core revision is
+selected in Docs, and the combined source set is validated. Independent product
+publication and immutable release snapshots retain their existing behavior.
 
 ## Seven-section implementation (#63)
 

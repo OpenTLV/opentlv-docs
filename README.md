@@ -15,12 +15,18 @@ records the pinned source baseline, current seven-section destinations, content
 ownership and the no-redirect URL policy. Earlier migration stages remain
 documented there as historical evidence.
 
-The [cross-repository ownership audit](DOCUMENTATION-OWNERSHIP.md) records
-current findings, owner-repository follow-ups and the evidence needed to close
-issue #62. Follow the [documentation contribution contract](docs/development/documentation.md)
-for canonical sources, metadata and validation responsibilities. Prepared local
-owner corrections do not update this portal's pinned inputs; merge the owner
-changes and review their exact source revisions before adopting them here.
+The [cross-repository ownership audit](DOCUMENTATION-OWNERSHIP.md) records the
+review and correction chain completed in #62. Core, Lua and Workspace corrections
+are merged, and the portal selects the corrected Core and Lua revisions.
+Follow the [documentation contribution contract](docs/development/documentation.md)
+for canonical sources, metadata and validation responsibilities.
+
+The [content disposition review](DOCUMENTATION-CONTENT-REVIEW.md) accounts for
+every reviewed page and records the changes for #61. Historical evidence is
+archived separately from current manuals, and contributor material is grouped
+under Development. The remaining Core planning corrections must merge in Core
+and be adopted through reviewed portal pins before #61 can close. A local preview
+does not update the selected source set or establish publication readiness.
 
 ## Portal navigation
 
@@ -40,19 +46,22 @@ concepts, processing guides, generic format mechanisms, configuration and native
 references. Standards contains actual protocols and their supported subsets.
 Languages retains language-specific discovery and manuals; Tutorials provides
 practical task entry points. Development retains #49's contributor guidance,
-internal design notes, performance evidence and planned work.
+component contributor manuals, internal design notes, planning and a clearly
+identified archive of historical evidence.
 
 `docs-sources.json` retains the complete product navigation for inventory checks
 and independent publication. The assembly navigation includes every page;
-`tools/docs/navigation.py` separates CLI, Lua and Python into contextual menus
-after MkDocs validates that inventory. Product source links retain their owners;
-their menus and previous/next links stay within the
-product, with a return link to the current portal version. They do not show the
+`tools/docs/content.py` assigns reviewed historical and contributor pages to
+Development; `tools/docs/navigation.py` separates the remaining CLI, Lua and
+Python manuals into contextual menus after MkDocs validates the complete
+inventory. Product source links retain their owners; ordinary manual menus and
+previous/next links stay within the product, with a return link to the current
+portal version. They do not show the
 portal version selector as if it selected a product release. Independently
 published product snapshots retain their own selectors and portal return link.
 
-The routing introduced in #45 now assigns pages to the seven sections. The routing table
-in `tools/docs/navigation.py` changes MkDocs destinations while keeping original
+The routing introduced in #45 now assigns pages to the seven sections. The routing
+tables in `tools/docs/navigation.py` and `tools/docs/content.py` change MkDocs destinations while keeping original
 source paths for ownership, inventory and link resolution. Internal links,
 search results and generated API guide links use the new destinations.
 **Old page URLs are intentionally not supported:** there are no redirects or
@@ -99,13 +108,26 @@ Overviews link setup and first examples in the owning manuals; they do not
 maintain copies of API tutorials. C/C++ technical ownership remains with Core.
 The playground application keeps `tools/playground/`; its introduction uses
 `tools/playground/overview/`. Independent product release URLs remain unchanged;
-selected Lua/Python manuals now render under Languages.
+selected Lua/Python usage, setup and versioning chapters render under Languages.
 Follow [Register a binding or tool](docs/development/product-catalogs.md) when
 adding an entry or changing its availability.
 
-The Core Python transition guide remains available at
-`languages/python/core-transition/` pending the separate #61 content review.
-Existing published snapshots are not rewritten by this change.
+The [historical records index](docs/development/history.md) collects 11 retained
+migration, validation, performance and audit pages under
+`development/history/{owner}/`. This includes Core's Python transition guide,
+the Lua/Python migration records and the dated Python validation reports.
+Each page retains its technical body, anchors, evidence and owner edit link,
+with a visible historical note and links to current instructions. Archived
+records are omitted from normal search results; the archive index remains
+searchable and linked from Development.
+
+Eight current CLI/Lua/Python contributor pages render under
+`development/components/`, linked by the
+[component contributor index](docs/development/components.md). Build instructions
+needed by Lua/Python users and their public versioning contracts remain in the
+language manuals. The planned runtime model and indefinite-boundary proposal
+belong to Development planning. Existing published snapshots and independently
+published component manuals keep their own content, navigation and URLs.
 
 Check the navigation contract with
 `python -B -m unittest discover -s tests -p test_navigation.py -v`.
@@ -115,17 +137,19 @@ Check format preservation, merged source ownership and canonical links with
 `python -B -m unittest discover -s tests -p test_formats.py -v`.
 After building the site and installing `requirements-browser.txt` plus
 Playwright Chromium, run `python -B tools/docs/navigation_smoke.py site` for
-desktop/mobile navigation without requiring WASM. The publishing browser smoke
+desktop/mobile navigation, archive-to-current links and component contributor
+routes without requiring WASM. The publishing browser smoke
 also runs these checks under the prepared version and project prefixes.
 
 Issue #49 adds contributor entry points for Architecture, Building from Source,
 Contributing, Testing and Quality Gates, and CI and Release Process. A portal
 conventions page describes the implemented seven-section hierarchy and
 routes contributors to their source owners. Short, explicitly portal-authored
-context notes accompany Core's historical layout, ownership, Python cutover and
-historical #513 audit pages; their original content and source/edit links are retained.
-Repository-wide ownership corrections remain tracked by #62, content disposition
-by #61, and final published validation by #50. These notes do not correct the
+context notes accompany Core's layout, ownership and Python cutover pages;
+the completed #513 audit now uses the historical archive note. Original content
+and source/edit links are retained. Repository-wide ownership corrections are
+complete in #62; #61 tracks content disposition and its remaining owner-source
+corrections, and #50 tracks final published validation. These notes do not correct the
 upstream technical sources or establish current release/deployment evidence.
 
 ## Prerequisites
@@ -210,8 +234,9 @@ The explicit `ci.py fetch` command creates separate managed checkouts as describ
 
 The required `cli` source in `docs-sources.json` mounts the standalone CLI's
 `docs/` directory at `cli/`. Its manifest navigation owns the command guide,
-JSON schema, development guide and release guide. Their canonical rendered URLs
-are under `tools/otlv/manual/`; the pages do not depend on Core's removed `docs/cli/`.
+JSON schema, development guide and release guide. The command and JSON guides
+render under `tools/otlv/manual/`; contributor development and release guides
+render under `development/components/cli/`. These pages do not depend on Core's removed `docs/cli/`.
 Core and CLI are independently pinned, recorded in the source lock and shown
 in published provenance. No CLI compilation or dependency download is needed
 to assemble these Markdown sources.
@@ -245,8 +270,10 @@ require matching assembled pages and anchors under strict validation.
 ### Lua documentation source
 
 The required `lua` source mounts `opentlv-lua/docs/` at the source path `lua/`
-and renders a separate manual under `languages/lua/manual/`, linked from Languages.
-Lua owns the API guide, implementation
+and renders its usage, setup and versioning manual under `languages/lua/manual/`,
+linked from Languages. Contributor chapters render under
+`development/components/lua/`, and migration provenance under
+`development/history/lua/`. Lua owns the API guide, implementation
 notes, build and LuaRocks instructions, tests, versioning and migration history.
 The original import README remains a historical artifact outside the mounted
 docs directory; it is linked from the provenance guide, not presented as setup.
@@ -269,13 +296,16 @@ use the [component release publication flow](#independent-component-release-publ
 and Lua's own release identity. Existing published snapshots keep their original
 bytes and source set. Their old Lua URLs remain part of those snapshots; current
 integrated navigation and links use `languages/lua/manual/api/` and
-`languages/lua/manual/implementation/`.
+`development/components/lua/implementation/`.
 
 ### Python documentation source
 
 The required `python` source mounts `opentlv-python/docs/` at the source path
-`python/` and renders a separate manual under `languages/python/manual/`, linked
-from Languages. It owns the Python user guide, standalone build and installation,
+`python/` and renders its usage, setup and versioning manual under
+`languages/python/manual/`, linked from Languages. Contributor quality and release
+guides render under `development/components/python/`; migration and dated
+validation records render under `development/history/python/`.
+Python owns the user guide, standalone build and installation,
 workspace development, supported Python versions, contribution instructions,
 quality gates, versioning, release preparation and validation records.
 The portal consumes these manuals without compiling or installing the binding.
@@ -300,10 +330,10 @@ presentation belongs here. Do not create a second maintained Python manual in
 this repository.
 
 The current Core pin includes the Python implementation removal and standalone
-repository references. Its transitional `guides/python.md` and
-`development/python.md` pages render at `languages/python/core-transition/` and
-`development/bindings/python/`, explicitly
-labelled as Core transition/ownership pages. The Python section consumes the
+repository references. Its retained `guides/python.md` renders in the historical
+archive at `development/history/core/guides/python/`; `development/python.md`
+remains current Core ownership guidance at `development/bindings/python/`.
+The Python section consumes the
 canonical standalone manuals. Removing those transitional Core files requires
 a coordinated Core change and navigation update; missing pages still fail.
 
@@ -1157,12 +1187,13 @@ back to historical Core content.
 The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or
 requiring their runtimes. CLI, Lua and canonical Python manuals come from their
-required independent sources. Core's transitional Python pages retain their
-technical content at their current rendered destinations pending the #61
-content disposition review. Owner corrections tracked by #62 require merged
-source changes and reviewed portal pins; removing or moving retained pages also
-requires a coordinated navigation update. Other binding extraction will update
-the selected content and navigation.
+required independent sources. Core's former Python usage guide retains its
+technical content in the historical archive, while its current Python ownership
+guide remains in Development. The #62 owner corrections are merged and selected.
+The [content review](DOCUMENTATION-CONTENT-REVIEW.md) records retained pages,
+archive and contributor destinations, and remaining #61 owner-source corrections.
+Moving retained pages requires a coordinated navigation update. Other binding
+extraction will update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
@@ -1350,8 +1381,10 @@ work includes:
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
 The Core portal configuration and publisher cutover are historical work;
-continued owner-source corrections and content review are tracked separately
-in the [ownership audit](DOCUMENTATION-OWNERSHIP.md).
+the completed ownership corrections are recorded in the
+[ownership audit](DOCUMENTATION-OWNERSHIP.md). Content review and remaining
+planning-source corrections are tracked in the
+[content disposition review](DOCUMENTATION-CONTENT-REVIEW.md).
 
 ### Core cutover (#608)
 

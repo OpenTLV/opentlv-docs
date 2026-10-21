@@ -188,8 +188,6 @@ nav:
       - WebAssembly:
           - WebAssembly overview: bindings/wasm/index.md
           - WebAssembly tooling: development/webassembly.md
-      - Transitional guides:
-          - Python guide (Core transition): guides/python.md
   - Tools:
       - Overview: tools/index.md
       - otlv CLI: tools/otlv/index.md
@@ -202,13 +200,14 @@ nav:
       - Architecture:
           - Overview: development/architecture/index.md
           - Core architecture: concepts/architecture.md
-          - Runtime model and canonical IR: concepts/runtime-model.md
           - Processing pipeline: concepts/processing-pipeline.md
           - Core architectural rules: concepts/architectural-rules.md
-          - Failure model design: concepts/error-model.md
+          - Failure model contract: concepts/error-model.md
           - Definition boundaries: concepts/definition-boundaries.md
           - Declarative field policy design: concepts/field-policies.md
       - Planning and reviews:
+          - Planned runtime model and canonical IR: concepts/runtime-model.md
+          - Indefinite boundary reuse proposal: development/indefinite-boundary-reuse.md
           - Format roadmap: formats/format-roadmap.md
           - Format candidate catalogue: formats/format-catalogue.md
           - LLDP requirements review: formats/lldp-review.md
@@ -220,16 +219,14 @@ nav:
           - Contribution entry points: development/contributing.md
           - Development workflow: development/workflow.md
           - Python ownership in Core: development/python.md
+      - Component guides:
+          - Overview: development/components.md
       - Testing and quality gates:
           - Overview: development/testing.md
           - Core quality gates: development/quality-gates.md
           - C ABI compatibility: development/abi-compatibility.md
           - Fuzzing: development/fuzzing.md
           - Valgrind checks: development/valgrind.md
-          - Reader decode performance: development/reader-decode-performance.md
-          - C++ facade performance: development/cxx-facade-performance.md
-          - Indefinite boundary reuse follow-up: development/indefinite-boundary-reuse.md
-          - Query phase implementation audit: development/query-phase-audit.md
           - Query adversarial verification: development/query-adversarial.md
       - CI and release process:
           - Overview: development/releases.md
@@ -239,5 +236,11 @@ nav:
           - Register a binding or tool: development/product-catalogs.md
           - Core writing conventions: development/documentation-layout.md
           - Documentation ownership: development/documentation-ownership.md
-          - Historical documentation audit (#513): development/documentation-audit.md
           - Logo assets: assets/README.md
+      - Historical records:
+          - Overview: development/history.md
+          - Core Python transition guide: guides/python.md
+          - Query phase implementation audit: development/query-phase-audit.md
+          - Reader decode performance record: development/reader-decode-performance.md
+          - C++ facade performance record: development/cxx-facade-performance.md
+          - Documentation audit (#513): development/documentation-audit.md

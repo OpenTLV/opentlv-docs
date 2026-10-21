@@ -94,7 +94,7 @@ jobs:
         if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         run: |
           npm install --global markdownlint-cli@0.45.0
-          markdownlint --config .markdownlint.json README.md CHANGELOG.md DOCUMENTATION-MIGRATION.md DOCUMENTATION-OWNERSHIP.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'
+          markdownlint --config .markdownlint.json README.md CHANGELOG.md DOCUMENTATION-MIGRATION.md DOCUMENTATION-OWNERSHIP.md DOCUMENTATION-CONTENT-REVIEW.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'
       - uses: mymindstorm/setup-emsdk@v14
         if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
         with:

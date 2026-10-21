@@ -26,6 +26,10 @@ preparation. The [documentation ownership and portal conventions](documentation.
 explain source ownership, the portal hierarchy and how historical migration
 records relate to current guidance.
 
+Use [Component contributor guides](components.md) for CLI, Lua and Python testing,
+implementation and release procedures. Public API and installation chapters remain
+in their language or tool manuals.
+
 ## Testing and quality gates
 
 Use [Testing and Quality Gates](testing.md) for the PR/Main/Full/Release model,
@@ -37,3 +41,9 @@ retain their original evidence scope.
 Read [CI and Release Process](releases.md) for component releases, reviewed
 documentation pins, publication gates and immutable snapshots. Detailed release
 and recovery instructions remain with each repository.
+
+## Historical records
+
+[Historical records](history.md) collects migration provenance, dated validation,
+performance reports and completed audits. Current manuals remain the entry point
+for setup and API use; the archive preserves the original evidence and owners.

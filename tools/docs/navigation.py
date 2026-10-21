@@ -4,11 +4,18 @@
 """Render product manuals separately after MkDocs validates the full inventory."""
 
 import copy
+import importlib.util
+from pathlib import Path
+import posixpath
 
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import event_priority
 from mkdocs.structure.files import File
 from mkdocs.structure.nav import Link, Navigation
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_content", Path(__file__).with_name("content.py"))
+content = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(content)
 
 # Source names remain repository-owned; only portal output paths change.
 # This is a routing table, not a redirect/alias table. No old page is emitted.
@@ -74,7 +81,8 @@ PAGE_ROUTES = {
     "development/webassembly.md": "languages/wasm/development.md",
     "playground/index.md": "tools/playground/index.md",
     "concepts/architecture.md": "development/architecture/architecture.md",
-    "concepts/runtime-model.md": "development/architecture/runtime-model.md",
+    "concepts/runtime-model.md": "development/planning/runtime-model.md",
+    "development/indefinite-boundary-reuse.md": "development/planning/indefinite-boundary-reuse.md",
     "concepts/processing-pipeline.md": "development/architecture/processing-pipeline.md",
     "concepts/architectural-rules.md": "development/architecture/architectural-rules.md",
     "concepts/error-model.md": "development/architecture/error-model.md",
@@ -103,18 +111,12 @@ DEVELOPMENT_NOTES = {
         "current portal hierarchy."
     ),
     "development/documentation-ownership.md": (
-        "Retain this Core ownership inventory and extraction history as source "
-        "evidence. CLI, Lua and Python manuals are already selected from their "
-        "standalone repositories in this portal. Pending portal-cutover statements "
-        "and the old deployment sequence below describe the historical migration."
-    ),
-    "development/documentation-audit.md": (
-        "This is the historical Core #513 audit. Its paths, inventory and validation "
-        "describe that review, not the current portal hierarchy or a fresh validation run."
+        "Core owns its technical sources and extraction evidence. CLI, Lua and "
+        "Python manuals are selected from their standalone repositories; the "
+        "portal owns navigation, catalogs and the selected source revisions."
     ),
     "development/python.md": (
-        "This portal already selects the standalone Python manual. The pending "
-        "portal-cutover statement below is historical. Core still owns the diagnostic "
+        "This portal selects the standalone Python manual. Core owns the diagnostic "
         "vocabulary generator, native fixtures and dependency coordination; "
         "[Python development](../python/development/python.md) owns standalone build instructions."
     ),
@@ -126,6 +128,8 @@ def on_files(files, config):
     # Run before API guide-link adaptation. MkDocs resolves source-relative
     # Markdown and HTML links against src_uri and renders them using dest_uri.
     # Keeping src_uri also preserves original edit links and assembly ownership.
+    history = files.get_file_from_path(content.HISTORY_INDEX) is not None
+    components = files.get_file_from_path(content.COMPONENT_INDEX) is not None
     for file in files.documentation_pages():
         target = PAGE_ROUTES.get(file.src_uri)
         if file.src_uri.startswith("bindings/"):
@@ -134,6 +138,7 @@ def on_files(files, config):
             if file.src_uri.startswith(prefix):
                 target = destination + file.src_uri[len(prefix):]
                 break
+        target = content.route(file.src_uri, history, components) or target
         if target:
             destination = File(target, file.src_dir, file.dest_dir, config.use_directory_urls)
             # Material identifies section indexes by File.name, not URL alone.
@@ -151,7 +156,40 @@ def sequence(pages):
         page.next_page = pages[index + 1] if index + 1 < len(pages) else None
 
 
+def source_link(page, target):
+    return posixpath.relpath(target, posixpath.dirname(page.file.src_uri))
+
+
+def current_guide(record, config):
+    target, title = record[3:]
+    if target.startswith("python/") and not any(
+        source["id"] == "python" and source["included"]
+        for source in config.extra.get("sources", [])
+    ):
+        return "bindings/python/index.md", "Python language entry point"
+    return target, title
+
+
+def record_index(markdown, page, config, files):
+    if page.file.src_uri == content.HISTORY_INDEX:
+        rows = ["| Historical record | Current instructions |", "| --- | --- |"]
+        for name, record in content.ARCHIVES.items():
+            if files.get_file_from_path(name) is not None:
+                target, title = current_guide(record, config)
+                rows.append(f"| [{record[1]}]({source_link(page, name)}) | "
+                            f"[{title}]({source_link(page, target)}) |")
+        return markdown.replace("<!-- opentlv-content: history -->", "\n".join(rows))
+    if page.file.src_uri == content.COMPONENT_INDEX:
+        rows = ["| Component | Contributor guide |", "| --- | --- |"]
+        for name, (owner, title) in content.COMPONENT_GUIDES.items():
+            if files.get_file_from_path(name) is not None:
+                rows.append(f"| {owner} | [{title}]({source_link(page, name)}) |")
+        return markdown.replace("<!-- opentlv-content: components -->", "\n".join(rows))
+    return markdown
+
+
 def on_page_markdown(markdown, page, config, files):
+    markdown = record_index(markdown, page, config, files)
     # The new contributor landing also supports the exact historical Core
     # revision accepted by assembly; do not hide missing pages in other builds.
     core = config.extra.get("core_source", {})
@@ -169,6 +207,18 @@ def on_page_markdown(markdown, page, config, files):
                                     "[documentation audit](documentation-audit.md)")
         markdown += ("\nThis historical Core version predates the separate quality-gates and\n"
                      "documentation-ownership pages; the links above use its workflow and audit.\n")
+    if (page.file.src_uri in content.ARCHIVES
+            and files.get_file_from_path(content.HISTORY_INDEX) is not None):
+        current, label = current_guide(content.ARCHIVES[page.file.src_uri], config)
+        note = ("This page preserves a historical snapshot, including its original "
+                "commands, paths and validation results. Those results describe "
+                "the recorded review, not a current verification. For current "
+                f"instructions, see the [{label}]({source_link(page, current)}). "
+                f"See [historical records]({source_link(page, content.HISTORY_INDEX)}) for context.")
+        page.meta.setdefault("search", {})["exclude"] = True
+        title, separator, body = markdown.partition("\n")
+        return (title + '\n\n!!! note "Historical record"\n\n    ' + note
+                + "\n" + separator + body)
     note = DEVELOPMENT_NOTES.get(page.file.src_uri)
     if note and files.get_file_from_path("development/documentation.md") is not None:
         # A component's independent manual has no portal guidance page. Add notes
@@ -202,8 +252,16 @@ def on_nav(nav, config, files):
         if len(sections) != 1:
             raise PluginError(f"Missing or ambiguous product navigation: {source['id']}")
         section = sections[0]
-        prefix = source["mount"].rstrip("/") + "/"
-        pages = [page for page in nav.pages if page.file.src_uri.startswith(prefix)]
+        def manual_pages(items):
+            for item in items:
+                if item.is_page:
+                    yield item
+                elif item.is_section:
+                    yield from manual_pages(item.children)
+
+        # Historical records and contributor guides keep their component src_uri
+        # but belong to Development. Membership follows the reviewed nav tree.
+        pages = list(manual_pages(section.children))
         for item in section.children:
             item.parent = None
         product = Navigation([Link("OpenTLV portal", nav.homepage.url), *section.children], pages)
