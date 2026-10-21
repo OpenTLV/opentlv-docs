@@ -153,6 +153,7 @@ nav:
       - Overview: bindings/index.md
       - Language contracts and capabilities: concepts/bindings.md
       - C and shared guides:
+          - C overview: bindings/c/index.md
           - Pull-based Reader: guides/reader.md
           - Writer and scoped construction: guides/writer.md
           - Mutable documents: guides/document.md
@@ -163,6 +164,7 @@ nav:
           - Memory ownership: guides/memory.md
           - Copy helpers: guides/copy.md
       - C++:
+          - C++ overview: bindings/cpp/index.md
           - C++ examples: guides/cxx-examples.md
           - C++ public/native boundary: concepts/cxx-native-boundary.md
           - C++ Format customization: concepts/cxx-formats.md
@@ -173,16 +175,28 @@ nav:
           - C++ API: reference/cxx-api.md
           - Error codes: reference/errors.md
           - Query language contract: concepts/query-language.md
-      - In-tree and transitional guides:
+      - Python: bindings/python/index.md
+      - Lua: bindings/lua/index.md
+      - Rust:
+          - Rust overview: bindings/rust/index.md
           - Using OpenTLV from Rust: guides/rust.md
           - Rust development: development/rust.md
+      - Go:
+          - Go overview: bindings/go/index.md
           - Using OpenTLV from Go: guides/go.md
           - Go development: development/go.md
+      - WebAssembly:
+          - WebAssembly overview: bindings/wasm/index.md
           - WebAssembly tooling: development/webassembly.md
+      - Transitional guides:
           - Python guide (Core transition): guides/python.md
   - Tools:
       - Overview: tools/index.md
-      - TLV playground: playground/index.md
+      - otlv CLI: tools/otlv/index.md
+      - TLV playground:
+          - Playground overview: tools/playground/overview.md
+          - Open playground: playground/index.md
+      - imtlv (planned): tools/imtlv/index.md
   - Development:
       - Overview: development/index.md
       - Architecture:
@@ -212,6 +226,7 @@ nav:
       - CI and release process:
           - Query release checklist: development/query-release.md
       - Documentation:
+          - Register a binding or tool: development/product-catalogs.md
           - Where documentation belongs: development/documentation-layout.md
           - Documentation ownership: development/documentation-ownership.md
           - Documentation audit: development/documentation-audit.md

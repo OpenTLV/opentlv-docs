@@ -78,7 +78,17 @@ output. The Core files and source pins are unchanged. No separate validation
 pages or compatibility redirects are emitted; internal and API links resolve
 directly to the combined pages.
 
-Content migrations assigned to #48–#49 remain pending. The Core Python
+Issue #48 adds lightweight overviews for C, C++, Python, Lua, Rust, Go and
+WebAssembly, plus otlv, the playground and planned imtlv. Catalogs state source
+availability separately from experimental status and independent publication.
+Overviews link setup and first examples in the owning manuals; they do not
+maintain copies of API tutorials. C/C++ technical ownership remains with Core.
+The playground application keeps `tools/playground/`; its introduction uses
+`tools/playground/overview/`. Product release URLs and selected manuals are unchanged.
+Follow [Register a binding or tool](docs/development/product-catalogs.md) when
+adding an entry or changing its availability.
+
+Development restructuring assigned to #49 remains pending. The Core Python
 transition guide stays at `bindings/python/core-transition/`. Existing published
 snapshots are not rewritten by this change.
 

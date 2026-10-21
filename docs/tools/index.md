@@ -1,24 +1,25 @@
 # Tools
 
-Use the command-line interface for files and automation, or the browser
-playground to inspect a small byte sequence interactively.
+Choose a tool for files, automation or interactive exploration. Each overview
+links to access instructions and the documentation maintained by its owner.
 
-## otlv command-line interface
+| Tool | Purpose | Availability |
+| --- | --- | --- |
+| [otlv CLI](otlv/index.md) | Inspect, validate, encode and convert TLV data | Available from the standalone CLI repository |
+| [TLV playground](playground/overview.md) | Explore TLV bytes in a browser | Available interface; requires the matching WebAssembly module |
+| [imtlv](imtlv/index.md) | Planned OpenTLV tool; scope to be defined | Planned; no installation or manual available |
 
-The [otlv manual](../cli/README.md) covers commands and examples. Use the
-[TLV JSON document reference](../cli/json-schema.md) when exchanging decoded
-documents, and the [CLI development guide](../cli/development.md) to build or
-contribute to the tool.
+## Product manuals and versions
 
-The CLI manual has its own navigation and a return link to the portal. These
-pages use the CLI source selected for this portal version. The
-[CLI documentation entry](https://opentlv.github.io/opentlv-docs/cli/) provides
-independently published versions when available; the selected manual remains
-accessible here without requiring a matching CLI release.
+The otlv overview links to the selected CLI manual and the independent
+[CLI documentation entry](https://opentlv.github.io/opentlv-docs/cli/).
+The [stable CLI manual](https://opentlv.github.io/opentlv-docs/cli/stable/) is
+available independently of the portal version.
+The selected manual remains accessible without a matching product release.
+Detailed CLI chapters use their own navigation and a return link to the portal.
 
-## TLV playground
+## Catalog maintenance
 
-Open the [TLV playground](../playground/index.md) to parse bytes in your
-browser. Its interface is maintained by the portal and uses Core's
-[WebAssembly tooling](../development/webassembly.md). The playground reports
-whether the required WebAssembly module is available in this build.
+Follow the [product registration convention](../development/product-catalogs.md)
+to add a tool or update its availability. Planned entries must not advertise
+downloads, commands or capabilities that have not been delivered.
