@@ -15,6 +15,13 @@
 {% endblock %}
 
 {% block content %}
+  {% if product_source %}
+    <p class="md-typeset">
+      <strong>{{ product_source.navigation.title }} manual</strong> from the
+      source selected for this portal version.
+      <a href="{{ nav.homepage.url | url }}">Return to the OpenTLV portal</a>.
+    </p>
+  {% endif %}
   {{ super() }}
   <p class="md-typeset"><small>
     Sources:

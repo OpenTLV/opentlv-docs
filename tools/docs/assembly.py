@@ -79,20 +79,27 @@ def navigation(base, selected):
     core = next(item for _, item in selected if item["id"] == "core")
     if (core.get("repository") == "https://github.com/OpenTLV/opentlv"
             and core.get("commit") == CORE_071_COMMIT):
+        def historical(items):
+            result = []
+            for entry in items:
+                if entry in (
+                    {"Core quality gates": "development/quality-gates.md"},
+                    {"Documentation ownership": "development/documentation-ownership.md"},
+                ):
+                    continue
+                result.append({title: historical(value) if isinstance(value, list) else value
+                               for title, value in entry.items()})
+            return result
+
+        result = historical(result)
         for entry in result:
             if not isinstance(entry, dict):
                 continue
             if "Development" in entry:
-                entry["Development"] = [
-                    page for page in entry["Development"]
-                    if page not in (
-                        {"Core quality gates": "development/quality-gates.md"},
-                        {"Documentation ownership": "development/documentation-ownership.md"},
-                    )
-                ]
                 entry["Development"].append({"Historical Core Lua development": "development/lua.md"})
-            if "Language APIs" in entry:
-                entry["Language APIs"].append({"Historical Core Lua API": "guides/lua.md"})
+            for title in ("Bindings", "Language APIs"):
+                if title in entry:
+                    entry[title].append({"Historical Core Lua API": "guides/lua.md"})
     for _root, item in selected:
         if item["id"] == "core" or not item["included"]:
             continue

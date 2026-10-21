@@ -10,10 +10,56 @@ disposable content in `build/assembled/`. Component documentation is never
 maintained as a second copy here.
 The Core build does not depend on this repository.
 
-The proposed [documentation inventory and migration mapping](DOCUMENTATION-MIGRATION.md)
+The [documentation inventory and migration mapping](DOCUMENTATION-MIGRATION.md)
 records the pinned source baseline, six-section destinations, content ownership
-and URL compatibility requirements for #44. Review it before implementing the
-portal restructuring; it does not change the current navigation or publication.
+and the revised URL policy for #45. The implementation status below
+distinguishes the navigation change from the subsequent content migrations.
+
+## Portal navigation
+
+The central portal has six top-level sections: Home, Getting Started, Formats,
+Bindings, Tools and Development. Their landing URLs are `/`, `/getting-started/`,
+`/formats/`, `/bindings/`, `/tools/` and `/development/`, relative to the selected
+portal version (for example `/opentlv-docs/latest/`). MkDocs maps both `README.md`
+and `index.md` to a directory index; the existing Home, Getting Started and
+Formats sources therefore remain usable as landings without moving their URLs.
+
+Material's tabs expose the six sections on desktop; its mobile drawer exposes
+the same hierarchy. Section indexes and grouped secondary navigation keep
+technical details within the appropriate section. The three new catalogs route
+readers to existing manuals instead of copying technical content.
+
+`docs-sources.json` retains the complete product navigation for inventory checks
+and independent publication. The assembly navigation includes every page;
+`tools/docs/navigation.py` separates CLI, Lua and Python into contextual menus
+after MkDocs validates that inventory. Product source links retain their owners;
+their menus and previous/next links stay within the
+product, with a return link to the current portal version. They do not show the
+portal version selector as if it selected a product release. Independently
+published product snapshots retain their own selectors and portal return link.
+
+Issue #45 gives pages canonical output paths under the six sections. The routing table
+in `tools/docs/navigation.py` changes MkDocs destinations while keeping original
+source paths for ownership, inventory and link resolution. Internal links,
+search results and generated API guide links use the new destinations.
+**Old page URLs are intentionally not supported:** there are no redirects or
+compatibility aliases. Product manuals selected for a portal version live under
+`tools/otlv/manual/`, `bindings/lua/manual/` and `bindings/python/manual/`.
+Independent product publication remains separate from these selected manuals.
+
+Content merges, splits and ownership transfers assigned to #46–#49 remain
+pending, including the Home transfer, format catalog split and DER/CER merges.
+Until merged, the DER/CER validation pages remain distinct under
+`formats/asn1/{der,cer}-validation/`; the Core Python transition guide stays at
+`bindings/python/core-transition/`. All technical content remains available.
+Existing published snapshots are not rewritten by this change.
+
+Check the navigation contract with
+`python -B -m unittest discover -s tests -p test_navigation.py -v`.
+After building the site and installing `requirements-browser.txt` plus
+Playwright Chromium, run `python -B tools/docs/navigation_smoke.py site` for
+desktop/mobile navigation without requiring WASM. The publishing browser smoke
+also runs these checks under the prepared version and project prefixes.
 
 ## Prerequisites
 
@@ -97,16 +143,16 @@ The explicit `ci.py fetch` command creates separate managed checkouts as describ
 
 The required `cli` source in `docs-sources.json` mounts the standalone CLI's
 `docs/` directory at `cli/`. Its manifest navigation owns the command guide,
-JSON schema, development guide and release guide. Existing command/schema URLs
-remain under `cli/`; the pages no longer depend on Core's removed `docs/cli/`.
+JSON schema, development guide and release guide. Their canonical rendered URLs
+are under `tools/otlv/manual/`; the pages do not depend on Core's removed `docs/cli/`.
 Core and CLI are independently pinned, recorded in the source lock and shown
 in published provenance. No CLI compilation or dependency download is needed
 to assemble these Markdown sources.
 
 When selecting a historical Core such as `0.7.1`, the standalone CLI owns the
 two extracted pages `cli/README.md` and `cli/json-schema.md`. Assembly explicitly
-replaces Core's `docs/cli/` copies with the matching CLI `docs/` files, preserving
-their URLs and recording CLI ownership and its pinned revision. This rule is
+replaces Core's `docs/cli/` copies with the matching CLI `docs/` files, recording
+CLI ownership and its pinned revision before portal URL routing. This rule is
 limited to those exact paths and source owners; every other collision fails.
 Core tags and source files remain untouched. Existing published
 versions retain their original content and source set. Updating `latest` does
@@ -131,8 +177,9 @@ require matching assembled pages and anchors under strict validation.
 
 ### Lua documentation source
 
-The required `lua` source mounts `opentlv-lua/docs/` at `lua/` and contributes
-the Lua section under Language APIs. Lua owns the API guide, implementation
+The required `lua` source mounts `opentlv-lua/docs/` at the source path `lua/`
+and renders a separate manual under `bindings/lua/manual/`, linked from Bindings.
+Lua owns the API guide, implementation
 notes, build and LuaRocks instructions, tests, versioning and migration history.
 The original import README remains a historical artifact outside the mounted
 docs directory; it is linked from the provenance guide, not presented as setup.
@@ -153,12 +200,14 @@ Portal version selection continues to follow Core. Lua tags and the binding's
 version metadata remain independent; this source adds no separate Lua release
 publication workflow. Existing published snapshots keep their original bytes
 and source set. Their old Lua URLs remain part of those snapshots; the current
-navigation and links use `lua/api/` and `lua/implementation/`.
+navigation and links use `bindings/lua/manual/api/` and
+`bindings/lua/manual/implementation/`.
 
 ### Python documentation source
 
-The required `python` source mounts `opentlv-python/docs/` at `python/` under
-Language APIs. It owns the Python user guide, standalone build and installation,
+The required `python` source mounts `opentlv-python/docs/` at the source path
+`python/` and renders a separate manual under `bindings/python/manual/`, linked
+from Bindings. It owns the Python user guide, standalone build and installation,
 workspace development, supported Python versions, contribution instructions,
 quality gates, versioning, release preparation and validation records.
 The portal consumes these manuals without compiling or installing the binding.
@@ -183,7 +232,8 @@ this repository.
 
 The current Core pin includes the Python implementation removal and standalone
 repository references. Its transitional `guides/python.md` and
-`development/python.md` pages remain available at their existing URLs, explicitly
+`development/python.md` pages render at `bindings/python/core-transition/` and
+`development/bindings/python/`, explicitly
 labelled as Core transition/ownership pages. The Python section consumes the
 canonical standalone manuals. Removing those transitional Core files requires
 a coordinated Core change and navigation update; missing pages still fail.
@@ -266,12 +316,12 @@ CLI release documentation is published at `cli/<version>/`, for example
 `cli/0.1.0/` or `cli/0.2.0-rc.1/`. Its version comes exclusively from the CLI
 tag `v<version>`. The CLI header and version selector identify the displayed
 release; `cli/versions.json` is independent of Core's root `versions.json`.
-The portal navigation links to `cli/`, whose default is `cli/stable/` once a
+The Tools catalog links to `cli/`, whose default is `cli/stable/` once a
 stable CLI release exists. Prereleases are selectable but never replace stable.
 Out-of-order stable releases cannot move stable backwards. Before the first
 stable release, the first published prerelease remains the default.
 
-The existing CLI section in `latest` continues to use the reviewed CLI commit
+The selected CLI manual in `latest` continues to use the reviewed CLI commit
 in `docs-sources.json`. Publishing a CLI release does not change that pin,
 Core's `latest`/`stable`, existing Core snapshots, or the Docs version.
 CLI-only publication fetches CLI Markdown and assets, without building CLI,
@@ -348,7 +398,7 @@ evidence available under the repository's artifact retention policy; expired
 evidence is rejected even when a snapshot already exists.
 
 The first CLI release creates the `cli/` entry point. Until then, use the
-existing CLI section in development documentation. Local synthetic tests do
+selected CLI manual linked from Tools in development documentation. Local synthetic tests do
 not prove the dispatch credential, hosted gate or production Pages deployment.
 
 ## Language example integration
@@ -604,7 +654,8 @@ or Doxygen versions; dependency ranges are retained from the existing portal.
 ### Multi-repository assembly
 
 `docs-sources.json` is the single source manifest (schema version `1`). Core is
-required and retains its existing root URLs and Doxygen integration. Additional
+required and retains its source ownership and Doxygen integration; the portal
+assigns canonical rendered URLs through `tools/docs/navigation.py`. Additional
 components choose their own tags or full commit SHAs, select a verified
 release from a compatibility feed, or pin a development commit with exact-pair
 compatibility evidence; they do not need matching
@@ -622,11 +673,11 @@ use an existing component release and its actual documentation paths:
   "repository": "https://github.com/OpenTLV/opentlv-python",
   "revision": "v2.3.0",
   "docs_path": "docs",
-  "mount": "bindings/python",
+  "mount": "python",
   "required": false,
   "navigation": {
     "title": "Python",
-    "section": ["Language APIs"],
+    "section": [],
     "items": [
       {"Overview": "index.md"},
       {"Examples": "examples.md"}
@@ -639,10 +690,13 @@ use an existing component release and its actual documentation paths:
 a letter. `docs_path` and `mount` are contained POSIX paths. Only Core uses an
 empty mount. `navigation.items` uses standard MkDocs nested lists and titles,
 with Markdown paths relative to the component's documentation directory.
-`section` is a sequence of parent navigation titles; an empty list adds a
-section at the top level. Duplicate section titles at the insertion destination
-are errors. Every assembled Markdown page must appear in the resulting
-navigation, except Core's root GitHub `README.md`.
+`section` is a sequence of parent navigation titles in the source schema.
+The central portal requires an empty list for product manuals: assembly adds
+their inventory sections at the top level, and the navigation hook separates
+them into contextual menus before rendering. Duplicate section titles are
+errors. Every assembled Markdown page must appear in the inventory, except
+Core's root GitHub `README.md`. Add explicit output routing for a new component
+in `tools/docs/navigation.py` and a link from the appropriate catalog.
 
 Navigation configuration belongs to the portal. Component Markdown and assets
 remain in their owning repositories; no component needs a MkDocs configuration,
@@ -720,11 +774,11 @@ digest in place of the illustrative values:
     "languages": ["python"]
   },
   "docs_path": "docs",
-  "mount": "bindings/python",
+  "mount": "python",
   "required": false,
   "navigation": {
     "title": "Python",
-    "section": ["Language APIs"],
+    "section": [],
     "items": [{"Overview": "index.md"}]
   }
 }
@@ -1026,7 +1080,8 @@ The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or
 requiring their runtimes. CLI, Lua and canonical Python manuals come from their
 required independent sources. Core's transitional Python pages retain their
-existing URLs until their coordinated removal; other binding extraction will
+technical content under the new canonical paths until their coordinated merge;
+other binding extraction will
 update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core

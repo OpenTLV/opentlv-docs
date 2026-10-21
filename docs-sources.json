@@ -57,9 +57,7 @@
       ],
       "navigation": {
         "title": "Lua",
-        "section": [
-          "Language APIs"
-        ],
+        "section": [],
         "items": [
           {
             "Using OpenTLV from Lua": "api.md"
@@ -109,9 +107,7 @@
       ],
       "navigation": {
         "title": "Python",
-        "section": [
-          "Language APIs"
-        ],
+        "section": [],
         "items": [
           {
             "Using OpenTLV from Python": "guides/python.md"

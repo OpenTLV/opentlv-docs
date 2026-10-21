@@ -12,6 +12,8 @@ import threading
 
 from playwright.sync_api import sync_playwright, expect
 
+from navigation_smoke import check_navigation
+
 
 def check(site, version):
     versions = json.loads((site / "versions.json").read_text(encoding="utf-8"))
@@ -39,6 +41,11 @@ def check(site, version):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch()
             for prefix in prefixes:
+                # Publication retries can reuse an immutable, already rendered
+                # snapshot. Inspect its actual layout; new builds emit only the
+                # canonical route and never add an old-URL alias.
+                portal_layout = (site / prefix / "tools/playground/index.html").is_file()
+                playground = "tools/playground/" if portal_layout else "playground/"
                 page = browser.new_page()
                 failures = []
                 diagnostics = []
@@ -46,7 +53,7 @@ def check(site, version):
                 page.on("pageerror", lambda error: failures.append(str(error)))
                 page.on("response", lambda response: failures.append(response.url)
                         if response.status >= 400 and response.url.startswith("http://127.0.0.1:") else None)
-                page.goto(f"http://127.0.0.1:{server.server_port}/opentlv-docs/{prefix}/playground/")
+                page.goto(f"http://127.0.0.1:{server.server_port}/opentlv-docs/{prefix}/{playground}")
                 try:
                     expect(page.locator("#otlv-pg-status")).to_contain_text("loaded.", timeout=30000)
                 except AssertionError as error:
@@ -64,6 +71,9 @@ def check(site, version):
                 page.locator("#otlv-pg-input").fill("04 02 41")
                 page.locator("#otlv-pg-parse").click()
                 expect(page.locator("#otlv-pg-error")).to_contain_text("Parse error")
+                assert not failures, failures
+                if portal_layout:
+                    check_navigation(page, f"http://127.0.0.1:{server.server_port}/opentlv-docs/{prefix}/")
                 assert not failures, failures
                 page.close()
                 print(f"Browser playground passed: {prefix}")
