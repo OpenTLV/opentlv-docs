@@ -59,7 +59,7 @@ jobs:
           title: Update pinned ${{ github.event.client_payload.source }} documentation sources
           commit-message: Update pinned documentation sources and compatibility evidence
           body: |
-            Proposes exact source pins from a successful configured producer, with verified compatibility evidence for components.
+            Proposes exact source pins from a successful configured producer. Compatibility sources also require verified compatibility evidence; documentation-only sources update their reviewed pin.
             Review the producer, feed records and documentation validation before merging. Existing releases remain frozen.
             Producer: https://github.com/${{ github.event.client_payload.repository }}/actions/runs/${{ github.event.client_payload.run_id }}
             New or removed documentation pages require a matching portal navigation change; CI deliberately rejects incomplete navigation.

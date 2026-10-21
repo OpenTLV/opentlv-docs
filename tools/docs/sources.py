@@ -85,7 +85,14 @@ def manifest(portal):
                 git(portal, "check-ref-format", "refs/heads/" + alias)
         if "updates" in item:
             updates = item["updates"]
-            if (identifier == "core" or "compatibility" not in item or not isinstance(updates, dict)
+            documentation = isinstance(updates, dict) and updates.get("mode") == "documentation"
+            if documentation:
+                if (identifier == "core" or "compatibility" in item
+                        or set(updates) != {"mode", "workflow"}
+                        or not isinstance(updates.get("workflow"), str)
+                        or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", updates["workflow"])):
+                    raise PluginError("Documentation updates require a trusted workflow on an explicit, non-compatibility source.")
+            elif (identifier == "core" or "compatibility" not in item or not isinstance(updates, dict)
                     or not {"workflow", "asset"} <= set(updates)
                     or set(updates) - {"workflow", "asset", "development_artifact"}
                     or not isinstance(updates["workflow"], str)

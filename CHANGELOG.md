@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Accept explicitly configured Python documentation pin notifications from successful Main CI without compatibility claims, and select the normalized Python source layout with its validation page. (OpenTLV/opentlv-python#13)
 - Assemble standalone Python manuals with independent source provenance, build and workspace instructions, and Python-owned source and contribution links. (#34)
 - Separate PR, Main, Full and Publishing CI with exact-attempt publication evidence, immutable snapshot checks and workflow timings; ordinary main pushes no longer publish. (#31)
 

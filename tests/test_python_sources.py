@@ -32,9 +32,9 @@ class PythonSourceTests(unittest.TestCase):
         self.write(self.python / "docs/guides/python.md", "# Python API\n\n## Setup\n\n"
                    "[Core](https://github.com/OpenTLV/opentlv/blob/main/docs/index.md#home)\n\n"
                    "[Build](../development/python.md#manual) | "
-                   "[Example](../../bindings/python/opentlv/examples/quick_start.py)\n\n"
+                   "[Example](../../examples/quick_start.py)\n\n"
                    "[Issues](https://github.com/OpenTLV/opentlv-python/issues)\n")
-        self.write(self.python / "bindings/python/opentlv/examples/quick_start.py", 'print("example")\n')
+        self.write(self.python / "examples/quick_start.py", 'print("example")\n')
         self.python_git("init", "-b", "main")
         self.python_git("add", ".")
         self.python_git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
@@ -71,7 +71,7 @@ class PythonSourceTests(unittest.TestCase):
         self.assertIn('href="../../../#home"', api)
         self.assertIn('href="../../development/python/#manual"', api)
         self.assertIn(f"https://github.com/OpenTLV/opentlv-python/blob/{self.python_sha}/"
-                      "bindings/python/opentlv/examples/quick_start.py", api)
+                      "examples/quick_start.py", api)
         self.assertIn(f"https://github.com/OpenTLV/opentlv-python/edit/{self.python_sha}/docs/guides/python.md", api)
         self.assertIn('href="https://github.com/OpenTLV/opentlv-python/issues"', api)
         metadata = json.loads((site / "source-revision.json").read_text())
