@@ -21,17 +21,20 @@ import sources
 
 
 class DocumentationUpdatesTests(unittest.TestCase):
+    source = "python"
+
     def setUp(self):
         self.manifest = json.loads((ROOT / "docs-sources.json").read_text())
-        self.item = next(item for item in self.manifest["sources"] if item["id"] == "python")
+        self.repository = "OpenTLV/opentlv-" + self.source
+        self.item = next(item for item in self.manifest["sources"] if item["id"] == self.source)
         self.item["revision"] = "b" * 40
-        self.payload = {"source": "python", "repository": "OpenTLV/opentlv-python",
+        self.payload = {"source": self.source, "repository": self.repository,
                         "commit": "a" * 40, "ref": "main", "run_id": 123}
         self.event = {"action": "component-docs-updated", "client_payload": self.payload}
         self.run = {"status": "completed", "conclusion": "success", "event": "push",
                     "head_sha": "a" * 40, "head_branch": "main",
-                    "path": ".github/workflows/python-main.yml",
-                    "head_repository": {"full_name": "OpenTLV/opentlv-python"}}
+                    "path": ".github/workflows/" + self.source + "-main.yml",
+                    "head_repository": {"full_name": self.repository}}
         self.pending = None
         self.calls = []
         self.relations = {}
@@ -43,7 +46,7 @@ class DocumentationUpdatesTests(unittest.TestCase):
                 raise HTTPError(path, 404, "No pending branch", {}, None)
             return {"encoding": "base64", "content": base64.b64encode(json.dumps(
                 {"sources": [self.pending]}).encode()).decode()}
-        self.assertTrue(path.startswith("OpenTLV/opentlv-python/"), path)
+        self.assertTrue(path.startswith(self.repository + "/"), path)
         if "/actions/runs/" in path:
             return self.run
         if "/git/ref/heads/main" in path:
@@ -55,9 +58,9 @@ class DocumentationUpdatesTests(unittest.TestCase):
     def propose(self):
         return events.proposal(self.event, self.manifest, self.api)
 
-    def test_only_python_revision_changes_and_replay_after_merge_is_noop(self):
+    def test_only_source_revision_changes_and_replay_after_merge_is_noop(self):
         expected = copy.deepcopy(self.manifest)
-        next(item for item in expected["sources"] if item["id"] == "python")["revision"] = "a" * 40
+        next(item for item in expected["sources"] if item["id"] == self.source)["revision"] = "a" * 40
         self.assertEqual(self.propose(), expected)
         self.assertEqual(self.item["revision"], "b" * 40)
         self.manifest = expected
@@ -73,7 +76,7 @@ class DocumentationUpdatesTests(unittest.TestCase):
     def test_newer_notification_advances_pending_proposal(self):
         self.pending = dict(self.item, revision="c" * 40)
         proposed = self.propose()
-        self.assertEqual(next(item for item in proposed["sources"] if item["id"] == "python")["revision"],
+        self.assertEqual(next(item for item in proposed["sources"] if item["id"] == self.source)["revision"],
                          self.payload["commit"])
 
     def test_old_merged_pin_cannot_regress_and_divergence_fails(self):
@@ -113,7 +116,7 @@ class DocumentationUpdatesTests(unittest.TestCase):
         self.payload["repository"] = "attacker/fork"
         with self.assertRaisesRegex(ValueError, "configured source"):
             self.propose()
-        self.payload["repository"] = "OpenTLV/opentlv-python"
+        self.payload["repository"] = self.repository
         self.relations["a" * 40 + "..." + "d" * 40] = "diverged"
         with self.assertRaisesRegex(ValueError, "current main history"):
             self.propose()
@@ -153,6 +156,10 @@ class DocumentationUpdatesTests(unittest.TestCase):
         self.assertIn("component-docs-updated", update["on"]["repository_dispatch"]["types"])
         self.assertNotIn("docs-full.yml", json.dumps(update))
         self.assertNotIn("deploy-pages", json.dumps(update))
+
+
+class LuaDocumentationUpdatesTests(DocumentationUpdatesTests):
+    source = "lua"
 
 
 if __name__ == "__main__":
