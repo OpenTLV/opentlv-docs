@@ -20,4 +20,4 @@ Use the [Go manual](../../guides/go.md),
 [capability matrix](../../concepts/bindings.md). The manuals remain Core-owned;
 this catalog does not imply a separate Go documentation release.
 
-[All bindings](../index.md)
+[All languages](../index.md)

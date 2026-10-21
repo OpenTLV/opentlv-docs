@@ -20,4 +20,4 @@ Rustdoc generation. Check the [capability matrix](../../concepts/bindings.md)
 for API coverage. These documents remain Core-owned; no independent Rust
 documentation release is implied.
 
-[All bindings](../index.md)
+[All languages](../index.md)

@@ -17,10 +17,12 @@ write/read round trip with expected output.
 
 ## Detailed documentation
 
+Shared operations and native references are organized under [API](../../api/index.md).
+
 Continue with [C++ examples](../../guides/cxx-examples.md), the
 [public/native boundary](../../concepts/cxx-native-boundary.md) and the
 [C++ API reference](../../reference/cxx-api.md). Shared
 [memory contracts](../../guides/memory.md) and the
 [capability matrix](../../concepts/bindings.md) describe the underlying constraints.
 
-[All bindings](../index.md)
+[All languages](../index.md)

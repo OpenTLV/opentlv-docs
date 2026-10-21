@@ -1,9 +1,22 @@
-# Getting started
+# Tutorials
 
 Start with a few bytes, then choose the API or tool that fits your task.
 You can follow the steps in order or go directly to
 [language setup](#choose-a-language) or [terminal inspection](#use-the-cli).
 Detailed examples and API contracts remain in the linked component manuals.
+
+## Choose a task
+
+| Task | Existing walkthrough or example |
+| --- | --- |
+| Parse TLV bytes | Start with [the first program](README.md#quick-start), then follow the [Reader examples](../guides/reader.md). |
+| Write TLV data | Use the [Writer guide](../guides/writer.md) for individual elements and scoped construction. |
+| Edit a message | Follow the [Document guide](../guides/document.md) and [C++ Document example](../guides/cxx-examples.md#owning-document-and-query). |
+| Find matching elements | Use the [Query guide](../guides/queries.md) and its existing query examples. |
+| Work with a particular wire format | Run the [format examples](../formats/format-examples.md); check the [Standards catalog](../formats/overview.md) or [generic configurations](../api/formats.md) for the supported scope. |
+
+The [executable example index](../guides/examples.md) identifies runnable
+programs. Use [API](../api/index.md) for shared contracts and reference material.
 
 ## Understand TLV
 
@@ -60,8 +73,9 @@ owned editing and writing; Document is optional, not a mandatory processing stag
 
 ## Choose a format
 
-Use [Formats](../formats/overview.md#choose-a-format) to match the input's wire
-layout. Fixed is a small starting example; real protocol data needs its
+Use [Standards](../formats/overview.md) for a protocol preset or
+[generic configurations](../api/formats.md) for application-defined wire
+layouts. Fixed is a small starting example; real protocol data needs its
 corresponding configuration or built-in format. Check
 [implemented capabilities](../formats/support.md) for each standard's supported
 scope and [language coverage](../concepts/bindings.md) for access through your API.
@@ -79,7 +93,7 @@ Custom framing starts with the [Format extension guide](../formats/custom/README
 | Go | [Go setup and usage](../guides/go.md) |
 | WebAssembly | [WebAssembly integration](../development/webassembly.md); for browser exploration, use the [playground](../playground/index.md) |
 
-The [Bindings catalog](../bindings/index.md) explains the available manuals and
+The [Languages catalog](../bindings/index.md) explains the available manuals and
 their versions. Check each guide's prerequisites, experimental status and
 limitations; language coverage is not identical. The
 [executable example index](../guides/examples.md) provides further tasks without

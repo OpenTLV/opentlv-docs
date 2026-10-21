@@ -1,4 +1,4 @@
-# Bindings
+# Languages
 
 Choose a language interface, then open its overview for setup and documentation.
 Availability below describes the sources selected for this portal version;
@@ -19,7 +19,9 @@ which operations each binding exposes and the shared C boundary.
 C and C++ share the [memory and lifetime contracts](../guides/memory.md),
 [diagnostics](../guides/diagnostics.md), [Query](../guides/queries.md),
 [Schema](../guides/schemas.md) and [Codec](../guides/codecs.md) guides.
-These technical manuals and generated references are maintained by Core.
+These shared contracts and the [C/C++ native references](../reference/README.md)
+are available through [API](../api/index.md) and remain maintained by Core.
+Language overviews own setup routing and language-specific usage guidance.
 
 ## Product manuals and versions
 

@@ -20,4 +20,4 @@ API usage and constraints. Check the [capability matrix](../../concepts/bindings
 for remaining facade gaps. There is no separate product manual version selector
 for this in-tree binding.
 
-[All bindings](../index.md)
+[All languages](../index.md)

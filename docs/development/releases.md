@@ -41,7 +41,7 @@ development sources change.
 
 CLI, Lua and Python have independently versioned documentation publication.
 Their manuals selected inside a portal version are not proof that the same
-independent release is published. Use the [Bindings](../bindings/index.md) and
+independent release is published. Use the [Languages](../bindings/index.md) and
 [Tools](../tools/index.md) overviews for available manual entry points, and the
 owner's release guide for its release status.
 

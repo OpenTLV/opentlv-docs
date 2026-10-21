@@ -2,7 +2,7 @@
 
 The portal owns product discovery. Each product repository owns its detailed
 API, tutorials, build instructions and release documentation. C, C++ and the
-in-tree bindings retain Core ownership even when reached through Bindings.
+in-tree bindings retain Core ownership even when reached through Languages.
 
 ## Add a catalog entry
 
@@ -12,14 +12,18 @@ in-tree bindings retain Core ownership even when reached through Bindings.
 2. Create `docs/bindings/<slug>/index.md` or `docs/tools/<slug>/index.md`.
    Use a stable lowercase slug, a product-name heading, a short description,
    status, technical owner, installation/access link and detailed documentation
-   link. Bindings identify the supported language/runtime; tools list their
+   link. Language entries identify the supported language/runtime; tools list their
    main capabilities. Link to an owned first example; keep any inline snippet
    minimal and verify it against the owning manual. Avoid maintaining another
    tutorial here. If an existing application already
    occupies the directory URL, use `overview.md`, as with the playground.
+   `docs/bindings/` remains a source directory; the portal renders its catalog
+   and overviews under `languages/`.
 3. Add one linked row to the corresponding catalog and register the overview
    in `mkdocs.yml`. Keep product manual chapters out of the central menu.
-   C/C++ technical guides may stay in Bindings because they belong to Core.
+   Put shared public contracts and C/C++ references in API; keep language-specific
+   setup and usage guidance in Languages. C/C++ technical sources remain
+   Core-owned; other language manuals retain their component owners.
 4. For a separately maintained manual, follow the
    [source registration instructions](https://github.com/OpenTLV/opentlv-docs#multi-repository-assembly).
    Keep its navigation in `docs-sources.json` with an empty `section`, and use

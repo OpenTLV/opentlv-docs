@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Complete the seven-section portal with Tutorials, shared API documentation, Standards and Languages; preserve contributor guidance, component ownership and independent manuals while updating page and generated-reference destinations. (#63)
 - Organize Development around architecture, builds, contributing, quality gates and releases, with repository-owned entry points and current portal conventions; distinguish historical migration guidance while preserving Core technical sources. (#49)
 - Add Bindings and Tools catalogs with lightweight product overviews, explicit experimental and planned status, links to independently owned manuals, and a documented registration convention; preserve Core ownership of C/C++ references. (#48)
 - Add a supported Formats catalog with explicit capabilities and limitations, organize detailed format guides consistently, and combine DER/CER framing and validation pages while preserving Core content, examples and source links. (#47)
@@ -25,6 +26,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Correct the migration map to reflect the current epic sub-issues, follow-up order and requirement to complete corrections in owning repositories before closing the ownership review. (#63)
 - Pin Python documentation to the merged standalone documentation fixes, resolving the Markdown lint failure and obsolete example links. (#34)
 - Support Core 0.7.1 with explicit standalone CLI page ownership and revision-specific navigation, preserving source tags, published snapshots and strict collision checks. (#31)
 - Include the updated Core quality-gates page in navigation and keep one monotonic source-update proposal per component, with optional auto-merge requiring the Docs PR gate. (#31)

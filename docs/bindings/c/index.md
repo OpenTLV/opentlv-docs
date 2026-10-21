@@ -17,10 +17,12 @@ one element and includes the complete runnable source and expected output.
 
 ## Detailed documentation
 
+Shared operations and native references are organized under [API](../../api/index.md).
+
 Start with [Reader](../../guides/reader.md), [Writer](../../guides/writer.md)
 or [Document](../../guides/document.md), then use the
 [C API reference](../../reference/c-api.md) for declarations. Check
 [memory and lifetime contracts](../../guides/memory.md) and
 [component selection](../../guides/select-components.md) for integration constraints.
 
-[All bindings](../index.md)
+[All languages](../index.md)

@@ -1,36 +1,18 @@
-# Formats
+# Standards
 
-Choose the wire representation used by your input. OpenTLV supports the generic
-configurations and protocol subsets below. A supported Format reads and writes
-binary framing; it does not imply a complete protocol stack or automatic
-validation of every Value.
+Choose the protocol used by your input. OpenTLV supports the protocol subsets
+below. A supported Format reads and writes binary framing; it does not imply a
+complete protocol stack or automatic validation of every Value. For
+application-defined framing, use [generic format configurations](../api/formats.md)
+in API.
 
-## Choose a format
+## Choose a standard
 
 All entries below are implemented. **Partial** describes the supported subset
-of a wider standard, not a future implementation. Generic configurations are
-always built; protocol presets require their corresponding Core build option.
-The [capability inventory](support.md) records native components and language
-availability. Choose a language through [Bindings](../bindings/index.md).
-
-### Generic configurations
-
-These are application-defined wire representations with no external protocol
-standard. Their rules are defined by the linked OpenTLV configuration contracts.
-
-| Format and detailed guide | Description / specification | Supported capabilities | Limits |
-| --- | --- | --- | --- |
-| [Fixed-width TLV](fixed/configurable.md) | Fixed identifier and count widths; OpenTLV Fixed contract | TLV or LTV ordering, either byte order, Value or Tag-plus-Value length | Length field is 1–8 bytes; configuration lifetime and native buffer bounds apply |
-| [Variable-width TLV](variable.md) | Inline/continuation identifiers and short/long counts; OpenTLV Variable contract | Configurable masks, byte order and declarative field policies | Definite generic lengths; concrete termination and protocol semantics are separate |
-| [Packed Tag/Length](packed.md) | Bit fields sharing a header; OpenTLV Packed contract | 1–8-byte header, canonical Tags, explicit length scope | Immutable complete Tag table; large Tag spaces need impractical storage; no generic reserved-bit validation |
-| [Escaped lengths](escaped.md) | Fixed identifiers and escape-prefixed counts; OpenTLV Escaped contract | Configurable marker, count width, byte order and tag-only identifiers | Caller applies protocol termination and padding; NFC's limits belong to its preset |
-
-[Custom Format callbacks](custom/README.md) are the extension point for other
-representations. They are not an additional supplied protocol implementation.
-See the [generic capability space](../concepts/format-capabilities.md) before
-designing application-specific framing.
-
-### Protocols and standards
+of a wider standard, not a future implementation. Protocol presets require
+their corresponding Core build option. The [capability inventory](support.md)
+records native components and language availability. Choose a language through
+[Languages](../bindings/index.md).
 
 Each linked guide preserves the wire examples, diagrams, validation contracts
 and detailed limitations maintained by Core.
@@ -47,6 +29,9 @@ and detailed limitations maintained by Core.
 | [NFC Type 2](nfc/README.md) | TLV data-area framing; NFC Forum Type 2 Tag Operation Specification 1.1 §2.3 | Short/escaped lengths, NULL/Terminator and opaque Values | At most 65534 Value bytes; contiguous stream only; no NDEF interpretation or physical memory mapping |
 
 ## Shared operations
+
+Generic wire configurations belong in [API](../api/formats.md); the catalog
+above contains protocol-specific presets and their supported scope.
 
 The [Core format guide](README.md) preserves the detailed comparison tables,
 read/write examples, traversal and generic interface contract. Those operations

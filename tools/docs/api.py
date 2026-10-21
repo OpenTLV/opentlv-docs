@@ -23,7 +23,8 @@ from mkdocs.exceptions import PluginError
 log = logging.getLogger("mkdocs.hooks.api")
 TREES = ("c-api", "cxx-api")
 MANIFEST = "api-source.json"
-PREFIX = "reference/api"
+PREFIX = "api/reference"
+SOURCE_PREFIX = "reference/api"
 
 _spec = importlib.util.spec_from_file_location("opentlv_docs_onboarding", Path(__file__).with_name("onboarding.py"))
 onboarding = importlib.util.module_from_spec(_spec)
@@ -35,7 +36,14 @@ _spec.loader.exec_module(formats)
 
 
 def destination(uri, fragment, files):
-    return formats.destination(onboarding.destination(uri, fragment, files), files)
+    uri = formats.destination(onboarding.destination(uri, fragment, files), files)
+    # Core's authored links retain their repository-relative API paths. Only
+    # the assembled copies point at the portal's generated output namespace.
+    if uri.startswith(SOURCE_PREFIX + "/") and hasattr(files, "get_file_from_path"):
+        target = PREFIX + uri[len(SOURCE_PREFIX):]
+        if files.get_file_from_path(target) is not None:
+            return target
+    return uri
 
 
 def run(args):

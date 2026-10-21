@@ -11,8 +11,8 @@ import threading
 
 from playwright.sync_api import expect, sync_playwright
 
-SECTIONS = ("Home", "Getting Started", "Formats", "Bindings", "Tools", "Development")
-LANDINGS = ("", "getting-started/", "formats/", "bindings/", "tools/", "development/")
+SECTIONS = ("Home", "Tutorials", "API", "Standards", "Languages", "Tools", "Development")
+LANDINGS = ("", "tutorials/", "api/", "standards/", "languages/", "tools/", "development/")
 
 
 def check_navigation(page, base_url):
@@ -27,10 +27,10 @@ def check_navigation(page, base_url):
             page.locator('.md-header label[for="__drawer"]').click()
             menu = page.locator(".md-nav--primary")
             expect(menu).to_be_visible()
-            expect(menu.locator(":scope > ul > li")).to_have_count(6)
+            expect(menu.locator(":scope > ul > li")).to_have_count(7)
         # Material renders the active Home entry as a TOC label on mobile.
         # Visit it last so each click targets a different page.
-        for index in (1, 2, 3, 4, 5, 0):
+        for index in (1, 2, 3, 4, 5, 6, 0):
             title, path = SECTIONS[index], LANDINGS[index]
             # Navigate via actual controls, reopening the mobile drawer after
             # each page load. Section index links share labels with toggles.
@@ -39,17 +39,18 @@ def check_navigation(page, base_url):
             link.click()
             expect(page).to_have_url(base_url + path)
             expect(page.locator("article h1")).to_be_visible()
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, path)
             if width == 390:
                 page.locator('.md-header label[for="__drawer"]').click()
                 back = menu.locator(":scope > ul > li.md-nav__item--active.md-nav__item--nested > nav > label.md-nav__title")
                 if back.count():
                     back.click()
-        page.goto(base_url + "getting-started/")
+        page.goto(base_url + "tutorials/")
         if width == 390:
             page.locator('.md-header label[for="__drawer"]').click()
         page.locator(".md-nav--primary").get_by_role("link", name="Choose a processing API", exact=True).click()
-        expect(page).to_have_url(base_url + "getting-started/processing/")
-        for path in ("tools/otlv/manual/", "bindings/lua/manual/api/", "bindings/python/manual/guides/python/"):
+        expect(page).to_have_url(base_url + "tutorials/processing/")
+        for path in ("tools/otlv/manual/", "languages/lua/manual/api/", "languages/python/manual/guides/python/"):
             page.goto(base_url + path)
             expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
             if width == 390:
@@ -71,13 +72,13 @@ def check_development(page, base_url):
         ("Architecture", "development/architecture/", "Core architecture overview",
          "development/architecture/architecture/"),
         ("Building from Source", "development/building/", "Python build and workspace guide",
-         "bindings/python/manual/development/python/"),
+         "languages/python/manual/development/python/"),
         ("Contributing", "development/contributing/", "documentation ownership and portal conventions",
          "development/documentation/"),
         ("Testing and Quality Gates", "development/testing/", "Core quality gates",
          "development/quality-gates/"),
         ("CI and Release Process", "development/releases/", "release quality gate",
-         "bindings/lua/manual/releases/"),
+         "languages/lua/manual/releases/"),
     )
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
@@ -101,14 +102,14 @@ def check_development(page, base_url):
 
 def check_catalogs(page, base_url):
     """Follow discovery links into the actual selected manuals and application."""
-    bindings = (
-        ("C", "bindings/c/", "C API reference", "bindings/c/reference/"),
-        ("C++", "bindings/cpp/", "C++ API reference", "bindings/cpp/reference/"),
-        ("Python", "bindings/python/", "Python manual", "bindings/python/manual/guides/python/"),
-        ("Lua", "bindings/lua/", "Lua manual", "bindings/lua/manual/api/"),
-        ("Rust", "bindings/rust/", "Rust manual", "bindings/rust/manual/"),
-        ("Go", "bindings/go/", "Go manual", "bindings/go/manual/"),
-        ("WebAssembly", "bindings/wasm/", "WebAssembly manual", "bindings/wasm/development/"),
+    languages = (
+        ("C", "languages/c/", "C API reference", "api/reference/c/"),
+        ("C++", "languages/cpp/", "C++ API reference", "api/reference/cpp/"),
+        ("Python", "languages/python/", "Python manual", "languages/python/manual/guides/python/"),
+        ("Lua", "languages/lua/", "Lua manual", "languages/lua/manual/api/"),
+        ("Rust", "languages/rust/", "Rust manual", "languages/rust/manual/"),
+        ("Go", "languages/go/", "Go manual", "languages/go/manual/"),
+        ("WebAssembly", "languages/wasm/", "WebAssembly manual", "languages/wasm/development/"),
     )
     tools = (
         ("otlv CLI", "tools/otlv/", "otlv manual", "tools/otlv/manual/"),
@@ -117,7 +118,7 @@ def check_catalogs(page, base_url):
     )
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
-        for catalog, entries in (("bindings/", bindings), ("tools/", tools)):
+        for catalog, entries in (("languages/", languages), ("tools/", tools)):
             for title, overview, manual_title, manual in entries:
                 page.goto(base_url + catalog)
                 page.locator("article").get_by_role("link", name=title, exact=True).click()
@@ -141,43 +142,64 @@ def check_catalogs(page, base_url):
 
 
 def check_formats(page, base_url):
-    targets = (
-        ("Fixed-width TLV", "formats/fixed/configurable/"),
-        ("Variable-width TLV", "formats/variable/"),
-        ("Packed Tag/Length", "formats/packed/"),
-        ("Escaped lengths", "formats/escaped/"),
-        ("BER-TLV", "formats/asn1/ber/"),
-        ("DER-TLV", "formats/asn1/der/"),
-        ("CER-TLV", "formats/asn1/cer/"),
-        ("EMV", "formats/emv/"),
-        ("Bluetooth LTV", "formats/bluetooth/"),
-        ("LLDP", "formats/lldp/"),
-        ("DHCPv4 options", "formats/dhcp/"),
-        ("NFC Type 2", "formats/nfc/"),
+    catalogs = (
+        ("api/formats/", (
+            ("Fixed-width TLV", "api/formats/fixed/configurable/"),
+            ("Variable-width TLV", "api/formats/variable/"),
+            ("Packed Tag/Length", "api/formats/packed/"),
+            ("Escaped lengths", "api/formats/escaped/"),
+        )),
+        ("standards/", (
+            ("BER-TLV", "standards/asn1/ber/"),
+            ("DER-TLV", "standards/asn1/der/"),
+            ("CER-TLV", "standards/asn1/cer/"),
+            ("EMV", "standards/emv/"),
+            ("Bluetooth LTV", "standards/bluetooth/"),
+            ("LLDP", "standards/lldp/"),
+            ("DHCPv4 options", "standards/dhcp/"),
+            ("NFC Type 2", "standards/nfc/"),
+        )),
     )
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
-        for title, path in targets:
-            page.goto(base_url + "formats/")
-            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
-            page.locator("article").get_by_role("link", name=title, exact=True).click()
-            expect(page).to_have_url(base_url + path)
-            expect(page.locator("article h1")).to_be_visible()
-            assert page.locator("article h2").evaluate_all("nodes => nodes.map(node => node.id)") == [
-                "overview", "format-structure", "encoding-rules", "supported-capabilities",
-                "examples", "limitations", "references",
-            ], path
-            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, path)
+        page.goto(base_url + "api/")
+        page.locator("article").get_by_role("link", name="Generic formats", exact=True).click()
+        expect(page).to_have_url(base_url + "api/formats/")
+        for catalog, targets in catalogs:
+            for title, path in targets:
+                page.goto(base_url + catalog)
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
+                page.locator("article").get_by_role("link", name=title, exact=True).click()
+                expect(page).to_have_url(base_url + path)
+                expect(page.locator("article h1")).to_be_visible()
+                assert page.locator("article h2").evaluate_all("nodes => nodes.map(node => node.id)") == [
+                    "overview", "format-structure", "encoding-rules", "supported-capabilities",
+                    "examples", "limitations", "references",
+                ], path
+                assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, path)
+                catalog_title = "Generic formats" if catalog == "api/formats/" else "Standards catalog"
+                back = page.locator("article").get_by_role("link", name=catalog_title, exact=True)
+                if path == "api/formats/escaped/":
+                    # This existing guide has no appended catalog link; its
+                    # Material section index supplies the return navigation.
+                    menu = page.locator(".md-nav--primary")
+                    if width == 390:
+                        page.locator('.md-header label[for="__drawer"]').click()
+                        menu.locator('nav[data-md-level="2"] > label.md-nav__title').filter(
+                            has_text="Generic formats").click()
+                    back = menu.get_by_role("link", name="Generic formats", exact=True)
+                back.click()
+                expect(page).to_have_url(base_url + catalog)
         for kind, fragment in (("der", "schema-aware-validation-and-encoding"),
                                ("cer", "canonical-string-segmentation")):
-            page.goto(base_url + f"formats/asn1/{kind}/#{fragment}")
+            page.goto(base_url + f"standards/asn1/{kind}/#{fragment}")
             expect(page.locator("#" + fragment)).to_be_visible()
             for source in (f"formats/asn1/{kind}.md", f"standards/{kind}/README.md"):
                 expect(page.locator(f'a[href*="/blob/"][href$="/docs/{source}"]')).to_have_count(1)
                 expect(page.locator(f'a[href*="/edit/"][href$="/docs/{source}"]')).not_to_have_count(0)
-        page.goto(base_url + "formats/")
+        page.goto(base_url + "api/formats/")
         page.locator("article").get_by_role("link", name="Core format guide", exact=True).click()
-        expect(page).to_have_url(base_url + "formats/guide/")
+        expect(page).to_have_url(base_url + "api/formats/guide/")
         expect(page.locator("#reading-one-element")).to_have_count(1)
 
 

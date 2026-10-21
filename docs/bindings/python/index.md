@@ -34,4 +34,4 @@ site root, is not available yet. Use the selected manual above without requiring
 a matching release. Its source revision, not the portal version number,
 identifies the binding documentation.
 
-[All bindings](../index.md)
+[All languages](../index.md)

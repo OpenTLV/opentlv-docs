@@ -2,6 +2,9 @@
 
 Choose a tool for files, automation or interactive exploration. Each overview
 links to access instructions and the documentation maintained by its owner.
+Choose the input protocol through [Standards](../formats/overview.md) or review
+[generic format configurations](../api/formats.md) for application-defined data.
+For application integration, use [Languages](../bindings/index.md).
 
 | Tool | Purpose | Availability |
 | --- | --- | --- |

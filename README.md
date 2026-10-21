@@ -11,29 +11,29 @@ maintained as a second copy here.
 The Core build does not depend on this repository.
 
 The [documentation inventory and migration mapping](DOCUMENTATION-MIGRATION.md)
-records the pinned source baseline, six-section destinations, content ownership
-and the revised URL policy for #45. The implementation status below
-distinguishes the navigation change from the subsequent content migrations.
+records the pinned source baseline, current seven-section destinations, content
+ownership and the no-redirect URL policy. Earlier migration stages remain
+documented there as historical evidence.
 
 ## Portal navigation
 
-The implemented six-section foundation below is an intermediate stage. The
-updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) targets
-Home, Tutorials, API, Standards, Languages, Tools and Development.
-[#63](https://github.com/OpenTLV/opentlv-docs/issues/63) owns that navigation
-transition and reuses #49's Development work; it does not reopen #44–#48.
-
-The central portal has six top-level sections: Home, Getting Started, Formats,
-Bindings, Tools and Development. Their landing URLs are `/`, `/getting-started/`,
-`/formats/`, `/bindings/`, `/tools/` and `/development/`, relative to the selected
+The central portal implements the seven sections defined by
+[epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) and
+[#63](https://github.com/OpenTLV/opentlv-docs/issues/63): Home, Tutorials, API,
+Standards, Languages, Tools and Development. Their landing URLs are `/`,
+`/tutorials/`, `/api/`, `/standards/`, `/languages/`, `/tools/` and `/development/`, relative to the selected
 portal version (for example `/opentlv-docs/latest/`). MkDocs maps both `README.md`
-and `index.md` to a directory index. Home, Getting Started and the Formats catalog
-are portal-owned introductions; detailed format documentation remains Core-owned.
+and `index.md` to a directory index. The entry pages are portal-owned introductions;
+technical contracts and detailed format documentation remain Core-owned.
 
-Material's tabs expose the six sections on desktop; its mobile drawer exposes
+Material's tabs expose the seven sections on desktop; its mobile drawer exposes
 the same hierarchy. Section indexes and grouped secondary navigation keep
-technical details within the appropriate section. The three new catalogs route
-readers to existing manuals instead of copying technical content.
+technical details within the appropriate section. API groups shared public
+concepts, processing guides, generic format mechanisms, configuration and native
+references. Standards contains actual protocols and their supported subsets.
+Languages retains language-specific discovery and manuals; Tutorials provides
+practical task entry points. Development retains #49's contributor guidance,
+internal design notes, performance evidence and planned work.
 
 `docs-sources.json` retains the complete product navigation for inventory checks
 and independent publication. The assembly navigation includes every page;
@@ -44,31 +44,32 @@ product, with a return link to the current portal version. They do not show the
 portal version selector as if it selected a product release. Independently
 published product snapshots retain their own selectors and portal return link.
 
-Issue #45 gives pages canonical output paths under the six sections. The routing table
+The routing introduced in #45 now assigns pages to the seven sections. The routing table
 in `tools/docs/navigation.py` changes MkDocs destinations while keeping original
 source paths for ownership, inventory and link resolution. Internal links,
 search results and generated API guide links use the new destinations.
 **Old page URLs are intentionally not supported:** there are no redirects or
 compatibility aliases. Product manuals selected for a portal version live under
-`tools/otlv/manual/`, `bindings/lua/manual/` and `bindings/python/manual/`.
+`tools/otlv/manual/`, `languages/lua/manual/` and `languages/python/manual/`.
 Independent product publication remains separate from these selected manuals.
 
-Issue #46 transfers Home to the portal and adds a practical Getting Started
+Issue #46 transferred Home to the portal and added the practical learning
 path through TLV concepts, a first element, Document, formats, languages and CLI.
 It reuses the selected manuals and examples. The landing source is `docs/getting-started/overview.md`
 (rendered as the section index), avoiding MkDocs' source-level `index.md`/`README.md`
 collision. During assembly, `tools/docs/onboarding.py` splits
 Core's existing guide at the archive/install heading: first
 build, all language examples and consumer integration render at
-`getting-started/first-program/`; installation/archives, C-only builds and tests
+`tutorials/first-program/`; installation/archives, C-only builds and tests
 render at `development/building/core/`. Both retain their original Core source
 and edit links. No technical source is copied into portal maintenance. A changed
 split boundary or unexpected developer section fails assembly for review.
 Internal links to moved sections use the new destination without old fragments.
 
-Issue #47 adds the Formats catalog, including generic Escaped configuration,
-with standards, implemented capabilities and explicit protocol limitations.
-Core's complete former Formats index renders at `formats/guide/`, preserving
+Issue #47 introduced the format catalog and consistent technical presentation.
+Issue #63 separates its generic configurations into `api/formats/` and actual
+protocols into `standards/`, preserving both catalog tables and their limitations.
+Core's complete former Formats index renders at `api/formats/guide/`, preserving
 all comparison tables and shared processing examples. `tools/docs/formats.py`
 groups the existing format blocks under Overview, Format structure, Encoding
 rules, Supported capabilities, Examples, Limitations and References where
@@ -76,7 +77,7 @@ applicable. Empty sections are omitted; existing examples stay with their
 technical explanations. No binding API manual is copied into the catalog.
 
 DER and CER each combine their Core framing and validation sources into one
-rendered page at `formats/asn1/{der,cer}/`. The assembly preserves every source
+rendered page at `standards/asn1/{der,cer}/`. The assembly preserves every source
 body and fenced example, rebases links, and records both source paths in
 `owners.json`. Each combined page exposes both original source/edit links.
 Unknown, missing or duplicate source headings fail assembly before replacing
@@ -90,13 +91,14 @@ availability separately from experimental status and independent publication.
 Overviews link setup and first examples in the owning manuals; they do not
 maintain copies of API tutorials. C/C++ technical ownership remains with Core.
 The playground application keeps `tools/playground/`; its introduction uses
-`tools/playground/overview/`. Product release URLs and selected manuals are unchanged.
+`tools/playground/overview/`. Independent product release URLs remain unchanged;
+selected Lua/Python manuals now render under Languages.
 Follow [Register a binding or tool](docs/development/product-catalogs.md) when
 adding an entry or changing its availability.
 
-Development restructuring assigned to #49 remains pending. The Core Python
-transition guide stays at `bindings/python/core-transition/`. Existing published
-snapshots are not rewritten by this change.
+The Core Python transition guide remains available at
+`languages/python/core-transition/` pending the separate #61 content review.
+Existing published snapshots are not rewritten by this change.
 
 Check the navigation contract with
 `python -B -m unittest discover -s tests -p test_navigation.py -v`.
@@ -111,7 +113,7 @@ also runs these checks under the prepared version and project prefixes.
 
 Issue #49 adds contributor entry points for Architecture, Building from Source,
 Contributing, Testing and Quality Gates, and CI and Release Process. A portal
-conventions page distinguishes the implemented hierarchy from #63's target and
+conventions page describes the implemented seven-section hierarchy and
 routes contributors to their source owners. Short, explicitly portal-authored
 context notes accompany Core's historical layout, ownership, Python cutover and
 historical #513 audit pages; their original content and source/edit links are retained.
@@ -236,7 +238,7 @@ require matching assembled pages and anchors under strict validation.
 ### Lua documentation source
 
 The required `lua` source mounts `opentlv-lua/docs/` at the source path `lua/`
-and renders a separate manual under `bindings/lua/manual/`, linked from Bindings.
+and renders a separate manual under `languages/lua/manual/`, linked from Languages.
 Lua owns the API guide, implementation
 notes, build and LuaRocks instructions, tests, versioning and migration history.
 The original import README remains a historical artifact outside the mounted
@@ -258,14 +260,14 @@ Portal version selection continues to follow Core. Lua tags and the binding's
 version metadata remain independent; this source adds no separate Lua release
 publication workflow. Existing published snapshots keep their original bytes
 and source set. Their old Lua URLs remain part of those snapshots; the current
-navigation and links use `bindings/lua/manual/api/` and
-`bindings/lua/manual/implementation/`.
+navigation and links use `languages/lua/manual/api/` and
+`languages/lua/manual/implementation/`.
 
 ### Python documentation source
 
 The required `python` source mounts `opentlv-python/docs/` at the source path
-`python/` and renders a separate manual under `bindings/python/manual/`, linked
-from Bindings. It owns the Python user guide, standalone build and installation,
+`python/` and renders a separate manual under `languages/python/manual/`, linked
+from Languages. It owns the Python user guide, standalone build and installation,
 workspace development, supported Python versions, contribution instructions,
 quality gates, versioning, release preparation and validation records.
 The portal consumes these manuals without compiling or installing the binding.
@@ -290,7 +292,7 @@ this repository.
 
 The current Core pin includes the Python implementation removal and standalone
 repository references. Its transitional `guides/python.md` and
-`development/python.md` pages render at `bindings/python/core-transition/` and
+`development/python.md` pages render at `languages/python/core-transition/` and
 `development/bindings/python/`, explicitly
 labelled as Core transition/ownership pages. The Python section consumes the
 canonical standalone manuals. Removing those transitional Core files requires
@@ -623,7 +625,7 @@ using artifacts on another machine. Local artifacts cannot enter a normal or
 publication build. Checksums detect stale or modified artifacts; this is not
 cryptographic authentication of an untrusted producer.
 
-Both references are included under `reference/api/`, retaining the sibling layout
+Both references are included under `api/reference/`, retaining the sibling layout
 used by C++ links to C declarations. When embedding HTML, the portal translates
 Core's expanded guide URLs into relative links to the assembled MkDocs pages.
 This also preserves the C reference's link to the C++ overview and works under
@@ -665,7 +667,7 @@ versions follow Core. Page edit and source links follow each page's owner and
 selected commit. Portal-owned pages use `extra.portal_repository` from
 `mkdocs.yml` to link to `OpenTLV/opentlv-docs`, independently of the header.
 The `api` field records the corresponding generated-reference provenance and
-links to `reference/api/api-source.json`. That manifest describes the original
+links to `api/reference/api-source.json`. That manifest describes the original
 input artifacts; embedded HTML has its guide links adapted for the site.
 
 ### Revision selection and local changes

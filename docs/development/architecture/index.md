@@ -14,7 +14,7 @@ owners rather than defining another architecture.
 | Document | The [Document guide](../../guides/document.md) owns the mutable, owned message representation and its storage/lifetime contract. Document is not a wire format or the planned runtime model. |
 | Query | The [Query language contract](../../concepts/query-language.md) and [Query guide](../../guides/queries.md) describe selection and execution over the shared model. |
 | Schema and Codec | [Schemas](../../guides/schemas.md) describe structural and value constraints; [codecs](../../guides/codecs.md) convert Value bytes and application representations. They are optional capabilities, not mandatory processing stages. |
-| Language bindings | The [binding contracts](../../concepts/bindings.md) describe facades over the canonical C engine. C++ remains Core-owned; [binding overviews](../../bindings/index.md) lead to each implementation and manual. |
+| Language bindings | The [binding contracts](../../concepts/bindings.md) describe facades over the canonical C engine. C++ remains Core-owned; [language overviews](../../bindings/index.md) lead to each implementation and manual. |
 | Tools | The [Tools catalog](../../tools/index.md) identifies the CLI, playground and planned imtlv. CLI behavior belongs to its repository; the portal owns the playground UI, while Core supplies the WebAssembly implementation. |
 
 ## Current implementation and planned work
