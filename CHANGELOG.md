@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Assemble standalone Python manuals with independent source provenance, build and workspace instructions, and Python-owned source and contribution links. (#34)
 - Separate PR, Main, Full and Publishing CI with exact-attempt publication evidence, immutable snapshot checks and workflow timings; ordinary main pushes no longer publish. (#31)
 
 - Assemble Lua API, build, test and versioning documentation from the standalone Lua repository with explicit source provenance and cross-repository links, while retaining Core-driven portal versions and existing published snapshots. (#27)

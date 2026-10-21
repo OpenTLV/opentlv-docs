@@ -4,7 +4,7 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "5e0aae9c77e9c22d07c7f03d6110243e9ecad85f",
+      "revision": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
       "docs_path": "docs",
       "mount": "",
       "required": true,
@@ -77,6 +77,56 @@
           },
           {
             "Migration provenance": "migration.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "python",
+      "repository": "https://github.com/OpenTLV/opentlv-python",
+      "revision": "eb6d297329d68ee53444f44381c66f673b6c201e",
+      "docs_path": "docs",
+      "mount": "python",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Python",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Python": "guides/python.md"
+          },
+          {
+            "Build, workspace and contributing": "development/python.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release preparation": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              }
+            ]
           }
         ]
       }
