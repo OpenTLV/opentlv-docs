@@ -35,6 +35,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Inventory existing documentation and define the proposed six-section migration mapping, preservation requirements and public URL compatibility handling; keep detailed format documentation and C/C++ references Core-owned while Portal owns catalogs, introductions and navigation. (#44)
 - Publish verified Lua, Python and configured component releases as independent immutable documentation snapshots through shared publication gates; align the Lua source pin and quality-gate navigation. (#42)
 - Publish independently versioned CLI documentation under `cli/<version>/` from verified release-gate notifications, with immutable snapshots, a separate version selector, safe retries and shared serialized Pages deployment. (#21)
 - Import schema v2 development compatibility records for exact pinned component/Core pairs and propose verified JSON evidence from trusted component workflow artifacts, while retaining schema v1 release selection. (#6)

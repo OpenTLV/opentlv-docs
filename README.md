@@ -10,6 +10,11 @@ disposable content in `build/assembled/`. Component documentation is never
 maintained as a second copy here.
 The Core build does not depend on this repository.
 
+The proposed [documentation inventory and migration mapping](DOCUMENTATION-MIGRATION.md)
+records the pinned source baseline, six-section destinations, content ownership
+and URL compatibility requirements for #44. Review it before implementing the
+portal restructuring; it does not change the current navigation or publication.
+
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
