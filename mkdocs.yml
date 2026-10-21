@@ -200,7 +200,8 @@ nav:
   - Development:
       - Overview: development/index.md
       - Architecture:
-          - Architecture: concepts/architecture.md
+          - Overview: development/architecture/index.md
+          - Core architecture: concepts/architecture.md
           - Runtime model and canonical IR: concepts/runtime-model.md
           - Processing pipeline: concepts/processing-pipeline.md
           - Core architectural rules: concepts/architectural-rules.md
@@ -208,12 +209,15 @@ nav:
           - Format and Element contract: concepts/format-contract.md
           - Definition boundaries: concepts/definition-boundaries.md
       - Building from source:
+          - Overview: development/building/index.md
           - Core installation and developer builds: getting-started/core-build.md
           - Compilers and build settings: reference/compilers.md
       - Contributing:
+          - Contribution entry points: development/contributing.md
           - Development workflow: development/workflow.md
           - Python ownership in Core: development/python.md
       - Testing and quality gates:
+          - Overview: development/testing.md
           - Core quality gates: development/quality-gates.md
           - C ABI compatibility: development/abi-compatibility.md
           - Fuzzing: development/fuzzing.md
@@ -224,10 +228,12 @@ nav:
           - Query phase implementation audit: development/query-phase-audit.md
           - Query adversarial verification: development/query-adversarial.md
       - CI and release process:
+          - Overview: development/releases.md
           - Query release checklist: development/query-release.md
       - Documentation:
+          - Current portal conventions: development/documentation.md
           - Register a binding or tool: development/product-catalogs.md
-          - Where documentation belongs: development/documentation-layout.md
+          - Core writing conventions: development/documentation-layout.md
           - Documentation ownership: development/documentation-ownership.md
-          - Documentation audit: development/documentation-audit.md
+          - Historical documentation audit (#513): development/documentation-audit.md
           - Logo assets: assets/README.md

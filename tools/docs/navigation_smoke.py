@@ -62,6 +62,41 @@ def check_navigation(page, base_url):
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), width
     check_formats(page, base_url)
     check_catalogs(page, base_url)
+    check_development(page, base_url)
+
+
+def check_development(page, base_url):
+    """Follow contributor tasks into canonical manuals and current conventions."""
+    targets = (
+        ("Architecture", "development/architecture/", "Core architecture overview",
+         "development/architecture/architecture/"),
+        ("Building from Source", "development/building/", "Python build and workspace guide",
+         "bindings/python/manual/development/python/"),
+        ("Contributing", "development/contributing/", "documentation ownership and portal conventions",
+         "development/documentation/"),
+        ("Testing and Quality Gates", "development/testing/", "Core quality gates",
+         "development/quality-gates/"),
+        ("CI and Release Process", "development/releases/", "release quality gate",
+         "bindings/lua/manual/releases/"),
+    )
+    for width in (1440, 390):
+        page.set_viewport_size({"width": width, "height": 900})
+        for title, overview, detail_title, detail in targets:
+            page.goto(base_url + "development/")
+            page.locator("article").get_by_role("link", name=title, exact=True).click()
+            expect(page).to_have_url(base_url + overview)
+            expect(page.locator("article h1")).to_contain_text(title)
+            assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (width, overview)
+            page.locator("article").get_by_role("link", name=detail_title, exact=True).click()
+            expect(page).to_have_url(base_url + detail)
+            expect(page.locator("article h1")).to_be_visible()
+        for path in ("documentation/layout", "documentation/ownership", "documentation/audit-513",
+                     "bindings/python"):
+            page.goto(base_url + "development/" + path + "/")
+            note = page.locator("article .admonition.note").filter(has_text="Portal context")
+            expect(note).to_have_count(1)
+            note.get_by_role("link", name="current portal conventions", exact=True).click()
+            expect(page).to_have_url(base_url + "development/documentation/")
 
 
 def check_catalogs(page, base_url):

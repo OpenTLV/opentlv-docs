@@ -128,15 +128,32 @@ class NavigationTests(unittest.TestCase):
 
     def test_historical_landing_fallback_is_revision_specific(self):
         from types import SimpleNamespace
-        text = (fixture.ROOT / "docs/development/index.md").read_text()
-        page = SimpleNamespace(file=SimpleNamespace(src_uri="development/index.md"))
         core = dict(self.selected[0][1], commit=fixture.assembly.CORE_071_COMMIT)
         config = SimpleNamespace(extra={"core_source": core})
-        result = navigation.on_page_markdown(text, page, config, [])
-        self.assertNotIn("](quality-gates.md)", result)
-        self.assertNotIn("](documentation-ownership.md)", result)
-        core["commit"] = "a" * 40
-        self.assertEqual(navigation.on_page_markdown(text, page, config, []), text)
+        for name in ("index", "testing", "releases", "documentation"):
+            text = (fixture.ROOT / f"docs/development/{name}.md").read_text(encoding="utf-8")
+            page = SimpleNamespace(file=SimpleNamespace(src_uri=f"development/{name}.md"))
+            core["commit"] = fixture.assembly.CORE_071_COMMIT
+            result = navigation.on_page_markdown(text, page, config, Files([]))
+            self.assertNotIn("](quality-gates.md)", result)
+            self.assertNotIn("](documentation-ownership.md)", result)
+            core["commit"] = "a" * 40
+            self.assertEqual(navigation.on_page_markdown(text, page, config, Files([])), text)
+
+    def test_development_context_preserves_owner_text_and_requires_portal(self):
+        from types import SimpleNamespace
+        config, files, _nav = self.material_navigation()
+        original = "# Owner title\n\n## Contract\n\nOriginal details.\n\n```sh\npython generator.py\n```\n"
+        for name in navigation.DEVELOPMENT_NOTES:
+            page = files.get_file_from_path(name).page
+            result = navigation.on_page_markdown(original, page, config, files)
+            self.assertTrue(result.startswith('# Owner title\n\n!!! note "Portal context"'))
+            self.assertTrue(result.endswith(original.partition("\n")[2]))
+            self.assertIn("[current portal conventions](documentation.md)", result)
+            self.assertEqual(navigation.on_page_markdown(original, page, config, Files([])), original)
+            self.assertEqual(page.file.src_uri, name)
+        page = SimpleNamespace(file=SimpleNamespace(src_uri="concepts/architecture.md"))
+        self.assertEqual(navigation.on_page_markdown(original, page, config, files), original)
 
     def test_output_collision_fails_and_api_links_use_canonical_routes(self):
         config, files, nav = self.material_navigation()
