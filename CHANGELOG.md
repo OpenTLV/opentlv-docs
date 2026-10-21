@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Correct the migration map to reflect the current epic sub-issues, follow-up order and requirement to complete corrections in owning repositories before closing the ownership review. (#63)
 - Pin Python documentation to the merged standalone documentation fixes, resolving the Markdown lint failure and obsolete example links. (#34)
 - Support Core 0.7.1 with explicit standalone CLI page ownership and revision-specific navigation, preserving source tags, published snapshots and strict collision checks. (#31)
 - Include the updated Core quality-gates page in navigation and keep one monotonic source-update proposal per component, with optional auto-merge requiring the Docs PR gate. (#31)

@@ -22,12 +22,16 @@ remain separate follow-ups.
 | --- | --- |
 | #49 | Contributor entry points in Development; retain owner-maintained architecture, build, contribution, test and release details. |
 | #63 | Implement seven sections; move shared public contracts, generic formats and C/C++ references into API; reorganize Tutorials, Standards and Languages while reusing Development. |
-| #62 | Review cross-repository ownership and stale component information, track corrections in owning repositories and extend integration validation. |
+| #62 | Review cross-repository ownership and stale component information, complete corrections in owning repositories before closure and extend integration validation. |
 | #61 | Review content against the final hierarchy; record Keep, Relocate, Archive or Remove with destinations and justification. |
+| #20 | Apply the OpenTLV visual identity consistently across the portal. |
+| #19 | Add the interactive Home wire explorer with an accessible fallback. |
 | #50 | Final content, navigation, product-version and published integration verification after the preceding work. |
 
 Issue #63 also coordinates with #19 (Home wire explorer) and #20 (visual identity).
-They are related issues, not direct children in the current epic's sub-issue list.
+Both are direct children of epic #43. The remaining work follows the epic order:
+issues #62, #61, #20, #19 and #50. This is a working sequence, not enforced blocking
+dependencies in GitHub.
 The current #50 text still names six sections and the original URL compatibility
 requirements. Its final audit must use #63's approved seven-section target and
 the maintainer's no-redirect amendment below; the old wording is not evidence
