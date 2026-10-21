@@ -52,6 +52,7 @@ theme:
     repo: fontawesome/brands/github
   features:
     - navigation.tabs
+    - navigation.indexes
     - navigation.sections
     - navigation.top
     - navigation.footer
@@ -82,6 +83,7 @@ extra:
 hooks:
   - tools/docs/assembly.py
   - tools/docs/hooks.py
+  - tools/docs/navigation.py
 
 markdown_extensions:
   - tables
@@ -104,99 +106,111 @@ extra_javascript:
   - path: playground/playground.js
     type: module
 
+# Source paths remain owned by their repositories. navigation.py assigns the
+# canonical portal output URLs and separates selected product manuals.
 nav:
   - Home: index.md
-  - CLI releases: https://opentlv.github.io/opentlv-docs/cli/
-  - Lua releases: https://opentlv.github.io/opentlv-docs/lua/
-  - Python releases: https://opentlv.github.io/opentlv-docs/python/
   - Getting Started:
       - Getting started: getting-started/README.md
-      - Understand the basic model: concepts/learning-model.md
-  - Guides:
       - Choose a processing API: guides/processing.md
-      - Pull-based Reader: guides/reader.md
-      - Writer and scoped construction: guides/writer.md
-      - Mutable documents: guides/document.md
-      - Diagnostics: guides/diagnostics.md
-      - Path queries: guides/queries.md
-      - Schemas and length validation: guides/schemas.md
-      - Value codecs: guides/codecs.md
+      - Understand the basic model: concepts/learning-model.md
       - Executable examples: guides/examples.md
-      - Memory ownership: guides/memory.md
-      - Copy helpers: guides/copy.md
       - Building only the components you need: guides/select-components.md
-  - Language APIs:
-      - C++ examples: guides/cxx-examples.md
-      - Using OpenTLV from Rust: guides/rust.md
-      - Python guide (Core transition): guides/python.md
-      - Language bindings: concepts/bindings.md
-      - Using OpenTLV from Go: guides/go.md
-      - WebAssembly tooling: development/webassembly.md
+      - Core concepts:
+          - Core types: concepts/core-types.md
+          - Borrowed values: concepts/value.md
+          - Logical lengths: concepts/length.md
+          - Byte order: concepts/endian.md
   - Formats:
       - Overview: formats/README.md
       - Implemented capabilities: formats/support.md
-      - Configurable fixed-width TLV: formats/fixed/configurable.md
-      - Configurable variable-width TLV: formats/variable.md
-      - Declarative field policy design: concepts/field-policies.md
-      - Packed Tag/Length headers: formats/packed.md
-      - Bluetooth LTV: formats/bluetooth/README.md
-      - NFC Type 2 Tag framing: formats/nfc/README.md
-      - DHCPv4 option framing: formats/dhcp/README.md
-      - LLDP TLV support: formats/lldp/README.md
-      - LLDP reference and conformance notes: formats/lldp/conformance.md
-      - BER-TLV: formats/asn1/ber.md
-      - DER-TLV: formats/asn1/der.md
-      - CER-TLV: formats/asn1/cer.md
-      - Custom formats: formats/custom/README.md
+      - Generic formats:
+          - Configurable fixed-width TLV: formats/fixed/configurable.md
+          - Configurable variable-width TLV: formats/variable.md
+          - Packed Tag/Length headers: formats/packed.md
+          - Custom formats: formats/custom/README.md
+          - Declarative field policy design: concepts/field-policies.md
+          - Generic Format capability space: concepts/format-capabilities.md
+      - Protocols and standards:
+          - Bluetooth LTV: formats/bluetooth/README.md
+          - NFC Type 2 Tag framing: formats/nfc/README.md
+          - DHCPv4 option framing: formats/dhcp/README.md
+          - LLDP TLV support: formats/lldp/README.md
+          - LLDP reference and conformance notes: formats/lldp/conformance.md
+          - BER-TLV: formats/asn1/ber.md
+          - DER-TLV: formats/asn1/der.md
+          - DER validation: standards/der/README.md
+          - CER-TLV: formats/asn1/cer.md
+          - CER validation: standards/cer/README.md
+          - EMV: standards/emv/README.md
       - Format examples: formats/format-examples.md
-      - Format roadmap: formats/format-roadmap.md
-      - Format candidate catalogue: formats/format-catalogue.md
-      - LLDP requirements review: formats/lldp-review.md
-  - Standards:
-      - DER: standards/der/README.md
-      - CER: standards/cer/README.md
-      - EMV: standards/emv/README.md
-  - Playground:
+      - Roadmap and reviews:
+          - Format roadmap: formats/format-roadmap.md
+          - Format candidate catalogue: formats/format-catalogue.md
+          - LLDP requirements review: formats/lldp-review.md
+  - Bindings:
+      - Overview: bindings/index.md
+      - Language contracts and capabilities: concepts/bindings.md
+      - C and shared guides:
+          - Pull-based Reader: guides/reader.md
+          - Writer and scoped construction: guides/writer.md
+          - Mutable documents: guides/document.md
+          - Diagnostics: guides/diagnostics.md
+          - Path queries: guides/queries.md
+          - Schemas and length validation: guides/schemas.md
+          - Value codecs: guides/codecs.md
+          - Memory ownership: guides/memory.md
+          - Copy helpers: guides/copy.md
+      - C++:
+          - C++ examples: guides/cxx-examples.md
+          - C++ public/native boundary: concepts/cxx-native-boundary.md
+          - C++ Format customization: concepts/cxx-formats.md
+          - C++ built-in standards: concepts/cxx-builtins.md
+      - Native reference:
+          - Reference overview: reference/README.md
+          - C API: reference/c-api.md
+          - C++ API: reference/cxx-api.md
+          - Error codes: reference/errors.md
+          - Query language contract: concepts/query-language.md
+      - In-tree and transitional guides:
+          - Using OpenTLV from Rust: guides/rust.md
+          - Rust development: development/rust.md
+          - Using OpenTLV from Go: guides/go.md
+          - Go development: development/go.md
+          - WebAssembly tooling: development/webassembly.md
+          - Python guide (Core transition): guides/python.md
+  - Tools:
+      - Overview: tools/index.md
       - TLV playground: playground/index.md
-  - Reference:
-      - Overview: reference/README.md
-      - C API: reference/c-api.md
-      - C++ API: reference/cxx-api.md
-      - Compilers and build settings: reference/compilers.md
-      - Error codes: reference/errors.md
-  - Architecture and Concepts:
-      - Architecture: concepts/architecture.md
-      - Core types: concepts/core-types.md
-      - Query language contract: concepts/query-language.md
-      - Generic Format capability space: concepts/format-capabilities.md
-      - Borrowed values: concepts/value.md
-      - Logical lengths: concepts/length.md
-      - Byte order: concepts/endian.md
-      - C++ public/native boundary: concepts/cxx-native-boundary.md
-      - C++ Format customization: concepts/cxx-formats.md
-      - C++ built-in standards: concepts/cxx-builtins.md
   - Development:
-      - Runtime model and canonical IR: concepts/runtime-model.md
-      - Processing pipeline: concepts/processing-pipeline.md
-      - Core architectural rules: concepts/architectural-rules.md
-      - Failure model design: concepts/error-model.md
-      - Format and Element contract: concepts/format-contract.md
-      - Definition boundaries: concepts/definition-boundaries.md
-      - Development workflow: development/workflow.md
-      - Core quality gates: development/quality-gates.md
-      - C ABI compatibility: development/abi-compatibility.md
-      - Where documentation belongs: development/documentation-layout.md
-      - Documentation ownership: development/documentation-ownership.md
-      - Documentation audit: development/documentation-audit.md
-      - Fuzzing: development/fuzzing.md
-      - Valgrind checks: development/valgrind.md
-      - Reader decode performance: development/reader-decode-performance.md
-      - C++ facade performance: development/cxx-facade-performance.md
-      - Indefinite boundary reuse follow-up: development/indefinite-boundary-reuse.md
-      - Query release checklist: development/query-release.md
-      - Query phase implementation audit: development/query-phase-audit.md
-      - Query adversarial verification: development/query-adversarial.md
-      - Rust bindings: development/rust.md
-      - Python ownership in Core: development/python.md
-      - Go bindings: development/go.md
-      - Logo assets: assets/README.md
+      - Overview: development/index.md
+      - Architecture:
+          - Architecture: concepts/architecture.md
+          - Runtime model and canonical IR: concepts/runtime-model.md
+          - Processing pipeline: concepts/processing-pipeline.md
+          - Core architectural rules: concepts/architectural-rules.md
+          - Failure model design: concepts/error-model.md
+          - Format and Element contract: concepts/format-contract.md
+          - Definition boundaries: concepts/definition-boundaries.md
+      - Building from source:
+          - Compilers and build settings: reference/compilers.md
+      - Contributing:
+          - Development workflow: development/workflow.md
+          - Python ownership in Core: development/python.md
+      - Testing and quality gates:
+          - Core quality gates: development/quality-gates.md
+          - C ABI compatibility: development/abi-compatibility.md
+          - Fuzzing: development/fuzzing.md
+          - Valgrind checks: development/valgrind.md
+          - Reader decode performance: development/reader-decode-performance.md
+          - C++ facade performance: development/cxx-facade-performance.md
+          - Indefinite boundary reuse follow-up: development/indefinite-boundary-reuse.md
+          - Query phase implementation audit: development/query-phase-audit.md
+          - Query adversarial verification: development/query-adversarial.md
+      - CI and release process:
+          - Query release checklist: development/query-release.md
+      - Documentation:
+          - Where documentation belongs: development/documentation-layout.md
+          - Documentation ownership: development/documentation-ownership.md
+          - Documentation audit: development/documentation-audit.md
+          - Logo assets: assets/README.md

@@ -2,11 +2,43 @@
 
 Review baseline for [issue #44](https://github.com/OpenTLV/opentlv-docs/issues/44)
 and [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43), prepared
-2026-10-21. **Status: proposed; maintainer review pending.** This document does
-not authorize or implement structural changes. Approval of its destinations,
-ownership transfers and compatibility rules must be recorded in the #44 PR
-before #45-#49 begin. #50 verifies the implemented result against the approved
-map. A local inventory check is not human review or deployed-site validation.
+2026-10-21. **Baseline merged in [PR #56](https://github.com/OpenTLV/opentlv-docs/pull/56);
+issue #44 closed as completed.** The maintainer's subsequent #45 implementation request
+authorizes the navigation phase below. #50 verifies the completed migrations
+against this map. A local inventory check is not deployed-site validation.
+
+## Navigation phase (#45)
+
+Source pins still match the four source revisions inventoried below. The six
+sections now group every existing page by its mapped destination. Home,
+Getting Started and Formats reuse their existing landings; Bindings, Tools and
+Development add portal-owned routing pages. Both MkDocs `README.md` and
+`index.md` yield directory URLs, so all six target landing URLs are available
+without replacing Core-owned technical content.
+
+The original 105 navigable pages remain in the assembled inventory, with three
+new landings. CLI, Lua and Python use contextual product menus, with links back
+to the current portal version, rather than extending the six global sections.
+Their selected-source manuals now render under `tools/otlv/manual/`,
+`bindings/lua/manual/` and `bindings/python/manual/`. No matching independent
+release is assumed. Independently published product snapshots and publication
+rules are unchanged.
+
+**Maintainer amendment during #45: this reorganization does not preserve URL
+compatibility.** New output paths replace old page URLs without redirects,
+aliases or fragment compatibility stubs. This supersedes the baseline's R/P
+compatibility requirements throughout this document; the URL rules below now
+describe direct routing, while old URL cells remain inventory annotations.
+Existing published immutable snapshots are not rewritten.
+
+`tools/docs/navigation.py` defines the canonical rendered paths for the Move
+rows while preserving repository-owned source paths. MkDocs resolves internal
+links and generated API guide links to those destinations. Content splits and
+merges assigned to #46–#49 are still pending: DER/CER validation remains in
+`formats/asn1/{der,cer}-validation.md`, the full reference overview renders at
+`bindings/reference.md`, and Core's Python transition manual remains at
+`bindings/python/core-transition.md` until its unique content is merged. No
+row's technical content is removed by #45.
 
 ## Baseline and inventory method
 
@@ -80,6 +112,9 @@ other overviews link to those guides rather than duplicating their bodies.
 
 ## How to read the map and URL policy
 
+Following the #45 maintainer amendment, the implementation requires canonical
+new paths and valid internal links, not old-URL compatibility.
+
 Actions are **Keep**, **Move**, **Merge**, **Split**, **Replace**, or **Remove**.
 Keep may change navigation grouping without changing the page body or URL.
 Move changes a rendered location or an explicitly identified source location;
@@ -95,26 +130,24 @@ URLs: `README.md` and `index.md` become the directory index, and `x.md` becomes
 **site root**, outside `P/`. `{version}` means a matching independently
 published product version, not the Core version or an invented tag.
 
-| Code | Required compatibility handling |
+| Code | URL handling |
 | --- | --- |
-| K | Keep the current rendered URL and existing anchors; no page redirect. |
-| R | Keep a compatibility page or supported redirect at the current URL for a changed target. Preserve every old fragment with equivalent section anchors or an explicit fragment map; for Split, route each section to its target. If the page URL stays the same, retain its old anchors there. |
-| P | Product boundary: keep the old `P/` route tied to its selected source until a matching independent snapshot is verified. Then use a version-aware compatibility page linking the equivalent product page/sections. Never silently redirect an old pinned manual to moving `stable` or redirect to a missing release. |
+| K | Keep the current rendered path where it remains the canonical destination. |
+| R | Render at the new canonical destination and update internal links. Do not emit an old-URL redirect, alias or fragment stub. |
+| P | Product boundary: keep independently versioned publication separate. Selected-source manuals render under the new Bindings/Tools manual paths; do not redirect them to an unverified or moving product release. |
 | G | GitHub-only source; no published page redirect. Keep its repository path or provide a source stub in a coordinated owner PR. |
-| O | Already overridden in assembly; use the Portal row for public URL compatibility and preserve the Core repository hand-off. |
+| O | Already overridden in assembly; use the Portal row for the canonical rendered path and preserve source ownership. |
 
-Every R/P row is part of the compatibility work list, including anchors on
-otherwise retained routes. For Merge, reconcile conflicting heading IDs and
-keep aliases at **both** old entry points. A redirect that loses the requested
-fragment is insufficient. Known callers include repository READMEs, changelogs,
-source comments, examples, the existing Core ownership/audit tables and issue/PR
-links. #50 must enumerate their links at implementation time and verify the
-rendered destinations. Existing `link_aliases: ["main"]` is source-link rewriting,
-not a public URL redirect mechanism.
+For Merge, reconcile conflicting heading IDs and retain unique technical
+content. Internal links, navigation, search results and generated API guide
+links must resolve to canonical destinations. External callers of old page URLs
+are not covered by compatibility guarantees. Existing
+`link_aliases: ["main"]` resolves repository source links against the selected
+commit; it is not a public URL redirect mechanism.
 
 Previously published immutable Core and product snapshots retain their bytes,
 paths, assets and provenance. Apply this map to new builds and the development
-entry only; do not rebuild old releases to install redirects. The site-root
+entry only; do not rebuild old releases to change their layout. The site-root
 default/version selectors and `stable` aliases retain their current publication
 semantics. The legacy `https://opentlv.github.io/opentlv/` site and its archived
 `latest/playground/` remain outside this migration; preserve existing hand-offs.
@@ -173,7 +206,7 @@ Core owns the source of every row in this table at the baseline.
 | [docs/development/valgrind.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/development/valgrind.md) | `P/development/valgrind/` | Development | `development/valgrind.md` | Core | Keep | K | Valgrind memory and performance checks; Run locally; Memcheck CI scope; Read a report; Suppressions and exclusions |
 | [docs/development/webassembly.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/development/webassembly.md) | `P/development/webassembly/` | Bindings | `bindings/wasm/development.md` | Core / WASM | Move | R | Keep experimental status, build, JavaScript use, Query/Document, parse tooling and tests. Tools/playground links here for implementation details. |
 | [docs/development/workflow.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/development/workflow.md) | `P/development/workflow/` | Development | `development/workflow.md` | Core | Keep | K | Development workflow |
-| [docs/formats/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/README.md) | `P/formats/` | Formats | `formats/index.md + formats/guide.md` | Portal catalog; Core technical guide | Split | R | Keep catalog and short introductions in Portal; retain all technical capability tables, read/write/traversal examples, generic interface and length-before-tag rules in Core-owned Markdown. Preserve old section anchors at the catalog entry. |
+| [docs/formats/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/README.md) | `P/formats/` | Formats | `formats/index.md + formats/guide.md` | Portal catalog; Core technical guide | Split | R | Keep catalog and short introductions in Portal; retain all technical capability tables, read/write/traversal examples, generic interface and length-before-tag rules in Core-owned Markdown. Retain the technical sections at their canonical destinations. |
 | [docs/formats/asn1/ber.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/asn1/ber.md) | `P/formats/asn1/ber/` | Formats | `formats/asn1/ber.md` | Core | Keep | K | BER-TLV; API and build; Scope and limits; Generic mechanics and ASN.1 rules; Minimal C usage |
 | [docs/formats/asn1/cer.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/asn1/cer.md) | `P/formats/asn1/cer/` | Formats | `formats/asn1/cer.md` | Core | Merge | K | CER-TLV; API and build; Scope and limits; Minimal C usage; Framing and typical use |
 | [docs/formats/asn1/der.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/asn1/der.md) | `P/formats/asn1/der/` | Formats | `formats/asn1/der.md` | Core | Merge | K | DER-TLV; API and build; Scope and limits; Minimal C usage; Framing and typical use |
@@ -191,7 +224,7 @@ Core owns the source of every row in this table at the baseline.
 | [docs/formats/packed.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/packed.md) | `P/formats/packed/` | Formats | `formats/packed.md` | Core | Keep | K | Packed Tag/Length configuration; Configuration and lifetime; Length and source ranges; Protocol and binding scope |
 | [docs/formats/support.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/support.md) | `P/formats/support/` | Formats | `formats/support.md` | Core | Keep | K | Implemented format and standard capabilities; Native and tool inventory; Semantics beyond framing; Language framing presets |
 | [docs/formats/variable.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/formats/variable.md) | `P/formats/variable/` | Formats | `formats/variable.md` | Core | Keep | K | Configurable variable-width TLV; Identifier encoding; Length encoding; Complete format; Declarative policies |
-| [docs/getting-started/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/getting-started/README.md) | `P/getting-started/` | Getting Started | `getting-started/index.md + development/building/core.md` | Portal onboarding; Core build | Split | R | Keep first build, C/C++ quick start and consuming Core under Getting Started. Route archive/install packaging, C-only recipes and contributor test builds to Development; preserve old section anchors. |
+| [docs/getting-started/README.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/getting-started/README.md) | `P/getting-started/` | Getting Started | `getting-started/index.md + development/building/core.md` | Portal onboarding; Core build | Split | R | Keep first build, C/C++ quick start and consuming Core under Getting Started. Route archive/install packaging, C-only recipes and contributor test builds to Development; retain every technical section. |
 | [docs/guides/codecs.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/codecs.md) | `P/guides/codecs/` | Bindings | `bindings/c/guides/codecs.md` | Core | Move | R | C value codecs; C++11 typed fields and Value codecs; ASN.1 universal-type codecs; Complete object mappings; Other languages |
 | [docs/guides/copy.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/copy.md) | `P/guides/copy/` | Bindings | `bindings/c/guides/copy.md` | Core | Move | R | Explicit TLV copies |
 | [docs/guides/cxx-examples.md](https://github.com/OpenTLV/opentlv/blob/a5e2453c8cc156122cda01b02d3f91c33580b4f3/docs/guides/cxx-examples.md) | `P/guides/cxx-examples/` | Bindings | `bindings/cpp/examples.md` | Core / C++ | Move | R | C++ examples; Borrowed parsing and sequential iteration; Nested writing and traversal; Owning Document and Query; Typed Values and custom Formats |
@@ -224,9 +257,10 @@ Core owns the source of every row in this table at the baseline.
 Keep the detailed manuals in their owning repositories and their independent
 publication trees. Catalog pages link to the product entry points; they do not
 reproduce product navigation inside the central six-section navigation. The
-legacy assembled `P/cli`, `P/lua` and `P/python` routes need the P policy even
-though the product source action is Keep. Retaining a compatibility rendering
-from the same canonical source is not a second editable manual.
+selected-source manuals render under the new Bindings/Tools manual paths
+described above; the old `P/cli`, `P/lua` and `P/python` page URLs are not kept.
+The table's site-root destinations describe independent product publication,
+not a redirect from a portal-selected source to a different product revision.
 
 | Current source | Current URL | Section | Target | Owner after migration | Action | URL rule | Content to preserve |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -258,7 +292,7 @@ from the same canonical source is not a second editable manual.
 All root-relative URLs in this table are below
 `https://opentlv.github.io/opentlv-docs/`, not below a Core version.
 
-| Product | Portal discovery target | Detailed documentation / compatibility contract |
+| Product | Portal discovery target | Detailed documentation / product boundary |
 | --- | --- | --- |
 | C | `bindings/c/` | Core-owned guide and C API landing targets above; preserve `P/reference/api/c-api/**` and symbol fragments. |
 | C++ | `bindings/cpp/` | Core-owned C++ examples/reference and shared C contracts; preserve `P/reference/api/cxx-api/**` and C cross-links. |
@@ -325,7 +359,7 @@ Internal templates/instructions remain repository guidance, not public nav.
 
 | Finding at the pinned baseline | Disposition and preservation requirement | Follow-up |
 | --- | --- | --- |
-| Core `guides/python.md` and Python `guides/python.md` describe the same API. The Core copy still installs `./bindings/python/opentlv` and links examples/tests under the old layout; the selected Python source installs `./src`. | Merge into the Python-owned manual after comparing sections, examples and anchors. The obsolete paths are not a reason to discard API, error, lifetime or Query contracts. Preserve `P/guides/python/` through rule P. | #48 |
+| Core `guides/python.md` and Python `guides/python.md` describe the same API. The Core copy still installs `./bindings/python/opentlv` and links examples/tests under the old layout; the selected Python source installs `./src`. | Merge into the Python-owned manual after comparing sections, examples and anchors. The obsolete paths are not a reason to discard API, error, lifetime or Query contracts. Use the new canonical Python destinations under rule P. | #48 |
 | Core `development/python.md` describes the pre-cutover hand-off as still pending, while Python is already a required portal source. | Split: update the stale cutover statement later; retain Core-owned vocabulary-generator commands, shared test fixtures, native CI boundaries and dependency coordination. Link Python build/CI/versioning details to their owner. | #49 |
 | Core and Portal both track the logo guide and playground page. Assembly already overrides the Core pages. | Replace the two assembled Core copies with the existing Portal owners. Core's playground stub and historical link remain useful repository entry points; this issue does not delete them. | #45, #48, #49 |
 | DER/CER each have a framing page under `formats/asn1/` and a deeper validation page under `standards/`. | Merge paired pages into the corresponding format destination. These are overlapping subjects, not interchangeable content: retain generic framing versus recursive/strict validation boundaries, schema rules, code, diagrams, limits and references. | #47 |
@@ -338,7 +372,7 @@ Internal templates/instructions remain repository guidance, not public nav.
 No whole technical page has been established as safe to delete. Consequently,
 there are **no Remove dispositions**. Any later deletion needs an explicit
 justification, a named replacement (or evidence of irrelevance), section-level
-preservation review and compatibility handling added to this map first.
+preservation review and canonical routing added to this map first.
 
 ## Examples, diagrams, assets and generated material
 
@@ -361,7 +395,7 @@ examples, resource limits, ownership conditions and normative references.
 | Core `docs/development/ci-baseline.json`; Lua `docs/ci-baseline.json`, `docs/migration/source-inventory.json` | Respective source owners; same source paths | Keep machine-readable evidence and download links at their current assembled suffixes. These are supporting files, not new navigation pages. |
 | Python `docs/migration/{original-python.yml,source-inventory.json,validation.json,windows-baseline.log,windows-imported.log}` and `docs/validation/{ci,packaging,standalone-build}.json` | Python; independent migration/validation manuals | Keep exact historical evidence files and relative links alongside their manuals. Do not regenerate old records as part of restructuring. |
 | Generated `reference/api/c-api/**` and `reference/api/cxx-api/**` | Core public headers/Doxygen; linked from Bindings | Keep both entire trees, HTML pages, symbol anchors, search data, images and C/C++ cross-links at existing URLs. Generate from the selected Core revision; never maintain generated API prose in Portal. |
-| Generated `playground/wasm/{opentlv.mjs,query.mjs,opentlv-core.js,opentlv-core.wasm,wasm-source.json}` | Core WASM bytes; Portal integration | Keep selected-commit identity, all files and integrity metadata. Validate parsing and failure behavior under the new page and compatibility entry without changing the release pipeline. |
+| Generated `playground/wasm/{opentlv.mjs,query.mjs,opentlv-core.js,opentlv-core.wasm,wasm-source.json}` | Core WASM bytes; Portal integration | Keep selected-commit identity, all files and integrity metadata. Validate parsing and failure behavior under the new page without changing the release pipeline. |
 | `source-revision.json`, API provenance, source locks, product version metadata and archived snapshots | Portal publication from exact component inputs | Keep provenance and immutable history. A reorganized page cannot replace source identity with a moving branch or treat a local preview as publishable evidence. |
 
 The static non-Markdown docs inventory is 2 Core files, 7 Portal files,
@@ -375,26 +409,26 @@ compare the full actual output manifest, not only representative index pages.
 | Original page / section group | Destination and review obligation |
 | --- | --- |
 | Core Formats index: Choose a format; overview lists and discovery links | Portal-owned `formats/index.md`: retain the catalog and short introductions, linking to Core-owned detailed pages and support evidence. Keep the existing `P/formats/` entry. |
-| Core Formats index: Compare formats, technical capability tables, Reading one element, Traversing multiple elements, Writing one element, Generic interface, Nested traversal and Formats whose length precedes the tag | Core-owned source rendered at `formats/guide.md`: preserve every technical table, rule, example and limitation. Retain old `P/formats/` section anchors as links to their new destinations; no technical source ownership transfers to Portal. |
+| Core Formats index: Compare formats, technical capability tables, Reading one element, Traversing multiple elements, Writing one element, Generic interface, Nested traversal and Formats whose length precedes the tag | Core-owned source rendered at `formats/guide.md`: preserve every technical table, rule, example and limitation. Link to the new destinations; no technical source ownership transfers to Portal. |
 | Getting Started: Build from a checkout; Quick start (all language tabs); Consume Core from another CMake project (source and installed dependency) | `getting-started/index.md`: keep first-task flow, toolchain prerequisites, static/shared linkage and runtime-loader guidance. First-run examples for every existing language remain available. |
 | Getting Started: Install and generate distribution archives; C-only build; Build and run tests | `development/building/core.md`: preserve commands/options and distribution layout; keep old anchors at `P/getting-started/` linking to these sections. Consumer install/consume routing remains in Getting Started. |
 | Reference: C and C++ API entry points, generated-reference explanation and lookup-versus-guide distinction | `bindings/reference.md`, linking to the two native reference destinations; preserve existing reference-generation links and source provenance. |
 | Reference: supported compilers/build settings and future manual placement rule | Link to `development/building/compilers.md`; replace the placement rule with owner-specific manual links, retaining the useful API lookup guidance. |
 | Core Python development: Build; Versioning; Continuous integration; Migration and documentation cutover | Python standalone build, versioning, quality-gate and migration manuals own their details. `development/bindings/python.md` retains only Core coordination and links, including Core's continued Python-interpreter use. |
 | Core Python development: Diagnostic vocabulary; shared native adapters, fixtures and cross-language release evidence | `development/bindings/python.md`: retain exact generator commands, output-root constraints, owner/test boundaries and dependency-review requirements. |
-| Core Python user guide: Setup and runnable example/test links | Python `guides/python.md`: use the current standalone paths; the original and canonical guide diff establishes obsolete layout links. Preserve old `P/guides/python/` anchors through the version-aware hand-off. |
+| Core Python user guide: Setup and runnable example/test links | Python `guides/python.md`: use the current standalone paths; the original and canonical guide diff establishes obsolete layout links. Retain unique content during the owner-maintained merge; no old-URL hand-off is required. |
 | Core Python user guide: Reading, Writing, Validating, Definition registries, Codec, Documents, Error handling, C API relationship, tree measurement/materialization, compiled Query and Next step | Python `guides/python.md`: compare each section against its canonical counterpart and retain any unique API/lifetime/diagnostic examples before removing the duplicate body. |
 | DER/CER format pages: API/build, scope/limits, minimal C usage, framing and byte examples | Keep these in `formats/asn1/{der,cer}.md` with existing anchors, including explicit `layout-and-typical-use`. Preserve descriptor-only versus recursive/strict semantics. |
-| DER standards page: supported scope, tag inspection, traversal/limits, encode, strict universal values, schema-aware validation/encoding, errors/generic I/O | Merge into `formats/asn1/der.md`; retain strict type coverage and unsupported types, calendar/IRI limitations, SET/SET OF rules, schema graph/resource limits and diagnostics. Preserve old `standards/der/` fragments. |
-| CER standards page: supported scope, read/traverse, canonical segmentation, zero-copy segments, encode, strict values, errors/offsets/limits | Merge into `formats/asn1/cer.md`; retain segmentation boundaries, borrowed storage, EOC rules and validation limits. Preserve old `standards/cer/` fragments. |
+| DER standards page: supported scope, tag inspection, traversal/limits, encode, strict universal values, schema-aware validation/encoding, errors/generic I/O | Merge into `formats/asn1/der.md`; retain strict type coverage and unsupported types, calendar/IRI limitations, SET/SET OF rules, schema graph/resource limits and diagnostics. Update internal links to the merged canonical sections. |
+| CER standards page: supported scope, read/traverse, canonical segmentation, zero-copy segments, encode, strict values, errors/offsets/limits | Merge into `formats/asn1/cer.md`; retain segmentation boundaries, borrowed storage, EOC rules and validation limits. Update internal links to the merged canonical sections. |
 
 ## Review and implementation hand-off
 
 | Follow-up | Input from this map | Evidence required before completion |
 | --- | --- | --- |
-| [#45 Navigation](https://github.com/OpenTLV/opentlv-docs/issues/45) | Approved six sections, exact target paths and R/P compatibility work list | All landing/secondary navigation targets exist; no silent page omission; old routes and fragments resolve; source ownership transfers are coordinated. |
+| [#45 Navigation](https://github.com/OpenTLV/opentlv-docs/issues/45) | Six sections, canonical target paths and the revised R/P routing policy | All landing/secondary navigation targets exist; no silent content omission; internal links resolve to new paths without old-URL aliases; source ownership remains explicit. |
 | [#46 Home and Getting Started](https://github.com/OpenTLV/opentlv-docs/issues/46) | Home, onboarding, model, examples and split build guidance | Retain entry points, all first-task examples, diagrams and consumer integration requirements; check Core README callers. |
-| [#47 Formats](https://github.com/OpenTLV/opentlv-docs/issues/47) | All format/standard rows, merge ledger and support/planned distinctions | Keep detailed format sources and DER/CER merges in Core; Portal owns only discovery. Preserve every protocol's unique examples, limits and references; review both DER/CER sources and all old fragments. |
+| [#47 Formats](https://github.com/OpenTLV/opentlv-docs/issues/47) | All format/standard rows, merge ledger and support/planned distinctions | Keep detailed format sources and DER/CER merges in Core; Portal owns only discovery. Preserve every protocol's unique examples, limits and references; review both DER/CER sources and the new internal links. |
 | [#48 Bindings and Tools](https://github.com/OpenTLV/opentlv-docs/issues/48) | Catalog entries, native references, product maps, Python duplicate and playground | Validate actual product entry/version URLs, fallback links and return navigation; no copied product manuals; imtlv remains planned. |
 | [#49 Development](https://github.com/OpenTLV/opentlv-docs/issues/49) | Architecture, build/contribution/test/release routing, historical evidence and ownership-policy reconciliation | Maintain one technical source of truth per repository and distinguish current instructions from historical validation/planned architecture. |
 | [#50 Validation](https://github.com/OpenTLV/opentlv-docs/issues/50) | All 142 original Markdown rows plus assets/generated sets | Compare final destinations with this baseline and newer pin deltas; run existing strict links/anchors, inventory/example, API and browser checks; verify independent publishing and immutable history with hosted evidence. |
@@ -406,13 +440,14 @@ Maintainer review should explicitly accept or amend:
   and their correctness. C/C++ technical manuals and references also remain Core-owned.
 - Every target, especially DER/CER merges, Python deduplication and build-guide
   splits; no source section may disappear without a recorded disposition.
-- R/P compatibility handling, including fragments, product-version matching
-  and unavailable-release fallback rather than guessed stable URLs.
+- R/P canonical routing and product-version separation, without old-URL
+  compatibility or guessed stable release targets.
 - Preservation of historical/planned material and all assets/generated trees.
 
-Record the approving PR/review and any amendments here when available. Until
-then this is a reviewable proposal, and the "mapping reviewed before structural
-changes" acceptance criterion remains pending. #44 adds no navigation changes,
-page moves, technical rewrites, publishing workflow changes or remote release
-actions. Local checks establish inventory coverage and document consistency;
-they do not establish hosted CI, published URL availability or human approval.
+PR #56 merged the baseline, and #44 was closed as completed before the
+maintainer requested implementation of #45. The navigation-phase amendment at
+the top records which parts are implemented and which remain assigned to later
+issues. #44 itself added no navigation changes, page moves, technical rewrites,
+publishing workflow changes or remote release actions. Local checks establish
+inventory coverage and document consistency; they do not establish hosted CI
+or published URL availability.
