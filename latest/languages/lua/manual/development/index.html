@@ -16,7 +16,7 @@
         <link rel="prev" href="../api/">
       
       
-        <link rel="next" href="../testing/">
+        <link rel="next" href="../versioning/">
       
       
         
@@ -481,87 +481,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Tests and CI
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../quality-gates/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Quality gates
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../implementation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Implementation and ownership
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../versioning/" class="md-nav__link">
         
   
@@ -570,60 +489,6 @@
     
   
     Versioning
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../releases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Release quality gate
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../migration/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Migration provenance
   
 
     
@@ -810,7 +675,7 @@ through <code>OpenTLV::tlv</code>.</p>
 directory containing <code>OpenTLVConfig.cmake</code>. A missing package or simultaneous
 source override is an error; this mode never falls back to Git or another
 discoverable package. CMake selection alone does not authenticate the producer.
-The <a href="../quality-gates/#core-verification">CI resolver</a> additionally verifies
+The <a href="../../../../development/components/lua/quality-gates/#core-verification">CI resolver</a> additionally verifies
 release checksums, attestations and compatibility before selecting this mode.</p>
 <p>Build and install Core with its public CMake target support (Core #620 or newer).
 For example, from this repository:</p>
@@ -898,8 +763,8 @@ without feature-selection conditions. Without Busted, its suite is skipped.
 Without an interpreter, runtime tests are skipped. A successful configure or
 build alone therefore does not demonstrate a passing runtime suite. Set
 <code>OPENTLV_BUILD_LUA_TESTS=OFF</code> for a module-only build.</p>
-<p>See the <a href="../api/">API guide</a> and <a href="../implementation/">implementation notes</a> for
-usage and ownership. See <a href="../testing/">tests and CI</a> for the preserved CI matrix, the full test runner,
+<p>See the <a href="../api/">API guide</a> and <a href="../../../../development/components/lua/implementation/">implementation notes</a> for
+usage and ownership. See <a href="../../../../development/components/lua/testing/">tests and CI</a> for the preserved CI matrix, the full test runner,
 and shared Core Query corpus execution.</p>
 <h2 id="luarocks-installation">LuaRocks installation<a class="headerlink" href="#luarocks-installation" title="Permanent link">&para;</a></h2>
 <p>Use LuaRocks configured for the same interpreter and development headers as the
@@ -963,7 +828,7 @@ directory and <code>opentlv/init.lua</code> in its Lua source directory. It also
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/48e415d944c7e4ae6a30cff8566f0936bda7390d">48e415d944c7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/476f1fbecde6b056419e43c9a6cea4d1ca8df1cf">476f1fbecde6</a>
         
       
     
@@ -1031,13 +896,13 @@ directory and <code>opentlv/init.lua</code> in its Lua source directory. It also
         
         
           
-          <a href="../testing/" class="md-footer__link md-footer__link--next" aria-label="Next: Tests and CI">
+          <a href="../versioning/" class="md-footer__link md-footer__link--next" aria-label="Next: Versioning">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Tests and CI
+                Versioning
               </div>
             </div>
             <div class="md-footer__button md-icon">

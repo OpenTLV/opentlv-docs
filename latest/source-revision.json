@@ -1,7 +1,7 @@
 {
   "id": "core",
   "repository": "https://github.com/OpenTLV/opentlv",
-  "revision": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
+  "revision": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
   "docs_path": "docs",
   "mount": "",
   "required": true,
@@ -10,13 +10,13 @@
   ],
   "local": false,
   "dirty": false,
-  "commit": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
+  "commit": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
   "included": true,
   "sources": [
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
+      "revision": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
       "docs_path": "docs",
       "mount": "",
       "required": true,
@@ -25,7 +25,7 @@
       ],
       "local": false,
       "dirty": false,
-      "commit": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
+      "commit": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
       "included": true
     },
     {
@@ -200,8 +200,8 @@
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
-    "source_sha256": "6dd4435c2263a55e3be727cc3cb7da5a4cd1dc67ae251ebf898921919a047345",
+    "commit": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
+    "source_sha256": "4113a3bc78a321f31e117127a1d4ca6ac72dfab919bb9b6108d7aa83e67f61ce",
     "local": false,
     "dirty": false,
     "doxygen_version": "1.9.8",
@@ -211,10 +211,10 @@
   "wasm": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "48e415d944c7e4ae6a30cff8566f0936bda7390d",
+    "commit": "476f1fbecde6b056419e43c9a6cea4d1ca8df1cf",
     "local": false,
     "dirty": false,
-    "source_sha256": "6dd4435c2263a55e3be727cc3cb7da5a4cd1dc67ae251ebf898921919a047345",
+    "source_sha256": "4113a3bc78a321f31e117127a1d4ca6ac72dfab919bb9b6108d7aa83e67f61ce",
     "emscripten": "4.0.10",
     "files": {
       "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
