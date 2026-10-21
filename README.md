@@ -21,8 +21,8 @@ The central portal has six top-level sections: Home, Getting Started, Formats,
 Bindings, Tools and Development. Their landing URLs are `/`, `/getting-started/`,
 `/formats/`, `/bindings/`, `/tools/` and `/development/`, relative to the selected
 portal version (for example `/opentlv-docs/latest/`). MkDocs maps both `README.md`
-and `index.md` to a directory index. Home and Getting Started are portal-owned
-introductions; Formats still uses the selected Core landing.
+and `index.md` to a directory index. Home, Getting Started and the Formats catalog
+are portal-owned introductions; detailed format documentation remains Core-owned.
 
 Material's tabs expose the six sections on desktop; its mobile drawer exposes
 the same hierarchy. Section indexes and grouped secondary navigation keep
@@ -60,17 +60,34 @@ and edit links. No technical source is copied into portal maintenance. A changed
 split boundary or unexpected developer section fails assembly for review.
 Internal links to moved sections use the new destination without old fragments.
 
-Content merges and splits assigned to #47–#49 remain pending, including the
-format catalog split and DER/CER merges.
-Until merged, the DER/CER validation pages remain distinct under
-`formats/asn1/{der,cer}-validation/`; the Core Python transition guide stays at
-`bindings/python/core-transition/`. All technical content remains available.
-Existing published snapshots are not rewritten by this change.
+Issue #47 adds the Formats catalog, including generic Escaped configuration,
+with standards, implemented capabilities and explicit protocol limitations.
+Core's complete former Formats index renders at `formats/guide/`, preserving
+all comparison tables and shared processing examples. `tools/docs/formats.py`
+groups the existing format blocks under Overview, Format structure, Encoding
+rules, Supported capabilities, Examples, Limitations and References where
+applicable. Empty sections are omitted; existing examples stay with their
+technical explanations. No binding API manual is copied into the catalog.
+
+DER and CER each combine their Core framing and validation sources into one
+rendered page at `formats/asn1/{der,cer}/`. The assembly preserves every source
+body and fenced example, rebases links, and records both source paths in
+`owners.json`. Each combined page exposes both original source/edit links.
+Unknown, missing or duplicate source headings fail assembly before replacing
+output. The Core files and source pins are unchanged. No separate validation
+pages or compatibility redirects are emitted; internal and API links resolve
+directly to the combined pages.
+
+Content migrations assigned to #48–#49 remain pending. The Core Python
+transition guide stays at `bindings/python/core-transition/`. Existing published
+snapshots are not rewritten by this change.
 
 Check the navigation contract with
 `python -B -m unittest discover -s tests -p test_navigation.py -v`.
 Check onboarding preservation, ownership and link routing with
 `python -B -m unittest discover -s tests -p test_onboarding.py -v`.
+Check format preservation, merged source ownership and canonical links with
+`python -B -m unittest discover -s tests -p test_formats.py -v`.
 After building the site and installing `requirements-browser.txt` plus
 Playwright Chromium, run `python -B tools/docs/navigation_smoke.py site` for
 desktop/mobile navigation without requiring WASM. The publishing browser smoke

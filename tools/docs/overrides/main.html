@@ -23,6 +23,17 @@
     </p>
   {% endif %}
   {{ super() }}
+  {% if page and page.meta.format_sources %}
+    <div class="md-typeset">
+      <p>Technical content maintained in Core:</p>
+      <ul>
+        {% for part in page.meta.format_sources %}
+          <li><a href="{{ part.source }}">{{ part.path }}</a>
+            (<a href="{{ part.edit }}">Edit source</a>)</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
   <p class="md-typeset"><small>
     Sources:
     {% for source in config.extra.sources %}

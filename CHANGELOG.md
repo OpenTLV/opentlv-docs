@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Add a supported Formats catalog with explicit capabilities and limitations, organize detailed format guides consistently, and combine DER/CER framing and validation pages while preserving Core content, examples and source links. (#47)
 - Introduce portal-owned Home and Getting Started learning paths, retain Core first-program and integration examples, and move installation, archive and developer-test guidance into Development with source ownership and internal links preserved. (#46)
 - Organize the portal into Home, Getting Started, Formats, Bindings, Tools and Development, with section landings, canonical URLs and separate product manual navigation; retain technical content and update internal links without compatibility redirects for old page URLs. (#45)
 - Accept Lua documentation pin notifications from successful Main CI using the same reviewed source-update policy as Python. (#42)

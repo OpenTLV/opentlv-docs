@@ -16,7 +16,7 @@ Tag/Length headers, and support for BER, DER, CER, EMV, LLDP, NFC Type 2,
 DHCPv4 options and Bluetooth advertising data. These cover TLV and related
 layouts such as length-before-type records.
 
-Start with [Formats](formats/README.md) to choose the wire layout. Consult
+Start with [Formats](formats/overview.md) to choose the wire layout. Consult
 [implemented capabilities](formats/support.md) for the scope of framing,
 validation, definitions and value codecs. A format's presence does not imply
 complete protocol semantics or the same feature coverage in every binding.
@@ -26,7 +26,7 @@ complete protocol semantics or the same feature coverage in every binding.
 | What you want to do | Start here |
 | --- | --- |
 | Understand TLV and complete a first task | [Getting Started](getting-started/overview.md) |
-| Choose a wire representation or protocol | [Formats](formats/README.md) |
+| Choose a wire representation or protocol | [Formats](formats/overview.md) |
 | Use C, C++, Python, Lua, Rust, Go or WebAssembly | [Bindings](bindings/index.md), including capability and experimental-status guidance |
 | Inspect data in a terminal or explore it in a browser | [Tools](tools/index.md): the `otlv` CLI and TLV playground |
 | Build, test or contribute to a component | [Development](development/index.md) |

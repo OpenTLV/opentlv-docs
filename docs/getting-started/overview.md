@@ -60,7 +60,7 @@ owned editing and writing; Document is optional, not a mandatory processing stag
 
 ## Choose a format
 
-Use [Formats](../formats/README.md#choose-a-format) to match the input's wire
+Use [Formats](../formats/overview.md#choose-a-format) to match the input's wire
 layout. Fixed is a small starting example; real protocol data needs its
 corresponding configuration or built-in format. Check
 [implemented capabilities](../formats/support.md) for each standard's supported

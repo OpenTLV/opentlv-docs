@@ -123,12 +123,14 @@ nav:
           - Logical lengths: concepts/length.md
           - Byte order: concepts/endian.md
   - Formats:
-      - Overview: formats/README.md
+      - Overview: formats/overview.md
       - Implemented capabilities: formats/support.md
+      - Shared format operations: formats/README.md
       - Generic formats:
           - Configurable fixed-width TLV: formats/fixed/configurable.md
           - Configurable variable-width TLV: formats/variable.md
           - Packed Tag/Length headers: formats/packed.md
+          - Escaped lengths: formats/escaped.md
           - Custom formats: formats/custom/README.md
           - Declarative field policy design: concepts/field-policies.md
           - Generic Format capability space: concepts/format-capabilities.md
@@ -140,9 +142,7 @@ nav:
           - LLDP reference and conformance notes: formats/lldp/conformance.md
           - BER-TLV: formats/asn1/ber.md
           - DER-TLV: formats/asn1/der.md
-          - DER validation: standards/der/README.md
           - CER-TLV: formats/asn1/cer.md
-          - CER validation: standards/cer/README.md
           - EMV: standards/emv/README.md
       - Format examples: formats/format-examples.md
       - Roadmap and reviews:

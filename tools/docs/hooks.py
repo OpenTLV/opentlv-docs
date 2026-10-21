@@ -129,6 +129,12 @@ def on_page_markdown(markdown, page, config, files):
     repo_url = (config.extra["portal_repository"] if portal_owned else source["repository"]).rstrip("/")
     ref = "main" if portal_owned else source["commit"]
     page.edit_url = f"{repo_url}/edit/{ref}/{quote(repo_path, safe='/')}"
+    if isinstance(owner, dict) and owner.get("parts"):
+        page.meta["format_sources"] = [
+            {"path": path, "source": f"{repo_url}/blob/{ref}/{quote(path, safe='/')}",
+             "edit": f"{repo_url}/edit/{ref}/{quote(path, safe='/')}"}
+            for path in owner["parts"]
+        ]
 
     return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files)
 
@@ -144,7 +150,7 @@ def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path,
         path = unquote(parts.path)
         resolved = posixpath.normpath(posixpath.join(page_dir, path))
         if files is not None and source.get("id", "core") == "core":
-            destination = api.onboarding.destination(resolved, parts.fragment, files)
+            destination = api.destination(resolved, parts.fragment, files)
             if destination != resolved:
                 target = urlunsplit(("", "", posixpath.relpath(destination, page_dir or "."), parts.query, parts.fragment))
                 return f"{prefix}{target}{suffix}"
@@ -205,7 +211,7 @@ def on_page_content(content, page, config, files):
                 if source["id"] == "core" and relative == "README.md":
                     relative = "index.md"
                 uri = posixpath.normpath(posixpath.join(source["mount"], relative))
-                uri = api.onboarding.destination(uri, parts.fragment, files)
+                uri = api.destination(uri, parts.fragment, files)
                 destination = files.get_file_from_path(uri)
                 if destination is None:
                     raise PluginError(f"Cross-repository link has no assembled target: {target}")

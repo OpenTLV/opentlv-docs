@@ -33,10 +33,10 @@ Existing published immutable snapshots are not rewritten.
 
 `tools/docs/navigation.py` defines the canonical rendered paths for the Move
 rows while preserving repository-owned source paths. MkDocs resolves internal
-links and generated API guide links to those destinations. Content splits and
-merges assigned to #47–#49 are still pending: DER/CER validation remains in
-`formats/asn1/{der,cer}-validation.md`, the full reference overview renders at
-`bindings/reference.md`, and Core's Python transition manual remains at
+links and generated API guide links to those destinations. The #47 format
+presentation is described below. Content migrations assigned to #48–#49 are
+still pending: the full reference overview renders at `bindings/reference.md`,
+and Core's Python transition manual remains at
 `bindings/python/core-transition.md` until its unique content is merged. No
 row's technical content is removed by #45.
 
@@ -67,6 +67,43 @@ already-published snapshots are unchanged. The original Home audiences,
 reference, compiler/component, roadmap and project-policy routes remain
 reachable from Home or its linked catalogs. Concept diagrams and executable
 examples remain Core/product-owned and unchanged.
+
+## Supported Formats phase (#47)
+
+The portal catalog at `formats/` lists Fixed, Variable, Packed and Escaped
+configurations and BER, DER, CER, EMV, Bluetooth, LLDP, DHCPv4 and NFC Type 2.
+Each entry links to a dedicated page and names its specification, implemented
+scope and limits. Escaped was already implemented and documented in Core's NFC
+composition section; its new portal entry links to that explanation and the
+Core declarations. Custom callbacks are an extension point; candidate and
+roadmap entries are explicitly separate from implemented support.
+
+Core's complete original Formats index, including every technical comparison,
+example and generic interface explanation, renders at `formats/guide/`.
+The new `docs/formats/overview.md` owns discovery. Existing technical content
+is retained even where the former index also included discovery tables.
+
+The reviewed heading map in `tools/docs/formats.py` groups whole Core sections
+under Overview, Format structure, Encoding rules, Supported capabilities,
+Examples, Limitations and References where applicable. It retains code fences,
+diagrams, tables, subheadings and body text; missing, duplicate or unknown
+headings fail assembly for review. Empty categories are omitted rather than
+filled with duplicated technical explanations.
+
+DER/CER consolidation is implemented as a presentation merge of the two
+original Core documents, not an authored technical copy in Portal. This refines
+the baseline's proposed physical Core source merge: technical edits still
+belong in Core, while Portal only regroups the selected immutable blocks.
+Both original paths are recorded in assembly ownership and linked with source
+and edit actions on each combined page. Relative links in imported validation
+blocks retain their original meaning. Internal, repository and generated API
+links resolve to `formats/asn1/{der,cer}/`; the separate validation outputs and
+their search entries disappear without redirects or fragment stubs.
+
+The inventory remains 110 navigable pages: two new portal pages (catalog and
+Escaped entry) replace the two separately rendered validation pages. All four
+source pins and published snapshots remain unchanged. No parser, encoder,
+binding API or format capability is changed by this presentation work.
 
 ## Baseline and inventory method
 
@@ -121,8 +158,9 @@ general introductions, onboarding/discovery pages and navigation. Core remains
 the source of truth for detailed format documentation: rules, implementation
 limitations, technical examples and their correctness. Its source Markdown can
 be assembled under `/formats/` without moving ownership to Portal. Format and
-standard merges, including DER/CER, must be maintained in Core; Portal consumes
-the resulting canonical sources rather than maintaining edited copies.
+standard technical content, including DER/CER, must be maintained in Core.
+Portal consumes the canonical sources rather than maintaining edited copies;
+the #47 presentation merge above preserves both original Core documents.
 
 The same boundary applies to C/C++: access through Bindings changes discovery,
 not ownership of the technical manuals, reference Markdown, public API comments
