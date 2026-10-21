@@ -51,6 +51,23 @@ def revision_ref(revision):
     return ref
 
 
+def publication_settings(item):
+    policy = item.get("publication")
+    if (item.get("id") in ("core", "cli") or not isinstance(policy, dict)
+            or set(policy) != {"workflow", "artifact", "asset"}
+            or not isinstance(policy["workflow"], str)
+            or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", policy["workflow"])
+            or not isinstance(policy["artifact"], str)
+            or not re.fullmatch(r"[A-Za-z0-9_-][A-Za-z0-9_.-]{0,100}-\{attempt\}", policy["artifact"])
+            or not isinstance(policy["asset"], str)
+            or not re.fullmatch(r"[A-Za-z0-9_-][A-Za-z0-9_.-]*\.json", policy["asset"])):
+        raise ValueError("Component publication requires an explicit trusted workflow and attempt-scoped JSON receipt.")
+    if not isinstance(item.get("repository"), str) or not re.fullmatch(
+            r"https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", item["repository"]):
+        raise ValueError("Component publication requires a configured GitHub repository.")
+    return policy
+
+
 def manifest(portal):
     data = json.loads((portal / MANIFEST).read_text(encoding="utf-8"))
     if not isinstance(data, dict) or data.get("version") != 1 or not isinstance(data.get("sources"), list):
@@ -72,6 +89,13 @@ def manifest(portal):
                 or url.fragment or url.username or url.password
                 or (url.scheme == "https" and not url.netloc)):
             raise PluginError(f"Invalid repository URL for {identifier}.")
+        if "publication" in item:
+            try:
+                publication_settings(item)
+            except ValueError as error:
+                raise PluginError(str(error)) from error
+            if "navigation" not in item:
+                raise PluginError("Component publication requires reviewed navigation.")
         if "compatibility_result" in item:
             raise PluginError("Compatibility results belong to the generated source lock.")
         if "link_aliases" in item:

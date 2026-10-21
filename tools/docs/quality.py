@@ -35,12 +35,13 @@ def identity():
 
 
 def snapshots(portal, ref):
-    """Record tree IDs for all registered immutable Core and CLI snapshots."""
+    """Record all published namespaces, including components removed from configuration."""
     trees = {}
-    for prefix in ("", "cli/"):
-        catalog = prefix + "versions.json"
-        if not publication.run(portal, "git", "ls-tree", "--name-only", ref, catalog):
+    files = publication.run(portal, "git", "ls-tree", "-r", "--name-only", ref).splitlines()
+    for catalog in files:
+        if not re.fullmatch(r"(?:[a-z][a-z0-9_]*/)?versions\.json", catalog):
             continue
+        prefix = catalog.removesuffix("versions.json")
         versions = json.loads(publication.run(portal, "git", "show", f"{ref}:{catalog}"))
         for item in versions:
             version = item["version"]
@@ -152,9 +153,11 @@ def verify(portal, directory, *, extract=True):
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(archive.extractfile(entry).read())
     selected = evidence["selection"]
-    if selected.get("source") == "cli":
-        import cli_release
-        cli_release.verify_site(site / "cli" / selected["version"], selected)
+    if selected.get("source") not in (None, "core"):
+        import component_publication
+        if not re.fullmatch(r"[a-z][a-z0-9_]*", selected["source"]):
+            raise ValueError("Invalid component publication namespace")
+        component_publication.verify_site(site / selected["source"] / selected["version"], selected)
     else:
         publication.verify_site(site / selected["version"], selected)
     return evidence

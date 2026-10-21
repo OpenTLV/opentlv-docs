@@ -44,7 +44,7 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "revision": "c463066ca24f524d3ae9c7dff949796629367d03",
+      "revision": "6f610f5552a64efa21aeeb863ad161c91154dbc8",
       "docs_path": "docs",
       "mount": "lua",
       "required": true,
@@ -67,6 +67,9 @@
             "Tests and CI": "testing.md"
           },
           {
+            "Quality gates": "quality-gates.md"
+          },
+          {
             "Implementation and ownership": "implementation.md"
           },
           {
@@ -79,6 +82,11 @@
             "Migration provenance": "migration.md"
           }
         ]
+      },
+      "publication": {
+        "workflow": ".github/workflows/release.yml",
+        "artifact": "component-release-{attempt}",
+        "asset": "release.json"
       }
     },
     {
@@ -136,6 +144,11 @@
             ]
           }
         ]
+      },
+      "publication": {
+        "workflow": ".github/workflows/python-release.yml",
+        "artifact": "component-release-{attempt}",
+        "asset": "release.json"
       }
     }
   ]

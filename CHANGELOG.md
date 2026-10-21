@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Publish verified Lua, Python and configured component releases as independent immutable documentation snapshots through shared publication gates; align the Lua source pin and quality-gate navigation. (#42)
 - Publish independently versioned CLI documentation under `cli/<version>/` from verified release-gate notifications, with immutable snapshots, a separate version selector, safe retries and shared serialized Pages deployment. (#21)
 - Import schema v2 development compatibility records for exact pinned component/Core pairs and propose verified JSON evidence from trusted component workflow artifacts, while retaining schema v1 release selection. (#6)
 - Automate reviewed development updates and immutable release documentation from verified Core workflow events, and propose reviewed commit and compatibility feed updates from configured component release producers. (#6)

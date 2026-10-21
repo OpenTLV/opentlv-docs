@@ -189,6 +189,72 @@ well as any local preview. Portal version selection continues to follow Core;
 this integration neither publishes Python packages nor asserts verified runtime
 compatibility. Existing published snapshots keep their original source set.
 
+## Independent component release publication
+
+Lua, Python and future explicitly configured components use the shared
+component snapshot renderer and the existing Full/Publishing gates. CLI retains
+its established evidence contract and uses the same renderer. Component releases
+are independent of the Core documentation version and the reviewed development
+pins in `docs-sources.json`.
+
+Lua/Python publishers create `component-release-<attempt>` with one `release.json`
+receipt only after the GitHub release succeeds. Their separate read-only
+notifiers send `component-release-published` with `source`, `repository`, `commit`,
+`ref`, `run_id` and `run_attempt`. Bare tags and Python preparation-only artifacts
+do not authorize publication. Python's `publish_release` input defaults to false;
+enabling it creates a GitHub release after Full verification, with no PyPI upload.
+
+Each source explicitly configures its trusted producer:
+
+```json
+"publication": {
+  "workflow": ".github/workflows/python-release.yml",
+  "artifact": "component-release-{attempt}",
+  "asset": "release.json"
+}
+```
+
+The schema-1 receipt has `kind: component-release`, `status: published`, source
+and repository identities, `tag`, `version`, `commit`, `workflow_commit`, numeric
+`run_id`, `run_attempt` and `release_id`. Docs verifies the successful main
+workflow-dispatch run, its current attempt, artifact size/digest and exact
+receipt identity. It independently resolves the tag, verifies workflow ancestry
+and requires the same published GitHub release ID and prerelease status.
+Unconfigured sources, forks, failed runs, stale attempts, expired artifacts,
+moved tags and candidate-only evidence fail closed.
+
+Publication creates `<source>/<version>/`, `<source>/versions.json` and a stable
+alias for stable releases. Prereleases never replace stable; delayed releases
+cannot move it backwards. Sources without a root index get a portal-generated
+overview from their reviewed navigation. Markdown and source links belong to
+the component's exact release commit; no component runtime tests, Core generation
+or WASM build are repeated for a component-only publication.
+
+All components share the existing serialized deployment. Repeated notifications
+verify and reuse immutable snapshots; another commit at the same version fails.
+Full evidence tracks every published namespace, including historical components
+no longer configured. Core/other component snapshots, catalogs, aliases and
+development pins are preserved. Normal main updates still propose source PRs
+and do not trigger publication.
+
+Merge Docs before enabling the producer workflows. Configure
+`OPENTLV_COMPONENT_READ_TOKEN` in Docs with Contents and Actions read access to
+the configured component repositories; keep the existing CLI credential.
+Each producer uses `OPENTLV_DOCS_DISPATCH_TOKEN` with Contents write permission
+restricted to Docs, available only to the notifier's final step. Missing or
+insufficient credentials fail visibly. Rerun a failed notifier while its receipt
+is retained. After a Docs deployment failure, rerun all Docs Release jobs so the
+new attempt gets fresh gate evidence while historical snapshots reuse their bytes.
+Expired receipts require newly verified producer evidence; preparation artifacts
+cannot substitute for it. Partial producer tag/release failures require manual
+inspection and recovery; producers never overwrite existing releases.
+
+Onboarding another component requires a reviewed source/navigation entry with
+this publication policy, a successful release producer emitting the same receipt,
+and a notifier using the same event. Include contract and snapshot regressions,
+then verify the hosted chain and served URLs. Local fixtures do not establish
+hosted publication. Component package-registry publication remains separately owned.
+
 ## Independent CLI release publication
 
 CLI release documentation is published at `cli/<version>/`, for example

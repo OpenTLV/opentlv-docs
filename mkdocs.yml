@@ -107,6 +107,8 @@ extra_javascript:
 nav:
   - Home: index.md
   - CLI releases: https://opentlv.github.io/opentlv-docs/cli/
+  - Lua releases: https://opentlv.github.io/opentlv-docs/lua/
+  - Python releases: https://opentlv.github.io/opentlv-docs/python/
   - Getting Started:
       - Getting started: getting-started/README.md
       - Understand the basic model: concepts/learning-model.md
