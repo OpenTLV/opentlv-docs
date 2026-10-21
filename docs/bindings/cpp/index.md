@@ -3,7 +3,7 @@
 The C++ facade exposes the native C engine through C++ types, scoped objects
 and checked operations for TLV reading, writing, Documents and Query.
 
-- **Language:** C++11 or newer; see [compiler support](../../reference/compilers.md).
+- **Language:** C++; see the owner-maintained [compiler requirements](../../reference/compilers.md).
 - **Status:** available as part of Core, with an optional C++ build target.
 - **Owner:** [OpenTLV Core](https://github.com/OpenTLV/opentlv), including the
   C++ guides and generated reference. This is not a separately released binding.

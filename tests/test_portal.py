@@ -434,6 +434,46 @@ nav:
         adapted = hooks.api.adapt_html(text, "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
         self.assertIn('../../../../standards/emv/index.html?q=1&amp;x=2#tag', adapted)
 
+    def test_api_guide_links_accept_current_routes_and_legacy_sources(self):
+        from mkdocs.structure.files import File, Files
+        from urllib.parse import urljoin
+
+        navigation = load_hook("navigation")
+        pairs = (("guides/reader.md", "api/guides/reader", "guides/reader"),
+                 ("concepts/core-types.md", "api/concepts/core-types", "concepts/core-types"),
+                 ("reference/c-api.md", "api/reference/c", "reference/c-api"),
+                 ("formats/README.md", "api/formats/guide", "formats"),
+                 ("concepts/architecture.md", "development/architecture/architecture", "concepts/architecture"),
+                 ("getting-started/README.md", "tutorials/first-program", "getting-started"))
+        for directory_urls in (True, False):
+            files = Files([File(name, ".", "site", directory_urls) for name, _, _ in pairs])
+            navigation.on_files(files, SimpleNamespace(use_directory_urls=directory_urls))
+            for source, route, legacy in pairs:
+                page = files.get_file_from_path(source)
+                for path in (route + "/", page.url, page.dest_uri, legacy + "/"):
+                    with self.subTest(directory_urls=directory_urls, path=path):
+                        html = f'<a href="https://fixture.invalid/docs/{path}?q=1&amp;x=2#anchor">Guide</a>'
+                        adapted = hooks.api.adapt_html(
+                            html, "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+                        target = hooks.api.Links(adapted).hrefs[0]
+                        self.assertEqual(urljoin("https://fixture.invalid/api/reference/c-api/html/index.html", target),
+                                         f"https://fixture.invalid/{page.dest_uri}?q=1&x=2#anchor")
+
+    def test_api_guide_links_reject_ambiguous_routes_and_missing_pages(self):
+        from mkdocs.structure.files import File, Files
+
+        page = File("guides/reader.md", ".", "site", True)
+        page.dest_uri, page.url = "api/guides/reader/index.html", "api/guides/reader/"
+        other = File("api/guides/reader.md", ".", "site", True)
+        # The public route and legacy source route must not silently choose
+        # different owners, even when their output files do not collide.
+        other.dest_uri, other.url = "other/index.html", "other/"
+        for files, path, error in ((Files([page, other]), "api/guides/reader/", "ambiguous assembled pages"),
+                                   (Files([page]), "api/guides/missing/", "no assembled page")):
+            with self.subTest(path=path), self.assertRaisesRegex(PluginError, error):
+                hooks.api.adapt_html(f'<a href="https://fixture.invalid/docs/{path}">Guide</a>',
+                                     "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+
     def test_original_core_api_links_resolve_to_generated_namespace(self):
         original = ('# Home\n\n[C](reference/api/c-api/html/index.html?q=1#api)\n\n'
                     '[C++](reference/api/cxx-api/html/index.html#api)\n\n'

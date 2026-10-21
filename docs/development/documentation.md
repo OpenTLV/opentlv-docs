@@ -11,14 +11,49 @@ instructions must be read alongside the current rules here.
 | Owner | Maintain here |
 | --- | --- |
 | Core | Architecture, shared semantics, detailed format rules and limitations, C/C++ APIs and Doxygen inputs, native examples and their correctness, Core builds and tests. |
-| Binding or tool | Its API or commands, installation, dependency requirements, examples, tests, packaging and release details. CLI, Lua and Python manuals come from their standalone repositories. |
+| Language repository | Its public API, installation/distribution, supported functionality, examples, tests, versioning and release details. Lua and Python manuals come from their standalone repositories; in-tree bindings retain Core ownership until their implementation moves. |
+| Tool repository | Its commands, configuration, workflows, examples, tests, versions and releases. The CLI manual comes from its standalone repository. |
 | Portal | Catalogs, short introductions, contributor entry points, navigation, presentation, source assembly, generated-reference integration, site validation and publication. |
-| Workspace | Shared editor setup, bootstrap and cross-repository integration orchestration. |
+| Workspace | Checkout configuration, bootstrap/setup, editor integration and local cross-repository workflows. Its integration pins describe tested workspace coverage, not another component's current migration or release status. |
 
 Rendered location does not transfer technical ownership. In particular, the
 Standards catalog is portal-owned while its detailed guides remain Core-owned;
 C/C++ references appear under API but remain Core-owned. Link to the
 canonical technical page instead of maintaining a second copy.
+
+A technical change updates documentation and examples in the implementation's
+repository. The portal consumes that change through a reviewed source revision;
+it does not require a second edit to copied API prose, runtime requirements or
+version constants. Catalogs may provide short introductions and routing, while
+their detailed capabilities, constraints and instructions remain owner links.
+
+## Source metadata and integration contract
+
+Reuse the existing metadata rather than introducing a second registry:
+
+| Information | Authoritative input and validation |
+| --- | --- |
+| Documentation identity and selection | `docs-sources.json` registers the repository, documentation root, mount and revision. Source locks record resolved commits and inclusion. Unknown metadata, duplicate registrations and overlapping mounts are rejected before assembly. |
+| Page attribution | Assembly derives ownership from the selected repository and source path, including source parts for combined pages. Source/edit links follow those owners; rendered URLs never decide ownership. |
+| Component version and examples | Component-owned `docs-examples.json` supplies available example sources and optional version metadata. Declared sources must exist in their owner checkout. Owner versioning guides describe runtime and package metadata. |
+| Verified compatibility | The existing compatibility feed selects an exact component/Core combination and scoped example evidence. A successful documentation build does not establish runtime compatibility. |
+| Published provenance | `source-revision.json` records exact selected revisions and example/API inputs. Independent product manifests and versions remain distinct from the portal's Core-based version. |
+
+An optional source may be absent only under its declared selection rules.
+Missing required registrations, invalid source revisions, absent declared
+example files, source collisions and unresolved selected-document links fail
+validation. The strict build also checks link anchors and generated-reference
+targets. These are integration checks; component behavioral suites remain with
+their owners.
+
+Never rewrite an immutable published snapshot to apply ownership corrections.
+Merge each correction in its owner repository, update the reviewed portal pin
+to that commit, and validate the newly assembled source set. A local preview of
+uncommitted corrections is useful review evidence and cannot be published.
+
+The [cross-repository review](https://github.com/OpenTLV/opentlv-docs/blob/main/DOCUMENTATION-OWNERSHIP.md)
+records reviewed revisions, corrections and repository dependencies. It is a
+dated audit, not a second registry of current component versions or capabilities.
 
 ## Portal hierarchy
 

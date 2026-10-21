@@ -15,6 +15,13 @@ records the pinned source baseline, current seven-section destinations, content
 ownership and the no-redirect URL policy. Earlier migration stages remain
 documented there as historical evidence.
 
+The [cross-repository ownership audit](DOCUMENTATION-OWNERSHIP.md) records
+current findings, owner-repository follow-ups and the evidence needed to close
+issue #62. Follow the [documentation contribution contract](docs/development/documentation.md)
+for canonical sources, metadata and validation responsibilities. Prepared local
+owner corrections do not update this portal's pinned inputs; merge the owner
+changes and review their exact source revisions before adopting them here.
+
 ## Portal navigation
 
 The central portal implements the seven sections defined by
@@ -250,17 +257,18 @@ Source and example links outside `docs/` point to their owning repository at
 the selected commit. This does not verify runtime compatibility or select a
 Lua release automatically.
 
-Pin a Core commit that removes its Lua manuals and a Lua commit that contains
-`docs/api.md` and `docs/implementation.md`. Merge the Lua documentation first,
-then the Core link/ownership update, and finally update both portal pins to
-those available commits. A local preview can validate the coordinated working
-trees before those commits exist; it cannot be published.
+The Lua manual handoff is complete in the selected sources: Core no longer
+supplies the manuals, and Lua supplies `docs/api.md` and
+`docs/implementation.md`. Future corrections merge in their owning repositories
+before reviewed portal pins select the available commits. A local preview can
+validate coordinated working trees before those commits exist; it cannot be
+published.
 
-Portal version selection continues to follow Core. Lua tags and the binding's
-version metadata remain independent; this source adds no separate Lua release
-publication workflow. Existing published snapshots keep their original bytes
-and source set. Their old Lua URLs remain part of those snapshots; the current
-navigation and links use `languages/lua/manual/api/` and
+The central portal's version follows Core; independently published Lua manuals
+use the [component release publication flow](#independent-component-release-publication)
+and Lua's own release identity. Existing published snapshots keep their original
+bytes and source set. Their old Lua URLs remain part of those snapshots; current
+integrated navigation and links use `languages/lua/manual/api/` and
 `languages/lua/manual/implementation/`.
 
 ### Python documentation source
@@ -280,7 +288,8 @@ the selected clean commit and publication rejects local mode. This portal
 variable selects documentation only. Building the Python extension against a
 local Core uses the separate `OPENTLV_PYTHON_CORE_SOURCE` setting documented in
 the [Python build guide](https://github.com/OpenTLV/opentlv-python/blob/main/docs/development/python.md).
-The portal's Python 3.10 minimum does not change the binding's Python 3.11 minimum.
+The portal's Python requirement applies to documentation tooling; the binding's
+runtime requirements belong to its own build guide.
 
 Repository-relative source and example links and page edit links resolve to
 `OpenTLV/opentlv-python` at its selected commit. The explicit `main` link alias
@@ -300,9 +309,11 @@ a coordinated Core change and navigation update; missing pages still fail.
 
 When updating Python manuals, merge the component change first and then select
 its available full commit in `docs-sources.json`. Validate the exact pins as
-well as any local preview. Portal version selection continues to follow Core;
-this integration neither publishes Python packages nor asserts verified runtime
-compatibility. Existing published snapshots keep their original source set.
+well as any local preview. The central portal's version follows Core;
+[independent Python manuals](#independent-component-release-publication) follow
+Python releases. Documentation assembly neither publishes Python packages nor
+asserts verified runtime compatibility. Existing published snapshots keep their
+original source set.
 
 ## Independent component release publication
 
@@ -722,6 +733,12 @@ compatibility evidence; they do not need matching
 Core version numbers. The published portal version still follows the selected
 Core release tag, while its metadata records the independently selected inputs.
 
+Manifest validation requires integer `version: 1` and rejects unknown keys,
+duplicate JSON keys, duplicate source IDs, duplicate repository/documentation-root
+registrations and overlapping non-Core mounts. These checks protect ownership
+before source selection or assembly; an unused or empty source directory does
+not make an ambiguous registration valid.
+
 Add a component entry to `sources`. The illustrative entry below shows the
 schema, not the active Python configuration: Python is already required at
 `python/` in the checked-in manifest. Do not append a duplicate `python` entry;
@@ -1124,7 +1141,7 @@ in `PORTAL_OVERRIDES` in `tools/docs/assembly.py`:
 - `playground/playground.css`
 
 These portal-owned presentation files may still be present in selected Core
-revisions. Home ownership transfers in #46; technical pages remain Core-owned. New overrides
+revisions. Home ownership transferred in #46; technical pages remain Core-owned. New overrides
 require an explicit ownership decision and an entry in that list; neither an
 entire directory nor arbitrary Core pages may be overwritten. File/directory
 conflicts always fail. Input collisions are checked before replacing the previous
@@ -1141,9 +1158,11 @@ The selected Core tree still contains binding guides and language tabs.
 Assembly preserves those existing pages without building their components or
 requiring their runtimes. CLI, Lua and canonical Python manuals come from their
 required independent sources. Core's transitional Python pages retain their
-technical content under the new canonical paths until their coordinated merge;
-other binding extraction will
-update the selected content and navigation.
+technical content at their current rendered destinations pending the #61
+content disposition review. Owner corrections tracked by #62 require merged
+source changes and reviewed portal pins; removing or moving retained pages also
+requires a coordinated navigation update. Other binding extraction will update
+the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
@@ -1307,9 +1326,10 @@ and `publish: false`. Inspect the logs and artifacts, then dispatch on `main` wi
 the same inputs and `publish: true`. `tools/docs/publication.py` is intended for
 disposable CI checkouts: it creates local mike commits but never pushes itself.
 
-The existing Core publication workflow remains in place until the replacement
-has passed hosted validation and a real Pages deployment. Local checks cannot
-verify repository Pages settings, environment protection, or hosted deployment.
+Docs owns the current portal publication workflow. Core supplies technical
+documentation and verified artifacts; its historical portal publisher is no
+longer the current publication path. Local checks cannot verify repository Pages
+settings, environment protection, or hosted deployment.
 Publication builds the selected Core WASM target, verifies provenance, and
 exercises the prepared playground in Chromium. PR/Main builds and local previews
 may omit WASM; Full and publication require the verified playground.
@@ -1322,17 +1342,26 @@ The standalone build, API integration, and CI/publication infrastructure impleme
 implements [#5](https://github.com/OpenTLV/opentlv-docs/issues/5), with the native
 slot activation described above. External compatibility import and verified
 binding release selection implement [#7](https://github.com/OpenTLV/opentlv-docs/issues/7).
-The configured site URL is
-the intended GitHub Pages destination; deployment still requires the setup above.
-The existing Core pipeline remains operational during migration. Follow-ups own:
+The configured site URL is the GitHub Pages destination; a new deployment still
+requires the repository setup and hosted validation above. Remaining integration
+work includes:
 
 - External compatibility test producers and production binding feed activation.
 
 Keep Core Markdown and public API changes in Core. Portal changes belong here.
-Removal of the old Core portal configuration and workflow follows validation of
-the replacement pipeline; it is not part of this migration step.
+The Core portal configuration and publisher cutover are historical work;
+continued owner-source corrections and content review are tracked separately
+in the [ownership audit](DOCUMENTATION-OWNERSHIP.md).
 
 ### Core cutover (#608)
+
+The following procedure records the original portal/Core publication cutover,
+including the subsequent playground UI handoff. These sequencing requirements
+describe that migration, not pending prerequisites for current development.
+For current contribution and source-update instructions, use the
+[documentation contract](docs/development/documentation.md) and
+[multi-repository assembly](#multi-repository-assembly) above. Historical sites
+and already published release snapshots remain preserved.
 
 The navigation check supports Core before and after removal of its MkDocs
 configuration. Merge this portal change first, keeping the current Core pin.

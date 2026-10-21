@@ -3,6 +3,7 @@
 
 """Multi-repository integration with independent local Git histories."""
 
+import copy
 import json
 import os
 import subprocess
@@ -171,7 +172,7 @@ class MultiRepositoryTests(unittest.TestCase):
         output = self.portal / "build/assembled/docs/index.md"
         before = output.read_bytes()
         for changes in ({"mount": "../outside"}, {"docs_path": "../outside"}, {"id": "core"},
-                        {"mount": "INDEX.md"}, {"mount": "Reference/API"}, {"mount": "SOURCE-REVISION.JSON"}):
+                        {"mount": "INDEX.md"}, {"mount": "API/Reference/C-API"}, {"mount": "SOURCE-REVISION.JSON"}):
             original = dict(self.manifest["sources"][1])
             self.manifest["sources"][1].update(changes)
             self.save_manifest()
@@ -179,6 +180,91 @@ class MultiRepositoryTests(unittest.TestCase):
                 assembly.assemble(self.portal)
             self.assertEqual(output.read_bytes(), before)
             self.manifest["sources"][1] = original
+
+    def test_invalid_registration_metadata_preserves_previous_ownership(self):
+        assembly.assemble(self.portal)
+        output = self.portal / "build/assembled"
+        before = {name: (output / name).read_bytes()
+                  for name in ("docs/index.md", "owners.json", "source-revision.json")}
+        original = copy.deepcopy(self.manifest)
+        invalid = []
+        for scope, key, value in (("manifest", "version", True), ("manifest", "source", []),
+                                  ("source", "revison", "v3"), ("source", "owner", "core"),
+                                  ("navigation", "itmes", [])):
+            candidate = copy.deepcopy(original)
+            target = (candidate if scope == "manifest" else candidate["sources"][1]
+                      if scope == "source" else candidate["sources"][1]["navigation"])
+            target[key] = value
+            invalid.append(json.dumps(candidate))
+        serialized = json.dumps(original)
+        invalid.extend((serialized.replace('"version": 1', '"version": 1, "version": 1'),
+                        serialized.replace('"revision": "v2"', '"revision": "v2", "revision": "v3"'),
+                        serialized.replace('"title": "Python"', '"title": "Python", "title": "Other"')))
+        for value in invalid:
+            with self.subTest(manifest=value):
+                self.write(self.portal / "docs-sources.json", value)
+                with self.assertRaises(PluginError):
+                    assembly.assemble(self.portal)
+                self.assertEqual(before, {name: (output / name).read_bytes() for name in before})
+
+    def test_duplicate_repository_registration_rejected_before_checkout(self):
+        original = copy.deepcopy(self.manifest)
+        for repository in ("https://github.com/OpenTLV/python", "https://github.com/OpenTLV/python.git/",
+                           "https://GITHUB.COM/opentlv/PYTHON"):
+            with self.subTest(repository=repository):
+                self.manifest = copy.deepcopy(original)
+                duplicate = copy.deepcopy(self.manifest["sources"][1])
+                duplicate.update(id="other", repository=repository, mount="other")
+                duplicate["navigation"]["title"] = "Other"
+                self.manifest["sources"].append(duplicate)
+                self.save_manifest()
+                with self.assertRaisesRegex(PluginError, "Duplicate documentation registration"):
+                    assembly.sources.manifest(self.portal)
+        # Independently owned documentation trees within one repository remain
+        # valid when their source directories and portal mounts are distinct.
+        duplicate["docs_path"] = "other-manual"
+        self.save_manifest()
+        self.assertEqual(len(assembly.sources.manifest(self.portal)), 3)
+
+    def test_local_and_non_github_repositories_keep_distinct_git_suffixes(self):
+        other = self.base / "python.git"
+        self.write(other / "manual/index.md", "# Independent repository\n")
+        assembly.git(other, "init", "-b", "main")
+        assembly.git(other, "add", ".")
+        assembly.git(other, "-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                     "-c", "commit.gpgsign=false", "commit", "-m", "Independent repository")
+        source = self.manifest["sources"][1]
+        source.update(repository=self.component.as_uri(), revision=self.component_sha)
+        second = copy.deepcopy(source)
+        second.update(id="other", repository=other.as_uri(), mount="other",
+                      revision=assembly.git(other, "rev-parse", "HEAD"))
+        second["navigation"]["title"] = "Other"
+        self.manifest["sources"].append(second)
+        self.save_manifest()
+        with patch.dict(os.environ, {"OPENTLV_PYTHON_DIR": str(self.component), "OPENTLV_OTHER_DIR": str(other)}):
+            selected = assembly.selected_sources(self.portal)
+        self.assertEqual([root for root, _ in selected[1:]], [self.component, other])
+        self.assertNotEqual(selected[1][1]["commit"], selected[2][1]["commit"])
+        # Other HTTPS servers need not treat a .git suffix or path case as aliases.
+        source["repository"] = "https://git.example.invalid/python"
+        for repository in ("https://git.example.invalid/python.git", "https://git.example.invalid/Python"):
+            with self.subTest(repository=repository):
+                second["repository"] = repository
+                self.save_manifest()
+                self.assertEqual(len(assembly.sources.manifest(self.portal)), 3)
+
+    def test_overlapping_component_mounts_fail_even_when_optional_source_absent(self):
+        original = copy.deepcopy(self.manifest)
+        for mount in ("bindings/python", "Bindings/Python", "bindings/python/extra", "bindings"):
+            with self.subTest(mount=mount):
+                self.manifest = copy.deepcopy(original)
+                duplicate = copy.deepcopy(self.manifest["sources"][1])
+                duplicate.update(id="absent", repository="https://github.com/OpenTLV/absent", mount=mount)
+                duplicate["navigation"]["title"] = "Other"
+                self.manifest["sources"].append(duplicate)
+                self.save_manifest()
+                with self.assertRaisesRegex(PluginError, "Overlapping documentation mounts"):
+                    assembly.assemble(self.portal)
 
     def test_fetch_from_git_and_lock_survives_moved_tag(self):
         self.manifest["sources"][0]["repository"] = self.core.as_uri()

@@ -9,38 +9,35 @@ Core's [generic composition guide](nfc/README.md#generic-composition).
 
 ## Format structure
 
-The configuration combines a fixed identifier, an escaped Length and an opaque
-Value. Field order, count scope and an optional table of tag-only identifiers
-are explicit configuration. See the
+For field composition, ordering, count scope and tag-only configuration, use the
 [Core Format declaration](https://github.com/OpenTLV/opentlv/blob/main/tlv/include/tlv/formats/escaped.h)
-for the complete contract.
+and [generic composition guide](nfc/README.md#generic-composition).
 
 ## Encoding rules
 
-The escape marker, extended count width, byte order and accepted count range
-belong to the configuration. NFC's short/extended boundary is one preset,
-described in [NFC length encoding](nfc/README.md#length-encoding).
+The owner-maintained
+[Length declaration](https://github.com/OpenTLV/opentlv/blob/main/tlv/include/tlv/field/escaped.h)
+defines marker, count and byte-order rules. The separate
+[NFC length encoding](nfc/README.md#length-encoding) describes the protocol preset.
 
 ## Supported capabilities
 
-The descriptor uses the shared [Reader](../guides/reader.md) and
-[Writer](../guides/writer.md) operations. The
-[generic composition guide](nfc/README.md#generic-composition) also describes
-the shared tag-only mechanism used by NFC and DHCP. These mechanisms remain
-available when `OPENTLV_NFC=OFF`.
+Consult [generic composition](nfc/README.md#generic-composition) for capability
+and build-option details, then use the shared [Reader](../guides/reader.md) and
+[Writer](../guides/writer.md) guides for processing operations.
 
 ## Examples
 
-The [NFC example and corpus](nfc/README.md#example) exercise the existing preset,
-including short and extended lengths and tag-only controls. Its NDEF bytes are
-opaque Values; the example does not validate NDEF.
+The Core-owned [NFC example and corpus](nfc/README.md#example) demonstrate the
+preset and document the example's validation boundaries.
 
 ## Limitations
 
-Configuration, the tag-only table and its identifier bytes are borrowed and must
-outlive the descriptor and its users. Tag-only identifiers require TLV ordering,
-Value-only length scope and empty Values. They do not imply skipping padding or
-stopping traversal. Callers supply those policies and protocol semantics.
+The [Format contract](https://github.com/OpenTLV/opentlv/blob/main/tlv/include/tlv/formats/escaped.h)
+owns configuration lifetimes and tag-only restrictions. Read it together with
+the [generic composition boundaries](nfc/README.md#generic-composition) before
+applying protocol policy. This portal entry routes to those contracts rather
+than maintaining another copy of their technical rules.
 
 ## References
 

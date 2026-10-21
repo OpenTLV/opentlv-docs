@@ -12,10 +12,11 @@ in-tree bindings retain Core ownership even when reached through Languages.
 2. Create `docs/bindings/<slug>/index.md` or `docs/tools/<slug>/index.md`.
    Use a stable lowercase slug, a product-name heading, a short description,
    status, technical owner, installation/access link and detailed documentation
-   link. Language entries identify the supported language/runtime; tools list their
-   main capabilities. Link to an owned first example; keep any inline snippet
-   minimal and verify it against the owning manual. Avoid maintaining another
-   tutorial here. If an existing application already
+   link. Language entries identify the language/runtime and link its owner-maintained
+   requirements; tools introduce their purpose and link supported commands and
+   capabilities. Link to an owned first example and versioning guide instead of
+   copying executable examples, runtime minimums or version constants. Avoid
+   maintaining another tutorial here. If an existing application already
    occupies the directory URL, use `overview.md`, as with the playground.
    `docs/bindings/` remains a source directory; the portal renders its catalog
    and overviews under `languages/`.

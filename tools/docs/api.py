@@ -163,6 +163,20 @@ def prepare(portal, core, source, override=None):
 
 def adapt_html(text, uri, guide_base, files):
     """Rewrite Core's guide URLs using MkDocs' actual output paths."""
+    outputs = {}
+    for page in files.documentation_pages():
+        # @docs may name the current public route or an older source path.
+        # Derive public routes from MkDocs, including its flat-HTML mode.
+        routes = {page.url.rstrip("/"), page.dest_uri}
+        if page.dest_uri.endswith(".html"):
+            routes.add(page.dest_uri[:-5])
+        if page.dest_uri.endswith("/index.html"):
+            routes.add(page.dest_uri[:-len("/index.html")])
+        if page.dest_uri == "index.html":
+            routes.add("")
+        for route in routes:
+            outputs.setdefault(route, {})[page.src_uri] = page
+
     def rewrite(match):
         url = unescape(match[2])
         if not url.startswith(guide_base):
@@ -173,11 +187,19 @@ def adapt_html(text, uri, guide_base, files):
         if path == "getting-started" and parts.fragment:
             candidates = (onboarding.FIRST_PROGRAM, *candidates)
         candidates = tuple(destination(name, parts.fragment, files) for name in candidates)
-        target = next((files.get_file_from_path(name) for name in candidates
-                       if files.get_file_from_path(name) is not None), None)
-        if target is None:
+        matches = {}
+        for target in outputs.get(path, {}).values():
+            target = files.get_file_from_path(destination(target.src_uri, parts.fragment, files))
+            matches[target.src_uri] = target
+        for name in candidates:
+            target = files.get_file_from_path(name)
+            if target is not None:
+                matches[target.src_uri] = target
+        if not matches:
             raise PluginError(f"API guide link has no assembled page: {url} in {uri}")
-        target = files.get_file_from_path(destination(target.src_uri, parts.fragment, files))
+        if len(matches) != 1:
+            raise PluginError(f"API guide link has ambiguous assembled pages: {url} in {uri}")
+        target = next(iter(matches.values()))
         relative = posixpath.relpath(target.dest_uri, posixpath.dirname(uri))
         return f'{match[1]}{escape(urlunsplit(("", "", quote(relative, safe="/"), parts.query, parts.fragment)), quote=True)}{match[3]}'
     return re.sub(r'(\bhref\s*=\s*[\"\x27])([^\"\x27]*)([\"\x27])', rewrite, text, flags=re.IGNORECASE)

@@ -69,10 +69,20 @@ def publication_settings(item):
 
 
 def manifest(portal):
-    data = json.loads((portal / MANIFEST).read_text(encoding="utf-8"))
-    if not isinstance(data, dict) or data.get("version") != 1 or not isinstance(data.get("sources"), list):
+    def unique_keys(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise PluginError(f"docs-sources.json has a duplicate key: {key!r}")
+            result[key] = value
+        return result
+
+    data = json.loads((portal / MANIFEST).read_text(encoding="utf-8"), object_pairs_hook=unique_keys)
+    if (not isinstance(data, dict) or set(data) != {"version", "sources"}
+            or type(data.get("version")) is not int or data["version"] != 1
+            or not isinstance(data.get("sources"), list)):
         raise PluginError("docs-sources.json requires version 1 and a sources list.")
-    ids = set()
+    ids, registrations, mounts = set(), {}, {}
     for item in data["sources"]:
         if not isinstance(item, dict):
             raise PluginError("Source entries must be objects.")
@@ -98,6 +108,10 @@ def manifest(portal):
                 raise PluginError("Component publication requires reviewed navigation.")
         if "compatibility_result" in item:
             raise PluginError("Compatibility results belong to the generated source lock.")
+        unknown = set(item) - {"id", "repository", "revision", "docs_path", "mount", "required",
+                               "navigation", "link_aliases", "examples", "compatibility", "updates", "publication"}
+        if unknown:
+            raise PluginError(f"{identifier}: unknown source fields: {', '.join(sorted(unknown))}")
         if "link_aliases" in item:
             aliases = item["link_aliases"]
             if (not isinstance(aliases, list) or not aliases
@@ -144,6 +158,22 @@ def manifest(portal):
             revision_ref(item.get("revision"))
         relative_path(item.get("docs_path"))
         relative_path(item.get("mount"), empty=identifier == "core")
+        # One documentation tree has one owner. GitHub URL aliases must not
+        # make cross-repository links choose the first copy. Other hosts and
+        # local mirrors may give .git paths independent repository identities.
+        repository_path = url.path.rstrip("/")
+        if url.scheme == "https" and url.hostname == "github.com":
+            repository_path = repository_path.removesuffix(".git").casefold()
+        registration = (url.scheme, url.netloc.casefold(), repository_path, item["docs_path"])
+        if registration in registrations:
+            raise PluginError(f"Duplicate documentation registration: {identifier} and {registrations[registration]}")
+        registrations[registration] = identifier
+        if identifier != "core":
+            mount = item["mount"].casefold()
+            for previous, owner in mounts.items():
+                if mount == previous or mount.startswith(previous + "/") or previous.startswith(mount + "/"):
+                    raise PluginError(f"Overlapping documentation mounts: {identifier} and {owner}")
+            mounts[mount] = identifier
         if type(item.get("required")) is not bool:
             raise PluginError(f"{identifier}: required must be a boolean.")
         if identifier == "core":
@@ -153,7 +183,8 @@ def manifest(portal):
                 raise PluginError("Core navigation belongs to mkdocs.yml.")
         else:
             nav = item.get("navigation", {})
-            if (not isinstance(nav, dict) or not isinstance(nav.get("title"), str)
+            if (not isinstance(nav, dict) or set(nav) != {"title", "section", "items"}
+                    or not isinstance(nav.get("title"), str)
                     or not nav["title"] or not isinstance(nav.get("section"), list)
                     or not all(isinstance(x, str) and x for x in nav["section"])
                     or not isinstance(nav.get("items"), list) or not nav["items"]):

@@ -2,7 +2,7 @@
 
 The `opentlv` crate offers a safe Rust API over the OpenTLV C library.
 
-- **Language:** Rust; the selected guide requires Rust 1.70 or newer.
+- **Language:** Rust; supported versions belong to the [selected setup guide](../../guides/rust.md#cargo-setup).
 - **Status:** available as an experimental in-tree binding. The selected guide
   documents local path dependencies, not a crates.io release.
 - **Owner:** [Core's Rust binding](https://github.com/OpenTLV/opentlv/tree/main/bindings/rust).
