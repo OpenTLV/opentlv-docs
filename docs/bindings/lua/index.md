@@ -34,4 +34,4 @@ Independent Lua documentation at `/lua/`, relative to the documentation site
 root, is not available yet. Use the selected manual above without requiring a
 matching release; a portal version is not a Lua binding release number.
 
-[All bindings](../index.md)
+[All languages](../index.md)

@@ -7,7 +7,7 @@ Links that leave docs/ point at the GitHub repository, and links to the GitHub
 index docs/README.md point at the site landing page docs/index.md.
 
 The Doxygen HTML for the C and C++ APIs is added to the site as static files
-under reference/api/, so it is validated by the strict build like any page.
+under api/reference/, so it is validated by the strict build like any page.
 The WebAssembly module used by the playground is added under playground/wasm/.
 """
 
@@ -39,7 +39,7 @@ _wasm_spec.loader.exec_module(wasm)
 # the C++ reference links to C declarations through a relative path.
 API_DIR_ENV = "OPENTLV_API_DOCS_DIR"
 API_TREES = ("c-api", "cxx-api")
-API_SITE_PREFIX = "reference/api"
+API_SITE_PREFIX = api.PREFIX
 
 # Optional in local previews; publication builds and verifies the exact source.
 WASM_FILES = wasm.FILES
@@ -57,6 +57,15 @@ def on_config(config):
 
 
 def on_files(files, config):
+    # Check the rendered destinations before appending generated files: a
+    # source asset or routed Markdown page must not replace an API tree or its
+    # provenance. Hand-written api/reference/c/ and cpp/ landings stay legal.
+    reserved = [f"{API_SITE_PREFIX}/{name}" for name in (*API_TREES, api.MANIFEST)]
+    for file in files:
+        destination = file.dest_uri.casefold()
+        if any(destination == prefix or destination.startswith(prefix + "/")
+               or prefix.startswith(destination + "/") for prefix in reserved):
+            raise PluginError(f"Documentation collision with generated API output: {file.src_uri}")
     portal = Path(config.config_file_path).resolve().parent
     api_dir, manifest = api.prepare(
         portal, Path(config.extra["core_checkout"]), config.extra["core_source"],

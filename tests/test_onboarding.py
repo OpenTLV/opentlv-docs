@@ -110,11 +110,11 @@ class OnboardingTests(unittest.TestCase):
         link = f'<a href="{source["repository"]}/blob/{source["revision"]}/docs/getting-started/README.md#build-and-run-tests">Tests</a>'
         result = fixture.hooks.on_page_content(link, page, config, files)
         self.assertIn('../../building/core/#build-and-run-tests', result)
-        for fragment, destination in (("quick-start", "getting-started/first-program"),
+        for fragment, destination in (("quick-start", "tutorials/first-program"),
                                       ("build-and-run-tests", "development/building/core")):
             result = fixture.hooks.api.adapt_html(
                 f'<a href="https://fixture.invalid/docs/getting-started/#{fragment}">Guide</a>',
-                "reference/api/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+                "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
             self.assertIn(f'../../../../{destination}/index.html#{fragment}', result)
         self.assertEqual(onboarding.destination(onboarding.FIRST_PROGRAM, "quick-start", files), onboarding.FIRST_PROGRAM)
         self.assertEqual(onboarding.destination(onboarding.FIRST_PROGRAM, "build-and-run-tests", Files([])), onboarding.FIRST_PROGRAM)

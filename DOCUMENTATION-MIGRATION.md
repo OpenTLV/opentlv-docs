@@ -12,9 +12,11 @@ against this map. A local inventory check is not deployed-site validation.
 The updated [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43) and
 [#63](https://github.com/OpenTLV/opentlv-docs/issues/63) establish the final target:
 **Home, Tutorials, API, Standards, Languages, Tools, Development**.
-The six-section mapping below records the completed foundation, not the final
-epic hierarchy. #44–#48 and the example repair #51 are closed; #49, #63, #62,
-issues #61 and #50 remain open at this review.
+The original six-section mapping records the completed foundation; the #63
+section below records its implemented seven-section successor. Issues #44–#49
+and the example repair #51 are closed. Issue #63 is implemented locally;
+ownership review #62, content disposition #61 and final published validation #50
+remain separate follow-ups.
 
 | Follow-up | Responsibility |
 | --- | --- |
@@ -31,6 +33,151 @@ requirements. Its final audit must use #63's approved seven-section target and
 the maintainer's no-redirect amendment below; the old wording is not evidence
 that either decision was reversed. This records the discrepancy without changing
 remote issues or claiming final epic acceptance.
+
+## Seven-section implementation (#63)
+
+The current navigation is **Home, Tutorials, API, Standards, Languages, Tools,
+Development**, with landing paths `/`, `tutorials/`, `api/`, `standards/`,
+`languages/`, `tools/` and `development/` relative to the selected portal version.
+This section supersedes earlier target-location cells for moved pages; those
+cells remain the historical inventory and preservation evidence from #44–#49.
+
+API now contains shared public concepts, Reader/Writer, Document, Query, Schema,
+Codec, diagnostics, configuration, generic format mechanisms and native reference
+entry points. Standards contains the existing supported protocol presets. The
+original Portal generic-configuration introduction and table move from the old
+Formats catalog to `docs/api/formats.md`; the standards table stays in its source
+page. Both catalogs retain capabilities, limits and links to canonical Core
+guides. A new Portal `docs/api/index.md` routes readers to public contracts.
+
+Tutorials retains the first program and adds task routing to existing examples;
+C++ and format examples join its navigation. Languages retains product discovery
+and language-specific material, linking shared contracts and native references
+in API. The architecture and contributor entry points from #49 remain in
+Development. Public Format/Element/source-layout contracts move to API; internal
+design notes, format candidates and the LLDP requirements review remain accessible
+through Development. No existing technical page is removed, archived or copied
+into maintained Portal sources. The wider disposition review remains #61.
+
+`navigation.py` changes rendered URLs while preserving source paths and technical
+owners. Independent CLI, Lua and Python source mounts and publication namespaces
+remain unchanged; selected Lua/Python manuals now render under `languages/`.
+The exact Core 0.7.1 compatibility branch recognizes Languages and still includes
+its historical Lua pages. Onboarding splits and DER/CER assembly retain their
+reviewed source boundaries and source/edit attribution.
+
+Generated C/C++ reference files move from `reference/api/` to `api/reference/`,
+retaining sibling `c-api/html/` and `cxx-api/html/` trees. Core-authored links keep
+their original source paths and resolve to the new generated targets in the
+assembled site. Source metadata records the new manifest destination. The old
+output is not emitted as a redirect or alias. Existing immutable release trees
+with the old namespace remain readable and reusable without rebuilding them.
+
+The preservation audit accounts for **129 navigable pages** (127 from #49 plus
+two Portal introductions) and all **113 imported component files**. Of those,
+102 are byte-identical to the #49 assembly; the only change in the remaining 11
+is the Portal-injected catalog backlink, now Generic formats or Standards catalog.
+Every original technical block, example and diagram remains. All four source
+pins are unchanged. Every page retains its owner/edit attribution and appears
+at its current path in search. Local evidence is recorded in
+`build/issue63-validation.json`; hosted CI, release deployment and #50 acceptance
+remain separate evidence.
+
+### Current route dispositions
+
+The table lists every changed page destination and both added pages relative to
+the #49 assembly. All unlisted existing source pages keep their previous output
+and owner. Existing published immutable snapshots retain their original routes.
+
+| Source path | Previous output | Current output | Owner | Action |
+| --- | --- | --- | --- | --- |
+| `api/formats.md` | `new` | `api/formats/` | Portal | Add |
+| `api/index.md` | `new` | `api/` | Portal | Add |
+| `bindings/index.md` | `bindings/` | `languages/` | Portal | Move |
+| `bindings/c/index.md` | `bindings/c/` | `languages/c/` | Portal | Move |
+| `bindings/cpp/index.md` | `bindings/cpp/` | `languages/cpp/` | Portal | Move |
+| `bindings/go/index.md` | `bindings/go/` | `languages/go/` | Portal | Move |
+| `bindings/lua/index.md` | `bindings/lua/` | `languages/lua/` | Portal | Move |
+| `bindings/python/index.md` | `bindings/python/` | `languages/python/` | Portal | Move |
+| `bindings/rust/index.md` | `bindings/rust/` | `languages/rust/` | Portal | Move |
+| `bindings/wasm/index.md` | `bindings/wasm/` | `languages/wasm/` | Portal | Move |
+| `concepts/bindings.md` | `bindings/contracts/` | `languages/contracts/` | core | Move |
+| `concepts/core-types.md` | `getting-started/concepts/core-types/` | `api/concepts/core-types/` | core | Move |
+| `concepts/cxx-builtins.md` | `bindings/cpp/concepts/cxx-builtins/` | `languages/cpp/concepts/cxx-builtins/` | core | Move |
+| `concepts/cxx-formats.md` | `bindings/cpp/concepts/cxx-formats/` | `languages/cpp/concepts/cxx-formats/` | core | Move |
+| `concepts/cxx-native-boundary.md` | `bindings/cpp/concepts/cxx-native-boundary/` | `languages/cpp/concepts/cxx-native-boundary/` | core | Move |
+| `concepts/endian.md` | `getting-started/concepts/endian/` | `api/concepts/endian/` | core | Move |
+| `concepts/field-policies.md` | `formats/concepts/field-policies/` | `development/architecture/field-policies/` | core | Move |
+| `concepts/format-capabilities.md` | `formats/concepts/capabilities/` | `api/concepts/format-capabilities/` | core | Move |
+| `concepts/format-contract.md` | `development/architecture/format-contract/` | `api/concepts/format-contract/` | core | Move |
+| `concepts/learning-model.md` | `getting-started/concepts/learning-model/` | `tutorials/concepts/learning-model/` | core | Move |
+| `concepts/length.md` | `getting-started/concepts/length/` | `api/concepts/length/` | core | Move |
+| `concepts/query-language.md` | `bindings/c/reference/query-language/` | `api/query-language/` | core | Move |
+| `concepts/value.md` | `getting-started/concepts/value/` | `api/concepts/value/` | core | Move |
+| `development/go.md` | `bindings/go/manual/development/` | `languages/go/manual/development/` | core | Move |
+| `development/rust.md` | `bindings/rust/manual/development/` | `languages/rust/manual/development/` | core | Move |
+| `development/webassembly.md` | `bindings/wasm/development/` | `languages/wasm/development/` | core | Move |
+| `formats/escaped.md` | `formats/escaped/` | `api/formats/escaped/` | Portal | Move |
+| `formats/format-catalogue.md` | `formats/format-catalogue/` | `development/planning/format-catalogue/` | core | Move |
+| `formats/format-examples.md` | `formats/format-examples/` | `tutorials/formats/` | core | Move |
+| `formats/format-roadmap.md` | `formats/format-roadmap/` | `development/planning/format-roadmap/` | core | Move |
+| `formats/lldp-review.md` | `formats/lldp-review/` | `development/planning/lldp-review/` | core | Move |
+| `formats/overview.md` | `formats/` | `standards/` | Portal | Move |
+| `formats/packed.md` | `formats/packed/` | `api/formats/packed/` | core | Move |
+| `formats/README.md` | `formats/guide/` | `api/formats/guide/` | core | Move |
+| `formats/support.md` | `formats/support/` | `api/capabilities/` | core | Move |
+| `formats/variable.md` | `formats/variable/` | `api/formats/variable/` | core | Move |
+| `formats/asn1/ber.md` | `formats/asn1/ber/` | `standards/asn1/ber/` | core | Move |
+| `formats/asn1/cer.md` | `formats/asn1/cer/` | `standards/asn1/cer/` | core | Move |
+| `formats/asn1/der.md` | `formats/asn1/der/` | `standards/asn1/der/` | core | Move |
+| `formats/bluetooth/README.md` | `formats/bluetooth/` | `standards/bluetooth/` | core | Move |
+| `formats/custom/README.md` | `formats/custom/` | `api/formats/custom/` | core | Move |
+| `formats/dhcp/README.md` | `formats/dhcp/` | `standards/dhcp/` | core | Move |
+| `formats/fixed/configurable.md` | `formats/fixed/configurable/` | `api/formats/fixed/configurable/` | core | Move |
+| `formats/lldp/conformance.md` | `formats/lldp/conformance/` | `standards/lldp/conformance/` | core | Move |
+| `formats/lldp/README.md` | `formats/lldp/` | `standards/lldp/` | core | Move |
+| `formats/nfc/README.md` | `formats/nfc/` | `standards/nfc/` | core | Move |
+| `getting-started/overview.md` | `getting-started/` | `tutorials/` | Portal | Move |
+| `getting-started/README.md` | `getting-started/first-program/` | `tutorials/first-program/` | core | Move |
+| `guides/codecs.md` | `bindings/c/guides/codecs/` | `api/guides/codecs/` | core | Move |
+| `guides/copy.md` | `bindings/c/guides/copy/` | `api/guides/copy/` | core | Move |
+| `guides/cxx-examples.md` | `bindings/cpp/examples/` | `tutorials/cpp-examples/` | core | Move |
+| `guides/diagnostics.md` | `bindings/c/guides/diagnostics/` | `api/guides/diagnostics/` | core | Move |
+| `guides/document.md` | `bindings/c/guides/document/` | `api/guides/document/` | core | Move |
+| `guides/examples.md` | `getting-started/examples/` | `tutorials/examples/` | core | Move |
+| `guides/go.md` | `bindings/go/manual/` | `languages/go/manual/` | core | Move |
+| `guides/memory.md` | `bindings/c/guides/memory/` | `api/guides/memory/` | core | Move |
+| `guides/processing.md` | `getting-started/processing/` | `tutorials/processing/` | core | Move |
+| `guides/python.md` | `bindings/python/core-transition/` | `languages/python/core-transition/` | core | Move |
+| `guides/queries.md` | `bindings/c/guides/queries/` | `api/guides/queries/` | core | Move |
+| `guides/reader.md` | `bindings/c/guides/reader/` | `api/guides/reader/` | core | Move |
+| `guides/rust.md` | `bindings/rust/manual/` | `languages/rust/manual/` | core | Move |
+| `guides/schemas.md` | `bindings/c/guides/schemas/` | `api/guides/schemas/` | core | Move |
+| `guides/select-components.md` | `getting-started/select-components/` | `api/configuration/` | core | Move |
+| `guides/writer.md` | `bindings/c/guides/writer/` | `api/guides/writer/` | core | Move |
+| `lua/api.md` | `bindings/lua/manual/api/` | `languages/lua/manual/api/` | lua | Move |
+| `lua/development.md` | `bindings/lua/manual/development/` | `languages/lua/manual/development/` | lua | Move |
+| `lua/implementation.md` | `bindings/lua/manual/implementation/` | `languages/lua/manual/implementation/` | lua | Move |
+| `lua/migration.md` | `bindings/lua/manual/migration/` | `languages/lua/manual/migration/` | lua | Move |
+| `lua/quality-gates.md` | `bindings/lua/manual/quality-gates/` | `languages/lua/manual/quality-gates/` | lua | Move |
+| `lua/releases.md` | `bindings/lua/manual/releases/` | `languages/lua/manual/releases/` | lua | Move |
+| `lua/testing.md` | `bindings/lua/manual/testing/` | `languages/lua/manual/testing/` | lua | Move |
+| `lua/versioning.md` | `bindings/lua/manual/versioning/` | `languages/lua/manual/versioning/` | lua | Move |
+| `python/migration.md` | `bindings/python/manual/migration/` | `languages/python/manual/migration/` | python | Move |
+| `python/quality-gates.md` | `bindings/python/manual/quality-gates/` | `languages/python/manual/quality-gates/` | python | Move |
+| `python/releases.md` | `bindings/python/manual/releases/` | `languages/python/manual/releases/` | python | Move |
+| `python/versioning.md` | `bindings/python/manual/versioning/` | `languages/python/manual/versioning/` | python | Move |
+| `python/development/python.md` | `bindings/python/manual/development/python/` | `languages/python/manual/development/python/` | python | Move |
+| `python/guides/python.md` | `bindings/python/manual/guides/python/` | `languages/python/manual/guides/python/` | python | Move |
+| `python/validation/ci.md` | `bindings/python/manual/validation/ci/` | `languages/python/manual/validation/ci/` | python | Move |
+| `python/validation/layout.md` | `bindings/python/manual/validation/layout/` | `languages/python/manual/validation/layout/` | python | Move |
+| `python/validation/packaging.md` | `bindings/python/manual/validation/packaging/` | `languages/python/manual/validation/packaging/` | python | Move |
+| `python/validation/standalone-build.md` | `bindings/python/manual/validation/standalone-build/` | `languages/python/manual/validation/standalone-build/` | python | Move |
+| `reference/c-api.md` | `bindings/c/reference/` | `api/reference/c/` | core | Move |
+| `reference/cxx-api.md` | `bindings/cpp/reference/` | `api/reference/cpp/` | core | Move |
+| `reference/errors.md` | `bindings/c/reference/errors/` | `api/reference/errors/` | core | Move |
+| `reference/README.md` | `bindings/reference/` | `api/reference/` | core | Move |
+| `standards/emv/README.md` | `formats/emv/` | `standards/emv/` | core | Move |
 
 ## Development phase (#49)
 

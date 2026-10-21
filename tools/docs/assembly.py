@@ -106,7 +106,7 @@ def navigation(base, selected):
                 continue
             if "Development" in entry:
                 entry["Development"].append({"Historical Core Lua development": "development/lua.md"})
-            for title in ("Bindings", "Language APIs"):
+            for title in ("Languages", "Bindings", "Language APIs"):
                 if title in entry:
                     entry[title].append({"Historical Core Lua API": "guides/lua.md"})
     for _root, item in selected:
@@ -201,8 +201,10 @@ def assemble(portal, selected=None):
     # Reserve generated output paths too: component assets cannot shadow API HTML.
     for name in inputs:
         folded = name.casefold()
-        if (folded in ("source-revision.json", "reference", "reference/api")
-                or folded.startswith(("source-revision.json/", "reference/api/"))):
+        if (folded in ("source-revision.json", "api", "api/reference",
+                       "api/reference/c-api", "api/reference/cxx-api", "api/reference/api-source.json")
+                or folded.startswith(("source-revision.json/", "api/reference/c-api/",
+                                      "api/reference/cxx-api/", "api/reference/api-source.json/"))):
             raise PluginError(f"Documentation collision with generated output: {name}")
     config_file = portal / "mkdocs.yml"
     nav = navigation(yaml.safe_load(config_file.read_text(encoding="utf-8")).get("nav", []), selected) if config_file.exists() else []

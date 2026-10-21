@@ -159,6 +159,39 @@ class PublicationTests(unittest.TestCase):
             self.assertEqual(next(item["version"] for item in versions if "stable" in item["aliases"]), "2.0.0")
             self.deploy_bundle()
 
+    def test_api_namespace_change_preserves_immutable_release_and_replay(self):
+        def api_snapshot(prefix):
+            metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+            metadata["api"]["manifest"] = prefix + "/api-source.json"
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            self.write("docs/" + prefix + "/api-source.json", json.dumps(metadata["api"]))
+            for tree in ("c-api", "cxx-api"):
+                self.write(f"docs/{prefix}/{tree}/html/index.html", "<h1>Immutable API</h1>")
+
+        self.set_selection("1.0.0")
+        api_snapshot("reference/api")
+        self.prepare()
+        original = self.git("rev-parse", "gh-pages:1.0.0")
+        self.deploy_bundle()
+        self.fresh_checkout()
+        self.set_selection()
+        api_snapshot("api/reference")
+        self.prepare()
+        site = self.portal / "build/publication/site"
+        self.assertTrue((site / "latest/api/reference/c-api/html/index.html").is_file())
+        self.assertFalse((site / "latest/reference/api").exists())
+        self.assertTrue((site / "1.0.0/reference/api/c-api/html/index.html").is_file())
+        self.assertFalse((site / "1.0.0/api/reference").exists())
+        self.assertEqual(self.git("rev-parse", "gh-pages:1.0.0"), original)
+        self.deploy_bundle()
+        self.fresh_checkout()
+        self.set_selection("1.0.0")
+        api_snapshot("api/reference")
+        self.write("mkdocs.yml", "invalid: [changed renderer\n")
+        self.prepare()
+        self.assertEqual(self.git("rev-parse", "gh-pages:1.0.0"), original)
+        self.assertTrue((self.portal / "build/publication/site/1.0.0/reference/api/api-source.json").is_file())
+
     def test_failed_build_and_failed_default_update_never_change_remote(self):
         self.prepare()
         self.deploy_bundle()

@@ -16,33 +16,35 @@ instructions must be read alongside the current rules here.
 | Workspace | Shared editor setup, bootstrap and cross-repository integration orchestration. |
 
 Rendered location does not transfer technical ownership. In particular, the
-Formats catalog is portal-owned while its detailed guides remain Core-owned;
-C/C++ references appear under Bindings but remain Core-owned. Link to the
+Standards catalog is portal-owned while its detailed guides remain Core-owned;
+C/C++ references appear under API but remain Core-owned. Link to the
 canonical technical page instead of maintaining a second copy.
 
-## Portal hierarchy and the next migration
+## Portal hierarchy
 
-The current site uses the six-section foundation delivered by #45–#48:
+The current site uses the seven-section hierarchy from
+[epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43), implemented by
+[#63](https://github.com/OpenTLV/opentlv-docs/issues/63):
 
 | Section | Reader's task |
 | --- | --- |
 | Home | Discover OpenTLV and choose a starting point. |
-| Getting Started | Learn the basic model, run a first program and consume the library. |
-| Formats | Discover implemented formats, capabilities and limitations, then read the owner-maintained technical guides. |
-| Bindings | Choose a language and reach its overview, manual and reference. |
+| Tutorials | Learn the basic model, run a first program and follow practical examples. |
+| API | Use shared public contracts, Reader/Writer, Document, Query, Schema, Codec, diagnostics, generic formats and C/C++ reference. |
+| Standards | Discover implemented protocol presets, capabilities and limitations, then read the owner-maintained technical guides. |
+| Languages | Choose a language and reach its installation, usage guidance and manual. C/C++ overviews link to the references in API. |
 | Tools | Find CLI and playground documentation and identify planned tools. |
 | Development | Change OpenTLV: architecture, builds, contributing, tests, CI and releases. Documentation conventions are supporting contributor guidance. |
 
-The approved target in [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43)
-and [#63](https://github.com/OpenTLV/opentlv-docs/issues/63) is **Home, Tutorials,
-API, Standards, Languages, Tools, Development**. That follow-up renames Getting
-Started to Tutorials, Formats to Standards and Bindings to Languages, and moves
-shared public contracts, generic format mechanisms and C/C++ references into API.
+Generic format configurations belong in API; protocol-specific wire rules,
+supported subsets and examples belong in Standards. Tutorials links to existing
+task examples, and Languages retains language-specific setup and usage guidance.
 Development remains contributor-oriented and links to public contracts without
-maintaining another explanation of them. The target is not yet this build's
-navigation; #63 reuses the Development entry points introduced here.
+maintaining another explanation of them. Architecture, implementation design,
+planned work and historical audits remain separate from available public API
+contracts. The Development entry points introduced by #49 remain in use.
 
-Source directories such as `concepts/`, `guides/` and `reference/` still describe
+Source directories such as `concepts/`, `guides/`, `formats/`, `bindings/` and `reference/` still describe
 the owning repository's source layout. They are not additional top-level portal
 sections. The portal assigns rendered paths while retaining original source
 paths and owner-specific source/edit links. CLI, Lua and Python manuals retain

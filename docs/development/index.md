@@ -4,6 +4,10 @@ Start with the documentation owned by the component you want to change.
 The portal organizes the entry points; each repository maintains its technical
 contracts, build instructions and release evidence.
 
+For public processing contracts and native reference material, use
+[API](../api/index.md). For application examples, start with
+[Tutorials](../getting-started/overview.md).
+
 ## Architecture
 
 Start with [Architecture](architecture/index.md) to find Core's canonical

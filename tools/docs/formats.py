@@ -194,8 +194,10 @@ def render(target, documents):
     reference = REFERENCES.get(family, "The OpenTLV configuration contract on this page (no external protocol standard).")
     base = posixpath.dirname(target)
     shared = posixpath.relpath("concepts/format-capabilities.md", base)
-    catalog = posixpath.relpath("formats/overview.md", base)
-    groups[6].append(f"{reference}\n\n[Shared Format concepts]({shared}) · [Formats catalog]({catalog})")
+    generic = target in {"formats/fixed/configurable.md", "formats/variable.md", "formats/packed.md"}
+    catalog = posixpath.relpath("api/formats.md" if generic else "formats/overview.md", base)
+    label = "Generic formats" if generic else "Standards catalog"
+    groups[6].append(f"{reference}\n\n[Shared Format concepts]({shared}) · [{label}]({catalog})")
     # Some source pages combine structure/examples with their introduction.
     # Do not invent duplicate technical text merely to fill an empty section.
     return title + "\n\n" + "\n\n".join(

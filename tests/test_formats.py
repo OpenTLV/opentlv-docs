@@ -34,6 +34,16 @@ def source(name):
 
 
 class FormatTests(unittest.TestCase):
+    def test_generic_and_standard_guides_link_their_own_catalogs(self):
+        generic = "formats/packed.md"
+        standard = "formats/bluetooth/README.md"
+        generic_output = formats.render(generic, [(generic, source(generic))])
+        standard_output = formats.render(standard, [(standard, source(standard))])
+        self.assertIn("[Generic formats](../api/formats.md)", generic_output)
+        self.assertNotIn("[Standards catalog]", generic_output)
+        self.assertIn("[Standards catalog](../overview.md)", standard_output)
+        self.assertNotIn("[Generic formats]", standard_output)
+
     def test_every_source_body_and_fenced_example_survives_regrouping(self):
         for name in formats.PLANS.keys() - formats.MERGES.keys():
             parts = [name] + [part for part, target in formats.MERGES.items() if target == name]
@@ -107,7 +117,7 @@ class FormatTests(unittest.TestCase):
         files = Files([File(name, ".", "site", True) for name in (
             "formats/overview.md", "formats/README.md", "formats/asn1/der.md", "formats/asn1/cer.md")])
         navigation.on_files(files, SimpleNamespace(use_directory_urls=True))
-        page = SimpleNamespace(file=SimpleNamespace(src_uri="formats/support.md", url="formats/support/"))
+        page = SimpleNamespace(file=SimpleNamespace(src_uri="formats/support.md", url="api/capabilities/"))
         markdown = "[DER](../standards/der/README.md#encode)"
         result = fixture.hooks.rewrite_source_links(markdown, page, Path("."), {}, "", "", "docs", "formats", files)
         self.assertEqual(result, "[DER](asn1/der.md#encode)")
@@ -120,13 +130,13 @@ class FormatTests(unittest.TestCase):
         for kind in ("der", "cer"):
             html = f'<a href="{core["repository"]}/blob/{core["revision"]}/docs/standards/{kind}/README.md#encode">Encode</a>'
             result = fixture.hooks.on_page_content(html, page, config, files)
-            self.assertIn(f'../asn1/{kind}/#encode', result)
+            self.assertIn(f'../../standards/asn1/{kind}/#encode', result)
             result = fixture.hooks.api.adapt_html(
                 f'<a href="https://fixture.invalid/docs/standards/{kind}/#encode">Encode</a>',
-                "reference/api/c-api/html/index.html", "https://fixture.invalid/docs/", files)
-            self.assertIn(f'../../../../formats/asn1/{kind}/index.html#encode', result)
-        self.assertEqual(files.get_file_from_path("formats/overview.md").url, "formats/")
-        self.assertEqual(files.get_file_from_path("formats/README.md").url, "formats/guide/")
+                "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+            self.assertIn(f'../../../../standards/asn1/{kind}/index.html#encode', result)
+        self.assertEqual(files.get_file_from_path("formats/overview.md").url, "standards/")
+        self.assertEqual(files.get_file_from_path("formats/README.md").url, "api/formats/guide/")
 
 
 if __name__ == "__main__":

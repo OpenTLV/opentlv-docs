@@ -302,7 +302,10 @@ nav:
         self.assertIn('https://github.com/OpenTLV/opentlv-docs/edit/main/docs/assets/README.md', asset_html)
         self.assertIn(f"/edit/{self.sha}/docs/index.md", html)
         self.assertIn("development", html)
-        self.assertTrue((site / "reference/api/cxx-api/html/index.html").exists())
+        self.assertTrue((site / "api/reference/cxx-api/html/index.html").exists())
+        self.assertEqual(source["api"]["manifest"], "api/reference/api-source.json")
+        self.assertTrue((site / source["api"]["manifest"]).is_file())
+        self.assertFalse((site / "reference/api").exists())
 
     def test_publication_and_release_builds_reject_local_preview(self):
         for flag in ({"OPENTLV_DOCS_CHANNEL": "release"}, {"OPENTLV_DOCS_PUBLISH": "1"}):
@@ -428,14 +431,46 @@ nav:
         page = File("standards/emv/README.md", str(self.core / "docs"), str(self.portal / "site"), False)
         files = Files([page])
         text = '<a href="https://fixture.invalid/docs/standards/emv/?q=1&amp;x=2#tag">EMV</a>'
-        adapted = hooks.api.adapt_html(text, "reference/api/c-api/html/index.html", "https://fixture.invalid/docs/", files)
+        adapted = hooks.api.adapt_html(text, "api/reference/c-api/html/index.html", "https://fixture.invalid/docs/", files)
         self.assertIn('../../../../standards/emv/index.html?q=1&amp;x=2#tag', adapted)
+
+    def test_original_core_api_links_resolve_to_generated_namespace(self):
+        original = ('# Home\n\n[C](reference/api/c-api/html/index.html?q=1#api)\n\n'
+                    '[C++](reference/api/cxx-api/html/index.html#api)\n\n'
+                    f'[Selected source](https://github.com/OpenTLV/opentlv/blob/{self.sha}/'
+                    'docs/reference/api/c-api/html/index.html#api)\n')
+        self.write(self.core / "docs/index.md", original)
+        with patch.dict(os.environ, {"OPENTLV_DOCS_LOCAL": "1"}):
+            result = self.mkdocs()
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        html = (self.portal / "site/index.html").read_text(encoding="utf-8")
+        self.assertIn('href="api/reference/c-api/html/?q=1#api"', html)
+        self.assertIn('href="api/reference/cxx-api/html/#api"', html)
+        self.assertIn('href="api/reference/c-api/html/#api">Selected source', html)
+        self.assertEqual((self.core / "docs/index.md").read_text(encoding="utf-8"), original)
+        self.assertFalse((self.portal / "site/reference/api").exists())
+
+    def test_generated_api_collisions_fail_before_generation(self):
+        from mkdocs.structure.files import File, Files
+
+        for path in ("api/reference/c-api/html/index.html", "API/REFERENCE/CXX-API/html/custom.html",
+                     "api/reference/api-source.json", "api", "api/reference/c-api"):
+            with self.subTest(path=path):
+                files = Files([File(path, str(self.core / "docs"), str(self.portal / "site"), True)])
+                with patch.object(hooks.api, "prepare") as prepare:
+                    with self.assertRaisesRegex(PluginError, "collision with generated API output"):
+                        hooks.on_files(files, SimpleNamespace())
+                    prepare.assert_not_called()
+        page = File("reference/c-api.md", str(self.core / "docs"), str(self.portal / "site"), True)
+        page.dest_uri = "api/reference/c-api/html/index.html"
+        with self.assertRaisesRegex(PluginError, "collision with generated API output"):
+            hooks.on_files(Files([page]), SimpleNamespace())
 
     def test_api_links_and_anchors_are_validated_in_both_directions(self):
         site = self.portal / "link-site"
-        c_page = site / "reference/api/c-api/html/index.html"
-        cxx_page = site / "reference/api/cxx-api/html/index.html"
-        self.write(site / "guide/index.html", '<h1 id="guide">Guide</h1><a href="../reference/api/c-api/html/index.html#c">C</a>')
+        c_page = site / "api/reference/c-api/html/index.html"
+        cxx_page = site / "api/reference/cxx-api/html/index.html"
+        self.write(site / "guide/index.html", '<h1 id="guide">Guide</h1><a href="../api/reference/c-api/html/index.html#c">C</a>')
         self.write(c_page, '<h1 id="c">C</h1><a href="../../cxx-api/html/index.html#cxx">C++</a>')
         self.write(cxx_page, '<h1 id="cxx">C++</h1><a href="../../c-api/html/index.html#c">C</a><a href="../../../../guide/#guide">Guide</a>')
         hooks.api.validate_links(site)
@@ -443,7 +478,7 @@ nav:
             (c_page, '<h1 id="c">C</h1><a href="../../cxx-api/html/missing.html">Missing API</a>', "Broken API link"),
             (c_page, '<h1 id="c">C</h1><a href="../../">Missing API index</a>', "Broken API link"),
             (cxx_page, '<h1 id="cxx">C++</h1><a href="../../../../guide/#missing">Guide</a>', "Missing API link anchor"),
-            (site / "guide/index.html", '<a href="../reference/api/c-api/html/index.html#missing">C</a>', "Missing API link anchor"),
+            (site / "guide/index.html", '<a href="../api/reference/c-api/html/index.html#missing">C</a>', "Missing API link anchor"),
         ):
             original = page.read_text()
             self.write(page, text)
@@ -454,7 +489,7 @@ nav:
     def test_api_guide_links_relocate_and_missing_guides_fail(self):
         result = self.mkdocs()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        html = (self.portal / "site/reference/api/c-api/html/index.html").read_text()
+        html = (self.portal / "site/api/reference/c-api/html/index.html").read_text()
         self.assertIn('href="../../../../index.html"', html)
         self.assertNotIn("fixture.invalid", html)
         self.write(self.core / "fixture.html", '<a href="https://fixture.invalid/docs/missing/">Bad guide</a>')
