@@ -126,7 +126,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Copyable, allocation-free view of an immutable wire Format. </p>
-<p>Copies borrow the same descriptor and context; they do not own either. The view itself need not outlive a Reader or Writer initialized from it. Use a C++ preset or explicitly import a C descriptor with <code><a class="el" href="namespacetlv_1_1native.html#a598c3035b9798c6a78f28512eeeaa6a3" title="Borrow an existing immutable C Format without copying or allocation.">tlv::native::borrow_format()</a></code> from <code>&lt;tlv++/native.hpp&gt;</code>.</p>
+<p>Copies borrow the same descriptor and context; they do not own either. The view itself need not outlive a Reader or Writer initialized from it. Use a C++ preset or explicitly import a C descriptor with <code><a class="el" href="namespacetlv_1_1native.html#aa4c38cac5b993a96bd6de1d2192f4ada" title="Borrow an existing immutable C Format without copying or allocation.">tlv::native::borrow_format()</a></code> from <code>&lt;tlv++/native.hpp&gt;</code>.</p>
 <dl class="section warning"><dt>Warning</dt><dd>The descriptor and its context must remain alive and unchanged for all operations and all retained source views. Borrowing does not validate callbacks; operations report the canonical engine's initialization errors. </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a3b2f7327afff1e2660e2aba411182840" name="a3b2f7327afff1e2660e2aba411182840"></a>

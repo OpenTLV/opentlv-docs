@@ -109,9 +109,9 @@ Functions</h2></td></tr>
 <tr class="memitem:abe75b891176e957b29c896edc793ee1e" id="r_abe75b891176e957b29c896edc793ee1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#abe75b891176e957b29c896edc793ee1e">make_diagnostic</a> (<a class="elRef" href="../../c-api/html/group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> code, <a class="elRef" href="../../c-api/html/group__diagnostics.html#gacb09b23a905d4d2bb22ec41eb9fbc913">tlv_diagnostic_severity_t</a> <a class="el" href="namespacetlv.html#a066bba7bde757c31179a8585a37ae760">severity</a>)</td></tr>
 <tr class="memdesc:abe75b891176e957b29c896edc793ee1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a diagnostic with a code and severity, and no location, expectation or context.  <br /></td></tr>
 <tr class="separator:abe75b891176e957b29c896edc793ee1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a598c3035b9798c6a78f28512eeeaa6a3" id="r_a598c3035b9798c6a78f28512eeeaa6a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1format.html">tlv::format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a598c3035b9798c6a78f28512eeeaa6a3">borrow_format</a> (const <a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;<a class="el" href="namespacetlv_1_1native.html#a9dd78e136779029e1ebd0c9ceb762283">descriptor</a>) noexcept</td></tr>
-<tr class="memdesc:a598c3035b9798c6a78f28512eeeaa6a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow an existing immutable C Format without copying or allocation.  <br /></td></tr>
-<tr class="separator:a598c3035b9798c6a78f28512eeeaa6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4c38cac5b993a96bd6de1d2192f4ada" id="r_aa4c38cac5b993a96bd6de1d2192f4ada"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1format.html">tlv::format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aa4c38cac5b993a96bd6de1d2192f4ada">borrow_format</a> (const <a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;raw_descriptor) noexcept</td></tr>
+<tr class="memdesc:aa4c38cac5b993a96bd6de1d2192f4ada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow an existing immutable C Format without copying or allocation.  <br /></td></tr>
+<tr class="separator:aa4c38cac5b993a96bd6de1d2192f4ada"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3dc04ab01741bbf644e3d7111ae995c6" id="r_a3dc04ab01741bbf644e3d7111ae995c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1format.html">tlv::format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a3dc04ab01741bbf644e3d7111ae995c6">borrow_format</a> (<a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;&amp;)=delete</td></tr>
 <tr class="memdesc:a3dc04ab01741bbf644e3d7111ae995c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject borrowing a temporary descriptor whose lifetime would end immediately.  <br /></td></tr>
 <tr class="separator:a3dc04ab01741bbf644e3d7111ae995c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -236,8 +236,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a598c3035b9798c6a78f28512eeeaa6a3" name="a598c3035b9798c6a78f28512eeeaa6a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a598c3035b9798c6a78f28512eeeaa6a3">&#9670;&#160;</a></span>borrow_format() <span class="overload">[2/3]</span></h2>
+<a id="aa4c38cac5b993a96bd6de1d2192f4ada" name="aa4c38cac5b993a96bd6de1d2192f4ada"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4c38cac5b993a96bd6de1d2192f4ada">&#9670;&#160;</a></span>borrow_format() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,7 +249,7 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classtlv_1_1format.html">tlv::format</a> tlv::native::borrow_format </td>
           <td>(</td>
           <td class="paramtype">const <a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>descriptor</em></td><td>)</td>
+          <td class="paramname"><em>raw_descriptor</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -263,7 +263,7 @@ Functions</h2></td></tr>
 <p>Borrow an existing immutable C Format without copying or allocation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">descriptor</td><td>Caller-owned descriptor; invalid callbacks are reported by operations. </td></tr>
+    <tr><td class="paramname">raw_descriptor</td><td>Caller-owned descriptor; invalid callbacks are reported by operations. </td></tr>
   </table>
   </dd>
 </dl>

@@ -792,9 +792,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac21543dad24955a172717e44c22ea4cd" id="r_ac21543dad24955a172717e44c22ea4cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#ac21543dad24955a172717e44c22ea4cd">make_diagnostic</a> (<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22c">errc</a> code, <a class="el" href="namespacetlv.html#a066bba7bde757c31179a8585a37ae760">severity</a> level=<a class="el" href="namespacetlv.html#a066bba7bde757c31179a8585a37ae760acb5e100e5a9a3e7f6d1fd97512215282">severity::error</a>) noexcept</td></tr>
 <tr class="memdesc:ac21543dad24955a172717e44c22ea4cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize common diagnostic metadata using C++ status and severity.  <br /></td></tr>
 <tr class="separator:ac21543dad24955a172717e44c22ea4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a785654eaf977a9bef21cbecc005f568d" id="r_a785654eaf977a9bef21cbecc005f568d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a785654eaf977a9bef21cbecc005f568d">set_location</a> (<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>, <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a> <a class="el" href="namespacetlv.html#ad34af8ea6e99862f3fa9038d4e15794b">domain</a>, <a class="el" href="namespacetlv.html#a1d189f8757dea18406596d1c3c5ff3eb">location_kind</a> <a class="el" href="namespacetlv.html#a4a6c54ee451ccac7733e7582ab64d736">kind</a>, size_t <a class="el" href="namespacetlv.html#a047694bc3dd10e75e2dc596b4654abf3a8d589afa4dfaeeed85fff5aa78e5ff6a">begin</a>, size_t <a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca7f021a1415b86f2d013b2618fb31ae53">end</a>) noexcept</td></tr>
-<tr class="memdesc:a785654eaf977a9bef21cbecc005f568d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach evidence in an explicit coordinate domain to a common diagnostic.  <br /></td></tr>
-<tr class="separator:a785654eaf977a9bef21cbecc005f568d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eef01e90c6fef7e0cebfb7610c4e9cc" id="r_a0eef01e90c6fef7e0cebfb7610c4e9cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a0eef01e90c6fef7e0cebfb7610c4e9cc">set_location</a> (<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>, <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a> coordinate_domain, <a class="el" href="namespacetlv.html#a1d189f8757dea18406596d1c3c5ff3eb">location_kind</a> anchor_kind, size_t <a class="el" href="namespacetlv.html#a047694bc3dd10e75e2dc596b4654abf3a8d589afa4dfaeeed85fff5aa78e5ff6a">begin</a>, size_t <a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca7f021a1415b86f2d013b2618fb31ae53">end</a>) noexcept</td></tr>
+<tr class="memdesc:a0eef01e90c6fef7e0cebfb7610c4e9cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attach evidence in an explicit coordinate domain to a common diagnostic.  <br /></td></tr>
+<tr class="separator:a0eef01e90c6fef7e0cebfb7610c4e9cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a047407a6f84fd28cfcc413a4af612dba" id="r_a047407a6f84fd28cfcc413a4af612dba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a047407a6f84fd28cfcc413a4af612dba">format_path</a> (const <a class="el" href="namespacetlv.html#a362165fd39d879542d984a7aa5c5f1af">diagnostic_path</a> &amp;path, <a class="el" href="classtlv_1_1span.html">span</a>&lt; char &gt; <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a78e6221f6393d1356681db398f14ce6d">output</a>)</td></tr>
 <tr class="memdesc:a047407a6f84fd28cfcc413a4af612dba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format a hierarchical identifier path into caller-owned character storage.  <br /></td></tr>
 <tr class="separator:a047407a6f84fd28cfcc413a4af612dba"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -840,9 +840,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a65ad25fed0d57807f8b097da2411bac8" id="r_a65ad25fed0d57807f8b097da2411bac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a65ad25fed0d57807f8b097da2411bac8">translate_location</a> (<a class="el" href="namespacetlv.html#a4fac3d8a520e4264e1e44a90dbc01193">location</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>, size_t origin) noexcept</td></tr>
 <tr class="memdesc:a65ad25fed0d57807f8b097da2411bac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translate both coordinates; overflow clears only the optional location.  <br /></td></tr>
 <tr class="separator:a65ad25fed0d57807f8b097da2411bac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad90d494e09321f94dd836f0ed77ff7be" id="r_ad90d494e09321f94dd836f0ed77ff7be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#ad90d494e09321f94dd836f0ed77ff7be">resolve_location</a> (<a class="el" href="namespacetlv.html#a4fac3d8a520e4264e1e44a90dbc01193">location</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>, size_t origin, <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a> <a class="el" href="namespacetlv.html#ad34af8ea6e99862f3fa9038d4e15794b">domain</a>) noexcept</td></tr>
-<tr class="memdesc:ad90d494e09321f94dd836f0ed77ff7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place Value-local evidence in the coordinate space that contains the Value.  <br /></td></tr>
-<tr class="separator:ad90d494e09321f94dd836f0ed77ff7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d73d5b9765d40d18e7d6535eaafe4bc" id="r_a0d73d5b9765d40d18e7d6535eaafe4bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a0d73d5b9765d40d18e7d6535eaafe4bc">resolve_location</a> (<a class="el" href="namespacetlv.html#a4fac3d8a520e4264e1e44a90dbc01193">location</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>, size_t origin, <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a> enclosing_domain) noexcept</td></tr>
+<tr class="memdesc:a0d73d5b9765d40d18e7d6535eaafe4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place Value-local evidence in the coordinate space that contains the Value.  <br /></td></tr>
+<tr class="separator:a0d73d5b9765d40d18e7d6535eaafe4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae07f918496e530d0e05b6e515423189e" id="r_ae07f918496e530d0e05b6e515423189e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structtlv_1_1error.html">error</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#ae07f918496e530d0e05b6e515423189e">to_error</a> (const <a class="el" href="structtlv_1_1error.html">error</a> &amp;<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
 <tr class="memdesc:ae07f918496e530d0e05b6e515423189e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project an ordinary error into the common diagnostic contract without allocation.  <br /></td></tr>
 <tr class="separator:ae07f918496e530d0e05b6e515423189e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -889,10 +889,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a11b33a4412a57cc021afa31eef555eed" id="r_a11b33a4412a57cc021afa31eef555eed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetlv.html#a5ed8a2a8acc91b139ba7474010b8ef7a">query_integer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a11b33a4412a57cc021afa31eef555eed">integer</a> (int64_t <a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3a2063c1608d6e0baf80249c42e2be5804">value</a>)</td></tr>
 <tr class="memdesc:a11b33a4412a57cc021afa31eef555eed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose a decimal comparison operand; no variable interpolation. Bare digit strings remain raw tag tests outside numeric comparison context, following the native language. Use this value as a comparison operand.  <br /></td></tr>
 <tr class="separator:a11b33a4412a57cc021afa31eef555eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af902b290e3ded293b9e37a5c2720cf98" id="r_af902b290e3ded293b9e37a5c2720cf98"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="namespacetlv.html#a76daf0c21f3f7b947a18a5cc7b61b6ed">query_type</a> Kind&gt; </td></tr>
-<tr class="memitem:af902b290e3ded293b9e37a5c2720cf98"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1query__expression.html">query_expression</a>&lt; Kind &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv.html#af902b290e3ded293b9e37a5c2720cf98">variable</a> (const std::string &amp;<a class="el" href="namespacetlv.html#afcb2c3a60be44b7aff8aa6c1a01327ae">name</a>)</td></tr>
-<tr class="memdesc:af902b290e3ded293b9e37a5c2720cf98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose a typed variable reference; the C compiler validates its bounded name.  <br /></td></tr>
-<tr class="separator:af902b290e3ded293b9e37a5c2720cf98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67b0d3bc679171545c9f7ed826c23cdc" id="r_a67b0d3bc679171545c9f7ed826c23cdc"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="namespacetlv.html#a76daf0c21f3f7b947a18a5cc7b61b6ed">query_type</a> Kind&gt; </td></tr>
+<tr class="memitem:a67b0d3bc679171545c9f7ed826c23cdc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1query__expression.html">query_expression</a>&lt; Kind &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a67b0d3bc679171545c9f7ed826c23cdc">variable</a> (const std::string &amp;variable_name)</td></tr>
+<tr class="memdesc:a67b0d3bc679171545c9f7ed826c23cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose a typed variable reference; the C compiler validates its bounded name.  <br /></td></tr>
+<tr class="separator:a67b0d3bc679171545c9f7ed826c23cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ebb76dfffd8442502ba207c918b744b" id="r_a3ebb76dfffd8442502ba207c918b744b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="namespacetlv.html#a76daf0c21f3f7b947a18a5cc7b61b6ed">query_type</a> Kind&gt; </td></tr>
 <tr class="memitem:a3ebb76dfffd8442502ba207c918b744b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacetlv.html#aa961dbb21de6f09aeb02459df2676264">query_boolean</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a3ebb76dfffd8442502ba207c918b744b">operator==</a> (const <a class="el" href="classtlv_1_1query__expression.html">query_expression</a>&lt; Kind &gt; &amp;a, const <a class="el" href="classtlv_1_1query__expression.html">query_expression</a>&lt; Kind &gt; &amp;b)</td></tr>
 <tr class="memdesc:a3ebb76dfffd8442502ba207c918b744b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose typed scalar equality.  <br /></td></tr>
@@ -956,9 +956,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a488f90cb08dd94695022c7428683b774"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1detail_1_1parsing__range.html">detail::parsing_range</a>&lt; F &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a488f90cb08dd94695022c7428683b774">parse</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data)</td></tr>
 <tr class="memdesc:a488f90cb08dd94695022c7428683b774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse final input with default-constructed Format configuration.  <br /></td></tr>
 <tr class="separator:a488f90cb08dd94695022c7428683b774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00a8d58e45f01c9f891664cb084118c2" id="r_a00a8d58e45f01c9f891664cb084118c2"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a00a8d58e45f01c9f891664cb084118c2">message</a> (<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3">schema_issue</a> <a class="el" href="namespacetlv.html#a4a6c54ee451ccac7733e7582ab64d736">kind</a>) noexcept</td></tr>
-<tr class="memdesc:a00a8d58e45f01c9f891664cb084118c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program-lifetime name of a Schema violation category.  <br /></td></tr>
-<tr class="separator:a00a8d58e45f01c9f891664cb084118c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d5fb9580c029de37370d9d877c6cf6" id="r_a51d5fb9580c029de37370d9d877c6cf6"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a51d5fb9580c029de37370d9d877c6cf6">message</a> (<a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3">schema_issue</a> issue) noexcept</td></tr>
+<tr class="memdesc:a51d5fb9580c029de37370d9d877c6cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Program-lifetime name of a Schema violation category.  <br /></td></tr>
+<tr class="separator:a51d5fb9580c029de37370d9d877c6cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a363c6a069d86a5f3c209b7b02f43ae5a" id="r_a363c6a069d86a5f3c209b7b02f43ae5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; void, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a363c6a069d86a5f3c209b7b02f43ae5a">validate</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data, <a class="el" href="classtlv_1_1format.html">tlv::format</a> <a class="el" href="classtlv_1_1format.html">format</a>, <a class="el" href="classtlv_1_1schema.html">schema</a> <a class="el" href="classtlv_1_1definition.html">definition</a>, size_t max_depth=<a class="elRef" href="../../c-api/html/group__schemas.html#ggaaf8fd5f0e57d456151c951e0f3715fc4a73347319edde9db5a3ccc39892774977">TLV_SCHEMA_MAX_DEPTH</a>, size_t max_elements=SIZE_MAX)</td></tr>
 <tr class="memdesc:a363c6a069d86a5f3c209b7b02f43ae5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validate wire structure against a C++ Schema without allocation.  <br /></td></tr>
 <tr class="separator:a363c6a069d86a5f3c209b7b02f43ae5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -4372,8 +4372,8 @@ template&lt;typename Source &gt; </div>
 
 </div>
 </div>
-<a id="a00a8d58e45f01c9f891664cb084118c2" name="a00a8d58e45f01c9f891664cb084118c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00a8d58e45f01c9f891664cb084118c2">&#9670;&#160;</a></span>message() <span class="overload">[12/14]</span></h2>
+<a id="a51d5fb9580c029de37370d9d877c6cf6" name="a51d5fb9580c029de37370d9d877c6cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d5fb9580c029de37370d9d877c6cf6">&#9670;&#160;</a></span>message() <span class="overload">[12/14]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -4385,7 +4385,7 @@ template&lt;typename Source &gt; </div>
           <td class="memname">const char * tlv::message </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacetlv.html#a0e9dc5e120173d6322fc63d2d1fc09c3">schema_issue</a>&#160;</td>
-          <td class="paramname"><em>kind</em></td><td>)</td>
+          <td class="paramname"><em>issue</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -5204,8 +5204,8 @@ template&lt;typename F &gt; </div>
 
 </div>
 </div>
-<a id="ad90d494e09321f94dd836f0ed77ff7be" name="ad90d494e09321f94dd836f0ed77ff7be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad90d494e09321f94dd836f0ed77ff7be">&#9670;&#160;</a></span>resolve_location()</h2>
+<a id="a0d73d5b9765d40d18e7d6535eaafe4bc" name="a0d73d5b9765d40d18e7d6535eaafe4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d73d5b9765d40d18e7d6535eaafe4bc">&#9670;&#160;</a></span>resolve_location()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5229,7 +5229,7 @@ template&lt;typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a>&#160;</td>
-          <td class="paramname"><em>domain</em>&#160;</td>
+          <td class="paramname"><em>enclosing_domain</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5248,8 +5248,8 @@ template&lt;typename F &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Location; only a known <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">location_domain::value</a> location changes. </td></tr>
-    <tr><td class="paramname">origin</td><td>Offset of the Value's first byte in <code>domain</code>. </td></tr>
-    <tr><td class="paramname">domain</td><td>Enclosing coordinate space, such as <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7aa43c1b0aa53a0c908810c06ab1ff3967">location_domain::input</a>. </td></tr>
+    <tr><td class="paramname">origin</td><td>Offset of the Value's first byte in <code>enclosing_domain</code>. </td></tr>
+    <tr><td class="paramname">enclosing_domain</td><td>Enclosing coordinate space, such as <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7aa43c1b0aa53a0c908810c06ab1ff3967">location_domain::input</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -5311,8 +5311,8 @@ template&lt;typename F &gt; </div>
 
 </div>
 </div>
-<a id="a785654eaf977a9bef21cbecc005f568d" name="a785654eaf977a9bef21cbecc005f568d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a785654eaf977a9bef21cbecc005f568d">&#9670;&#160;</a></span>set_location()</h2>
+<a id="a0eef01e90c6fef7e0cebfb7610c4e9cc" name="a0eef01e90c6fef7e0cebfb7610c4e9cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eef01e90c6fef7e0cebfb7610c4e9cc">&#9670;&#160;</a></span>set_location()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5330,13 +5330,13 @@ template&lt;typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7">location_domain</a>&#160;</td>
-          <td class="paramname"><em>domain</em>, </td>
+          <td class="paramname"><em>coordinate_domain</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacetlv.html#a1d189f8757dea18406596d1c3c5ff3eb">location_kind</a>&#160;</td>
-          <td class="paramname"><em>kind</em>, </td>
+          <td class="paramname"><em>anchor_kind</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5367,8 +5367,8 @@ template&lt;typename F &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Diagnostic to update without changing its result or other detail. </td></tr>
-    <tr><td class="paramname">domain</td><td>Coordinate space of the evidence. </td></tr>
-    <tr><td class="paramname">kind</td><td>Point, half-open span, scope end or insertion boundary. </td></tr>
+    <tr><td class="paramname">coordinate_domain</td><td>Coordinate space of the evidence. </td></tr>
+    <tr><td class="paramname">anchor_kind</td><td>Point, half-open span, scope end or insertion boundary. </td></tr>
     <tr><td class="paramname">begin</td><td>Inclusive start, or the boundary position. </td></tr>
     <tr><td class="paramname">end</td><td>Exclusive end; must equal begin for points and boundaries. </td></tr>
   </table>
@@ -5875,8 +5875,8 @@ template&lt;typename Failure &gt; </div>
 
 </div>
 </div>
-<a id="af902b290e3ded293b9e37a5c2720cf98" name="af902b290e3ded293b9e37a5c2720cf98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af902b290e3ded293b9e37a5c2720cf98">&#9670;&#160;</a></span>variable()</h2>
+<a id="a67b0d3bc679171545c9f7ed826c23cdc" name="a67b0d3bc679171545c9f7ed826c23cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67b0d3bc679171545c9f7ed826c23cdc">&#9670;&#160;</a></span>variable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5890,7 +5890,7 @@ template&lt;<a class="el" href="namespacetlv.html#a76daf0c21f3f7b947a18a5cc7b61b
           <td class="memname"><a class="el" href="classtlv_1_1query__expression.html">query_expression</a>&lt; Kind &gt; tlv::variable </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>variable_name</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -5910,7 +5910,7 @@ template&lt;<a class="el" href="namespacetlv.html#a76daf0c21f3f7b947a18a5cc7b61b
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>Variable name without a dollar prefix. </td></tr>
+    <tr><td class="paramname">variable_name</td><td>Variable name without a dollar prefix. </td></tr>
   </table>
   </dd>
 </dl>

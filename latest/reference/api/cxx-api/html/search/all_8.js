@@ -30,7 +30,7 @@ var searchData=
   ['inline_5fmask_27',['inline_mask',['../../../c-api/html/structtlv__variable__identifier.html#a4b625238f33904cd1363889debc8b7c6',1,'tlv_variable_identifier']]],
   ['input_28',['input',['../namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7aa43c1b0aa53a0c908810c06ab1ff3967',1,'tlv::input'],['../../../c-api/html/structtlv__tree__reader.html#a5f8c7cc9084907c511e3532688b43442',1,'tlv_tree_reader::input']]],
   ['input_5fmode_29',['input_mode',['../namespacetlv.html#a6d141be87a05679c237c4d7f5b941c15',1,'tlv']]],
-  ['insert_30',['insert',['../classtlv_1_1node.html#a23da48d6c78a7d2a135f56037eaecbe5',1,'tlv::node::insert()'],['../classtlv_1_1document.html#a798d214cd8448b9ddc3fb408e273bba9',1,'tlv::document::insert()']]],
+  ['insert_30',['insert',['../classtlv_1_1node.html#ae60664149646460a1225ec04d1dea4eb',1,'tlv::node::insert()'],['../classtlv_1_1document.html#a798d214cd8448b9ddc3fb408e273bba9',1,'tlv::document::insert()']]],
   ['insertion_31',['insertion',['../namespacetlv.html#a1d189f8757dea18406596d1c3c5ff3ebae0e39b991692259764469b25bfe10b47',1,'tlv']]],
   ['instruction_32',['instruction',['../classtlv_1_1static__query_1_1plan.html#a9c904a5b22e541e01a05ee6192d74dc7',1,'tlv::static_query::plan']]],
   ['instructions_33',['instructions',['../../../c-api/html/structtlv__query__program__info.html#a6c3d181c33692fdf24a0f5e4029482a7',1,'tlv_query_program_info']]],

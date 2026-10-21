@@ -1,7 +1,7 @@
 {
   "id": "core",
   "repository": "https://github.com/OpenTLV/opentlv",
-  "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+  "revision": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
   "docs_path": "docs",
   "mount": "",
   "required": true,
@@ -10,13 +10,13 @@
   ],
   "local": false,
   "dirty": false,
-  "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+  "commit": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
   "included": true,
   "sources": [
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+      "revision": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
       "docs_path": "docs",
       "mount": "",
       "required": true,
@@ -25,7 +25,7 @@
       ],
       "local": false,
       "dirty": false,
-      "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+      "commit": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
       "included": true
     },
     {
@@ -104,6 +104,67 @@
       "dirty": false,
       "commit": "c463066ca24f524d3ae9c7dff949796629367d03",
       "included": true
+    },
+    {
+      "id": "python",
+      "repository": "https://github.com/OpenTLV/opentlv-python",
+      "revision": "13ab9242bc01fb8d893fad8d253b1134404b620a",
+      "docs_path": "docs",
+      "mount": "python",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/python-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Python",
+        "section": [
+          "Language APIs"
+        ],
+        "items": [
+          {
+            "Using OpenTLV from Python": "guides/python.md"
+          },
+          {
+            "Build, workspace and contributing": "development/python.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release preparation": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              },
+              {
+                "Source layout": "validation/layout.md"
+              }
+            ]
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "13ab9242bc01fb8d893fad8d253b1134404b620a",
+      "included": true
     }
   ],
   "example_inputs": [
@@ -126,8 +187,8 @@
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
-    "source_sha256": "16adacd3adb23f1645808d975ff896de621259aff709e8cfd40019bcc4fdef65",
+    "commit": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
+    "source_sha256": "77a449007eabda3c44ba929245dbb0fb6af672f4f467b7301ab5a85474e5cec9",
     "local": false,
     "dirty": false,
     "doxygen_version": "1.9.8",
@@ -137,16 +198,16 @@
   "wasm": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "1ed4e0f63360755472bdebee1fa1e1609b190e98",
+    "commit": "a5e2453c8cc156122cda01b02d3f91c33580b4f3",
     "local": false,
     "dirty": false,
-    "source_sha256": "16adacd3adb23f1645808d975ff896de621259aff709e8cfd40019bcc4fdef65",
+    "source_sha256": "77a449007eabda3c44ba929245dbb0fb6af672f4f467b7301ab5a85474e5cec9",
     "emscripten": "4.0.10",
     "files": {
       "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
       "query.mjs": "4a966ea90a314c1d3e017713d4e842831ba593a21915ab5eafa7ceafb9d6a5de",
       "opentlv-core.js": "600e1fac532c89aa92b4b72877268cb14d1f824c5e27eb747e6a27dc90a8ab5c",
-      "opentlv-core.wasm": "328ad3310e8521a00a491afc85922c668c3840e73e6309929a36f4a6a46db520"
+      "opentlv-core.wasm": "9e50172279416c7b55431528f137cf254918da4100c6dd548eba34dbe0bf24a9"
     },
     "manifest": "playground/wasm/wasm-source.json"
   }
