@@ -1065,6 +1065,7 @@ Local tests do not establish hosted success or production deployment.
 | Verified Core stable-tag notification | Validate and publish the immutable release version. |
 | Verified component release notification | Open a reviewed PR pinning the component commit and release feed digest. |
 | Verified component main notification | With development opt-in, open a reviewed PR pinning the component commit and verified exact-pair evidence. |
+| Verified documentation-only main notification | With explicit documentation opt-in, propose a source commit pin without runtime compatibility claims. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
 | Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
 | Manual Full run | Complete verification and prepared artifacts; no deployment. |
@@ -1267,6 +1268,49 @@ the selected Core. Missing verification omits an optional component or fails a
 required component; a successful producer alone is not proof of that pair.
 Merge only after the production activation checks above and normal documentation
 validation.
+
+### Python documentation pin notifications
+
+Python uses the existing `component-docs-updated` event with the five fields
+`source`, `repository`, `commit`, `ref`, and `run_id`. Its source entry opts in
+to documentation pin updates explicitly:
+
+```json
+"updates": {
+  "mode": "documentation",
+  "workflow": ".github/workflows/python-main.yml"
+}
+```
+
+This mode is restricted to non-Core sources with explicit revisions and no
+`compatibility` configuration. It accepts only `main` development events from
+a successful, completed push run in the configured source repository and
+workflow. The run's exact SHA must remain on current `main` history. Release
+events, forks, PR runs and unconfigured sources are rejected. Compatibility
+sources retain their existing artifact/feed requirements; documentation-only
+updates do not claim that Python and the selected Core passed behavioral tests.
+
+The receiver changes only the Python revision, opens or updates
+`automation/component-python`, and rejects stale or divergent updates. Replays
+matching a pending or merged pin are no-ops. Docs PR checks validate the proposed
+assembly; new pages need matching navigation. No component notification starts
+Docs Full or Pages publication. Python continues to own all binding tests.
+
+Merge this receiver and its source policy before enabling the Python notifier.
+Python's `OPENTLV_DOCS_DISPATCH_TOKEN` must be a fine-grained token restricted to
+this repository with Contents write permission. `DOCS_UPDATES_TOKEN` retains
+the existing Contents/Pull requests write permissions needed to create a PR
+that starts normal checks; `DOCS_SOURCE_READ_TOKEN` is optional for reading the
+public producer run. Auto-merge remains separately opt-in and guarded by the
+Docs PR gate.
+
+The sender checks documentation changes after successful Python Main CI and
+uses an attempt-specific JSON artifact. Its privileged notifier performs no
+checkout and sends the producer SHA, not the notifier's current default-branch
+SHA. Retry a failed notifier while its artifact is retained; duplicate delivery
+does not create another proposal. HTTP acceptance is distinct from successful
+receiver processing, PR validation, merge and publication. Local contract tests
+mock the GitHub API; hosted delivery must be verified after both changes merge.
 
 ### Component development notifications
 

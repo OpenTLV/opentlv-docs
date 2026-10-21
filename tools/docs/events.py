@@ -34,6 +34,13 @@ def repository(item):
     return value.removeprefix("https://github.com/")
 
 
+def documentation_updates(item):
+    policy = item.get("updates", {})
+    return (item["id"] != "core" and "compatibility" not in item
+            and isinstance(policy, dict) and policy.get("mode") == "documentation"
+            and set(policy) == {"mode", "workflow"})
+
+
 def validate(payload, definitions, api=None):
     api = api or github
     if not isinstance(payload, dict) or set(payload) != {"source", "repository", "commit", "ref", "run_id"}:
@@ -48,7 +55,10 @@ def validate(payload, definitions, api=None):
     if not isinstance(ref, str) or (ref != "main" and not RELEASE.fullmatch(ref)):
         raise ValueError("Only main and stable release tags may update documentation.")
     policy = item.get("updates", {})
-    if item["id"] != "core" and ref == "main" and not policy.get("development_artifact"):
+    documentation = documentation_updates(item)
+    if documentation and ref != "main":
+        raise ValueError("Documentation-only updates require main, not a release tag.")
+    if item["id"] != "core" and ref == "main" and not documentation and not policy.get("development_artifact"):
         raise ValueError("Component development updates require a configured evidence artifact.")
     workflow = ".github/workflows/wasm.yml" if item["id"] == "core" else policy.get("workflow")
     if not isinstance(workflow, str) or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", workflow):
@@ -87,7 +97,7 @@ def newer(repo, previous, candidate, api=None):
         return candidate
     if status == "behind":
         return previous
-    raise ValueError("Latest Core histories diverged; select and review a new baseline explicitly.")
+    raise ValueError("Source histories diverged; select and review a new baseline explicitly.")
 
 
 def resolve_revision(repo, revision, api=None):
@@ -125,6 +135,10 @@ def component_proposal(payload, manifest, api=None, *, portal=None):
     api = api or github
     result = copy.deepcopy(manifest)
     item = validate(payload, result["sources"], api)
+    if documentation_updates(item):
+        previous = resolve_revision(repository(item), item["revision"], api)
+        item["revision"] = newer(repository(item), previous, payload["commit"], api)
+        return result
     if item["id"] == "core" or "compatibility" not in item:
         raise ValueError("Component updates require compatibility-based selection.")
     if payload["ref"] == "main":
@@ -188,21 +202,30 @@ def pending_is_newer(payload, manifest, api=None):
     if previous["repository"] != item["repository"]:
         raise ValueError("Pending source proposal belongs to another repository")
     commit = resolve_revision(repository(item), previous["revision"], api)
+    if documentation_updates(item) and commit == payload["commit"]:
+        return True
     return newer(repository(item), commit, payload["commit"], api) != payload["commit"]
+
+
+def proposal(event, manifest, api=None, *, portal=None):
+    payload = event["client_payload"]
+    item = validate(payload, manifest["sources"], api)
+    if documentation_updates(item) and event.get("action") != "component-docs-updated":
+        raise ValueError("Documentation-only updates require component-docs-updated.")
+    if pending_is_newer(payload, manifest, api):
+        return manifest
+    return (core_proposal(payload, manifest, api) if item["id"] == "core"
+            else component_proposal(payload, manifest, api, portal=portal))
 
 
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[2]
     event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
     manifest = json.loads((root / "docs-sources.json").read_text(encoding="utf-8"))
-    payload = event["client_payload"]
     # Source configuration is reviewed repository data, never supplied by events.
     import sources
     sources.manifest(root)
-    stale = pending_is_newer(payload, manifest)
-    proposed = manifest if stale else (
-        core_proposal(payload, manifest) if payload.get("source") == "core"
-        else component_proposal(payload, manifest, portal=root))
+    proposed = proposal(event, manifest, portal=root)
     if proposed != manifest:
         (root / "docs-sources.json").write_text(json.dumps(proposed, indent=2) + "\n", encoding="utf-8")
     if os.environ.get("GITHUB_OUTPUT"):

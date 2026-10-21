@@ -38,6 +38,7 @@ runs:
       run: |
         python -B -m unittest discover -s tests -p test_workflows.py -v
         python -B -m unittest discover -s tests -p test_events.py -v
+        python -B -m unittest discover -s tests -p test_documentation_updates.py -v
         python -B -m unittest discover -s tests -p test_quality.py -v
         python -B -m unittest discover -s tests -p test_update_staging.py -v
     - uses: actions/setup-node@v4
