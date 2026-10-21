@@ -33,6 +33,10 @@ root. Publication and release availability are described by the owners'
 [Python release guide](../python/releases.md) and [Lua release guide](../lua/releases.md).
 The selected manuals remain accessible without requiring a matching product release.
 
+Contributor tests, implementation notes and release procedures are collected in
+[Development](../development/components.md). Migration provenance and dated
+validation remain available through [Historical records](../development/history.md).
+
 ## Catalog maintenance
 
 Follow the [product registration convention](../development/product-catalogs.md)

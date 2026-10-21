@@ -82,8 +82,10 @@ contracts. The Development entry points introduced by #49 remain in use.
 Source directories such as `concepts/`, `guides/`, `formats/`, `bindings/` and `reference/` still describe
 the owning repository's source layout. They are not additional top-level portal
 sections. The portal assigns rendered paths while retaining original source
-paths and owner-specific source/edit links. CLI, Lua and Python manuals retain
-their own contextual navigation and a return link to the portal.
+paths and owner-specific source/edit links. CLI, Lua and Python public manuals
+retain their own contextual navigation and a return link to the portal.
+Selected contributor guides appear in [Development](components.md); migration
+and dated validation evidence appear in [Historical records](history.md).
 
 ## Write and validate a documentation change
 
@@ -123,9 +125,12 @@ they are not instructions to repeat it. Use the portal's
 for publication and recovery. A retained historical validation record does not
 prove the current deployment or a newly selected component combination.
 
-The ecosystem-wide ownership review and repository-specific corrections are
-tracked in [#62](https://github.com/OpenTLV/opentlv-docs/issues/62).
-The subsequent content disposition review in
-[#61](https://github.com/OpenTLV/opentlv-docs/issues/61) decides what to keep,
-relocate, archive or remove. Context notes here preserve evidence while those
-reviews remain open; they do not claim that the original sources are corrected.
+The ecosystem-wide ownership corrections in
+[#62](https://github.com/OpenTLV/opentlv-docs/issues/62) are merged and selected.
+The [content disposition review](https://github.com/OpenTLV/opentlv-docs/blob/main/DOCUMENTATION-CONTENT-REVIEW.md)
+records the #61 decisions for every reviewed page and any remaining owner-side
+corrections. Historical records retain their original bodies and supporting
+files, with archive context and links to current instructions. They are omitted
+from normal search and public product menus, but remain accessible through
+Development. Current test procedures and planned work remain separate from
+completed validation evidence.

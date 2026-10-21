@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2026 Marek Cingel
 
-"""Check desktop tabs, mobile drawers and product return links in a built site."""
+"""Check portal, product, contributor and archive navigation in a built site."""
 
 import argparse
 from functools import partial
@@ -56,6 +56,7 @@ def check_navigation(page, base_url):
             if width == 390:
                 page.locator('.md-header label[for="__drawer"]').click()
             menu = page.locator(".md-nav--primary")
+            check_reader_menu(menu, base_url)
             back = menu.get_by_role("link", name="OpenTLV portal", exact=True)
             expect(back).to_be_visible()
             back.click()
@@ -64,6 +65,15 @@ def check_navigation(page, base_url):
     check_formats(page, base_url)
     check_catalogs(page, base_url)
     check_development(page, base_url)
+    check_content_disposition(page, base_url)
+
+
+def check_reader_menu(menu, base_url):
+    """Reader menus must not retain relocated archive/contributor chapters."""
+    links = menu.locator("a").evaluate_all("nodes => nodes.map(node => node.href)")
+    for link in links:
+        assert not link.startswith((base_url + "development/history/",
+                                    base_url + "development/components/")), link
 
 
 def check_development(page, base_url):
@@ -78,7 +88,7 @@ def check_development(page, base_url):
         ("Testing and Quality Gates", "development/testing/", "Core quality gates",
          "development/quality-gates/"),
         ("CI and Release Process", "development/releases/", "release quality gate",
-         "languages/lua/manual/releases/"),
+         "development/components/lua/releases/"),
     )
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
@@ -91,13 +101,102 @@ def check_development(page, base_url):
             page.locator("article").get_by_role("link", name=detail_title, exact=True).click()
             expect(page).to_have_url(base_url + detail)
             expect(page.locator("article h1")).to_be_visible()
-        for path in ("documentation/layout", "documentation/ownership", "documentation/audit-513",
-                     "bindings/python"):
+        for path in ("documentation/layout", "documentation/ownership", "bindings/python"):
             page.goto(base_url + "development/" + path + "/")
             note = page.locator("article .admonition.note").filter(has_text="Portal context")
             expect(note).to_have_count(1)
             note.get_by_role("link", name="current portal conventions", exact=True).click()
             expect(page).to_have_url(base_url + "development/documentation/")
+
+
+def check_content_disposition(page, base_url):
+    """Reach preserved evidence and current owner instructions through real links."""
+    archives = (
+        ("Python extraction guide", "core/guides/python/", "current Python manual",
+         "languages/python/manual/guides/python/", "opentlv", "guides/python.md", ()),
+        ("Documentation audit (#513)", "core/documentation-audit/",
+         "current documentation conventions", "development/documentation/",
+         "opentlv", "development/documentation-audit.md", ()),
+        ("Query phase implementation audit", "core/query-phase-audit/",
+         "current query verification guide", "development/query-adversarial/",
+         "opentlv", "development/query-phase-audit.md", ()),
+        ("Reader decode performance report", "core/reader-decode-performance/",
+         "current testing entry points", "development/testing/",
+         "opentlv", "development/reader-decode-performance.md", ()),
+        ("C++ facade performance report", "core/cxx-facade-performance/",
+         "current testing entry points", "development/testing/",
+         "opentlv", "development/cxx-facade-performance.md", ()),
+        ("Lua migration provenance", "lua/migration/", "current Lua build guide",
+         "languages/lua/manual/development/", "opentlv-lua", "migration.md",
+         ("source-inventory.json",)),
+        ("Python migration provenance", "python/migration/", "current Python development guide",
+         "languages/python/manual/development/python/", "opentlv-python", "migration.md",
+         ("inventory", "machine-readable report", "baseline output", "imported-source output")),
+        ("Python standalone build validation", "python/validation/standalone-build/",
+         "current Python build guide", "languages/python/manual/development/python/",
+         "opentlv-python", "validation/standalone-build.md", ("machine-readable report",)),
+        ("Python CI validation", "python/validation/ci/", "current Python quality gates",
+         "development/components/python/quality-gates/", "opentlv-python",
+         "validation/ci.md", ("machine-readable summary",)),
+        ("Python packaging validation", "python/validation/packaging/", "current Python release guide",
+         "development/components/python/releases/", "opentlv-python",
+         "validation/packaging.md", ("machine-readable results",)),
+        ("Python source layout validation", "python/validation/layout/",
+         "current Python development guide", "languages/python/manual/development/python/",
+         "opentlv-python", "validation/layout.md", ()),
+    )
+    contributors = (
+        ("CLI development", "cli/development/", "opentlv-cli", "development.md"),
+        ("CLI versions and releases", "cli/releases/", "opentlv-cli", "releases.md"),
+        ("Lua tests and CI", "lua/testing/", "opentlv-lua", "testing.md"),
+        ("Lua quality gates", "lua/quality-gates/", "opentlv-lua", "quality-gates.md"),
+        ("Lua implementation and ownership", "lua/implementation/", "opentlv-lua", "implementation.md"),
+        ("Lua release quality gate", "lua/releases/", "opentlv-lua", "releases.md"),
+        ("Python tests and CI", "python/quality-gates/", "opentlv-python", "quality-gates.md"),
+        ("Python release preparation", "python/releases/", "opentlv-python", "releases.md"),
+    )
+    for width in (1440, 390):
+        page.set_viewport_size({"width": width, "height": 900})
+        page.goto(base_url + "development/")
+        page.locator("article").get_by_role("link", name="Historical records", exact=True).click()
+        expect(page).to_have_url(base_url + "development/history/")
+        for title, path, current_label, current, repository, source, assets in archives:
+            page.locator("article").get_by_role("link", name=title, exact=True).click()
+            expect(page).to_have_url(base_url + "development/history/" + path)
+            expect(page.locator("article h1")).to_be_visible()
+            note = page.locator("article .admonition.note").filter(has_text="Historical record")
+            expect(note).to_have_count(1)
+            expect(note).to_contain_text("historical snapshot")
+            check_edit_owner(page, repository, source)
+            for label in assets:
+                link = page.locator("article").get_by_role("link", name=label, exact=True)
+                response = page.request.get(link.evaluate("node => node.href"))
+                assert response.status == 200 and response.body(), (path, label, response.status)
+                assert "text/html" not in response.headers.get("content-type", ""), (path, label)
+            note.get_by_role("link", name=current_label, exact=True).click()
+            expect(page).to_have_url(base_url + current)
+            expect(page.locator("article h1")).to_be_visible()
+            page.go_back()
+            note.get_by_role("link", name="historical records", exact=True).click()
+            expect(page).to_have_url(base_url + "development/history/")
+
+        page.goto(base_url + "development/")
+        page.locator("article").get_by_role("link", name="Component contributor guides", exact=True).click()
+        expect(page).to_have_url(base_url + "development/components/")
+        for title, path, repository, source in contributors:
+            page.locator("article").get_by_role("link", name=title, exact=True).click()
+            expect(page).to_have_url(base_url + "development/components/" + path)
+            expect(page.locator("article h1")).to_be_visible()
+            expect(page.locator('[data-md-component="tabs"]')).to_have_count(1)
+            check_edit_owner(page, repository, source)
+            page.go_back()
+            expect(page).to_have_url(base_url + "development/components/")
+
+
+def check_edit_owner(page, repository, source):
+    edit = page.locator(f'a[href^="https://github.com/OpenTLV/{repository}/edit/"]'
+                        f'[href$="/docs/{source}"]')
+    expect(edit).to_have_count(1)
 
 
 def check_catalogs(page, base_url):
@@ -119,6 +218,10 @@ def check_catalogs(page, base_url):
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
         for catalog, entries in (("languages/", languages), ("tools/", tools)):
+            page.goto(base_url + catalog)
+            section = page.locator(".md-nav--primary > ul > li").nth(
+                4 if catalog == "languages/" else 5)
+            check_reader_menu(section, base_url)
             for title, overview, manual_title, manual in entries:
                 page.goto(base_url + catalog)
                 page.locator("article").get_by_role("link", name=title, exact=True).click()

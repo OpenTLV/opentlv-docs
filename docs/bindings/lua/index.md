@@ -24,7 +24,8 @@ inspection, package metadata and release identity.
 
 Use the [Lua manual](../../lua/api.md) for API contracts and examples and
 [implementation notes](../../lua/implementation.md) for ownership and limitations.
-These pages are selected from the binding repository and use a separate menu.
+Both pages are selected from the binding repository. The API manual uses its
+own product menu; contributor implementation notes appear in Development.
 
 Independent Lua releases use `/lua/<version>/`, relative to the documentation
 site root, as described by the [owner's release guide](../../lua/releases.md).

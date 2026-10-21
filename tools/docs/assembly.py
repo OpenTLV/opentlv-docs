@@ -29,6 +29,10 @@ _spec.loader.exec_module(onboarding)
 _spec = importlib.util.spec_from_file_location("opentlv_docs_formats", Path(__file__).with_name("formats.py"))
 formats = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(formats)
+
+_spec = importlib.util.spec_from_file_location("opentlv_docs_content", Path(__file__).with_name("content.py"))
+content = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(content)
 git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
@@ -123,7 +127,8 @@ def navigation(base, selected):
             parent = matches[0] if matches else parent[-1][title]
         if any(isinstance(entry, dict) and nav["title"] in entry for entry in parent):
             raise PluginError(f"Duplicate navigation title: {nav['title']}")
-        parent.append({nav["title"]: sources.prefix_nav(nav["items"], item["mount"])})
+        items = sources.prefix_nav(nav["items"], item["mount"])
+        parent.append({nav["title"]: content.relocate(items, result)})
     return result
 
 

@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Review the assembled content, move contributor manuals and active proposals into Development, and archive migration, performance and validation records with current-guide links while preserving technical sources and evidence. (#61)
 - Define the cross-repository documentation ownership contract, route changing component requirements and version details to their owners, and track coordinated Core, Lua and Workspace corrections. (#62)
 - Complete the seven-section portal with Tutorials, shared API documentation, Standards and Languages; preserve contributor guidance, component ownership and independent manuals while updating page and generated-reference destinations. (#63)
 - Organize Development around architecture, builds, contributing, quality gates and releases, with repository-owned entry points and current portal conventions; distinguish historical migration guidance while preserving Core technical sources. (#49)

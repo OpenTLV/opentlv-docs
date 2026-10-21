@@ -22,10 +22,10 @@ instructions; their original results and provenance remain evidence.
 | Python | `d846b4ff7f2c74fbf0571a065da1d83698b6f40c` | Same commit |
 | Workspace | `cff8655e35f54bdcb58e2139335a2534ea1610a7` | Not a mounted documentation source |
 
-The review includes local corrections after these commits. Published builds
-continue to use the reviewed pins in `docs-sources.json`; local corrected
-checkouts are separately identified preview inputs. A newer component checkout
-does not silently advance a portal source or prove a compatible release.
+The original review included local corrections after these commits. The
+completion record below identifies their later merges and source adoption.
+The table remains the historical review baseline, not the current selection.
+A newer checkout alone never advances a portal source or proves a compatible release.
 
 ## Findings and dispositions
 
@@ -50,19 +50,25 @@ and protocol boundaries). The portal keeps links to all three canonical inputs.
 
 ## Repository dependencies and completion
 
-The following issues are registered as blocking dependencies of Docs #62:
+The following issues were registered as blocking dependencies of Docs #62:
 
-| Owner issue | Prepared local correction | Completion needed for #62 |
+| Owner issue | Correction | Completion |
 | --- | --- | --- |
-| [Core #667](https://github.com/OpenTLV/opentlv/issues/667) | Current ownership/handoff guidance and Doxygen URLs | Merge owner correction, then select its exact commit in Docs and validate generated references. |
-| [Workspace #35](https://github.com/OpenTLV/opentlv-workspace/issues/35) | Current component routing and accurate pinned integration scope | Merge owner correction; no portal source pin exists for Workspace. |
-| [Lua #21](https://github.com/OpenTLV/opentlv-lua/issues/21) | Historical migration versus independent manual versioning | Merge owner correction, then select its exact commit in Docs. |
+| [Core #667](https://github.com/OpenTLV/opentlv/issues/667) | Current ownership/handoff guidance and Doxygen URLs | Merged in Core #668 and selected by Docs #67. |
+| [Workspace #35](https://github.com/OpenTLV/opentlv-workspace/issues/35) | Current component routing and accurate pinned integration scope | Merged in Workspace #36; no portal source pin exists for Workspace. |
+| [Lua #21](https://github.com/OpenTLV/opentlv-lua/issues/21) | Historical migration versus independent manual versioning | Merged in Lua #22 and selected by Docs #68. |
 
-The corrections are prepared locally; this review does not claim those issues
-are merged or complete. Do not close #62 merely because dependencies exist.
-After the owner merges, update only the affected source pins, rebuild the exact
-selected source set, and verify source/edit links, examples and reference links.
-Existing immutable release snapshots must remain unchanged.
+Completion verified on 2026-10-21: Docs
+`4bce915106be894f0c1a45ae024ed17d7313e7bb` selects Core
+`48e415d944c7e4ae6a30cff8566f0936bda7390d` and Lua
+`ea6c937c8c7f094dae7386740e3a20574b43d703`. CLI/Python pins are unchanged.
+All three dependencies are closed as completed, and #62 is closed.
+Owner PR/Main CI, both Docs source-update PRs and
+[Docs Main attempt 1](https://github.com/OpenTLV/opentlv-docs/actions/runs/39676529366)
+passed. The exact combined source set also passed local inventories, examples,
+strict builds, owner/search links and desktop/mobile navigation. Publication
+and WASM execution were not performed by that check; immutable release snapshots
+remain unchanged.
 
 ## Validation boundary
 

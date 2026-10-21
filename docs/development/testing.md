@@ -38,13 +38,14 @@ owns exact workflow and evidence requirements.
 
 ## Performance and recorded evidence
 
-Core maintains [Reader decode measurements](reader-decode-performance.md),
-[C++ facade performance](cxx-facade-performance.md), and the
-[indefinite-boundary follow-up](indefinite-boundary-reuse.md). Query has a
-[phase implementation audit](query-phase-audit.md),
-[adversarial verification](query-adversarial.md) and
-[release checklist](query-release.md). Read each record's revision, platform and
-configuration before using its results; historical evidence is not a fresh run.
+Current Query procedures remain in [adversarial verification](query-adversarial.md)
+and the [release checklist](query-release.md). The
+[indefinite-boundary follow-up](indefinite-boundary-reuse.md) is a planning document.
+
+The [historical archive](history.md) preserves Reader decode measurements,
+C++ facade performance results, the Query phase audit and language migration
+validation. Read each record's revision, platform and configuration before using
+its results; historical evidence is not a fresh run.
 
 Report local, hosted and release validation separately. For hosted evidence,
 identify the repository, tested commit, run and attempt, configuration and
