@@ -2711,39 +2711,9 @@
   
   
   
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="rust/" class="md-nav__link">
         
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_7" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="rust/" class="md-nav__link ">
-              
   
   
   <span class="md-ellipsis">
@@ -2757,87 +2727,7 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_5_7" id="__nav_5_7_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Rust
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="rust/manual/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Using OpenTLV from Rust
-  
-
-    
-  </span>
-  
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="rust/manual/development/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Rust development
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -4203,6 +4093,8 @@
       
         
       
+        
+      
     
     
     
@@ -4487,6 +4379,34 @@
     
   
     Python release preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/components/rust/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust tests and CI
   
 
     
@@ -5117,6 +5037,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -5205,6 +5137,34 @@
     
   
     Core Python transition guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/core/development/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Rust development guide
   
 
     
@@ -5498,6 +5458,146 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/rust/migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust migration provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/rust/validation/standalone-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust standalone build validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/rust/validation/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust CI validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/rust/validation/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust packaging validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/history/rust/validation/layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust source layout validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5626,7 +5726,7 @@ which operations each binding exposes and the shared C boundary.</p>
 <tr>
 <td><a href="rust/">Rust</a></td>
 <td>Safe Rust API over the C library</td>
-<td>Available; experimental in-tree binding</td>
+<td>Available; experimental standalone binding</td>
 </tr>
 <tr>
 <td><a href="go/">Go</a></td>
@@ -5647,12 +5747,15 @@ These shared contracts and the <a href="../api/reference/">C/C++ native referenc
 are available through <a href="../api/">API</a> and remain maintained by Core.
 Language overviews own setup routing and language-specific usage guidance.</p>
 <h2 id="product-manuals-and-versions">Product manuals and versions<a class="headerlink" href="#product-manuals-and-versions" title="Permanent link">&para;</a></h2>
-<p>Python and Lua maintain their own manuals and release schedules. The manual
-links on their overview pages open the exact source selected for this portal version, with
-product-specific navigation and a return link to the portal. Independent
-publication reserves <code>/python/</code> and <code>/lua/</code>, relative to the documentation site
-root. Publication and release availability are described by the owners'
+<p>Python, Lua and Rust maintain their own manuals. The manual links on their
+overview pages open the exact source selected for this portal version, with
+product-specific navigation and a return link to the portal. Python and Lua
+also have their own release schedules; independent publication reserves
+<code>/python/</code> and <code>/lua/</code>, relative to the documentation site root. Publication and
+release availability are described by the owners'
 <a href="../development/components/python/releases/">Python release guide</a> and <a href="../development/components/lua/releases/">Lua release guide</a>.
+Rust has no independent documentation releases yet; see its
+<a href="rust/manual/packaging/">packaging and versioning</a> guide.
 The selected manuals remain accessible without requiring a matching product release.</p>
 <p>Contributor tests, implementation notes and release procedures are collected in
 <a href="../development/components/">Development</a>. Migration provenance and dated
@@ -5681,7 +5784,7 @@ API references, limitations and tutorials remain with their technical owners.</p
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/476f1fbecde6b056419e43c9a6cea4d1ca8df1cf">476f1fbecde6</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/7596cdfeef4775609588b7424949aa917fbf4ecb">7596cdfeef47</a>
         
       
     
@@ -5695,14 +5798,21 @@ API references, limitations and tutorials remain with their technical owners.</p
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/ea6c937c8c7f094dae7386740e3a20574b43d703">ea6c937c8c7f</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/d846b4ff7f2c74fbf0571a065da1d83698b6f40c">d846b4ff7f2c</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/d94d30fb73b07e81c304d0b6a4e54d2b4c555dfb">d94d30fb73b0</a>
+        
+      
+    
+      
+        rust
+        
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc">d4ba3ff27ff2</a>
         
       
     
