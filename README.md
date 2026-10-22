@@ -377,13 +377,15 @@ Repository-relative source and example links and page edit links resolve to
 the selected portal pages. Rust bugs and contributions belong to the
 [Rust repository](https://github.com/OpenTLV/opentlv-rust/issues).
 
-Core no longer contains the in-tree Rust binding or its `guides/rust.md`. The
-current Core pin still contains `development/rust.md`, which is identical to the
-guide imported into Rust before it became a standalone manual. To keep one
-authoritative manual, the Core copy renders as a historical record at
-`development/history/core/development/rust/`, retaining its Core edit link and
-linking to the current Rust development guide. Removing it requires the later
-Core cleanup and a matching navigation update; missing pages still fail.
+The current Core pin includes the Rust implementation removal. Core no longer
+contains the in-tree Rust binding or its `guides/rust.md`. Its retained
+`development/rust.md` is current Core ownership guidance, not a copy of the Rust
+manual: it routes builds to `opentlv-rust` and describes the diagnostic
+vocabulary generator, shared Query corpus and fuzz seeds that Core keeps for the
+Rust tests. It renders at `development/bindings/rust/` with a portal note
+linking to the current Rust development guide, like Python's Core ownership
+page. Removing it requires a coordinated Core change and navigation update;
+missing pages still fail.
 
 Rust has no release workflow, so it has no `publication` configuration and no
 independent `/rust/<version>/` snapshots; its manuals are available at the

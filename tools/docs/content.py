@@ -12,8 +12,6 @@ COMPONENT_INDEX = "development/components.md"
 ARCHIVES = {
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
-    "development/rust.md": ("core", "Core Rust development guide", "development/rust.md",
-                            "rust/development/rust.md", "current Rust development guide"),
     "development/documentation-audit.md": (
         "core", "Documentation audit (#513)", "documentation-audit.md",
         "development/documentation.md", "current documentation conventions"),
