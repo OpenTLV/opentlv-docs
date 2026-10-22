@@ -237,6 +237,7 @@ nav:
           - Logo assets: assets/README.md
       - Historical records:
           - Overview: development/history.md
+          - Go migration baseline: development/go-migration/README.md
           - Core Python transition guide: guides/python.md
           - Query phase implementation audit: development/query-phase-audit.md
           - Reader decode performance record: development/reader-decode-performance.md

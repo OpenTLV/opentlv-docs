@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Include Core's Go migration baseline in Development history when adopting the Core pin proposed by PR #81. Preserve its source ownership and linked JSON evidence, and keep the exact Core 0.7.1 navigation compatible. (#81)
 - Stop archiving Core's Rust user guide, which Core deleted, so updating the Core pin no longer fails the strict build and navigation check on a missing `guides/rust.md`; keep the Core Rust development guide archived. (OpenTLV/opentlv#679)
 - Wait up to about three minutes for delayed GitHub job metadata when recording CI timings, retry transient API failures, and measure reruns of failed jobs from the earliest reused job, so a passing documentation check no longer fails its gate on timing evidence. (#74)
 - Pin Rust documentation to the merged standalone manuals of OpenTLV/opentlv-rust#15, replacing the pre-integration revision whose Core-relative links failed the strict build. (OpenTLV/opentlv-rust#6)
