@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Present Core's retained `development/rust.md` as current Rust ownership guidance at `development/bindings/rust/`, like Python's, instead of archiving it as a superseded copy of the Rust development guide; it now routes builds to `opentlv-rust` and describes the Core inputs the Rust tests read. (OpenTLV/opentlv-rust#7)
 - Select the standalone Rust manuals from `opentlv-rust` at an independent pin with Main documentation notifications, render them under Languages with their contributor guide in Development and their migration and validation records in history, and archive Core's superseded Rust guides with links to the current manual. (OpenTLV/opentlv-rust#6)
 - Review the assembled content, move contributor manuals and active proposals into Development, and archive migration, performance and validation records with current-guide links while preserving technical sources and evidence. (#61)
 - Define the cross-repository documentation ownership contract, route changing component requirements and version details to their owners, and track coordinated Core, Lua and Workspace corrections. (#62)

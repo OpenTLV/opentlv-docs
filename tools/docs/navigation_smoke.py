@@ -102,7 +102,8 @@ def check_development(page, base_url):
             page.locator("article").get_by_role("link", name=detail_title, exact=True).click()
             expect(page).to_have_url(base_url + detail)
             expect(page.locator("article h1")).to_be_visible()
-        for path in ("documentation/layout", "documentation/ownership", "bindings/python"):
+        for path in ("documentation/layout", "documentation/ownership", "bindings/python",
+                     "bindings/rust"):
             page.goto(base_url + "development/" + path + "/")
             note = page.locator("article .admonition.note").filter(has_text="Portal context")
             expect(note).to_have_count(1)
@@ -145,8 +146,6 @@ def check_content_disposition(page, base_url):
         ("Python source layout validation", "python/validation/layout/",
          "current Python development guide", "languages/python/manual/development/python/",
          "opentlv-python", "validation/layout.md", ()),
-        ("Core Rust development guide", "core/development/rust/", "current Rust development guide",
-         "languages/rust/manual/development/rust/", "opentlv", "development/rust.md", ()),
         ("Rust migration provenance", "rust/migration/", "current Rust development guide",
          "languages/rust/manual/development/rust/", "opentlv-rust", "migration.md",
          ("inventory", "validation.json")),

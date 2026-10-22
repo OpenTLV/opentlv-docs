@@ -88,7 +88,7 @@ PAGE_ROUTES = {
     "concepts/format-contract.md": "api/concepts/format-contract.md",
     "concepts/definition-boundaries.md": "development/architecture/definition-boundaries.md",
     "reference/compilers.md": "development/building/compilers.md",
-    "development/rust.md": "languages/rust/core-development.md",
+    "development/rust.md": "development/bindings/rust.md",
     "development/python.md": "development/bindings/python.md",
     "development/go.md": "languages/go/manual/development.md",
     "development/lua.md": "development/bindings/lua.md",
@@ -121,6 +121,12 @@ DEVELOPMENT_NOTES = {
         "This portal selects the standalone Python manual. Core owns the diagnostic "
         "vocabulary generator, native fixtures and dependency coordination; "
         "[Python development](../python/development/python.md) owns standalone build instructions."
+    ),
+    "development/rust.md": (
+        "This portal selects the standalone Rust manual. Core owns the diagnostic "
+        "vocabulary generator, the shared Query corpus and fuzz seeds the Rust tests "
+        "read; [Rust development](../rust/development/rust.md) owns standalone build "
+        "instructions."
     ),
 }
 

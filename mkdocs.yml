@@ -216,6 +216,7 @@ nav:
           - Contribution entry points: development/contributing.md
           - Development workflow: development/workflow.md
           - Python ownership in Core: development/python.md
+          - Rust ownership in Core: development/rust.md
       - Component guides:
           - Overview: development/components.md
       - Testing and quality gates:
@@ -237,7 +238,6 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Core Python transition guide: guides/python.md
-          - Core Rust development guide: development/rust.md
           - Query phase implementation audit: development/query-phase-audit.md
           - Reader decode performance record: development/reader-decode-performance.md
           - C++ facade performance record: development/cxx-facade-performance.md
