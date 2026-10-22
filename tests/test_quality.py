@@ -14,6 +14,7 @@ import tarfile
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools/docs"))
 import quality
@@ -154,6 +155,29 @@ class TimingTests(unittest.TestCase):
             self.assertEqual(ci_timings.completed_jobs(self.ctx, ["Required"]), [self.job])
             self.assertEqual(query.call_args_list[0], query.call_args_list[1])
 
+    def test_metadata_delayed_beyond_half_a_minute_is_awaited(self):
+        pending = dict(self.job, status="in_progress", completed_at=None)
+        with patch.object(ci_timings, "attempt_jobs", side_effect=[[pending]] * 6 + [[self.job]]),                 patch.object(ci_timings.time, "sleep") as sleep, patch("sys.stdout", new_callable=io.StringIO):
+            self.assertEqual(ci_timings.completed_jobs(self.ctx, ["Required"]), [self.job])
+        self.assertGreater(sum(call.args[0] for call in sleep.call_args_list), 60)
+        self.assertLess(sum(ci_timings.METADATA_DELAYS), 240)
+
+    def test_transient_api_errors_are_retried_and_others_fail(self):
+        class Response(io.BytesIO):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                pass
+        for code in (502, 503):
+            with patch.object(ci_timings, "urlopen", side_effect=[
+                    HTTPError("url", code, "unavailable", {}, None), Response(b'{"ok": 1}')]),                     patch.object(ci_timings.time, "sleep"), patch("sys.stdout", new_callable=io.StringIO):
+                self.assertEqual(ci_timings.get("/x"), {"ok": 1})
+        with patch.object(ci_timings, "urlopen", side_effect=HTTPError("url", 404, "missing", {}, None)),                 patch.object(ci_timings.time, "sleep") as sleep:
+            with self.assertRaises(HTTPError):
+                ci_timings.get("/x")
+            sleep.assert_not_called()
+
     def test_missing_partial_duplicate_or_stale_jobs_fail(self):
         for jobs in ([], [self.job, self.job], [dict(self.job, status="in_progress")],
                      [dict(self.job, run_attempt=1)], [dict(self.job, head_sha="b" * 40)]):
@@ -174,6 +198,17 @@ class TimingTests(unittest.TestCase):
             self.assertEqual(report["checkout_commit"], "b" * 40)
             self.assertEqual(report["job_seconds"], 60)
             self.assertEqual(report["wall_seconds"], 60)
+
+    def test_failed_job_rerun_reuses_earlier_job_times(self):
+        env = {"GITHUB_RUN_ID": "123", "GITHUB_RUN_ATTEMPT": "2", "GITHUB_SHA": "a" * 40,
+               "GITHUB_EVENT_NAME": "push"}
+        # The carried-over job finished before the rerun attempt started.
+        run = {"id": 123, "run_attempt": 2, "head_sha": "a" * 40, "event": "pull_request",
+               "html_url": "run", "run_started_at": "2026-01-01T00:05:00Z"}
+        with patch.dict(os.environ, env), patch.object(ci_timings, "get", return_value=run),                 patch.object(ci_timings, "completed_jobs", return_value=[dict(self.job, html_url="job")]):
+            report = ci_timings.current(["Required"])
+        self.assertEqual(report["started_at"], self.job["started_at"])
+        self.assertEqual(report["wall_seconds"], 60)
 
     def test_negative_runner_duration_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "negative"):

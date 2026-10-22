@@ -9,17 +9,32 @@ import json
 import os
 from pathlib import Path
 import time
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 API = "https://api.github.com/repos/OpenTLV/opentlv-docs"
+# Job metadata can trail job completion by more than half a minute. Waits stay
+# within the 5-minute gate jobs, always on the same run attempt.
+METADATA_DELAYS = (5, 10, 15, 20, 30, 30, 30, 30)
+TRANSIENT_HTTP = {429, 500, 502, 503, 504}
 
 
 def get(path):
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "OpenTLV-docs-CI"}
     if os.environ.get("GH_TOKEN"):
         headers["Authorization"] = "Bearer " + os.environ["GH_TOKEN"]
-    with urlopen(Request(API + path, headers=headers), timeout=60) as response:
-        return json.load(response)
+    for delay in (5, 10, None):
+        try:
+            with urlopen(Request(API + path, headers=headers), timeout=60) as response:
+                return json.load(response)
+        except HTTPError as error:
+            if error.code not in TRANSIENT_HTTP or delay is None:
+                raise
+        except (URLError, TimeoutError):
+            if delay is None:
+                raise
+        print(f"GitHub API request failed temporarily; retrying in {delay} seconds.", flush=True)
+        time.sleep(delay)
 
 
 def seconds(start, end):
@@ -44,19 +59,17 @@ def completed_jobs(context, names, successful=False):
     """Retry delayed metadata, always querying the same run and attempt."""
     if not names or len(set(names)) != len(names):
         raise ValueError("Expected unique job names")
-    for retry in range(6):
+    for delay in (*METADATA_DELAYS, None):
         jobs = attempt_jobs(context["run_id"], context["run_attempt"])
         selected = [job for job in jobs if job["name"] in names]
-        if (len(selected) == len(names) and {job["name"] for job in selected} == set(names)
-                and all(job.get("status") == "completed" and job.get("completed_at")
-                        and job.get("conclusion") in ("success", "failure", "cancelled", "skipped",
-                                                     "timed_out", "action_required", "neutral", "stale")
-                        and (job.get("started_at") or job.get("conclusion") == "skipped")
-                        for job in selected)):
+        pending = sorted(set(names) - {job["name"] for job in selected if ready(job)})
+        if len(selected) == len(names) and not pending:
             break
-        if retry == 5:
-            raise ValueError("Missing or incomplete same-attempt job metadata")
-        time.sleep(5)
+        if delay is None:
+            raise ValueError("Missing or incomplete same-attempt job metadata: " + ", ".join(pending or names))
+        print(f"Job timing metadata is not ready ({', '.join(pending or names)}); "
+              f"retrying the same run attempt in {delay} seconds.", flush=True)
+        time.sleep(delay)
     for job in selected:
         if (str(job.get("run_attempt")) != context["run_attempt"]
                 or str(job.get("run_id")) != context["run_id"]
@@ -65,6 +78,13 @@ def completed_jobs(context, names, successful=False):
         if successful and job.get("conclusion") != "success":
             raise ValueError(f"Required job did not pass: {job['name']}")
     return selected
+
+
+def ready(job):
+    return bool(job.get("status") == "completed" and job.get("completed_at")
+                and job.get("conclusion") in ("success", "failure", "cancelled", "skipped",
+                                             "timed_out", "action_required", "neutral", "stale")
+                and (job.get("started_at") or job.get("conclusion") == "skipped"))
 
 
 def current(names):
@@ -82,12 +102,16 @@ def current(names):
     measured = [{"name": job["name"], "conclusion": job["conclusion"],
                  "seconds": seconds(job["started_at"], job["completed_at"])
                  if job["conclusion"] != "skipped" else 0, "url": job["html_url"]} for job in jobs]
+    # "Re-run failed jobs" carries successful jobs into the new attempt with
+    # their original times, which precede the new attempt's start.
+    started = min([run["run_started_at"], *(job["started_at"] for job in jobs if job.get("started_at"))],
+                  key=lambda value: datetime.fromisoformat(value.replace("Z", "+00:00")))
     return {"run_id": int(context["run_id"]), "attempt": int(context["run_attempt"]),
             "event": run["event"], "commit": run["head_sha"], "checkout_commit": checkout_commit,
             "url": run["html_url"],
             "scope": "named predecessor jobs; excludes collecting gate",
-            "jobs": measured, "started_at": run["run_started_at"],
-            "wall_seconds": seconds(run["run_started_at"], max(job["completed_at"] for job in jobs)),
+            "jobs": measured, "started_at": started,
+            "wall_seconds": seconds(started, max(job["completed_at"] for job in jobs)),
             "job_seconds": sum(job["seconds"] for job in measured)}
 
 

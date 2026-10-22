@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Wait up to about three minutes for delayed GitHub job metadata when recording CI timings, retry transient API failures, and measure reruns of failed jobs from the earliest reused job, so a passing documentation check no longer fails its gate on timing evidence. (#74)
 - Pin Rust documentation to the merged standalone manuals of OpenTLV/opentlv-rust#15, replacing the pre-integration revision whose Core-relative links failed the strict build. (OpenTLV/opentlv-rust#6)
 - Name Marek Cingel instead of OpenTLV as the copyright holder in `LICENSE`, matching the source headers and the Core and Workspace licenses. (#71)
 - Reject ambiguous or malformed source registrations before replacing assembled documentation, and resolve generated API links from both original source paths and current portal routes. (#62)
