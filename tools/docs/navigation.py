@@ -74,7 +74,6 @@ PAGE_ROUTES = {
     "reference/cxx-api.md": "api/reference/cpp/index.md",
     "reference/errors.md": "api/reference/errors.md",
     "concepts/query-language.md": "api/query-language.md",
-    "guides/rust.md": "languages/rust/core-guide.md",
     "guides/go.md": "languages/go/manual/index.md",
     "guides/python.md": "languages/python/core-transition.md",
     "guides/lua.md": "languages/lua/core-transition.md",

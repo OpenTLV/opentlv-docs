@@ -237,7 +237,6 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Core Python transition guide: guides/python.md
-          - Core Rust guide: guides/rust.md
           - Core Rust development guide: development/rust.md
           - Query phase implementation audit: development/query-phase-audit.md
           - Reader decode performance record: development/reader-decode-performance.md
