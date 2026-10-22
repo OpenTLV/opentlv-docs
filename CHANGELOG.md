@@ -29,6 +29,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Pin Rust documentation to the merged standalone manuals of OpenTLV/opentlv-rust#15, replacing the pre-integration revision whose Core-relative links failed the strict build. (OpenTLV/opentlv-rust#6)
+- Name Marek Cingel instead of OpenTLV as the copyright holder in `LICENSE`, matching the source headers and the Core and Workspace licenses. (#71)
 - Reject ambiguous or malformed source registrations before replacing assembled documentation, and resolve generated API links from both original source paths and current portal routes. (#62)
 - Correct the migration map to reflect the current epic sub-issues, follow-up order and requirement to complete corrections in owning repositories before closing the ownership review. (#63)
 - Pin Python documentation to the merged standalone documentation fixes, resolving the Markdown lint failure and obsolete example links. (#34)

@@ -44,7 +44,7 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "revision": "ea6c937c8c7f094dae7386740e3a20574b43d703",
+      "revision": "25d8783f1ef0def6c8790c7060a756fab635d3e4",
       "docs_path": "docs",
       "mount": "lua",
       "updates": {
@@ -94,7 +94,7 @@
     {
       "id": "python",
       "repository": "https://github.com/OpenTLV/opentlv-python",
-      "revision": "d846b4ff7f2c74fbf0571a065da1d83698b6f40c",
+      "revision": "d94d30fb73b07e81c304d0b6a4e54d2b4c555dfb",
       "docs_path": "docs",
       "mount": "python",
       "updates": {
@@ -154,7 +154,7 @@
     {
       "id": "rust",
       "repository": "https://github.com/OpenTLV/opentlv-rust",
-      "revision": "03dde3b02e01a7dec628dc2b5ff3f74103b17fd4",
+      "revision": "2157a08383a41de235622240d0d96d3e1b96588f",
       "docs_path": "docs",
       "mount": "rust",
       "updates": {
