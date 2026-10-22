@@ -10,6 +10,9 @@ COMPONENT_INDEX = "development/components.md"
 # combined portal archives them; independent product publications use their
 # original navigation and paths.
 ARCHIVES = {
+    "development/go-migration/README.md": (
+        "core", "Go migration baseline", "go-migration/index.md",
+        "development/go.md", "current Go development guide"),
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
     "development/documentation-audit.md": (

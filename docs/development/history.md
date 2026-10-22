@@ -14,6 +14,10 @@ Their source repositories and previously published release snapshots are unchang
 Each record keeps its original logs, inventories and provenance links. A successful
 historical check is evidence for its recorded inputs, not for a current release.
 
+The Go migration baseline freezes the pre-extraction implementation and native
+linking configurations. Its linked inventory and results JSON remain Core-owned
+evidence; the record does not establish standalone Go build or release readiness.
+
 ## Review decisions
 
 The [content disposition review](https://github.com/OpenTLV/opentlv-docs/blob/main/DOCUMENTATION-CONTENT-REVIEW.md)

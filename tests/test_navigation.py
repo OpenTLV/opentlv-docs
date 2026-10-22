@@ -52,6 +52,11 @@ class NavigationTests(unittest.TestCase):
             "[Lua](lua/api.md#preserved-anchor)\n")
         for name in (navigation.content.HISTORY_INDEX, navigation.content.COMPONENT_INDEX):
             shutil.copyfile(fixture.ROOT / "docs" / name, self.root / "docs" / name)
+        migration = self.root / "docs/development/go-migration"
+        with (migration / "README.md").open("a", encoding="utf-8") as page:
+            page.write("\n[Inventory](inventory.json) and [results](results.json).\n")
+        for name in ("inventory.json", "results.json"):
+            (migration / name).write_bytes(b'{"preserved": true}\n')
         self.path = self.root / "mkdocs.yml"
         self.path.write_text(yaml.safe_dump(self.config, sort_keys=False))
 
@@ -169,6 +174,7 @@ class NavigationTests(unittest.TestCase):
         # Check representative user-visible destinations independently of the
         # route table, including paths that would otherwise match product rules.
         for source, url in {
+            "development/go-migration/README.md": "development/history/core/go-migration/",
             "guides/python.md": "development/history/core/guides/python/",
             "lua/migration.md": "development/history/lua/migration/",
             "python/validation/ci.md": "development/history/python/validation/ci/",
@@ -249,7 +255,8 @@ class NavigationTests(unittest.TestCase):
                                              "development/history/python/"))
                              for path in locations))
         for path in ("development/history/core/guides/python", "development/history/lua/migration",
-                     "development/history/python/validation/ci", "development/components/lua/testing"):
+                     "development/history/python/validation/ci", "development/components/lua/testing",
+                     "development/history/core/go-migration"):
             html = (site / path / "index.html").read_text(encoding="utf-8")
             self.assertIn('data-md-component="tabs"', html)
             self.assertNotIn("Return to the OpenTLV portal", html)
@@ -258,6 +265,12 @@ class NavigationTests(unittest.TestCase):
             if "/history/" in path:
                 self.assertIn("Historical record", html)
                 self.assertIn("not a current verification", html)
+        migration = site / "development/history/core/go-migration/index.html"
+        html = migration.read_text(encoding="utf-8")
+        for name in ("inventory.json", "results.json"):
+            self.assertIn(f'href="../../../go-migration/{name}"', html)
+            self.assertEqual((site / "development/go-migration" / name).read_bytes(),
+                             b'{"preserved": true}\n')
         self.assertFalse(any(path.startswith(("getting-started/", "guides/", "formats/", "bindings/"))
                              for path in locations))
         tabs = home.split('data-md-component="tabs"', 1)[1].split("</nav>", 1)[0]
@@ -291,6 +304,7 @@ class NavigationTests(unittest.TestCase):
         self.assertIn("development/lua.md", paths)
         self.assertNotIn("development/quality-gates.md", paths)
         self.assertNotIn("development/documentation-ownership.md", paths)
+        self.assertNotIn("development/go-migration/README.md", paths)
         for name in paths:
             path = self.root / "docs" / name
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -309,8 +323,9 @@ class NavigationTests(unittest.TestCase):
         self.assertEqual(files.get_file_from_path("development/documentation-audit.md").page.url,
                          "development/history/core/documentation-audit/")
         # The exact immutable version still builds with all retained records.
-        # Only its two known later additions may be absent.
-        for name in ("development/quality-gates.md", "development/documentation-ownership.md"):
+        # Only its known later additions may be absent.
+        for name in ("development/quality-gates.md", "development/documentation-ownership.md",
+                     "development/go-migration/README.md"):
             (self.root / "docs" / name).unlink()
         self.config["extra"]["core_source"] = self.selected[0][1]
         self.path.write_text(yaml.safe_dump(self.config, sort_keys=False))
