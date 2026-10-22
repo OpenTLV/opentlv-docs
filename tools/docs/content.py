@@ -12,6 +12,10 @@ COMPONENT_INDEX = "development/components.md"
 ARCHIVES = {
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
+    "guides/rust.md": ("core", "Core Rust guide", "guides/rust.md",
+                       "rust/guides/rust.md", "current Rust manual"),
+    "development/rust.md": ("core", "Core Rust development guide", "development/rust.md",
+                            "rust/development/rust.md", "current Rust development guide"),
     "development/documentation-audit.md": (
         "core", "Documentation audit (#513)", "documentation-audit.md",
         "development/documentation.md", "current documentation conventions"),
@@ -40,6 +44,20 @@ ARCHIVES = {
     "python/validation/layout.md": (
         "python", "Python source layout validation", "validation/layout.md",
         "python/development/python.md", "current Python development guide"),
+    "rust/migration.md": ("rust", "Rust migration provenance", "migration.md",
+                          "rust/development/rust.md", "current Rust development guide"),
+    "rust/validation/standalone-build.md": (
+        "rust", "Rust standalone build validation", "validation/standalone-build.md",
+        "rust/development/rust.md", "current Rust build guide"),
+    "rust/validation/ci.md": (
+        "rust", "Rust CI validation", "validation/ci.md",
+        "rust/quality-gates.md", "current Rust quality gates"),
+    "rust/validation/packaging.md": (
+        "rust", "Rust packaging validation", "validation/packaging.md",
+        "rust/packaging.md", "current Rust packaging guide"),
+    "rust/validation/layout.md": (
+        "rust", "Rust source layout validation", "validation/layout.md",
+        "rust/development/rust.md", "current Rust development guide"),
 }
 
 COMPONENT_GUIDES = {
@@ -51,6 +69,7 @@ COMPONENT_GUIDES = {
     "lua/releases.md": ("lua", "Lua release quality gate"),
     "python/quality-gates.md": ("python", "Python tests and CI"),
     "python/releases.md": ("python", "Python release preparation"),
+    "rust/quality-gates.md": ("rust", "Rust tests and CI"),
 }
 
 

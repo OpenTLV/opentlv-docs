@@ -50,7 +50,8 @@ def check_navigation(page, base_url):
             page.locator('.md-header label[for="__drawer"]').click()
         page.locator(".md-nav--primary").get_by_role("link", name="Choose a processing API", exact=True).click()
         expect(page).to_have_url(base_url + "tutorials/processing/")
-        for path in ("tools/otlv/manual/", "languages/lua/manual/api/", "languages/python/manual/guides/python/"):
+        for path in ("tools/otlv/manual/", "languages/lua/manual/api/", "languages/python/manual/guides/python/",
+                     "languages/rust/manual/guides/rust/"):
             page.goto(base_url + path)
             expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
             if width == 390:
@@ -144,6 +145,24 @@ def check_content_disposition(page, base_url):
         ("Python source layout validation", "python/validation/layout/",
          "current Python development guide", "languages/python/manual/development/python/",
          "opentlv-python", "validation/layout.md", ()),
+        ("Core Rust guide", "core/guides/rust/", "current Rust manual",
+         "languages/rust/manual/guides/rust/", "opentlv", "guides/rust.md", ()),
+        ("Core Rust development guide", "core/development/rust/", "current Rust development guide",
+         "languages/rust/manual/development/rust/", "opentlv", "development/rust.md", ()),
+        ("Rust migration provenance", "rust/migration/", "current Rust development guide",
+         "languages/rust/manual/development/rust/", "opentlv-rust", "migration.md",
+         ("inventory", "validation.json")),
+        ("Rust standalone build validation", "rust/validation/standalone-build/",
+         "current Rust build guide", "languages/rust/manual/development/rust/",
+         "opentlv-rust", "validation/standalone-build.md", ("machine-readable report",)),
+        ("Rust CI validation", "rust/validation/ci/", "current Rust quality gates",
+         "development/components/rust/quality-gates/", "opentlv-rust",
+         "validation/ci.md", ("machine-readable summary",)),
+        ("Rust packaging validation", "rust/validation/packaging/", "current Rust packaging guide",
+         "languages/rust/manual/packaging/", "opentlv-rust", "validation/packaging.md", ("CI evidence",)),
+        ("Rust source layout validation", "rust/validation/layout/",
+         "current Rust development guide", "languages/rust/manual/development/rust/",
+         "opentlv-rust", "validation/layout.md", ("inventory",)),
     )
     contributors = (
         ("CLI development", "cli/development/", "opentlv-cli", "development.md"),
@@ -154,6 +173,7 @@ def check_content_disposition(page, base_url):
         ("Lua release quality gate", "lua/releases/", "opentlv-lua", "releases.md"),
         ("Python tests and CI", "python/quality-gates/", "opentlv-python", "quality-gates.md"),
         ("Python release preparation", "python/releases/", "opentlv-python", "releases.md"),
+        ("Rust tests and CI", "rust/quality-gates/", "opentlv-rust", "quality-gates.md"),
     )
     for width in (1440, 390):
         page.set_viewport_size({"width": width, "height": 900})
@@ -206,7 +226,7 @@ def check_catalogs(page, base_url):
         ("C++", "languages/cpp/", "C++ API reference", "api/reference/cpp/"),
         ("Python", "languages/python/", "Python manual", "languages/python/manual/guides/python/"),
         ("Lua", "languages/lua/", "Lua manual", "languages/lua/manual/api/"),
-        ("Rust", "languages/rust/", "Rust manual", "languages/rust/manual/"),
+        ("Rust", "languages/rust/", "Rust manual", "languages/rust/manual/guides/rust/"),
         ("Go", "languages/go/", "Go manual", "languages/go/manual/"),
         ("WebAssembly", "languages/wasm/", "WebAssembly manual", "languages/wasm/development/"),
     )
@@ -233,7 +253,7 @@ def check_catalogs(page, base_url):
                     page.locator("article").get_by_role("link", name=manual_title, exact=True).click()
                     expect(page).to_have_url(base_url + manual)
                     expect(page.locator("article h1")).to_be_visible()
-                    if title in ("Python", "Lua", "otlv CLI"):
+                    if title in ("Python", "Lua", "Rust", "otlv CLI"):
                         expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
                         page.get_by_role("link", name="Return to the OpenTLV portal", exact=True).click()
                         expect(page).to_have_url(base_url)

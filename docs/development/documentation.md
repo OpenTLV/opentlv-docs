@@ -11,7 +11,7 @@ instructions must be read alongside the current rules here.
 | Owner | Maintain here |
 | --- | --- |
 | Core | Architecture, shared semantics, detailed format rules and limitations, C/C++ APIs and Doxygen inputs, native examples and their correctness, Core builds and tests. |
-| Language repository | Its public API, installation/distribution, supported functionality, examples, tests, versioning and release details. Lua and Python manuals come from their standalone repositories; in-tree bindings retain Core ownership until their implementation moves. |
+| Language repository | Its public API, installation/distribution, supported functionality, examples, tests, versioning and release details. Lua, Python and Rust manuals come from their standalone repositories; in-tree bindings retain Core ownership until their implementation moves. |
 | Tool repository | Its commands, configuration, workflows, examples, tests, versions and releases. The CLI manual comes from its standalone repository. |
 | Portal | Catalogs, short introductions, contributor entry points, navigation, presentation, source assembly, generated-reference integration, site validation and publication. |
 | Workspace | Checkout configuration, bootstrap/setup, editor integration and local cross-repository workflows. Its integration pins describe tested workspace coverage, not another component's current migration or release status. |
@@ -82,7 +82,7 @@ contracts. The Development entry points introduced by #49 remain in use.
 Source directories such as `concepts/`, `guides/`, `formats/`, `bindings/` and `reference/` still describe
 the owning repository's source layout. They are not additional top-level portal
 sections. The portal assigns rendered paths while retaining original source
-paths and owner-specific source/edit links. CLI, Lua and Python public manuals
+paths and owner-specific source/edit links. CLI, Lua, Python and Rust public manuals
 retain their own contextual navigation and a return link to the portal.
 Selected contributor guides appear in [Development](components.md); migration
 and dated validation evidence appear in [Historical records](history.md).
@@ -109,7 +109,7 @@ navigation. Keep generated references and site output as build artifacts.
 
 ## Migration records and current sources
 
-The portal already selects standalone CLI, Lua and Python documentation through
+The portal already selects standalone CLI, Lua, Python and Rust documentation through
 its [source manifest](https://github.com/OpenTLV/opentlv-docs/blob/main/docs-sources.json).
 The retained [Core Python coordination page](python.md) owns the diagnostic
 vocabulary generator, native fixtures and dependency coordination; Python's

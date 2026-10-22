@@ -150,6 +150,58 @@
         "artifact": "component-release-{attempt}",
         "asset": "release.json"
       }
+    },
+    {
+      "id": "rust",
+      "repository": "https://github.com/OpenTLV/opentlv-rust",
+      "revision": "03dde3b02e01a7dec628dc2b5ff3f74103b17fd4",
+      "docs_path": "docs",
+      "mount": "rust",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/rust-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Rust",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Rust": "guides/rust.md"
+          },
+          {
+            "Build, features and contributing": "development/rust.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              },
+              {
+                "Source layout": "validation/layout.md"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

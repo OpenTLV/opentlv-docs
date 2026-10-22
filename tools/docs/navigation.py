@@ -74,7 +74,7 @@ PAGE_ROUTES = {
     "reference/cxx-api.md": "api/reference/cpp/index.md",
     "reference/errors.md": "api/reference/errors.md",
     "concepts/query-language.md": "api/query-language.md",
-    "guides/rust.md": "languages/rust/manual/index.md",
+    "guides/rust.md": "languages/rust/core-guide.md",
     "guides/go.md": "languages/go/manual/index.md",
     "guides/python.md": "languages/python/core-transition.md",
     "guides/lua.md": "languages/lua/core-transition.md",
@@ -89,7 +89,7 @@ PAGE_ROUTES = {
     "concepts/format-contract.md": "api/concepts/format-contract.md",
     "concepts/definition-boundaries.md": "development/architecture/definition-boundaries.md",
     "reference/compilers.md": "development/building/compilers.md",
-    "development/rust.md": "languages/rust/manual/development.md",
+    "development/rust.md": "languages/rust/core-development.md",
     "development/python.md": "development/bindings/python.md",
     "development/go.md": "languages/go/manual/development.md",
     "development/lua.md": "development/bindings/lua.md",
@@ -99,7 +99,10 @@ PAGE_ROUTES = {
     "assets/README.md": "development/documentation/assets.md",
 }
 PRODUCT_ROUTES = {"cli/": "tools/otlv/manual/", "lua/": "languages/lua/manual/",
-                  "python/": "languages/python/manual/"}
+                  "python/": "languages/python/manual/", "rust/": "languages/rust/manual/"}
+# Archived Core copies link here when their standalone manual is not selected.
+ENTRY_POINTS = {"python": ("bindings/python/index.md", "Python language entry point"),
+                "rust": ("bindings/rust/index.md", "Rust language entry point")}
 
 # Presentation notes reconcile old portal instructions without maintaining an
 # edited copy of the owner's technical Markdown. Keep the original text intact.
@@ -111,8 +114,8 @@ DEVELOPMENT_NOTES = {
         "current portal hierarchy."
     ),
     "development/documentation-ownership.md": (
-        "Core owns its technical sources and extraction evidence. CLI, Lua and "
-        "Python manuals are selected from their standalone repositories; the "
+        "Core owns its technical sources and extraction evidence. CLI, Lua, "
+        "Python and Rust manuals are selected from their standalone repositories; the "
         "portal owns navigation, catalogs and the selected source revisions."
     ),
     "development/python.md": (
@@ -162,11 +165,12 @@ def source_link(page, target):
 
 def current_guide(record, config):
     target, title = record[3:]
-    if target.startswith("python/") and not any(
-        source["id"] == "python" and source["included"]
+    owner = target.split("/", 1)[0]
+    if owner in ENTRY_POINTS and not any(
+        source["id"] == owner and source["included"]
         for source in config.extra.get("sources", [])
     ):
-        return "bindings/python/index.md", "Python language entry point"
+        return ENTRY_POINTS[owner]
     return target, title
 
 

@@ -52,8 +52,8 @@ identified archive of historical evidence.
 `docs-sources.json` retains the complete product navigation for inventory checks
 and independent publication. The assembly navigation includes every page;
 `tools/docs/content.py` assigns reviewed historical and contributor pages to
-Development; `tools/docs/navigation.py` separates the remaining CLI, Lua and
-Python manuals into contextual menus after MkDocs validates the complete
+Development; `tools/docs/navigation.py` separates the remaining CLI, Lua,
+Python and Rust manuals into contextual menus after MkDocs validates the complete
 inventory. Product source links retain their owners; ordinary manual menus and
 previous/next links stay within the product, with a return link to the current
 portal version. They do not show the
@@ -66,7 +66,8 @@ source paths for ownership, inventory and link resolution. Internal links,
 search results and generated API guide links use the new destinations.
 **Old page URLs are intentionally not supported:** there are no redirects or
 compatibility aliases. Product manuals selected for a portal version live under
-`tools/otlv/manual/`, `languages/lua/manual/` and `languages/python/manual/`.
+`tools/otlv/manual/`, `languages/lua/manual/`, `languages/python/manual/`
+and `languages/rust/manual/`.
 Independent product publication remains separate from these selected manuals.
 
 Issue #46 transferred Home to the portal and added the practical learning
@@ -108,23 +109,24 @@ Overviews link setup and first examples in the owning manuals; they do not
 maintain copies of API tutorials. C/C++ technical ownership remains with Core.
 The playground application keeps `tools/playground/`; its introduction uses
 `tools/playground/overview/`. Independent product release URLs remain unchanged;
-selected Lua/Python usage, setup and versioning chapters render under Languages.
+selected Lua/Python/Rust usage, setup and versioning chapters render under Languages.
 Follow [Register a binding or tool](docs/development/product-catalogs.md) when
 adding an entry or changing its availability.
 
-The [historical records index](docs/development/history.md) collects 11 retained
+The [historical records index](docs/development/history.md) collects 18 retained
 migration, validation, performance and audit pages under
 `development/history/{owner}/`. This includes Core's Python transition guide,
-the Lua/Python migration records and the dated Python validation reports.
+Core's superseded Rust guides, the Lua/Python/Rust migration records and the
+dated Python and Rust validation reports.
 Each page retains its technical body, anchors, evidence and owner edit link,
 with a visible historical note and links to current instructions. Archived
 records are omitted from normal search results; the archive index remains
 searchable and linked from Development.
 
-Eight current CLI/Lua/Python contributor pages render under
+Nine current CLI/Lua/Python/Rust contributor pages render under
 `development/components/`, linked by the
 [component contributor index](docs/development/components.md). Build instructions
-needed by Lua/Python users and their public versioning contracts remain in the
+needed by Lua/Python/Rust users and their public versioning contracts remain in the
 language manuals. The planned runtime model and indefinite-boundary proposal
 belong to Development planning. Existing published snapshots and independently
 published component manuals keep their own content, navigation and URLs.
@@ -155,12 +157,12 @@ upstream technical sources or establish current release/deployment evidence.
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- External Core, CLI, Lua and Python checkouts at the revisions selected in `docs-sources.json`.
+- External Core, CLI, Lua, Python and Rust checkouts at the revisions selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-Local documentation previews require the CLI, Lua and Python documentation sources but do not
+Local documentation previews require the CLI, Lua, Python and Rust documentation sources but do not
 build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
 [WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
@@ -169,8 +171,8 @@ building the C++ library, bindings, CLI, examples, or tests.
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core, CLI, Lua and Python directories are the siblings `../opentlv`,
-`../opentlv-cli`, `../opentlv-lua` and `../opentlv-python`.
+Core, CLI, Lua, Python and Rust directories are the siblings `../opentlv`,
+`../opentlv-cli`, `../opentlv-lua`, `../opentlv-python` and `../opentlv-rust`.
 Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
@@ -178,6 +180,7 @@ git clone --no-checkout https://github.com/OpenTLV/opentlv.git ../opentlv-docs-c
 git clone --no-checkout https://github.com/OpenTLV/opentlv-cli.git ../opentlv-docs-cli
 git clone --no-checkout https://github.com/OpenTLV/opentlv-lua.git ../opentlv-docs-lua
 git clone --no-checkout https://github.com/OpenTLV/opentlv-python.git ../opentlv-docs-python
+git clone --no-checkout https://github.com/OpenTLV/opentlv-rust.git ../opentlv-docs-rust
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -201,6 +204,9 @@ git -C $env:OPENTLV_LUA_DIR checkout --detach $luaRevision
 $env:OPENTLV_PYTHON_DIR = (Resolve-Path ../opentlv-docs-python).Path
 $pythonRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq python).revision
 git -C $env:OPENTLV_PYTHON_DIR checkout --detach $pythonRevision
+$env:OPENTLV_RUST_DIR = (Resolve-Path ../opentlv-docs-rust).Path
+$rustRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq rust).revision
+git -C $env:OPENTLV_RUST_DIR checkout --detach $rustRevision
 ```
 
 POSIX shell:
@@ -221,10 +227,13 @@ git -C "$OPENTLV_LUA_DIR" checkout --detach "$lua_revision"
 export OPENTLV_PYTHON_DIR="$(cd ../opentlv-docs-python && pwd)"
 python_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "python"))')
 git -C "$OPENTLV_PYTHON_DIR" checkout --detach "$python_revision"
+export OPENTLV_RUST_DIR="$(cd ../opentlv-docs-rust && pwd)"
+rust_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "rust"))')
+git -C "$OPENTLV_RUST_DIR" checkout --detach "$rust_revision"
 ```
 
 For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR`,
-`OPENTLV_LUA_DIR` and `OPENTLV_PYTHON_DIR`
+`OPENTLV_LUA_DIR`, `OPENTLV_PYTHON_DIR` and `OPENTLV_RUST_DIR`
 or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
@@ -344,6 +353,43 @@ well as any local preview. The central portal's version follows Core;
 Python releases. Documentation assembly neither publishes Python packages nor
 asserts verified runtime compatibility. Existing published snapshots keep their
 original source set.
+
+### Rust documentation source
+
+The required `rust` source mounts `opentlv-rust/docs/` at the source path
+`rust/` and renders its user guide, build/feature/contribution guide and
+packaging/versioning guide under `languages/rust/manual/`, linked from
+Languages. Its tests and CI guide renders under `development/components/rust/`;
+migration provenance and dated validation records render under
+`development/history/rust/`. Rust owns the user guide, Cargo setup, the pinned
+Core dependency, Cargo features, crate versioning, local workspace
+development, contribution routing, quality gates and validation records.
+The portal consumes these manuals without compiling the crates.
+
+Rust is pinned independently of Core. `OPENTLV_RUST_DIR` selects an explicit
+checkout; its default is the workspace sibling `../opentlv-rust`.
+`OPENTLV_DOCS_LOCAL=1` previews working-tree documentation. Building the crates
+against a local Core uses the separate `OPENTLV_CORE_SOURCE` setting documented
+in the [Rust development guide](https://github.com/OpenTLV/opentlv-rust/blob/main/docs/development/rust.md).
+Repository-relative source and example links and page edit links resolve to
+`OpenTLV/opentlv-rust` at its selected commit. Core and Rust both declare the
+`main` link alias, so the Rust manuals' links to Core documentation resolve to
+the selected portal pages. Rust bugs and contributions belong to the
+[Rust repository](https://github.com/OpenTLV/opentlv-rust/issues).
+
+The current Core pin still contains the in-tree Rust binding and its
+`guides/rust.md` and `development/rust.md`, which are identical to the guides
+imported into Rust before they became standalone manuals. To keep one
+authoritative manual, both Core copies render as historical records at
+`development/history/core/guides/rust/` and
+`development/history/core/development/rust/`, retaining their Core edit links
+and linking to the current Rust manual. Removing them requires the later Core
+cleanup and a matching navigation update; missing pages still fail.
+
+Rust has no release workflow, so it has no `publication` configuration and no
+independent `/rust/<version>/` snapshots; its manuals are available at the
+revision selected for each portal version. Merge Rust documentation changes
+first and then select the available full commit in `docs-sources.json`.
 
 ## Independent component release publication
 
@@ -1518,9 +1564,9 @@ required component; a successful producer alone is not proof of that pair.
 Merge only after the production activation checks above and normal documentation
 validation.
 
-### Lua and Python documentation pin notifications
+### Lua, Python and Rust documentation pin notifications
 
-Lua and Python use the existing `component-docs-updated` event with the five
+Lua, Python and Rust use the existing `component-docs-updated` event with the five
 fields `source`, `repository`, `commit`, `ref`, and `run_id`. Each source entry
 opts in explicitly; for example, Python uses:
 
@@ -1531,7 +1577,8 @@ opts in explicitly; for example, Python uses:
 }
 ```
 
-Lua uses the same mode with `.github/workflows/lua-main.yml`. This mode is
+Lua and Rust use the same mode with `.github/workflows/lua-main.yml` and
+`.github/workflows/rust-main.yml`. This mode is
 restricted to non-Core sources with explicit revisions and no
 `compatibility` configuration. It accepts only `main` development events from
 a successful, completed push run in the configured source repository and
@@ -1541,7 +1588,7 @@ sources retain their existing artifact/feed requirements; documentation-only
 updates do not claim that the component and selected Core passed behavioral tests.
 
 The receiver changes only the notifying source's revision, opens or updates
-`automation/component-lua` or `automation/component-python`, and rejects stale or divergent updates. Replays
+`automation/component-<source>` (`lua`, `python` or `rust`), and rejects stale or divergent updates. Replays
 matching a pending or merged pin are no-ops. Docs PR checks validate the proposed
 assembly; new pages need matching navigation. These Main notifications do not start
 Docs Full or Pages publication. Each component continues to own its binding tests.

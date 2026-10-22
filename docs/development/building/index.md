@@ -10,7 +10,8 @@ building the complete ecosystem.
 | otlv CLI | [CLI development](../../cli/development.md) owns the standalone executable's build and selected Core dependency. |
 | Lua | [Lua build and installation](../../lua/development.md) owns Lua/LuaJIT setup and the native dependency. |
 | Python | [Python build and workspace guide](../../python/development/python.md) owns extension builds, packaging and contributor setup. |
-| Rust and Go | The Core-hosted [Rust](../rust.md) and [Go](../go.md) development guides own their current build instructions. Catalog entries describe their experimental status. |
+| Rust | [Rust build, features and contribution guide](../../rust/development/rust.md) owns Cargo builds, the pinned Core dependency and local workspace development. |
+| Go | The Core-hosted [Go development guide](../go.md) owns its current build instructions. Its catalog entry describes its experimental status. |
 | WebAssembly | [WebAssembly tooling](../webassembly.md) owns the Core module build. [Playground builds](https://github.com/OpenTLV/opentlv-docs#playground-builds) describes its integration into the portal UI. |
 | Documentation portal | The portal README owns [prerequisites](https://github.com/OpenTLV/opentlv-docs#prerequisites), [setup](https://github.com/OpenTLV/opentlv-docs#setup), [build and preview](https://github.com/OpenTLV/opentlv-docs#build-and-preview), and [API reference generation](https://github.com/OpenTLV/opentlv-docs#generate-or-consume-api-references). |
 

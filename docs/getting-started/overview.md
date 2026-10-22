@@ -89,7 +89,7 @@ Custom framing starts with the [Format extension guide](../formats/custom/README
 | C++ | [Shared first program](README.md#quick-start), then [C++ examples](../guides/cxx-examples.md) |
 | Python | [Standalone Python setup and examples](../python/guides/python.md) |
 | Lua | [Standalone Lua manual](../lua/api.md) and [installation](../lua/development.md) |
-| Rust | [Rust setup and usage](../guides/rust.md) |
+| Rust | [Standalone Rust setup and usage](../rust/guides/rust.md) |
 | Go | [Go setup and usage](../guides/go.md) |
 | WebAssembly | [WebAssembly integration](../development/webassembly.md); for browser exploration, use the [playground](../playground/index.md) |
 

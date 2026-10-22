@@ -109,11 +109,12 @@ class NavigationTests(unittest.TestCase):
                           "standards/emv/README.md", "formats/bluetooth/README.md",
                           "formats/nfc/README.md", "formats/dhcp/README.md", "formats/lldp/README.md"),
             "Languages": ("bindings/c/index.md", "bindings/cpp/index.md",
-                          "bindings/python/index.md", "bindings/lua/index.md", "guides/rust.md",
+                          "bindings/python/index.md", "bindings/lua/index.md", "bindings/rust/index.md",
                           "guides/go.md", "development/webassembly.md"),
             "Development": ("concepts/architecture.md", "concepts/error-model.md",
                             "concepts/field-policies.md", "concepts/definition-boundaries.md",
-                            "formats/format-roadmap.md", "development/documentation-layout.md"),
+                            "formats/format-roadmap.md", "development/documentation-layout.md",
+                            "guides/rust.md", "development/rust.md"),
         }
         for title, names in expected.items():
             for name in names:
