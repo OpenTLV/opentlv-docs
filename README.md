@@ -377,14 +377,13 @@ Repository-relative source and example links and page edit links resolve to
 the selected portal pages. Rust bugs and contributions belong to the
 [Rust repository](https://github.com/OpenTLV/opentlv-rust/issues).
 
-The current Core pin still contains the in-tree Rust binding and its
-`guides/rust.md` and `development/rust.md`, which are identical to the guides
-imported into Rust before they became standalone manuals. To keep one
-authoritative manual, both Core copies render as historical records at
-`development/history/core/guides/rust/` and
-`development/history/core/development/rust/`, retaining their Core edit links
-and linking to the current Rust manual. Removing them requires the later Core
-cleanup and a matching navigation update; missing pages still fail.
+Core no longer contains the in-tree Rust binding or its `guides/rust.md`. The
+current Core pin still contains `development/rust.md`, which is identical to the
+guide imported into Rust before it became a standalone manual. To keep one
+authoritative manual, the Core copy renders as a historical record at
+`development/history/core/development/rust/`, retaining its Core edit link and
+linking to the current Rust development guide. Removing it requires the later
+Core cleanup and a matching navigation update; missing pages still fail.
 
 Rust has no release workflow, so it has no `publication` configuration and no
 independent `/rust/<version>/` snapshots; its manuals are available at the

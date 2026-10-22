@@ -145,8 +145,6 @@ def check_content_disposition(page, base_url):
         ("Python source layout validation", "python/validation/layout/",
          "current Python development guide", "languages/python/manual/development/python/",
          "opentlv-python", "validation/layout.md", ()),
-        ("Core Rust guide", "core/guides/rust/", "current Rust manual",
-         "languages/rust/manual/guides/rust/", "opentlv", "guides/rust.md", ()),
         ("Core Rust development guide", "core/development/rust/", "current Rust development guide",
          "languages/rust/manual/development/rust/", "opentlv", "development/rust.md", ()),
         ("Rust migration provenance", "rust/migration/", "current Rust development guide",

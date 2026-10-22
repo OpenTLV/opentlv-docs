@@ -29,6 +29,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Stop archiving Core's Rust user guide, which Core deleted, so updating the Core pin no longer fails the strict build and navigation check on a missing `guides/rust.md`; keep the Core Rust development guide archived. (OpenTLV/opentlv#679)
 - Wait up to about three minutes for delayed GitHub job metadata when recording CI timings, retry transient API failures, and measure reruns of failed jobs from the earliest reused job, so a passing documentation check no longer fails its gate on timing evidence. (#74)
 - Pin Rust documentation to the merged standalone manuals of OpenTLV/opentlv-rust#15, replacing the pre-integration revision whose Core-relative links failed the strict build. (OpenTLV/opentlv-rust#6)
 - Name Marek Cingel instead of OpenTLV as the copyright holder in `LICENSE`, matching the source headers and the Core and Workspace licenses. (#71)

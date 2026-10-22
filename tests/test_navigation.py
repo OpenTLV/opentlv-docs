@@ -114,7 +114,7 @@ class NavigationTests(unittest.TestCase):
             "Development": ("concepts/architecture.md", "concepts/error-model.md",
                             "concepts/field-policies.md", "concepts/definition-boundaries.md",
                             "formats/format-roadmap.md", "development/documentation-layout.md",
-                            "guides/rust.md", "development/rust.md"),
+                            "development/rust.md"),
         }
         for title, names in expected.items():
             for name in names:
