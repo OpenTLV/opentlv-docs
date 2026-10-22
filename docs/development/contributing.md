@@ -13,6 +13,7 @@ links the shared contracts that contributors must preserve.
 | CLI | [CONTRIBUTING](https://github.com/OpenTLV/opentlv-cli/blob/main/CONTRIBUTING.md) and [CLI development](../cli/development.md). |
 | Lua | [Implementation and ownership](../lua/implementation.md), [development](../lua/development.md), and [tests](../lua/testing.md). |
 | Python | [CONTRIBUTING](https://github.com/OpenTLV/opentlv-python/blob/main/CONTRIBUTING.md) and the [build, workspace and contribution guide](../python/development/python.md). |
+| Rust | [Issues](https://github.com/OpenTLV/opentlv-rust/issues) and the [build, features and contribution guide](../rust/development/rust.md#contributing). |
 | Portal | The [portal README](https://github.com/OpenTLV/opentlv-docs#readme) owns site setup, validation and operations. Follow the [portal documentation conventions](documentation.md) and [product registration convention](product-catalogs.md). |
 | Workspace | The [workspace repository](https://github.com/OpenTLV/opentlv-workspace) owns shared editor configuration, bootstrap and integration orchestration. |
 
@@ -23,7 +24,7 @@ target branch's policies when preparing a contribution.
 ## Prepare a change
 
 1. Read the owning repository's contribution rules and relevant technical
-   contract. Core-hosted Rust, Go and WebAssembly changes follow Core's rules
+   contract. Core-hosted Go and WebAssembly changes follow Core's rules
    as well as their component guides.
 2. Change implementation, examples and technical documentation together in the
    owning repository. Keep Core C/C++ API comments and Doxygen inputs in Core;

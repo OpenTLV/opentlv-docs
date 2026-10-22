@@ -162,5 +162,9 @@ class LuaDocumentationUpdatesTests(DocumentationUpdatesTests):
     source = "lua"
 
 
+class RustDocumentationUpdatesTests(DocumentationUpdatesTests):
+    source = "rust"
+
+
 if __name__ == "__main__":
     unittest.main()

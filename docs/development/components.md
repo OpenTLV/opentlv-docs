@@ -11,7 +11,7 @@ and [Tools](../tools/index.md) catalogs.
 
 Core contributor guidance starts with [Architecture](architecture/index.md),
 [Building from Source](building/index.md) and [Testing and Quality Gates](testing.md).
-The Core-hosted Rust, Go and WebAssembly guides combine language-specific setup
+The Core-hosted Go and WebAssembly guides combine language-specific setup
 and development instructions; their [language entry points](../bindings/index.md)
 remain available.
 

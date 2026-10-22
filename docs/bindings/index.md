@@ -12,7 +12,7 @@ which operations each binding exposes and the shared C boundary.
 | [C++](cpp/index.md) | C++ facade over the C engine | Available in Core |
 | [Python](python/index.md) | Python objects and iterators | Available; experimental standalone binding |
 | [Lua](lua/index.md) | Lua module for scripts and embedded applications | Available; experimental standalone binding |
-| [Rust](rust/index.md) | Safe Rust API over the C library | Available; experimental in-tree binding |
+| [Rust](rust/index.md) | Safe Rust API over the C library | Available; experimental standalone binding |
 | [Go](go/index.md) | Go types, slices and errors | Available; experimental in-tree binding |
 | [WebAssembly](wasm/index.md) | JavaScript access to Core in the browser | Available; experimental optional Core build |
 
@@ -25,12 +25,15 @@ Language overviews own setup routing and language-specific usage guidance.
 
 ## Product manuals and versions
 
-Python and Lua maintain their own manuals and release schedules. The manual
-links on their overview pages open the exact source selected for this portal version, with
-product-specific navigation and a return link to the portal. Independent
-publication reserves `/python/` and `/lua/`, relative to the documentation site
-root. Publication and release availability are described by the owners'
+Python, Lua and Rust maintain their own manuals. The manual links on their
+overview pages open the exact source selected for this portal version, with
+product-specific navigation and a return link to the portal. Python and Lua
+also have their own release schedules; independent publication reserves
+`/python/` and `/lua/`, relative to the documentation site root. Publication and
+release availability are described by the owners'
 [Python release guide](../python/releases.md) and [Lua release guide](../lua/releases.md).
+Rust has no independent documentation releases yet; see its
+[packaging and versioning](../rust/packaging.md) guide.
 The selected manuals remain accessible without requiring a matching product release.
 
 Contributor tests, implementation notes and release procedures are collected in

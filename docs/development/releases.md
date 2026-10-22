@@ -10,6 +10,7 @@ version rules, prerequisites and release evidence.
 | CLI | [Versions and releases](../cli/releases.md). |
 | Lua | [Versioning](../lua/versioning.md) and [release quality gate](../lua/releases.md). |
 | Python | [Versioning](../python/versioning.md) and [release preparation](../python/releases.md). |
+| Rust | [Packaging and versioning](../rust/packaging.md), including the remaining crates.io prerequisites. |
 | Portal | [CI and versioned publication](https://github.com/OpenTLV/opentlv-docs#ci-and-versioned-publication), including exact evidence, permissions and recovery. |
 
 ## From a component change to documentation
@@ -41,7 +42,8 @@ development sources change.
 
 CLI, Lua and Python have independently versioned documentation publication.
 Their manuals selected inside a portal version are not proof that the same
-independent release is published. Use the [Languages](../bindings/index.md) and
+independent release is published. Rust manuals are available only at the
+revision selected for a portal version until Rust defines releases. Use the [Languages](../bindings/index.md) and
 [Tools](../tools/index.md) overviews for available manual entry points, and the
 owner's release guide for its release status.
 

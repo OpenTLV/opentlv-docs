@@ -26,7 +26,7 @@ preparation. The [documentation ownership and portal conventions](documentation.
 explain source ownership, the portal hierarchy and how historical migration
 records relate to current guidance.
 
-Use [Component contributor guides](components.md) for CLI, Lua and Python testing,
+Use [Component contributor guides](components.md) for CLI, Lua, Python and Rust testing,
 implementation and release procedures. Public API and installation chapters remain
 in their language or tool manuals.
 

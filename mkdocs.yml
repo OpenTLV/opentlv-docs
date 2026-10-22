@@ -177,10 +177,7 @@ nav:
           - C++ built-in standards: concepts/cxx-builtins.md
       - Python: bindings/python/index.md
       - Lua: bindings/lua/index.md
-      - Rust:
-          - Rust overview: bindings/rust/index.md
-          - Using OpenTLV from Rust: guides/rust.md
-          - Rust development: development/rust.md
+      - Rust: bindings/rust/index.md
       - Go:
           - Go overview: bindings/go/index.md
           - Using OpenTLV from Go: guides/go.md
@@ -240,6 +237,8 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Core Python transition guide: guides/python.md
+          - Core Rust guide: guides/rust.md
+          - Core Rust development guide: development/rust.md
           - Query phase implementation audit: development/query-phase-audit.md
           - Reader decode performance record: development/reader-decode-performance.md
           - C++ facade performance record: development/cxx-facade-performance.md

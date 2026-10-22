@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Select the standalone Rust manuals from `opentlv-rust` at an independent pin with Main documentation notifications, render them under Languages with their contributor guide in Development and their migration and validation records in history, and archive Core's superseded Rust guides with links to the current manual. (OpenTLV/opentlv-rust#6)
 - Review the assembled content, move contributor manuals and active proposals into Development, and archive migration, performance and validation records with current-guide links while preserving technical sources and evidence. (#61)
 - Define the cross-repository documentation ownership contract, route changing component requirements and version details to their owners, and track coordinated Core, Lua and Workspace corrections. (#62)
 - Complete the seven-section portal with Tutorials, shared API documentation, Standards and Languages; preserve contributor guidance, component ownership and independent manuals while updating page and generated-reference destinations. (#63)
@@ -28,6 +29,8 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Wait up to about three minutes for delayed GitHub job metadata when recording CI timings, retry transient API failures, and measure reruns of failed jobs from the earliest reused job, so a passing documentation check no longer fails its gate on timing evidence. (#74)
+- Pin Rust documentation to the merged standalone manuals of OpenTLV/opentlv-rust#15, replacing the pre-integration revision whose Core-relative links failed the strict build. (OpenTLV/opentlv-rust#6)
 - Name Marek Cingel instead of OpenTLV as the copyright holder in `LICENSE`, matching the source headers and the Core and Workspace licenses. (#71)
 - Reject ambiguous or malformed source registrations before replacing assembled documentation, and resolve generated API links from both original source paths and current portal routes. (#62)
 - Correct the migration map to reflect the current epic sub-issues, follow-up order and requirement to complete corrections in owning repositories before closing the ownership review. (#63)
