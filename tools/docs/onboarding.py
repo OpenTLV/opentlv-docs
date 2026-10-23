@@ -29,6 +29,38 @@ def split(markdown):
     return first.rstrip() + "\n", "# Core installation and developer builds\n\n" + build
 
 
+def standalone_go(markdown, selected):
+    """Route the transitional Core tutorial to the selected Go owner.
+
+    Keep the canonical Core file intact. The portal must not teach its obsolete
+    subtree import while selecting a standalone Go manual and example sources.
+    """
+    go = next((item for _, item in selected if item["id"] == "go" and item["included"]), None)
+    if go is None:
+        return markdown
+    opening = "/// tab | Go\n"
+    if opening in markdown:
+        if markdown.count(opening) != 1:
+            raise PluginError("Core onboarding needs one reviewed Go tab.")
+        before, body = markdown.split(opening)
+        end = re.search(r"^///\s*$", body, re.MULTILINE)
+        if end is None or re.search(r"^/// tab \|", body[:end.start()], re.MULTILINE):
+            raise PluginError("Core onboarding Go tab boundary changed; review the handoff.")
+        if "bindings/go/" in body[:end.start()]:
+            source = go["repository"] + "/blob/" + go["commit"] + "/examples/quick_start/main.go"
+            body = (
+                "\nUse the [standalone Go guide](../go/guides/go.md#install-and-integrate) "
+                "for setup and the quick-start command, then read the "
+                f"[selected runnable source]({source}). "
+                "Go owns the current import path and native dependency setup.\n\n"
+                "The [executable examples](../guides/examples.md) catalog includes "
+                "owner-supplied examples when available at the selected revision.\n\n"
+                + body[end.start():]
+            )
+            markdown = before + opening + body
+    return markdown.replace("](../guides/go.md", "](../go/guides/go.md")
+
+
 def destination(uri, fragment, files):
     """Resolve links to moved sections, never emit old fragments or redirect pages."""
     if (uri == FIRST_PROGRAM and fragment in BUILD_FRAGMENTS

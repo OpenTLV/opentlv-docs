@@ -90,7 +90,7 @@ Custom framing starts with the [Format extension guide](../formats/custom/README
 | Python | [Standalone Python setup and examples](../python/guides/python.md) |
 | Lua | [Standalone Lua manual](../lua/api.md) and [installation](../lua/development.md) |
 | Rust | [Standalone Rust setup and usage](../rust/guides/rust.md) |
-| Go | [Go setup and usage](../guides/go.md) |
+| Go | [Go setup and usage](../go/guides/go.md) |
 | WebAssembly | [WebAssembly integration](../development/webassembly.md); for browser exploration, use the [playground](../playground/index.md) |
 
 The [Languages catalog](../bindings/index.md) explains the available manuals and

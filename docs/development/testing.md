@@ -33,7 +33,8 @@ owns exact workflow and evidence requirements.
 | Lua | Binding API and native dependency: [tests and CI](../lua/testing.md) and [quality gates](../lua/quality-gates.md). |
 | Python | Extension, facade and packaging: [Python quality gates](../python/quality-gates.md). |
 | Rust | Safe API, FFI layout and native linking: [Rust tests and CI](../rust/quality-gates.md). |
-| Go and WebAssembly | Tests documented in the Core-hosted [Go](go.md) and [WebAssembly](webassembly.md) guides. |
+| Go | Public facade, private cgo bridge and external module consumption: [Go tests and CI](../go/development/ci.md). |
+| WebAssembly | Tests documented in the Core-hosted [WebAssembly guide](webassembly.md). |
 | Portal | Assembly, links, navigation, source provenance, generated-reference integration, browser UI and immutable snapshots: [validation and scope](https://github.com/OpenTLV/opentlv-docs#validation-and-scope). Docs does not run Core CTest or replace component behavioral suites. |
 | Workspace | Cross-repository integration smoke and selected dependency provenance: [workspace integration guide](https://github.com/OpenTLV/opentlv-workspace/blob/main/docs/integration.md). Component suites remain with their owners. |
 

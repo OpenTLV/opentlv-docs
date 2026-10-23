@@ -10,9 +10,13 @@ COMPONENT_INDEX = "development/components.md"
 # combined portal archives them; independent product publications use their
 # original navigation and paths.
 ARCHIVES = {
+    "guides/go.md": ("core", "Go usage before extraction", "guides/go.md",
+                     "go/guides/go.md", "current Go manual"),
+    "development/go.md": ("core", "Go development before extraction", "development/go.md",
+                          "go/development/go.md", "current Go development guide"),
     "development/go-migration/README.md": (
         "core", "Go migration baseline", "go-migration/index.md",
-        "development/go.md", "current Go development guide"),
+        "go/development/go.md", "current Go development guide"),
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
     "development/documentation-audit.md": (
@@ -60,6 +64,8 @@ ARCHIVES = {
 }
 
 COMPONENT_GUIDES = {
+    "go/development/ci.md": ("go", "Go tests, CI and documentation updates"),
+    "go/implementation.md": ("go", "Go implementation and ownership"),
     "cli/development.md": ("cli", "CLI development"),
     "cli/releases.md": ("cli", "CLI versions and releases"),
     "lua/testing.md": ("lua", "Lua tests and CI"),

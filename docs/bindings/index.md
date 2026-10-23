@@ -13,7 +13,7 @@ which operations each binding exposes and the shared C boundary.
 | [Python](python/index.md) | Python objects and iterators | Available; experimental standalone binding |
 | [Lua](lua/index.md) | Lua module for scripts and embedded applications | Available; experimental standalone binding |
 | [Rust](rust/index.md) | Safe Rust API over the C library | Available; experimental standalone binding |
-| [Go](go/index.md) | Go types, slices and errors | Available; experimental in-tree binding |
+| [Go](go/index.md) | Go types, slices and errors | Available; experimental standalone binding |
 | [WebAssembly](wasm/index.md) | JavaScript access to Core in the browser | Available; experimental optional Core build |
 
 C and C++ share the [memory and lifetime contracts](../guides/memory.md),
@@ -25,7 +25,7 @@ Language overviews own setup routing and language-specific usage guidance.
 
 ## Product manuals and versions
 
-Python, Lua and Rust maintain their own manuals. The manual links on their
+Python, Lua, Rust and Go maintain their own manuals. The manual links on their
 overview pages open the exact source selected for this portal version, with
 product-specific navigation and a return link to the portal. Python and Lua
 also have their own release schedules; independent publication reserves
@@ -34,6 +34,8 @@ release availability are described by the owners'
 [Python release guide](../python/releases.md) and [Lua release guide](../lua/releases.md).
 Rust has no independent documentation releases yet; see its
 [packaging and versioning](../rust/packaging.md) guide.
+Go likewise follows the portal-selected source revision; its
+[packaging policy](../go/packaging.md) describes the independent binding version.
 The selected manuals remain accessible without requiring a matching product release.
 
 Contributor tests, implementation notes and release procedures are collected in

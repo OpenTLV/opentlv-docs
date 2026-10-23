@@ -178,10 +178,7 @@ nav:
       - Python: bindings/python/index.md
       - Lua: bindings/lua/index.md
       - Rust: bindings/rust/index.md
-      - Go:
-          - Go overview: bindings/go/index.md
-          - Using OpenTLV from Go: guides/go.md
-          - Go development: development/go.md
+      - Go: bindings/go/index.md
       - WebAssembly:
           - WebAssembly overview: bindings/wasm/index.md
           - WebAssembly tooling: development/webassembly.md
@@ -238,6 +235,8 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Go migration baseline: development/go-migration/README.md
+          - Core Go usage before extraction: guides/go.md
+          - Core Go development before extraction: development/go.md
           - Core Python transition guide: guides/python.md
           - Query phase implementation audit: development/query-phase-audit.md
           - Reader decode performance record: development/reader-decode-performance.md

@@ -166,5 +166,9 @@ class RustDocumentationUpdatesTests(DocumentationUpdatesTests):
     source = "rust"
 
 
+class GoDocumentationUpdatesTests(DocumentationUpdatesTests):
+    source = "go"
+
+
 if __name__ == "__main__":
     unittest.main()

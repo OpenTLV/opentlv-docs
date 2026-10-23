@@ -11,9 +11,10 @@ and [Tools](../tools/index.md) catalogs.
 
 Core contributor guidance starts with [Architecture](architecture/index.md),
 [Building from Source](building/index.md) and [Testing and Quality Gates](testing.md).
-The Core-hosted Go and WebAssembly guides combine language-specific setup
-and development instructions; their [language entry points](../bindings/index.md)
-remain available.
+Go's standalone build guide remains with its public manual under
+[Languages](../bindings/go/index.md). The Core-hosted
+[WebAssembly guide](webassembly.md) combines language-specific setup and
+development instructions.
 
 Migration evidence and dated validation reports are collected in
 [Historical records](history.md). Independent product releases retain their

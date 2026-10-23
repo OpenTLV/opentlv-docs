@@ -128,7 +128,8 @@ def on_page_markdown(markdown, page, config, files):
     source = config.extra["core_source"]
     root = portal if portal_owned else Path(config.extra["core_checkout"])
     owner_path = portal / "build/assembled/owners.json"
-    owner = json.loads(owner_path.read_text(encoding="utf-8")).get(page.file.src_uri) if owner_path.exists() else None
+    owners = json.loads(owner_path.read_text(encoding="utf-8")) if owner_path.exists() else {}
+    owner = owners.get(page.file.src_uri)
     repo_path = "docs/" + page.file.src_uri
     if isinstance(owner, dict):
         source = next(item for item in config.extra["core_source"]["sources"] if item["id"] == owner["id"])
@@ -145,10 +146,19 @@ def on_page_markdown(markdown, page, config, files):
             for path in owner["parts"]
         ]
 
-    return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files)
+    go = None
+    # Only reviewed current Core pages follow the ownership handoff. Archived
+    # manuals, inventories and explicit immutable GitHub URLs retain their inputs.
+    if not portal_owned and source.get("id", "core") == "core" and page.file.src_uri in {
+        "getting-started/README.md", "concepts/bindings.md", "guides/examples.md",
+        "guides/document.md", "guides/queries.md",
+    } and "go/guides/go.md" in owners:
+        definition = next(item for item in config.extra["sources"] if item["id"] == "go")
+        go = (Path(owners["go/guides/go.md"]["root"]), definition)
+    return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files, go=go)
 
 
-def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files=None):
+def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files=None, *, go=None):
     """Adapt repository-relative Markdown links for an independently owned source."""
 
     def rewrite(match):
@@ -158,6 +168,25 @@ def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path,
         parts = urlsplit(target)
         path = unquote(parts.path)
         resolved = posixpath.normpath(posixpath.join(page_dir, path))
+        if go is not None:
+            manuals = {"guides/go.md": "go/guides/go.md",
+                       "development/go.md": "go/development/go.md",
+                       "../bindings/go/README.md": "go/implementation.md"}
+            if resolved in manuals:
+                target = urlunsplit(("", "", posixpath.relpath(manuals[resolved], page_dir or "."),
+                                    parts.query, parts.fragment))
+                return f"{prefix}{target}{suffix}"
+            if resolved == "../bindings/go" or resolved.startswith("../bindings/go/"):
+                name = resolved[len("../bindings/go"):].lstrip("/")
+                if name.startswith("tests/") and name.endswith("_test.go"):
+                    name = name[len("tests/"):]
+                go_root, definition = go
+                local = go_root / name
+                if not local.resolve().is_relative_to(go_root) or not local.exists():
+                    raise PluginError(f"Go documentation handoff references a missing source: {name}")
+                kind = "tree" if local.is_dir() else "blob"
+                url = f"{definition['repository']}/{kind}/{definition['commit']}/{quote(name, safe='/')}"
+                return f"{prefix}{urlunsplit(('', '', url, parts.query, parts.fragment))}{suffix}"
         if files is not None and source.get("id", "core") == "core":
             destination = api.destination(resolved, parts.fragment, files)
             if destination != resolved:
