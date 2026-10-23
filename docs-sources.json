@@ -94,7 +94,7 @@
     {
       "id": "python",
       "repository": "https://github.com/OpenTLV/opentlv-python",
-      "revision": "319743f963dfb1d01175ca53cbf1e6661e848d9b",
+      "revision": "66205f35dbd4bd3358af406d1b54aa5b2874cd99",
       "docs_path": "docs",
       "mount": "python",
       "updates": {
