@@ -56,6 +56,27 @@ CLI_MIGRATED_PAGES = {
 # Core 0.7.1 predates the documentation-ownership/quality-gates pages, Go migration
 # baseline and Lua extraction. Match its immutable commit, never missing files.
 CORE_071_COMMIT = "e12a52ff69a64468eecab084795a0530c273efea"
+CORE_GO_ARCHIVES = frozenset((
+    "guides/go.md", "development/go.md", "development/go-migration/README.md",
+))
+
+
+def without_core_go_archives(items):
+    """Remove only the complete Go archive group retired by Core #686."""
+    result = []
+    for entry in items:
+        if isinstance(entry, str):
+            if entry not in CORE_GO_ARCHIVES:
+                result.append(entry)
+            continue
+        for title, value in entry.items():
+            if isinstance(value, list):
+                children = without_core_go_archives(value)
+                if children:
+                    result.append({title: children})
+            elif value not in CORE_GO_ARCHIVES:
+                result.append({title: value})
+    return result
 
 
 def cli_replaces_core(name, previous, owner):
@@ -89,7 +110,14 @@ def selected_source(portal):
 
 def navigation(base, selected):
     result = copy.deepcopy(base)
-    core = next(item for _, item in selected if item["id"] == "core")
+    core_root, core = next((root, item) for root, item in selected if item["id"] == "core")
+    if (core_root is not None and core.get("repository") == "https://github.com/OpenTLV/opentlv"
+            and core.get("commit") != CORE_071_COMMIT):
+        docs = core_root / core["docs_path"]
+        present = {name for name in CORE_GO_ARCHIVES if (docs / name).is_file()}
+        if not present and not (core_root / "bindings/go").exists():
+            result = without_core_go_archives(result)
+        # Partial removals retain navigation entries, so strict validation fails.
     if (core.get("repository") == "https://github.com/OpenTLV/opentlv"
             and core.get("commit") == CORE_071_COMMIT):
         def historical(items):
