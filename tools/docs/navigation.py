@@ -98,9 +98,11 @@ PAGE_ROUTES = {
     "assets/README.md": "development/documentation/assets.md",
 }
 PRODUCT_ROUTES = {"cli/": "tools/otlv/manual/", "lua/": "languages/lua/manual/",
-                  "python/": "languages/python/manual/", "rust/": "languages/rust/manual/"}
+                  "python/": "languages/python/manual/", "rust/": "languages/rust/manual/",
+                  "go/": "languages/go/manual/"}
 # Archived Core copies link here when their standalone manual is not selected.
-ENTRY_POINTS = {"python": ("bindings/python/index.md", "Python language entry point"),
+ENTRY_POINTS = {"go": ("bindings/go/index.md", "Go language entry point"),
+                "python": ("bindings/python/index.md", "Python language entry point"),
                 "rust": ("bindings/rust/index.md", "Rust language entry point")}
 
 # Presentation notes reconcile old portal instructions without maintaining an
@@ -114,7 +116,7 @@ DEVELOPMENT_NOTES = {
     ),
     "development/documentation-ownership.md": (
         "Core owns its technical sources and extraction evidence. CLI, Lua, "
-        "Python and Rust manuals are selected from their standalone repositories; the "
+        "Python, Rust and Go manuals are selected from their standalone repositories; the "
         "portal owns navigation, catalogs and the selected source revisions."
     ),
     "development/python.md": (

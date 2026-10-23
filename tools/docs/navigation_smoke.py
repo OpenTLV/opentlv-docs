@@ -114,6 +114,10 @@ def check_development(page, base_url):
 def check_content_disposition(page, base_url):
     """Reach preserved evidence and current owner instructions through real links."""
     archives = (
+        ("Go usage before extraction", "core/guides/go/", "current Go manual",
+         "languages/go/manual/guides/go/", "opentlv", "guides/go.md", ()),
+        ("Go development before extraction", "core/development/go/", "current Go development guide",
+         "languages/go/manual/development/go/", "opentlv", "development/go.md", ()),
         ("Python extraction guide", "core/guides/python/", "current Python manual",
          "languages/python/manual/guides/python/", "opentlv", "guides/python.md", ()),
         ("Documentation audit (#513)", "core/documentation-audit/",
@@ -224,7 +228,7 @@ def check_catalogs(page, base_url):
         ("Python", "languages/python/", "Python manual", "languages/python/manual/guides/python/"),
         ("Lua", "languages/lua/", "Lua manual", "languages/lua/manual/api/"),
         ("Rust", "languages/rust/", "Rust manual", "languages/rust/manual/guides/rust/"),
-        ("Go", "languages/go/", "Go manual", "languages/go/manual/"),
+        ("Go", "languages/go/", "Go manual", "languages/go/manual/guides/go/"),
         ("WebAssembly", "languages/wasm/", "WebAssembly manual", "languages/wasm/development/"),
     )
     tools = (
@@ -250,7 +254,7 @@ def check_catalogs(page, base_url):
                     page.locator("article").get_by_role("link", name=manual_title, exact=True).click()
                     expect(page).to_have_url(base_url + manual)
                     expect(page.locator("article h1")).to_be_visible()
-                    if title in ("Python", "Lua", "Rust", "otlv CLI"):
+                    if title in ("Python", "Lua", "Rust", "Go", "otlv CLI"):
                         expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
                         page.get_by_role("link", name="Return to the OpenTLV portal", exact=True).click()
                         expect(page).to_have_url(base_url)

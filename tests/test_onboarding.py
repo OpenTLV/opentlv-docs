@@ -47,6 +47,25 @@ Test commands and prerequisites.
 
 
 class OnboardingTests(unittest.TestCase):
+    def test_go_handoff_preserves_other_tabs_and_uses_selected_owner(self):
+        selected = [(None, {"id": "go", "included": True,
+                            "repository": "https://github.com/OpenTLV/opentlv-go", "commit": "a" * 40})]
+        native = "/// tab | C\n\n```c\n/* unchanged */\n```\n\n///\n\n"
+        legacy = "/// tab | Go\n\nUse bindings/go/examples/quick_start/main.go and the old import.\n\n///\n"
+        suffix = "\n[Go](../guides/go.md#install-and-integrate)\n"
+        original = native + legacy + suffix
+        result = onboarding.standalone_go(original, selected)
+        self.assertTrue(result.startswith(native))
+        self.assertNotIn("bindings/go/", result)
+        self.assertIn("../go/guides/go.md#install-and-integrate", result)
+        self.assertIn("/blob/" + "a" * 40 + "/examples/quick_start/main.go", result)
+        self.assertEqual(onboarding.standalone_go(original, []), original)
+        self.assertEqual(onboarding.standalone_go(result, selected), result)
+        for invalid in (native + legacy + legacy, native + legacy.removesuffix("///\n"),
+                        native + legacy.replace("\n///\n", "\n/// tab | Python\n///\n")):
+            with self.assertRaises(PluginError):
+                onboarding.standalone_go(invalid, selected)
+
     def test_split_retains_every_source_block_and_rejects_changed_boundaries(self):
         first, build = onboarding.split(SOURCE)
         self.assertEqual(first + "\n" + build.split("\n\n", 1)[1], SOURCE)

@@ -115,7 +115,7 @@ class NavigationTests(unittest.TestCase):
                           "formats/nfc/README.md", "formats/dhcp/README.md", "formats/lldp/README.md"),
             "Languages": ("bindings/c/index.md", "bindings/cpp/index.md",
                           "bindings/python/index.md", "bindings/lua/index.md", "bindings/rust/index.md",
-                          "guides/go.md", "development/webassembly.md"),
+                          "bindings/go/index.md", "development/webassembly.md"),
             "Development": ("concepts/architecture.md", "concepts/error-model.md",
                             "concepts/field-policies.md", "concepts/definition-boundaries.md",
                             "formats/format-roadmap.md", "development/documentation-layout.md",
@@ -174,6 +174,10 @@ class NavigationTests(unittest.TestCase):
         # Check representative user-visible destinations independently of the
         # route table, including paths that would otherwise match product rules.
         for source, url in {
+            "guides/go.md": "development/history/core/guides/go/",
+            "development/go.md": "development/history/core/development/go/",
+            "go/development/ci.md": "development/components/go/development/ci/",
+            "go/implementation.md": "development/components/go/implementation/",
             "development/go-migration/README.md": "development/history/core/go-migration/",
             "guides/python.md": "development/history/core/guides/python/",
             "lua/migration.md": "development/history/lua/migration/",
@@ -255,6 +259,7 @@ class NavigationTests(unittest.TestCase):
                                              "development/history/python/"))
                              for path in locations))
         for path in ("development/history/core/guides/python", "development/history/lua/migration",
+                     "development/history/core/guides/go", "development/history/core/development/go",
                      "development/history/python/validation/ci", "development/components/lua/testing",
                      "development/history/core/go-migration"):
             html = (site / path / "index.html").read_text(encoding="utf-8")
@@ -278,7 +283,8 @@ class NavigationTests(unittest.TestCase):
             self.assertIn(title, tabs)
         for title in ("CLI", "Lua", "Python"):
             self.assertNotIn(title, tabs)
-        for path in ("tools/otlv/manual", "languages/lua/manual/api", "languages/python/manual/guides/python"):
+        for path in ("tools/otlv/manual", "languages/lua/manual/api", "languages/python/manual/guides/python",
+                     "languages/go/manual/guides/go"):
             html = (site / path / "index.html").read_text(encoding="utf-8")
             self.assertNotIn('data-md-component="tabs"', html)
             self.assertIn("Return to the OpenTLV portal", html)

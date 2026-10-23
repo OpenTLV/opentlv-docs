@@ -202,6 +202,42 @@
           }
         ]
       }
+    },
+    {
+      "id": "go",
+      "repository": "https://github.com/OpenTLV/opentlv-go",
+      "revision": "9b391bdca0b7e3e25e82025c3e7ef86a34fbfe45",
+      "docs_path": "docs",
+      "mount": "go",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/go-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Go",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Go": "guides/go.md"
+          },
+          {
+            "Build and native dependency": "development/go.md"
+          },
+          {
+            "Tests, CI and documentation updates": "development/ci.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          }
+        ]
+      }
     }
   ]
 }

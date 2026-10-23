@@ -224,6 +224,7 @@ def assemble(portal, selected=None):
     if split_onboarding:
         original = rendered.get(first_program, inputs[first_program].read_text(encoding="utf-8"))
         rendered[first_program], rendered[onboarding.CORE_BUILD] = onboarding.split(original)
+        rendered[first_program] = onboarding.standalone_go(rendered[first_program], selected)
     if (portal / "docs/formats/overview.md").is_file():
         for name in formats.PLANS:
             if name not in inputs or not isinstance(owners[name], dict) or owners[name]["id"] != "core":

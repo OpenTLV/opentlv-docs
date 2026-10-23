@@ -52,6 +52,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Integrate independently pinned Go manuals, examples and Main documentation updates, with Go-owned links and archived Core migration guides. (OpenTLV/opentlv-go#6)
 - Inventory existing documentation and define the proposed six-section migration mapping, preservation requirements and public URL compatibility handling; keep detailed format documentation and C/C++ references Core-owned while Portal owns catalogs, introductions and navigation. (#44)
 - Publish verified Lua, Python and configured component releases as independent immutable documentation snapshots through shared publication gates; align the Lua source pin and quality-gate navigation. (#42)
 - Publish independently versioned CLI documentation under `cli/<version>/` from verified release-gate notifications, with immutable snapshots, a separate version selector, safe retries and shared serialized Pages deployment. (#21)

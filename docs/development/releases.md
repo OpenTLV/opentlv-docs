@@ -10,6 +10,7 @@ version rules, prerequisites and release evidence.
 | CLI | [Versions and releases](../cli/releases.md). |
 | Lua | [Versioning](../lua/versioning.md) and [release quality gate](../lua/releases.md). |
 | Python | [Versioning](../python/versioning.md) and [release preparation](../python/releases.md). |
+| Go | [Packaging and versioning](../go/packaging.md); no public module release or independent documentation snapshots yet. |
 | Rust | [Packaging and versioning](../rust/packaging.md), including the remaining crates.io prerequisites. |
 | Portal | [CI and versioned publication](https://github.com/OpenTLV/opentlv-docs#ci-and-versioned-publication), including exact evidence, permissions and recovery. |
 

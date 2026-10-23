@@ -157,12 +157,12 @@ upstream technical sources or establish current release/deployment evidence.
 ## Prerequisites
 
 - Python 3.10 or newer and Git.
-- External Core, CLI, Lua, Python and Rust checkouts at the revisions selected in `docs-sources.json`.
+- External Core, CLI, Lua, Python, Rust and Go checkouts at the revisions selected in `docs-sources.json`.
 - CMake, a C compiler, and Doxygen 1.9.1 or newer for automatic API generation.
   These tools are not required when consuming verified API artifacts generated
   elsewhere from the same Core sources (instructions below).
 
-Local documentation previews require the CLI, Lua, Python and Rust documentation sources but do not
+Local documentation previews require the CLI, Lua, Python, Rust and Go documentation sources but do not
 build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
 [WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
@@ -171,8 +171,8 @@ building the C++ library, bindings, CLI, examples, or tests.
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core, CLI, Lua, Python and Rust directories are the siblings `../opentlv`,
-`../opentlv-cli`, `../opentlv-lua`, `../opentlv-python` and `../opentlv-rust`.
+Core, CLI, Lua, Python, Rust and Go directories are the siblings `../opentlv`,
+`../opentlv-cli`, `../opentlv-lua`, `../opentlv-python`, `../opentlv-rust` and `../opentlv-go`.
 Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
@@ -181,6 +181,7 @@ git clone --no-checkout https://github.com/OpenTLV/opentlv-cli.git ../opentlv-do
 git clone --no-checkout https://github.com/OpenTLV/opentlv-lua.git ../opentlv-docs-lua
 git clone --no-checkout https://github.com/OpenTLV/opentlv-python.git ../opentlv-docs-python
 git clone --no-checkout https://github.com/OpenTLV/opentlv-rust.git ../opentlv-docs-rust
+git clone --no-checkout https://github.com/OpenTLV/opentlv-go.git ../opentlv-docs-go
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -207,6 +208,9 @@ git -C $env:OPENTLV_PYTHON_DIR checkout --detach $pythonRevision
 $env:OPENTLV_RUST_DIR = (Resolve-Path ../opentlv-docs-rust).Path
 $rustRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq rust).revision
 git -C $env:OPENTLV_RUST_DIR checkout --detach $rustRevision
+$env:OPENTLV_GO_DIR = (Resolve-Path ../opentlv-docs-go).Path
+$goRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq go).revision
+git -C $env:OPENTLV_GO_DIR checkout --detach $goRevision
 ```
 
 POSIX shell:
@@ -230,10 +234,13 @@ git -C "$OPENTLV_PYTHON_DIR" checkout --detach "$python_revision"
 export OPENTLV_RUST_DIR="$(cd ../opentlv-docs-rust && pwd)"
 rust_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "rust"))')
 git -C "$OPENTLV_RUST_DIR" checkout --detach "$rust_revision"
+export OPENTLV_GO_DIR="$(cd ../opentlv-docs-go && pwd)"
+go_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "go"))')
+git -C "$OPENTLV_GO_DIR" checkout --detach "$go_revision"
 ```
 
 For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR`,
-`OPENTLV_LUA_DIR`, `OPENTLV_PYTHON_DIR` and `OPENTLV_RUST_DIR`
+`OPENTLV_LUA_DIR`, `OPENTLV_PYTHON_DIR`, `OPENTLV_RUST_DIR` and `OPENTLV_GO_DIR`
 or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
@@ -353,6 +360,48 @@ well as any local preview. The central portal's version follows Core;
 Python releases. Documentation assembly neither publishes Python packages nor
 asserts verified runtime compatibility. Existing published snapshots keep their
 original source set.
+
+### Go documentation source
+
+The required `go` source mounts `opentlv-go/docs/` at `go/`. Usage, build and
+packaging manuals render under `languages/go/manual/`; CI and implementation
+notes render under `development/components/go/`. The Languages entry point and
+Development catalogs route to these owner-maintained manuals. Core's superseded
+Go guides remain intact under `development/history/core/`, with original anchors,
+source links and search exclusion. Core's frozen migration evidence stays intact.
+The transitional Core first-program Go tab becomes a link to the selected Go
+manual and runnable source, avoiding the obsolete subtree import in current
+onboarding. Other language tabs and the canonical Core source remain intact.
+Reviewed current Core capability, Document, Query and example pages link to the
+selected Go manuals, examples and relocated consumer tests. Historical pages,
+inventories, fenced code and explicit immutable source URLs keep their original
+links; a missing selected Go source fails the build.
+
+Go is pinned independently of Core. `OPENTLV_GO_DIR` selects an explicit checkout;
+the default is `../opentlv-go`. Source, edit, API-source and example links use the
+selected Go commit. Building the portal requires no Go compiler or native Go build.
+Go owns its setup, cgo/native requirements, API contracts, limitations and examples.
+Core owns native contracts and the shared Query corpus; the portal owns assembly,
+entry points and publication.
+
+The initial pin is the merged standalone layout baseline `9b391bdca0b7e3e25e82025c3e7ef86a34fbfe45`.
+It already supplies all five registered manuals and linked example sources.
+The Go issue #6 follow-up adds the standalone quick-start section, an example
+catalog and Main notifications. Merge that Go change first, then select its exact
+merged SHA through a reviewed manifest update. The catalog supplies the central
+quick-start Go tab only once the selected commit contains it. A dirty local
+preview of these additions is not evidence for the initial immutable pin.
+
+`updates.mode: documentation` trusts only successful official `go-main.yml`
+pushes. The receiver proposes changes on `automation/component-go`; the notifier
+requires `OPENTLV_DOCS_DISPATCH_TOKEN` in Go. Neither dispatch nor pin proposal
+publishes Pages. Validate the exact merged source lock before deployment.
+Go has no release workflow, `publication` policy or independent `/go/<version>/`
+snapshots. Its binding version, linked Core version and portal snapshot version
+are separate. The example catalog declares the binding version; source provenance
+records the selected Go SHA. This is not a compatibility claim for the portal's
+selected Core. Hosted Main/notifier, Docs CI, Pages deployment and live URL checks
+are separate validation steps.
 
 ### Rust documentation source
 
@@ -1377,7 +1426,7 @@ repository through the event contract below.
 ### GitHub Pages setup and recovery
 
 Before the first publication, a repository administrator must select **Settings
-→ Pages → Build and deployment → Source: GitHub Actions**. Configure the
+â†’ Pages â†’ Build and deployment â†’ Source: GitHub Actions**. Configure the
 `github-pages` environment to allow deployments from `main`. Pages publication
 itself needs no personal access token; cross-repository notifications and update
 PRs use the tokens described below. `gh-pages` stores mike history; Pages serves the uploaded
@@ -1565,9 +1614,9 @@ required component; a successful producer alone is not proof of that pair.
 Merge only after the production activation checks above and normal documentation
 validation.
 
-### Lua, Python and Rust documentation pin notifications
+### Lua, Python, Rust and Go documentation pin notifications
 
-Lua, Python and Rust use the existing `component-docs-updated` event with the five
+Lua, Python, Rust and Go use the existing `component-docs-updated` event with the five
 fields `source`, `repository`, `commit`, `ref`, and `run_id`. Each source entry
 opts in explicitly; for example, Python uses:
 
@@ -1578,8 +1627,8 @@ opts in explicitly; for example, Python uses:
 }
 ```
 
-Lua and Rust use the same mode with `.github/workflows/lua-main.yml` and
-`.github/workflows/rust-main.yml`. This mode is
+Lua, Rust and Go use the same mode with `.github/workflows/lua-main.yml`,
+`.github/workflows/rust-main.yml` and `.github/workflows/go-main.yml`. This mode is
 restricted to non-Core sources with explicit revisions and no
 `compatibility` configuration. It accepts only `main` development events from
 a successful, completed push run in the configured source repository and
@@ -1589,7 +1638,7 @@ sources retain their existing artifact/feed requirements; documentation-only
 updates do not claim that the component and selected Core passed behavioral tests.
 
 The receiver changes only the notifying source's revision, opens or updates
-`automation/component-<source>` (`lua`, `python` or `rust`), and rejects stale or divergent updates. Replays
+`automation/component-<source>` (`lua`, `python`, `rust` or `go`), and rejects stale or divergent updates. Replays
 matching a pending or merged pin are no-ops. Docs PR checks validate the proposed
 assembly; new pages need matching navigation. These Main notifications do not start
 Docs Full or Pages publication. Each component continues to own its binding tests.
