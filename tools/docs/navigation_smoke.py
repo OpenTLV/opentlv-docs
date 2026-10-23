@@ -181,7 +181,14 @@ def check_content_disposition(page, base_url):
         page.goto(base_url + "development/")
         page.locator("article").get_by_role("link", name="Historical records", exact=True).click()
         expect(page).to_have_url(base_url + "development/history/")
+        go_archives = [entry for entry in archives if entry[1] in (
+            "core/guides/go/", "core/development/go/")]
+        go_links = [page.locator("article").get_by_role("link", name=entry[0], exact=True).count()
+                    for entry in go_archives]
+        assert go_links in ([0, 0], [1, 1]), "Incomplete historical Core Go archive"
         for title, path, current_label, current, repository, source, assets in archives:
+            if not any(go_links) and path in ("core/guides/go/", "core/development/go/"):
+                continue
             page.locator("article").get_by_role("link", name=title, exact=True).click()
             expect(page).to_have_url(base_url + "development/history/" + path)
             expect(page.locator("article h1")).to_be_visible()

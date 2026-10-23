@@ -301,6 +301,34 @@ class NavigationTests(unittest.TestCase):
                     "development/documentation/audit-513", "development/reader-decode-performance"):
             self.assertFalse((site / old / "index.html").exists(), old)
 
+    def test_core_go_cleanup_removes_only_retired_archive_navigation(self):
+        base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
+        selected = copy.deepcopy(self.selected)
+        selected[0] = (self.root, selected[0][1])
+        old_nav = fixture.assembly.navigation(base, selected)
+        self.assertTrue(fixture.assembly.CORE_GO_ARCHIVES <= ci.nav_paths(old_nav))
+        for name in fixture.assembly.CORE_GO_ARCHIVES:
+            (self.root / "docs" / name).unlink()
+        nav = fixture.assembly.navigation(base, selected)
+        paths = ci.nav_paths(nav)
+        self.assertFalse(paths & fixture.assembly.CORE_GO_ARCHIVES)
+        self.assertIn("go/guides/go.md", paths)
+        self.assertIn("development/documentation-audit.md", paths)
+        ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
+        (self.root / "docs/guides/reader.md").unlink()
+        with self.assertRaisesRegex(ValueError, "references missing documentation"):
+            ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
+
+    def test_partial_core_go_archive_removal_still_fails(self):
+        base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
+        selected = copy.deepcopy(self.selected)
+        selected[0] = (self.root, selected[0][1])
+        (self.root / "docs/guides/go.md").unlink()
+        nav = fixture.assembly.navigation(base, selected)
+        self.assertTrue(fixture.assembly.CORE_GO_ARCHIVES <= ci.nav_paths(nav))
+        with self.assertRaisesRegex(ValueError, "references missing documentation"):
+            ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
+
     def test_historical_core_keeps_languages_and_separate_product_manuals(self):
         base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
         self.selected[0][1]["commit"] = fixture.assembly.CORE_071_COMMIT
