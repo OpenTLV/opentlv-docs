@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/languages/go/manual/development/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/core/development/go/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../../guides/go/">
       
       
-        <link rel="next" href="../../../wasm/">
+        <link rel="next" href="../../guides/python/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/favicon.svg">
+      <link rel="icon" href="../../../../../assets/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Go development - OpenTLV</title>
+        <title>Core Go development before extraction - OpenTLV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../../playground/playground.css">
+      <link rel="stylesheet" href="../../../../../playground/playground.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -112,9 +112,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +131,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Go development
+              Core Go development before extraction
             
           </span>
         </div>
@@ -244,7 +244,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../.." class="md-tabs__link">
+      <a href="../../../../.." class="md-tabs__link">
         
   
   
@@ -265,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../tutorials/" class="md-tabs__link">
+        <a href="../../../../../tutorials/" class="md-tabs__link">
           
   
   
@@ -287,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../api/" class="md-tabs__link">
+        <a href="../../../../../api/" class="md-tabs__link">
           
   
   
@@ -309,7 +309,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../standards/" class="md-tabs__link">
+        <a href="../../../../../standards/" class="md-tabs__link">
           
   
   
@@ -327,13 +327,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../../../languages/" class="md-tabs__link">
           
   
   
@@ -355,7 +353,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../tools/" class="md-tabs__link">
+        <a href="../../../../../tools/" class="md-tabs__link">
           
   
   
@@ -373,11 +371,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
           
   
   
@@ -413,9 +413,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     OpenTLV
@@ -442,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -504,7 +504,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tutorials/" class="md-nav__link ">
+            <a href="../../../../../tutorials/" class="md-nav__link ">
               
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/concepts/learning-model/" class="md-nav__link">
+      <a href="../../../../../tutorials/concepts/learning-model/" class="md-nav__link">
         
   
   
@@ -576,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/first-program/" class="md-nav__link">
+      <a href="../../../../../tutorials/first-program/" class="md-nav__link">
         
   
   
@@ -604,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/processing/" class="md-nav__link">
+      <a href="../../../../../tutorials/processing/" class="md-nav__link">
         
   
   
@@ -632,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/examples/" class="md-nav__link">
+      <a href="../../../../../tutorials/examples/" class="md-nav__link">
         
   
   
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/cpp-examples/" class="md-nav__link">
+      <a href="../../../../../tutorials/cpp-examples/" class="md-nav__link">
         
   
   
@@ -688,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/formats/" class="md-nav__link">
+      <a href="../../../../../tutorials/formats/" class="md-nav__link">
         
   
   
@@ -760,7 +760,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/" class="md-nav__link ">
+            <a href="../../../../../api/" class="md-nav__link ">
               
   
   
@@ -870,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/core-types/" class="md-nav__link">
+      <a href="../../../../../api/concepts/core-types/" class="md-nav__link">
         
   
   
@@ -898,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/value/" class="md-nav__link">
+      <a href="../../../../../api/concepts/value/" class="md-nav__link">
         
   
   
@@ -926,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/length/" class="md-nav__link">
+      <a href="../../../../../api/concepts/length/" class="md-nav__link">
         
   
   
@@ -954,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/endian/" class="md-nav__link">
+      <a href="../../../../../api/concepts/endian/" class="md-nav__link">
         
   
   
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/format-contract/" class="md-nav__link">
+      <a href="../../../../../api/concepts/format-contract/" class="md-nav__link">
         
   
   
@@ -1010,7 +1010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/format-capabilities/" class="md-nav__link">
+      <a href="../../../../../api/concepts/format-capabilities/" class="md-nav__link">
         
   
   
@@ -1114,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/reader/" class="md-nav__link">
+      <a href="../../../../../api/guides/reader/" class="md-nav__link">
         
   
   
@@ -1142,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/writer/" class="md-nav__link">
+      <a href="../../../../../api/guides/writer/" class="md-nav__link">
         
   
   
@@ -1170,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/document/" class="md-nav__link">
+      <a href="../../../../../api/guides/document/" class="md-nav__link">
         
   
   
@@ -1198,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/queries/" class="md-nav__link">
+      <a href="../../../../../api/guides/queries/" class="md-nav__link">
         
   
   
@@ -1226,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/query-language/" class="md-nav__link">
+      <a href="../../../../../api/query-language/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/schemas/" class="md-nav__link">
+      <a href="../../../../../api/guides/schemas/" class="md-nav__link">
         
   
   
@@ -1282,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/codecs/" class="md-nav__link">
+      <a href="../../../../../api/guides/codecs/" class="md-nav__link">
         
   
   
@@ -1380,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/diagnostics/" class="md-nav__link">
+      <a href="../../../../../api/guides/diagnostics/" class="md-nav__link">
         
   
   
@@ -1408,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/errors/" class="md-nav__link">
+      <a href="../../../../../api/reference/errors/" class="md-nav__link">
         
   
   
@@ -1436,7 +1436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/memory/" class="md-nav__link">
+      <a href="../../../../../api/guides/memory/" class="md-nav__link">
         
   
   
@@ -1464,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/copy/" class="md-nav__link">
+      <a href="../../../../../api/guides/copy/" class="md-nav__link">
         
   
   
@@ -1500,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/capabilities/" class="md-nav__link">
+      <a href="../../../../../api/capabilities/" class="md-nav__link">
         
   
   
@@ -1528,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/configuration/" class="md-nav__link">
+      <a href="../../../../../api/configuration/" class="md-nav__link">
         
   
   
@@ -1591,7 +1591,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/formats/" class="md-nav__link ">
+            <a href="../../../../../api/formats/" class="md-nav__link ">
               
   
   
@@ -1635,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/guide/" class="md-nav__link">
+      <a href="../../../../../api/formats/guide/" class="md-nav__link">
         
   
   
@@ -1663,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/fixed/configurable/" class="md-nav__link">
+      <a href="../../../../../api/formats/fixed/configurable/" class="md-nav__link">
         
   
   
@@ -1691,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/variable/" class="md-nav__link">
+      <a href="../../../../../api/formats/variable/" class="md-nav__link">
         
   
   
@@ -1719,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/packed/" class="md-nav__link">
+      <a href="../../../../../api/formats/packed/" class="md-nav__link">
         
   
   
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/escaped/" class="md-nav__link">
+      <a href="../../../../../api/formats/escaped/" class="md-nav__link">
         
   
   
@@ -1775,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/custom/" class="md-nav__link">
+      <a href="../../../../../api/formats/custom/" class="md-nav__link">
         
   
   
@@ -1838,7 +1838,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/reference/" class="md-nav__link ">
+            <a href="../../../../../api/reference/" class="md-nav__link ">
               
   
   
@@ -1882,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/c/" class="md-nav__link">
+      <a href="../../../../../api/reference/c/" class="md-nav__link">
         
   
   
@@ -1910,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/cpp/" class="md-nav__link">
+      <a href="../../../../../api/reference/cpp/" class="md-nav__link">
         
   
   
@@ -1978,7 +1978,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../standards/" class="md-nav__link ">
+            <a href="../../../../../standards/" class="md-nav__link ">
               
   
   
@@ -2061,7 +2061,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../standards/bluetooth/" class="md-nav__link ">
+            <a href="../../../../../standards/bluetooth/" class="md-nav__link ">
               
   
   
@@ -2105,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/nfc/" class="md-nav__link">
+      <a href="../../../../../standards/nfc/" class="md-nav__link">
         
   
   
@@ -2133,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/dhcp/" class="md-nav__link">
+      <a href="../../../../../standards/dhcp/" class="md-nav__link">
         
   
   
@@ -2161,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/lldp/" class="md-nav__link">
+      <a href="../../../../../standards/lldp/" class="md-nav__link">
         
   
   
@@ -2189,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/lldp/conformance/" class="md-nav__link">
+      <a href="../../../../../standards/lldp/conformance/" class="md-nav__link">
         
   
   
@@ -2217,7 +2217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/ber/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/ber/" class="md-nav__link">
         
   
   
@@ -2245,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/der/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/der/" class="md-nav__link">
         
   
   
@@ -2273,7 +2273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/cer/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/cer/" class="md-nav__link">
         
   
   
@@ -2301,7 +2301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/emv/" class="md-nav__link">
+      <a href="../../../../../standards/emv/" class="md-nav__link">
         
   
   
@@ -2341,8 +2341,6 @@
       
   
   
-    
-  
   
   
     
@@ -2372,23 +2370,20 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../" class="md-nav__link ">
+            <a href="../../../../../languages/" class="md-nav__link ">
               
   
   
@@ -2406,13 +2401,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2432,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contracts/" class="md-nav__link">
+      <a href="../../../../../languages/contracts/" class="md-nav__link">
         
   
   
@@ -2460,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../c/" class="md-nav__link">
+      <a href="../../../../../languages/c/" class="md-nav__link">
         
   
   
@@ -2506,13 +2501,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -2520,7 +2512,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../cpp/" class="md-nav__link ">
+            <a href="../../../../../languages/cpp/" class="md-nav__link ">
               
   
   
@@ -2538,7 +2530,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_4" id="__nav_5_4_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -2564,7 +2556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp/concepts/cxx-native-boundary/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
         
   
   
@@ -2592,7 +2584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp/concepts/cxx-formats/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
         
   
   
@@ -2620,7 +2612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cpp/concepts/cxx-builtins/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
         
   
   
@@ -2656,7 +2648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/" class="md-nav__link">
+      <a href="../../../../../languages/python/" class="md-nav__link">
         
   
   
@@ -2684,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../lua/" class="md-nav__link">
+      <a href="../../../../../languages/lua/" class="md-nav__link">
         
   
   
@@ -2712,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/" class="md-nav__link">
+      <a href="../../../../../languages/rust/" class="md-nav__link">
         
   
   
@@ -2737,93 +2729,17 @@
                 
   
   
-    
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" checked>
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Go
-  
-
-    
-  </span>
-  
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Go
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../../../languages/go/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Using OpenTLV from Go
+    Go
   
 
     
@@ -2841,52 +2757,6 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Go development
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     
@@ -2904,13 +2774,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -2918,7 +2785,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../wasm/" class="md-nav__link ">
+            <a href="../../../../../languages/wasm/" class="md-nav__link ">
               
   
   
@@ -2936,7 +2803,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -2962,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../wasm/development/" class="md-nav__link">
+      <a href="../../../../../languages/wasm/development/" class="md-nav__link">
         
   
   
@@ -3034,7 +2901,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tools/" class="md-nav__link ">
+            <a href="../../../../../tools/" class="md-nav__link ">
               
   
   
@@ -3078,7 +2945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/otlv/" class="md-nav__link">
+      <a href="../../../../../tools/otlv/" class="md-nav__link">
         
   
   
@@ -3131,7 +2998,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tools/playground/" class="md-nav__link ">
+            <a href="../../../../../tools/playground/" class="md-nav__link ">
               
   
   
@@ -3173,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/playground/overview/" class="md-nav__link">
+      <a href="../../../../../tools/playground/overview/" class="md-nav__link">
         
   
   
@@ -3211,7 +3078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/imtlv/" class="md-nav__link">
+      <a href="../../../../../tools/imtlv/" class="md-nav__link">
         
   
   
@@ -3243,6 +3110,8 @@
       
   
   
+    
+  
   
   
     
@@ -3274,20 +3143,23 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../development/" class="md-nav__link ">
+            <a href="../../../../" class="md-nav__link ">
               
   
   
@@ -3305,13 +3177,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3355,10 +3227,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3366,7 +3241,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../development/architecture/" class="md-nav__link ">
+            <a href="../../../../architecture/" class="md-nav__link ">
               
   
   
@@ -3384,7 +3259,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -3410,7 +3285,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/architecture/" class="md-nav__link">
+      <a href="../../../../architecture/architecture/" class="md-nav__link">
         
   
   
@@ -3438,7 +3313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/processing-pipeline/" class="md-nav__link">
+      <a href="../../../../architecture/processing-pipeline/" class="md-nav__link">
         
   
   
@@ -3466,7 +3341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/architectural-rules/" class="md-nav__link">
+      <a href="../../../../architecture/architectural-rules/" class="md-nav__link">
         
   
   
@@ -3494,7 +3369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/error-model/" class="md-nav__link">
+      <a href="../../../../architecture/error-model/" class="md-nav__link">
         
   
   
@@ -3522,7 +3397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/definition-boundaries/" class="md-nav__link">
+      <a href="../../../../architecture/definition-boundaries/" class="md-nav__link">
         
   
   
@@ -3550,7 +3425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/architecture/field-policies/" class="md-nav__link">
+      <a href="../../../../architecture/field-policies/" class="md-nav__link">
         
   
   
@@ -3604,17 +3479,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
         
           
-          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
             
   
   
@@ -3650,7 +3528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/planning/runtime-model/" class="md-nav__link">
+      <a href="../../../../planning/runtime-model/" class="md-nav__link">
         
   
   
@@ -3678,7 +3556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/planning/indefinite-boundary-reuse/" class="md-nav__link">
+      <a href="../../../../planning/indefinite-boundary-reuse/" class="md-nav__link">
         
   
   
@@ -3706,7 +3584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/planning/format-roadmap/" class="md-nav__link">
+      <a href="../../../../planning/format-roadmap/" class="md-nav__link">
         
   
   
@@ -3734,7 +3612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/planning/format-catalogue/" class="md-nav__link">
+      <a href="../../../../planning/format-catalogue/" class="md-nav__link">
         
   
   
@@ -3762,7 +3640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/planning/lldp-review/" class="md-nav__link">
+      <a href="../../../../planning/lldp-review/" class="md-nav__link">
         
   
   
@@ -3814,10 +3692,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3825,7 +3706,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../development/building/" class="md-nav__link ">
+            <a href="../../../../building/" class="md-nav__link ">
               
   
   
@@ -3843,7 +3724,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -3869,7 +3750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/building/core/" class="md-nav__link">
+      <a href="../../../../building/core/" class="md-nav__link">
         
   
   
@@ -3897,7 +3778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/building/compilers/" class="md-nav__link">
+      <a href="../../../../building/compilers/" class="md-nav__link">
         
   
   
@@ -3941,23 +3822,28 @@
       
         
       
+        
+      
     
     
     
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
         
           
-          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
             
   
   
@@ -3993,7 +3879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/contributing/" class="md-nav__link">
+      <a href="../../../../contributing/" class="md-nav__link">
         
   
   
@@ -4021,7 +3907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/workflow/" class="md-nav__link">
+      <a href="../../../../workflow/" class="md-nav__link">
         
   
   
@@ -4049,7 +3935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/bindings/python/" class="md-nav__link">
+      <a href="../../../../bindings/python/" class="md-nav__link">
         
   
   
@@ -4057,6 +3943,34 @@
     
   
     Python ownership in Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../bindings/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust ownership in Core
   
 
     
@@ -4107,23 +4021,30 @@
       
         
       
+        
+      
+        
+      
     
     
     
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
         
           
-          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
             
   
   
@@ -4159,7 +4080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/" class="md-nav__link">
+      <a href="../../../../components/" class="md-nav__link">
         
   
   
@@ -4187,7 +4108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/cli/development/" class="md-nav__link">
+      <a href="../../../../components/cli/development/" class="md-nav__link">
         
   
   
@@ -4215,7 +4136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/cli/releases/" class="md-nav__link">
+      <a href="../../../../components/cli/releases/" class="md-nav__link">
         
   
   
@@ -4243,7 +4164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/lua/testing/" class="md-nav__link">
+      <a href="../../../../components/lua/testing/" class="md-nav__link">
         
   
   
@@ -4271,7 +4192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/lua/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/lua/quality-gates/" class="md-nav__link">
         
   
   
@@ -4299,7 +4220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/lua/implementation/" class="md-nav__link">
+      <a href="../../../../components/lua/implementation/" class="md-nav__link">
         
   
   
@@ -4327,7 +4248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/lua/releases/" class="md-nav__link">
+      <a href="../../../../components/lua/releases/" class="md-nav__link">
         
   
   
@@ -4355,7 +4276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/python/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/python/quality-gates/" class="md-nav__link">
         
   
   
@@ -4383,7 +4304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/python/releases/" class="md-nav__link">
+      <a href="../../../../components/python/releases/" class="md-nav__link">
         
   
   
@@ -4411,7 +4332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/components/rust/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/rust/quality-gates/" class="md-nav__link">
         
   
   
@@ -4419,6 +4340,62 @@
     
   
     Rust tests and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/go/development/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go tests, CI and documentation updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/go/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go implementation and ownership
   
 
     
@@ -4467,17 +4444,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
         
           
-          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
             
   
   
@@ -4513,7 +4493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/testing/" class="md-nav__link">
+      <a href="../../../../testing/" class="md-nav__link">
         
   
   
@@ -4541,7 +4521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/quality-gates/" class="md-nav__link">
+      <a href="../../../../quality-gates/" class="md-nav__link">
         
   
   
@@ -4569,7 +4549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/abi-compatibility/" class="md-nav__link">
+      <a href="../../../../abi-compatibility/" class="md-nav__link">
         
   
   
@@ -4597,7 +4577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/fuzzing/" class="md-nav__link">
+      <a href="../../../../fuzzing/" class="md-nav__link">
         
   
   
@@ -4625,7 +4605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/valgrind/" class="md-nav__link">
+      <a href="../../../../valgrind/" class="md-nav__link">
         
   
   
@@ -4653,7 +4633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/query-adversarial/" class="md-nav__link">
+      <a href="../../../../query-adversarial/" class="md-nav__link">
         
   
   
@@ -4701,17 +4681,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
         
           
-          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
             
   
   
@@ -4747,7 +4730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/releases/" class="md-nav__link">
+      <a href="../../../../releases/" class="md-nav__link">
         
   
   
@@ -4775,7 +4758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/query-release/" class="md-nav__link">
+      <a href="../../../../query-release/" class="md-nav__link">
         
   
   
@@ -4829,17 +4812,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
         
           
-          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
             
   
   
@@ -4875,7 +4861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/documentation/" class="md-nav__link">
+      <a href="../../../../documentation/" class="md-nav__link">
         
   
   
@@ -4903,7 +4889,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/product-catalogs/" class="md-nav__link">
+      <a href="../../../../product-catalogs/" class="md-nav__link">
         
   
   
@@ -4931,7 +4917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/documentation/layout/" class="md-nav__link">
+      <a href="../../../../documentation/layout/" class="md-nav__link">
         
   
   
@@ -4959,7 +4945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/documentation/ownership/" class="md-nav__link">
+      <a href="../../../../documentation/ownership/" class="md-nav__link">
         
   
   
@@ -4987,7 +4973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/documentation/assets/" class="md-nav__link">
+      <a href="../../../../documentation/assets/" class="md-nav__link">
         
   
   
@@ -5020,65 +5006,77 @@
                 
   
   
+    
   
   
+  
     
     
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
-            
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../go-migration/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -5092,10 +5090,16 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5113,7 +5117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/" class="md-nav__link">
+      <a href="../../../" class="md-nav__link">
         
   
   
@@ -5135,13 +5139,81 @@
               
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/core/guides/python/" class="md-nav__link">
+      <a href="../../guides/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Go usage before extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Go development before extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guides/python/" class="md-nav__link">
         
   
   
@@ -5169,35 +5241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/core/development/rust/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Core Rust development guide
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../development/history/core/query-phase-audit/" class="md-nav__link">
+      <a href="../../query-phase-audit/" class="md-nav__link">
         
   
   
@@ -5225,7 +5269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/core/reader-decode-performance/" class="md-nav__link">
+      <a href="../../reader-decode-performance/" class="md-nav__link">
         
   
   
@@ -5253,7 +5297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/core/cxx-facade-performance/" class="md-nav__link">
+      <a href="../../cxx-facade-performance/" class="md-nav__link">
         
   
   
@@ -5281,7 +5325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/core/documentation-audit/" class="md-nav__link">
+      <a href="../../documentation-audit/" class="md-nav__link">
         
   
   
@@ -5309,7 +5353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/lua/migration/" class="md-nav__link">
+      <a href="../../../lua/migration/" class="md-nav__link">
         
   
   
@@ -5337,7 +5381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/python/migration/" class="md-nav__link">
+      <a href="../../../python/migration/" class="md-nav__link">
         
   
   
@@ -5365,7 +5409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/python/validation/standalone-build/" class="md-nav__link">
+      <a href="../../../python/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5393,7 +5437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/python/validation/ci/" class="md-nav__link">
+      <a href="../../../python/validation/ci/" class="md-nav__link">
         
   
   
@@ -5421,7 +5465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/python/validation/packaging/" class="md-nav__link">
+      <a href="../../../python/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5449,7 +5493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/python/validation/layout/" class="md-nav__link">
+      <a href="../../../python/validation/layout/" class="md-nav__link">
         
   
   
@@ -5477,7 +5521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/rust/migration/" class="md-nav__link">
+      <a href="../../../rust/migration/" class="md-nav__link">
         
   
   
@@ -5505,7 +5549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/rust/validation/standalone-build/" class="md-nav__link">
+      <a href="../../../rust/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5533,7 +5577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/rust/validation/ci/" class="md-nav__link">
+      <a href="../../../rust/validation/ci/" class="md-nav__link">
         
   
   
@@ -5561,7 +5605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/rust/validation/packaging/" class="md-nav__link">
+      <a href="../../../rust/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5589,7 +5633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../development/history/rust/validation/layout/" class="md-nav__link">
+      <a href="../../../rust/validation/layout/" class="md-nav__link">
         
   
   
@@ -5662,7 +5706,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/7596cdfeef4775609588b7424949aa917fbf4ecb/docs/development/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/ec077a7eee7f59110c7b768acbb50015d86ab9df/docs/development/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5671,10 +5715,17 @@
 
 
 <h1 id="go-binding-development">Go binding development<a class="headerlink" href="#go-binding-development" title="Permanent link">&para;</a></h1>
-<p>Use the <a href="../">Go user guide</a> for Format selection, processing,
-ownership and errors. The <a href="https://github.com/OpenTLV/opentlv/blob/7596cdfeef4775609588b7424949aa917fbf4ecb/bindings/go/README.md">binding README</a>
+<div class="admonition note">
+<p class="admonition-title">Historical record</p>
+<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../../languages/go/manual/development/go/">current Go development guide</a>. See <a href="../../../">historical records</a> for context.</p>
+</div>
+<p>Use the <a href="../../guides/go/">Go user guide</a> for Format selection, processing,
+ownership and errors. The <a href="https://github.com/OpenTLV/opentlv/blob/ec077a7eee7f59110c7b768acbb50015d86ab9df/bindings/go/README.md">binding README</a>
 describes native build integration, the <code>internal/capi</code> boundary and extraction
 of the nested Go module.</p>
+<p>The <a href="../../go-migration/">Go migration baseline</a> pins the pre-extraction
+sources, ownership inventory, supported configurations and local validation
+evidence for the standalone repository handoff (#685).</p>
 <p>After configuring cgo against matching native headers and library, run from
 <code>bindings/go</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gofmt<span class="w"> </span>-l<span class="w"> </span>.
@@ -5687,7 +5738,7 @@ of the nested Go module.</p>
 supported Go target and C toolchain; CI uses Linux amd64. It checks Go memory
 accesses, while <code>cgocheck2</code> checks the Go/C pointer boundary. Neither replaces
 native C sanitizer coverage.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/7596cdfeef4775609588b7424949aa917fbf4ecb/.github/workflows/go.yml">Go workflow</a> tests default and minimal
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/ec077a7eee7f59110c7b768acbb50015d86ab9df/.github/workflows/go.yml">Go workflow</a> tests default and minimal
 native configurations, with optional presets and Document disabled in the
 latter. It runs formatting, vet, tests, race checks, <code>cgocheck2</code> and applicable
 public examples. Document and Query examples require Document; generic Reader,
@@ -5695,7 +5746,7 @@ Writer, errors and codecs remain usable without protocol components.</p>
 <p>Keep cgo, unsafe access and native handles inside <code>internal/capi</code>. Consumer
 examples use only the public package and standard library; architecture tests
 enforce that boundary. New capabilities should update the
-<a href="../../../contracts/">binding matrix</a>, <a href="../../../../tutorials/examples/">example inventory</a>
+<a href="../../../../../languages/contracts/">binding matrix</a>, <a href="../../../../../tutorials/examples/">example inventory</a>
 and documentation inventories in the same change.</p>
 
 
@@ -5703,6 +5754,9 @@ and documentation inventories in the same change.</p>
 
 
 
+
+  
+  
 
 
 
@@ -5717,7 +5771,7 @@ and documentation inventories in the same change.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/7596cdfeef4775609588b7424949aa917fbf4ecb">7596cdfeef47</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
         
       
     
@@ -5738,14 +5792,21 @@ and documentation inventories in the same change.</p>
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/d94d30fb73b07e81c304d0b6a4e54d2b4c555dfb">d94d30fb73b0</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc">d4ba3ff27ff2</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
         
       
     
@@ -5775,7 +5836,7 @@ and documentation inventories in the same change.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Using OpenTLV from Go">
+          <a href="../../guides/go/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Core Go usage before extraction">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5785,20 +5846,20 @@ and documentation inventories in the same change.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Using OpenTLV from Go
+                Core Go usage before extraction
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../../wasm/" class="md-footer__link md-footer__link--next" aria-label="Next: WebAssembly overview">
+          <a href="../../guides/python/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Python transition guide">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                WebAssembly overview
+                Core Python transition guide
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -5848,12 +5909,12 @@ and documentation inventories in the same change.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../../../../playground/playground.js" type="module"></script>
+        <script src="../../../../../playground/playground.js" type="module"></script>
       
     
   </body>

@@ -671,7 +671,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc/docs/guides/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/242588b3587fc642762e2fd6b67a5f714ae50dff/docs/guides/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -680,7 +680,7 @@
 
 
 <h1 id="using-opentlv-from-rust">Using OpenTLV from Rust<a class="headerlink" href="#using-opentlv-from-rust" title="Permanent link">&para;</a></h1>
-<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-rust/blob/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc/opentlv/examples/quick_start.rs">Rust quick start</a>
+<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/quick_start.rs">Rust quick start</a>
 for input, expected output and the public API. You can use this guide without
 studying native C implementation contracts.</p>
 <p>The <code>opentlv</code> crate is an experimental safe Rust API over the OpenTLV C library.
@@ -737,7 +737,7 @@ runtime-configurable tag width, length width and length byte order:</p>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
 </code></pre></div>
 <p>Runnable version with nesting and EMV tag names:
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc/opentlv/examples/reader.rs">reader.rs</a>
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/reader.rs">reader.rs</a>
 (<code>cargo run --example reader</code> from the repository root).</p>
 <h2 id="writing">Writing<a class="headerlink" href="#writing" title="Permanent link">&para;</a></h2>
 <p><code>Writer</code> encodes into a buffer you own and never allocates. To build a nested
@@ -752,7 +752,7 @@ the parent.</p>
 </code></pre></div>
 <p>Use <code>encoded_size</code> to size the buffer beforehand, or <code>encoded_size_fixed</code>/
 <code>Writer::with_fixed_format</code> for a <code>FixedFormat</code>. Runnable version:
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc/opentlv/examples/writer.rs">writer.rs</a>
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/writer.rs">writer.rs</a>
 (<code>cargo run --example writer</code> from the repository root).</p>
 <h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <p>Most fallible calls return <code>opentlv::Result&lt;T&gt;</code>, an alias for
@@ -924,7 +924,7 @@ assertions; Rust owns workspace and failure context in <code>QuerySchemaError</c
 Its <code>schema</code> is a <code>QuerySchemaDetail</code> with the failed assertion's <code>kind</code>, <code>tag</code>
 and <code>field</code>; the location, path and expected text come from <code>failure</code>.
 Borrowing prevents Document mutation while validation runs.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv-rust/blob/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc/opentlv/examples/query_conformance.rs">consumer example</a>
+<p>The <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/query_conformance.rs">consumer example</a>
 runs the common corpus through the public facade. Remaining custom Format and
 semantic Tag adapter coverage is tracked by the
 <a href="../../../../../development/query-release/">release requirements</a>.</p>
@@ -951,7 +951,7 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/7596cdfeef4775609588b7424949aa917fbf4ecb">7596cdfeef47</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
         
       
     
@@ -972,14 +972,21 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/d94d30fb73b07e81c304d0b6a4e54d2b4c555dfb">d94d30fb73b0</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc">d4ba3ff27ff2</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
         
       
     

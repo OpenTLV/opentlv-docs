@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/core/development/rust/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/bindings/rust/">
       
       
-        <link rel="prev" href="../../guides/python/">
+        <link rel="prev" href="../python/">
       
       
-        <link rel="next" href="../../query-phase-audit/">
+        <link rel="next" href="../../components/">
       
       
         
       
       
-      <link rel="icon" href="../../../../../assets/favicon.svg">
+      <link rel="icon" href="../../../assets/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>Core Rust development guide - OpenTLV</title>
+        <title>Rust ownership in Core - OpenTLV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../playground/playground.css">
+      <link rel="stylesheet" href="../../../playground/playground.css">
     
-    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -112,9 +112,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +131,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Core Rust development guide
+              Rust ownership in Core
             
           </span>
         </div>
@@ -244,7 +244,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -265,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../tutorials/" class="md-tabs__link">
+        <a href="../../../tutorials/" class="md-tabs__link">
           
   
   
@@ -287,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../api/" class="md-tabs__link">
+        <a href="../../../api/" class="md-tabs__link">
           
   
   
@@ -309,7 +309,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../standards/" class="md-tabs__link">
+        <a href="../../../standards/" class="md-tabs__link">
           
   
   
@@ -331,7 +331,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../languages/" class="md-tabs__link">
+        <a href="../../../languages/" class="md-tabs__link">
           
   
   
@@ -353,7 +353,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../../tools/" class="md-tabs__link">
+        <a href="../../../tools/" class="md-tabs__link">
           
   
   
@@ -377,7 +377,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../../" class="md-tabs__link">
+        <a href="../../" class="md-tabs__link">
           
   
   
@@ -413,9 +413,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     OpenTLV
@@ -442,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -504,7 +504,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../tutorials/" class="md-nav__link ">
+            <a href="../../../tutorials/" class="md-nav__link ">
               
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/concepts/learning-model/" class="md-nav__link">
+      <a href="../../../tutorials/concepts/learning-model/" class="md-nav__link">
         
   
   
@@ -576,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/first-program/" class="md-nav__link">
+      <a href="../../../tutorials/first-program/" class="md-nav__link">
         
   
   
@@ -604,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/processing/" class="md-nav__link">
+      <a href="../../../tutorials/processing/" class="md-nav__link">
         
   
   
@@ -632,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/examples/" class="md-nav__link">
+      <a href="../../../tutorials/examples/" class="md-nav__link">
         
   
   
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/cpp-examples/" class="md-nav__link">
+      <a href="../../../tutorials/cpp-examples/" class="md-nav__link">
         
   
   
@@ -688,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tutorials/formats/" class="md-nav__link">
+      <a href="../../../tutorials/formats/" class="md-nav__link">
         
   
   
@@ -760,7 +760,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../api/" class="md-nav__link ">
+            <a href="../../../api/" class="md-nav__link ">
               
   
   
@@ -870,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/core-types/" class="md-nav__link">
+      <a href="../../../api/concepts/core-types/" class="md-nav__link">
         
   
   
@@ -898,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/value/" class="md-nav__link">
+      <a href="../../../api/concepts/value/" class="md-nav__link">
         
   
   
@@ -926,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/length/" class="md-nav__link">
+      <a href="../../../api/concepts/length/" class="md-nav__link">
         
   
   
@@ -954,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/endian/" class="md-nav__link">
+      <a href="../../../api/concepts/endian/" class="md-nav__link">
         
   
   
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/format-contract/" class="md-nav__link">
+      <a href="../../../api/concepts/format-contract/" class="md-nav__link">
         
   
   
@@ -1010,7 +1010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/concepts/format-capabilities/" class="md-nav__link">
+      <a href="../../../api/concepts/format-capabilities/" class="md-nav__link">
         
   
   
@@ -1114,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/reader/" class="md-nav__link">
+      <a href="../../../api/guides/reader/" class="md-nav__link">
         
   
   
@@ -1142,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/writer/" class="md-nav__link">
+      <a href="../../../api/guides/writer/" class="md-nav__link">
         
   
   
@@ -1170,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/document/" class="md-nav__link">
+      <a href="../../../api/guides/document/" class="md-nav__link">
         
   
   
@@ -1198,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/queries/" class="md-nav__link">
+      <a href="../../../api/guides/queries/" class="md-nav__link">
         
   
   
@@ -1226,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/query-language/" class="md-nav__link">
+      <a href="../../../api/query-language/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/schemas/" class="md-nav__link">
+      <a href="../../../api/guides/schemas/" class="md-nav__link">
         
   
   
@@ -1282,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/codecs/" class="md-nav__link">
+      <a href="../../../api/guides/codecs/" class="md-nav__link">
         
   
   
@@ -1380,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/diagnostics/" class="md-nav__link">
+      <a href="../../../api/guides/diagnostics/" class="md-nav__link">
         
   
   
@@ -1408,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/reference/errors/" class="md-nav__link">
+      <a href="../../../api/reference/errors/" class="md-nav__link">
         
   
   
@@ -1436,7 +1436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/memory/" class="md-nav__link">
+      <a href="../../../api/guides/memory/" class="md-nav__link">
         
   
   
@@ -1464,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/guides/copy/" class="md-nav__link">
+      <a href="../../../api/guides/copy/" class="md-nav__link">
         
   
   
@@ -1500,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/capabilities/" class="md-nav__link">
+      <a href="../../../api/capabilities/" class="md-nav__link">
         
   
   
@@ -1528,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/configuration/" class="md-nav__link">
+      <a href="../../../api/configuration/" class="md-nav__link">
         
   
   
@@ -1591,7 +1591,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../api/formats/" class="md-nav__link ">
+            <a href="../../../api/formats/" class="md-nav__link ">
               
   
   
@@ -1635,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/guide/" class="md-nav__link">
+      <a href="../../../api/formats/guide/" class="md-nav__link">
         
   
   
@@ -1663,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/fixed/configurable/" class="md-nav__link">
+      <a href="../../../api/formats/fixed/configurable/" class="md-nav__link">
         
   
   
@@ -1691,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/variable/" class="md-nav__link">
+      <a href="../../../api/formats/variable/" class="md-nav__link">
         
   
   
@@ -1719,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/packed/" class="md-nav__link">
+      <a href="../../../api/formats/packed/" class="md-nav__link">
         
   
   
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/escaped/" class="md-nav__link">
+      <a href="../../../api/formats/escaped/" class="md-nav__link">
         
   
   
@@ -1775,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/formats/custom/" class="md-nav__link">
+      <a href="../../../api/formats/custom/" class="md-nav__link">
         
   
   
@@ -1838,7 +1838,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../api/reference/" class="md-nav__link ">
+            <a href="../../../api/reference/" class="md-nav__link ">
               
   
   
@@ -1882,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/reference/c/" class="md-nav__link">
+      <a href="../../../api/reference/c/" class="md-nav__link">
         
   
   
@@ -1910,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../api/reference/cpp/" class="md-nav__link">
+      <a href="../../../api/reference/cpp/" class="md-nav__link">
         
   
   
@@ -1978,7 +1978,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../standards/" class="md-nav__link ">
+            <a href="../../../standards/" class="md-nav__link ">
               
   
   
@@ -2061,7 +2061,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../standards/bluetooth/" class="md-nav__link ">
+            <a href="../../../standards/bluetooth/" class="md-nav__link ">
               
   
   
@@ -2105,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/nfc/" class="md-nav__link">
+      <a href="../../../standards/nfc/" class="md-nav__link">
         
   
   
@@ -2133,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/dhcp/" class="md-nav__link">
+      <a href="../../../standards/dhcp/" class="md-nav__link">
         
   
   
@@ -2161,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/lldp/" class="md-nav__link">
+      <a href="../../../standards/lldp/" class="md-nav__link">
         
   
   
@@ -2189,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/lldp/conformance/" class="md-nav__link">
+      <a href="../../../standards/lldp/conformance/" class="md-nav__link">
         
   
   
@@ -2217,7 +2217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/asn1/ber/" class="md-nav__link">
+      <a href="../../../standards/asn1/ber/" class="md-nav__link">
         
   
   
@@ -2245,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/asn1/der/" class="md-nav__link">
+      <a href="../../../standards/asn1/der/" class="md-nav__link">
         
   
   
@@ -2273,7 +2273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/asn1/cer/" class="md-nav__link">
+      <a href="../../../standards/asn1/cer/" class="md-nav__link">
         
   
   
@@ -2301,7 +2301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../standards/emv/" class="md-nav__link">
+      <a href="../../../standards/emv/" class="md-nav__link">
         
   
   
@@ -2383,7 +2383,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../languages/" class="md-nav__link ">
+            <a href="../../../languages/" class="md-nav__link ">
               
   
   
@@ -2427,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/contracts/" class="md-nav__link">
+      <a href="../../../languages/contracts/" class="md-nav__link">
         
   
   
@@ -2455,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/c/" class="md-nav__link">
+      <a href="../../../languages/c/" class="md-nav__link">
         
   
   
@@ -2512,7 +2512,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../languages/cpp/" class="md-nav__link ">
+            <a href="../../../languages/cpp/" class="md-nav__link ">
               
   
   
@@ -2556,7 +2556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
+      <a href="../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
         
   
   
@@ -2584,7 +2584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
+      <a href="../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
         
   
   
@@ -2612,7 +2612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
+      <a href="../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
         
   
   
@@ -2648,7 +2648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/python/" class="md-nav__link">
+      <a href="../../../languages/python/" class="md-nav__link">
         
   
   
@@ -2676,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/lua/" class="md-nav__link">
+      <a href="../../../languages/lua/" class="md-nav__link">
         
   
   
@@ -2704,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/rust/" class="md-nav__link">
+      <a href="../../../languages/rust/" class="md-nav__link">
         
   
   
@@ -2731,36 +2731,9 @@
   
   
   
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="../../../languages/go/" class="md-nav__link">
         
-          
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../../../languages/go/" class="md-nav__link ">
-              
   
   
   <span class="md-ellipsis">
@@ -2774,87 +2747,7 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Go
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../../languages/go/manual/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Using OpenTLV from Go
-  
-
-    
-  </span>
-  
-  
-
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../../languages/go/manual/development/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Go development
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -2892,7 +2785,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../languages/wasm/" class="md-nav__link ">
+            <a href="../../../languages/wasm/" class="md-nav__link ">
               
   
   
@@ -2936,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../languages/wasm/development/" class="md-nav__link">
+      <a href="../../../languages/wasm/development/" class="md-nav__link">
         
   
   
@@ -3008,7 +2901,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../tools/" class="md-nav__link ">
+            <a href="../../../tools/" class="md-nav__link ">
               
   
   
@@ -3052,7 +2945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tools/otlv/" class="md-nav__link">
+      <a href="../../../tools/otlv/" class="md-nav__link">
         
   
   
@@ -3105,7 +2998,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../../tools/playground/" class="md-nav__link ">
+            <a href="../../../tools/playground/" class="md-nav__link ">
               
   
   
@@ -3147,7 +3040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tools/playground/overview/" class="md-nav__link">
+      <a href="../../../tools/playground/overview/" class="md-nav__link">
         
   
   
@@ -3185,7 +3078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tools/imtlv/" class="md-nav__link">
+      <a href="../../../tools/imtlv/" class="md-nav__link">
         
   
   
@@ -3266,7 +3159,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   
@@ -3348,7 +3241,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../architecture/" class="md-nav__link ">
+            <a href="../../architecture/" class="md-nav__link ">
               
   
   
@@ -3392,7 +3285,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/architecture/" class="md-nav__link">
+      <a href="../../architecture/architecture/" class="md-nav__link">
         
   
   
@@ -3420,7 +3313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/processing-pipeline/" class="md-nav__link">
+      <a href="../../architecture/processing-pipeline/" class="md-nav__link">
         
   
   
@@ -3448,7 +3341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/architectural-rules/" class="md-nav__link">
+      <a href="../../architecture/architectural-rules/" class="md-nav__link">
         
   
   
@@ -3476,7 +3369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/error-model/" class="md-nav__link">
+      <a href="../../architecture/error-model/" class="md-nav__link">
         
   
   
@@ -3504,7 +3397,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/definition-boundaries/" class="md-nav__link">
+      <a href="../../architecture/definition-boundaries/" class="md-nav__link">
         
   
   
@@ -3532,7 +3425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../architecture/field-policies/" class="md-nav__link">
+      <a href="../../architecture/field-policies/" class="md-nav__link">
         
   
   
@@ -3635,7 +3528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../planning/runtime-model/" class="md-nav__link">
+      <a href="../../planning/runtime-model/" class="md-nav__link">
         
   
   
@@ -3663,7 +3556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../planning/indefinite-boundary-reuse/" class="md-nav__link">
+      <a href="../../planning/indefinite-boundary-reuse/" class="md-nav__link">
         
   
   
@@ -3691,7 +3584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../planning/format-roadmap/" class="md-nav__link">
+      <a href="../../planning/format-roadmap/" class="md-nav__link">
         
   
   
@@ -3719,7 +3612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../planning/format-catalogue/" class="md-nav__link">
+      <a href="../../planning/format-catalogue/" class="md-nav__link">
         
   
   
@@ -3747,7 +3640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../planning/lldp-review/" class="md-nav__link">
+      <a href="../../planning/lldp-review/" class="md-nav__link">
         
   
   
@@ -3813,7 +3706,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../building/" class="md-nav__link ">
+            <a href="../../building/" class="md-nav__link ">
               
   
   
@@ -3857,7 +3750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../building/core/" class="md-nav__link">
+      <a href="../../building/core/" class="md-nav__link">
         
   
   
@@ -3885,7 +3778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../building/compilers/" class="md-nav__link">
+      <a href="../../building/compilers/" class="md-nav__link">
         
   
   
@@ -3918,10 +3811,14 @@
                 
   
   
+    
+  
   
   
     
     
+      
+        
       
         
       
@@ -3941,11 +3838,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" checked>
         
           
           <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
@@ -3966,7 +3863,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3984,7 +3881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../contributing/" class="md-nav__link">
+      <a href="../../contributing/" class="md-nav__link">
         
   
   
@@ -4012,7 +3909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../workflow/" class="md-nav__link">
+      <a href="../../workflow/" class="md-nav__link">
         
   
   
@@ -4040,7 +3937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../bindings/python/" class="md-nav__link">
+      <a href="../python/" class="md-nav__link">
         
   
   
@@ -4056,6 +3953,136 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust ownership in Core
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust ownership in Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#versioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Versioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diagnostic-vocabulary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnostic vocabulary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Continuous integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4077,6 +4104,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -4153,7 +4184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/" class="md-nav__link">
+      <a href="../../components/" class="md-nav__link">
         
   
   
@@ -4181,7 +4212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/cli/development/" class="md-nav__link">
+      <a href="../../components/cli/development/" class="md-nav__link">
         
   
   
@@ -4209,7 +4240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/cli/releases/" class="md-nav__link">
+      <a href="../../components/cli/releases/" class="md-nav__link">
         
   
   
@@ -4237,7 +4268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/lua/testing/" class="md-nav__link">
+      <a href="../../components/lua/testing/" class="md-nav__link">
         
   
   
@@ -4265,7 +4296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/lua/quality-gates/" class="md-nav__link">
+      <a href="../../components/lua/quality-gates/" class="md-nav__link">
         
   
   
@@ -4293,7 +4324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/lua/implementation/" class="md-nav__link">
+      <a href="../../components/lua/implementation/" class="md-nav__link">
         
   
   
@@ -4321,7 +4352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/lua/releases/" class="md-nav__link">
+      <a href="../../components/lua/releases/" class="md-nav__link">
         
   
   
@@ -4349,7 +4380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/python/quality-gates/" class="md-nav__link">
+      <a href="../../components/python/quality-gates/" class="md-nav__link">
         
   
   
@@ -4377,7 +4408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/python/releases/" class="md-nav__link">
+      <a href="../../components/python/releases/" class="md-nav__link">
         
   
   
@@ -4405,7 +4436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../components/rust/quality-gates/" class="md-nav__link">
+      <a href="../../components/rust/quality-gates/" class="md-nav__link">
         
   
   
@@ -4413,6 +4444,62 @@
     
   
     Rust tests and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/go/development/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go tests, CI and documentation updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/go/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go implementation and ownership
   
 
     
@@ -4510,7 +4597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../testing/" class="md-nav__link">
+      <a href="../../testing/" class="md-nav__link">
         
   
   
@@ -4538,7 +4625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../quality-gates/" class="md-nav__link">
+      <a href="../../quality-gates/" class="md-nav__link">
         
   
   
@@ -4566,7 +4653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../abi-compatibility/" class="md-nav__link">
+      <a href="../../abi-compatibility/" class="md-nav__link">
         
   
   
@@ -4594,7 +4681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../fuzzing/" class="md-nav__link">
+      <a href="../../fuzzing/" class="md-nav__link">
         
   
   
@@ -4622,7 +4709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../valgrind/" class="md-nav__link">
+      <a href="../../valgrind/" class="md-nav__link">
         
   
   
@@ -4650,7 +4737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../query-adversarial/" class="md-nav__link">
+      <a href="../../query-adversarial/" class="md-nav__link">
         
   
   
@@ -4747,7 +4834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../releases/" class="md-nav__link">
+      <a href="../../releases/" class="md-nav__link">
         
   
   
@@ -4775,7 +4862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../query-release/" class="md-nav__link">
+      <a href="../../query-release/" class="md-nav__link">
         
   
   
@@ -4878,7 +4965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../documentation/" class="md-nav__link">
+      <a href="../../documentation/" class="md-nav__link">
         
   
   
@@ -4906,7 +4993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../product-catalogs/" class="md-nav__link">
+      <a href="../../product-catalogs/" class="md-nav__link">
         
   
   
@@ -4934,7 +5021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../documentation/layout/" class="md-nav__link">
+      <a href="../../documentation/layout/" class="md-nav__link">
         
   
   
@@ -4962,7 +5049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../documentation/ownership/" class="md-nav__link">
+      <a href="../../documentation/ownership/" class="md-nav__link">
         
   
   
@@ -4990,7 +5077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../documentation/assets/" class="md-nav__link">
+      <a href="../../documentation/assets/" class="md-nav__link">
         
   
   
@@ -5023,12 +5110,16 @@
                 
   
   
-    
-  
   
   
     
     
+      
+        
+      
+        
+          
+        
       
         
       
@@ -5078,15 +5169,16 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../history/core/go-migration/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -5100,10 +5192,16 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5121,7 +5219,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../" class="md-nav__link">
+      <a href="../../history/" class="md-nav__link">
         
   
   
@@ -5143,13 +5241,71 @@
               
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../guides/python/" class="md-nav__link">
+      <a href="../../history/core/guides/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Go usage before extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/core/development/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Go development before extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/core/guides/python/" class="md-nav__link">
         
   
   
@@ -5174,140 +5330,10 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Core Rust development guide
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Core Rust development guide
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#build" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Build
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#versioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Versioning
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#diagnostic-vocabulary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Diagnostic vocabulary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#continuous-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Continuous integration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#migration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Migration
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../../query-phase-audit/" class="md-nav__link">
+      <a href="../../history/core/query-phase-audit/" class="md-nav__link">
         
   
   
@@ -5335,7 +5361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reader-decode-performance/" class="md-nav__link">
+      <a href="../../history/core/reader-decode-performance/" class="md-nav__link">
         
   
   
@@ -5363,7 +5389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cxx-facade-performance/" class="md-nav__link">
+      <a href="../../history/core/cxx-facade-performance/" class="md-nav__link">
         
   
   
@@ -5391,7 +5417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../documentation-audit/" class="md-nav__link">
+      <a href="../../history/core/documentation-audit/" class="md-nav__link">
         
   
   
@@ -5419,7 +5445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../lua/migration/" class="md-nav__link">
+      <a href="../../history/lua/migration/" class="md-nav__link">
         
   
   
@@ -5447,7 +5473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/migration/" class="md-nav__link">
+      <a href="../../history/python/migration/" class="md-nav__link">
         
   
   
@@ -5475,7 +5501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/validation/standalone-build/" class="md-nav__link">
+      <a href="../../history/python/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5503,7 +5529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/validation/ci/" class="md-nav__link">
+      <a href="../../history/python/validation/ci/" class="md-nav__link">
         
   
   
@@ -5531,7 +5557,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/validation/packaging/" class="md-nav__link">
+      <a href="../../history/python/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5559,7 +5585,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python/validation/layout/" class="md-nav__link">
+      <a href="../../history/python/validation/layout/" class="md-nav__link">
         
   
   
@@ -5587,7 +5613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/migration/" class="md-nav__link">
+      <a href="../../history/rust/migration/" class="md-nav__link">
         
   
   
@@ -5615,7 +5641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/validation/standalone-build/" class="md-nav__link">
+      <a href="../../history/rust/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5643,7 +5669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/validation/ci/" class="md-nav__link">
+      <a href="../../history/rust/validation/ci/" class="md-nav__link">
         
   
   
@@ -5671,7 +5697,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/validation/packaging/" class="md-nav__link">
+      <a href="../../history/rust/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5699,7 +5725,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../rust/validation/layout/" class="md-nav__link">
+      <a href="../../history/rust/validation/layout/" class="md-nav__link">
         
   
   
@@ -5835,7 +5861,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/7596cdfeef4775609588b7424949aa917fbf4ecb/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/ec077a7eee7f59110c7b768acbb50015d86ab9df/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5845,18 +5871,18 @@
 
 <h1 id="rust-binding-development">Rust binding development<a class="headerlink" href="#rust-binding-development" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
-<p class="admonition-title">Historical record</p>
-<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../../languages/rust/manual/development/rust/">current Rust development guide</a>. See <a href="../../../">historical records</a> for context.</p>
+<p class="admonition-title">Portal context</p>
+<p>This portal selects the standalone Rust manual. Core owns the diagnostic vocabulary generator, the shared Query corpus and fuzz seeds the Rust tests read; <a href="../../../languages/rust/manual/development/rust/">Rust development</a> owns standalone build instructions. See <a href="../../documentation/">current portal conventions</a> for hierarchy, ownership and publication entry points.</p>
 </div>
 <p>The <code>opentlv-sys</code> and <code>opentlv</code> crates, their tests, examples, packaging and CI
 are maintained in <a href="https://github.com/OpenTLV/opentlv-rust">OpenTLV/opentlv-rust</a>.
 Core does not build or test the Rust crates.</p>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
-<p>Follow the standalone <a href="../../../../../languages/rust/manual/development/rust/#build">development guide</a>
-and the <a href="../../../../../languages/rust/manual/guides/rust/">user guide</a>
+<p>Follow the standalone <a href="../../../languages/rust/manual/development/rust/#build">development guide</a>
+and the <a href="../../../languages/rust/manual/guides/rust/">user guide</a>
 for setup, Cargo features and examples. For local Core development, set
 <code>OPENTLV_CORE_SOURCE</code> to the absolute Core checkout path, as described in
-<a href="../../../../../languages/rust/manual/development/rust/#local-workspace-development">local workspace development</a>.
+<a href="../../../languages/rust/manual/development/rust/#local-workspace-development">local workspace development</a>.
 The build script consumes the public C API and selects Core components for its
 Cargo features; it owns its linking policy.</p>
 <p>Core still owns the inputs that the standalone Rust tests read from the selected
@@ -5867,7 +5893,7 @@ Keep those paths stable or coordinate changes with that repository.</p>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p>Crate versions follow the independent binding policy and are not derived from
 Core tags. <code>opentlv::version()</code> reports the linked Core library. See the
-standalone <a href="../../../../../languages/rust/manual/development/rust/#versioning">versioning section</a>.</p>
+standalone <a href="../../../languages/rust/manual/development/rust/#versioning">versioning section</a>.</p>
 <h2 id="diagnostic-vocabulary">Diagnostic vocabulary<a class="headerlink" href="#diagnostic-vocabulary" title="Permanent link">&para;</a></h2>
 <p>Core owns <code>scripts/generate_diagnostic_vocabulary.py</code> because the canonical
 enums and their names come from its public headers and C name tables. Its
@@ -5882,13 +5908,13 @@ directories and must be outside the Core source tree. Generation does not
 select a new Core dependency for Rust. Review any vocabulary change together
 with that repository's Core dependency update and run its tests.</p>
 <h2 id="continuous-integration">Continuous integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h2>
-<p>The standalone <a href="../../../../components/rust/quality-gates/">quality gates</a>
+<p>The standalone <a href="../../components/rust/quality-gates/">quality gates</a>
 own Rust PR/Main/Full validation. Core PR/Full workflows continue to own native
 validation and shared fixtures; they do not build or test the Rust crates.
 Cross-language Query release evidence still requires Rust results from its
 owning repository.</p>
 <h2 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">&para;</a></h2>
-<p>The <a href="../../../rust/migration/">migration record</a>
+<p>The <a href="../../history/rust/migration/">migration record</a>
 freezes Core commit <code>476f1fbecde6b056419e43c9a6cea4d1ca8df1cf</code> as the source
 of the migrated crates, workflow and guides. The workspace supplies <code>opentlv-rust</code> as a
 sibling checkout, and the portal consumes the standalone Rust guides.</p>
@@ -5898,9 +5924,6 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
 
 
 
-
-  
-  
 
 
 
@@ -5915,7 +5938,7 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/7596cdfeef4775609588b7424949aa917fbf4ecb">7596cdfeef47</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
         
       
     
@@ -5936,14 +5959,21 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/d94d30fb73b07e81c304d0b6a4e54d2b4c555dfb">d94d30fb73b0</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/d4ba3ff27ff2a0a5934bdc9cb4bf54019c2274bc">d4ba3ff27ff2</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
         
       
     
@@ -5973,7 +6003,7 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../guides/python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Core Python transition guide">
+          <a href="../python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python ownership in Core">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5983,20 +6013,20 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Core Python transition guide
+                Python ownership in Core
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../query-phase-audit/" class="md-footer__link md-footer__link--next" aria-label="Next: Query phase implementation audit">
+          <a href="../../components/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Query phase implementation audit
+                Overview
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -6046,12 +6076,12 @@ sibling checkout, and the portal consumes the standalone Rust guides.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../../../../../playground/playground.js" type="module"></script>
+        <script src="../../../playground/playground.js" type="module"></script>
       
     
   </body>
