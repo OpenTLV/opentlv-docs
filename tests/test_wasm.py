@@ -20,7 +20,7 @@ class WasmTests(unittest.TestCase):
     def setUp(self):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
-        self.directory = Path(temp.name)
+        self.directory = Path(temp.name).resolve()
         for name in wasm.FILES:
             (self.directory / name).write_bytes(b"\0asm\x01\0\0\0" if name.endswith(".wasm") else b"export {};")
         self.source = {"repository": "https://github.com/OpenTLV/opentlv", "commit": "a" * 40,
@@ -38,6 +38,57 @@ class WasmTests(unittest.TestCase):
     def test_four_module_files_are_verified(self):
         self.assertEqual(self.verify(), self.manifest)
         self.assertIn("query.mjs", self.manifest["files"])
+
+    def test_standalone_artifacts_require_both_selected_sources(self):
+        producer = dict(self.source, repository="https://github.com/OpenTLV/opentlv-js", commit="c" * 40)
+        self.manifest.update(schema=2, js=wasm.producer_identity(producer, "d" * 64))
+        self.save()
+        self.assertEqual(wasm.verify(self.directory, self.source, "b" * 64, producer, "d" * 64), self.manifest)
+        for change in ({"commit": "e" * 40}, {"repository": "https://github.com/other/repo"},
+                       {"local": True}, {"dirty": True}, {"source_sha256": "e" * 64}):
+            with self.subTest(change=change):
+                self.manifest["js"] = dict(wasm.producer_identity(producer, "d" * 64), **change)
+                self.save()
+                with self.assertRaises(PluginError):
+                    wasm.verify(self.directory, self.source, "b" * 64, producer, "d" * 64)
+        self.manifest.pop("js")
+        self.manifest["schema"] = 1
+        self.save()
+        with self.assertRaises(PluginError):
+            wasm.verify(self.directory, self.source, "b" * 64, producer, "d" * 64)
+
+    def test_standalone_build_uses_selected_js_and_core(self):
+        core = self.directory / "core"
+        producer_root = self.directory / "js"
+        producer = dict(self.source, repository="https://github.com/OpenTLV/opentlv-js", commit="c" * 40)
+        dist = self.directory / "build/wasm/dist"
+        def run(command):
+            if "--version" in command:
+                return f"emcc (Emscripten) {wasm.EMSCRIPTEN}"
+            if "--build" in command:
+                dist.mkdir(parents=True)
+                for name in wasm.FILES:
+                    (dist / name).write_bytes((self.directory / name).read_bytes())
+            return ""
+        with patch.object(wasm.api, "fingerprint", side_effect=lambda root: "b" * 64 if root == core else "d" * 64), \
+                patch.object(wasm.api, "run", side_effect=run) as commands:
+            self.assertEqual(wasm.generate(self.directory, core, self.source, producer_root, producer), dist)
+        configure = commands.call_args_list[1].args[0]
+        self.assertEqual(configure[configure.index("-S") + 1], producer_root)
+        self.assertIn(f"-DFETCHCONTENT_SOURCE_DIR_OPENTLV_CORE={core}", configure)
+        self.assertNotIn("-DOPENTLV_BUILD_WASM=ON", configure)
+        wasm.verify(dist, self.source, "b" * 64, producer, "d" * 64)
+
+    def test_local_preview_keeps_dirty_producer_evidence_for_identical_bytes(self):
+        producer = dict(self.source, repository="https://github.com/OpenTLV/opentlv-js", commit="c" * 40)
+        self.manifest.update(schema=2, js=dict(wasm.producer_identity(producer, "d" * 64), local=True, dirty=True))
+        self.save()
+        # Git line-ending settings can differ between the build and preview
+        # hosts. The exact source fingerprint still has to match, and the
+        # original dirty/local evidence must never become publishable.
+        wasm.verify(self.directory, dict(self.source, local=True), "b" * 64, producer, "d" * 64)
+        with self.assertRaisesRegex(PluginError, "cannot be published"):
+            wasm.verify(self.directory, self.source, "b" * 64, producer, "d" * 64)
 
     def test_rejects_mismatched_sources_toolchain_local_and_checksums(self):
         original = copy.deepcopy(self.manifest)

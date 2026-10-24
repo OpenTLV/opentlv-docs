@@ -19,7 +19,7 @@ The [Standards catalog](../../formats/overview.md) describes protocol scope;
 The playground exposes only the choices documented by its interface.
 
 For module builds, integration and technical limitations, follow the
-[Core WebAssembly guide](../../development/webassembly.md). Portal contributors
+[selected WebAssembly guide](../../bindings/wasm/index.md). Portal contributors
 can use the [portal operations guide](https://github.com/OpenTLV/opentlv-docs#readme)
 for playground maintenance.
 

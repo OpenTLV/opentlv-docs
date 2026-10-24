@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Build the playground from selected standalone JS and Core sources, verify both revisions and fingerprints through publication, and accept Core Main CI documentation notifications. Support removal of the old Core WASM manual and migration records while preserving historical selections and rejecting partial cleanup. (OpenTLV/opentlv#698)
 - Register standalone JS/WASM documentation and Main notifications, preserve the historical Core manual, and route JS-owned manuals, examples and version metadata with an exact bootstrap pin. (#93)
 - Support Core revisions after the removal of its old Go manuals and baseline, while retaining complete archives for older selected revisions and immutable Git links to the original evidence. Reject partial archive removal through existing strict navigation checks. (OpenTLV/opentlv#686)
 - Present Core's retained `development/rust.md` as current Rust ownership guidance at `development/bindings/rust/`, like Python's, instead of archiving it as a superseded copy of the Rust development guide; it now routes builds to `opentlv-rust` and describes the Core inputs the Rust tests read. (OpenTLV/opentlv-rust#7)

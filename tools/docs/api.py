@@ -119,7 +119,7 @@ def generate(portal, core, source):
         shutil.rmtree(build)
     flags = ["-DOPENTLV_BUILD_DOCS=ON"]
     flags += [f"-DOPENTLV_BUILD_{name}=OFF" for name in
-              ("CXX", "CLI", "TESTS", "EXAMPLES", "WASM", "PYTHON", "BENCHMARKS", "FUZZING")]
+              ("CXX", "CLI", "TESTS", "EXAMPLES", "PYTHON", "BENCHMARKS", "FUZZING")]
     log.info("Generating C and C++ API references from Core %s", source["commit"])
     run(["cmake", "-S", core, "-B", build, *flags])
     common = (build / "Doxyfile.common").read_text(encoding="utf-8")

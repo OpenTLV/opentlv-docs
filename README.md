@@ -1521,15 +1521,15 @@ upload and deployment, separately from Markdown/API validation.
 
 ## Automated ecosystem updates
 
-Core's `docs-notify.yml` runs after a successful `WebAssembly Build` push run.
+Core's `docs-notify.yml` runs after a successful `Core Main CI` push run.
 It sends `core-docs-updated` to this repository using `repository_dispatch`.
 The receiver verifies the configured repository, successful completed push run,
-workflow path `.github/workflows/wasm.yml`, SHA and main/tag reference through
+workflow path `.github/workflows/core-main.yml`, SHA and main reference through
 GitHub's API. Fork/PR runs, unknown sources, prereleases and moved tags fail.
 Tags may be lightweight or annotated. A main notification prepares a reviewed
-manifest pin update; it does not publish directly. A stable-tag notification
-starts release validation, where sources are resolved once and the fetched
-Core commit must match the verified event before building.
+manifest pin update; it does not publish directly. Historical stable-tag events
+retain the original `.github/workflows/wasm.yml` producer check. Current Core
+release publication uses the explicit release workflow.
 
 Example payload (use actual producer evidence):
 
@@ -1774,7 +1774,9 @@ baseline. It supplies packaging and CI pages but predates `docs/webassembly.md`.
 Only that exact non-local snapshot omits the new manual from navigation and
 links the language overview to the preserved historical Core guide. Later pins
 and local previews require the JS manual; a missing file fails strict validation.
-The Core page retains its body, anchors and source/edit ownership under history.
+Older Core selections retain the page's body, anchors and source/edit ownership
+under history. After Core #698, the removed manual and migration baseline are
+omitted together; partial removal remains a strict navigation error.
 
 Before merging the JS producer, merge this registration and verify credentials:
 JS needs `OPENTLV_DOCS_DISPATCH_TOKEN` with Docs **Contents: write**; Docs needs
@@ -1786,9 +1788,8 @@ and validate its exact-SHA pin PR. HTTP acceptance is not receiver, hosted
 validation or publication evidence. JS has no release/publication policy in
 this source registration; its package version is separate from Core's version.
 
-This documentation handoff leaves the existing Core-based playground binary
-producer below unchanged. Moving that producer requires its own provenance and
-browser validation; selecting JS documentation is not binary compatibility proof.
+The playground uses the selected JS producer and Core dependency as described
+below. Its provenance and browser validation are separate from manual assembly.
 
 ## Playground builds
 
@@ -1800,12 +1801,18 @@ python tools/docs/wasm.py
 python -m mkdocs serve -f mkdocs.local.yml
 ```
 
-The command invokes the selected Core's `opentlv-wasm` CMake target with component
-tests disabled. It records repository, exact commit, local/dirty state,
-source fingerprint, toolchain and SHA-256 hashes in `wasm-source.json` next to
-`opentlv.mjs`, `query.mjs`, `opentlv-core.js` and `opentlv-core.wasm` in
-`build/wasm/bindings/wasm/dist/`. Local source changes invalidate old artifacts.
-Build with `OPENTLV_DOCS_LOCAL=1` when previewing an uncommitted Core checkout.
+The command builds the selected standalone JS source against the portal's exact
+selected Core checkout, with component tests disabled. Schema 2 provenance
+records both repositories, commits, local/dirty states and source fingerprints,
+plus the toolchain and output SHA-256 hashes in `build/wasm/dist/wasm-source.json`.
+The four outputs are `opentlv.mjs`, `query.mjs`, `opentlv-core.js` and
+`opentlv-core.wasm`. Changing either source invalidates old artifacts.
+
+Historical selections without a standalone JS manual retain the in-tree Core
+producer and schema 1 manifest in `build/wasm/bindings/wasm/dist/`. A Core without
+that producer requires standalone JS; it cannot silently use old artifacts.
+Use `OPENTLV_DOCS_LOCAL=1` for uncommitted source previews. Publication requires
+clean, immutable Core and JS sources and verifies both against the selected set.
 
 Alternatively set `OPENTLV_WASM_DIR` to a complete previously generated directory
 including its manifest. Explicit missing, stale, modified or unproven artifacts
