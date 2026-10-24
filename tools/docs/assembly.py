@@ -53,8 +53,8 @@ CLI_MIGRATED_PAGES = {
     "cli/json-schema.md": ("docs/cli/json-schema.md", "docs/json-schema.md"),
 }
 
-# Core 0.7.1 predates the documentation-ownership/quality-gates pages, Go migration
-# baseline and Lua extraction. Match its immutable commit, never missing files.
+# Core 0.7.1 predates the documentation-ownership/quality-gates pages, Go/WASM
+# migration baselines and Lua extraction. Match its immutable commit, never missing files.
 CORE_071_COMMIT = "e12a52ff69a64468eecab084795a0530c273efea"
 CORE_GO_ARCHIVES = frozenset((
     "guides/go.md", "development/go.md", "development/go-migration/README.md",
@@ -127,6 +127,7 @@ def navigation(base, selected):
                     {"Core quality gates": "development/quality-gates.md"},
                     {"Documentation ownership": "development/documentation-ownership.md"},
                     {"Go migration baseline": "development/go-migration/README.md"},
+                    {"WASM migration baseline": "development/wasm-migration/README.md"},
                 ):
                     continue
                 result.append({title: historical(value) if isinstance(value, list) else value

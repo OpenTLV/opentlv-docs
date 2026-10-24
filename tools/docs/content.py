@@ -17,6 +17,9 @@ ARCHIVES = {
     "development/go-migration/README.md": (
         "core", "Go migration baseline", "go-migration/index.md",
         "go/development/go.md", "current Go development guide"),
+    "development/wasm-migration/README.md": (
+        "core", "WASM migration baseline", "wasm-migration/index.md",
+        "development/webassembly.md", "current WebAssembly guide"),
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
     "development/documentation-audit.md": (
