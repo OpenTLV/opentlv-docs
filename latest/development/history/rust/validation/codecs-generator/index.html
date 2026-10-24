@@ -10,31 +10,31 @@
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/core/go-migration/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/rust/validation/codecs-generator/">
       
       
-        <link rel="prev" href="../../">
+        <link rel="prev" href="../../../python/validation/layout/">
       
       
-        <link rel="next" href="../guides/go/">
+        <link rel="next" href="../../migration/">
       
       
         
       
       
-      <link rel="icon" href="../../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <link rel="icon" href="../../../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
-        <title>Go migration baseline - OpenTLV</title>
+        <title>Rust Codec and Generator validation - OpenTLV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../../playground/playground.css">
+      <link rel="stylesheet" href="../../../../../playground/playground.css">
     
-    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#go-migration-baseline" class="md-skip">
+        <a href="#generic-codec-and-wire-generator-coverage" class="md-skip">
           Skip to content
         </a>
       
@@ -112,9 +112,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +131,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Go migration baseline
+              Rust Codec and Generator validation
             
           </span>
         </div>
@@ -244,7 +244,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../.." class="md-tabs__link">
+      <a href="../../../../.." class="md-tabs__link">
         
   
   
@@ -265,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../tutorials/" class="md-tabs__link">
+        <a href="../../../../../tutorials/" class="md-tabs__link">
           
   
   
@@ -287,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../api/" class="md-tabs__link">
+        <a href="../../../../../api/" class="md-tabs__link">
           
   
   
@@ -309,7 +309,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../standards/" class="md-tabs__link">
+        <a href="../../../../../standards/" class="md-tabs__link">
           
   
   
@@ -331,7 +331,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../languages/" class="md-tabs__link">
+        <a href="../../../../../languages/" class="md-tabs__link">
           
   
   
@@ -353,7 +353,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../../tools/" class="md-tabs__link">
+        <a href="../../../../../tools/" class="md-tabs__link">
           
   
   
@@ -377,7 +377,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../" class="md-tabs__link">
+        <a href="../../../../" class="md-tabs__link">
           
   
   
@@ -413,9 +413,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     OpenTLV
@@ -442,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../.." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -504,7 +504,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tutorials/" class="md-nav__link ">
+            <a href="../../../../../tutorials/" class="md-nav__link ">
               
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/concepts/learning-model/" class="md-nav__link">
+      <a href="../../../../../tutorials/concepts/learning-model/" class="md-nav__link">
         
   
   
@@ -576,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/first-program/" class="md-nav__link">
+      <a href="../../../../../tutorials/first-program/" class="md-nav__link">
         
   
   
@@ -604,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/processing/" class="md-nav__link">
+      <a href="../../../../../tutorials/processing/" class="md-nav__link">
         
   
   
@@ -632,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/examples/" class="md-nav__link">
+      <a href="../../../../../tutorials/examples/" class="md-nav__link">
         
   
   
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/cpp-examples/" class="md-nav__link">
+      <a href="../../../../../tutorials/cpp-examples/" class="md-nav__link">
         
   
   
@@ -688,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tutorials/formats/" class="md-nav__link">
+      <a href="../../../../../tutorials/formats/" class="md-nav__link">
         
   
   
@@ -760,7 +760,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/" class="md-nav__link ">
+            <a href="../../../../../api/" class="md-nav__link ">
               
   
   
@@ -870,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/core-types/" class="md-nav__link">
+      <a href="../../../../../api/concepts/core-types/" class="md-nav__link">
         
   
   
@@ -898,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/value/" class="md-nav__link">
+      <a href="../../../../../api/concepts/value/" class="md-nav__link">
         
   
   
@@ -926,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/length/" class="md-nav__link">
+      <a href="../../../../../api/concepts/length/" class="md-nav__link">
         
   
   
@@ -954,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/endian/" class="md-nav__link">
+      <a href="../../../../../api/concepts/endian/" class="md-nav__link">
         
   
   
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/format-contract/" class="md-nav__link">
+      <a href="../../../../../api/concepts/format-contract/" class="md-nav__link">
         
   
   
@@ -1010,7 +1010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/concepts/format-capabilities/" class="md-nav__link">
+      <a href="../../../../../api/concepts/format-capabilities/" class="md-nav__link">
         
   
   
@@ -1114,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/reader/" class="md-nav__link">
+      <a href="../../../../../api/guides/reader/" class="md-nav__link">
         
   
   
@@ -1142,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/writer/" class="md-nav__link">
+      <a href="../../../../../api/guides/writer/" class="md-nav__link">
         
   
   
@@ -1170,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/document/" class="md-nav__link">
+      <a href="../../../../../api/guides/document/" class="md-nav__link">
         
   
   
@@ -1198,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/queries/" class="md-nav__link">
+      <a href="../../../../../api/guides/queries/" class="md-nav__link">
         
   
   
@@ -1226,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/query-language/" class="md-nav__link">
+      <a href="../../../../../api/query-language/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/schemas/" class="md-nav__link">
+      <a href="../../../../../api/guides/schemas/" class="md-nav__link">
         
   
   
@@ -1282,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/codecs/" class="md-nav__link">
+      <a href="../../../../../api/guides/codecs/" class="md-nav__link">
         
   
   
@@ -1380,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/diagnostics/" class="md-nav__link">
+      <a href="../../../../../api/guides/diagnostics/" class="md-nav__link">
         
   
   
@@ -1408,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/errors/" class="md-nav__link">
+      <a href="../../../../../api/reference/errors/" class="md-nav__link">
         
   
   
@@ -1436,7 +1436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/memory/" class="md-nav__link">
+      <a href="../../../../../api/guides/memory/" class="md-nav__link">
         
   
   
@@ -1464,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/guides/copy/" class="md-nav__link">
+      <a href="../../../../../api/guides/copy/" class="md-nav__link">
         
   
   
@@ -1500,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/capabilities/" class="md-nav__link">
+      <a href="../../../../../api/capabilities/" class="md-nav__link">
         
   
   
@@ -1528,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/configuration/" class="md-nav__link">
+      <a href="../../../../../api/configuration/" class="md-nav__link">
         
   
   
@@ -1591,7 +1591,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/formats/" class="md-nav__link ">
+            <a href="../../../../../api/formats/" class="md-nav__link ">
               
   
   
@@ -1635,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/guide/" class="md-nav__link">
+      <a href="../../../../../api/formats/guide/" class="md-nav__link">
         
   
   
@@ -1663,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/fixed/configurable/" class="md-nav__link">
+      <a href="../../../../../api/formats/fixed/configurable/" class="md-nav__link">
         
   
   
@@ -1691,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/variable/" class="md-nav__link">
+      <a href="../../../../../api/formats/variable/" class="md-nav__link">
         
   
   
@@ -1719,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/packed/" class="md-nav__link">
+      <a href="../../../../../api/formats/packed/" class="md-nav__link">
         
   
   
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/escaped/" class="md-nav__link">
+      <a href="../../../../../api/formats/escaped/" class="md-nav__link">
         
   
   
@@ -1775,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/formats/custom/" class="md-nav__link">
+      <a href="../../../../../api/formats/custom/" class="md-nav__link">
         
   
   
@@ -1838,7 +1838,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../api/reference/" class="md-nav__link ">
+            <a href="../../../../../api/reference/" class="md-nav__link ">
               
   
   
@@ -1882,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/c/" class="md-nav__link">
+      <a href="../../../../../api/reference/c/" class="md-nav__link">
         
   
   
@@ -1910,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../api/reference/cpp/" class="md-nav__link">
+      <a href="../../../../../api/reference/cpp/" class="md-nav__link">
         
   
   
@@ -1978,7 +1978,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../standards/" class="md-nav__link ">
+            <a href="../../../../../standards/" class="md-nav__link ">
               
   
   
@@ -2061,7 +2061,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../standards/bluetooth/" class="md-nav__link ">
+            <a href="../../../../../standards/bluetooth/" class="md-nav__link ">
               
   
   
@@ -2105,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/nfc/" class="md-nav__link">
+      <a href="../../../../../standards/nfc/" class="md-nav__link">
         
   
   
@@ -2133,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/dhcp/" class="md-nav__link">
+      <a href="../../../../../standards/dhcp/" class="md-nav__link">
         
   
   
@@ -2161,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/lldp/" class="md-nav__link">
+      <a href="../../../../../standards/lldp/" class="md-nav__link">
         
   
   
@@ -2189,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/lldp/conformance/" class="md-nav__link">
+      <a href="../../../../../standards/lldp/conformance/" class="md-nav__link">
         
   
   
@@ -2217,7 +2217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/ber/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/ber/" class="md-nav__link">
         
   
   
@@ -2245,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/der/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/der/" class="md-nav__link">
         
   
   
@@ -2273,7 +2273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/asn1/cer/" class="md-nav__link">
+      <a href="../../../../../standards/asn1/cer/" class="md-nav__link">
         
   
   
@@ -2301,7 +2301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../standards/emv/" class="md-nav__link">
+      <a href="../../../../../standards/emv/" class="md-nav__link">
         
   
   
@@ -2383,7 +2383,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../languages/" class="md-nav__link ">
+            <a href="../../../../../languages/" class="md-nav__link ">
               
   
   
@@ -2427,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/contracts/" class="md-nav__link">
+      <a href="../../../../../languages/contracts/" class="md-nav__link">
         
   
   
@@ -2455,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/c/" class="md-nav__link">
+      <a href="../../../../../languages/c/" class="md-nav__link">
         
   
   
@@ -2512,7 +2512,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../languages/cpp/" class="md-nav__link ">
+            <a href="../../../../../languages/cpp/" class="md-nav__link ">
               
   
   
@@ -2556,7 +2556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
         
   
   
@@ -2584,7 +2584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
         
   
   
@@ -2612,7 +2612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
+      <a href="../../../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
         
   
   
@@ -2648,7 +2648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/python/" class="md-nav__link">
+      <a href="../../../../../languages/python/" class="md-nav__link">
         
   
   
@@ -2676,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/lua/" class="md-nav__link">
+      <a href="../../../../../languages/lua/" class="md-nav__link">
         
   
   
@@ -2704,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/rust/" class="md-nav__link">
+      <a href="../../../../../languages/rust/" class="md-nav__link">
         
   
   
@@ -2732,7 +2732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../languages/go/" class="md-nav__link">
+      <a href="../../../../../languages/go/" class="md-nav__link">
         
   
   
@@ -2766,8 +2766,6 @@
           
         
       
-        
-      
     
     
     
@@ -2785,7 +2783,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../languages/wasm/" class="md-nav__link ">
+            <a href="../../../../../languages/wasm/" class="md-nav__link ">
               
   
   
@@ -2802,11 +2800,6 @@
 
             </a>
             
-              
-              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
           </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
@@ -2820,34 +2813,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../languages/wasm/development/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly tooling
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
           </ul>
@@ -2901,7 +2866,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tools/" class="md-nav__link ">
+            <a href="../../../../../tools/" class="md-nav__link ">
               
   
   
@@ -2945,7 +2910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/otlv/" class="md-nav__link">
+      <a href="../../../../../tools/otlv/" class="md-nav__link">
         
   
   
@@ -2998,7 +2963,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../../tools/playground/" class="md-nav__link ">
+            <a href="../../../../../tools/playground/" class="md-nav__link ">
               
   
   
@@ -3040,7 +3005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/playground/overview/" class="md-nav__link">
+      <a href="../../../../../tools/playground/overview/" class="md-nav__link">
         
   
   
@@ -3078,7 +3043,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../tools/imtlv/" class="md-nav__link">
+      <a href="../../../../../tools/imtlv/" class="md-nav__link">
         
   
   
@@ -3159,7 +3124,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../" class="md-nav__link ">
+            <a href="../../../../" class="md-nav__link ">
               
   
   
@@ -3241,7 +3206,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../architecture/" class="md-nav__link ">
+            <a href="../../../../architecture/" class="md-nav__link ">
               
   
   
@@ -3285,7 +3250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/architecture/" class="md-nav__link">
+      <a href="../../../../architecture/architecture/" class="md-nav__link">
         
   
   
@@ -3313,7 +3278,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/processing-pipeline/" class="md-nav__link">
+      <a href="../../../../architecture/processing-pipeline/" class="md-nav__link">
         
   
   
@@ -3341,7 +3306,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/architectural-rules/" class="md-nav__link">
+      <a href="../../../../architecture/architectural-rules/" class="md-nav__link">
         
   
   
@@ -3369,7 +3334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/error-model/" class="md-nav__link">
+      <a href="../../../../architecture/error-model/" class="md-nav__link">
         
   
   
@@ -3397,7 +3362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/definition-boundaries/" class="md-nav__link">
+      <a href="../../../../architecture/definition-boundaries/" class="md-nav__link">
         
   
   
@@ -3425,7 +3390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/field-policies/" class="md-nav__link">
+      <a href="../../../../architecture/field-policies/" class="md-nav__link">
         
   
   
@@ -3528,7 +3493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../planning/runtime-model/" class="md-nav__link">
+      <a href="../../../../planning/runtime-model/" class="md-nav__link">
         
   
   
@@ -3556,7 +3521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../planning/indefinite-boundary-reuse/" class="md-nav__link">
+      <a href="../../../../planning/indefinite-boundary-reuse/" class="md-nav__link">
         
   
   
@@ -3584,7 +3549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../planning/format-roadmap/" class="md-nav__link">
+      <a href="../../../../planning/format-roadmap/" class="md-nav__link">
         
   
   
@@ -3612,7 +3577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../planning/format-catalogue/" class="md-nav__link">
+      <a href="../../../../planning/format-catalogue/" class="md-nav__link">
         
   
   
@@ -3640,7 +3605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../planning/lldp-review/" class="md-nav__link">
+      <a href="../../../../planning/lldp-review/" class="md-nav__link">
         
   
   
@@ -3706,7 +3671,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../../building/" class="md-nav__link ">
+            <a href="../../../../building/" class="md-nav__link ">
               
   
   
@@ -3750,7 +3715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../building/core/" class="md-nav__link">
+      <a href="../../../../building/core/" class="md-nav__link">
         
   
   
@@ -3778,7 +3743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../building/compilers/" class="md-nav__link">
+      <a href="../../../../building/compilers/" class="md-nav__link">
         
   
   
@@ -3879,7 +3844,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../contributing/" class="md-nav__link">
+      <a href="../../../../contributing/" class="md-nav__link">
         
   
   
@@ -3907,7 +3872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflow/" class="md-nav__link">
+      <a href="../../../../workflow/" class="md-nav__link">
         
   
   
@@ -3935,7 +3900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../bindings/python/" class="md-nav__link">
+      <a href="../../../../bindings/python/" class="md-nav__link">
         
   
   
@@ -3963,7 +3928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../bindings/rust/" class="md-nav__link">
+      <a href="../../../../bindings/rust/" class="md-nav__link">
         
   
   
@@ -4000,6 +3965,10 @@
   
     
     
+      
+        
+      
+        
       
         
       
@@ -4080,7 +4049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/" class="md-nav__link">
+      <a href="../../../../components/" class="md-nav__link">
         
   
   
@@ -4108,7 +4077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/cli/development/" class="md-nav__link">
+      <a href="../../../../components/cli/development/" class="md-nav__link">
         
   
   
@@ -4136,7 +4105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/cli/releases/" class="md-nav__link">
+      <a href="../../../../components/cli/releases/" class="md-nav__link">
         
   
   
@@ -4164,7 +4133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/lua/testing/" class="md-nav__link">
+      <a href="../../../../components/lua/testing/" class="md-nav__link">
         
   
   
@@ -4192,7 +4161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/lua/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/lua/quality-gates/" class="md-nav__link">
         
   
   
@@ -4220,7 +4189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/lua/implementation/" class="md-nav__link">
+      <a href="../../../../components/lua/implementation/" class="md-nav__link">
         
   
   
@@ -4248,7 +4217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/lua/releases/" class="md-nav__link">
+      <a href="../../../../components/lua/releases/" class="md-nav__link">
         
   
   
@@ -4276,7 +4245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/python/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/python/quality-gates/" class="md-nav__link">
         
   
   
@@ -4304,7 +4273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/python/releases/" class="md-nav__link">
+      <a href="../../../../components/python/releases/" class="md-nav__link">
         
   
   
@@ -4332,7 +4301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/rust/quality-gates/" class="md-nav__link">
+      <a href="../../../../components/rust/quality-gates/" class="md-nav__link">
         
   
   
@@ -4360,7 +4329,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/go/development/ci/" class="md-nav__link">
+      <a href="../../../../components/rust/validation/api-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/go/development/ci/" class="md-nav__link">
         
   
   
@@ -4388,7 +4385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../components/go/implementation/" class="md-nav__link">
+      <a href="../../../../components/go/implementation/" class="md-nav__link">
         
   
   
@@ -4396,6 +4393,34 @@
     
   
     Go implementation and ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/js/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JS/WASM tests, CI and documentation updates
   
 
     
@@ -4493,7 +4518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../testing/" class="md-nav__link">
+      <a href="../../../../testing/" class="md-nav__link">
         
   
   
@@ -4521,7 +4546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../quality-gates/" class="md-nav__link">
+      <a href="../../../../quality-gates/" class="md-nav__link">
         
   
   
@@ -4549,7 +4574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../abi-compatibility/" class="md-nav__link">
+      <a href="../../../../abi-compatibility/" class="md-nav__link">
         
   
   
@@ -4577,7 +4602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../fuzzing/" class="md-nav__link">
+      <a href="../../../../fuzzing/" class="md-nav__link">
         
   
   
@@ -4605,7 +4630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../valgrind/" class="md-nav__link">
+      <a href="../../../../valgrind/" class="md-nav__link">
         
   
   
@@ -4633,7 +4658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../query-adversarial/" class="md-nav__link">
+      <a href="../../../../query-adversarial/" class="md-nav__link">
         
   
   
@@ -4730,7 +4755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../releases/" class="md-nav__link">
+      <a href="../../../../releases/" class="md-nav__link">
         
   
   
@@ -4758,7 +4783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../query-release/" class="md-nav__link">
+      <a href="../../../../query-release/" class="md-nav__link">
         
   
   
@@ -4861,7 +4886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../documentation/" class="md-nav__link">
+      <a href="../../../../documentation/" class="md-nav__link">
         
   
   
@@ -4889,7 +4914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../product-catalogs/" class="md-nav__link">
+      <a href="../../../../product-catalogs/" class="md-nav__link">
         
   
   
@@ -4917,7 +4942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../documentation/layout/" class="md-nav__link">
+      <a href="../../../../documentation/layout/" class="md-nav__link">
         
   
   
@@ -4945,7 +4970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../documentation/ownership/" class="md-nav__link">
+      <a href="../../../../documentation/ownership/" class="md-nav__link">
         
   
   
@@ -4973,7 +4998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../documentation/assets/" class="md-nav__link">
+      <a href="../../../../documentation/assets/" class="md-nav__link">
         
   
   
@@ -5075,7 +5100,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../../core/wasm-migration/" class="md-nav__link ">
               
   
   
@@ -5093,7 +5118,7 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -5117,7 +5142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../" class="md-nav__link">
         
   
   
@@ -5147,14 +5172,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../guides/go/" class="md-nav__link">
+      <a href="../../../core/development/webassembly/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Core Go usage before extraction
+    WebAssembly before extraction
   
 
     
@@ -5175,35 +5200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../development/go/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Core Go development before extraction
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/python/" class="md-nav__link">
+      <a href="../../../core/guides/python/" class="md-nav__link">
         
   
   
@@ -5231,7 +5228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../query-phase-audit/" class="md-nav__link">
+      <a href="../../../core/query-phase-audit/" class="md-nav__link">
         
   
   
@@ -5259,7 +5256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reader-decode-performance/" class="md-nav__link">
+      <a href="../../../core/reader-decode-performance/" class="md-nav__link">
         
   
   
@@ -5287,7 +5284,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cxx-facade-performance/" class="md-nav__link">
+      <a href="../../../core/cxx-facade-performance/" class="md-nav__link">
         
   
   
@@ -5315,7 +5312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../documentation-audit/" class="md-nav__link">
+      <a href="../../../core/documentation-audit/" class="md-nav__link">
         
   
   
@@ -5343,7 +5340,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lua/migration/" class="md-nav__link">
+      <a href="../../../lua/migration/" class="md-nav__link">
         
   
   
@@ -5371,7 +5368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python/migration/" class="md-nav__link">
+      <a href="../../../python/migration/" class="md-nav__link">
         
   
   
@@ -5399,7 +5396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python/validation/standalone-build/" class="md-nav__link">
+      <a href="../../../python/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5427,7 +5424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python/validation/ci/" class="md-nav__link">
+      <a href="../../../python/validation/ci/" class="md-nav__link">
         
   
   
@@ -5455,7 +5452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python/validation/packaging/" class="md-nav__link">
+      <a href="../../../python/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5483,7 +5480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python/validation/layout/" class="md-nav__link">
+      <a href="../../../python/validation/layout/" class="md-nav__link">
         
   
   
@@ -5508,10 +5505,118 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust Codec and Generator validation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust Codec and Generator validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#per-header-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-header inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intentional-exclusions-and-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intentional exclusions and ownership
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../rust/migration/" class="md-nav__link">
+      <a href="../../migration/" class="md-nav__link">
         
   
   
@@ -5539,7 +5644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust/validation/standalone-build/" class="md-nav__link">
+      <a href="../standalone-build/" class="md-nav__link">
         
   
   
@@ -5567,7 +5672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust/validation/ci/" class="md-nav__link">
+      <a href="../ci/" class="md-nav__link">
         
   
   
@@ -5595,7 +5700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust/validation/packaging/" class="md-nav__link">
+      <a href="../packaging/" class="md-nav__link">
         
   
   
@@ -5623,7 +5728,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../rust/validation/layout/" class="md-nav__link">
+      <a href="../layout/" class="md-nav__link">
         
   
   
@@ -5686,10 +5791,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#source-and-module-identity" class="md-nav__link">
+  <a href="#per-header-inventory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Source and module identity
+        Per-header inventory
       
     </span>
   </a>
@@ -5697,10 +5802,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#implementation-and-ownership-inventory" class="md-nav__link">
+  <a href="#intentional-exclusions-and-ownership" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Implementation and ownership inventory
+        Intentional exclusions and ownership
       
     </span>
   </a>
@@ -5708,60 +5813,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-and-native-linking-contract" class="md-nav__link">
+  <a href="#validation-scope" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration and native linking contract
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ownership-and-lifetime-contracts-to-preserve" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Ownership and lifetime contracts to preserve
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reproduce-and-verify" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reproduce and verify
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Reproduce and verify">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#recorded-local-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recorded local results
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#standalone-repository-handoff" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Standalone repository handoff
+        Validation scope
       
     </span>
   </a>
@@ -5787,7 +5842,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/ec077a7eee7f59110c7b768acbb50015d86ab9df/docs/development/go-migration/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/validation/codecs-generator.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5795,298 +5850,177 @@
   
 
 
-<h1 id="go-migration-baseline">Go migration baseline<a class="headerlink" href="#go-migration-baseline" title="Permanent link">&para;</a></h1>
+<h1 id="generic-codec-and-wire-generator-coverage">Generic Codec and wire Generator coverage<a class="headerlink" href="#generic-codec-and-wire-generator-coverage" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Historical record</p>
-<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../languages/go/manual/development/go/">current Go development guide</a>. See <a href="../../">historical records</a> for context.</p>
+<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../../languages/rust/manual/guides/rust/">current Rust manual</a>. See <a href="../../../">historical records</a> for context.</p>
 </div>
-<p>This is the pre-extraction record for <a href="https://github.com/OpenTLV/opentlv/issues/685">Core #685</a>
-under <a href="https://github.com/OpenTLV/opentlv/issues/684">epic #684</a>.
-It freezes existing behavior for comparison during migration. The implementation
-remains in Core until the separately tracked extraction and cleanup work.</p>
-<h2 id="source-and-module-identity">Source and module identity<a class="headerlink" href="#source-and-module-identity" title="Permanent link">&para;</a></h2>
+<p>Issue <a href="https://github.com/OpenTLV/opentlv-rust/issues/22">#22</a> completes the
+generic Codec and Generator gaps against Core <code>0.7.1</code>, commit
+<code>476f1fbecde6b056419e43c9a6cea4d1ca8df1cf</code>, as pinned by
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv-sys/core/core-artifact.json"><code>core-artifact.json</code></a>.
+The comparison baseline is Rust commit
+<code>5cb5cc1159ac65d7c5b75636ea50b760c66af35e</code> (before this issue's working changes).
+The baseline was reconstructed from Git while completing the existing work;
+it does not assume that uncommitted APIs were already available.</p>
+<h2 id="per-header-inventory">Per-header inventory<a class="headerlink" href="#per-header-inventory" title="Permanent link">&para;</a></h2>
+<p>Counts are <code>TLV_API</code> symbols referenced by the safe <code>opentlv/src</code> implementation,
+excluding the documented ignores. Raw <code>opentlv-sys</code> declarations alone do not
+count. References establish API reachability, not complete functional parity.</p>
 <table>
 <thead>
 <tr>
-<th>Item</th>
-<th>Baseline</th>
+<th>Pinned Core header</th>
+<th style="text-align: right;">Before</th>
+<th style="text-align: right;">After</th>
+<th>Public Rust mapping</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Core repository</td>
-<td><code>https://github.com/OpenTLV/opentlv</code></td>
+<td><code>tlv/codec/codec.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">2/2</td>
+<td>Shared <code>tlv_codec_decode</code>/<code>encode</code> dispatch</td>
 </tr>
 <tr>
-<td>Exact Core commit</td>
-<td><code>cb3caed5b09706ce11ecfae839397fd4f99d0025</code></td>
+<td><code>tlv/codec/diagnostic.h</code></td>
+<td style="text-align: right;">4/5</td>
+<td style="text-align: right;">4/4, 1 ignored</td>
+<td>Existing owned <code>CodecDiagnostic</code>; initializer excluded below</td>
 </tr>
 <tr>
-<td>Source subtree</td>
-<td><code>bindings/go</code></td>
+<td><code>tlv/codec/number.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">2/2</td>
+<td>Existing <code>NumberCodec</code></td>
 </tr>
 <tr>
-<td>Module path</td>
-<td><code>github.com/marekcingel/OpenTLV/bindings/go</code></td>
+<td><code>tlv/codec/values.h</code></td>
+<td style="text-align: right;">0/7</td>
+<td style="text-align: right;">7/7</td>
+<td><code>IntegerCodec&lt;u8/u16/u32/i64&gt;</code>, <code>BytesCodec</code></td>
 </tr>
 <tr>
-<td>Public package</td>
-<td><code>opentlv</code></td>
+<td><code>tlv/codec/ipv4.h</code></td>
+<td style="text-align: right;">0/3</td>
+<td style="text-align: right;">3/3</td>
+<td><code>Ipv4Codec</code>, <code>Ipv4ListCodec</code>, <code>Ipv4List::get</code></td>
 </tr>
 <tr>
-<td>Go language directive</td>
-<td><code>go 1.22</code></td>
+<td><code>tlv/codec/text.h</code></td>
+<td style="text-align: right;">0/2</td>
+<td style="text-align: right;">2/2</td>
+<td><code>TextCodec</code>, <code>TextAlphabet</code></td>
 </tr>
 <tr>
-<td>Third-party Go dependencies</td>
-<td>None; no <code>go.sum</code></td>
+<td><code>tlv/codec/digits.h</code></td>
+<td style="text-align: right;">0/2</td>
+<td style="text-align: right;">2/2</td>
+<td><code>DigitsCodec</code></td>
 </tr>
 <tr>
-<td>Independent binding release</td>
-<td>None recorded; no <code>bindings/go/*</code> tags reachable from the baseline</td>
+<td><code>tlv/codec/structure.h</code></td>
+<td style="text-align: right;">0/2</td>
+<td style="text-align: right;">2/2</td>
+<td><code>StructureCodec</code> with Rust conversion closures</td>
 </tr>
 <tr>
-<td>Existing <code>Version()</code></td>
-<td>Reports the linked <strong>Core</strong> version, not a Go binding release</td>
+<td><code>tlv/schema/number.h</code></td>
+<td style="text-align: right;">0/2</td>
+<td style="text-align: right;">2/2</td>
+<td><code>SchemaNumberCodec</code> owning its <code>LengthRule</code> and number configuration</td>
 </tr>
 <tr>
-<td>License</td>
-<td>MIT; original sources and Core LICENSE attribute Marek Cingel, 2026</td>
+<td><code>tlv/generator.h</code></td>
+<td style="text-align: right;">0/2</td>
+<td style="text-align: right;">2/2</td>
+<td><code>Generator</code>, <code>GeneratorCandidate</code>, <code>GeneratorLimits</code></td>
 </tr>
 </tbody>
 </table>
-<p>The nested module's documented release tag prefix is <code>bindings/go/</code>. Canonical
-standalone module identity and independent versioning belong to
-<a href="https://github.com/OpenTLV/opentlv-go/issues/4">Go #4</a>. This baseline does not
-rewrite imports, assign a binding version or publish a module.</p>
-<h2 id="implementation-and-ownership-inventory">Implementation and ownership inventory<a class="headerlink" href="#implementation-and-ownership-inventory" title="Permanent link">&para;</a></h2>
-<p><a href="../../../go-migration/inventory.json">inventory.json</a> records exact Git blob IDs, SHA-256 digests and
-byte lengths from the pinned commit, independent of checkout line endings. It
-contains every file in <code>bindings/go</code>, both Go guides, and the listed shared
-inputs and integration references. Its hashes describe the <strong>original source
-paths</strong>, not a future standalone layout.</p>
-<table>
-<thead>
-<tr>
-<th>Area</th>
-<th>Source files and migration ownership</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Public facade</td>
-<td><code>opentlv.go</code>, <code>format.go</code>, <code>element.go</code>, <code>reader.go</code>, <code>writer.go</code>, <code>document.go</code>, <code>errors.go</code>, <code>diagnostic_kind.go</code>, <code>codec.go</code>, <code>query.go</code>, <code>query_v1.go</code>, <code>program.go</code>, <code>query_extensions.go</code>; Go-owned</td>
-</tr>
-<tr>
-<td>Native bridge</td>
-<td>All <code>internal/capi/*.go</code>, <code>bridge.c</code>, <code>bridge.h</code>; Go owns cgo, callbacks, unsafe conversions and native lifetime adaptation</td>
-</tr>
-<tr>
-<td>Tests</td>
-<td>14 <code>tests/*_test.go</code> consumer/architecture/diagnostic tests, <code>element_test.go</code>, <code>internal/capi/bridge_test.go</code>; Go-owned</td>
-</tr>
-<tr>
-<td>Runnable examples</td>
-<td><code>version</code>, <code>quick_start</code>, <code>reader</code>, <code>writer</code>, <code>errors</code>, <code>codec</code>, <code>document</code>, <code>query</code>, <code>query_conformance</code>; Go-owned</td>
-</tr>
-<tr>
-<td>Module and documentation</td>
-<td><code>go.mod</code>, binding README, <code>docs/guides/go.md</code>, <code>docs/development/go.md</code>; Go-owned</td>
-</tr>
-<tr>
-<td>Existing CI</td>
-<td><code>.github/workflows/go.yml</code>; replacement belongs to Go #3; Core removal is deferred</td>
-</tr>
-<tr>
-<td>Generated diagnostic vocabulary</td>
-<td>Go owns generated <code>diagnostic_kind.go</code>, <code>internal/capi/diagnostic_strings.go</code> and <code>tests/diagnostic_vocabulary_test.go</code>; Core owns canonical C enums/name tables and <code>scripts/generate_diagnostic_vocabulary.py</code></td>
-</tr>
-<tr>
-<td>Shared Query corpus</td>
-<td><code>tests/query/corpus.json</code>, Python runner/oracle and supporting inputs remain Core-owned; the Go adapter consumes the pinned corpus</td>
-</tr>
-<tr>
-<td>Cross-language documentation</td>
-<td>Core keeps conceptual guides, example catalogs, documentation inventories and native reference ownership; Go-specific prose/examples are handed off through Go #6</td>
-</tr>
-<tr>
-<td>Native library</td>
-<td>Core owns C implementation, public/generated headers, CMake exports and comprehensive native tests; these are not Go sources to copy</td>
-</tr>
-</tbody>
-</table>
-<p>The machine-readable inventory includes Core files that reference the nested
-module (excluding historical changelog entries). These entries identify later
-integration cleanup, not authorization to move shared Core documentation or tests.</p>
-<h2 id="configuration-and-native-linking-contract">Configuration and native linking contract<a class="headerlink" href="#configuration-and-native-linking-contract" title="Permanent link">&para;</a></h2>
-<p>Go 1.22+, <code>CGO_ENABLED=1</code>, a compatible C compiler, and matching Core headers and
-library are required. The bridge links <code>-ltlv</code>; it has no pure-Go fallback,
-automatic Core download or dependency pin at this baseline. Callers provide
-source/public and generated include paths in <code>CGO_CPPFLAGS</code> and the library
-directory in <code>CGO_LDFLAGS</code>. Generated <code>tlv/config.h</code> must match the linked binary.
-The bridge explicitly requires Reader, Writer, Query, Schema and Codec.</p>
-<table>
-<thead>
-<tr>
-<th>Configuration</th>
-<th>Existing contract</th>
-<th>Baseline coverage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Linux amd64, default, static</td>
-<td>Existing CI configuration; <code>TLV_STATIC_DEFINE</code> required</td>
-<td>Local reproduction</td>
-</tr>
-<tr>
-<td>Linux amd64, minimal, static</td>
-<td>Existing CI; ASN.1, Bluetooth, LLDP, DHCP, NFC and Document disabled</td>
-<td>Local reproduction; feature-dependent tests may skip</td>
-</tr>
-<tr>
-<td>Linux amd64, default, shared</td>
-<td>Documented prebuilt-library mode; omit <code>TLV_STATIC_DEFINE</code> and set runtime library search path</td>
-<td>Additional local reproduction</td>
-</tr>
-<tr>
-<td>Windows, GCC/MinGW</td>
-<td>Documented static setup; Go target, compiler and library architecture must agree; 32-bit MinGW requires <code>GOARCH=386</code></td>
-<td>Not executed for this baseline</td>
-</tr>
-<tr>
-<td>Windows shared</td>
-<td>Documented matching library/runtime <code>PATH</code> setup</td>
-<td>Not executed for this baseline</td>
-</tr>
-<tr>
-<td>macOS or other targets</td>
-<td>No matrix evidence supplied by the existing Go workflow</td>
-<td>Not validated by this record</td>
-</tr>
-</tbody>
-</table>
-<p>Minimal builds keep generic Fixed Reader/Writer, error and codec operations.
-Document and Query document examples are omitted there. Unavailable presets
-return unsupported status; no protocol fallback is introduced. Race testing is
-recorded on Linux amd64; the documented Windows 386 setup cannot run it.
-External native changes require a fresh Go cache or <code>go clean -cache</code>.</p>
-<h2 id="ownership-and-lifetime-contracts-to-preserve">Ownership and lifetime contracts to preserve<a class="headerlink" href="#ownership-and-lifetime-contracts-to-preserve" title="Permanent link">&para;</a></h2>
+<p>Core coverage changes from <strong>194/217 (89.4%)</strong>, with 80 ignored symbols, to
+<strong>214/216 (99.1%)</strong>, with 81 ignored. Builtins stay at <strong>34/291 (11.7%)</strong>.
+The two remaining generic symbols, <code>tlv_diagnostic_path_string</code> and
+<code>tlv_location_translate</code>, are outside this issue's Codec/Generator scope and
+remain visible as missing. The Core lock, Cargo features and official native
+build component selection are unchanged.</p>
+<p>Regenerate the complete report, including every header and missing symbol:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/api_coverage.py<span class="w"> </span>--core<span class="w"> </span>../opentlv<span class="w"> </span>--output<span class="w"> </span>build/api-coverage.json
+</code></pre></div>
+<h2 id="intentional-exclusions-and-ownership">Intentional exclusions and ownership<a class="headerlink" href="#intentional-exclusions-and-ownership" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>internal/capi</code> is the exclusive boundary for <code>C</code>, <code>unsafe</code>, C handles and
-  pointer conversions. Consumer programs import the public Go package.</li>
-<li>Synchronous byte arguments are borrowed only for the native call. C does not
-  retain Go pointers. <code>runtime.KeepAlive</code> protects projection after native calls;
-  nil and non-nil empty slices retain their documented distinctions.</li>
-<li>Immutable Formats may be shared. Reader/Writer descriptors and Fixed contexts
-  are call-local; Readers/Writers own Go state and require no native <code>Close</code>.
-  Parsed Values/source-bound Tags borrow the input; <code>Clone()</code> creates a snapshot.
-  Format-generated Tags and diagnostics are copied into Go storage.</li>
-<li>Writers borrow output buffers, reject unsafe overlap, report required
-  capacity and preserve retry behavior. Tree Writer parents stage Go buffers.</li>
-<li>Document copies input and owns C allocations/Format context. Explicit <code>Close</code>
-  is deterministic, idempotent and nil-safe; finalization is a fallback. Copies
-  share closure state. Nodes retain their owner; successful edits invalidate
-  existing handles. Node Tags/Values and diagnostic results are owned snapshots.</li>
-<li>Query programs own reference-counted native images. Existing executions retain
-  their native reference after program closure. Executions own C workspaces and
-  copied input/feed storage, and require deterministic cleanup. Callback reentry
-  restrictions, panic conversion, provider concurrency and <code>runtime/cgo.Handle</code>
-  release behavior must survive migration. V1 matchers also own closable storage.</li>
-<li>Codecs delegate to Core and return owned values. Error status identity,
-  <code>errors.Is</code>/<code>errors.As</code>, diagnostic presence flags, byte offsets and paths remain
-  unchanged. There is no new public Schema facade in this migration step.</li>
+<li><code>tlv_codec_diagnostic_init</code> joins the existing diagnostic-producer ignore
+  list: the C conversion entry points initialize their own output diagnostic.
+  Rust owns the converted evidence after the call and does not expose a second
+  public diagnostic initialization API.</li>
+<li>The inline <code>tlv_text_codec</code>, <code>tlv_digits_codec</code> and <code>tlv_schema_number_codec</code>
+  constructors are not exported <code>TLV_API</code> symbols. Rust builds their descriptor
+  layouts with the same native callbacks and a context that lives through each
+  call. Configuration validation and conversions remain in Core.</li>
+<li>Integer codecs accept their exact C integer type. Bytes, text and IPv4-list
+  decodes borrow input slices; string digit output is owned. Schema-number
+  descriptors borrow the codec's owned rule only for a call.</li>
+<li>Structure codecs borrow the Format and Schema. Application closures run
+  outside C; decode follows Core validation and encode precedes it. No
+  application callback or temporary object is retained by C.</li>
+<li>Generator clones rebuild the C candidate table over their own tag bytes.
+  Format lifetimes are preserved, calls share immutable state, and all random
+  generation and wire behavior remain in Core. It generates wire-valid streams,
+  not Schema- or Codec-valid application content.</li>
+<li>Protocol-specific Builtins parity and custom raw codec callbacks remain
+  outside this public safe API expansion.</li>
 </ul>
-<p>See the pinned binding README and the corresponding test files in the inventory
-for detailed contracts. This record does not strengthen thread-safety guarantees.</p>
-<h2 id="reproduce-and-verify">Reproduce and verify<a class="headerlink" href="#reproduce-and-verify" title="Permanent link">&para;</a></h2>
-<p>Verify the inventory from any Core checkout that contains the pinned Git objects:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>-B<span class="w"> </span>scripts/go_migration_baseline.py
-</code></pre></div>
-<p>On Linux with Go, GCC, CMake, Ninja, Git and Python 3 available:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>-B<span class="w"> </span>scripts/go_migration_baseline.py<span class="w"> </span>--run<span class="w"> </span>/var/tmp/opentlv-go-685-baseline
-</code></pre></div>
-<p>The output directory must not exist. The runner verifies the inventory, makes
-a detached local clone at the exact source commit, and builds Release C libraries
-with C++/native tests/examples disabled. It uses separate fresh Go caches for
-each configuration. It runs formatting, vet, uncached package tests, race tests,
-<code>GOEXPERIMENT=cgocheck2</code>, all applicable examples and the shared Query corpus
-with <code>--property-cases 0</code>. It verifies that tracked source files remain unchanged.
-It writes command logs and <code>results.json</code>, including tool versions, cgo flags,
-exit codes, test/skip counts and log hashes. A failure stops the run and is saved.</p>
-<p>The committed <code>results.json</code> is a local observation, not hosted CI or release
-evidence. Raw logs stay in the selected output directory; their hashes allow
-comparison with the record but do not make those local logs remotely available.
-Go test event counts include subtests. Explicit skips are retained in the record.
-New runs may differ in timing, host details, temporary paths and log hashes.</p>
-<h3 id="recorded-local-results">Recorded local results<a class="headerlink" href="#recorded-local-results" title="Permanent link">&para;</a></h3>
-<p>The run used Ubuntu 24.04.1 under WSL, Linux amd64, Go 1.22.2, GCC 13.3.0,
-CMake 3.28.3 and Ninja. The linked Core reported <code>0.7.1</code>; source identity remains
-the full commit above. This is not a Go binding version.</p>
+<h2 id="validation-scope">Validation scope<a class="headerlink" href="#validation-scope" title="Permanent link">&para;</a></h2>
+<p>The binding tests cover conversions and error evidence, borrowed results,
+caller capacities, allocation bounds, deterministic seed/index replay, moved
+and cloned candidate storage, concurrent immutable generation, composed
+Formats, and StructureCodec validation order. Compile-fail Rustdoc examples
+reject objects that outlive their input. A native C ABI probe compares the
+sizes, alignments, every field offset and relevant constants for all eight new
+FFI structures. Core remains responsible for exhaustive codec and generator
+behavior tests.</p>
+<p>The current test and example inventories are in
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/ci/matrix.json"><code>ci/matrix.json</code></a>. On 2026-10-24, local Windows x86-64/MSVC
+validation with Rust 1.99.1 and the pinned Git Core dependency passed:</p>
 <table>
 <thead>
 <tr>
-<th>Native configuration</th>
-<th>Regular tests</th>
-<th>Race tests</th>
-<th>cgocheck2</th>
-<th>Runnable examples</th>
-<th>Shared Query corpus</th>
+<th>Cargo features</th>
+<th style="text-align: right;">Passed tests, including Rustdoc and C ABI probes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Default static</td>
-<td>66 passed</td>
-<td>66 passed</td>
-<td>66 passed</td>
-<td>8 passed</td>
-<td>171 fixtures, 2,133 native executions</td>
+<td>Default</td>
+<td style="text-align: right;">295</td>
 </tr>
 <tr>
-<td>Minimal static</td>
-<td>40 passed, 26 skipped</td>
-<td>40 passed, 26 skipped</td>
-<td>40 passed, 26 skipped</td>
-<td>6 passed</td>
-<td>Omitted with Document disabled</td>
+<td>None</td>
+<td style="text-align: right;">272</td>
 </tr>
 <tr>
-<td>Default shared</td>
-<td>66 passed</td>
-<td>66 passed</td>
-<td>66 passed</td>
-<td>8 passed</td>
-<td>171 fixtures, 2,133 native executions</td>
+<td>LLDP only</td>
+<td style="text-align: right;">273</td>
+</tr>
+<tr>
+<td>NFC only</td>
+<td style="text-align: right;">272</td>
+</tr>
+<tr>
+<td>Document only</td>
+<td style="text-align: right;">294</td>
 </tr>
 </tbody>
 </table>
-<p>Formatting and vet passed for all three configurations. The
-minimal skips reflect disabled optional features; they are not full-feature
-coverage. The shared Query run includes zero generated property comparisons,
-matching the existing Go CI invocation. Windows, macOS, hosted CI, independent
-standalone builds and release publication were not run for this issue.</p>
-<p>The <a href="../../../go-migration/results.json">recorded results</a> contain the individual checks. Raw logs were
-also copied to the local Core <code>build/issue685-evidence/</code> directory. The original
-tracked sources remained byte-for-byte unchanged throughout validation.</p>
-<h2 id="standalone-repository-handoff">Standalone repository handoff<a class="headerlink" href="#standalone-repository-handoff" title="Permanent link">&para;</a></h2>
-<p><code>https://github.com/OpenTLV/opentlv-go</code> already exists as a public repository
-with default branch <code>main</code>, description "Go bindings for OpenTLV — a universal
-library for parsing, encoding, and working with TLV and TLV-like binary formats."
-and MIT license metadata. Its initial commit is
-<code>cb63f4e549f22e4d8827acc5b53b09ef4aa8cd8c</code>, containing README and LICENSE.
-Metadata and source were inspected on 2026-10-22. Its initial LICENSE credits
-OpenTLV, 2026; the prepared attribution addition retains the original Marek Cingel
-copyright alongside it. Source SPDX notices must remain intact on import.</p>
-<p>The companion local branch <code>feature/685_go_migration_baseline</code> in <code>opentlv-go</code>
-adds <code>MIGRATION.md</code>, repository scope/entry-point guidance and license attribution.
-This establishes provenance before source transfer; it does not claim that the
-standalone repository already builds. Changes are prepared locally for review.</p>
-<p>Follow-up ownership: Workspace #40 integrates the checkout; Go #1 moves sources,
-tests and examples; Go #2 establishes verified Core integration; Go #3 owns CI;
-Go #4 owns module/version metadata; Go #5 normalizes layout; Go #6 integrates
-documentation; Core #686 removes migrated implementation; Go #7 verifies the
-completed migration. Full epic/release readiness remains outside #685.</p>
+<p>Every per-target result matched the CI inventory. Rustfmt, Clippy with warnings
+denied for both default and no-default-features, and Rustdoc with warnings
+denied also passed, as did all ten runnable examples, the shared Query corpus
+(171 fixtures, 2,133 native executions, no unavailable-provider fixtures), all
+78 Python infrastructure tests, source quality, local documentation links and
+whitespace checks. These are local working-tree checks, not hosted Full CI,
+release or publication evidence. Linux, macOS, MSRV, sanitizers, packaging and
+prebuilt linking were not rerun for this change locally.</p>
 
 
 
@@ -6110,7 +6044,7 @@ completed migration. Full epic/release readiness remains outside #685.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
         
       
     
@@ -6138,14 +6072,21 @@ completed migration. Full epic/release readiness remains outside #685.</p>
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
         
       
     
@@ -6175,7 +6116,7 @@ completed migration. Full epic/release readiness remains outside #685.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview">
+          <a href="../../../python/validation/layout/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python source layout validation">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6185,20 +6126,20 @@ completed migration. Full epic/release readiness remains outside #685.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Overview
+                Python source layout validation
               </div>
             </div>
           </a>
         
         
           
-          <a href="../guides/go/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Go usage before extraction">
+          <a href="../../migration/" class="md-footer__link md-footer__link--next" aria-label="Next: Rust migration provenance">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Core Go usage before extraction
+                Rust migration provenance
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -6248,12 +6189,12 @@ completed migration. Full epic/release readiness remains outside #685.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
-        <script src="../../../../playground/playground.js" type="module"></script>
+        <script src="../../../../../playground/playground.js" type="module"></script>
       
     
   </body>

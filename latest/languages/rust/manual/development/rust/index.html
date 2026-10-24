@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -445,6 +445,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wire generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#formats-and-canonical-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -660,6 +671,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wire generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#formats-and-canonical-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -783,7 +805,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/242588b3587fc642762e2fd6b67a5f714ae50dff/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -823,7 +845,9 @@ model</a>.</p>
 so far.</p>
 <p>The <code>opentlv-sys</code> test suite builds a small C ABI probe with CMake and a native C
 compiler. It compares the size, alignment and every member offset of Fixed field
-and format configurations with the Rust <code>#[repr(C)]</code> mirrors. Offset checks catch
+and format configurations with the Rust <code>#[repr(C)]</code> mirrors; <code>compose_abi</code> and
+<code>codec_abi</code> do the same for Format composition and for the generic codec,
+structure codec and generator types. Offset checks catch
 layout changes even when the overall structure size stays the same. This test
 uses the matching source headers; consumers must still pair them with the
 matching native library.</p>
@@ -873,6 +897,21 @@ matching native library.</p>
 <td><code>tlv_byte_order_t</code></td>
 <td><code>Big</code> or <code>Little</code>, the length field's byte order for <code>FixedFormatConfig</code></td>
 </tr>
+<tr>
+<td><code>FormatRef&lt;'a&gt;</code></td>
+<td><code>const tlv_format_t*</code></td>
+<td>A <code>Copy</code> borrow of a builtin, Fixed or composed descriptor, accepted by every format entry point; exposes <code>tlv_format_can_read()</code>, <code>tlv_format_can_write()</code>, <code>tlv_format_decode()</code>, <code>tlv_format_measure()</code> and <code>tlv_format_encode()</code> with <code>FormatError</code> detail</td>
+</tr>
+<tr>
+<td><code>FixedIdentifier</code>, <code>VariableIdentifier</code>, <code>FixedLength</code>, <code>VariableLength</code>, <code>EscapedLength</code>, <code>PackedField</code>, <code>ConstructedBit</code></td>
+<td><code>tlv/field/*.h</code>, <code>tlv_constructed_bit_t</code></td>
+<td>Immutable field encoding configurations; <code>PackedField</code> also reads and writes one bit field</td>
+</tr>
+<tr>
+<td><code>ComposedFormat</code></td>
+<td><code>tlv_format_t</code> and a <code>tlv/formats/*.h</code> composition</td>
+<td>Built from a <code>FieldComposition</code> or <code>PackedLayout</code>; owns the descriptor, configuration and every borrowed table behind an <code>Arc</code>, so clones share one native identity</td>
+</tr>
 </tbody>
 </table>
 <p>The C <code>tlv_tag_t</code> is a borrowed pointer and size (<code>opentlv_sys::tlv_tag_t</code>), so
@@ -892,7 +931,8 @@ borrow checker keeps the input alive for as long as the reader or any element.</
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">}</span>
 </code></pre></div>
 <p><code>Reader::new</code> uses BER;
-<code>Reader::with_format</code> takes a <code>Format</code> (<code>Ber</code>, <code>Emv</code>, <code>Cer</code>, <code>Der</code>, plus optional <code>Lldp</code> and <code>NfcType2</code>), and
+<code>Reader::with_format</code> takes a <code>Format</code> (<code>Ber</code>, <code>Emv</code>, <code>Cer</code>, <code>Der</code>, plus optional <code>Lldp</code> and <code>NfcType2</code>)
+or any other <code>FormatRef</code>, such as a borrowed <code>&amp;ComposedFormat</code>, and
 <code>Reader::with_fixed_format</code> takes a borrowed <code>&amp;FixedFormat</code> for a
 runtime-configurable tag width, length width and length byte order (wraps the C
 <code>tlv_fixed_format_t</code> and <code>tlv_fixed_format_init()</code>: <code>FixedFormatConfig::new(tag_size,
@@ -902,6 +942,13 @@ length_size, order)</code> builds the caller-owned configuration, and
 writer built from it). Malformed input yields an <code>Err(Error)</code> item, after
 which the iterator ends, since the C reader does not advance past bad data.
 Library users need no <code>unsafe</code>.</p>
+<p>Iteration and <code>Reader::read_element()</code> pull through <code>tlv_reader_next_diag()</code>
+without source metadata; <code>Reader::read_source()</code> uses
+<code>tlv_reader_next_source_diag()</code>. Both explicit pulls stay callable after an
+error, so incremental input can be extended with <code>set_input</code> after
+<code>Error::NeedMoreData</code>. For one element, <code>read_element()</code> calls <code>tlv_read_diag()</code>
+and <code>read()</code> calls <code>tlv_read_source_diag()</code> without opening a Reader; their
+<code>ReaderError</code> owns the failure diagnostic.</p>
 <h2 id="writer">Writer<a class="headerlink" href="#writer" title="Permanent link">&para;</a></h2>
 <p><code>Writer&lt;'a&gt;</code> encodes elements into a caller-owned <code>&amp;'a mut [u8]</code>. It wraps the C
 <code>tlv_writer_t</code> and never allocates. Tags are <code>Tag</code>s and values are <code>&amp;[u8]</code>.</p>
@@ -918,7 +965,7 @@ without writing it. Failures use the common <code>Error</code>; an element that 
 gives <code>Error::BufferTooShort</code> and leaves the position unchanged. Library users
 need no <code>unsafe</code>.</p>
 <h2 id="schemas">Schemas<a class="headerlink" href="#schemas" title="Permanent link">&para;</a></h2>
-<p>Both schema types wrap the C library's tables; validation runs in C.</p>
+<p>The schema types wrap the C library's tables; checks and validation run in C.</p>
 <table>
 <thead>
 <tr>
@@ -938,6 +985,16 @@ need no <code>unsafe</code>.</p>
 <td><code>tlv_structure_schema_t</code></td>
 <td>Required, optional, duplicate, kind and child-membership rules for a whole buffer</td>
 </tr>
+<tr>
+<td><code>CheckedStructureSchema&lt;'s&gt;</code></td>
+<td><code>tlv_schema_checked_t</code></td>
+<td>A <code>StructureSchema</code> checked once, for repeated validation</td>
+</tr>
+<tr>
+<td><code>ValueConstraint</code></td>
+<td><code>tlv_value_constraint_t</code></td>
+<td>Range, allowed-value or named-number constraint on a decoded scalar</td>
+</tr>
 </tbody>
 </table>
 <p><code>LengthSchema::new</code> and <code>StructureSchema::new</code> build owned tables from
@@ -955,6 +1012,17 @@ offset plus Schema kind and anchor.</p>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">);</span>
 <a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">schema</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::</span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">opentlv</span><span class="p">::</span><span class="n">ValidationLimits</span><span class="p">::</span><span class="n">default</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
 </code></pre></div>
+<p><code>StructureSchema::check_definition</code> checks every reachable rule table through
+<code>tlv_schema_check()</code> without input; a definition error has <code>definition_kind</code>
+and <code>definition_index</code> but no offset. <code>StructureSchema::check</code> does the same
+check through <code>tlv_schema_prepare()</code> and returns a <code>CheckedStructureSchema</code>
+that borrows the schema, whose tables are immutable. Its <code>validate</code> and
+<code>validate_diagnostics</code> call <code>tlv_schema_validate_checked()</code> and
+<code>tlv_schema_validate_all_checked()</code>. Schema diagnostics are initialized with
+<code>tlv_schema_diagnostic_init()</code>. <code>ValueConstraint</code> owns the allowed values and
+names its native definition borrows; construction runs
+<code>tlv_value_constraint_check()</code>, and <code>validate</code> and <code>name</code> call
+<code>tlv_value_constraint_validate()</code> and <code>tlv_value_constraint_name()</code>.</p>
 <h2 id="codecs-and-the-emv-dictionary">Codecs and the EMV dictionary<a class="headerlink" href="#codecs-and-the-emv-dictionary" title="Permanent link">&para;</a></h2>
 <p><code>Codec</code> converts a raw value to a typed <code>Value</code> (<code>Number</code>, <code>Flags</code>, <code>Digits</code>,
 <code>Date</code>, <code>Time</code>, <code>Afl</code>, <code>Track2</code>, ...) with <code>decode</code>, and back with <code>encode</code>,
@@ -971,6 +1039,94 @@ is the amount codec; every other codec comes from the EMV dictionary:</p>
 <code>validate_length</code>, optional <code>Codec</code>); <code>Context::child</code> follows template
 contexts. Opaque bytes, text and templates have no codec; use the reader's
 borrowed value.</p>
+<p>Generic Value codecs are selected explicitly per Value, never by tag. Each has
+<code>decode</code>, <code>encoded_size</code>, <code>encode_into</code> and <code>encode</code>, and every conversion
+runs in a public C codec:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Rust value</th>
+<th>C codec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NumberCodec</code></td>
+<td><code>u64</code></td>
+<td><code>tlv_number_decode</code>/<code>tlv_number_encode</code></td>
+</tr>
+<tr>
+<td><code>SchemaNumberCodec</code></td>
+<td><code>u64</code> with lengths limited by a <code>LengthRule</code></td>
+<td><code>tlv_schema_number_t</code></td>
+</tr>
+<tr>
+<td><code>IntegerCodec&lt;u8&gt;</code>, <code>&lt;u16&gt;</code>, <code>&lt;u32&gt;</code></td>
+<td>exact-width unsigned integer</td>
+<td><code>tlv_codec_uint8</code>, <code>tlv_codec_uint16_be</code>/<code>_le</code>, <code>tlv_codec_uint32_be</code>/<code>_le</code></td>
+</tr>
+<tr>
+<td><code>IntegerCodec&lt;i64&gt;</code></td>
+<td>minimal two's complement</td>
+<td><code>tlv_codec_int64_minimal_be</code></td>
+</tr>
+<tr>
+<td><code>BytesCodec</code></td>
+<td><code>&amp;[u8]</code> borrowed from the input</td>
+<td><code>tlv_codec_bytes</code></td>
+</tr>
+<tr>
+<td><code>Ipv4Codec</code>, <code>Ipv4ListCodec</code></td>
+<td><code>Ipv4Addr</code>, <code>Ipv4List&lt;'a&gt;</code></td>
+<td><code>tlv_codec_ipv4</code>, <code>tlv_codec_ipv4_list</code></td>
+</tr>
+<tr>
+<td><code>TextCodec</code></td>
+<td><code>&amp;str</code> borrowed from the input</td>
+<td><code>tlv_text_decode</code>/<code>tlv_text_encode</code></td>
+</tr>
+<tr>
+<td><code>DigitsCodec</code></td>
+<td><code>String</code> of decimal digits</td>
+<td><code>tlv_digits_decode</code>/<code>tlv_digits_encode</code></td>
+</tr>
+</tbody>
+</table>
+<p>The static descriptors are <code>Copy</code> handles. <code>TextCodec</code>, <code>DigitsCodec</code> and
+<code>SchemaNumberCodec</code> own their configuration and build the descriptor that
+Core's inline <code>tlv_text_codec()</code>, <code>tlv_digits_codec()</code> and
+<code>tlv_schema_number_codec()</code> would build for the duration of each call, so C
+validates the configuration on every use and Core's callback contract checks
+apply. <code>IntegerCodec&lt;T&gt;</code> takes only its exact C type, so out-of-range
+integers do not compile. Decoded <code>&amp;[u8]</code>, <code>&amp;str</code> and <code>Ipv4List</code> views borrow
+the input; a view outside it fails with <code>Error::Callback</code>. <code>Ipv4List::get</code>
+copies one address through <code>tlv_ipv4_list_at()</code>. Core initializes every codec
+diagnostic itself, so <code>tlv_codec_diagnostic_init()</code> is in the API coverage
+ignore list.</p>
+<p>Owned generic codec output uses fallible allocation and reports
+<code>Error::OutOfMemory</code> when the requested buffer cannot be allocated; use
+<code>encode_into</code> to provide bounded output storage. Schema, text and digit
+configuration errors still come from Core. The
+<a href="../../../../../development/history/rust/validation/codecs-generator/">pinned-Core inventory</a> records the original
+gaps, their public Rust mappings and the intentional exclusions.</p>
+<p><code>StructureCodec&lt;'a&gt;</code> maps one complete sequence to one application object
+through <code>tlv_structure_decode()</code> and <code>tlv_structure_encode()</code>. It borrows a
+Format and an optional <code>StructureSchema</code> and has <code>ValidationLimits</code>. The
+conversion is a closure per call, run outside C: <code>decode</code> calls it only after
+Core validated the sequence, and <code>encode</code> runs it once, then Core copies the
+produced bytes through a fixed callback and validates them, with output
+coordinates. User closures never run inside a C callback, so a closure panic needs
+no unwinding guard, and a closure failure is returned unchanged.</p>
+<h2 id="wire-generation">Wire generation<a class="headerlink" href="#wire-generation" title="Permanent link">&para;</a></h2>
+<p><code>Generator&lt;'f&gt;</code> borrows a Format and owns <code>GeneratorCandidate</code> records,
+<code>GeneratorLimits</code> and a seed. <code>workspace_size()</code> calls
+<code>tlv_generator_workspace_size()</code>; <code>generate(case_index)</code> allocates the output
+and workspace with fallible allocation and calls <code>tlv_generate()</code>, and
+<code>generate_into</code> uses caller storage without allocating. When the
+configuration is invalid, <code>generate</code> reports what <code>tlv_generate()</code> reports,
+which checks the Format before the configuration. <code>Generator::VERSION</code> is
+<code>TLV_GENERATOR_VERSION</code>.</p>
 <h2 id="formats-and-canonical-validation">Formats and canonical validation<a class="headerlink" href="#formats-and-canonical-validation" title="Permanent link">&para;</a></h2>
 <p><code>Format</code> (<code>Ber</code>, <code>Emv</code>, <code>Cer</code>, <code>Der</code>, plus optional <code>Lldp</code> and <code>NfcType2</code>) selects the wire
 encoding; it implements <code>FromStr</code> and <code>Display</code> for names such as <code>"der"</code>.
@@ -982,7 +1138,7 @@ These bounded operations return <code>InvalidArg</code> with unknown location fo
 than DER/CER; ordinary framing remains available through Reader/Writer. Failures are
 <code>ValidationError</code> values with an explicit location domain, kind and bounds.</p>
 <p>Reader and Tree Reader callbacks and resumable Query matching delegate to C.
-The DOL component and structure codecs are not bound yet.</p>
+The DOL component is not bound yet.</p>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
 <p>Requirements: Rust 1.82 or newer, CMake 3.16 or newer, a C99 compiler and Git.
 On Windows use the MSVC Rust toolchain with Visual Studio. The first build of
@@ -993,12 +1149,12 @@ each configuration downloads Core from GitHub.</p>
 </code></pre></div>
 <p>By default the build script of <code>opentlv-sys</code> clones OpenTLV Core into Cargo's
 <code>OUT_DIR</code>, checks out the commit locked in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
 and verifies its identity. It builds Core with CMake as a static,
 position-independent Release library and links it. The C++ layer, CLI, tests
 and examples of Core are not built. After building, it checks that Core's
 public <code>tlv/version.h</code> and <code>tlv/config.h</code> report the locked version, commit and
-components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/README.md#core-dependency">repository README</a> describes
+components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/README.md#core-dependency">repository README</a> describes
 every Core selection mode, including verified Core releases, and the recorded
 selection evidence.</p>
 <h2 id="cargo-features">Cargo features<a class="headerlink" href="#cargo-features" title="Permanent link">&para;</a></h2>
@@ -1108,7 +1264,9 @@ but does not build it, and the prebuilt library is not verified.</p>
 Source builds set <code>OPENTLV_DOCUMENT</code> to match. Prebuilt C libraries must enable
 that component when the Rust feature is enabled. Document runtime tests and a
 compile-fail lifetime example cover ownership, mutation, Query lookup, limits,
-destination-format output and resumable whole-stream/subtree builders.</p>
+destination-format output and resumable whole-stream/subtree builders, and the
+revision and retirement epoch, <code>NodeHandle</code> resolution after edits, retained
+source locations and Query visits of Document nodes.</p>
 
 
 
@@ -1129,7 +1287,7 @@ destination-format output and resumable whole-stream/subtree builders.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
         
       
     
@@ -1157,14 +1315,21 @@ destination-format output and resumable whole-stream/subtree builders.</p>
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
         
       
     
@@ -1267,10 +1432,10 @@ destination-format output and resumable whole-stream/subtree builders.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../../../playground/playground.js" type="module"></script>
       

@@ -10,10 +10,10 @@
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/core/development/go/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/history/core/development/webassembly/">
       
       
-        <link rel="prev" href="../../guides/go/">
+        <link rel="prev" href="../../wasm-migration/">
       
       
         <link rel="next" href="../../guides/python/">
@@ -23,18 +23,18 @@
       
       
       <link rel="icon" href="../../../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
-        <title>Core Go development before extraction - OpenTLV</title>
+        <title>WebAssembly before extraction - OpenTLV</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#go-binding-development" class="md-skip">
+        <a href="#webassembly-build-experimental" class="md-skip">
           Skip to content
         </a>
       
@@ -131,7 +131,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Core Go development before extraction
+              WebAssembly before extraction
             
           </span>
         </div>
@@ -2766,8 +2766,6 @@
           
         
       
-        
-      
     
     
     
@@ -2802,11 +2800,6 @@
 
             </a>
             
-              
-              <label class="md-nav__link " for="__nav_5_9" id="__nav_5_9_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
           </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
@@ -2820,34 +2813,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../../languages/wasm/development/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly tooling
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
           </ul>
@@ -4025,6 +3990,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4360,6 +4329,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../components/rust/validation/api-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../components/go/development/ci/" class="md-nav__link">
         
   
@@ -4396,6 +4393,34 @@
     
   
     Go implementation and ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../components/js/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JS/WASM tests, CI and documentation updates
   
 
     
@@ -5075,7 +5100,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../go-migration/" class="md-nav__link ">
+            <a href="../../wasm-migration/" class="md-nav__link ">
               
   
   
@@ -5144,34 +5169,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../../guides/go/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Core Go usage before extraction
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -5184,6 +5181,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WebAssembly before extraction
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -5191,7 +5206,7 @@
   <span class="md-ellipsis">
     
   
-    Core Go development before extraction
+    WebAssembly before extraction
   
 
     
@@ -5200,6 +5215,97 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-from-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use from JavaScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use from JavaScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compiled-query-and-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compiled Query and Document
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse-tooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse tooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation playground
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -5521,6 +5627,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../rust/validation/codecs-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust Codec and Generator validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../rust/migration/" class="md-nav__link">
         
   
@@ -5689,6 +5823,86 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-from-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use from JavaScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use from JavaScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compiled-query-and-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compiled Query and Document
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parse-tooling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parse tooling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-playground" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation playground
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -5706,7 +5920,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/ec077a7eee7f59110c7b768acbb50015d86ab9df/docs/development/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/development/webassembly.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5714,40 +5928,254 @@
   
 
 
-<h1 id="go-binding-development">Go binding development<a class="headerlink" href="#go-binding-development" title="Permanent link">&para;</a></h1>
+<h1 id="webassembly-build-experimental">WebAssembly build (experimental)<a class="headerlink" href="#webassembly-build-experimental" title="Permanent link">&para;</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Historical record</p>
-<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../../languages/go/manual/development/go/">current Go development guide</a>. See <a href="../../../">historical records</a> for context.</p>
+<p>This page preserves a historical snapshot, including its original commands, paths and validation results. Those results describe the recorded review, not a current verification. For current instructions, see the <a href="../../../../../languages/wasm/manual/webassembly/">current WebAssembly guide</a>. See <a href="../../../">historical records</a> for context.</p>
 </div>
-<p>Use the <a href="../../guides/go/">Go user guide</a> for Format selection, processing,
-ownership and errors. The <a href="https://github.com/OpenTLV/opentlv/blob/ec077a7eee7f59110c7b768acbb50015d86ab9df/bindings/go/README.md">binding README</a>
-describes native build integration, the <code>internal/capi</code> boundary and extraction
-of the nested Go module.</p>
-<p>The <a href="../../go-migration/">Go migration baseline</a> pins the pre-extraction
-sources, ownership inventory, supported configurations and local validation
-evidence for the standalone repository handoff (#685).</p>
-<p>After configuring cgo against matching native headers and library, run from
-<code>bindings/go</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gofmt<span class="w"> </span>-l<span class="w"> </span>.
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>go<span class="w"> </span>vet<span class="w"> </span>./...
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>./...
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-race<span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>./...
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">GOEXPERIMENT</span><span class="o">=</span>cgocheck2<span class="w"> </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>./...
+<p>The <a href="../../wasm-migration/">WASM migration baseline</a> records the immutable
+Core source, ABI, build and test contracts for extraction into <code>opentlv-js</code>.</p>
+<p>The optional <code>OPENTLV_BUILD_WASM</code> build compiles the OpenTLV C core to
+WebAssembly with <a href="https://emscripten.org/">Emscripten</a>, so browser tooling runs
+the same parser as native applications. It defaults to <code>OFF</code> and adds nothing
+to normal C and C++ builds.</p>
+<p>The module provides parse tooling plus owning compiled Query, checked Document
+editing and contextual Query Schema validation. It wraps the existing C API in
+<code>bindings/wasm/src/opentlv_wasm.c</code>; no parsing or Query semantics are duplicated.
+The EMV dictionary is available as an annotation module (below). Remaining
+public-facade gaps are tracked in the <a href="../../../../../languages/contracts/">binding capability matrix</a>.</p>
+<h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
+<p>Install and activate an Emscripten SDK (CI pins the version set in
+<code>.github/workflows/wasm.yml</code>), then:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>emcmake<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-wasm<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>-DOPENTLV_BUILD_WASM<span class="o">=</span>ON<span class="w"> </span>-DOPENTLV_BUILD_CXX<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>-DOPENTLV_BUILD_TESTS<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_BUILD_EXAMPLES<span class="o">=</span>OFF
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-wasm<span class="w"> </span>--target<span class="w"> </span>opentlv-wasm
 </code></pre></div>
-<p>Formatting passes when <code>gofmt -l .</code> prints no filenames. Race detection needs a
-supported Go target and C toolchain; CI uses Linux amd64. It checks Go memory
-accesses, while <code>cgocheck2</code> checks the Go/C pointer boundary. Neither replaces
-native C sanitizer coverage.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/ec077a7eee7f59110c7b768acbb50015d86ab9df/.github/workflows/go.yml">Go workflow</a> tests default and minimal
-native configurations, with optional presets and Document disabled in the
-latter. It runs formatting, vet, tests, race checks, <code>cgocheck2</code> and applicable
-public examples. Document and Query examples require Document; generic Reader,
-Writer, errors and codecs remain usable without protocol components.</p>
-<p>Keep cgo, unsafe access and native handles inside <code>internal/capi</code>. Consumer
-examples use only the public package and standard library; architecture tests
-enforce that boundary. New capabilities should update the
-<a href="../../../../../languages/contracts/">binding matrix</a>, <a href="../../../../../tutorials/examples/">example inventory</a>
-and documentation inventories in the same change.</p>
+<p>The artifacts are written to <code>build-wasm/bindings/wasm/dist/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opentlv.mjs</code></td>
+<td>JavaScript entry point (<code>loadOpenTLV</code>, <code>hexToBytes</code>)</td>
+</tr>
+<tr>
+<td><code>query.mjs</code></td>
+<td>Owning compiled Query and checked Document facade</td>
+</tr>
+<tr>
+<td><code>opentlv-core.js</code></td>
+<td>Generated Emscripten ES module loader</td>
+</tr>
+<tr>
+<td><code>opentlv-core.wasm</code></td>
+<td>The compiled OpenTLV core</td>
+</tr>
+</tbody>
+</table>
+<p>Serve these files from the same directory. With the same Emscripten version
+and configuration the artifacts are byte-for-byte identical; CI builds twice
+and compares them. Format options such as <code>OPENTLV_FORMAT_BER</code> apply as in
+native builds, and disabled formats are unavailable to the facade.</p>
+<h2 id="use-from-javascript">Use from JavaScript<a class="headerlink" href="#use-from-javascript" title="Permanent link">&para;</a></h2>
+<h3 id="compiled-query-and-document">Compiled Query and Document<a class="headerlink" href="#compiled-query-and-document" title="Permanent link">&para;</a></h3>
+<p><code>loadOpenTLV()</code> also provides <code>compileQuery(text, options)</code>, <code>loadQuery(image,
+options)</code> and <code>document(input, options)</code>. Compilation and evaluation delegate to
+the native C engine. Query and Document accept <code>ber</code>, <code>ber-indefinite</code>, <code>der</code>,
+<code>cer</code>, <code>emv</code>, <code>nfc-type2</code>, <code>lldp</code>, <code>dhcpv4</code>, <code>bluetooth-ltv</code>, <code>bluetooth-ad</code> and
+<code>fixed</code>, or an owning <code>Format</code> object. Disabled components report unsupported
+type. Query's <code>bluetooth-ad</code> alias uses strict element framing; container padding
+is handled by the separate parse tooling. Writer restrictions of each native
+Format also apply to <code>document.encode()</code>.</p>
+<p>Programs expose <code>info</code>, <code>format()</code>, <code>explain()</code>, <code>image()</code>, <code>evaluate(input)</code> and
+<code>execution(limits)</code>. Declare <code>variables: { name: "integer" | "bytes" | "string" }</code>
+at compilation; bind values with <code>execution.bind(name, value)</code> or the <code>bindings</code>
+option of <code>evaluate</code>. Integer inputs accept safe JS integers or signed 64-bit
+<code>bigint</code>; results outside the safe integer range return <code>bigint</code>. Named Tags can
+be supplied as <code>names: { symbol: Uint8Array }</code>. <code>program.variables</code> reports the
+native unique referenced variables, excluding unused declarations.</p>
+<p><code>resolve(scope, name)</code> can supply dynamic scoped names, returning a copied
+<code>Uint8Array</code> or <code>null</code> for an unknown identifier. <code>resolve: "emv"</code> selects the
+native EMV registry. <code>nameResolver({ "scope:name": tag })</code> and
+<code>definitionResolver({ scope: [{ name, tag }] })</code> create immutable lookup snapshots;
+an unqualified name must be unique across scopes. Checked compilation rejects
+resolver changes between preparation and final compilation, including equal-size
+Tag changes. Resolver exceptions preserve their original JavaScript identity.</p>
+<p><code>tags: { id, classOf?, numberOf? }</code> supplies optional semantic Tag callbacks.
+Callbacks receive copied Tag bytes and return signed 64-bit integers. The
+nonzero stable <code>id</code> is checked when loading an image; capabilities remain alive
+while an execution or schema retains the program.</p>
+<p><code>Format.fixed({ tag_size, length_size, byte_order, element_order, length_scope,
+isConstructed? })</code> owns the complete native Fixed configuration. Defaults are
+one-byte fields, <code>"big"</code>, <code>"tlv"</code> and <code>"value"</code>; alternatives are <code>"little"</code>,
+<code>"ltv"</code> and <code>"tag-and-value"</code>. Share the Format object between programs and
+Documents using the same configuration. Closing its public handle leaves
+existing dependent objects usable.</p>
+<p><code>Format.custom({ decode, measure?, encode?, isConstructed? })</code> registers native
+Format callbacks with owned lifetimes. <code>decode(bytes)</code> receives a copy and returns
+<code>{ tag, header, value, trailer?, tagRange?, lengthRange? }</code>; each range contains
+<code>{ offset, size }</code> relative to the supplied bytes. The returned <code>tag</code> is a semantic
+<code>Uint8Array</code>, which may differ from the wire field. Native framing validation
+checks the layout. Complete semantic Tags are retained until the Format's final
+dependent owner closes. <code>measure({ tag, value, valueSize })</code> returns numeric
+<code>{ header, value, trailer? }</code> sizes, and <code>encode(element)</code> returns encoded bytes.
+During measurement, <code>value</code> may be <code>null</code>. Supply both Writer callbacks together
+to support Documents; read-only custom Formats support Query execution. Any
+callback can report a native failure as <code>{ code }</code>, or throw its original
+JavaScript exception. Callbacks cannot reenter an object using the same Format.</p>
+<p><code>providers: { num: { id, decode }, ... }</code> selects callbacks for the closed <code>num</code>,
+<code>bcd</code>, <code>text</code> and <code>date</code> conversions. Callbacks receive copied bytes and optional
+event metadata; return a signed 64-bit integer or a string for <code>text</code>. Text
+providers require <code>max_result_bytes</code> for bounded native scratch. The owning
+program retains callback registrations until all executions and schemas release
+them. Callback exceptions propagate and reentry is rejected. Loading an image
+requires matching provider IDs and contracts.</p>
+<p><code>execution.feed(event)</code> accepts canonical <code>begin</code>, <code>element</code> and <code>end</code> events.
+For <code>begin</code> and <code>element</code>, <code>source: Uint8Array</code> supplies the complete encoded
+element; the owning Format derives the Tag, Value and Source ranges. Without
+<code>source</code>, supply copied <code>tag</code> and <code>value</code> bytes. <code>offset</code> stays absolute in either
+case. After a retained raw feed is finalized, <code>nextOrdinal()</code> returns
+<code>{ ordinal, match }</code> using traversal identity independently of Source offsets.
+<code>finish()</code> finalizes deferred results; raw events and Reader input require
+separate resets. After evaluating a Document selection,
+<code>editDocument("remove" | "replace" | "insert_after", options)</code> applies edits with
+explicit <code>target_capacity</code>. Short target storage reports <code>error.applied === 0</code>
+and permits retry; partial failures preserve their applied count.</p>
+<p><code>querySchema([{ context, assertion, name }], { format })</code> owns references to
+compiled context selectors and relative Boolean assertion programs. Its
+<code>validateBuffer</code> and <code>validateDocument</code> methods accept depth/node/work/context
+and snapshot limits. Errors own rule, Query and Schema diagnostic context.
+Close the schema when finished. Document mutation and close are rejected while
+provider callbacks inspect it.</p>
+<p>An execution owns its native workspace. <code>setInput(input, { discard, final })</code>
+copies and retains input windows until <code>reset()</code> or <code>close()</code>; original source
+offsets survive legal continuation. <code>next()</code> returns a copied match or <code>null</code>
+at final exhaustion; needing input raises <code>QueryError</code> with the native status.
+<code>visit(callback)</code> stops when the callback returns <code>false</code> and resumes on the next
+call. Callback exceptions invalidate the execution until reset; reentrant calls
+on that execution are rejected. Scalars use <code>finish()</code> then <code>result()</code>; <code>info</code>
+reports native validation and resource coverage. Explicit limits include
+<code>max_depth</code>, <code>max_nodes</code> and <code>max_work</code>.
+Reader failures preserve copied field offsets, Tag and raw length in
+<code>error.query.reader</code>; expected/actual text, path and diagnostic context appear
+once in <code>error.query.diagnostic</code>, shared with any <code>codec_detail</code>. The result
+code and primary location are <code>error.code</code> and <code>error.location</code>;
+<code>error.query.expression</code> is the related expression span when another location
+is primary and has kind <code>unknown</code> otherwise. A Schema Query failure's
+<code>error.schema</code> holds only the assertion's <code>tag</code>, <code>field</code>, <code>kind</code> and
+<code>kind_name</code>, and is <code>null</code> for any other failure.</p>
+<p><code>new V1Query("70/5A")</code> exposes bounded legacy parsing, <code>format()</code>, copied <code>steps</code>,
+<code>evaluate(input, options)</code> and a native preorder matcher. <code>matcher()</code> creates an
+independent owner; feed every Tag and depth with <code>feed(tag, depth)</code>, and call
+<code>reset()</code> before starting a new traversal. An independent matcher remains valid
+after the original Query closes.</p>
+<p><code>evaluateDocument(document, { value_capacity })</code> evaluates the canonical Document
+backend. Results are checked Nodes with <code>tag</code>, <code>value</code>, <code>constructed</code>,
+<code>firstChild</code>, <code>next</code>, <code>parent</code>, <code>setValue(bytes)</code> and <code>erase()</code>. Constructed Nodes
+return <code>null</code> for <code>value</code>. Document edits invalidate previous Query selections;
+erased and closed handles raise <code>QueryError</code>. Call <code>close()</code> on executions,
+programs and Documents for deterministic release. Native executions retain their
+program and Document owners, while the public facade rejects access after a
+Document is closed.</p>
+<h3 id="parse-tooling">Parse tooling<a class="headerlink" href="#parse-tooling" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">loadOpenTLV</span><span class="p">,</span><span class="w"> </span><span class="nx">hexToBytes</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"./opentlv.mjs"</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">opentlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">loadOpenTLV</span><span class="p">();</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">hexToBytes</span><span class="p">(</span><span class="s2">"6F 0A 84 03 41 42 43 A5 03 50 01 01"</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">format</span><span class="o">:</span><span class="w"> </span><span class="s2">"ber"</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">);</span>
+</code></pre></div>
+<p><code>parse</code> takes a <code>Uint8Array</code>, a <code>format</code> (<code>fixed</code>, <code>bluetooth-ltv</code>, <code>bluetooth-ad</code>,
+<code>ber</code>, <code>der</code>, <code>cer</code> or <code>emv</code>; default <code>ber</code>) and optionally a <code>module</code> (<code>none</code> or <code>emv</code>; default
+<code>none</code>) and returns:</p>
+<p>Bluetooth modes annotate known AD Types with <code>name</code> from the C registry.
+<code>bluetooth-ltv</code> keeps strict element framing. <code>bluetooth-ad</code> adds Advertising
+Data container semantics: validated trailing zeros are reported separately as
+<code>padding: { offset, length }</code>. Nonzero padding is an error at its original
+source offset. Neither mode validates schemas or decodes value payloads.</p>
+<p>For <code>format: "fixed"</code>, <code>fixedTagSize</code> (default <code>1</code>), <code>fixedLengthSize</code> (1-8, default
+<code>1</code>) and <code>fixedByteOrder</code> (<code>"big"</code> or <code>"little"</code>, default <code>"big"</code>) configure the
+configurable fixed-width format's tag width, length width and length byte order
+(<code>tlv_fixed_format_t</code>). <code>fixedElementOrder</code> selects <code>"tlv"</code> (default) or <code>"ltv"</code>;
+<code>fixedLengthScope</code> selects <code>"value"</code> (default) or <code>"tag-and-value"</code>.
+These options apply only to Fixed. Invalid JavaScript configuration values throw
+<code>TypeError</code>; invalid encoded input is reported through <code>result.error</code>.
+<code>opentlv.formats</code> and <code>opentlv.modules</code> list the modes supported by the loaded build.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ber"</span><span class="p">,</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"elements"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nt">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6F"</span><span class="p">,</span><span class="w"> </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="nt">"headerSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"constructed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">      </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"84"</span><span class="p">,</span><span class="w"> </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"headerSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"constructed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"414243"</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="nt">"depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A5"</span><span class="p">,</span><span class="w"> </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"headerSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"constructed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">          </span><span class="nt">"children"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="nt">"depth"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"tag"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50"</span><span class="p">,</span><span class="w"> </span><span class="nt">"length"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">"headerSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"constructed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nt">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"01"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">          </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="p">]</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="p">]</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>Tags and values are uppercase hexadecimal. Only BER, DER, CER and EMV elements can be
+constructed; the other formats return flat elements with opaque values. An
+element occupies <code>encodedSize</code> bytes from <code>offset</code>, including any trailer.
+<code>source</code> contains absolute <code>{offset, length}</code> ranges for <code>header</code>, <code>tag</code>,
+<code>length</code>, <code>value</code> and <code>trailer</code>; empty regions have length zero. The logical
+Value excludes the enclosing trailer. Field order comes from these ranges,
+so LTV and BER end-of-contents need no wire-framing guessing in the viewer.
+The JSON example above omits <code>encodedSize</code> and <code>source</code> for brevity.</p>
+<p><code>format: "cer"</code> uses the generic tree visitor with <code>tlv_format_cer</code>, preserving
+preorder output and EOC source ranges. It checks framing only; full CER
+validation (including string segmentation and semantic values) is not applied.</p>
+<p>With <code>module: "emv"</code> (BER or EMV framing; other formats report an invalid-argument
+error) the result also has <code>"module": "emv"</code>. Every element the
+<a href="../../../../../standards/emv/">EMV dictionary</a> knows carries <code>symbol</code> (the
+dictionary name), <code>name</code> (a display name) and <code>lengthValid</code> (whether <code>length</code>
+is permitted for the tag); other elements carry none of these.</p>
+<p>Invalid input does not throw. The result carries an <code>error</code> object with the
+numeric <code>code</code> of <code>tlv_result_t</code>, its <code>message</code> and the input <code>offset</code>, together
+with every element read before the failure:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ber"</span><span class="p">,</span><span class="w"> </span><span class="nt">"elements"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">],</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"code"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"truncated input"</span><span class="p">,</span><span class="w"> </span><span class="nt">"offset"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><code>parse</code> throws only for programming errors (a non-<code>Uint8Array</code> argument) or
+when memory runs out. Input is processed entirely in the browser. A single
+call reads at most 65,536 elements and 64 levels of nesting.</p>
+<h2 id="documentation-playground">Documentation playground<a class="headerlink" href="#documentation-playground" title="Permanent link">&para;</a></h2>
+<p>The <a href="../../../../../tools/playground/">TLV playground</a> in the documentation site is built
+on this module: the portal's <code>docs/playground/playground.js</code> calls <code>parse</code> once and renders
+the result as tree, hex and JSON views, with no parsing logic of its own; the
+JSON view serializes the parse result itself. Core owns the CMake WASM target
+and smoke tests. The portal invokes them against its selected Core checkout,
+verifies source provenance and all four distribution files, then embeds them
+under <code>playground/wasm/</code>. In the portal, run <code>python tools/docs/wasm.py</code> before
+previewing, or supply an already verified distribution with <code>OPENTLV_WASM_DIR</code>.
+Bare CMake output lacks the portal's <code>wasm-source.json</code> provenance manifest.
+Local previews may omit WASM; publication requires it and a browser smoke test.</p>
+<p>After a successful WebAssembly push workflow on <code>main</code> or a stable release tag,
+<code>.github/workflows/docs-notify.yml</code> notifies the portal. Configure
+<code>OPENTLV_DOCS_DISPATCH_TOKEN</code> with access to dispatch events in
+<code>OpenTLV/opentlv-docs</code>; the ordinary Core <code>GITHUB_TOKEN</code> is repository-scoped.
+Main notifications open a portal PR that pins the Core SHA in <code>docs-sources.json</code>;
+publication follows successful validation after that PR is merged. Stable tag
+notifications request the corresponding immutable documentation release.
+The notification job executes no checked-out code and runs separately after the
+producer succeeds, so notification failure does not change the Core build result.
+Portal configuration, recovery and component notification contracts are documented
+in its README.</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p><code>bindings/wasm/test/smoke.mjs</code> runs the module in Node.js and is registered with CTest
+when <code>node</code> is found:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-wasm<span class="w"> </span>-L<span class="w"> </span>wasm<span class="w"> </span>--output-on-failure
+</code></pre></div>
 
 
 
@@ -5771,7 +6199,7 @@ and documentation inventories in the same change.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
         
       
     
@@ -5799,14 +6227,21 @@ and documentation inventories in the same change.</p>
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
         
       
     
@@ -5836,7 +6271,7 @@ and documentation inventories in the same change.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../guides/go/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Core Go usage before extraction">
+          <a href="../../wasm-migration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: WASM migration baseline">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5846,7 +6281,7 @@ and documentation inventories in the same change.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Core Go usage before extraction
+                WASM migration baseline
               </div>
             </div>
           </a>
@@ -5909,10 +6344,10 @@ and documentation inventories in the same change.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../../../playground/playground.js" type="module"></script>
       

@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -639,7 +639,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/242588b3587fc642762e2fd6b67a5f714ae50dff/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -751,7 +751,7 @@ Inside the workspace, Cargo uses the <code>path</code>; in the package, Cargo re
 <code>path</code> and keeps the version requirement.</p>
 <h2 id="core-compatibility">Core compatibility<a class="headerlink" href="#core-compatibility" title="Permanent link">&para;</a></h2>
 <p>Each <code>opentlv-sys</code> version pins exactly one Core dependency, recorded in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv-sys/core/core-artifact.json"><code>core/core-artifact.json</code></a>,
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv-sys/core/core-artifact.json"><code>core/core-artifact.json</code></a>,
 which is part of the package:</p>
 <table>
 <thead>
@@ -773,7 +773,7 @@ which is part of the package:</p>
 </table>
 <p>The packages do not contain Core. A build from an archive selects Core exactly
 as a build from the repository does, as described in the
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/README.md#core-dependency">README</a>: while no release is locked it clones
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/README.md#core-dependency">README</a>: while no release is locked it clones
 the pinned commit from <code>OpenTLV/opentlv</code>. <code>opentlv::version()</code> reports the
 version of the Core library actually linked at run time, which can differ from
 the pinned one when <code>OPENTLV_LIB_DIR</code> links a prebuilt library.</p>
@@ -791,11 +791,11 @@ generated <code>Cargo.toml</code>, <code>Cargo.toml.orig</code>, <code>Cargo.loc
 <tbody>
 <tr>
 <td><code>opentlv-sys</code></td>
-<td><code>README.md</code>, <code>LICENSE</code>, <code>build.rs</code>, <code>src/</code>, the native integration files in <code>core/</code> (lock, selection module, release verifier and CMake toolchain probe) and the tests with the C ABI probe in <code>tests/abi_probe/</code></td>
+<td><code>README.md</code>, <code>LICENSE</code>, <code>build.rs</code>, <code>src/</code>, the native integration files in <code>core/</code> (lock, selection module, release verifier and CMake toolchain probe) and the tests with the C ABI probes in <code>tests/abi_probe/</code> and <code>tests/compose_abi_probe/</code></td>
 </tr>
 <tr>
 <td><code>opentlv</code></td>
-<td><code>README.md</code>, <code>LICENSE</code>, <code>build.rs</code>, <code>src/</code>, <code>tests/</code> and the seven examples</td>
+<td><code>README.md</code>, <code>LICENSE</code>, <code>build.rs</code>, <code>src/</code>, <code>tests/</code> and the eleven examples</td>
 </tr>
 </tbody>
 </table>
@@ -804,14 +804,14 @@ Cargo <code>OUT_DIR</code>, the selected Core tree and their own temporary direc
 The only local path in a manifest
 is the declared <code>opentlv-sys</code> workspace dependency, which carries a version.</p>
 <h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
-<p>The <code>package</code> check of <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/scripts/ci.py"><code>scripts/ci.py</code></a>, part of the
+<p>The <code>package</code> check of <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/scripts/ci.py"><code>scripts/ci.py</code></a>, part of the
 stable <a href="../../../../development/components/rust/quality-gates/">CI configurations</a>, runs
 <code>cargo package --workspace --locked</code>, which builds both crates from their
 archives. It requires the exact file lists above, a <code>LICENSE</code> equal to the
 repository license and, in each archive's normalized <code>Cargo.toml</code>, the crate
 name, the workspace version, <code>MIT</code>, the <code>README.md</code> readme, this repository
 URL, no dependency <code>path</code> and the dependency <code>opentlv-sys = "=&lt;version&gt;"</code> for
-<code>opentlv</code> only. <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/tests/test_packaging.py"><code>tests/test_packaging.py</code></a> checks
+<code>opentlv</code> only. <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/tests/test_packaging.py"><code>tests/test_packaging.py</code></a> checks
 the manifests, the shared version, the unchanged features against the
 migration baseline, the license copies and the Core compatibility table
 without building.</p>
@@ -870,7 +870,7 @@ first publication:</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
         
       
     
@@ -898,14 +898,21 @@ first publication:</p>
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
         
       
     
@@ -992,10 +999,10 @@ first publication:</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../../playground/playground.js" type="module"></script>
       

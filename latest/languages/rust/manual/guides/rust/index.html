@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -394,6 +394,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#composing-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composing formats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -442,6 +453,50 @@
     <span class="md-ellipsis">
       
         Compiled Query
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validating-and-querying-batches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validating and querying batches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-value-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic Value codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducible-wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducible wire generation
       
     </span>
   </a>
@@ -581,6 +636,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#composing-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composing formats
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#error-handling" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -636,6 +702,50 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#validating-and-querying-batches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validating and querying batches
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-value-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic Value codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-codecs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure codecs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reproducible-wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reproducible wire generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-step" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -671,7 +781,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/242588b3587fc642762e2fd6b67a5f714ae50dff/docs/guides/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/guides/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -680,11 +790,12 @@
 
 
 <h1 id="using-opentlv-from-rust">Using OpenTLV from Rust<a class="headerlink" href="#using-opentlv-from-rust" title="Permanent link">&para;</a></h1>
-<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/quick_start.rs">Rust quick start</a>
+<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/quick_start.rs">Rust quick start</a>
 for input, expected output and the public API. You can use this guide without
 studying native C implementation contracts.</p>
 <p>The <code>opentlv</code> crate is an experimental safe Rust API over the OpenTLV C library.
-This guide covers setup, reading, writing, error handling and ownership. For
+This guide covers setup, reading, writing, composing formats, error handling
+and ownership. For
 crate layout, schemas, codecs, canonical validation and CI, see
 <a href="../../development/rust/">Rust development</a>; every public item also has Rustdoc
 (<code>cargo doc -p opentlv --open</code> from the repository root).</p>
@@ -725,8 +836,10 @@ automatically; create a new <code>Reader</code> over <code>element.value()</code
 </code></pre></div>
 <p><code>Reader::new</code> uses BER;
 <code>Reader::with_format</code> selects another built-in <code>Format</code> (<code>Ber</code>, <code>Cer</code>, <code>Der</code>),
-and <code>Reader::with_fixed_format</code> takes a <code>&amp;FixedFormat</code> for a
-runtime-configurable tag width, length width and length byte order:</p>
+or takes a borrowed <code>&amp;FixedFormat</code> for a runtime-configurable tag width, length
+width and length byte order, or a <code>&amp;ComposedFormat</code> (see
+<a href="#composing-formats">Composing formats</a>). <code>Reader::with_fixed_format</code> is
+equivalent for a <code>&amp;FixedFormat</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">ByteOrder</span><span class="p">,</span><span class="w"> </span><span class="n">FixedFormat</span><span class="p">,</span><span class="w"> </span><span class="n">FixedFormatConfig</span><span class="p">,</span><span class="w"> </span><span class="n">Reader</span><span class="p">};</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kd">let</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FixedFormatConfig</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ByteOrder</span><span class="p">::</span><span class="n">Big</span><span class="p">);</span>
@@ -736,24 +849,91 @@ runtime-configurable tag width, length width and length byte order:</p>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{:02X?}: {:02X?}"</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="n">tag</span><span class="p">().</span><span class="n">as_bytes</span><span class="p">(),</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="n">value</span><span class="p">());</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
 </code></pre></div>
+<p>To decode a single element, <code>read_element(&amp;data, format)</code> returns the <code>Element</code>
+and the consumed byte count, and <code>read(&amp;data, format)</code> returns a <code>Decoded</code> with
+the original encoding and <code>Layout</code>. Trailing bytes stay unread, empty input
+fails with <code>Error::End</code>, and other failures return a <code>ReaderError</code> that owns the
+<code>ReaderDiagnostic</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">read_element</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">};</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">consumed</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_element</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">let</span><span class="w"> </span><span class="n">rest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">consumed</span><span class="o">..</span><span class="p">];</span>
+</code></pre></div>
+<p><code>Reader::read_element()</code> and <code>Reader::read_source()</code> pull the next element
+without or with source metadata. Unlike iteration they stay callable after an
+error: a <code>Reader::incremental</code> reader returns <code>Error::NeedMoreData</code> at the end
+of its window, and continues after <code>set_input</code> supplies more bytes.</p>
 <p>Runnable version with nesting and EMV tag names:
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/reader.rs">reader.rs</a>
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/reader.rs">reader.rs</a>
 (<code>cargo run --example reader</code> from the repository root).</p>
 <h2 id="writing">Writing<a class="headerlink" href="#writing" title="Permanent link">&para;</a></h2>
 <p><code>Writer</code> encodes into a buffer you own and never allocates. To build a nested
 structure, encode the children into one buffer and write them as the value of
 the parent.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">Format</span><span class="p">,</span><span class="w"> </span><span class="n">Tag</span><span class="p">,</span><span class="w"> </span><span class="n">Writer</span><span class="p">};</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="k">u8</span><span class="p">;</span><span class="w"> </span><span class="mi">64</span><span class="p">];</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Writer</span><span class="p">::</span><span class="n">with_format</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">);</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Tag</span><span class="p">::</span><span class="n">from_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x50</span><span class="p">]),</span><span class="w"> </span><span class="s">b"VISA"</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kd">let</span><span class="w"> </span><span class="n">encoded</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">written</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">Format</span><span class="p">,</span><span class="w"> </span><span class="n">Tag</span><span class="p">,</span><span class="w"> </span><span class="n">Writer</span><span class="p">};</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="k">u8</span><span class="p">;</span><span class="w"> </span><span class="mi">64</span><span class="p">];</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">writer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Writer</span><span class="p">::</span><span class="n">with_format</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">);</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">writer</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Tag</span><span class="p">::</span><span class="n">from_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x50</span><span class="p">]),</span><span class="w"> </span><span class="s">b"VISA"</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kd">let</span><span class="w"> </span><span class="n">encoded</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">writer</span><span class="p">.</span><span class="n">written</span><span class="p">();</span>
 </code></pre></div>
-<p>Use <code>encoded_size</code> to size the buffer beforehand, or <code>encoded_size_fixed</code>/
-<code>Writer::with_fixed_format</code> for a <code>FixedFormat</code>. Runnable version:
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/writer.rs">writer.rs</a>
+<p>Use <code>encoded_size</code> to size the buffer beforehand. Both accept a <code>FixedFormat</code>
+or <code>ComposedFormat</code> as well; <code>encoded_size_fixed</code> and
+<code>Writer::with_fixed_format</code> are equivalent for a <code>FixedFormat</code>. Runnable
+version: <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/writer.rs">writer.rs</a>
 (<code>cargo run --example writer</code> from the repository root).</p>
+<h2 id="composing-formats">Composing formats<a class="headerlink" href="#composing-formats" title="Permanent link">&para;</a></h2>
+<p>A proprietary TLV format needs no C. <code>ComposedFormat</code> composes Core's generic
+field encodings into a definite Format and owns the native descriptor, its
+configuration and every table Core borrows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="n">ByteOrder</span><span class="p">,</span><span class="w"> </span><span class="n">ComposedFormat</span><span class="p">,</span><span class="w"> </span><span class="n">ConstructedBit</span><span class="p">,</span><span class="w"> </span><span class="n">EscapedLength</span><span class="p">,</span><span class="w"> </span><span class="n">FieldComposition</span><span class="p">,</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="n">FixedIdentifier</span><span class="p">,</span><span class="w"> </span><span class="n">Reader</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">};</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1">// One tag byte; a length byte below 0xFF, or 0xFF and a two-byte count.</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1">// Tags with the top bit set hold nested elements.</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kd">let</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ComposedFormat</span><span class="p">::</span><span class="n">fields</span><span class="p">(</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="o">&amp;</span><span class="n">FieldComposition</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">FixedIdentifier</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="n">EscapedLength</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mh">0xFF</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">ByteOrder</span><span class="p">::</span><span class="n">Big</span><span class="p">))</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="p">.</span><span class="n">with_constructed</span><span class="p">(</span><span class="n">ConstructedBit</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">)),</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">for</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Reader</span><span class="p">::</span><span class="n">with_format</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">format</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{:02X?}: {} bytes"</span><span class="p">,</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="n">tag</span><span class="p">().</span><span class="n">as_bytes</span><span class="p">(),</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">len</span><span class="p">());</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>FieldComposition::new</code> takes one identifier encoding, <code>FixedIdentifier</code> or
+<code>VariableIdentifier</code> with an optional <code>IdentifierPolicy</code>, and one length
+encoding, <code>FixedLength</code>, <code>VariableLength</code> with an optional <code>LengthPolicy</code>, or
+<code>EscapedLength</code>. <code>with_order</code> selects TLV or LTV, <code>with_length_scope</code> whether
+the count also covers the identifier, <code>with_tag_only</code> identifiers that omit
+Length and Value, and <code>with_constructed</code> the <code>ConstructedBit</code> that classifies
+nesting; without it every Value is opaque. The encodings select the Core
+composition: the Fixed, tagged binary, Variable or escaped Format where one
+exists, otherwise Core's generic field composition. <code>ComposedFormat::packed</code>
+composes a definite packed Tag/Length header from a <code>PackedLayout</code> of two
+<code>PackedField</code> bit fields, such as LLDP's 7-bit type above a 9-bit length; tag
+fields are limited to 16 bits because the binding owns the identifier table.
+<code>PackedField::read</code> and <code>write</code> also extract and insert one bit field of a
+header integer directly. Core validates every configuration when the Format is
+composed and reports <code>Error::InvalidArg</code> for an invalid one.</p>
+<p>Pass <code>&amp;format</code> wherever a format is accepted: <code>Reader</code>, <code>TreeReader</code>, <code>Writer</code>,
+<code>TreeWriter</code>, <code>Document</code>, <code>decode</code>, <code>read</code>, the writer measurement functions
+and <code>StructureSchema::validate</code>. These entry points take anything that converts
+into a <code>FormatRef&lt;'a&gt;</code>, a borrowed descriptor: a builtin <code>Format</code>, or a
+<code>&amp;FixedFormat</code>, <code>&amp;OwnedFixedFormat</code> or <code>&amp;ComposedFormat</code>. The <code>_fixed</code> entry
+points remain and are equivalent. For Query, set
+<code>ProgramOptions::composed_format</code> or use <code>QuerySchema::with_composed_format</code>.
+Clones of a <code>ComposedFormat</code> share one owner and its native identity; share
+clones between a program and its Readers or Documents, because two independently
+composed equal configurations are different Formats to Core.</p>
+<p><code>FormatRef</code> also exposes the <code>tlv_format_t</code> operations of any Format:
+<code>can_read</code>, <code>can_write</code>, <code>decode</code>, <code>measure</code>, <code>encode</code> and <code>encode_into</code>.
+Failures return <code>FormatError</code> with the Format's own detail: the operation, the
+wire <code>Region</code>, the offset, the required size and the known tag, length and
+value ranges. Runnable version with Tree Writer, Tree Reader, Query and
+Document: <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/compose.rs">compose.rs</a>
+(<code>cargo run --example compose</code> from the repository root).</p>
 <h2 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
 <p>Most fallible calls return <code>opentlv::Result&lt;T&gt;</code>, an alias for
 <code>Result&lt;T, opentlv::Error&gt;</code>; operations with additional context use error
@@ -772,6 +952,10 @@ structures such as <code>DocumentError</code> and <code>WriterError</code>. Ther
 <li>Layers with more context use their own types: <code>SchemaError</code> and
   <code>ValidationError</code> carry the C <code>Error</code> plus the failing offset, and <code>CodecFailure</code>
   retains the shared <code>Error</code> and owned conversion diagnostic.</li>
+<li>Diagnostics keep the enclosing Tags of a failure in <code>path</code>, outermost first,
+  and <code>path_text()</code> formats them as Core does, for example <code>"6F &gt; A5"</code>. A
+  truncated path ends in <code>" &gt; ..."</code>. In Core 0.7.1 only Schema failures,
+  including Query Schema rules, track a path; otherwise both are <code>None</code>.</li>
 </ul>
 <h2 id="ownership-and-lifetimes">Ownership and lifetimes<a class="headerlink" href="#ownership-and-lifetimes" title="Permanent link">&para;</a></h2>
 <table>
@@ -806,7 +990,7 @@ structures such as <code>DocumentError</code> and <code>WriterError</code>. Ther
 <tr>
 <td><code>Document&lt;'f&gt;</code></td>
 <td>C document nodes and storage</td>
-<td>optional Fixed Format/context</td>
+<td>optional Fixed or composed Format/context</td>
 </tr>
 <tr>
 <td><code>Node</code>, <code>NodeMut</code></td>
@@ -814,8 +998,23 @@ structures such as <code>DocumentError</code> and <code>WriterError</code>. Ther
 <td>immutable or exclusive Document access</td>
 </tr>
 <tr>
+<td><code>NodeHandle</code></td>
+<td>a node address and identity (<code>Copy</code>)</td>
+<td>nothing</td>
+</tr>
+<tr>
 <td><code>LengthSchema</code>, <code>StructureSchema</code></td>
 <td>their rule tables</td>
+<td>nothing</td>
+</tr>
+<tr>
+<td><code>CheckedStructureSchema&lt;'s&gt;</code></td>
+<td>a native checked handle (<code>Copy</code>)</td>
+<td>its <code>&amp;'s StructureSchema</code></td>
+</tr>
+<tr>
+<td><code>ValueConstraint</code></td>
+<td>its values and names</td>
 <td>nothing</td>
 </tr>
 <tr>
@@ -827,6 +1026,16 @@ structures such as <code>DocumentError</code> and <code>WriterError</code>. Ther
 <td><code>FixedFormat&lt;'a&gt;</code></td>
 <td>nothing</td>
 <td><code>&amp;'a FixedFormatConfig</code></td>
+</tr>
+<tr>
+<td><code>ComposedFormat</code></td>
+<td>its descriptor, configuration and tables, shared by clones</td>
+<td>nothing</td>
+</tr>
+<tr>
+<td><code>FormatRef&lt;'a&gt;</code></td>
+<td>nothing (<code>Copy</code>)</td>
+<td>a Format descriptor for <code>'a</code></td>
 </tr>
 </tbody>
 </table>
@@ -843,6 +1052,9 @@ structures such as <code>DocumentError</code> and <code>WriterError</code>. Ther
   is gone; the value stays zero-copy.</li>
 <li>Schemas own their C tables, and the tags those tables borrow, and free them
   on <code>Drop</code>.</li>
+<li>Readers, Writers, Documents and decoded sources borrow a Fixed or composed
+  Format for their whole lifetime. A <code>ComposedFormat</code> is freed when its last
+  clone drops; the borrow checker keeps it alive while anything uses it.</li>
 <li>The layout of <code>tlv_tag_t</code> is a pointer and a size, independent of any C build
   configuration, so the bindings work with a library built any way.</li>
 </ul>
@@ -858,7 +1070,8 @@ documents. Reader and Tree Reader <code>visit</code> methods support resumable c
 panics are resumed only after returning from C. <code>QueryMatcher</code> retains canonical
 matching state across STOP and input replacement. See the
 <a href="../../../../contracts/#rust-and-python-reader-and-query-facades">Reader and Query facade contract</a>.
-Structure codecs and the DOL component are not bound yet; see the
+Generic Value codecs, structure codecs and wire generation are described below.
+The DOL component is not bound yet; see the
 <a href="../../../../../api/reference/c/">C API reference</a>.</p>
 <h2 id="tree-measurement-and-owning-documents">Tree measurement and owning Documents<a class="headerlink" href="#tree-measurement-and-owning-documents" title="Permanent link">&para;</a></h2>
 <p><code>TreeWriter::measure</code> takes an iterator of <code>Result&lt;TreeWriteItem&gt;</code> records
@@ -873,8 +1086,34 @@ source bytes. <code>Writer::diagnostic</code> owns failure detail. Standalone
 <code>OPENTLV_DOCUMENT</code>. <code>Document::parse</code> copies input through C, while node Values
 borrow document storage. Mutation requires exclusive access; a retained value
 or node prevents mutation or destruction at compile time. Query lookup and all
-edits delegate to C. Destination-format sizing and output are available through
-<code>encoded_size_as</code>, <code>encode_as</code> and <code>encode_into_as</code>.</p>
+edits delegate to C. <code>encode</code>, <code>encode_into</code> and <code>encoded_size</code> use the
+Document's own Format through <code>tlv_document_encode()</code> and its siblings;
+destination-format sizing and output are available through <code>encoded_size_as</code>,
+<code>encode_as</code> and <code>encode_into_as</code>.</p>
+<p>Because a borrowed <code>Node</code> cannot survive an edit, <code>Node::handle()</code> returns a
+<code>NodeHandle</code> that is not tied to any borrow. After edits,
+<code>Document::resolve(handle)</code> or <code>resolve_mut</code> returns the node again, or <code>None</code>
+once an erase or a constructed Value replacement has retired it. C compares the
+node's never-reused identity, so a node created later at the same address is
+not mistaken for it. <code>revision()</code> counts every successful edit and
+<code>retire_epoch()</code> the edits that retired existing nodes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">Document</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">,</span><span class="w"> </span><span class="n">Query</span><span class="p">,</span><span class="w"> </span><span class="n">Tag</span><span class="p">};</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">document</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Document</span><span class="p">::</span><span class="n">parse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="kd">let</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="p">.</span><span class="n">find_path</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Query</span><span class="p">::</span><span class="n">parse</span><span class="p">(</span><span class="s">"6F/A5/9F02"</span><span class="p">)</span><span class="o">?</span><span class="p">)</span><span class="o">?</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">.</span><span class="n">ok_or</span><span class="p">(</span><span class="s">"no amount"</span><span class="p">)</span><span class="o">?</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p">.</span><span class="n">handle</span><span class="p">();</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">document</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Tag</span><span class="p">::</span><span class="n">from_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x36</span><span class="p">]),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="p">.</span><span class="n">resolve_mut</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="n">node</span><span class="p">.</span><span class="n">set_value</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x2C</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>Document::parse_with_source_locations</code> retains original input coordinates:
+<code>Node::source_location()</code> returns the offset and header length, and an edit
+clears them for the changed node and its ancestors. <code>Document::visit(&amp;query,
+visitor)</code> delivers every path match as a <code>Node</code> in Document order, without
+allocating; the nodes borrow the Document and may be kept after the visit.</p>
 <p><code>DocumentBuilder::new</code> materializes a fresh TreeReader stream;
 <code>DocumentBuilder::next_subtree</code> pulls and materializes only the next subtree.
 The builder exclusively borrows the reader. On <code>Error::NeedMoreData</code>, replace
@@ -882,15 +1121,30 @@ input through <code>builder.set_input</code> and call <code>consume</code> again
 releases the reader; completed Documents retain owned content and the reader's
 conservative input/Format lifetime.</p>
 <h2 id="compiled-query">Compiled Query<a class="headerlink" href="#compiled-query" title="Permanent link">&para;</a></h2>
-<p><code>QueryProgram::compile(text, &amp;ProgramOptions)</code> owns the canonical C program;
-<code>QueryProgram::load(image, &amp;options)</code> validates an image with its original
-compile options. <code>info</code>, <code>variables</code>, <code>format</code>, <code>explain</code> and <code>image</code> expose
-native requirements and release-specific program data.</p>
+<p><code>QueryProgram::compile(text, &amp;ProgramOptions)</code> owns the canonical C program.
+Static <code>names</code> compile directly through <code>tlv_query_compile()</code>; a <code>resolver</code>
+uses checked preparation and commit instead, which detects a resolver that
+answers differently while the program is sized and written. Both produce the
+same image. <code>QueryProgram::load(image, &amp;options)</code> validates an image with its
+original compile options, and <code>QueryProgram::open_plan(image, &amp;options)</code>
+validates only the native plan, without parsing, name resolution or planning;
+the options then supply just the Format, semantic Tags and providers that
+executions use. <code>info</code>, <code>variables</code>, <code>format</code>, <code>explain</code> and <code>image</code> expose
+native requirements and release-specific program data, and <code>plan_info</code> reads
+the requirements from the plan itself.</p>
 <p>Independent <code>QueryExecution</code> values bind typed <code>QueryBinding</code> values, feed events,
 pull or visit a <code>TreeReader</code>, or evaluate a Document. Scalars return <code>QueryValue</code>.
 Use <code>feed_event(QueryEvent)</code> for source-less events, or <code>feed(TreeEvent)</code> to
 preserve Reader Source metadata. After <code>finish()</code>, <code>next_result()</code> pulls retained
 matches; <code>next_result_with_ordinal()</code> also returns native preorder identity.
+<code>reset()</code> resets an execution in place through <code>tlv_query_exec_reset()</code>: it
+keeps the program, providers, workspace and budgets and clears bindings,
+results and counters, so one execution serves a whole batch of inputs, even
+after a failure. After <code>evaluate_document</code>, <code>next_document()</code> pulls result
+nodes and <code>visit_document(visitor)</code> visits the remaining ones through the same
+cursor. Programs that read constructed Values need a canonical Value snapshot;
+without <code>value_capacity</code>, its size is discovered with
+<code>tlv_document_query_value_size()</code> and the discovery output becomes the snapshot.
 Owning workspace and <code>execution_external</code> are available with explicit bounds;
 the latter borrows caller storage. Rust lifetimes preserve program, input and
 Document ownership; errors retain native Query spans and diagnostic detail.
@@ -911,7 +1165,13 @@ unrecognized native values become <code>Unrecognized(RawCategory)</code>.
 TEXT and DATE conversions. Each owns a stable ID, scratch limit and <code>Send + Sync</code>
 callback. Callbacks receive bytes and optional owned metadata; return
 <code>QueryDecoded</code> or the shared <code>Error</code>. Provider panics become native codec errors,
-and text is copied into bounded native scratch. Programs retain provider owners.</p>
+and text is copied into bounded native scratch. Programs retain provider owners.
+<code>QueryProvider::number(conversion, id, NumberCodec)</code> decodes NUM, BCD or DATE
+Values with Core's own number codec through <code>tlv_query_codec_decode()</code>, without
+a Rust callback; values above <code>i64::MAX</code> fail with <code>Error::InvalidValue</code>.</p>
+<p><code>Query::visit_buffer(data, format, max_depth, max_elements, visitor)</code> visits the
+elements a parsed path addresses in complete input, without opening a Reader or
+matcher.</p>
 <p><code>QueryProgram::edit_document</code> evaluates and edits under one exclusive Document
 borrow. <code>QueryEdit</code> selects removal, replacement or insertion;
 <code>QueryEditOptions</code> bounds native work and target storage. <code>QueryEditError</code>
@@ -924,10 +1184,116 @@ assertions; Rust owns workspace and failure context in <code>QuerySchemaError</c
 Its <code>schema</code> is a <code>QuerySchemaDetail</code> with the failed assertion's <code>kind</code>, <code>tag</code>
 and <code>field</code>; the location, path and expected text come from <code>failure</code>.
 Borrowing prevents Document mutation while validation runs.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv-rust/blob/242588b3587fc642762e2fd6b67a5f714ae50dff/opentlv/examples/query_conformance.rs">consumer example</a>
+<p>The <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/query_conformance.rs">consumer example</a>
 runs the common corpus through the public facade. Remaining custom Format and
 semantic Tag adapter coverage is tracked by the
 <a href="../../../../../development/query-release/">release requirements</a>.</p>
+<h2 id="validating-and-querying-batches">Validating and querying batches<a class="headerlink" href="#validating-and-querying-batches" title="Permanent link">&para;</a></h2>
+<p>Work that does not depend on the input can be done once. <code>StructureSchema::check()</code>
+checks the definition, including every child schema, through
+<code>tlv_schema_prepare()</code> and returns a <code>CheckedStructureSchema</code> that borrows the
+schema. Its <code>validate</code> and <code>validate_diagnostics</code> behave like the schema's own,
+without repeating the definition check, so they never fail with
+<code>Error::InvalidSchema</code>. <code>check_definition()</code> runs only the check. Combined with
+one compiled program and one execution reset per message:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">definition</span><span class="p">.</span><span class="n">check</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">execution</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">program</span><span class="p">.</span><span class="n">execution</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">100_000</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">for</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">&amp;</span><span class="n">messages</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="n">schema</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">limits</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="n">execution</span><span class="p">.</span><span class="n">reset</span><span class="p">()</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="n">execution</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="s">"minimum"</span><span class="p">,</span><span class="w"> </span><span class="n">QueryBinding</span><span class="p">::</span><span class="n">Integer</span><span class="p">(</span><span class="mi">250</span><span class="p">))</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TreeReader</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="n">execution</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">reader</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">_</span><span class="o">|</span><span class="w"> </span><span class="n">Visit</span><span class="p">::</span><span class="n">Continue</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span><span class="w"> </span><span class="n">execution</span><span class="p">.</span><span class="n">result</span><span class="p">()</span><span class="o">?</span><span class="p">);</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>ValueConstraint</code> checks a decoded scalar, such as an ASN.1 INTEGER, against a
+<code>range</code>, an <code>allowed</code> set or <code>named</code> numbers. Core checks the definition when it
+is built (<code>Error::InvalidSchema</code> for reversed bounds), <code>validate</code> fails with
+<code>Error::Schema</code> for a violating value, and <code>name</code> returns a named number's name.
+Runnable version, with a number codec provider, a buffer path visit and the
+Document view: <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/batch.rs">batch.rs</a>
+(<code>cargo run --example batch</code> from the repository root).</p>
+<h2 id="generic-value-codecs">Generic Value codecs<a class="headerlink" href="#generic-value-codecs" title="Permanent link">&para;</a></h2>
+<p>Choose a codec explicitly for each element's Value. <code>IntegerCodec</code> covers
+<code>u8</code>, big- and little-endian <code>u16</code>/<code>u32</code>, and minimal big-endian <code>i64</code>;
+<code>NumberCodec</code> covers configurable unsigned numeric representations.
+<code>SchemaNumberCodec</code> combines a <code>NumberCodec</code> with a <code>LengthRule</code> to select a
+permitted wire width. These conversions call the canonical C codecs.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">DigitsCodec</span><span class="p">,</span><span class="w"> </span><span class="n">IntegerCodec</span><span class="p">,</span><span class="w"> </span><span class="n">TextAlphabet</span><span class="p">,</span><span class="w"> </span><span class="n">TextCodec</span><span class="p">};</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">IntegerCodec</span><span class="p">::</span><span class="n">uint16_be</span><span class="p">().</span><span class="n">decode</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">])</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="mi">258</span><span class="p">);</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TextCodec</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">TextAlphabet</span><span class="p">::</span><span class="n">AsciiPrintable</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="s">"OK"</span><span class="p">)</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="s">b"OK</span><span class="se">\0\0</span><span class="s">"</span><span class="p">);</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">b"OK</span><span class="se">\0\0</span><span class="s">"</span><span class="p">)</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="s">"OK"</span><span class="p">);</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">// Digit strings retain leading zeros; trailing F nibbles are padding.</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">DigitsCodec</span><span class="p">::</span><span class="n">default</span><span class="p">().</span><span class="n">decode</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x23</span><span class="p">,</span><span class="w"> </span><span class="mh">0x4f</span><span class="p">])</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="s">"01234"</span><span class="p">);</span>
+</code></pre></div>
+<p><code>BytesCodec::decode</code> and <code>TextCodec::decode</code> return slices borrowed from the
+input. <code>Ipv4Codec</code> returns <code>std::net::Ipv4Addr</code>; <code>Ipv4ListCodec</code> returns an
+<code>Ipv4List</code> borrowing the input, with <code>get</code>, <code>iter</code> and <code>as_bytes</code>. Encoding
+accepts a slice of addresses and preserves their order and duplicates.
+<code>DigitsCodec::decode</code> returns an owned <code>String</code>.</p>
+<p>Each codec exposes <code>decode</code>, <code>encoded_size</code>, <code>encode_into</code> and <code>encode</code>.
+<code>encode_into</code> reports <code>Error::BufferTooShort</code> for insufficient output space;
+<code>encode</code> allocates owned output. Errors are <code>CodecFailure</code> values with the
+shared <code>Error</code> and owned native diagnostic evidence, including Schema causes.
+The <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/value_codecs.rs">value_codecs example</a> demonstrates
+selection per Value (<code>cargo run --example value_codecs</code>).</p>
+<h2 id="structure-codecs">Structure codecs<a class="headerlink" href="#structure-codecs" title="Permanent link">&para;</a></h2>
+<p><code>StructureCodec</code> validates a complete TLV sequence and converts it to or from
+an application object. It borrows a Format and optionally a <code>StructureSchema</code>;
+<code>with_limits</code> sets the maximum nesting depth and element count. Zero is a real
+limit. Decode validates the whole sequence in Core before calling your closure;
+the returned object may borrow the input:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">Format</span><span class="p">,</span><span class="w"> </span><span class="n">StructureCodec</span><span class="p">,</span><span class="w"> </span><span class="n">StructureRule</span><span class="p">,</span><span class="w"> </span><span class="n">StructureSchema</span><span class="p">,</span><span class="w"> </span><span class="n">Tag</span><span class="p">};</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kd">let</span><span class="w"> </span><span class="n">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StructureSchema</span><span class="p">::</span><span class="n">new</span><span class="p">(</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="p">[</span><span class="n">StructureRule</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Tag</span><span class="p">::</span><span class="n">from_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x50</span><span class="p">])).</span><span class="n">required_once</span><span class="p">()],</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">);</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kd">let</span><span class="w"> </span><span class="n">codec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StructureCodec</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">).</span><span class="n">with_schema</span><span class="p">(</span><span class="o">&amp;</span><span class="n">schema</span><span class="p">);</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="kd">let</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">codec</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="sc">b'O'</span><span class="p">,</span><span class="w"> </span><span class="sc">b'K'</span><span class="p">],</span><span class="w"> </span><span class="o">|</span><span class="n">bytes</span><span class="o">|</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bytes</span><span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="p">]))</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="s">b"OK"</span><span class="p">);</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="kd">let</span><span class="w"> </span><span class="n">encoded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">codec</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="o">||</span><span class="w"> </span><span class="nb">Ok</span><span class="p">([</span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="sc">b'A'</span><span class="p">]))</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">encoded</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mh">0x50</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="sc">b'A'</span><span class="p">]);</span>
+</code></pre></div>
+<p>Encoding runs the closure once and validates its produced bytes in Core before
+returning them. <code>encode_into</code> copies into caller storage; on a validation
+failure that storage contains rejected output and the diagnostic uses output
+coordinates. <code>encoded_size</code> runs the closure and measures its result, without
+validating the sequence. Closure failures are returned unchanged. Closures run
+outside C, so their panics unwind normally through Rust.</p>
+<h2 id="reproducible-wire-generation">Reproducible wire generation<a class="headerlink" href="#reproducible-wire-generation" title="Permanent link">&para;</a></h2>
+<p><code>Generator</code> wraps Core's wire generator for fuzz corpora and property tests.
+It owns the ordered candidates and borrows the Format. Record
+<code>Generator::VERSION</code>, the Format/configuration, candidates, limits, seed and
+case index to replay a case independently of earlier calls:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">use</span><span class="w"> </span><span class="n">opentlv</span><span class="p">::{</span><span class="n">Format</span><span class="p">,</span><span class="w"> </span><span class="n">Generator</span><span class="p">,</span><span class="w"> </span><span class="n">GeneratorCandidate</span><span class="p">,</span><span class="w"> </span><span class="n">GeneratorLimits</span><span class="p">,</span><span class="w"> </span><span class="n">Tag</span><span class="p">};</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">let</span><span class="w"> </span><span class="n">generator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Generator</span><span class="p">::</span><span class="n">new</span><span class="p">(</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="n">Format</span><span class="p">::</span><span class="n">Ber</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="p">[</span><span class="n">GeneratorCandidate</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Tag</span><span class="p">::</span><span class="n">from_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="p">[</span><span class="mh">0x5a</span><span class="p">]),</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">)],</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="n">GeneratorLimits</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="n">max_elements</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">max_depth</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">max_value_size</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">max_case_size</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="mi">2026</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="p">);</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="kd">let</span><span class="w"> </span><span class="n">case</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">generator</span><span class="p">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="o">?</span><span class="p">,</span><span class="w"> </span><span class="n">case</span><span class="p">);</span>
+</code></pre></div>
+<p>The Format must support reading and writing. Core validates all limits and
+candidate ranges when a case is requested. <code>generate</code> allocates output and
+workspace fallibly; <code>generate_into</code> allocates nothing and uses caller storage
+of at least <code>max_case_size</code> output bytes and <code>workspace_size()</code> scratch bytes.
+The scratch size is <code>(max_depth + 1) * max_case_size</code>; a depth above 64 is
+unsupported, and size arithmetic overflow is an error. Generation may return
+<code>Error::Limit</code> when the bounded search cannot produce a nonempty case.</p>
+<p>Generated streams decode and re-encode through the selected Format. Primitive
+Values are arbitrary bytes: Schema, application and protocol-specific content
+validity are not implied. Exclude terminators and candidates requiring contextual
+ordering. Seed and index zero are valid, and distinct pairs may produce the
+same bytes. See <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv/examples/generate.rs">generate.rs</a>
+(<code>cargo run --example generate</code>).</p>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
 <p>Use <a href="../../../../../tutorials/concepts/learning-model/">the basic model</a> to choose borrowed processing
 or owned editing, then <a href="../../../../../tutorials/processing/">processing choices</a> for your next task.</p>
@@ -951,7 +1317,7 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/ec077a7eee7f59110c7b768acbb50015d86ab9df">ec077a7eee7f</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
         
       
     
@@ -979,14 +1345,21 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/242588b3587fc642762e2fd6b67a5f714ae50dff">242588b3587f</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/a4d72386a4392f02b133d9fcf6703bab52c749b6">a4d72386a439</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
         
       
     
@@ -1073,10 +1446,10 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../../../../playground/playground.js" type="module"></script>
       

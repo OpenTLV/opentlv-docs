@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "repository": "https://github.com/OpenTLV/opentlv",
-  "commit": "ec077a7eee7f59110c7b768acbb50015d86ab9df",
+  "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
   "local": false,
   "dirty": false,
-  "source_sha256": "201656ecc3f6af9d1de3925623b889b391997c24ce56b19e4cef3cab22e92f2c",
+  "source_sha256": "6ce3987eef53ec5568ca5ef192631b46a503c4cdb14065c2ecddac6fca9ca8ba",
   "emscripten": "4.0.10",
   "files": {
     "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
