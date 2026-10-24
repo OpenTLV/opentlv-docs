@@ -238,6 +238,39 @@
           }
         ]
       }
+    },
+    {
+      "id": "js",
+      "repository": "https://github.com/OpenTLV/opentlv-js",
+      "revision": "037fde09d3caf26f32071911ebc78c63cb84f2e0",
+      "docs_path": "docs",
+      "mount": "js",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/js-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "JavaScript / WebAssembly",
+        "section": [],
+        "items": [
+          {
+            "JS/WASM manual": "webassembly.md"
+          },
+          {
+            "Tests, CI and documentation updates": "ci.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          },
+          {
+            "Distribution follow-ups": "distribution-follow-ups.md"
+          }
+        ]
+      }
     }
   ]
 }

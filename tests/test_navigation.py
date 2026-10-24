@@ -120,8 +120,8 @@ class NavigationTests(unittest.TestCase):
                           "formats/nfc/README.md", "formats/dhcp/README.md", "formats/lldp/README.md"),
             "Languages": ("bindings/c/index.md", "bindings/cpp/index.md",
                           "bindings/python/index.md", "bindings/lua/index.md", "bindings/rust/index.md",
-                          "bindings/go/index.md", "development/webassembly.md"),
-            "Development": ("concepts/architecture.md", "concepts/error-model.md",
+                          "bindings/go/index.md"),
+            "Development": ("development/webassembly.md", "concepts/architecture.md", "concepts/error-model.md",
                             "concepts/field-policies.md", "concepts/definition-boundaries.md",
                             "formats/format-roadmap.md", "development/documentation-layout.md",
                             "development/rust.md"),
@@ -283,7 +283,7 @@ class NavigationTests(unittest.TestCase):
             self.assertEqual((site / "development/go-migration" / name).read_bytes(),
                              b'{"preserved": true}\n')
         html = (site / "development/history/core/wasm-migration/index.html").read_text(encoding="utf-8")
-        self.assertIn('href="../../../../languages/wasm/development/"', html)
+        self.assertIn('href="../../../../languages/wasm/"', html)
         for name in ("inventory.json", "results.json", "logs.json", "exports.mjs"):
             self.assertIn(f'href="../../../wasm-migration/{name}"', html)
             self.assertEqual((site / "development/wasm-migration" / name).read_bytes(),

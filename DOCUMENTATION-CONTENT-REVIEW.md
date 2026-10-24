@@ -8,6 +8,13 @@ version or capability registry.
 
 ## Scope and disposition rules
 
+The later JS handoff (#93, 2026-10-24) supersedes the WebAssembly disposition in
+this dated inventory: Core's `development/webassembly.md` is preserved at
+`development/history/core/development/webassembly/`, while the JS-owned manual
+is routed to `languages/wasm/manual/webassembly/` after its reviewed source pin.
+The exact bootstrap exception and independent version identity are documented
+in the [current handoff contract](README.md#js-documentation-handoff).
+
 All 129 navigable pages in the selected assembly are accounted for below:
 108 Keep, 10 Relocate and 11 Archive. Two new portal entry pages provide
 [component contributor guidance](docs/development/components.md) and

@@ -46,6 +46,7 @@ runs:
         python -B -m unittest discover -s tests -p test_events.py -v
         python -B -m unittest discover -s tests -p test_documentation_updates.py -v
         python -B -m unittest discover -s tests -p test_go_sources.py -v
+        python -B -m unittest discover -s tests -p test_js_sources.py -v
         python -B -m unittest discover -s tests -p test_component_release.py -k ComponentEvidenceTests -v
         python -B -m unittest discover -s tests -p test_quality.py -v
         python -B -m unittest discover -s tests -p test_update_staging.py -v

@@ -13,6 +13,10 @@ from mkdocs.plugins import event_priority
 from mkdocs.structure.files import File
 from mkdocs.structure.nav import Link, Navigation
 
+_js_spec = importlib.util.spec_from_file_location("opentlv_docs_js", Path(__file__).with_name("js.py"))
+js = importlib.util.module_from_spec(_js_spec)
+_js_spec.loader.exec_module(js)
+
 _spec = importlib.util.spec_from_file_location("opentlv_docs_content", Path(__file__).with_name("content.py"))
 content = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(content)
@@ -99,9 +103,10 @@ PAGE_ROUTES = {
 }
 PRODUCT_ROUTES = {"cli/": "tools/otlv/manual/", "lua/": "languages/lua/manual/",
                   "python/": "languages/python/manual/", "rust/": "languages/rust/manual/",
-                  "go/": "languages/go/manual/"}
+                  "go/": "languages/go/manual/", "js/": "languages/wasm/manual/"}
 # Archived Core copies link here when their standalone manual is not selected.
-ENTRY_POINTS = {"go": ("bindings/go/index.md", "Go language entry point"),
+ENTRY_POINTS = {"js": ("bindings/wasm/index.md", "WebAssembly language entry point"),
+                "go": ("bindings/go/index.md", "Go language entry point"),
                 "python": ("bindings/python/index.md", "Python language entry point"),
                 "rust": ("bindings/rust/index.md", "Rust language entry point")}
 
@@ -173,6 +178,8 @@ def source_link(page, target):
 def current_guide(record, config):
     target, title = record[3:]
     owner = target.split("/", 1)[0]
+    if owner == "js" and not js.ready(config.extra.get("sources", [])):
+        return ENTRY_POINTS["js"]
     if owner in ENTRY_POINTS and not any(
         source["id"] == owner and source["included"]
         for source in config.extra.get("sources", [])
@@ -201,6 +208,12 @@ def record_index(markdown, page, config, files):
 
 def on_page_markdown(markdown, page, config, files):
     markdown = record_index(markdown, page, config, files)
+    if (page.file.src_uri == "bindings/wasm/index.md"
+            and not js.ready(config.extra.get("sources", []))):
+        markdown = markdown.replace("../../js/webassembly.md", "../../development/webassembly.md")
+        markdown += ("\nThe selected JS layout baseline predates the standalone manual transfer. "
+                     "The manual links above retain the historical Core guide until the "
+                     "reviewed JS documentation pin is advanced.\n")
     # The new contributor landing also supports the exact historical Core
     # revision accepted by assembly; do not hide missing pages in other builds.
     core = config.extra.get("core_source", {})

@@ -170,5 +170,9 @@ class GoDocumentationUpdatesTests(DocumentationUpdatesTests):
     source = "go"
 
 
+class JSDocumentationUpdatesTests(DocumentationUpdatesTests):
+    source = "js"
+
+
 if __name__ == "__main__":
     unittest.main()

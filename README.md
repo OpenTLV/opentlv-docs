@@ -171,8 +171,9 @@ building the C++ library, bindings, CLI, examples, or tests.
 ## Setup
 
 Run commands from this repository's root. In the multi-root workspace the default
-Core, CLI, Lua, Python, Rust and Go directories are the siblings `../opentlv`,
-`../opentlv-cli`, `../opentlv-lua`, `../opentlv-python`, `../opentlv-rust` and `../opentlv-go`.
+Core, CLI, Lua, Python, Rust, Go and JS directories are the siblings `../opentlv`,
+`../opentlv-cli`, `../opentlv-lua`, `../opentlv-python`, `../opentlv-rust`,
+`../opentlv-go` and `../opentlv-js`.
 Separate checkouts can be prepared without changing your development checkouts:
 
 ```sh
@@ -182,6 +183,7 @@ git clone --no-checkout https://github.com/OpenTLV/opentlv-lua.git ../opentlv-do
 git clone --no-checkout https://github.com/OpenTLV/opentlv-python.git ../opentlv-docs-python
 git clone --no-checkout https://github.com/OpenTLV/opentlv-rust.git ../opentlv-docs-rust
 git clone --no-checkout https://github.com/OpenTLV/opentlv-go.git ../opentlv-docs-go
+git clone --no-checkout https://github.com/OpenTLV/opentlv-js.git ../opentlv-docs-js
 ```
 
 Create an isolated environment; do not install these dependencies into Core's
@@ -211,6 +213,9 @@ git -C $env:OPENTLV_RUST_DIR checkout --detach $rustRevision
 $env:OPENTLV_GO_DIR = (Resolve-Path ../opentlv-docs-go).Path
 $goRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq go).revision
 git -C $env:OPENTLV_GO_DIR checkout --detach $goRevision
+$env:OPENTLV_JS_DIR = (Resolve-Path ../opentlv-docs-js).Path
+$jsRevision = ((Get-Content docs-sources.json | ConvertFrom-Json).sources | Where-Object id -eq js).revision
+git -C $env:OPENTLV_JS_DIR checkout --detach $jsRevision
 ```
 
 POSIX shell:
@@ -237,10 +242,13 @@ git -C "$OPENTLV_RUST_DIR" checkout --detach "$rust_revision"
 export OPENTLV_GO_DIR="$(cd ../opentlv-docs-go && pwd)"
 go_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "go"))')
 git -C "$OPENTLV_GO_DIR" checkout --detach "$go_revision"
+export OPENTLV_JS_DIR="$(cd ../opentlv-docs-js && pwd)"
+js_revision=$(python -c 'import json; print(next(s["revision"] for s in json.load(open("docs-sources.json"))["sources"] if s["id"] == "js"))')
+git -C "$OPENTLV_JS_DIR" checkout --detach "$js_revision"
 ```
 
 For existing workspace checkouts, set `OPENTLV_CORE_DIR`, `OPENTLV_CLI_DIR`,
-`OPENTLV_LUA_DIR`, `OPENTLV_PYTHON_DIR`, `OPENTLV_RUST_DIR` and `OPENTLV_GO_DIR`
+`OPENTLV_LUA_DIR`, `OPENTLV_PYTHON_DIR`, `OPENTLV_RUST_DIR`, `OPENTLV_GO_DIR` and `OPENTLV_JS_DIR`
 or leave them unset for the sibling defaults. Normal builds require HEAD to match the
 selected revision; local preview can use the current HEAD as described below.
 MkDocs never checks out, fetches, resets, or edits workspace sources.
@@ -1293,7 +1301,9 @@ extraction will update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
-continues to own the WASM implementation, CMake target and native smoke tests.
+owns the standalone WASM implementation, CMake target and Node smoke tests in
+`opentlv-js`. The selected Core still supplies the portal's legacy binary build;
+the [JS documentation handoff](#js-documentation-handoff) does not change it.
 See [Playground builds](#playground-builds) for verified artifacts and preview.
 
 ## Validation and scope
@@ -1749,6 +1759,36 @@ For an expired token, restore the appropriate repository secret and rerun the
 notification. If a development evidence artifact has expired, run the trusted
 producer again and notify with the new successful run ID. Failed checks leave
 the previous deployed site intact.
+
+## JS documentation handoff
+
+The `js` source registers `OpenTLV/opentlv-js` at an independent exact commit.
+Its trusted documentation producer is `.github/workflows/js-main.yml`; the
+existing `component-docs-updated` receiver verifies successful Main push history
+and changes only the JS pin. JS owns the WASM manual, parse example and catalog
+version; Docs owns assembly, navigation and the playground UI. Catalog language
+`js` renders as JavaScript / WebAssembly and uses the JavaScript lexer.
+
+The initial pin `037fde09d3caf26f32071911ebc78c63cb84f2e0` is the merged layout
+baseline. It supplies packaging and CI pages but predates `docs/webassembly.md`.
+Only that exact non-local snapshot omits the new manual from navigation and
+links the language overview to the preserved historical Core guide. Later pins
+and local previews require the JS manual; a missing file fails strict validation.
+The Core page retains its body, anchors and source/edit ownership under history.
+
+Before merging the JS producer, merge this registration and verify credentials:
+JS needs `OPENTLV_DOCS_DISPATCH_TOKEN` with Docs **Contents: write**; Docs needs
+`DOCS_UPDATES_TOKEN` to create PRs that start CI. If the default token cannot read
+JS run/history metadata, add **Actions: read** and **Contents: read** access to JS
+on the separate `DOCS_SOURCE_READ_TOKEN`. These are deployment prerequisites,
+not secrets configured by local tests. After JS Main/notifier succeeds, review
+and validate its exact-SHA pin PR. HTTP acceptance is not receiver, hosted
+validation or publication evidence. JS has no release/publication policy in
+this source registration; its package version is separate from Core's version.
+
+This documentation handoff leaves the existing Core-based playground binary
+producer below unchanged. Moving that producer requires its own provenance and
+browser validation; selecting JS documentation is not binary compatibility proof.
 
 ## Playground builds
 

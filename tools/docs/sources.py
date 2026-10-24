@@ -151,7 +151,7 @@ def manifest(portal):
             examples = item.get("examples", {})
             languages = examples.get("languages") if isinstance(examples, dict) else None
             if (not isinstance(languages, list) or not languages
-                    or not all(isinstance(lang, str) and lang in ("c", "cpp", "rust", "python", "lua", "go") for lang in languages)
+                    or not all(isinstance(lang, str) and lang in ("c", "cpp", "rust", "python", "lua", "go", "js") for lang in languages)
                     or len(set(languages)) != len(languages) or "results" in examples):
                 raise PluginError("Compatibility selection requires explicit example languages and no inline results.")
         else:

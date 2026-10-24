@@ -10,6 +10,9 @@ COMPONENT_INDEX = "development/components.md"
 # combined portal archives them; independent product publications use their
 # original navigation and paths.
 ARCHIVES = {
+    "development/webassembly.md": (
+        "core", "WebAssembly before extraction", "development/webassembly.md",
+        "js/webassembly.md", "current WebAssembly guide"),
     "guides/go.md": ("core", "Go usage before extraction", "guides/go.md",
                      "go/guides/go.md", "current Go manual"),
     "development/go.md": ("core", "Go development before extraction", "development/go.md",
@@ -19,7 +22,7 @@ ARCHIVES = {
         "go/development/go.md", "current Go development guide"),
     "development/wasm-migration/README.md": (
         "core", "WASM migration baseline", "wasm-migration/index.md",
-        "development/webassembly.md", "current WebAssembly guide"),
+        "js/webassembly.md", "current WebAssembly guide"),
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
     "development/documentation-audit.md": (
@@ -67,6 +70,7 @@ ARCHIVES = {
 }
 
 COMPONENT_GUIDES = {
+    "js/ci.md": ("js", "JS/WASM tests, CI and documentation updates"),
     "go/development/ci.md": ("go", "Go tests, CI and documentation updates"),
     "go/implementation.md": ("go", "Go implementation and ownership"),
     "cli/development.md": ("cli", "CLI development"),
