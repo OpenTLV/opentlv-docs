@@ -154,7 +154,7 @@
     {
       "id": "rust",
       "repository": "https://github.com/OpenTLV/opentlv-rust",
-      "revision": "242588b3587fc642762e2fd6b67a5f714ae50dff",
+      "revision": "bb4c5f64dd8d4b60e95b8b8ea92876f922a25458",
       "docs_path": "docs",
       "mount": "rust",
       "updates": {
