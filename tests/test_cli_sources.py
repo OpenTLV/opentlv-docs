@@ -26,7 +26,8 @@ class HistoricalNavigationTests(unittest.TestCase):
         result = fixture.assembly.navigation(base, [(None, core)])
         expected = (ci.nav_paths(base) - {"development/quality-gates.md",
                                          "development/documentation-ownership.md",
-                                         "development/go-migration/README.md"}
+                                         "development/go-migration/README.md",
+                                         "development/wasm-migration/README.md"}
                     | {"guides/lua.md", "development/lua.md"})
         self.assertEqual(ci.nav_paths(result), expected)
         # Other revisions/repositories keep today's navigation, even if pages

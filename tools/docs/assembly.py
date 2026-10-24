@@ -14,6 +14,10 @@ import yaml
 
 from mkdocs.exceptions import PluginError
 
+_js_spec = importlib.util.spec_from_file_location("opentlv_docs_js", Path(__file__).with_name("js.py"))
+js = importlib.util.module_from_spec(_js_spec)
+_js_spec.loader.exec_module(js)
+
 _spec = importlib.util.spec_from_file_location("opentlv_docs_sources", Path(__file__).with_name("sources.py"))
 sources = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(sources)
@@ -157,7 +161,10 @@ def navigation(base, selected):
             parent = matches[0] if matches else parent[-1][title]
         if any(isinstance(entry, dict) and nav["title"] in entry for entry in parent):
             raise PluginError(f"Duplicate navigation title: {nav['title']}")
-        items = sources.prefix_nav(nav["items"], item["mount"])
+        manual_items = nav["items"]
+        if js.bootstrap(item):
+            manual_items = [entry for entry in manual_items if "webassembly.md" not in entry.values()]
+        items = sources.prefix_nav(manual_items, item["mount"])
         parent.append({nav["title"]: content.relocate(items, result)})
     return result
 

@@ -24,6 +24,10 @@ from urllib.parse import quote, unquote, urlsplit, urlunsplit
 from mkdocs.exceptions import PluginError
 from mkdocs.structure.files import File
 
+_js_spec = importlib.util.spec_from_file_location("opentlv_docs_js", Path(__file__).with_name("js.py"))
+js = importlib.util.module_from_spec(_js_spec)
+_js_spec.loader.exec_module(js)
+
 log = logging.getLogger("mkdocs.hooks.opentlv")
 
 _api_spec = importlib.util.spec_from_file_location("opentlv_docs_api", Path(__file__).with_name("api.py"))
@@ -155,10 +159,19 @@ def on_page_markdown(markdown, page, config, files):
     } and "go/guides/go.md" in owners:
         definition = next(item for item in config.extra["sources"] if item["id"] == "go")
         go = (Path(owners["go/guides/go.md"]["root"]), definition)
-    return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files, go=go)
+    js_source = None
+    if page.file.src_uri in {
+        "getting-started/README.md", "concepts/bindings.md", "guides/examples.md",
+        "playground/index.md", "tools/playground/overview.md",
+    } and "js/packaging.md" in owners:
+        definition = next(item for item in config.extra["sources"] if item["id"] == "js")
+        js_source = (Path(owners["js/packaging.md"]["root"]), definition)
+    return rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir,
+                                files, go=go, js_source=js_source)
 
 
-def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files=None, *, go=None):
+def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path, page_dir, files=None,
+                         *, go=None, js_source=None):
     """Adapt repository-relative Markdown links for an independently owned source."""
 
     def rewrite(match):
@@ -168,6 +181,27 @@ def rewrite_source_links(markdown, page, root, source, repo_url, ref, docs_path,
         parts = urlsplit(target)
         path = unquote(parts.path)
         resolved = posixpath.normpath(posixpath.join(page_dir, path))
+        if js_source is not None:
+            js_root, definition = js_source
+            if resolved == "development/webassembly.md" and not js.bootstrap(definition):
+                target = urlunsplit(("", "", posixpath.relpath(js.MANUAL, page_dir or "."),
+                                    parts.query, parts.fragment))
+                return f"{prefix}{target}{suffix}"
+            if resolved == "../bindings/wasm" or resolved.startswith("../bindings/wasm/"):
+                name = resolved[len("../bindings/wasm"):].lstrip("/")
+                for old, new in (("src/", "native/"), ("js/", "src/"), ("test/", "tests/")):
+                    if name.startswith(old):
+                        name = new + name[len(old):]
+                        break
+                if name == "CMakeLists.txt":
+                    name = "cmake/Wasm.cmake"
+                local = js_root / name
+                if (not local.resolve().is_relative_to(js_root) or not local.exists()
+                        or local.is_symlink()):
+                    raise PluginError(f"JS documentation handoff references a missing source: {name}")
+                kind = "tree" if local.is_dir() else "blob"
+                url = f"{definition['repository']}/{kind}/{definition['commit']}/{quote(name, safe='/')}"
+                return f"{prefix}{urlunsplit(('', '', url, parts.query, parts.fragment))}{suffix}"
         if go is not None:
             manuals = {"guides/go.md": "go/guides/go.md",
                        "development/go.md": "go/development/go.md",

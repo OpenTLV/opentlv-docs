@@ -181,7 +181,6 @@ nav:
       - Go: bindings/go/index.md
       - WebAssembly:
           - WebAssembly overview: bindings/wasm/index.md
-          - WebAssembly tooling: development/webassembly.md
   - Tools:
       - Overview: tools/index.md
       - otlv CLI: tools/otlv/index.md
@@ -236,6 +235,7 @@ nav:
           - Overview: development/history.md
           - Go migration baseline: development/go-migration/README.md
           - WASM migration baseline: development/wasm-migration/README.md
+          - WebAssembly before extraction: development/webassembly.md
           - Core Go usage before extraction: guides/go.md
           - Core Go development before extraction: development/go.md
           - Core Python transition guide: guides/python.md

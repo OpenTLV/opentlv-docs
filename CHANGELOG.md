@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Register standalone JS/WASM documentation and Main notifications, preserve the historical Core manual, and route JS-owned manuals, examples and version metadata with an exact bootstrap pin. (#93)
 - Support Core revisions after the removal of its old Go manuals and baseline, while retaining complete archives for older selected revisions and immutable Git links to the original evidence. Reject partial archive removal through existing strict navigation checks. (OpenTLV/opentlv#686)
 - Present Core's retained `development/rust.md` as current Rust ownership guidance at `development/bindings/rust/`, like Python's, instead of archiving it as a superseded copy of the Rust development guide; it now routes builds to `opentlv-rust` and describes the Core inputs the Rust tests read. (OpenTLV/opentlv-rust#7)
 - Select the standalone Rust manuals from `opentlv-rust` at an independent pin with Main documentation notifications, render them under Languages with their contributor guide in Development and their migration and validation records in history, and archive Core's superseded Rust guides with links to the current manual. (OpenTLV/opentlv-rust#6)
@@ -31,6 +32,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Adopt the Rust documentation pin proposed by #99 with navigation for Codec/Generator validation and generic Core API coverage; preserve Rust ownership, archive the historical validation record and keep the maintained coverage guide under Development. (#93)
 - Include Core's WASM migration baseline in Development history, preserving its source links and evidence while keeping exact Core 0.7.1 navigation compatible. (OpenTLV/opentlv#697)
 - Include Core's Go migration baseline in Development history when adopting the Core pin proposed by PR #81. Preserve its source ownership and linked JSON evidence, and keep the exact Core 0.7.1 navigation compatible. (#81)
 - Stop archiving Core's Rust user guide, which Core deleted, so updating the Core pin no longer fails the strict build and navigation check on a missing `guides/rust.md`; keep the Core Rust development guide archived. (OpenTLV/opentlv#679)
