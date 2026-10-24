@@ -21,6 +21,11 @@ the immutable Git revision retains their inventory, results and source history.
 Older selected Core revisions still expose their original archive pages here.
 Historical evidence does not establish current standalone build or release readiness.
 
+The WASM migration baseline records the original Core implementation, toolchain,
+exports and local reproducibility evidence for the JavaScript extraction. Its
+inventory and validation results describe that immutable baseline; follow the
+[WebAssembly guide](webassembly.md) for the selected source's build instructions.
+
 ## Review decisions
 
 The [content disposition review](https://github.com/OpenTLV/opentlv-docs/blob/main/DOCUMENTATION-CONTENT-REVIEW.md)

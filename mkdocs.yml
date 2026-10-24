@@ -235,6 +235,7 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Go migration baseline: development/go-migration/README.md
+          - WASM migration baseline: development/wasm-migration/README.md
           - Core Go usage before extraction: guides/go.md
           - Core Go development before extraction: development/go.md
           - Core Python transition guide: guides/python.md

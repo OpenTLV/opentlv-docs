@@ -57,6 +57,11 @@ class NavigationTests(unittest.TestCase):
             page.write("\n[Inventory](inventory.json) and [results](results.json).\n")
         for name in ("inventory.json", "results.json"):
             (migration / name).write_bytes(b'{"preserved": true}\n')
+        migration = self.root / "docs/development/wasm-migration"
+        for name in ("inventory.json", "results.json", "logs.json", "exports.mjs"):
+            with (migration / "README.md").open("a", encoding="utf-8") as page:
+                page.write(f"\n[Evidence]({name})\n")
+            (migration / name).write_bytes(b"preserved WASM evidence\n")
         self.path = self.root / "mkdocs.yml"
         self.path.write_text(yaml.safe_dump(self.config, sort_keys=False))
 
@@ -179,6 +184,7 @@ class NavigationTests(unittest.TestCase):
             "go/development/ci.md": "development/components/go/development/ci/",
             "go/implementation.md": "development/components/go/implementation/",
             "development/go-migration/README.md": "development/history/core/go-migration/",
+            "development/wasm-migration/README.md": "development/history/core/wasm-migration/",
             "guides/python.md": "development/history/core/guides/python/",
             "lua/migration.md": "development/history/lua/migration/",
             "python/validation/ci.md": "development/history/python/validation/ci/",
@@ -261,7 +267,7 @@ class NavigationTests(unittest.TestCase):
         for path in ("development/history/core/guides/python", "development/history/lua/migration",
                      "development/history/core/guides/go", "development/history/core/development/go",
                      "development/history/python/validation/ci", "development/components/lua/testing",
-                     "development/history/core/go-migration"):
+                     "development/history/core/go-migration", "development/history/core/wasm-migration"):
             html = (site / path / "index.html").read_text(encoding="utf-8")
             self.assertIn('data-md-component="tabs"', html)
             self.assertNotIn("Return to the OpenTLV portal", html)
@@ -276,6 +282,12 @@ class NavigationTests(unittest.TestCase):
             self.assertIn(f'href="../../../go-migration/{name}"', html)
             self.assertEqual((site / "development/go-migration" / name).read_bytes(),
                              b'{"preserved": true}\n')
+        html = (site / "development/history/core/wasm-migration/index.html").read_text(encoding="utf-8")
+        self.assertIn('href="../../../../languages/wasm/development/"', html)
+        for name in ("inventory.json", "results.json", "logs.json", "exports.mjs"):
+            self.assertIn(f'href="../../../wasm-migration/{name}"', html)
+            self.assertEqual((site / "development/wasm-migration" / name).read_bytes(),
+                             b"preserved WASM evidence\n")
         self.assertFalse(any(path.startswith(("getting-started/", "guides/", "formats/", "bindings/"))
                              for path in locations))
         tabs = home.split('data-md-component="tabs"', 1)[1].split("</nav>", 1)[0]
@@ -319,6 +331,11 @@ class NavigationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "references missing documentation"):
             ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
 
+    def test_missing_current_wasm_baseline_still_fails(self):
+        (self.root / "docs/development/wasm-migration/README.md").unlink()
+        with self.assertRaisesRegex(ValueError, "references missing documentation: development/wasm-migration/README.md"):
+            ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": self.config["nav"]}))
+
     def test_partial_core_go_archive_removal_still_fails(self):
         base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
         selected = copy.deepcopy(self.selected)
@@ -339,6 +356,7 @@ class NavigationTests(unittest.TestCase):
         self.assertNotIn("development/quality-gates.md", paths)
         self.assertNotIn("development/documentation-ownership.md", paths)
         self.assertNotIn("development/go-migration/README.md", paths)
+        self.assertNotIn("development/wasm-migration/README.md", paths)
         for name in paths:
             path = self.root / "docs" / name
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -359,7 +377,7 @@ class NavigationTests(unittest.TestCase):
         # The exact immutable version still builds with all retained records.
         # Only its known later additions may be absent.
         for name in ("development/quality-gates.md", "development/documentation-ownership.md",
-                     "development/go-migration/README.md"):
+                     "development/go-migration/README.md", "development/wasm-migration/README.md"):
             (self.root / "docs" / name).unlink()
         self.config["extra"]["core_source"] = self.selected[0][1]
         self.path.write_text(yaml.safe_dump(self.config, sort_keys=False))
