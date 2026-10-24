@@ -2,11 +2,11 @@
 
 Paste hexadecimal TLV data, choose a format and press **Parse** to see the
 nested structure as a tree, a hex dump or JSON. Parsing runs in your browser with the
-[OpenTLV WebAssembly build](../development/webassembly.md), the same C core as
+[OpenTLV WebAssembly build](../bindings/wasm/index.md), the same C core as
 native applications. Nothing you enter is uploaded.
 
-The published module is built from the Core revision selected for this
-documentation version. Its provenance is recorded in the site's
+The published module uses the JS and Core sources selected for this
+documentation version. Both sources are recorded in the site's
 `source-revision.json` and `playground/wasm/wasm-source.json`. Local previews without WASM artifacts
 display an unavailable message.
 
@@ -139,4 +139,4 @@ The playground only parses and inspects. Editing, re-encoding, schemas, `.otlv`
 and shareable sessions are not available. Library functionality
 not listed in the controls are not exposed by this playground yet. One parse reads at most 65,536
 elements and 64 levels of nesting; see
-[WebAssembly build](../development/webassembly.md#use-from-javascript).
+[WebAssembly build](../bindings/wasm/index.md).

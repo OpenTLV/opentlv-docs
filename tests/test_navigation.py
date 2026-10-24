@@ -338,6 +338,29 @@ class NavigationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "references missing documentation: development/wasm-migration/README.md"):
             ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": self.config["nav"]}))
 
+    def test_core_wasm_cleanup_preserves_standalone_manual(self):
+        base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
+        selected = copy.deepcopy(self.selected)
+        selected[0] = (self.root, selected[0][1])
+        for name in fixture.assembly.CORE_WASM_ARCHIVES:
+            (self.root / "docs" / name).unlink()
+        nav = fixture.assembly.navigation(base, selected)
+        paths = ci.nav_paths(nav)
+        self.assertFalse(paths & fixture.assembly.CORE_WASM_ARCHIVES)
+        self.assertIn("js/webassembly.md", paths)
+        self.assertIn("development/documentation-audit.md", paths)
+        ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
+
+    def test_partial_wasm_cleanup_keeps_strict_navigation_failure(self):
+        base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
+        selected = copy.deepcopy(self.selected)
+        selected[0] = (self.root, selected[0][1])
+        (self.root / "docs/development/wasm-migration/README.md").unlink()
+        nav = fixture.assembly.navigation(base, selected)
+        self.assertTrue(fixture.assembly.CORE_WASM_ARCHIVES <= ci.nav_paths(nav))
+        with self.assertRaisesRegex(ValueError, "references missing documentation"):
+            ci.check_navigation(self.root / "docs", yaml.safe_dump({"nav": nav}))
+
     def test_partial_core_go_archive_removal_still_fails(self):
         base = yaml.safe_load((fixture.ROOT / "mkdocs.yml").read_text())["nav"]
         selected = copy.deepcopy(self.selected)

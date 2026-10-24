@@ -310,6 +310,33 @@ class PublicationTests(unittest.TestCase):
             self.deploy_bundle()
         self.assertEqual(self.remote_head(), before)
 
+    def test_standalone_wasm_publication_checks_selected_js_revision(self):
+        self.set_selection("1.0.0")
+        producer = {"id": "js", "repository": "https://github.com/OpenTLV/opentlv-js",
+                    "commit": "c" * 40, "included": True, "required": False,
+                    "local": False, "dirty": False}
+        self.selection["sources"].append(producer)
+        metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+        metadata["sources"] = self.selection["sources"]
+        directory = self.portal / "docs/playground/wasm"
+        directory.mkdir(parents=True)
+        for name in publication.wasm.FILES:
+            (directory / name).write_bytes(b"\0asm\x01\0\0\0" if name.endswith(".wasm") else b"export {};\n")
+        manifest = {"schema": 2, "repository": metadata["repository"], "commit": self.selection["commit"],
+                    "local": False, "dirty": False, "source_sha256": "f" * 64,
+                    "emscripten": publication.wasm.EMSCRIPTEN, "files": publication.wasm.hashes(directory),
+                    "js": publication.wasm.producer_identity(producer, "d" * 64)}
+        def save():
+            metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            self.write("docs/playground/wasm/wasm-source.json", json.dumps(manifest))
+        save()
+        publication.verify_site(self.portal / "docs", self.selection)
+        manifest["js"]["commit"] = "e" * 40
+        save()
+        with self.assertRaisesRegex(Exception, "JS provenance"):
+            publication.verify_site(self.portal / "docs", self.selection)
+
     def test_wasm_publication_checks_exact_core_manifest_and_payload(self):
         self.set_selection("1.0.0")
         directory = self.portal / "docs/playground/wasm"

@@ -12,7 +12,7 @@ building the complete ecosystem.
 | Python | [Python build and workspace guide](../../python/development/python.md) owns extension builds, packaging and contributor setup. |
 | Rust | [Rust build, features and contribution guide](../../rust/development/rust.md) owns Cargo builds, the pinned Core dependency and local workspace development. |
 | Go | [Go development](../../go/development/go.md) owns standalone builds, cgo linking and the pinned native Core dependency. |
-| WebAssembly | [WebAssembly tooling](../webassembly.md) owns the Core module build. [Playground builds](https://github.com/OpenTLV/opentlv-docs#playground-builds) describes its integration into the portal UI. |
+| WebAssembly | [WebAssembly tooling](../../bindings/wasm/index.md) owns the standalone JS/WASM build. [Playground builds](https://github.com/OpenTLV/opentlv-docs#playground-builds) describes its integration into the portal UI. |
 | Documentation portal | The portal README owns [prerequisites](https://github.com/OpenTLV/opentlv-docs#prerequisites), [setup](https://github.com/OpenTLV/opentlv-docs#setup), [build and preview](https://github.com/OpenTLV/opentlv-docs#build-and-preview), and [API reference generation](https://github.com/OpenTLV/opentlv-docs#generate-or-consume-api-references). |
 
 The optional [multi-repository workspace](https://github.com/OpenTLV/opentlv-workspace)

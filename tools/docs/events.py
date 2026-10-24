@@ -60,7 +60,10 @@ def validate(payload, definitions, api=None):
         raise ValueError("Documentation-only updates require main, not a release tag.")
     if item["id"] != "core" and ref == "main" and not documentation and not policy.get("development_artifact"):
         raise ValueError("Component development updates require a configured evidence artifact.")
-    workflow = ".github/workflows/wasm.yml" if item["id"] == "core" else policy.get("workflow")
+    # Historical stable-tag notifications retain their original producer.
+    # Current development pins must come from the native Core Main gate.
+    workflow = ((".github/workflows/core-main.yml" if ref == "main" else ".github/workflows/wasm.yml")
+                if item["id"] == "core" else policy.get("workflow"))
     if not isinstance(workflow, str) or not re.fullmatch(r"\.github/workflows/[A-Za-z0-9_.-]+\.ya?ml", workflow):
         raise ValueError("Component updates require an explicitly trusted producer workflow.")
     run = api(f"{repo}/actions/runs/{run_id}")

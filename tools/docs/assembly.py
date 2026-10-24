@@ -63,22 +63,25 @@ CORE_071_COMMIT = "e12a52ff69a64468eecab084795a0530c273efea"
 CORE_GO_ARCHIVES = frozenset((
     "guides/go.md", "development/go.md", "development/go-migration/README.md",
 ))
+CORE_WASM_ARCHIVES = frozenset((
+    "development/webassembly.md", "development/wasm-migration/README.md",
+))
 
 
-def without_core_go_archives(items):
-    """Remove only the complete Go archive group retired by Core #686."""
+def without_core_archives(items, archives):
+    """Remove an explicitly retired group; preserve unrelated historical pages."""
     result = []
     for entry in items:
         if isinstance(entry, str):
-            if entry not in CORE_GO_ARCHIVES:
+            if entry not in archives:
                 result.append(entry)
             continue
         for title, value in entry.items():
             if isinstance(value, list):
-                children = without_core_go_archives(value)
+                children = without_core_archives(value, archives)
                 if children:
                     result.append({title: children})
-            elif value not in CORE_GO_ARCHIVES:
+            elif value not in archives:
                 result.append({title: value})
     return result
 
@@ -120,7 +123,10 @@ def navigation(base, selected):
         docs = core_root / core["docs_path"]
         present = {name for name in CORE_GO_ARCHIVES if (docs / name).is_file()}
         if not present and not (core_root / "bindings/go").exists():
-            result = without_core_go_archives(result)
+            result = without_core_archives(result, CORE_GO_ARCHIVES)
+        present = {name for name in CORE_WASM_ARCHIVES if (docs / name).is_file()}
+        if not present and not (core_root / "bindings/wasm").exists():
+            result = without_core_archives(result, CORE_WASM_ARCHIVES)
         # Partial removals retain navigation entries, so strict validation fails.
     if (core.get("repository") == "https://github.com/OpenTLV/opentlv"
             and core.get("commit") == CORE_071_COMMIT):
@@ -329,6 +335,9 @@ def on_pre_build(config):
     config.extra["sources_dirty"] = any(item["dirty"] for item in source["sources"])
     config.extra["core_source"] = source
     config.extra["core_checkout"] = str(root)
+    config.extra["wasm_js"] = next(
+        (str(checkout), item) for checkout, item in selected if item["id"] == "js"
+    ) if js.ready(source["sources"]) else (None, None)
 
 
 def on_serve(server, config, builder):

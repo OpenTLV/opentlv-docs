@@ -24,7 +24,7 @@ class EventTests(unittest.TestCase):
         self.payload = {"source": "core", "repository": "OpenTLV/opentlv", "commit": self.sha,
                         "ref": "main", "run_id": 123}
         self.run = {"conclusion": "success", "status": "completed", "event": "push",
-                    "head_sha": self.sha, "head_branch": "main", "path": ".github/workflows/wasm.yml",
+                    "head_sha": self.sha, "head_branch": "main", "path": ".github/workflows/core-main.yml",
                     "head_repository": {"full_name": "OpenTLV/opentlv"}}
         self.target = {"object": {"type": "commit", "sha": self.sha}}
         self.relation = "identical"
@@ -49,8 +49,14 @@ class EventTests(unittest.TestCase):
     def test_successful_core_main_and_annotated_release(self):
         self.assertEqual(self.validate(), self.item)
         self.payload["ref"] = self.run["head_branch"] = "v1.2.3"
+        self.run["path"] = ".github/workflows/wasm.yml"
         self.target = {"object": {"type": "tag", "sha": "b" * 40}}
         self.assertEqual(self.validate(), self.item)
+
+    def test_retired_wasm_workflow_cannot_update_core_main(self):
+        self.run["path"] = ".github/workflows/wasm.yml"
+        with self.assertRaisesRegex(ValueError, "trusted push workflow"):
+            self.validate()
 
     def test_core_proposal_pins_sha_and_replays_without_regression(self):
         self.item["revision"] = "b" * 40
@@ -67,6 +73,7 @@ class EventTests(unittest.TestCase):
 
     def test_core_proposal_rejects_release_events(self):
         self.payload["ref"] = self.run["head_branch"] = "1.2.3"
+        self.run["path"] = ".github/workflows/wasm.yml"
         with self.assertRaisesRegex(ValueError, "main development"):
             events.core_proposal(self.payload, {"sources": [self.item]}, self.api)
 
@@ -128,10 +135,12 @@ class EventTests(unittest.TestCase):
 
     def test_rejects_moved_release_and_removed_main_history(self):
         self.payload["ref"] = self.run["head_branch"] = "1.2.3"
+        self.run["path"] = ".github/workflows/wasm.yml"
         self.target["object"]["sha"] = "b" * 40
         with self.assertRaisesRegex(ValueError, "no longer"):
             self.validate()
         self.payload["ref"] = self.run["head_branch"] = "main"
+        self.run["path"] = ".github/workflows/core-main.yml"
         self.relation = "diverged"
         with self.assertRaisesRegex(ValueError, "main history"):
             self.validate()

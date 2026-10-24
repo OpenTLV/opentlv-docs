@@ -61,7 +61,9 @@ def verify_site(site, selection):
                 or metadata.get("local") is not False or metadata.get("dirty") is not False):
             raise ValueError("Publication requires WebAssembly for the exact clean Core source.")
         directory = site / "playground/wasm"
-        verified = wasm.verify(directory, source, metadata.get("source_sha256"))
+        _root, js_source = wasm.js_selection([(None, item) for item in selected])
+        verified = wasm.verify(directory, source, metadata.get("source_sha256"), js_source,
+                               metadata.get("js", {}).get("source_sha256"))
         if metadata != dict(verified, manifest="playground/wasm/wasm-source.json"):
             raise ValueError("Published WebAssembly provenance differs from the site metadata.")
 

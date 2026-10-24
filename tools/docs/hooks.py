@@ -111,7 +111,9 @@ def on_post_build(config):
 
 def add_wasm_files(files, config):
     portal = Path(config.config_file_path).resolve().parent
-    directory, manifest = wasm.prepare(portal, Path(config.extra["core_checkout"]), config.extra["core_source"])
+    js_root, js_source = config.extra.get("wasm_js", (None, None))
+    directory, manifest = wasm.prepare(portal, Path(config.extra["core_checkout"]), config.extra["core_source"],
+                                       Path(js_root) if js_root else None, js_source)
     if directory is None:
         log.info("WebAssembly artifacts absent; local playground unavailable. Run tools/docs/wasm.py.")
         return
