@@ -32,6 +32,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Adopt the Rust documentation pin proposed by #99 with navigation for Codec/Generator validation and generic Core API coverage; preserve Rust ownership, archive the historical validation record and keep the maintained coverage guide under Development. (#93)
 - Include Core's WASM migration baseline in Development history, preserving its source links and evidence while keeping exact Core 0.7.1 navigation compatible. (OpenTLV/opentlv#697)
 - Include Core's Go migration baseline in Development history when adopting the Core pin proposed by PR #81. Preserve its source ownership and linked JSON evidence, and keep the exact Core 0.7.1 navigation compatible. (#81)
 - Stop archiving Core's Rust user guide, which Core deleted, so updating the Core pin no longer fails the strict build and navigation check on a missing `guides/rust.md`; keep the Core Rust development guide archived. (OpenTLV/opentlv#679)

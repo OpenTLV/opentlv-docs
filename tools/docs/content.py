@@ -67,6 +67,9 @@ ARCHIVES = {
     "rust/validation/layout.md": (
         "rust", "Rust source layout validation", "validation/layout.md",
         "rust/development/rust.md", "current Rust development guide"),
+    "rust/validation/codecs-generator.md": (
+        "rust", "Rust Codec and Generator validation", "validation/codecs-generator.md",
+        "rust/guides/rust.md", "current Rust manual"),
 }
 
 COMPONENT_GUIDES = {
@@ -82,6 +85,7 @@ COMPONENT_GUIDES = {
     "python/quality-gates.md": ("python", "Python tests and CI"),
     "python/releases.md": ("python", "Python release preparation"),
     "rust/quality-gates.md": ("rust", "Rust tests and CI"),
+    "rust/validation/api-coverage.md": ("rust", "Rust generic Core API coverage"),
 }
 
 

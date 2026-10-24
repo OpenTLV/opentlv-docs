@@ -191,6 +191,8 @@ class NavigationTests(unittest.TestCase):
             "cli/development.md": "development/components/cli/development/",
             "lua/testing.md": "development/components/lua/testing/",
             "python/releases.md": "development/components/python/releases/",
+            "rust/validation/codecs-generator.md": "development/history/rust/validation/codecs-generator/",
+            "rust/validation/api-coverage.md": "development/components/rust/validation/api-coverage/",
         }.items():
             self.assertEqual(files.get_file_from_path(source).page.url, url)
         for name, (manual, _source) in config.extra["product_navigation"].items():
