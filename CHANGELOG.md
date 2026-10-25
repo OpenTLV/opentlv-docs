@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Pair the Core documentation update with the JS pin already adopted in #103, restoring the WASM binding-contract anchor linked from Core's examples. (#104)
 - Adopt the Rust documentation pin proposed by #99 with navigation for Codec/Generator validation and generic Core API coverage; preserve Rust ownership, archive the historical validation record and keep the maintained coverage guide under Development. (#93)
 - Include Core's WASM migration baseline in Development history, preserving its source links and evidence while keeping exact Core 0.7.1 navigation compatible. (OpenTLV/opentlv#697)
 - Include Core's Go migration baseline in Development history when adopting the Core pin proposed by PR #81. Preserve its source ownership and linked JSON evidence, and keep the exact Core 0.7.1 navigation compatible. (#81)
