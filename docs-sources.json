@@ -212,7 +212,7 @@
     {
       "id": "go",
       "repository": "https://github.com/OpenTLV/opentlv-go",
-      "revision": "6edf392293eb039986f0ca2aaa6936f8bc51607e",
+      "revision": "443080565786675cf17a65668fe42cd930a5a095",
       "docs_path": "docs",
       "mount": "go",
       "updates": {
