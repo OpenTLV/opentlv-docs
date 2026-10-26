@@ -9,6 +9,7 @@ import io
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import tarfile
 import tempfile
@@ -30,6 +31,7 @@ class EvidenceTests(unittest.TestCase):
         self.directory = self.root / "candidate"
         self.directory.mkdir()
         (self.root / "docs-sources.json").write_text('{"sources": []}\n')
+        (self.root / "mkdocs.yml").write_text("site_url: https://opentlv.github.io/opentlv-docs/\n")
         (self.directory / "history.bundle").write_bytes(b"fixture")
         self.env = {"GITHUB_REPOSITORY": "OpenTLV/opentlv-docs", "GITHUB_SHA": "a" * 40,
                     "GITHUB_RUN_ID": "123", "GITHUB_RUN_ATTEMPT": "2",
@@ -140,6 +142,45 @@ class EvidenceTests(unittest.TestCase):
             # Failed validation creates only an empty destination.
             (self.directory / "site").rmdir()
             self.assertFalse((self.root / "outside").exists())
+
+
+class EntryPointTests(unittest.TestCase):
+    """Absolute links into other published namespaces are outside MkDocs validation."""
+
+    def setUp(self):
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        self.root = Path(temp.name).resolve()
+        (self.root / "mkdocs.yml").write_text("site_url: https://opentlv.github.io/opentlv-docs/\n")
+        self.site = self.root / "site"
+        for name in ("index.html", "cli/stable/index.html", "cli/0.1.0/json-schema/index.html",
+                     "latest/assets/opentlv.svg"):
+            (self.site / name).parent.mkdir(parents=True, exist_ok=True)
+            (self.site / name).write_text("x")
+
+    def page(self, *targets, path="latest/tools/index.html"):
+        links = "".join(f'<a href="https://opentlv.github.io/opentlv-docs/{target}">entry</a>' for target in targets)
+        (self.site / path).parent.mkdir(parents=True, exist_ok=True)
+        (self.site / path).write_text(f"<html><body>{links}</body></html>")
+
+    def test_published_entries_files_and_fragments_resolve(self):
+        self.page("", "cli/stable/", "cli/0.1.0/json-schema/#format", "cli/stable/?q=1",
+                  "latest/assets/opentlv.svg", "latest/tools/")
+        quality.check_entry_points(self.root, self.site, self.site / "latest")
+
+    def test_unpublished_moved_missing_or_outside_entries_are_rejected(self):
+        for target in ("lua/stable/", "latest/playground/", "cli/stable/missing.html", "../outside/"):
+            self.page(target)
+            with self.assertRaisesRegex(ValueError, "missing site entry points: https://opentlv"
+                                        r"\.github\.io/opentlv-docs/" + re.escape(target) + r"\Z"):
+                quality.check_entry_points(self.root, self.site, self.site / "latest")
+
+    def test_other_sites_and_unselected_snapshots_are_not_checked(self):
+        self.page("lua/stable/", path="1.0.0/index.html")
+        (self.site / "latest/index.html").parent.mkdir(parents=True, exist_ok=True)
+        (self.site / "latest/index.html").write_text(
+            '<a href="https://opentlv.github.io/opentlv/latest/playground/">legacy</a>')
+        quality.check_entry_points(self.root, self.site, self.site / "latest")
 
 
 class TimingTests(unittest.TestCase):

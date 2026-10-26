@@ -28,6 +28,11 @@ under Development. The remaining Core planning corrections must merge in Core
 and be adopted through reviewed portal pins before #61 can close. A local preview
 does not update the selected source set or establish publication readiness.
 
+The [migration validation record](DOCUMENTATION-VALIDATION.md) for #50 resolves
+every original page against the current pins and built site. It also records
+discontinued URLs, product entry points, publication evidence and remaining
+tracked work.
+
 ## Portal navigation
 
 The central portal implements the seven sections defined by
@@ -113,11 +118,13 @@ selected Lua/Python/Rust usage, setup and versioning chapters render under Langu
 Follow [Register a binding or tool](docs/development/product-catalogs.md) when
 adding an entry or changing its availability.
 
-The [historical records index](docs/development/history.md) collects 18 retained
+The [historical records index](docs/development/history.md) collects the retained
 migration, validation, performance and audit pages under
-`development/history/{owner}/`. This includes Core's Python transition guide,
-Core's superseded Rust guides, the Lua/Python/Rust migration records and the
-dated Python and Rust validation reports.
+`development/history/{owner}/`; the current source pins provide 17 records.
+These are Core's Python transition guide and performance and audit reports, the
+Lua/Python/Rust migration records and the dated Python and Rust validation reports.
+Core's former Go and JavaScript manuals and migration baselines appear only for
+older selected Core revisions that still contain them.
 Each page retains its technical body, anchors, evidence and owner edit link,
 with a visible historical note and links to current instructions. Archived
 records are omitted from normal search results; the archive index remains
@@ -1391,7 +1398,10 @@ Evidence records the repository, infrastructure SHA, workflow ref, run ID,
 attempt, exact source selection, source-manifest digest, artifact digests and
 immutable historical tree IDs. The Full gate downloads only its own attempt,
 verifies the bundle, source metadata, archive paths and unchanged historical
-trees, then uploads `docs-pages-<attempt>`. Deployment checks the gate's evidence
+trees, then uploads `docs-pages-<attempt>`. It also requires every absolute link
+from the new version into `site_url`, such as `/cli/stable/` or a product
+snapshot's portal return link, to resolve in the prepared history. MkDocs
+validates only relative links; existing snapshots are not rechecked. Deployment checks the gate's evidence
 digest and identity again before a fast-forward history push.
 Missing or mismatched evidence fails closed; no unrelated run can authorize
 deployment. Core version policy and the independent CLI release flow are retained.

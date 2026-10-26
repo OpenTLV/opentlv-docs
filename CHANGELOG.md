@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Require absolute links from a new documentation version into the published site, such as CLI entry points and product return links, to resolve in the prepared publication history before deployment. (#50)
 - Support Core's relocated Doxygen inputs in `docs/api/` without publishing the five generation sources as static assets; preserve API references, other documentation assets and older Core revisions. (OpenTLV/opentlv#681)
 - Name the language and binding JavaScript throughout portal navigation, catalogs, contributor guides and playground copy; correct standalone binding ownership and move its portal source to `bindings/javascript/` and public overview/manual routes to `languages/javascript/`. Retain WebAssembly terminology for the binary format, runtime requirements and historical source paths. (OpenTLV/opentlv-js#14)
 - Build the playground from selected standalone JS and Core sources, verify both revisions and fingerprints through publication, and accept Core Main CI documentation notifications. Support removal of the old Core WASM manual and migration records while preserving historical selections and rejecting partial cleanup. (OpenTLV/opentlv#698)
@@ -35,6 +36,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Correct the number and contents of the historical records for the current source pins; Core's Rust guides are no longer archived there. (#50)
 - Register Lua's generic Core API coverage guide in contributor navigation so the Lua source-pin update passes complete-documentation checks. (OpenTLV/opentlv-lua#31, #111)
 - Pair the Core documentation update with the JS pin already adopted in #103, restoring the WASM binding-contract anchor linked from Core's examples. (#104)
 - Adopt the Rust documentation pin proposed by #99 with navigation for Codec/Generator validation and generic Core API coverage; preserve Rust ownership, archive the historical validation record and keep the maintained coverage guide under Development. (#93)
@@ -61,6 +63,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Validate the documentation migration against every original page, the seven-section navigation, discontinued URLs, product entry points and publication history; record the final dispositions and remaining tracked work. (#50)
 - Integrate independently pinned Go manuals, examples and Main documentation updates, with Go-owned links and archived Core migration guides. (OpenTLV/opentlv-go#6)
 - Inventory existing documentation and define the proposed six-section migration mapping, preservation requirements and public URL compatibility handling; keep detailed format documentation and C/C++ references Core-owned while Portal owns catalogs, introductions and navigation. (#44)
 - Publish verified Lua, Python and configured component releases as independent immutable documentation snapshots through shared publication gates; align the Lua source pin and quality-gate navigation. (#42)

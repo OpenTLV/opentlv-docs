@@ -21,8 +21,9 @@ The original six-section mapping records the completed foundation; the #63
 section below records its implemented seven-section successor. Issues #44–#49
 and the example repair #51 are closed. The #63 implementation is merged;
 ownership corrections #62 are merged, selected and closed. The #61 content
-disposition implementation is recorded below; final published validation #50
-remains a separate follow-up.
+disposition implementation is recorded below. The final #50 validation of this
+map against the current pins and site is recorded in the
+[migration validation record](DOCUMENTATION-VALIDATION.md).
 
 | Follow-up | Responsibility |
 | --- | --- |

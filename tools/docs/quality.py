@@ -10,6 +10,9 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import tarfile
+from urllib.parse import unquote
+
+import yaml
 
 import publication
 
@@ -52,6 +55,22 @@ def snapshots(portal, ref):
             path = prefix + version
             trees[path] = publication.run(portal, "git", "rev-parse", f"{ref}:{path}")
     return trees
+
+
+def check_entry_points(portal, site, tree):
+    """Require absolute links into this Pages site, such as product entries, to exist."""
+    base = yaml.safe_load((portal / "mkdocs.yml").read_text(encoding="utf-8"))["site_url"].rstrip("/") + "/"
+    link = re.compile(r'href="' + re.escape(base) + r'([^"#?]*)')
+    missing = set()
+    # MkDocs validates relative links only; these targets belong to other namespaces.
+    for page in sorted(tree.rglob("*.html")):
+        for target in link.findall(page.read_text(encoding="utf-8", errors="replace")):
+            path = site / unquote(target)
+            if (not path.resolve().is_relative_to(site.resolve())
+                    or not (path.is_file() or (path / "index.html").is_file())):
+                missing.add(base + target)
+    if missing:
+        raise ValueError("Publication links to missing site entry points: " + ", ".join(sorted(missing)))
 
 
 def baseline(portal):
@@ -157,9 +176,12 @@ def verify(portal, directory, *, extract=True):
         import component_publication
         if not re.fullmatch(r"[a-z][a-z0-9_]*", selected["source"]):
             raise ValueError("Invalid component publication namespace")
-        component_publication.verify_site(site / selected["source"] / selected["version"], selected)
+        tree = site / selected["source"] / selected["version"]
+        component_publication.verify_site(tree, selected)
     else:
-        publication.verify_site(site / selected["version"], selected)
+        tree = site / selected["version"]
+        publication.verify_site(tree, selected)
+    check_entry_points(portal, site, tree)
     return evidence
 
 

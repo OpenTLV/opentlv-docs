@@ -134,3 +134,9 @@ files, with archive context and links to current instructions. They are omitted
 from normal search and public product menus, but remain accessible through
 Development. Current test procedures and planned work remain separate from
 completed validation evidence.
+
+The [migration validation record](https://github.com/OpenTLV/opentlv-docs/blob/main/DOCUMENTATION-VALIDATION.md)
+for [#50](https://github.com/OpenTLV/opentlv-docs/issues/50) gives the final
+disposition of every original page and lists discontinued URLs and remaining
+follow-ups. Absolute links into the published site, such as product entry
+points, must resolve in the history being deployed.
