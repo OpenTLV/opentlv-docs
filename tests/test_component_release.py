@@ -184,6 +184,10 @@ class ComponentPublicationTests(unittest.TestCase):
         return engine.prepare(self.portal, self.component_selection(name, tag), self.cli)
 
     def test_components_preserve_each_other_and_full_gate_tracks_all_snapshots(self):
+        # Component snapshots link back to the portal root published by Core.
+        cli.fixtures.PublicationTests.prepare(self)
+        self.deploy_bundle()
+        self.fresh_checkout()
         for name in ("cli", "lua", "python", "future"):
             if self.remote_head():
                 self.git("fetch", "origin", "refs/heads/gh-pages:refs/heads/gh-pages")
