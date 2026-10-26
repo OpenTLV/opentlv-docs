@@ -33,6 +33,10 @@
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/javascript/</loc>
+         <lastmod>2026-10-26</lastmod>
+    </url>
+    <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/languages/lua/</loc>
          <lastmod>2026-10-26</lastmod>
     </url>
@@ -42,10 +46,6 @@
     </url>
     <url>
          <loc>https://opentlv.github.io/opentlv-docs/latest/languages/rust/</loc>
-         <lastmod>2026-10-26</lastmod>
-    </url>
-    <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/wasm/</loc>
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>
@@ -417,15 +417,19 @@
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/wasm/manual/distribution-follow-ups/</loc>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/javascript/manual/distribution-follow-ups/</loc>
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/wasm/manual/packaging/</loc>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/javascript/manual/packaging/</loc>
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>
-         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/wasm/manual/webassembly/</loc>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/languages/javascript/manual/webassembly/</loc>
+         <lastmod>2026-10-26</lastmod>
+    </url>
+    <url>
+         <loc>https://opentlv.github.io/opentlv-docs/latest/development/components/lua/api-coverage/</loc>
          <lastmod>2026-10-26</lastmod>
     </url>
     <url>

@@ -14,9 +14,9 @@
   },
   "js": {
     "repository": "https://github.com/OpenTLV/opentlv-js",
-    "commit": "c971205a1afeaeb2907998a60a0cc3448d1cd738",
+    "commit": "72338d82aad22c1620b75e0f8f190de11982a74a",
     "local": false,
     "dirty": false,
-    "source_sha256": "ea283c223f1934f6b8bf95c009d93f3e1fc38013b89b28792a474dea38cd00f8"
+    "source_sha256": "8a3eac6bc62c0ad199444bc7dc192303cf9035635475e889c7108af29b4cc8b8"
   }
 }

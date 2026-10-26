@@ -6,35 +6,35 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.">
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/languages/wasm/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/components/lua/api-coverage/">
       
       
-        <link rel="prev" href="../go/">
+        <link rel="prev" href="../quality-gates/">
       
       
-        <link rel="next" href="../../tools/">
+        <link rel="next" href="../implementation/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/favicon.svg">
+      <link rel="icon" href="../../../../assets/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
-        <title>WebAssembly overview - OpenTLV</title>
+        <title>Lua generic Core API coverage - OpenTLV</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -53,9 +53,9 @@
       
     
     
-      <link rel="stylesheet" href="../../playground/playground.css">
+      <link rel="stylesheet" href="../../../../playground/playground.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#webassembly" class="md-skip">
+        <a href="#generic-core-api-coverage" class="md-skip">
           Skip to content
         </a>
       
@@ -112,9 +112,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -131,7 +131,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              WebAssembly overview
+              Lua generic Core API coverage
             
           </span>
         </div>
@@ -244,7 +244,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../../.." class="md-tabs__link">
         
   
   
@@ -265,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorials/" class="md-tabs__link">
+        <a href="../../../../tutorials/" class="md-tabs__link">
           
   
   
@@ -287,7 +287,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../api/" class="md-tabs__link">
+        <a href="../../../../api/" class="md-tabs__link">
           
   
   
@@ -309,7 +309,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../standards/" class="md-tabs__link">
+        <a href="../../../../standards/" class="md-tabs__link">
           
   
   
@@ -327,13 +327,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../../languages/" class="md-tabs__link">
           
   
   
@@ -355,7 +353,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tools/" class="md-tabs__link">
+        <a href="../../../../tools/" class="md-tabs__link">
           
   
   
@@ -373,11 +371,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../development/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
           
   
   
@@ -413,9 +413,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+    <a href="../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
       
-  <img src="../../assets/logo-mark.svg" alt="logo">
+  <img src="../../../../assets/logo-mark.svg" alt="logo">
 
     </a>
     OpenTLV
@@ -442,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../../.." class="md-nav__link">
         
   
   
@@ -504,7 +504,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../tutorials/" class="md-nav__link ">
+            <a href="../../../../tutorials/" class="md-nav__link ">
               
   
   
@@ -548,7 +548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/concepts/learning-model/" class="md-nav__link">
+      <a href="../../../../tutorials/concepts/learning-model/" class="md-nav__link">
         
   
   
@@ -576,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/first-program/" class="md-nav__link">
+      <a href="../../../../tutorials/first-program/" class="md-nav__link">
         
   
   
@@ -604,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/processing/" class="md-nav__link">
+      <a href="../../../../tutorials/processing/" class="md-nav__link">
         
   
   
@@ -632,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/examples/" class="md-nav__link">
+      <a href="../../../../tutorials/examples/" class="md-nav__link">
         
   
   
@@ -660,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/cpp-examples/" class="md-nav__link">
+      <a href="../../../../tutorials/cpp-examples/" class="md-nav__link">
         
   
   
@@ -688,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/formats/" class="md-nav__link">
+      <a href="../../../../tutorials/formats/" class="md-nav__link">
         
   
   
@@ -760,7 +760,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../api/" class="md-nav__link ">
+            <a href="../../../../api/" class="md-nav__link ">
               
   
   
@@ -870,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/core-types/" class="md-nav__link">
+      <a href="../../../../api/concepts/core-types/" class="md-nav__link">
         
   
   
@@ -898,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/value/" class="md-nav__link">
+      <a href="../../../../api/concepts/value/" class="md-nav__link">
         
   
   
@@ -926,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/length/" class="md-nav__link">
+      <a href="../../../../api/concepts/length/" class="md-nav__link">
         
   
   
@@ -954,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/endian/" class="md-nav__link">
+      <a href="../../../../api/concepts/endian/" class="md-nav__link">
         
   
   
@@ -982,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/format-contract/" class="md-nav__link">
+      <a href="../../../../api/concepts/format-contract/" class="md-nav__link">
         
   
   
@@ -1010,7 +1010,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/concepts/format-capabilities/" class="md-nav__link">
+      <a href="../../../../api/concepts/format-capabilities/" class="md-nav__link">
         
   
   
@@ -1114,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/reader/" class="md-nav__link">
+      <a href="../../../../api/guides/reader/" class="md-nav__link">
         
   
   
@@ -1142,7 +1142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/writer/" class="md-nav__link">
+      <a href="../../../../api/guides/writer/" class="md-nav__link">
         
   
   
@@ -1170,7 +1170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/document/" class="md-nav__link">
+      <a href="../../../../api/guides/document/" class="md-nav__link">
         
   
   
@@ -1198,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/queries/" class="md-nav__link">
+      <a href="../../../../api/guides/queries/" class="md-nav__link">
         
   
   
@@ -1226,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/query-language/" class="md-nav__link">
+      <a href="../../../../api/query-language/" class="md-nav__link">
         
   
   
@@ -1254,7 +1254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/schemas/" class="md-nav__link">
+      <a href="../../../../api/guides/schemas/" class="md-nav__link">
         
   
   
@@ -1282,7 +1282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/codecs/" class="md-nav__link">
+      <a href="../../../../api/guides/codecs/" class="md-nav__link">
         
   
   
@@ -1380,7 +1380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/diagnostics/" class="md-nav__link">
+      <a href="../../../../api/guides/diagnostics/" class="md-nav__link">
         
   
   
@@ -1408,7 +1408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/reference/errors/" class="md-nav__link">
+      <a href="../../../../api/reference/errors/" class="md-nav__link">
         
   
   
@@ -1436,7 +1436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/memory/" class="md-nav__link">
+      <a href="../../../../api/guides/memory/" class="md-nav__link">
         
   
   
@@ -1464,7 +1464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/guides/copy/" class="md-nav__link">
+      <a href="../../../../api/guides/copy/" class="md-nav__link">
         
   
   
@@ -1500,7 +1500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/capabilities/" class="md-nav__link">
+      <a href="../../../../api/capabilities/" class="md-nav__link">
         
   
   
@@ -1528,7 +1528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/configuration/" class="md-nav__link">
+      <a href="../../../../api/configuration/" class="md-nav__link">
         
   
   
@@ -1591,7 +1591,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../api/formats/" class="md-nav__link ">
+            <a href="../../../../api/formats/" class="md-nav__link ">
               
   
   
@@ -1635,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/guide/" class="md-nav__link">
+      <a href="../../../../api/formats/guide/" class="md-nav__link">
         
   
   
@@ -1663,7 +1663,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/fixed/configurable/" class="md-nav__link">
+      <a href="../../../../api/formats/fixed/configurable/" class="md-nav__link">
         
   
   
@@ -1691,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/variable/" class="md-nav__link">
+      <a href="../../../../api/formats/variable/" class="md-nav__link">
         
   
   
@@ -1719,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/packed/" class="md-nav__link">
+      <a href="../../../../api/formats/packed/" class="md-nav__link">
         
   
   
@@ -1747,7 +1747,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/escaped/" class="md-nav__link">
+      <a href="../../../../api/formats/escaped/" class="md-nav__link">
         
   
   
@@ -1775,7 +1775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/formats/custom/" class="md-nav__link">
+      <a href="../../../../api/formats/custom/" class="md-nav__link">
         
   
   
@@ -1838,7 +1838,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../api/reference/" class="md-nav__link ">
+            <a href="../../../../api/reference/" class="md-nav__link ">
               
   
   
@@ -1882,7 +1882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/reference/c/" class="md-nav__link">
+      <a href="../../../../api/reference/c/" class="md-nav__link">
         
   
   
@@ -1910,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/reference/cpp/" class="md-nav__link">
+      <a href="../../../../api/reference/cpp/" class="md-nav__link">
         
   
   
@@ -1978,7 +1978,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../standards/" class="md-nav__link ">
+            <a href="../../../../standards/" class="md-nav__link ">
               
   
   
@@ -2061,7 +2061,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../standards/bluetooth/" class="md-nav__link ">
+            <a href="../../../../standards/bluetooth/" class="md-nav__link ">
               
   
   
@@ -2105,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/nfc/" class="md-nav__link">
+      <a href="../../../../standards/nfc/" class="md-nav__link">
         
   
   
@@ -2133,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/dhcp/" class="md-nav__link">
+      <a href="../../../../standards/dhcp/" class="md-nav__link">
         
   
   
@@ -2161,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/lldp/" class="md-nav__link">
+      <a href="../../../../standards/lldp/" class="md-nav__link">
         
   
   
@@ -2189,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/lldp/conformance/" class="md-nav__link">
+      <a href="../../../../standards/lldp/conformance/" class="md-nav__link">
         
   
   
@@ -2217,7 +2217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/asn1/ber/" class="md-nav__link">
+      <a href="../../../../standards/asn1/ber/" class="md-nav__link">
         
   
   
@@ -2245,7 +2245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/asn1/der/" class="md-nav__link">
+      <a href="../../../../standards/asn1/der/" class="md-nav__link">
         
   
   
@@ -2273,7 +2273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/asn1/cer/" class="md-nav__link">
+      <a href="../../../../standards/asn1/cer/" class="md-nav__link">
         
   
   
@@ -2301,7 +2301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../standards/emv/" class="md-nav__link">
+      <a href="../../../../standards/emv/" class="md-nav__link">
         
   
   
@@ -2341,8 +2341,6 @@
       
   
   
-    
-  
   
   
     
@@ -2372,23 +2370,20 @@
     
     
       
-        
-        
-      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
+            <a href="../../../../languages/" class="md-nav__link ">
               
   
   
@@ -2406,13 +2401,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2432,7 +2427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contracts/" class="md-nav__link">
+      <a href="../../../../languages/contracts/" class="md-nav__link">
         
   
   
@@ -2460,7 +2455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../c/" class="md-nav__link">
+      <a href="../../../../languages/c/" class="md-nav__link">
         
   
   
@@ -2506,13 +2501,10 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
@@ -2520,7 +2512,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../cpp/" class="md-nav__link ">
+            <a href="../../../../languages/cpp/" class="md-nav__link ">
               
   
   
@@ -2538,7 +2530,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5_4" id="__nav_5_4_label" tabindex="">
+              <label class="md-nav__link " for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -2564,7 +2556,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp/concepts/cxx-native-boundary/" class="md-nav__link">
+      <a href="../../../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
         
   
   
@@ -2592,7 +2584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp/concepts/cxx-formats/" class="md-nav__link">
+      <a href="../../../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
         
   
   
@@ -2620,7 +2612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cpp/concepts/cxx-builtins/" class="md-nav__link">
+      <a href="../../../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
         
   
   
@@ -2656,7 +2648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
+      <a href="../../../../languages/python/" class="md-nav__link">
         
   
   
@@ -2684,7 +2676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../lua/" class="md-nav__link">
+      <a href="../../../../languages/lua/" class="md-nav__link">
         
   
   
@@ -2712,7 +2704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rust/" class="md-nav__link">
+      <a href="../../../../languages/rust/" class="md-nav__link">
         
   
   
@@ -2740,7 +2732,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../go/" class="md-nav__link">
+      <a href="../../../../languages/go/" class="md-nav__link">
         
   
   
@@ -2765,45 +2757,17 @@
                 
   
   
-    
   
   
-  
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="../../../../languages/javascript/" class="md-nav__link">
         
-          
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" checked>
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
-              
   
   
   <span class="md-ellipsis">
     
   
-    WebAssembly
+    JavaScript
   
 
     
@@ -2811,26 +2775,7 @@
   
   
 
-            </a>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_5_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    WebAssembly
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-          </ul>
-        </nav>
-      
+      </a>
     </li>
   
 
@@ -2879,7 +2824,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../tools/" class="md-nav__link ">
+            <a href="../../../../tools/" class="md-nav__link ">
               
   
   
@@ -2923,7 +2868,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/otlv/" class="md-nav__link">
+      <a href="../../../../tools/otlv/" class="md-nav__link">
         
   
   
@@ -2976,7 +2921,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../tools/playground/" class="md-nav__link ">
+            <a href="../../../../tools/playground/" class="md-nav__link ">
               
   
   
@@ -3018,7 +2963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/playground/overview/" class="md-nav__link">
+      <a href="../../../../tools/playground/overview/" class="md-nav__link">
         
   
   
@@ -3056,7 +3001,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/imtlv/" class="md-nav__link">
+      <a href="../../../../tools/imtlv/" class="md-nav__link">
         
   
   
@@ -3088,6 +3033,8 @@
       
   
   
+    
+  
   
   
     
@@ -3119,20 +3066,23 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../development/" class="md-nav__link ">
+            <a href="../../../" class="md-nav__link ">
               
   
   
@@ -3150,13 +3100,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3200,10 +3150,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3211,7 +3164,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../development/architecture/" class="md-nav__link ">
+            <a href="../../../architecture/" class="md-nav__link ">
               
   
   
@@ -3229,7 +3182,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -3255,7 +3208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/architecture/" class="md-nav__link">
+      <a href="../../../architecture/architecture/" class="md-nav__link">
         
   
   
@@ -3283,7 +3236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/processing-pipeline/" class="md-nav__link">
+      <a href="../../../architecture/processing-pipeline/" class="md-nav__link">
         
   
   
@@ -3311,7 +3264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/architectural-rules/" class="md-nav__link">
+      <a href="../../../architecture/architectural-rules/" class="md-nav__link">
         
   
   
@@ -3339,7 +3292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/error-model/" class="md-nav__link">
+      <a href="../../../architecture/error-model/" class="md-nav__link">
         
   
   
@@ -3367,7 +3320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/definition-boundaries/" class="md-nav__link">
+      <a href="../../../architecture/definition-boundaries/" class="md-nav__link">
         
   
   
@@ -3395,7 +3348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/architecture/field-policies/" class="md-nav__link">
+      <a href="../../../architecture/field-policies/" class="md-nav__link">
         
   
   
@@ -3449,17 +3402,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
         
           
-          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
             
   
   
@@ -3495,7 +3451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/planning/runtime-model/" class="md-nav__link">
+      <a href="../../../planning/runtime-model/" class="md-nav__link">
         
   
   
@@ -3523,7 +3479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/planning/indefinite-boundary-reuse/" class="md-nav__link">
+      <a href="../../../planning/indefinite-boundary-reuse/" class="md-nav__link">
         
   
   
@@ -3551,7 +3507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/planning/format-roadmap/" class="md-nav__link">
+      <a href="../../../planning/format-roadmap/" class="md-nav__link">
         
   
   
@@ -3579,7 +3535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/planning/format-catalogue/" class="md-nav__link">
+      <a href="../../../planning/format-catalogue/" class="md-nav__link">
         
   
   
@@ -3607,7 +3563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/planning/lldp-review/" class="md-nav__link">
+      <a href="../../../planning/lldp-review/" class="md-nav__link">
         
   
   
@@ -3659,10 +3615,13 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
@@ -3670,7 +3629,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../development/building/" class="md-nav__link ">
+            <a href="../../../building/" class="md-nav__link ">
               
   
   
@@ -3688,7 +3647,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -3714,7 +3673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/building/core/" class="md-nav__link">
+      <a href="../../../building/core/" class="md-nav__link">
         
   
   
@@ -3742,7 +3701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/building/compilers/" class="md-nav__link">
+      <a href="../../../building/compilers/" class="md-nav__link">
         
   
   
@@ -3794,17 +3753,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
         
           
-          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
             
   
   
@@ -3840,7 +3802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/contributing/" class="md-nav__link">
+      <a href="../../../contributing/" class="md-nav__link">
         
   
   
@@ -3868,7 +3830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/workflow/" class="md-nav__link">
+      <a href="../../../workflow/" class="md-nav__link">
         
   
   
@@ -3896,7 +3858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bindings/python/" class="md-nav__link">
+      <a href="../../../bindings/python/" class="md-nav__link">
         
   
   
@@ -3924,7 +3886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/bindings/rust/" class="md-nav__link">
+      <a href="../../../bindings/rust/" class="md-nav__link">
         
   
   
@@ -3957,8 +3919,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -3990,23 +3954,28 @@
       
         
       
-    
-    
-    
-      
-      
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    
       
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+      
         
           
-          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
             
   
   
@@ -4024,7 +3993,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4042,7 +4011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -4070,7 +4039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/cli/development/" class="md-nav__link">
+      <a href="../../cli/development/" class="md-nav__link">
         
   
   
@@ -4098,7 +4067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/cli/releases/" class="md-nav__link">
+      <a href="../../cli/releases/" class="md-nav__link">
         
   
   
@@ -4126,7 +4095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/lua/testing/" class="md-nav__link">
+      <a href="../testing/" class="md-nav__link">
         
   
   
@@ -4154,7 +4123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/lua/quality-gates/" class="md-nav__link">
+      <a href="../quality-gates/" class="md-nav__link">
         
   
   
@@ -4179,10 +4148,129 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#closing-the-remaining-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Closing the remaining gaps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-header-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-header inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-core-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the Core pin
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/lua/implementation/" class="md-nav__link">
+      <a href="../implementation/" class="md-nav__link">
         
   
   
@@ -4210,7 +4298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/lua/releases/" class="md-nav__link">
+      <a href="../releases/" class="md-nav__link">
         
   
   
@@ -4238,7 +4326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/python/quality-gates/" class="md-nav__link">
+      <a href="../../python/quality-gates/" class="md-nav__link">
         
   
   
@@ -4266,7 +4354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/python/releases/" class="md-nav__link">
+      <a href="../../python/releases/" class="md-nav__link">
         
   
   
@@ -4294,7 +4382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/rust/quality-gates/" class="md-nav__link">
+      <a href="../../rust/quality-gates/" class="md-nav__link">
         
   
   
@@ -4322,7 +4410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/rust/validation/api-coverage/" class="md-nav__link">
+      <a href="../../rust/validation/api-coverage/" class="md-nav__link">
         
   
   
@@ -4350,7 +4438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/go/development/ci/" class="md-nav__link">
+      <a href="../../go/development/ci/" class="md-nav__link">
         
   
   
@@ -4378,7 +4466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/go/implementation/" class="md-nav__link">
+      <a href="../../go/implementation/" class="md-nav__link">
         
   
   
@@ -4406,14 +4494,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/components/js/ci/" class="md-nav__link">
+      <a href="../../js/ci/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    JS/WASM tests, CI and documentation updates
+    JavaScript tests, CI and documentation updates
   
 
     
@@ -4462,17 +4550,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
         
           
-          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
             
   
   
@@ -4508,7 +4599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/testing/" class="md-nav__link">
+      <a href="../../../testing/" class="md-nav__link">
         
   
   
@@ -4536,7 +4627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/quality-gates/" class="md-nav__link">
+      <a href="../../../quality-gates/" class="md-nav__link">
         
   
   
@@ -4564,7 +4655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/abi-compatibility/" class="md-nav__link">
+      <a href="../../../abi-compatibility/" class="md-nav__link">
         
   
   
@@ -4592,7 +4683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/fuzzing/" class="md-nav__link">
+      <a href="../../../fuzzing/" class="md-nav__link">
         
   
   
@@ -4620,7 +4711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/valgrind/" class="md-nav__link">
+      <a href="../../../valgrind/" class="md-nav__link">
         
   
   
@@ -4648,7 +4739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/query-adversarial/" class="md-nav__link">
+      <a href="../../../query-adversarial/" class="md-nav__link">
         
   
   
@@ -4696,17 +4787,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
         
           
-          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
             
   
   
@@ -4742,7 +4836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/releases/" class="md-nav__link">
+      <a href="../../../releases/" class="md-nav__link">
         
   
   
@@ -4770,7 +4864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/query-release/" class="md-nav__link">
+      <a href="../../../query-release/" class="md-nav__link">
         
   
   
@@ -4824,17 +4918,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
         
           
-          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
             
   
   
@@ -4870,7 +4967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/documentation/" class="md-nav__link">
+      <a href="../../../documentation/" class="md-nav__link">
         
   
   
@@ -4898,7 +4995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/product-catalogs/" class="md-nav__link">
+      <a href="../../../product-catalogs/" class="md-nav__link">
         
   
   
@@ -4926,7 +5023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/documentation/layout/" class="md-nav__link">
+      <a href="../../../documentation/layout/" class="md-nav__link">
         
   
   
@@ -4954,7 +5051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/documentation/ownership/" class="md-nav__link">
+      <a href="../../../documentation/ownership/" class="md-nav__link">
         
   
   
@@ -4982,7 +5079,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/documentation/assets/" class="md-nav__link">
+      <a href="../../../documentation/assets/" class="md-nav__link">
         
   
   
@@ -5062,17 +5159,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
             
   
   
@@ -5108,7 +5208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/" class="md-nav__link">
+      <a href="../../../history/" class="md-nav__link">
         
   
   
@@ -5136,7 +5236,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/core/guides/python/" class="md-nav__link">
+      <a href="../../../history/core/guides/python/" class="md-nav__link">
         
   
   
@@ -5164,7 +5264,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/core/query-phase-audit/" class="md-nav__link">
+      <a href="../../../history/core/query-phase-audit/" class="md-nav__link">
         
   
   
@@ -5192,7 +5292,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/core/reader-decode-performance/" class="md-nav__link">
+      <a href="../../../history/core/reader-decode-performance/" class="md-nav__link">
         
   
   
@@ -5220,7 +5320,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/core/cxx-facade-performance/" class="md-nav__link">
+      <a href="../../../history/core/cxx-facade-performance/" class="md-nav__link">
         
   
   
@@ -5248,7 +5348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/core/documentation-audit/" class="md-nav__link">
+      <a href="../../../history/core/documentation-audit/" class="md-nav__link">
         
   
   
@@ -5276,7 +5376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/lua/migration/" class="md-nav__link">
+      <a href="../../../history/lua/migration/" class="md-nav__link">
         
   
   
@@ -5304,7 +5404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/python/migration/" class="md-nav__link">
+      <a href="../../../history/python/migration/" class="md-nav__link">
         
   
   
@@ -5332,7 +5432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/python/validation/standalone-build/" class="md-nav__link">
+      <a href="../../../history/python/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5360,7 +5460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/python/validation/ci/" class="md-nav__link">
+      <a href="../../../history/python/validation/ci/" class="md-nav__link">
         
   
   
@@ -5388,7 +5488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/python/validation/packaging/" class="md-nav__link">
+      <a href="../../../history/python/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5416,7 +5516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/python/validation/layout/" class="md-nav__link">
+      <a href="../../../history/python/validation/layout/" class="md-nav__link">
         
   
   
@@ -5444,7 +5544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/validation/codecs-generator/" class="md-nav__link">
+      <a href="../../../history/rust/validation/codecs-generator/" class="md-nav__link">
         
   
   
@@ -5472,7 +5572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/migration/" class="md-nav__link">
+      <a href="../../../history/rust/migration/" class="md-nav__link">
         
   
   
@@ -5500,7 +5600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/validation/standalone-build/" class="md-nav__link">
+      <a href="../../../history/rust/validation/standalone-build/" class="md-nav__link">
         
   
   
@@ -5528,7 +5628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/validation/ci/" class="md-nav__link">
+      <a href="../../../history/rust/validation/ci/" class="md-nav__link">
         
   
   
@@ -5556,7 +5656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/validation/packaging/" class="md-nav__link">
+      <a href="../../../history/rust/validation/packaging/" class="md-nav__link">
         
   
   
@@ -5584,7 +5684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development/history/rust/validation/layout/" class="md-nav__link">
+      <a href="../../../history/rust/validation/layout/" class="md-nav__link">
         
   
   
@@ -5647,10 +5747,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-and-first-use" class="md-nav__link">
+  <a href="#closing-the-remaining-gaps" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation and first use
+        Closing the remaining gaps
       
     </span>
   </a>
@@ -5658,10 +5758,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#detailed-documentation" class="md-nav__link">
+  <a href="#per-header-inventory" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Detailed documentation
+        Per-header inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-the-core-pin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating the Core pin
       
     </span>
   </a>
@@ -5687,7 +5809,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-docs/edit/main/docs/bindings/wasm/index.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/e2b65d515852748b80d1e4506c4b3a306d30a2f4/docs/api-coverage.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5695,27 +5817,350 @@
   
 
 
-<h1 id="webassembly">WebAssembly<a class="headerlink" href="#webassembly" title="Permanent link">&para;</a></h1>
-<p>The standalone WebAssembly build exposes Core to JavaScript tooling for
-parsing, compiled Query, Document editing and contextual Schema validation.</p>
+<h1 id="generic-core-api-coverage">Generic Core API coverage<a class="headerlink" href="#generic-core-api-coverage" title="Permanent link">&para;</a></h1>
+<p>This is the reviewed baseline of the generic Core surface that the Lua
+<code>opentlv</code> module supports. It was recorded for issue
+<a href="https://github.com/OpenTLV/opentlv-lua/issues/31">#31</a>, which closes the
+<a href="https://github.com/OpenTLV/opentlv-lua/issues/25">coverage epic #25</a>, against
+Core commit <code>d87dcf96b2707e817dd51163a9f9efa36651e929</code> (15 commits after
+0.7.1), as pinned by <a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/cmake/core-artifact.json"><code>core-artifact.json</code></a>. The
+comparison baseline is Lua commit <code>9c27c7de77c4691e75b998f67d2778844eebcd13</code>,
+<code>main</code> before this issue's changes.</p>
+<p>Core coverage is <strong>204/204 (100.0 %)</strong> with 93 reviewed exclusions, up from
+202/205 (98.5 %) with 92. Builtins stay at <strong>61/291 (21.0 %)</strong>. Builtins parity
+is outside the epic.
+<a href="../quality-gates/#core-api-coverage"><code>Core API coverage</code></a> now fails a pull
+request or Full run when a generic Core symbol is neither referenced nor
+excluded, or when an exclusion no longer matches the pinned Core.</p>
+<h2 id="closing-the-remaining-gaps">Closing the remaining gaps<a class="headerlink" href="#closing-the-remaining-gaps" title="Permanent link">&para;</a></h2>
+<p>Before this issue, the report listed three symbols as not referenced. Python
+binds all three, and Rust binds the first two:</p>
 <ul>
-<li><strong>Language/environment:</strong> JavaScript with a WebAssembly module built by Emscripten.</li>
-<li><strong>Status:</strong> experimental standalone binding; private package preparation, no published npm package.</li>
-<li><strong>Owner:</strong> <a href="https://github.com/OpenTLV/opentlv-js">OpenTLV JavaScript / WebAssembly</a>.</li>
+<li><code>tlv_definition_find</code> was a real gap. <code>opentlv.definition_registry()</code>
+  snapshots <code>{tag, name}</code> entry tables, and <code>registry:find(tag)</code> returns an
+  owned copy of the first entry with an equal Tag and its 1-based index, or
+  <code>nil</code>. <code>registry:definitions()</code> returns the entries in order. Python's
+  equivalent is <code>DefinitionRegistry</code>, Rust's <code>DefinitionRegistry</code>. The entry
+  shape is the one <code>opentlv.query_definition_resolver()</code> already accepted.</li>
+<li><code>tlv_diagnostic_path_string</code> was a real gap. Every diagnostic table with a
+  tracked path now has <code>path_text</code>, Core's formatting of that path, such as
+  <code>"30 &gt; A5"</code>. Python's equivalent is <code>OpenTLVError.path_text</code>, Rust's
+  <code>path_text()</code>. The text is copied when the table is built, so it does not
+  depend on the input or Schema staying alive. A truncated path ends in
+  <code>" &gt; ..."</code> and a tracked empty path is <code>""</code>. It is absent without a tracked
+  path, and also for a path Core rejects, such as one with an empty Tag.</li>
+<li><code>tlv_location_translate</code> adds a byte origin to a known location. Python uses
+  it because its <code>write_element(storage, ..., offset=...)</code> writes at an offset
+  into caller storage. Lua strings are immutable, so Lua has no caller
+  destination, and every entry point passes Core the Lua string it received or
+  owned output and reports Core's coordinates unchanged. Incremental Readers
+  report absolute offsets through Core. The symbol is now a reviewed exclusion
+  in <a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/cmake/api-coverage.json"><code>api-coverage.json</code></a>.</li>
 </ul>
-<h2 id="installation-and-first-use">Installation and first use<a class="headerlink" href="#installation-and-first-use" title="Permanent link">&para;</a></h2>
-<p>Follow the <a href="manual/webassembly/#build">WebAssembly build guide</a>
-for the SDK, generated module and browser integration. To explore bytes without
-building an application, use the <a href="../../tools/playground/overview/">playground overview</a>.</p>
-<h2 id="detailed-documentation">Detailed documentation<a class="headerlink" href="#detailed-documentation" title="Permanent link">&para;</a></h2>
-<p>The <a href="manual/webassembly/">WebAssembly manual</a> owns build commands,
-API usage and constraints. Check the <a href="../contracts/">capability matrix</a>
-for remaining facade gaps. The <a href="manual/packaging/">private package guide</a>
-owns the independent JS package version and its distinction from embedded Core.
-This manual follows the portal-selected JS commit; no independent JS documentation
-release is selected. Node is the validated runtime; browser/worker runtime
-coverage is not established by the standalone CI.</p>
-<p><a href="../">All languages</a></p>
+<h2 id="per-header-inventory">Per-header inventory<a class="headerlink" href="#per-header-inventory" title="Permanent link">&para;</a></h2>
+<p><code>Referenced</code> counts the <code>TLV_API</code> symbols that <code>src</code> names, excluding the
+reviewed exclusions. A referenced symbol shows that the module can reach it,
+not that it covers all the functionality. This table records that mapping and
+the binding tests behind it; the test files are in <code>tests/</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Core header</th>
+<th style="text-align: right;">Referenced</th>
+<th style="text-align: right;">Excluded</th>
+<th>Public Lua API</th>
+<th>Binding tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tlv/codec/codec.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td><code>codec:decode()</code> and <code>codec:encode()</code> of every codec</td>
+<td><code>codec_spec</code>, <code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/codec/diagnostic.h</code></td>
+<td style="text-align: right;">5/5</td>
+<td style="text-align: right;">0</td>
+<td><code>codec_detail</code> with operation, cause, violation and reason names</td>
+<td><code>codec_spec</code>, <code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/codec/digits.h</code>, <code>number.h</code>, <code>text.h</code></td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">6</td>
+<td><code>codecs.digits{}</code>, <code>codecs.number{}</code>, <code>codecs.text{}</code></td>
+<td><code>codec_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/codec/ipv4.h</code></td>
+<td style="text-align: right;">3/3</td>
+<td style="text-align: right;">0</td>
+<td><code>codecs.ipv4</code>, <code>codecs.ipv4_list</code></td>
+<td><code>codec_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/codec/structure.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td><code>structure_codec()</code></td>
+<td><code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/codec/values.h</code></td>
+<td style="text-align: right;">7/7</td>
+<td style="text-align: right;">0</td>
+<td>Integer and byte codecs such as <code>codecs.uint16_be</code>, <code>int64_minimal_be</code>, <code>bytes</code></td>
+<td><code>codec_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/definition.h</code></td>
+<td style="text-align: right;">1/1</td>
+<td style="text-align: right;">0</td>
+<td><code>definition_registry()</code>, <code>find()</code>, <code>definitions()</code></td>
+<td><code>definition_path_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/diagnostic.h</code></td>
+<td style="text-align: right;">4/4</td>
+<td style="text-align: right;">10</td>
+<td><code>location</code>, <code>severity</code>, <code>path_text</code> in diagnostic tables</td>
+<td><code>error_spec</code>, <code>schema_spec</code>, <code>definition_path_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/document/document.h</code></td>
+<td style="text-align: right;">41/41</td>
+<td style="text-align: right;">0</td>
+<td><code>document()</code>, Nodes, <code>revision()</code>, <code>visit()</code>, <code>source_location()</code>, <code>document_builder()</code></td>
+<td><code>query_document_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/field/escaped.h</code>, <code>fixed.h</code>, <code>variable.h</code></td>
+<td style="text-align: right;">10/10</td>
+<td style="text-align: right;">0</td>
+<td><code>formats.compose()</code> field adapters</td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/field/packed.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td><code>fields.read_packed()</code>, <code>fields.write_packed()</code></td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/format.h</code></td>
+<td style="text-align: right;">8/8</td>
+<td style="text-align: right;">0</td>
+<td>Format methods, <code>constructed</code>, <code>source:preserve()</code></td>
+<td><code>format_spec</code>, <code>compose_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/formats/compose.h</code></td>
+<td style="text-align: right;">3/3</td>
+<td style="text-align: right;">12</td>
+<td><code>formats.compose()</code></td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/formats/escaped.h</code></td>
+<td style="text-align: right;">1/1</td>
+<td style="text-align: right;">3</td>
+<td><code>formats.compose()</code> with an escaped length</td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/formats/fixed.h</code></td>
+<td style="text-align: right;">1/1</td>
+<td style="text-align: right;">0</td>
+<td><code>formats.fixed()</code>, <code>formats.compose()</code></td>
+<td><code>format_spec</code>, <code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/formats/packed.h</code></td>
+<td style="text-align: right;">4/4</td>
+<td style="text-align: right;">0</td>
+<td><code>formats.packed()</code></td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/formats/variable.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">4</td>
+<td><code>formats.compose()</code> with variable fields</td>
+<td><code>compose_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/generator.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td><code>generator()</code>, <code>generate()</code>, <code>workspace_size()</code></td>
+<td><code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/query/adapters.h</code></td>
+<td style="text-align: right;">3/3</td>
+<td style="text-align: right;">0</td>
+<td>Query providers, codec providers, <code>query_definition_resolver()</code></td>
+<td><code>program_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/query/plan.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td><code>query_plan_open()</code>, <code>plan_info()</code></td>
+<td><code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/query/program.h</code></td>
+<td style="text-align: right;">31/31</td>
+<td style="text-align: right;">0</td>
+<td><code>query_program()</code>, executions, <code>reset()</code>, Query errors</td>
+<td><code>program_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/query/query.h</code></td>
+<td style="text-align: right;">9/9</td>
+<td style="text-align: right;">1</td>
+<td><code>query()</code>, <code>format()</code>, <code>visit()</code>, matcher <code>visit()</code></td>
+<td><code>query_document_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/reader/diagnostic.h</code></td>
+<td style="text-align: right;">1/1</td>
+<td style="text-align: right;">0</td>
+<td>Reader <code>operation</code> names</td>
+<td><code>reader_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/reader/reader.h</code></td>
+<td style="text-align: right;">11/11</td>
+<td style="text-align: right;">2</td>
+<td><code>reader()</code>, <code>read()</code>, <code>read_source()</code>, incremental input, <code>next_source()</code></td>
+<td><code>reader_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/reader/tree.h</code></td>
+<td style="text-align: right;">9/9</td>
+<td style="text-align: right;">2</td>
+<td><code>tree_reader()</code></td>
+<td><code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/reader/visitor.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">1</td>
+<td><code>visit()</code>, <code>visit_tree()</code>, <code>reader:visit()</code>, <code>tree_reader:visit()</code></td>
+<td><code>visitor_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/result.h</code></td>
+<td style="text-align: right;">1/1</td>
+<td style="text-align: right;">0</td>
+<td><code>message</code>, <code>strerror()</code></td>
+<td><code>error_spec</code>, <code>module_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/schema/constraint.h</code></td>
+<td style="text-align: right;">3/3</td>
+<td style="text-align: right;">0</td>
+<td><code>value_constraint()</code></td>
+<td><code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/schema/detail.h</code></td>
+<td style="text-align: right;">2/2</td>
+<td style="text-align: right;">0</td>
+<td>Schema <code>kind</code> and definition kind names</td>
+<td><code>schema_spec</code>, <code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/schema/number.h</code></td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">2</td>
+<td><code>codecs.schema_number{}</code></td>
+<td><code>codec_generator_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/schema/query.h</code></td>
+<td style="text-align: right;">3/3</td>
+<td style="text-align: right;">0</td>
+<td><code>query_schema_validate()</code></td>
+<td><code>program_spec</code>, <code>definition_path_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/schema/schema.h</code></td>
+<td style="text-align: right;">9/9</td>
+<td style="text-align: right;">1</td>
+<td><code>schema()</code>, <code>check()</code>, <code>first</code>, <code>length_schema()</code>, <code>cause</code></td>
+<td><code>schema_spec</code>, <code>document_query_schema_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/writer/tree.h</code></td>
+<td style="text-align: right;">10/10</td>
+<td style="text-align: right;">4</td>
+<td><code>tree_writer()</code>, <code>write_event()</code>, <code>measure_tree()</code>, <code>measure_events()</code></td>
+<td><code>writer_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/writer/writer.h</code></td>
+<td style="text-align: right;">10/10</td>
+<td style="text-align: right;">11</td>
+<td><code>writer()</code>, <code>copy_encoded()</code>, <code>preserve()</code>, <code>encoded_size()</code></td>
+<td><code>writer_spec</code>, <code>stream_spec</code></td>
+</tr>
+<tr>
+<td><code>tlv/copy.h</code>, <code>tlv/endian.h</code>, <code>tlv/size.h</code>, <code>tlv/tag.h</code>, <code>tlv/value.h</code></td>
+<td style="text-align: right;">-</td>
+<td style="text-align: right;">34</td>
+<td>Lua strings, string comparison and slicing</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The reason for every exclusion is in
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/cmake/api-coverage.json"><code>api-coverage.json</code></a>, and the
+<a href="../quality-gates/#core-api-coverage">quality gates</a> summarize the groups:
+primitives, diagnostic producers, callbacks that bound descriptor initializers
+and inline codec constructors install, NULL-diagnostic wrappers, the Tag/Value
+and caller-storage write forms, <code>tlv_writer_copy_element</code>, <code>tlv_query_parse</code>,
+<code>tlv_schema_check</code> and <code>tlv_location_translate</code>.</p>
+<h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Builtins-specific parity, including DOL, DER Schema, CER and DER validation,
+  Bluetooth, DHCP and LLDP Schema APIs and the EMV tag constants, is tracked
+  outside this epic. Official builds still compile every supported Core
+  component and builtin, and existing Builtins bindings are unchanged.</li>
+<li>The gate counts names, not behavior. A reviewer still checks that a new
+  reference is a usable public path with binding tests. Core behavior is tested
+  in Core CI.</li>
+<li>Core's inline constructors <code>tlv_number_codec</code>, <code>tlv_text_codec</code>,
+  <code>tlv_digits_codec</code> and <code>tlv_schema_number_codec</code> are not <code>TLV_API</code> symbols and
+  do not appear in the report. The Lua codecs call them.</li>
+<li>Lua has no API for raw C codec or Format callbacks. Applications use Lua
+  callbacks (custom codecs, structure codecs, Query providers) or compose
+  Formats from Core's field encodings.</li>
+<li>In the pinned Core only Schema producers, including Query Schema validation,
+  track enclosing paths, so <code>path</code>, <code>path_omitted</code> and <code>path_text</code> appear on
+  those diagnostics only.</li>
+</ul>
+<h2 id="updating-the-core-pin">Updating the Core pin<a class="headerlink" href="#updating-the-core-pin" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run <code>python -B scripts/api_coverage.py --base origin/main</code> with the new lock,
+   or <code>--core ../opentlv --commit &lt;new&gt; --base-commit &lt;old&gt;</code> before changing it.
+   The pin-change table lists added and removed symbols and whether each added
+   one is already referenced or excluded.</li>
+<li>For every added symbol, bind it as public Lua API with binding tests, or add
+   it to <a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/cmake/api-coverage.json"><code>api-coverage.json</code></a> with a reason that
+   explains why Lua has no separate path. Do not reference a symbol only to
+   raise the count.</li>
+<li>Remove ignore patterns the report lists as matching nothing.</li>
+<li>Update this inventory, the exclusion summary in the
+   <a href="../quality-gates/#core-api-coverage">quality gates</a> and the
+   <a href="../../../../languages/lua/manual/api/">API guide</a> for any new Lua API.</li>
+</ol>
 
 
 
@@ -5750,7 +6195,7 @@ coverage is not established by the standalone CI.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
         
       
     
@@ -5771,14 +6216,14 @@ coverage is not established by the standalone CI.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
         
       
     
@@ -5808,7 +6253,7 @@ coverage is not established by the standalone CI.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../go/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Go">
+          <a href="../quality-gates/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lua quality gates">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -5818,20 +6263,20 @@ coverage is not established by the standalone CI.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Go
+                Lua quality gates
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../tools/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+          <a href="../implementation/" class="md-footer__link md-footer__link--next" aria-label="Next: Lua implementation and ownership">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Overview
+                Lua implementation and ownership
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -5881,12 +6326,12 @@ coverage is not established by the standalone CI.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.c21346df.min.js"></script>
       
-        <script src="../../playground/playground.js" type="module"></script>
+        <script src="../../../../playground/playground.js" type="module"></script>
       
     
   </body>

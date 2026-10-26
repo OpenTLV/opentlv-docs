@@ -2,7 +2,7 @@
 // Copyright (c) 2026 Marek Cingel
 
 // Interactive TLV playground (docs/playground/index.md). All parsing is done by
-// the OpenTLV WebAssembly build in bindings/wasm; this file only reads the
+// the JavaScript binding maintained in opentlv-js; this file only reads the
 // input, calls opentlv.parse() once and renders that one result in three
 // synchronized views (Tree, Hex, JSON) and an inspector for the selected
 // element. Nothing is parsed or decoded here: offsets, sizes and names come
@@ -194,7 +194,7 @@ async function start() {
     opentlv = await module.loadOpenTLV({ locateFile: (name) => new URL(name, base).href });
   } catch (error) {
     status.textContent =
-      "The OpenTLV WebAssembly module could not be loaded, so the playground is unavailable. " +
+      "The OpenTLV JavaScript binding could not be loaded, so the playground is unavailable. " +
       "This browser may lack WebAssembly support, or the documentation was built without the module.";
     console.error(error);
     return;

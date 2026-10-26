@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.">
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
       
       
       
@@ -527,6 +527,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#definition-registries-and-diagnostic-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition registries and diagnostic locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#current-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -803,6 +814,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#definition-registries-and-diagnostic-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition registries and diagnostic locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#current-limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -849,7 +871,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-go/edit/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/docs/guides/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-go/edit/bc73a5100ef6109e8e5634add62785eb21352254/docs/guides/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -865,7 +887,7 @@ studying native C implementation contracts.</p>
 types, slices and errors. Application code imports
 <code>github.com/OpenTLV/opentlv-go</code>; cgo and native handles stay inside
 the binding. See the <a href="../../../../contracts/">binding capability reference</a>
-for current parity, and the <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/quick_start/main.go">standalone quick-start source</a>
+for current parity, and the <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/quick_start/main.go">standalone quick-start source</a>
 for a complete runnable program.</p>
 <h2 id="install-and-integrate">Install and integrate<a class="headerlink" href="#install-and-integrate" title="Permanent link">&para;</a></h2>
 <p>For external projects, see <a href="../../packaging/#external-consumption">module packaging</a>.
@@ -891,7 +913,7 @@ Go cache. No workspace repository or sibling checkout is required.</p>
 <p>Expected output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Hello, world!
 </code></pre></div>
-<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/quick_start/main.go">complete program</a> imports
+<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/quick_start/main.go">complete program</a> imports
 <code>github.com/OpenTLV/opentlv-go</code>, constructs a one-byte Tag/Length Format, writes
 Tag <code>01</code> and the UTF-8 Value <code>Hello, world!</code>, then reads the encoded bytes.
 It checks construction, write and Reader errors. Elements borrow the Writer
@@ -899,7 +921,7 @@ output, which remains unchanged until reading completes.</p>
 <h2 id="api-reference-and-runnable-examples">API reference and runnable examples<a class="headerlink" href="#api-reference-and-runnable-examples" title="Permanent link">&para;</a></h2>
 <p>This guide documents public contracts and limitations. For the selected checkout's
 exported API comments, run <code>go doc .</code> or <code>go doc . NewReader</code> from the module root.
-The <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/opentlv.go">public package sources</a> and tests belong to this repository;
+The <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/opentlv.go">public package sources</a> and tests belong to this repository;
 Core's generated C/C++ reference is not the Go API reference.</p>
 <p>Run examples with <code>python3 scripts/go.py -- run ./examples/&lt;name&gt;</code>:</p>
 <table>
@@ -911,48 +933,48 @@ Core's generated C/C++ reference is not the Go API reference.</p>
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/version/main.go">version</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/version/main.go">version</a></td>
 <td>Independent binding and linked Core identities</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/quick_start/main.go">quick_start</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/quick_start/main.go">quick_start</a></td>
 <td>Fixed-format write/read round trip</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/formats/main.go">formats</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/formats/main.go">formats</a></td>
 <td>Mixed field encodings, tag-only elements and packed headers</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/reader/main.go">reader</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/reader/main.go">reader</a></td>
 <td>Reader and borrowed input</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/writer/main.go">writer</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/writer/main.go">writer</a></td>
 <td>Writer output and sizing</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/streaming/main.go">streaming</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/streaming/main.go">streaming</a></td>
 <td>Incremental tree events and output-capacity retry</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/errors/main.go">errors</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/errors/main.go">errors</a></td>
 <td>Status and diagnostic handling</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/codec/main.go">codec</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/codec/main.go">codec</a></td>
 <td>Typed Value conversion</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/document/main.go">document</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/document/main.go">document</a></td>
 <td>Owned Document editing; requires Document support</td>
 </tr>
 <tr>
-<td><a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/query/main.go">query</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/query/main.go">query</a></td>
 <td>Document queries; requires Document support</td>
 </tr>
 </tbody>
 </table>
-<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/query_conformance/main.go">query_conformance adapter</a> is a test
+<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/query_conformance/main.go">query_conformance adapter</a> is a test
 driver for Core's shared corpus, not an interactive tutorial. Its build and runner
 commands are in <a href="../../development/go/#examples-and-shared-tests">Examples and shared tests</a>.</p>
 <h2 id="format-and-element">Format and Element<a class="headerlink" href="#format-and-element" title="Permanent link">&para;</a></h2>
@@ -1011,7 +1033,7 @@ including accepted nonminimal fields. It revalidates <code>element.Source().Byte
 and checks semantic equality through Core. Use the originating Format and keep
 source bytes unchanged; a logical Element without source returns <code>ErrInvalidArg</code>.
 <code>Writer.Write</code> instead regenerates framing according to the Format's policy.</p>
-<p>Run the <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/formats/main.go">complete generic format example</a>:</p>
+<p>Run the <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/formats/main.go">complete generic format example</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/formats
 </code></pre></div>
 <p>Expected output:</p>
@@ -1031,7 +1053,7 @@ all undiscarded bytes and appending new input. Offsets stay absolute. An
 incomplete final element is an error; final input cannot be reopened.
 The caller assembles windows: the binding does not buffer an <code>io.Reader</code>.
 Readers require no <code>Close</code>.</p>
-<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/reader/main.go">reader/main.go</a>.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/reader/main.go">reader/main.go</a>.</p>
 <h2 id="writer-and-nested-construction">Writer and nested construction<a class="headerlink" href="#writer-and-nested-construction" title="Permanent link">&para;</a></h2>
 <p><code>NewWriter(format)</code> grows owned output. <code>NewWriterBuffer(format, buffer)</code> uses
 the slice's length as fixed capacity. <code>WriteElement(tag, value)</code> and
@@ -1048,7 +1070,7 @@ to a sink. <code>Bytes()</code> excludes unfinished parents.</p>
 reports total <code>Required</code> and <code>Available</code> sizes. <code>SetBuffer</code> copies the completed
 prefix into larger storage so the failed write or End can be retried. Writer
 requires no <code>Close</code>.</p>
-<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/writer/main.go">writer/main.go</a>.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/writer/main.go">writer/main.go</a>.</p>
 <h2 id="tree-streaming-and-visitors">Tree streaming and visitors<a class="headerlink" href="#tree-streaming-and-visitors" title="Permanent link">&para;</a></h2>
 <p><code>NewTreeReader(input, format, nil)</code> borrows a final input window.
 <code>NewIncrementalTreeReader</code> starts with non-final input. Both return <code>(*TreeReader,
@@ -1108,7 +1130,7 @@ validation or conversion. Both work at roots and inside staged parents, copy
 input before publication, support aliasing with <code>Bytes</code>, and preserve state on
 failure. <code>Remaining()</code> returns <code>(bytes, true)</code> for fixed root capacity or
 <code>(0, false)</code> for growable output; open parents are not subtracted.</p>
-<p>Run the generic <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/streaming/main.go">streaming example</a>:</p>
+<p>Run the generic <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/streaming/main.go">streaming example</a>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/streaming
 </code></pre></div>
 <p>It demonstrates incomplete-parent input, balanced events and retrying END after
@@ -1131,7 +1153,7 @@ Close. Nodes have no individual wire ranges. <code>Encode()</code> regenerates f
 <code>EncodeAs(format)</code> selects a compatible destination without remapping Tags.
 <code>writer.WriteDocument(doc)</code> writes in the Writer's Format, including inside an
 open parent. Capacity failures preserve the Writer.</p>
-<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/document/main.go">document/main.go</a>.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/document/main.go">document/main.go</a>.</p>
 <p>For direct navigation, <code>doc.Find(parent, tag)</code> searches one scope (zero parent
 means roots), and <code>node.Next()</code>/<code>NextSameTag()</code> navigate siblings. A missing match
 is an invalid Node with no error; a stale or foreign parent is rejected.
@@ -1234,7 +1256,7 @@ Common <code>Diagnostic</code> evidence survives failures without a Reader cause
 <code>Expression</code> is the related expression span, with <code>LocationUnknown</code> kind when
 the primary <code>Location</code> already is that span, and <code>SourceOffset()</code> projects a
 primary input location. <code>CodecDetail.Reported</code> is the raw provider result.
-See <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/program_test.go">consumer tests</a>.</p>
+See <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/program_test.go">consumer tests</a>.</p>
 <p><code>ProgramOptions.Providers</code> maps <code>QueryNum</code>, <code>QueryBCD</code>, <code>QueryText</code> and <code>QueryDate</code>
 to <code>QueryProvider</code> values. Each owns a stable nonzero ID and a <code>Decode</code> callback
 receiving copied input and optional <code>QueryMetadata</code>. Text outputs use explicit
@@ -1265,8 +1287,8 @@ bytes for a Writer or edit. Numbers explicitly select width and byte order;
 decimal digit codecs preserve leading zeros. Codecs do not infer semantics from
 an enclosing Tag. Zero Codecs are unsupported. Protocol-specific and
 application-object Structure codecs remain unbound.</p>
-<p>Runnable versions: <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/query/main.go">query/main.go</a>
-and <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/codec/main.go">codec/main.go</a>.</p>
+<p>Runnable versions: <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/query/main.go">query/main.go</a>
+and <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/codec/main.go">codec/main.go</a>.</p>
 <h2 id="errors-diagnostics-and-concurrency">Errors, diagnostics and concurrency<a class="headerlink" href="#errors-diagnostics-and-concurrency" title="Permanent link">&para;</a></h2>
 <p>Use <code>errors.Is</code> with named statuses such as <code>ErrInvalidTag</code>; use <code>errors.As</code> for
 <code>*ParseError</code>, <code>*WriteError</code>, <code>*QueryError</code>, <code>CapacityError</code> or <code>StatusError</code>.
@@ -1281,7 +1303,7 @@ from zero or empty values. Only detail supplied by C is exposed: Document
 encoding can return a status without wire detail, Query reports its text error
 offset where available, and Value/Structure codecs preserve their native
 conversion evidence in <code>CodecError.Detail</code>.
-Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/errors/main.go">errors/main.go</a>.</p>
+Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/bc73a5100ef6109e8e5634add62785eb21352254/examples/errors/main.go">errors/main.go</a>.</p>
 <p>Immutable Formats and Codecs can be shared concurrently. Readers, Writers,
 Documents and their mutable buffers require separate instances or external
 synchronization. Returned slices are mutable; synchronize their use as well.
@@ -1367,13 +1389,64 @@ present-empty identifiers. Run the generic example in every feature configuratio
 <p>The example combines a counter object codec with a length Schema and scalar
 constraint, then reproduces a generated wire case. Core owns algorithms and
 protocol behavior; Go tests its input mapping, ownership, limits and errors.</p>
+<h2 id="definition-registries-and-diagnostic-locations">Definition registries and diagnostic locations<a class="headerlink" href="#definition-registries-and-diagnostic-locations" title="Permanent link">&para;</a></h2>
+<p><code>NewDefinitionRegistry(entries)</code> snapshots an application-selected list of
+<code>Definition{Tag, Name}</code> values. <code>registry.Find(tag)</code> uses Core's first exact
+tag-byte match and returns <code>(Definition, bool)</code>. Tags may be empty; nil and empty
+lookup tags are equal. Duplicate tags retain entry order. Names need not be
+unique; empty means unnamed, and Go strings preserve embedded NUL bytes.
+An unknown tag returns false without implying that it is structurally invalid.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">registry</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NewDefinitionRegistry</span><span class="p">([]</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">Definition</span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p">{</span><span class="nx">Tag</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"counter"</span><span class="p">},</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">})</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nx">definition</span><span class="p">,</span><span class="w"> </span><span class="nx">found</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">Find</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+</code></pre></div>
+<p>The registry is immutable and safe for concurrent lookups. Copies share ownership
+and need no <code>Close</code>; native storage follows Go object lifetime. Construction copies
+tag bytes, and every returned tag is independent. Do not mutate constructor or
+lookup inputs concurrently with the call. The zero registry is empty. Lookup
+does not select a Format, Codec or Schema, resolve a protocol context or convert
+canonical tag bytes into a wire header.</p>
+<p><code>NewLocation(domain, kind, begin, end)</code> checks coordinates through Core. Invalid
+domains, kinds, reversed spans, unequal point/boundary endpoints and coordinates
+outside native <code>size_t</code> become unknown evidence. A known point or empty span at
+zero remains distinct from unknown. Coordinates use <code>uint64</code> in Go; valid native
+ranges therefore depend on the target architecture.</p>
+<p><code>location.Translate(origin)</code> returns a checked offset in the same domain.
+<code>location.Resolve(origin, domain)</code> places Value-local evidence in its enclosing
+coordinate space, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">local</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NewLocation</span><span class="p">(</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationValue</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationSpan</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nx">wire</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">local</span><span class="p">.</span><span class="nx">Resolve</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationInput</span><span class="p">)</span><span class="w"> </span><span class="c1">// input span 4..6</span>
+</code></pre></div>
+<p>Both return new values. Overflow becomes unknown; Resolve leaves other domains
+and invalid enclosing domains unchanged after checking the original coordinates.
+Use the actual Value origin supplied by your input/source metadata. These helpers
+do not change the error code. Assigning exported <code>Diagnostic</code> snapshot fields
+does not change its error wrapper's identity or automatically update legacy
+<code>Offset</code>/<code>HasOffset</code> projections. Diagnostic contexts and paths are owned Go data;
+applications enrich/render snapshots with Go values, slices and formatting tools.
+There is no native borrowed path-stack or exact native path-formatting API.</p>
+<p>The executable <code>ExampleDefinitionRegistry_Find</code> and <code>ExampleLocation_Resolve</code>
+examples run via <code>python3 scripts/go.py -- test -run Example ./...</code>.</p>
+<p>Copy operations use existing Go APIs: <code>bytes.Clone(element.Value())</code> makes an
+owned value copy, and <code>element.Clone()</code> also retains copied tag/source metadata.
+<code>Writer.Measure</code> and <code>Writer.Write</code>/<code>WriteElement</code> measure and serialize canonical
+framing through Core. <code>Writer.CopyEncoded</code> copies exact bytes without validation;
+<code>Format.Preserve</code>/<code>Writer.Preserve</code> check original framing. Fixed Writer buffers
+reject short capacity without publishing partial output. These are the reviewed
+alternatives to native copy helpers, not additional raw-pointer APIs.</p>
 <h2 id="current-limitations">Current limitations<a class="headerlink" href="#current-limitations" title="Permanent link">&para;</a></h2>
-<p>There is no generic Definition registry, custom Format callback adapter,
-borrowed Query or resumable Document Builder. Generic structured codecs use
+<p>There is no custom Format callback adapter, borrowed Query or resumable Document
+Builder. Generic structured codecs use
 application-supplied Go object mappings; protocol-specific Builtins codec parity
 is outside this binding's generic API work.
 Go's copied Node snapshots, owned diagnostics and explicit Close are intentional
-ergonomic differences; missing operations remain capability gaps. The
+ergonomic differences. The <a href="../../../../../development/components/go/development/ci/#generic-completeness-review-and-gate-21">reviewed generic contract baseline</a>
+records supported families and these limitations against the exact Core pin;
+zero unreviewed symbols does not promise every C storage or callback ABI. The
 <a href="../../../../contracts/#capability-implementation-matrix">binding matrix</a>
 distinguishes these from disabled native components.</p>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
@@ -1413,7 +1486,7 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
         
       
     
@@ -1434,14 +1507,14 @@ or owned editing, then <a href="../../../../../tutorials/processing/">processing
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
         
       
     

@@ -6,11 +6,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.">
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
       
       
       
-        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/languages/wasm/manual/distribution-follow-ups/">
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/languages/javascript/manual/distribution-follow-ups/">
       
       
         <link rel="prev" href="../packaging/">
@@ -308,7 +308,7 @@
   <span class="md-ellipsis">
     
   
-    JS/WASM manual
+    JavaScript manual
   
 
     
@@ -447,6 +447,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mod-1-post-migration-modernization-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MOD-1: Post-migration modernization (open)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -514,6 +525,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mod-1-post-migration-modernization-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MOD-1: Post-migration modernization (open)
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -529,7 +551,7 @@
                 
   
     <p class="md-typeset">
-      <strong>JavaScript / WebAssembly manual</strong> from the
+      <strong>JavaScript manual</strong> from the
       source selected for this portal version.
       <a href="../../../..">Return to the OpenTLV portal</a>.
     </p>
@@ -539,7 +561,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/c971205a1afeaeb2907998a60a0cc3448d1cd738/docs/distribution-follow-ups.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/72338d82aad22c1620b75e0f8f190de11982a74a/docs/distribution-follow-ups.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -554,6 +576,10 @@ the <a href="https://github.com/OpenTLV/opentlv-js/issues/14">final migration as
 This versioned register tracks the scope without creating remote issues or
 claiming publication readiness. Each item needs a separately approved
 implementation before the private-package restriction can change.</p>
+<p>Reviewed for #14 on 2026-10-26: all items remain open. The
+<a href="https://github.com/OpenTLV/opentlv-js/blob/72338d82aad22c1620b75e0f8f190de11982a74a/MIGRATION.md#validation-review-14">migration assessment</a> records compatibility
+and the outstanding coordinated gates; local archive validation does not
+complete any publication item.</p>
 <h2 id="npm-1-registry-publication-open">NPM-1: Registry publication (open)<a class="headerlink" href="#npm-1-registry-publication-open" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Decide and verify registry name/scope ownership; the local <code>opentlv-js</code> name
@@ -586,6 +612,16 @@ implementation before the private-package restriction can change.</p>
 <li>Keep wrapper semantics, Core ownership and WASM memory/lifetime contracts;
   coordinate API coverage with <a href="https://github.com/OpenTLV/opentlv-js/issues/1">#1</a>
   and Docs integration with <a href="https://github.com/OpenTLV/opentlv-js/issues/13">#13</a>.</li>
+</ul>
+<h2 id="mod-1-post-migration-modernization-open">MOD-1: Post-migration modernization (open)<a class="headerlink" href="#mod-1-post-migration-modernization-open" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Review Core pin and Emscripten/Node upgrades separately from source extraction.</li>
+<li>Replace the historical binary-equality gate deliberately when an intentional
+  dependency/runtime change requires it, preserving the immutable baseline and
+  adding evidence for the new compatibility contract.</li>
+<li>Keep API redesign and broader facade coverage separate from the migration's
+  behavior-preservation result; TypeScript and browser/worker coverage remain
+  tracked under DIST-1.</li>
 </ul>
 
 
@@ -621,7 +657,7 @@ implementation before the private-package restriction can change.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
         
       
     
@@ -642,14 +678,14 @@ implementation before the private-package restriction can change.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
         
       
     

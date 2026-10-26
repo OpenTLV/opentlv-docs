@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.">
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../testing/">
       
       
-        <link rel="next" href="../implementation/">
+        <link rel="next" href="../api-coverage/">
       
       
         
@@ -2759,38 +2759,15 @@
   
   
   
-    
-    
-      
+    <li class="md-nav__item">
+      <a href="../../../../languages/javascript/" class="md-nav__link">
         
-          
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_9" >
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../../languages/wasm/" class="md-nav__link ">
-              
   
   
   <span class="md-ellipsis">
     
   
-    WebAssembly
+    JavaScript
   
 
     
@@ -2798,26 +2775,7 @@
   
   
 
-            </a>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    WebAssembly
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-          </ul>
-        </nav>
-      
+      </a>
     </li>
   
 
@@ -3996,6 +3954,8 @@
       
         
       
+        
+      
     
     
     
@@ -4315,6 +4275,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../api-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../implementation/" class="md-nav__link">
         
   
@@ -4546,7 +4534,7 @@
   <span class="md-ellipsis">
     
   
-    JS/WASM tests, CI and documentation updates
+    JavaScript tests, CI and documentation updates
   
 
     
@@ -5887,7 +5875,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/9c27c7de77c4691e75b998f67d2778844eebcd13/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/e2b65d515852748b80d1e4506c4b3a306d30a2f4/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5914,7 +5902,7 @@ or enables its native tests.</p>
 <tr>
 <td><code>lua-pr.yml</code></td>
 <td>PR to <code>main</code></td>
-<td>Linux Lua 5.4 Debug, all Lua tests and Query facade corpus, formatting, clang-tidy, cppcheck, Python tooling regressions, Lua syntax and CodeQL; informational Core API coverage</td>
+<td>Linux Lua 5.4 Debug, all Lua tests and Query facade corpus, formatting, clang-tidy, cppcheck, Python tooling regressions, Lua syntax, CodeQL and Core API completeness</td>
 </tr>
 <tr>
 <td><code>lua-main.yml</code></td>
@@ -5924,7 +5912,7 @@ or enables its native tests.</p>
 <tr>
 <td><code>lua-full.yml</code></td>
 <td>Manual dispatch or Release call</td>
-<td>Complete runtime/platform matrix, shared Core, LuaRocks, installed Core consumption, module packages, ASan/UBSan and all source checks; informational Core API coverage</td>
+<td>Complete runtime/platform matrix, shared Core, LuaRocks, installed Core consumption, module packages, ASan/UBSan, all source checks and Core API completeness</td>
 </tr>
 <tr>
 <td><code>release.yml</code></td>
@@ -6035,11 +6023,16 @@ before creating the tag. LuaRocks publication and a versioned release rockspec
 remain separate work; the development rockspec stays <code>scm-1</code>.</p>
 <h2 id="core-api-coverage">Core API coverage<a class="headerlink" href="#core-api-coverage" title="Permanent link">&para;</a></h2>
 <p><code>Core API coverage</code> reports how much of the pinned Core's public API the native
-Lua module uses. It runs in PR and Full, not Main. The job is informational: it
-uses <code>continue-on-error</code>, is not a <code>Lua quality gate</code> prerequisite and has no
-threshold yet. The coverage epic (#25) tracks raising it. The PR and Full
-timings record it as <code>checks / Core API coverage</code>.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
+Lua module uses. It runs in PR and Full, not Main, and is a <code>Lua quality gate</code>
+prerequisite. <code>cmake/api-coverage.json</code> lists <code>core</code> as <code>complete</code>, so the job
+fails when a generic Core symbol is neither referenced nor a reviewed
+exclusion, or when an ignore pattern matches nothing. It writes and uploads its
+report before failing. Builtins coverage stays informational. The PR and Full
+timings record it as <code>checks / Core API coverage</code>. The
+<a href="../api-coverage/">Core API coverage record</a> is the reviewed baseline: every
+core header with its public Lua API and binding tests, the exclusions, the
+limitations and the procedure for Core pin updates.</p>
+<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
 script of the Python and Rust repositories, with <code>cmake/api-coverage.json</code> as
 its default configuration. It fetches only the locked Core commit and reads
 every <code>TLV_API</code> function and data declaration under <code>tlv/include</code>. A
@@ -6058,7 +6051,7 @@ examples are not part of the public API.</p>
 the symbols added and removed between the two pins. Added symbols show whether
 the module already references or ignores them. An unchanged pin is reported as
 such.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
+<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
 ignore list. It names the Core lock <code>cmake/core-artifact.json</code> and the reference
 directory. Each ignore entry has a <code>reason</code> and matches header paths relative to
 <code>tlv/include</code> (<code>headers</code>) or symbol names (<code>symbols</code>); both accept <code>fnmatch</code>
@@ -6108,9 +6101,13 @@ references them. The current entries are:</p>
 <li><code>tlv_schema_check</code>, which <code>tlv_schema_prepare()</code> runs before keeping the
   checked handle. Schemas are immutable snapshots, so <code>schema:check()</code> prepares
   once and a separate definition-only check adds no operation.</li>
+<li><code>tlv_location_translate</code>, which adds a byte origin the caller supplies to a
+  location. Lua has no caller-owned destinations or sub-buffer origins: every
+  entry point passes Core the Lua string it received or owned output, and
+  reports Core's coordinates unchanged.</li>
 </ul>
-<p>Patterns that match nothing in the pinned Core are reported, so stale entries
-are visible after a pin bump. Change the ignore list only for symbols the
+<p>Patterns that match nothing in the pinned Core fail the job, so stale entries
+are removed after a pin bump. Change the ignore list only for symbols the
 binding intentionally leaves unbound.</p>
 <p>The first report, for Core <code>d87dcf96b270</code> (15 commits after 0.7.1), references
 118 of 254 core symbols (46.5 %) with 43 ignored, and 61 of 291 builtins symbols
@@ -6334,7 +6331,12 @@ the same pin is 202 of 205 symbols (98.5 %) with 92 ignored:</p>
 </tr>
 </tbody>
 </table>
-<p>The three remaining symbols are the scope of #31.</p>
+<p>The final coverage review (#31) binds <code>tlv_definition_find</code> through
+<code>definition_registry()</code> and <code>tlv_diagnostic_path_string</code> through <code>path_text</code>,
+excludes <code>tlv_location_translate</code> and makes core completeness a gate. Core
+coverage of the same pin is 204 of 204 symbols (100.0 %) with 93 ignored;
+Builtins stay at 61 of 291 (21.0 %). The <a href="../api-coverage/">coverage record</a>
+holds the complete per-header inventory.</p>
 <p>Run it locally from the repository root:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/api_coverage.py
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/api_coverage.py<span class="w"> </span>--core<span class="w"> </span>../opentlv<span class="w"> </span>--commit<span class="w"> </span>HEAD<span class="w"> </span>--base-commit<span class="w"> </span>&lt;old-sha&gt;
@@ -6344,7 +6346,8 @@ the same pin is 202 of 205 symbols (98.5 %) with 92 ignored:</p>
 <code>build/api-coverage/core.git</code>. <code>--core</code> reads an existing Core checkout instead;
 the requested commits must already be there. <code>--commit</code> measures a different
 Core revision than the lock. <code>--base</code> reads the lock at a binding revision, and
-<code>--base-commit</code> names a previous Core revision directly. The parsing, ignore,
+<code>--base-commit</code> names a previous Core revision directly. The script exits with
+status 1 when a <code>complete</code> scope fails. The parsing, ignore, completeness,
 pin-diff and workflow logic is covered by <code>tests/test_api_coverage.py</code>.</p>
 <h2 id="timings-and-acceptance">Timings and acceptance<a class="headerlink" href="#timings-and-acceptance" title="Permanent link">&para;</a></h2>
 <p><a href="../../../../lua/ci-baseline.json">Baseline evidence</a> records actual job timestamps and URLs
@@ -6408,7 +6411,7 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
         
       
     
@@ -6429,14 +6432,14 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
         
       
     
@@ -6483,13 +6486,13 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
         
         
           
-          <a href="../implementation/" class="md-footer__link md-footer__link--next" aria-label="Next: Lua implementation and ownership">
+          <a href="../api-coverage/" class="md-footer__link md-footer__link--next" aria-label="Next: Lua generic Core API coverage">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Lua implementation and ownership
+                Lua generic Core API coverage
               </div>
             </div>
             <div class="md-footer__button md-icon">

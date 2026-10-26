@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.">
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
       
       
       
@@ -578,6 +578,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#identifier-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifier definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#value-codecs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1016,6 +1027,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#identifier-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identifier definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#value-codecs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1173,7 +1195,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/9c27c7de77c4691e75b998f67d2778844eebcd13/docs/api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/e2b65d515852748b80d1e4506c4b3a306d30a2f4/docs/api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1182,7 +1204,7 @@
 
 
 <h1 id="using-opentlv-from-lua">Using OpenTLV from Lua<a class="headerlink" href="#using-opentlv-from-lua" title="Permanent link">&para;</a></h1>
-<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/quick_start.lua">Lua quick start</a>
+<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/quick_start.lua">Lua quick start</a>
 for input, expected output and the public API. You can use this guide without
 studying native C implementation contracts.</p>
 <p>The <code>opentlv</code> module is an experimental Lua binding for OpenTLV. It binds a
@@ -1191,7 +1213,8 @@ a Writer, Tree Writer with structural events and measurement, Schema,
 tag/length/value <code>Element</code> tables and preorder tree
 traversal, borrowed Query, an owned mutable Document with checked Nodes,
 <a href="#custom-formats">custom Formats</a> composed from Core's field encodings,
-<a href="#value-codecs">Value</a> and <a href="#structure-codecs">structure codecs</a> and
+<a href="#value-codecs">Value</a> and <a href="#structure-codecs">structure codecs</a>,
+<a href="#identifier-definitions">identifier definitions</a> and
 <a href="#wire-generation">wire generation</a>. See the
 <a href="../../../contracts/#capability-implementation-matrix">binding matrix</a> and
 <a href="../../../../development/components/lua/implementation/">Lua development guide</a>.</p>
@@ -1210,7 +1233,7 @@ Core no longer builds or installs the Lua module.</p>
 an explicit <code>scm</code> or dirty identity; see <a href="../versioning/">versioning</a>. Core's
 version and commit SHA are not exposed through the Lua API.</p>
 <p>Runnable version:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/quick_start.lua">quick_start.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/quick_start.lua">quick_start.lua</a>
 (<code>lua examples/quick_start.lua</code> from the <code>opentlv-lua</code> repository root).</p>
 <h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.reader(data, format)</code> returns a Reader over <code>data</code>, a Lua string.
@@ -1243,7 +1266,7 @@ with its encoded size; trailing bytes are not read and empty input returns
 <a href="#source-preservation">Source</a> instead.</p>
 <p>Runnable version, parsing a nested BER document and handling truncated
 input:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/parse.lua">parse.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/parse.lua">parse.lua</a>
 (<code>lua examples/parse.lua</code>).</p>
 <h3 id="incremental-input">Incremental input<a class="headerlink" href="#incremental-input" title="Permanent link">&para;</a></h3>
 <p><code>opentlv.reader(data, format, {final_input = false})</code> starts a Reader over
@@ -1476,7 +1499,7 @@ and a fresh item source. Errors raised by an item function propagate
 unchanged.</p>
 <p>Runnable version, feeding chunked input through an incremental Tree Reader
 into a Tree Writer and preserving one element's original framing:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/stream.lua">stream.lua</a> (<code>lua examples/stream.lua</code>).</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/stream.lua">stream.lua</a> (<code>lua examples/stream.lua</code>).</p>
 <h3 id="writer-errors">Writer errors<a class="headerlink" href="#writer-errors" title="Permanent link">&para;</a></h3>
 <p>Core failures raise the same structured error-table type as Reader. In addition
 to <code>code</code> and <code>message</code>, diagnostic operations copy <code>offset</code>, <code>operation</code>,
@@ -1673,7 +1696,7 @@ output <code>BUFFER_TOO_SHORT</code>, a value wider than the field <code>OVERFLO
 invalid field <code>INVALID_ARG</code>.</p>
 <p>Runnable version, using one composed Format with Tree Writer, traversal,
 Query and Document:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/compose.lua">compose.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/compose.lua">compose.lua</a>
 (<code>lua examples/compose.lua</code>).</p>
 <h2 id="structural-schemas">Structural schemas<a class="headerlink" href="#structural-schemas" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.schema(config)</code> creates an immutable structural Schema. It snapshots
@@ -1874,6 +1897,14 @@ Schema or Reader/Writer is collected. Common fields are <code>code</code>, <code
 <code>offset</code>, <code>expected</code>, <code>actual</code>, <code>path</code> and <code>contexts</code> appear only when supplied
 by C. Offsets remain zero-based bytes, independent of Lua array indexing.
 <code>contexts</code> is an array of <code>{layer, key, value}</code> tables in native order.</p>
+<p>When C tracked the enclosing Tags, <code>path</code> holds their bytes outermost first,
+<code>path_omitted</code> counts the innermost Tags that did not fit, and <code>path_text</code> is
+Core's <code>tlv_diagnostic_path_string()</code> text, such as <code>"30 &gt; A5"</code>. A tracked
+empty path is <code>""</code>, and a truncated one ends in <code>" &gt; ..."</code>. The text is copied
+into the table with the rest of the diagnostic. <code>path_text</code> is absent without a
+tracked path and for a path Core does not format, such as one with an empty
+Tag. In the pinned Core only Schema producers, including Query Schema
+validation, track paths.</p>
 <p>Schema diagnostics also carry <code>cause</code>, the <code>tlv_schema_cause_string()</code> name of
 the layer whose detail the C diagnostic holds: <code>"schema"</code> for violations and
 definition failures, <code>"reader"</code> for malformed input, or <code>"none"</code>.
@@ -1894,14 +1925,37 @@ textual <code>expected</code>/<code>actual</code> descriptions. Missing-field re
 parent-element offset when nested and have no offset at root level. Fatal
 diagnostics carry only code/message/severity and the offset if C provided one;
 the binding does not reparse the input to reconstruct tag or path information.</p>
-<p>See the runnable <a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/schema.lua">schema example</a> and the
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/audit.lua">audit example</a> (<code>lua examples/audit.lua</code>).</p>
+<p>See the runnable <a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/schema.lua">schema example</a> and the
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/audit.lua">audit example</a> (<code>lua examples/audit.lua</code>).</p>
+<h2 id="identifier-definitions">Identifier definitions<a class="headerlink" href="#identifier-definitions" title="Permanent link">&para;</a></h2>
+<p><code>opentlv.definition_registry(definitions)</code> snapshots an array of
+<code>{tag = raw_tag, name = "..."}</code> tables into a <code>tlv_definition_registry_t</code>.
+<code>name</code> is optional and must not contain NUL. <code>registry:find(tag)</code> looks the
+identifier up with Core's <code>tlv_definition_find()</code> and returns an owned
+<code>{tag, name}</code> table and the entry's 1-based index, or <code>nil</code> for an unknown
+Tag. Tags compare by size and bytes, so duplicates resolve to the first entry
+and two empty Tags are equal. <code>registry:definitions()</code> returns owned copies of
+every entry in registry order.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">definition_registry</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="p">{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x5A</span><span class="p">),</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"PAN"</span><span class="p">},</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="p">{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">),</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Amount, Authorised"</span><span class="p">},</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">}</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">definition</span><span class="p">,</span><span class="w"> </span><span class="nv">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">names</span><span class="p">:</span><span class="nf">find</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">))</span><span class="w"> </span><span class="c1">-- {tag, name}, 2</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">names</span><span class="p">:</span><span class="nf">find</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x01</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+</code></pre></div>
+<p>A registry carries names only. It selects no Format, codec or Schema and is
+not global: each application chooses the registry for its context. Changing
+the input table afterwards does not change the registry, and changing a
+returned table does not change later lookups. Compiled Query programs take the
+same entry tables through
+<a href="#compiled-query"><code>opentlv.query_definition_resolver()</code></a>. See the
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/audit.lua">audit example</a>.</p>
 <h2 id="value-codecs">Value codecs<a class="headerlink" href="#value-codecs" title="Permanent link">&para;</a></h2>
 <p>Select a codec explicitly and pass only an element's Value bytes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">tlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">codec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">uint16_be</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">codec</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">))</span><span class="w"> </span><span class="c1">-- 4660</span>
-<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="kd">local</span><span class="w"> </span><span class="nv">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">codec</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="c1">-- binary string, no TLV framing</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">tlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">codec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">uint16_be</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">codec</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">))</span><span class="w"> </span><span class="c1">-- 4660</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="kd">local</span><span class="w"> </span><span class="nv">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">codec</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="c1">-- binary string, no TLV framing</span>
 </code></pre></div>
 <p>Both methods invoke the existing C codec. They do not select a codec from a
 Tag, validate the enclosing schema, or reinterpret framing. Encode uses the
@@ -1919,14 +1973,14 @@ also covers unsigned values above Lua's signed integer range. Float-number
 builds use ±(2^24−1). Floating-point inputs outside that safe range, fractions,
 NaN, infinity and overflowing decimal strings are rejected rather than rounded.
 Use a decimal string to supply large exact values on every Lua version.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">number</span><span class="w"> </span><span class="p">{</span><span class="nv">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"binary_be"</span><span class="p">,</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">}</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">maximum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"18446744073709551615"</span>
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="nv">maximum</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">maximum</span><span class="p">)</span>
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">text</span><span class="w"> </span><span class="p">{</span><span class="nv">alphabet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ascii_printable"</span><span class="p">,</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nv">zero_padding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span>
-<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"abc</span><span class="se">\0\0</span><span class="s2">"</span><span class="p">)</span>
-<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="kd">local</span><span class="w"> </span><span class="nv">digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">digits</span><span class="w"> </span><span class="p">{</span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">}</span>
-<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">digits</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"0012"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">number</span><span class="w"> </span><span class="p">{</span><span class="nv">encoding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"binary_be"</span><span class="p">,</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">}</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">maximum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"18446744073709551615"</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">number</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="nv">maximum</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">maximum</span><span class="p">)</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">text</span><span class="w"> </span><span class="p">{</span><span class="nv">alphabet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ascii_printable"</span><span class="p">,</span><span class="w"> </span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nv">zero_padding</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">}</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"abc</span><span class="se">\0\0</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="kd">local</span><span class="w"> </span><span class="nv">digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">digits</span><span class="w"> </span><span class="p">{</span><span class="nv">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">}</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">digits</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x00</span><span class="p">,</span><span class="w"> </span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0xFF</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"0012"</span><span class="p">)</span>
 </code></pre></div>
 <p>All constructors take a table. Number <code>encoding</code> is <code>"binary_be"</code> (default),
 <code>"binary_le"</code>, or <code>"bcd"</code>; <code>width</code> defaults to zero (minimal encoding), and
@@ -1946,11 +2000,11 @@ for the value; a fixed <code>width</code> that the rule rejects raises instead o
 width. A rejected length raises <code>SCHEMA</code> with the finding in
 <code>codec_detail.schema</code>, and reversed bounds raise <code>INVALID_SCHEMA</code>. Query
 providers accept it like <code>number{}</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">schema_number</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nv">rule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">),</span><span class="w"> </span><span class="nv">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nv">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">},</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">}</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mh">0x123456</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">,</span><span class="w"> </span><span class="mh">0x56</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">schema_number</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="nv">rule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">),</span><span class="w"> </span><span class="nv">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nv">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">},</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mh">0x123456</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x12</span><span class="p">,</span><span class="w"> </span><span class="mh">0x34</span><span class="p">,</span><span class="w"> </span><span class="mh">0x56</span><span class="p">))</span>
 </code></pre></div>
 <h3 id="builtin-representations">Builtin representations<a class="headerlink" href="#builtin-representations" title="Permanent link">&para;</a></h3>
 <p>Names below are relative to <code>tlv.codecs</code>. Byte strings are binary Lua strings,
@@ -2074,9 +2128,9 @@ to <code>tlv.codecs.emv.contexts.BASE</code>. Other context constants are <code>
 <code>BHT_FORMAT</code>, <code>BIT_GROUP</code>, <code>BIOMETRIC_COUNTERS</code>, <code>BIOMETRIC_ATTEMPTS</code> and
 <code>BIOMETRIC_VERIFICATION</code>. There is no fallback between contexts. Unknown
 entries and entries without a codec return <code>nil</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">emv</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">))</span>
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">bytes</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1234</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codecs</span><span class="p">.</span><span class="py">emv</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">))</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">amount</span><span class="p">:</span><span class="nf">encode</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">bytes</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1234</span><span class="p">)</span>
 </code></pre></div>
 <p>The builtin C presentation adapter determines the representation: numbers,
 flags, account and biometric types are integers; digits are strings; dates
@@ -2093,11 +2147,11 @@ operation, reported result, callback violation and delegated cause. The old
 <code>codec_errors</code> and <code>codec_strerror</code> APIs have been removed.
 No source offset or Tag is invented for a Value-only operation. Incorrect
 Lua types and host representation bounds raise Lua argument errors.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">codec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codec</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="nv">decode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">bytes</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span><span class="nv">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">bytes</span><span class="p">}</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="nv">encode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">value</span><span class="p">.</span><span class="py">payload</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
-<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="p">}</span>
-<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">codec</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">codec</span><span class="p">:</span><span class="py">encode</span><span class="w"> </span><span class="p">{</span><span class="nv">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hello"</span><span class="p">}).</span><span class="nv">payload</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"hello"</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">codec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">codec</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="nv">decode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">bytes</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span><span class="nv">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">bytes</span><span class="p">}</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nv">encode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">value</span><span class="p">.</span><span class="py">payload</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="p">}</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">codec</span><span class="p">:</span><span class="nf">decode</span><span class="p">(</span><span class="nv">codec</span><span class="p">:</span><span class="py">encode</span><span class="w"> </span><span class="p">{</span><span class="nv">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"hello"</span><span class="p">}).</span><span class="nv">payload</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"hello"</span><span class="p">)</span>
 </code></pre></div>
 <p>Callbacks are optional and snapshotted at construction; a missing direction
 reports <code>UNSUPPORTED</code>. Decode returns one Lua value, including <code>nil</code>; encode
@@ -2108,7 +2162,7 @@ objects propagate unchanged after the C call returns. Recursive codec calls
 and use from different coroutines are supported, but yielding through a
 callback is not. Callback references participate in Lua garbage collection,
 including cycles that capture the codec itself. See the runnable
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/codec.lua">codec example</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/codec.lua">codec example</a>.</p>
 <h3 id="structure-codecs">Structure codecs<a class="headerlink" href="#structure-codecs" title="Permanent link">&para;</a></h3>
 <p><code>opentlv.structure_codec(config)</code> maps one complete TLV sequence to one Lua
 value through <code>tlv_structure_decode()</code> and <code>tlv_structure_encode()</code>. <code>config</code>
@@ -2116,12 +2170,12 @@ takes <code>format</code> (BER by default; required when BER is disabled), an op
 <code>schema</code> (a Schema or a checked Schema), <code>max_depth</code> (default 32),
 <code>max_elements</code> (default 100000) and the optional <code>decode</code> and <code>encode</code>
 callbacks.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">structure_codec</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="nv">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">format</span><span class="p">,</span>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="nv">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">schema</span><span class="p">,</span>
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="nv">decode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">sequence</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span><span class="nv">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">#</span><span class="nv">sequence</span><span class="p">}</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nv">encode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">value</span><span class="p">.</span><span class="py">bytes</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">record</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">structure_codec</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="nv">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">format</span><span class="p">,</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nv">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">schema</span><span class="p">,</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="nv">decode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">sequence</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span><span class="nv">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">#</span><span class="nv">sequence</span><span class="p">}</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nv">encode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">value</span><span class="p">)</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="nv">value</span><span class="p">.</span><span class="py">bytes</span><span class="w"> </span><span class="kr">end</span><span class="p">,</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="p">}</span>
 </code></pre></div>
 <p><code>record:decode(data)</code> lets C validate the complete sequence (framing, nesting,
 limits and the optional Schema) before <code>decode(data)</code> receives it as a string,
@@ -2139,22 +2193,22 @@ because offsets refer to the produced bytes. A missing callback raises
 above: they are snapshotted, run under protected calls and raise their own
 errors unchanged; recursion and coroutines work, yielding does not, and
 cycles are collectible. The codec keeps its Format and Schema alive. The
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/generate.lua">generate example</a> decodes records this way.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/generate.lua">generate example</a> decodes records this way.</p>
 <h2 id="wire-generation">Wire generation<a class="headerlink" href="#wire-generation" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.generator(config)</code> binds Core's deterministic wire generator
 (<code>tlv_generate()</code>). Each case is one nonempty complete stream of candidate
 elements that decodes and re-encodes byte-exactly through the Format. Cases
 are wire data for parsers and round trips, not Schema- or codec-valid content.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">generator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">generator</span><span class="w"> </span><span class="p">{</span>
-<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="nv">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="nf">fixed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"big"</span><span class="p">),</span>
-<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nv">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2026</span><span class="p">,</span>
-<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="nv">candidates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nv">min_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">max_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">}},</span>
-<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nv">max_elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">    </span><span class="nv">max_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">    </span><span class="nv">max_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">    </span><span class="nv">max_case_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
-<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="p">}</span>
-<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">generator</span><span class="p">:</span><span class="nf">generate</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">generator</span><span class="p">:</span><span class="nf">generate</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">generator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">generator</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="nv">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="nf">fixed</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"big"</span><span class="p">),</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nv">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2026</span><span class="p">,</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">    </span><span class="nv">candidates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nv">min_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">max_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">}},</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="w">    </span><span class="nv">max_elements</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="w">    </span><span class="nv">max_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">    </span><span class="nv">max_value_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">    </span><span class="nv">max_case_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="p">}</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">generator</span><span class="p">:</span><span class="nf">generate</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">generator</span><span class="p">:</span><span class="nf">generate</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
 </code></pre></div>
 <table>
 <thead>
@@ -2213,7 +2267,7 @@ Format's read and write capability on every <code>generate()</code> call
 <code>UNSUPPORTED</code> (no read or write capability, or <code>max_depth</code> above 64),
 <code>OVERFLOW</code>, or <code>LIMIT</code> when its bounded search finds no case, for example
 because the Format cannot write any candidate. See the
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/examples/generate.lua">generate example</a> (<code>lua examples/generate.lua</code>).</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/examples/generate.lua">generate example</a> (<code>lua examples/generate.lua</code>).</p>
 <h2 id="query-and-document">Query and Document<a class="headerlink" href="#query-and-document" title="Permanent link">&para;</a></h2>
 <p><code>tlv.query(path)</code> compiles the C Query language: exact hexadecimal tags separated
 by <code>/</code>, such as <code>E1/9F02</code>. Tags are byte identities; there are no wildcards,
@@ -2253,12 +2307,12 @@ its Format alive, including configured Fixed formats. Options are native
 and Document construction default to BER when the format is omitted; builds
 without BER require an explicit format. Disabling Document omits
 <code>tlv.document</code> and leaves Query available.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">tlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="nf">document</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x05</span><span class="p">),</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="py">ber</span><span class="p">)</span>
-<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">doc</span><span class="p">:</span><span class="nf">find</span><span class="p">(</span><span class="s2">"9F02"</span><span class="p">)</span>
-<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">value</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">doc</span><span class="p">:</span><span class="nf">set</span><span class="p">(</span><span class="s2">"9F02"</span><span class="p">,</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
-<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">doc</span><span class="p">:</span><span class="nf">serialize</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">tlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="nf">document</span><span class="p">(</span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0x9F</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mh">0x01</span><span class="p">,</span><span class="w"> </span><span class="mh">0x05</span><span class="p">),</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="py">ber</span><span class="p">)</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">doc</span><span class="p">:</span><span class="nf">find</span><span class="p">(</span><span class="s2">"9F02"</span><span class="p">)</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">amount</span><span class="p">:</span><span class="nf">value</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="nb">assert</span><span class="p">(</span><span class="nv">doc</span><span class="p">:</span><span class="nf">set</span><span class="p">(</span><span class="s2">"9F02"</span><span class="p">,</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mi">6</span><span class="p">)))</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">doc</span><span class="p">:</span><span class="nf">serialize</span><span class="p">()</span>
 </code></pre></div>
 <p>Document operations:</p>
 <table>
@@ -2384,9 +2438,9 @@ reader rejects <code>next()</code>, <code>next_event()</code>, <code>skip_subtre
 <code>INVALID_STATE</code>; <code>set_input()</code> and status methods still work. Completion, a
 terminal error or <code>builder:close()</code> releases the reader. The Document owns
 copies of all bytes and keeps the reader's Format alive.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="nf">tree_reader</span><span class="p">(</span><span class="nv">wire</span><span class="p">,</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="py">ber</span><span class="p">)</span>
-<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="kr">repeat</span><span class="w"> </span><span class="kd">local</span><span class="w"> </span><span class="nv">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">reader</span><span class="p">:</span><span class="nf">next</span><span class="p">()</span><span class="w"> </span><span class="kr">until</span><span class="w"> </span><span class="nv">item</span><span class="p">.</span><span class="py">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0xA5</span><span class="p">)</span>
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">proprietary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">reader</span><span class="p">:</span><span class="nf">document_builder</span><span class="p">({</span><span class="nv">subtree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"current"</span><span class="p">}):</span><span class="nf">consume</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="nf">tree_reader</span><span class="p">(</span><span class="nv">wire</span><span class="p">,</span><span class="w"> </span><span class="nv">tlv</span><span class="p">.</span><span class="py">formats</span><span class="p">.</span><span class="py">ber</span><span class="p">)</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kr">repeat</span><span class="w"> </span><span class="kd">local</span><span class="w"> </span><span class="nv">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">reader</span><span class="p">:</span><span class="nf">next</span><span class="p">()</span><span class="w"> </span><span class="kr">until</span><span class="w"> </span><span class="nv">item</span><span class="p">.</span><span class="py">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">string.char</span><span class="p">(</span><span class="mh">0xA5</span><span class="p">)</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">proprietary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">reader</span><span class="p">:</span><span class="nf">document_builder</span><span class="p">({</span><span class="nv">subtree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"current"</span><span class="p">}):</span><span class="nf">consume</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="compiled-query">Compiled Query<a class="headerlink" href="#compiled-query" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.query_program(text, format, options)</code> owns an immutable C program;
@@ -2442,7 +2496,7 @@ and field offsets retain their presence, and lengths beyond Lua's exact numeric
 range use decimal strings. Codec detail adds <code>operation_name</code>, <code>cause_name</code> and
 <code>violation_name</code> beside raw numeric values. See the
 <a href="../../../../api/reference/errors/#binding-diagnostics">binding diagnostic reference</a> and
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/9c27c7de77c4691e75b998f67d2778844eebcd13/tests/program_spec.lua">consumer tests</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/e2b65d515852748b80d1e4506c4b3a306d30a2f4/tests/program_spec.lua">consumer tests</a>.</p>
 <p>Compile options accept <code>providers = {num = {id = ..., decode = ...}, ...}</code> for
 <code>num</code>, <code>bcd</code>, <code>text</code> and <code>date</code>. Callbacks receive a Value string and optional
 copied event metadata; return an integer or a UTF-8 string for <code>text</code>. Set
@@ -2516,7 +2570,7 @@ or owned editing, then <a href="../../../../tutorials/processing/">processing ch
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
         
       
     
@@ -2537,14 +2591,14 @@ or owned editing, then <a href="../../../../tutorials/processing/">processing ch
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
         
       
     
