@@ -5265,12 +5265,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5323,9 +5317,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5339,14 +5332,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5374,36 +5361,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -6130,7 +6087,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/concepts/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/concepts/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6215,7 +6172,7 @@ roles, not a one-to-one mapping to directories or C types.</p>
 <p>See the <a href="../../../api/concepts/format-contract/">Format and Element contract</a> for the precise
 boundary between semantic content, source layout and wire preservation.</p>
 <h2 id="planned-runtime-and-compiled-models">Planned runtime and compiled models<a class="headerlink" href="#planned-runtime-and-compiled-models" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/ROADMAP.md">roadmap</a> separates Execution Foundation (Phase 1),
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/ROADMAP.md">roadmap</a> separates Execution Foundation (Phase 1),
 Runtime Model &amp; OTLV (Phase 2), Protocol Inference (Phase 3), and Compilation
 (Phase 4). The latter three are
 planned capabilities built on the current execution contracts.</p>
@@ -6791,12 +6748,8 @@ optional implementations that work without the future <code>.otlv</code> interpr
 <td><code>--module emv</code></td>
 </tr>
 <tr>
-<td>CLI/WASM JSON <code>profile</code></td>
+<td>CLI JSON <code>profile</code></td>
 <td><code>module</code></td>
-</tr>
-<tr>
-<td>WASM <code>PROFILES</code>, <code>api.profiles</code>, parse option <code>profile</code></td>
-<td><code>MODULES</code>, <code>api.modules</code>, <code>module</code></td>
 </tr>
 <tr>
 <td>Rust <code>Profile::Der</code>, <code>Profile::Cer</code></td>
@@ -6814,9 +6767,9 @@ optional implementations that work without the future <code>.otlv</code> interpr
 formats other than DER/CER with <code>InvalidArg</code> and unknown location. Reader/Writer keep
 using their selected Format directly. Standard guides now live in <code>standards/</code>.</p>
 <p>CLI <code>--module emv</code> selects the existing native EMV definitions, schemas and
-codecs for the relevant command; <code>--format</code> selects framing independently. WASM
-uses the selected module's definitions to annotate parsed elements. Neither
-selector loads <code>.otlv</code> files or requires a runtime interpreter.</p>
+codecs for the relevant command; <code>--format</code> selects framing independently. This
+selector does not load <code>.otlv</code> files or require a runtime interpreter. Binding
+migration details belong to the standalone component manuals.</p>
 <h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
 <p>Next: <a href="../architectural-rules/">architectural rules</a> for extension design.</p>
 
@@ -6839,7 +6792,7 @@ selector loads <code>.otlv</code> files or requires a runtime interpreter.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6853,7 +6806,7 @@ selector loads <code>.otlv</code> files or requires a runtime interpreter.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6874,14 +6827,14 @@ selector loads <code>.otlv</code> files or requires a runtime interpreter.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

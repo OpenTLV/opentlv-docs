@@ -5143,12 +5143,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5201,9 +5195,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5217,14 +5210,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5252,36 +5239,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -5886,7 +5843,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/e9d14f452bc024da3bc5ee1a474d3aba8944a076/docs/ci.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/c971205a1afeaeb2907998a60a0cc3448d1cd738/docs/ci.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5947,7 +5904,7 @@ package, creates a GitHub release or claims release attestation.</p>
 <p>Each build uses default FetchContent selection and verifies <code>pinned-source</code>
 provenance before and after the integration tests. A sibling development
 receipt is rejected by this CI runner. The native dependency checksum and Git
-version metadata retain the <a href="https://github.com/OpenTLV/opentlv-js/blob/e9d14f452bc024da3bc5ee1a474d3aba8944a076/README.md#standalone-build">standalone build contract</a>.</p>
+version metadata retain the <a href="https://github.com/OpenTLV/opentlv-js/blob/c971205a1afeaeb2907998a60a0cc3448d1cd738/README.md#standalone-build">standalone build contract</a>.</p>
 <p>The Query integration additionally verifies every file under the selected
 Core's <code>tests/query/</code> against its exact commit's Git blobs. Modified, missing,
 symlinked and extra files, including ignored files, fail before executing the
@@ -5984,7 +5941,7 @@ its own fetched Core source and generated files. Every output must exist and
 be nonempty: <code>opentlv-core.js</code>, <code>opentlv-core.wasm</code>, <code>opentlv.mjs</code>, <code>query.mjs</code>.
 These files are in each build's <code>dist/</code> directory, also used by the workflow's
 output artifact upload. Repository source paths are documented in the
-<a href="https://github.com/OpenTLV/opentlv-js/blob/e9d14f452bc024da3bc5ee1a474d3aba8944a076/README.md#repository-layout">layout guide</a>.
+<a href="https://github.com/OpenTLV/opentlv-js/blob/c971205a1afeaeb2907998a60a0cc3448d1cd738/README.md#repository-layout">layout guide</a>.
 A mismatch in any one fails the run. Main and Full do not implicitly prove
 reproducibility; only the double-build check does. Each build also runs the
 <a href="../../../../languages/wasm/manual/packaging/">private package checks</a>: offline dry-run/real packing, exact
@@ -6015,7 +5972,7 @@ and reproducibility results, but cannot establish a successful hosted PR/Main/
 Full run, tag-triggered execution, branch protection or publication.</p>
 <h2 id="documentation-updates">Documentation updates<a class="headerlink" href="#documentation-updates" title="Permanent link">&para;</a></h2>
 <p>JS owns <a href="../../../../languages/wasm/manual/webassembly/">the WASM manual</a>, the unchanged
-<a href="https://github.com/OpenTLV/opentlv-js/blob/e9d14f452bc024da3bc5ee1a474d3aba8944a076/examples/parse.mjs">parse example</a>, and <a href="https://github.com/OpenTLV/opentlv-js/blob/e9d14f452bc024da3bc5ee1a474d3aba8944a076/docs-examples.json">docs-examples.json</a>.
+<a href="https://github.com/OpenTLV/opentlv-js/blob/c971205a1afeaeb2907998a60a0cc3448d1cd738/examples/parse.mjs">parse example</a>, and <a href="https://github.com/OpenTLV/opentlv-js/blob/c971205a1afeaeb2907998a60a0cc3448d1cd738/docs-examples.json">docs-examples.json</a>.
 The catalog's <code>component_version</code> must equal the independent version in
 <code>package.json</code>; it is not the embedded Core version. Docs assembles these sources
 at a reviewed commit, retaining JS source/edit links. A documentation update
@@ -6077,7 +6034,7 @@ binary producer remains separate from this documentation handoff.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6091,7 +6048,7 @@ binary producer remains separate from this documentation handoff.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6112,14 +6069,14 @@ binary producer remains separate from this documentation handoff.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

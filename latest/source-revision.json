@@ -1,7 +1,7 @@
 {
   "id": "core",
   "repository": "https://github.com/OpenTLV/opentlv",
-  "revision": "5002c686efc49574c33de3ce3b714162f02e4632",
+  "revision": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
   "docs_path": "docs",
   "mount": "",
   "required": true,
@@ -10,13 +10,13 @@
   ],
   "local": false,
   "dirty": false,
-  "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
+  "commit": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
   "included": true,
   "sources": [
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "5002c686efc49574c33de3ce3b714162f02e4632",
+      "revision": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
       "docs_path": "docs",
       "mount": "",
       "required": true,
@@ -25,7 +25,7 @@
       ],
       "local": false,
       "dirty": false,
-      "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
+      "commit": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
       "included": true
     },
     {
@@ -64,7 +64,7 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "revision": "25d8783f1ef0def6c8790c7060a756fab635d3e4",
+      "revision": "9c27c7de77c4691e75b998f67d2778844eebcd13",
       "docs_path": "docs",
       "mount": "lua",
       "updates": {
@@ -112,7 +112,7 @@
       },
       "local": false,
       "dirty": false,
-      "commit": "25d8783f1ef0def6c8790c7060a756fab635d3e4",
+      "commit": "9c27c7de77c4691e75b998f67d2778844eebcd13",
       "included": true
     },
     {
@@ -244,7 +244,7 @@
     {
       "id": "go",
       "repository": "https://github.com/OpenTLV/opentlv-go",
-      "revision": "6edf392293eb039986f0ca2aaa6936f8bc51607e",
+      "revision": "68af66efd7c482a1a8bf9e46e4b5ab2d294449b1",
       "docs_path": "docs",
       "mount": "go",
       "updates": {
@@ -278,13 +278,13 @@
       },
       "local": false,
       "dirty": false,
-      "commit": "6edf392293eb039986f0ca2aaa6936f8bc51607e",
+      "commit": "68af66efd7c482a1a8bf9e46e4b5ab2d294449b1",
       "included": true
     },
     {
       "id": "js",
       "repository": "https://github.com/OpenTLV/opentlv-js",
-      "revision": "e9d14f452bc024da3bc5ee1a474d3aba8944a076",
+      "revision": "c971205a1afeaeb2907998a60a0cc3448d1cd738",
       "docs_path": "docs",
       "mount": "js",
       "updates": {
@@ -315,7 +315,7 @@
       },
       "local": false,
       "dirty": false,
-      "commit": "e9d14f452bc024da3bc5ee1a474d3aba8944a076",
+      "commit": "c971205a1afeaeb2907998a60a0cc3448d1cd738",
       "included": true
     }
   ],
@@ -359,8 +359,8 @@
   "api": {
     "schema": 1,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
-    "source_sha256": "6ce3987eef53ec5568ca5ef192631b46a503c4cdb14065c2ecddac6fca9ca8ba",
+    "commit": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
+    "source_sha256": "287463ba20afc0358e39d20333e6a0f9791a62f9e93116055ed84eefff344d3a",
     "local": false,
     "dirty": false,
     "doxygen_version": "1.9.8",
@@ -368,18 +368,25 @@
     "manifest": "api/reference/api-source.json"
   },
   "wasm": {
-    "schema": 1,
+    "schema": 2,
     "repository": "https://github.com/OpenTLV/opentlv",
-    "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
+    "commit": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
     "local": false,
     "dirty": false,
-    "source_sha256": "6ce3987eef53ec5568ca5ef192631b46a503c4cdb14065c2ecddac6fca9ca8ba",
+    "source_sha256": "287463ba20afc0358e39d20333e6a0f9791a62f9e93116055ed84eefff344d3a",
     "emscripten": "4.0.10",
     "files": {
       "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
       "query.mjs": "4a966ea90a314c1d3e017713d4e842831ba593a21915ab5eafa7ceafb9d6a5de",
       "opentlv-core.js": "600e1fac532c89aa92b4b72877268cb14d1f824c5e27eb747e6a27dc90a8ab5c",
       "opentlv-core.wasm": "9e50172279416c7b55431528f137cf254918da4100c6dd548eba34dbe0bf24a9"
+    },
+    "js": {
+      "repository": "https://github.com/OpenTLV/opentlv-js",
+      "commit": "c971205a1afeaeb2907998a60a0cc3448d1cd738",
+      "local": false,
+      "dirty": false,
+      "source_sha256": "ea283c223f1934f6b8bf95c009d93f3e1fc38013b89b28792a474dea38cd00f8"
     },
     "manifest": "playground/wasm/wasm-source.json"
   }

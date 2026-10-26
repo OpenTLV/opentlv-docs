@@ -5215,12 +5215,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5273,9 +5267,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5289,14 +5282,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5324,36 +5311,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -6030,7 +5987,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/development/documentation-layout.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6161,7 +6118,7 @@ than into the generated files, which do not exist in the repository. Generated
 pages link back to the guides through the <code>@docs</code> Doxygen alias. Generate the
 references independently with Core CMake, or let the standalone portal generate
 them during its site build; see
-<a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md#generate-the-c-api-reference">CONTRIBUTING.md</a>.</p>
 <h2 id="versioned-documentation">Versioned documentation<a class="headerlink" href="#versioned-documentation" title="Permanent link">&para;</a></h2>
 <p>The site is published per release: <code>latest</code> is the development documentation
 built from the portal's pinned Core revision, and each new released <code>X.Y.Z</code> is
@@ -6169,7 +6126,7 @@ built from its selected release tag and stays available after later releases.
 Historical <code>X.Y</code> versions remain on the archived Core site. Write pages for the current sources; do
 not copy the documentation tree or add version-specific pages by hand. Links
 that leave <code>docs/</code> point at the source of the same version. See
-<a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
+<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md#publishing">CONTRIBUTING.md</a> for how versions are
 published.</p>
 <h2 id="executable-examples">Executable examples<a class="headerlink" href="#executable-examples" title="Permanent link">&para;</a></h2>
 <p>Important examples (introductory C and C++ usage) are compiled sources under
@@ -6242,9 +6199,7 @@ without suppressions; do not use the indented <code>=== "Label"</code> syntax.</
   in tests or advanced examples. Preserve each binding's supported baseline,
   including C++11.</li>
 <li>Use tabs only for equivalent functionality. If a binding has no counterpart
-  for a group (for example Go has no public Schema facade, and
-  the WebAssembly build is not a Reader/Writer-shaped binding at all — see
-  <a href="../../history/core/development/webassembly/">WebAssembly</a>), leave it out of that group's tabs rather
+  for a group, leave it out of that group's tabs rather
   than adding an empty one; a shape difference that is still worth flagging
   (a narrower codec, a differently-shaped error type) belongs in prose or a
   cross-link to that binding's own guide, not a tab.</li>
@@ -6283,7 +6238,7 @@ does not require placeholder pages or new OTLV, binding or tool documentation.</
 <li>Record every new page in the <a href="../ownership/#page-inventory">ownership inventory</a>.
   Add it to the <code>nav</code> in the <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/mkdocs.yml">portal configuration</a>. Keep the
   GitHub index <a href="../../../">docs/README.md</a>, site landing page
-  <a href="../../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/README.md">README.md</a>
+  <a href="../../../">docs/index.md</a>, and project <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/README.md">README.md</a>
   aligned with the sections and entry points they describe. The GitHub index
   may link to an overview that leads to individual topic pages.</li>
 <li>When moving a page, update inbound links throughout the repository,
@@ -6331,12 +6286,12 @@ and test execution belong to <code>opentlv-lua</code> and <code>opentlv-python</
 <td>C++ family links in the implemented inventory</td>
 </tr>
 <tr>
-<td>Official binding directories</td>
-<td>User guide exists (WASM uses its tooling guide); navigation is checked by the portal</td>
+<td>Any Core-local binding directories</td>
+<td>User guide exists; standalone bindings own their guides and portal navigation</td>
 </tr>
 <tr>
-<td>Core-local C/C++/WASM example sources</td>
-<td>Marked source inventory in the examples guide; standalone Go, Rust, Python and Lua sources are external links</td>
+<td>Core-local C/C++ example sources</td>
+<td>Marked source inventory in the examples guide; standalone JS/WASM, Go, Rust, Python and Lua sources are external links</td>
 </tr>
 <tr>
 <td>Doxygen public roots, recursion and file patterns</td>
@@ -6465,7 +6420,7 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6479,7 +6434,7 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6500,14 +6455,14 @@ unchanged site URLs and preserved heading anchors continue to work.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

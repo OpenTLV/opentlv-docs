@@ -5204,12 +5204,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5262,9 +5256,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5278,14 +5271,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5313,36 +5300,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -6008,7 +5965,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6073,8 +6030,9 @@ CLI documentation is maintained in <code>OpenTLV/opentlv-cli</code>.
 Go documentation and diagnostic snapshot generation are maintained in
 <code>OpenTLV/opentlv-go</code>. Its former Core manuals and migration records remain
 available in Git history; Core no longer carries copies.
-WebAssembly follows the same component ownership rule; record its destination
-repository when its extraction is scheduled.</p>
+JS/WASM implementation, build, tests, examples and embedding documentation
+belong to <code>OpenTLV/opentlv-js</code> (#698). Former Core manuals and migration records
+remain available in Git history; Core retains the shared Query fixtures and ABI tests.</p>
 <p>Each fact has one canonical source. A portal build may assemble content from an
 owning repository into disposable build output; it must not maintain an edited
 copy of that content. Generated C/C++ references come from the selected Core
@@ -6377,7 +6335,7 @@ structure; this table records ownership rather than replacing that audit.</p>
 <td>Keep: native checks and harness selection</td>
 </tr>
 <tr>
-<td><a href="../../history/core/development/webassembly/">development/webassembly.md</a></td>
+<td><a href="../../../languages/wasm/manual/webassembly/">Standalone JS/WASM manual</a></td>
 <td>WebAssembly / Portal</td>
 <td>Component: embedding/build API; portal owns playground integration</td>
 </tr>
@@ -6729,7 +6687,7 @@ an assumed single-repository base URL.</p>
 <td>Hand-written guides and sibling C/C++ HTML trees: preserve both directions when generation and publication are separated</td>
 </tr>
 <tr>
-<td><code>playground/index.md</code>, its JavaScript and <code>development/webassembly.md</code></td>
+<td>Portal playground assets and the standalone JS/WASM manual</td>
 <td>WebAssembly distribution/API and browser assets: component produces the module; Portal owns its selected-version integration</td>
 </tr>
 <tr>
@@ -6847,9 +6805,9 @@ The portal extraction removed migrated site configuration, Python site
 dependencies, hooks, theme and unused site asset variants. CLI documentation
 subsequently moved to <code>opentlv-cli</code> with #622. The README logo remains usable offline.</p>
 <p>Portal <a href="https://github.com/OpenTLV/opentlv-docs/issues/6">#6</a> transfers the
-playground UI to <code>opentlv-docs</code>. Core retains a Markdown entry point and the
-component-owned WebAssembly implementation, CMake target and tests. The portal
-builds that target for its selected Core commit, verifies provenance and runs
+playground UI to <code>opentlv-docs</code>. Core retains a Markdown entry point;
+<code>opentlv-js</code> owns the WebAssembly implementation, CMake target and tests (#698).
+The portal builds selected JS against its selected Core, verifies both sources and runs
 the browser smoke test before publication. Its exact-path overlays support
 older Core revisions that still contain the UI.
 Merge and validate the portal integration before merging the Core UI removal.
@@ -6871,7 +6829,7 @@ The historical playground and its version history remain unchanged.</p>
    checks of its own sources and API generation. Validate affected portal links
    using its local preview when presentation destinations change.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -6894,7 +6852,7 @@ sequencing and preservation requirements.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6908,7 +6866,7 @@ sequencing and preservation requirements.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6929,14 +6887,14 @@ sequencing and preservation requirements.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

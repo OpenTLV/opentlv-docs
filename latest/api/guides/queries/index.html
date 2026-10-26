@@ -5178,12 +5178,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5233,9 +5227,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../development/history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -5249,14 +5242,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5284,36 +5271,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../development/history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -5962,7 +5919,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5993,7 +5950,7 @@ the compiled program APIs; the V1 helpers retain their smaller grammar.</p>
 contain resolved function selectors, metadata selectors, integer magnitudes,
 tag bytes/masks and parameter names. Execution never interprets query source.
 Source text is optional and used only for diagnostics and frontend formatting.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/tests/query/plan.c">standalone C plan test</a> manually defines
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/query/plan.c">standalone C plan test</a> manually defines
 <code>/01[@len = $n]</code> as <code>static const</code> C data without source text. It validates the
 image with <code>tlv_query_plan_open</code>, discovers workspace with <code>tlv_query_exec_size</code>
 or <code>tlv_query_eval_size</code>, binds <code>n</code> with <code>tlv_query_exec_bind</code>, and executes using
@@ -6056,7 +6013,7 @@ conflicting types and invalid names fail constant evaluation. The builder bounds
 plans to 128 instructions and 65,536 payload bytes. It composes instructions directly;
 it does not provide a constexpr text parser or duplicate the full Query frontend.
 The existing runtime text builder remains available for the full language.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/5002c686efc49574c33de3ce3b714162f02e4632/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
 checks, allocation instrumentation, runtime/static parity in both execution modes,
 and frontend-disabled builds. C-only static plans remain independently supported.</p>
 <h2 id="full-programs-and-integration">Full programs and integration<a class="headerlink" href="#full-programs-and-integration" title="Permanent link">&para;</a></h2>
@@ -6441,7 +6398,7 @@ existing language and binding behavior.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6455,7 +6412,7 @@ existing language and binding behavior.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6476,14 +6433,14 @@ existing language and binding behavior.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

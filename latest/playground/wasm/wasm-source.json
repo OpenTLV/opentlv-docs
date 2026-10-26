@@ -1,15 +1,22 @@
 {
-  "schema": 1,
+  "schema": 2,
   "repository": "https://github.com/OpenTLV/opentlv",
-  "commit": "5002c686efc49574c33de3ce3b714162f02e4632",
+  "commit": "1043bdccb0b5d3b519c5dd05cfc69bcdab511530",
   "local": false,
   "dirty": false,
-  "source_sha256": "6ce3987eef53ec5568ca5ef192631b46a503c4cdb14065c2ecddac6fca9ca8ba",
+  "source_sha256": "287463ba20afc0358e39d20333e6a0f9791a62f9e93116055ed84eefff344d3a",
   "emscripten": "4.0.10",
   "files": {
     "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
     "query.mjs": "4a966ea90a314c1d3e017713d4e842831ba593a21915ab5eafa7ceafb9d6a5de",
     "opentlv-core.js": "600e1fac532c89aa92b4b72877268cb14d1f824c5e27eb747e6a27dc90a8ab5c",
     "opentlv-core.wasm": "9e50172279416c7b55431528f137cf254918da4100c6dd548eba34dbe0bf24a9"
+  },
+  "js": {
+    "repository": "https://github.com/OpenTLV/opentlv-js",
+    "commit": "c971205a1afeaeb2907998a60a0cc3448d1cd738",
+    "local": false,
+    "dirty": false,
+    "source_sha256": "ea283c223f1934f6b8bf95c009d93f3e1fc38013b89b28792a474dea38cd00f8"
   }
 }

@@ -4295,6 +4295,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#format-composition-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format composition implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reader-and-source-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader and Source implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#writer-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5165,12 +5187,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5223,9 +5239,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5239,14 +5254,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5274,36 +5283,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -5879,6 +5858,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#format-composition-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format composition implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reader-and-source-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader and Source implementation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#writer-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5930,7 +5931,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/25d8783f1ef0def6c8790c7060a756fab635d3e4/docs/implementation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/9c27c7de77c4691e75b998f67d2778844eebcd13/docs/implementation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5961,11 +5962,13 @@ shape this binding follows and adapts, see the <a href="../../../../languages/co
 model</a>.</p>
 <p>It targets Lua 5.1 through 5.4 and LuaJIT (which implements the Lua 5.1 C
 API), using only the portable subset of the Lua C API common to all of them;
-see <code>src/compat.h</code>. It covers Reader, Writer, Tree Writer, Element and Tag, and
+see <code>src/compat.h</code>. It covers Reader and Tree Reader with incremental input,
+Source preservation, Writer, Tree Writer, Element and Tag, and
 preorder tree traversal (<code>opentlv.visit_tree</code>, built on <code>tlv_tree_reader_visit()</code>/
 <code>tlv_der_visit()</code>), structural Schema validation with detailed diagnostic reports,
-Value codecs with builtin and custom callback support, compiled path Query,
-and mutable Document (when <code>OPENTLV_DOCUMENT=ON</code>).</p>
+Value codecs with builtin and custom callback support, structure codecs,
+deterministic wire generation, compiled path Query, mutable Document (when
+<code>OPENTLV_DOCUMENT=ON</code>) and custom Formats composed from Core's field encodings.</p>
 <p>All Lua source paths on this page are relative to <code>opentlv-lua</code>.</p>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
 <p>Core no longer configures or builds the Lua module. Use the standalone
@@ -6000,23 +6003,89 @@ owned Lua strings. Custom functions are held in a userdata environment
 Each invocation prepares its own protected closure before entering C, so
 allocation errors cannot unwind across the core and recursive calls do not
 overwrite callback state.</p>
+<p><code>codecs.schema_number{}</code> embeds its <code>tlv_schema_entry_t</code> and
+<code>tlv_schema_number_t</code> in the codec userdata and keeps the rule's Tag and name
+strings in its environment. Structure codecs (<code>opentlv.StructureCodec</code>) keep
+their Format, Schema or checked Schema and callbacks in the same kind of
+environment. Each call copies the <code>tlv_structure_codec_t</code> and sets its
+context to the call's own protected closure, shared with custom Value codecs.
+Core validates the sequence around the callbacks, and the encoder's string is
+reused for the size query and the validated write into a Lua userdata buffer.</p>
+<p><code>src/generator.c</code> snapshots <code>tlv_generator_options_t</code> and its candidate table
+in a Generator userdata whose environment roots the Format, the table and the
+candidate Tag strings. <code>generate()</code> checks the Format's capabilities, sizes the
+workspace with <code>tlv_generator_workspace_size()</code> and calls <code>tlv_generate()</code> with
+one Lua userdata block that holds the workspace and the output case. No Lua
+code runs while Core generates.</p>
 <p><code>Integration_lua_codec</code>, <code>Integration_lua_codec_allocator</code> and
 <code>Integration_example_lua_codec</code> run standalone without busted.
 The codec suite also runs under <code>busted tests</code> and checks
-every exported static descriptor. Structure codecs remain outside this
-Value-codec binding.</p>
+every exported static descriptor. <code>tests/codec_generator_spec.lua</code> runs under
+busted and through <code>Integration_lua_codec_generator</code> and its allocator variant.
+It covers Schema-number widths, length checks, rule snapshots and Query
+providers; structure codec validation, limits, checked Schemas, missing
+directions, error propagation, recursion and collection; and reproducible
+generation, nesting, configuration snapshots and Core configuration results.
+Its <code>--allocator</code> mode injects Lua allocation failures across these
+operations. CTest also runs <code>examples/generate.lua</code>.</p>
+<h2 id="format-composition-implementation">Format composition implementation<a class="headerlink" href="#format-composition-implementation" title="Permanent link">&para;</a></h2>
+<p><code>src/formats/compose.c</code> reads <code>opentlv.formats.compose()</code> and
+<code>opentlv.formats.packed()</code> configuration tables into the Core field encoding,
+composition and packed layout structures, then initializes the descriptor with
+the matching Core composition. A composed Format is one larger userdata block
+that begins with the common <code>tlv_lua_format_t</code>; the configuration, policies,
+tag-only identifiers and the packed identifier table follow it in the same
+allocation. Core borrows them for the descriptor's lifetime, and every Format
+consumer retains the userdata, so no finalizer or C heap allocation is needed.
+Borrowed configuration strings stay rooted on the Lua stack until they are
+copied, and argument errors cannot leak storage. Encoding pairs without a
+dedicated Core composition use small adapters that only forward each field to
+its <code>tlv/field/</code> read or write primitive.</p>
+<p><code>src/format.c</code> binds the canonical Format operations for every Format, and
+<code>src/error.c</code> copies <code>tlv_format_error_t</code> detail into the raised error table.
+<code>tests/compose_spec.lua</code> runs under busted and checks compositions, policies,
+tag-only framing, configuration rejection and snapshots, every Format entry
+point and retained lifetimes. CTest also runs <code>examples/compose.lua</code>.</p>
+<h2 id="reader-and-source-implementation">Reader and Source implementation<a class="headerlink" href="#reader-and-source-implementation" title="Permanent link">&para;</a></h2>
+<p><code>src/reader.c</code> binds the sequential Reader and the Tree Reader. Each cursor
+references its current input string and Format userdata; <code>set_input()</code>
+references the new window before Core borrows it and releases the old one
+only after Core accepts it. The binding checks that the new window starts with
+the old undiscarded bytes, a precondition Core leaves to the caller. Tree
+Reader frames are allocated after the finalizer is installed. Elements, items
+and events are copied into Lua tables, so they never borrow a window.</p>
+<p><code>src/source.c</code> defines <code>opentlv.Source</code>: a copy of Core's <code>tlv_source_t</code>
+together with references to the input string and Format it borrows, so
+preservation stays valid after the Reader moves on or is collected.</p>
+<p><code>reader:visit()</code> and <code>tree_reader:visit()</code> share the protected trampoline of
+<code>src/visitor.c</code> with <code>opentlv.visit()</code>/<code>visit_tree()</code>. While native traversal
+runs, the cursor rejects its own methods, including an explicit finalizer
+call, because Core forbids changing the cursor from its callback.</p>
 <h2 id="writer-implementation">Writer implementation<a class="headerlink" href="#writer-implementation" title="Permanent link">&para;</a></h2>
 <p><code>src/writer.c</code> owns bounded output and Tree Writer workspace storage, retains
-Format userdata, and delegates writes to <code>tlv_writer_write_element_diag()</code>
-and <code>tlv_tree_writer_*</code>. It contains no format-specific encoding logic.
+Format userdata, and delegates writes to <code>tlv_writer_write_element_diag()</code>,
+<code>tlv_writer_copy_encoded_diag()</code>, <code>tlv_writer_preserve_diag()</code> and
+<code>tlv_tree_writer_*</code>. It contains no format-specific encoding logic.
 <code>src/error.c</code> copies native writer diagnostics into owned Lua error fields.
 The C core remains allocation-free; Lua userdata finalizers release storage
 allocated by the binding, including after partial constructor failures.</p>
+<p><code>measure_tree()</code> and <code>measure_events()</code> allocate their workspace as Lua
+userdata, so an error never leaks it. Core pulls items through a provider
+callback; the callback runs Lua only inside <code>lua_pcall()</code>, stores a Lua error
+and returns a failure to Core, and the error is raised again after Core
+returns. Tag and Value strings of every item stay referenced until the call
+ends, because Core keeps open parent Tags and diagnostics may refer to them.</p>
 <p><code>tests/writer_spec.lua</code> runs both under busted and directly with Lua. CTest
 registers the standalone suite whenever the interpreter is available.
 It covers binary strings, Reader/Writer
 roundtrips, exact preset bytes, ownership, nested output, resource exhaustion
 and structured diagnostics.</p>
+<p><code>tests/stream_spec.lua</code> runs under busted and directly through CTest. It
+covers incremental windows, resumable visits, Sources and preservation, Tree
+Reader items, events, subtree skipping and limits, raw copies, event writing
+and measurement. Its <code>--allocator</code> mode injects Lua allocation failures during
+visits, measurement and Source creation and checks that no callback or item
+stays referenced. CTest also runs <code>examples/stream.lua</code>.</p>
 <h2 id="schema-implementation">Schema implementation<a class="headerlink" href="#schema-implementation" title="Permanent link">&para;</a></h2>
 <p><code>src/schema.c</code> snapshots Lua descriptions into <code>tlv_structure_schema_t</code>,
 <code>tlv_structure_rule_t</code>, <code>tlv_schema_entry_t</code> and <code>tlv_structure_group_t</code> arrays.
@@ -6025,10 +6094,17 @@ immutable tag/name strings and child Schema objects. The Schema finalizer is
 installed before acquiring references; temporary diagnostic arrays are rooted
 on the Lua stack, so constructor or result-conversion allocation failures do
 not leak native storage. No Lua callback runs during C validation.</p>
-<p><code>Schema:validate()</code> calls <code>tlv_schema_validate_all_diag()</code>. It returns bounded
+<p><code>Schema:validate()</code> calls <code>tlv_schema_validate_all_diag()</code>, or
+<code>tlv_schema_validate()</code> with <code>first = true</code>. It returns bounded
 schema reports or a basic native-code/offset diagnostic on fatal failures.
+<code>schema:check()</code> runs <code>tlv_schema_prepare()</code> once; the checked handle roots the
+immutable Schema snapshot it borrows and validates through
+<code>tlv_schema_validate_checked()</code> and <code>tlv_schema_validate_all_checked()</code>.
+<code>length_schema()</code> and <code>value_constraint()</code> snapshot <code>tlv_schema_entry_t</code> and
+<code>tlv_value_constraint_t</code> tables with the same reference-table ownership.
 <code>src/error.c</code> provides common <code>tlv_diagnostic_t</code> conversion shared with Reader
-and Writer; Schema adds only the typed detail exposed by the C report.</p>
+and Writer; Schema adds only the typed detail exposed by the C report and the
+<code>tlv_schema_cause_string()</code> name of its cause.</p>
 <p><code>tests/schema_spec.lua</code> runs under busted and directly through CTest.
 It covers rules, groups, ordering, paths, native offsets,
 capacity/count-only results, malformed input, numeric checks, immutable
@@ -6042,9 +6118,32 @@ handles and configured Format lifetimes. Its
 <code>--allocator</code> mode injects Lua allocation failures during construction, result
 conversion, insertion and serialization. Document userdata acquire their
 finalizer before allocating native state; Node userdata root the owning
-Document. A non-owning list of live handles tracks native invalidation without
-copying the document tree. Query evaluation pulls native Tree Reader items
-between Lua allocations, avoiding Lua long jumps through native callbacks.</p>
+Document. A Node stores its address, its never-reused Core identity and the
+Document retirement epoch it was checked against. When
+<code>tlv_document_retire_epoch()</code> changes, <code>tlv_document_node_identity()</code> decides
+whether the address still names the same node, so erased or replaced nodes are
+detected without a binding-side handle list or copy of the tree. An applied
+Query edit still invalidates every earlier Node. Query evaluation pulls native
+Tree Reader items between Lua allocations, avoiding Lua long jumps through
+native callbacks.</p>
+<p>Path visits (<code>document:visit()</code>, <code>document:query()</code>, <code>query:visit()</code> and matcher
+visits) and compiled Document result visits run Node or element projection and
+the Lua callback inside <code>lua_pcall()</code> from the Core visitor, store a Lua error
+and return <code>TLV_VISIT_ERROR</code>, then raise it again after Core returns. The
+Document rejects mutation and release while a visit runs. A Document builder
+roots its Tree Reader and marks the cursor as owned, so pulls, skips and visits
+raise <code>INVALID_STATE</code> until the builder completes, fails or is closed; the
+owning Document userdata exists before <code>tlv_document_builder_consume()</code>
+transfers the tree into it.</p>
+<p><code>tests/document_query_schema_spec.lua</code> runs under busted and directly through
+CTest. It covers Document revisions, identity-checked Nodes, source locations,
+direct child lookup, path visits, Document builders, canonical Query paths,
+buffer and matcher visits, static compilation, native plans, in-place reset,
+codec providers, Document result visits and Value snapshot sizing, checked and
+first-failure Schema validation, length schemas and value constraints. Its
+<code>--allocator</code> mode injects Lua allocation failures across these operations and
+checks that a Document used during failed visits accepts edits afterwards.
+CTest also runs <code>examples/audit.lua</code>.</p>
 
 
 
@@ -6065,7 +6164,7 @@ between Lua allocations, avoiding Lua long jumps through native callbacks.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6079,7 +6178,7 @@ between Lua allocations, avoiding Lua long jumps through native callbacks.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6100,14 +6199,14 @@ between Lua allocations, avoiding Lua long jumps through native callbacks.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

@@ -4527,6 +4527,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Writer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree-streaming-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree streaming extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -5204,12 +5221,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5262,9 +5273,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../../history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -5278,14 +5288,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5313,36 +5317,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -5954,6 +5928,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Writer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tree-streaming-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree streaming extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6008,7 +5999,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-go/edit/6edf392293eb039986f0ca2aaa6936f8bc51607e/docs/implementation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-go/edit/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/docs/implementation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6040,24 +6031,46 @@ Run Go commands from the repository root, which contains <code>go.mod</code>.</p
 <li><code>tests/</code> contains Python tests for the build, CI and packaging helpers.</li>
 <li><code>examples/</code> contains runnable consumer programs.</li>
 </ul>
-<p>The internal bridge validates Fixed configuration and selects available native
+<p>The internal bridge validates generic field and Format configuration and selects available native
 presets (BER, indefinite BER, DER, CER, EMV, LLDP, Bluetooth LTV, DHCPv4 and NFC
 Type 2). It delegates single-element reads, incremental-input status, encoded
 size calculation and writes to the canonical C Reader/Writer. Native source
 ranges and reader/writer diagnostics are projected into Go values. Disabled
 presets return an unsupported status; the bridge contains no wire parser.</p>
 <h3 id="ownership-and-lifetime">Ownership and lifetime<a class="headerlink" href="#ownership-and-lifetime" title="Permanent link">&para;</a></h3>
+<p>Prepared structural schemas (#19) copy the complete definition graph into C
+allocations before <code>tlv_schema_prepare</code>. Table identities are resolved iteratively,
+including cycles/shared children. A shared owner serializes validation and Close;
+the graph is freed once without recursive traversal. Both single and bounded
+multi-finding validation use checked native APIs. Go copies every diagnostic before
+report/input/graph storage can expire, translating native definition owner pointers
+to stable table indices. The facade never implements structural validation rules.</p>
+<p>Document subtree operations retain the checked owner during C access. Optional
+source locations are scalar snapshots, and Encode returns owned output. Document
+Query visitors use the native Document visitor through a scoped cgo handle and
+guard execution reentry and Document mutation/Close while running the Go callback.
+Panics return visitor failure to C before propagating; deferred guards restore
+state and the native execution remains invalid until Reset.</p>
 <ul>
-<li>Byte slices are borrowed only during a synchronous cgo call. C never retains
-  Go pointers across calls. <code>runtime.KeepAlive</code> covers conversion of native
+<li>Byte slices are borrowed during synchronous bridge operations. Transient schema
+  reports pin their input until diagnostic snapshots are copied and native report
+  storage is freed; no Go input pointer remains in C after the API returns.
+  <code>runtime.KeepAlive</code> covers conversion of native
   results after the call. Nil and empty slices are supported without indexing
   their first byte; a non-nil empty slice remains distinct where relevant.</li>
-<li>Reader/Writer calls build their descriptor, Fixed context and cursor on the C stack.
-  Format configuration is immutable and reusable concurrently. These operations
-  allocate no persistent native resources and require no <code>Close</code> or finalizer.
-  Document instead owns a C-allocated descriptor and Fixed context for its entire
-  lifetime, and copies all input before returning. Its finalizer is a fallback;
-  use Close for deterministic cleanup.</li>
+<li>Reader/Writer calls build their descriptor and cursor on the C stack. Fixed
+  contexts remain call-local. Composed/variable/escaped/packed Formats hold an
+  immutable C-owned configuration with copied tables and policies. A shared Go
+  owner finalizer releases its reference; C Document and Query program objects
+  retain independent atomic references and release them on close or failed
+  construction. Calls keep the Go owner alive through native-result projection.
+  Format copies need no <code>Close</code> and may be used concurrently. Document copies
+  input and retains its descriptor for its lifetime; use its <code>Close</code> for
+  deterministic cleanup, with a finalizer only as fallback.</li>
+<li>Standalone field encodings are pointer-free value snapshots. The bridge binds
+  their optional policy pointers only in C-local copies. Field callbacks in mixed
+  compositions adapt context only and delegate validation and wire operations to
+  Core. No Go callback or Go configuration pointer is retained by C.</li>
 <li>Parsed Values, source bytes and source-bound Tags borrow the original Go
   slice, without copying. Returned slices keep its backing array alive. The
   caller must keep those bytes unchanged while results are in use and avoid
@@ -6174,6 +6187,30 @@ Input may alias previously returned Bytes because encoding uses independent
 temporary storage. Bytes borrows output; keep that storage unchanged while in use.</p>
 <p>Document serialization is available through <code>WriteDocument</code> (#477).
 Run the preset-independent example with <code>go run ./examples/writer</code>.</p>
+<h3 id="tree-streaming-extensions">Tree streaming extensions<a class="headerlink" href="#tree-streaming-extensions" title="Permanent link">&para;</a></h3>
+<p>The <a href="../../../../languages/go/manual/guides/go/#tree-streaming-and-visitors">tree streaming guide</a> covers
+<code>TreeReader</code>, node/event projections, window replacement, limits and resumable
+visitors, plus <code>TreeWriter</code>, <code>Writer.WriteEvent</code>, source writes and exact tree
+measurement. See <a href="https://github.com/OpenTLV/opentlv-go/blob/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1/examples/streaming/main.go">streaming/main.go</a> for a generic
+example with incremental input and a fixed-buffer retry.</p>
+<p>The private Tree Reader adapter stores only Core scalar continuation fields and
+offset-only frames between calls. Each call reattaches input, frames and the
+retained immutable Format to a local C cursor, invokes Core, and clears all
+pointers before storing the next continuation. Borrowed results are projected
+onto the original Go input; Format-owned tags and diagnostics are copied. There
+are no retained Go pointers in C and no public Close requirement. Window
+replacement does not relocate previously returned views.</p>
+<p>Visitors execute Go callbacks after native pulls return. This preserves source
+metadata, native parse diagnostics and the consumed-current-item rule, with
+application errors returned unchanged. Mutating reentrancy is rejected and
+callback panics unwind normally without leaving the visitor guard active.</p>
+<p>Tree Writer uses existing Go-owned staged frames and copied tags. Event ordering
+and traversal budgets are Go adapter checks; native diagnostic measurement,
+encoding and parent closure remain authoritative for wire semantics. Temporary
+encodings are committed only after success. This deliberately exposes neither
+native scratch/tag-storage pointers nor an allocation-free bounded-memory
+promise. Native diagnostic offsets keep the existing per-encoding-operation
+coordinate system rather than predicting final offsets inside open parents.</p>
 <h2 id="document">Document<a class="headerlink" href="#document" title="Permanent link">&para;</a></h2>
 <p><code>Parse(data, format)</code> copies complete input into the canonical C Document.
 <code>ParseWithOptions</code> accepts explicit <code>MaxDepth</code> and <code>MaxElements</code> limits;
@@ -6251,6 +6288,24 @@ components and Document disabled.</p>
 Use <code>errors.Is(err, opentlv.ErrInvalidValue)</code> or <code>errors.As</code> with <code>*CodecError</code>.
 Its <code>Detail</code> owns the conversion diagnostic and available delegated cause.
 Query providers return shared errors; nil denotes success.</p>
+<p><code>SchemaNumberCodec</code> adds canonical field-length composition, copying its entry
+metadata before use. <code>ValueConstraint</code> snapshots scalar ranges/allowed sets and
+uses Core to check definitions, validate decoded scalars and resolve display names.</p>
+<p><code>StructureCodec[T]</code> uses <code>tlv_structure_decode</code> before a Go decoder callback and
+<code>tlv_structure_encode</code> after a Go encoder callback. Internal C callbacks only
+acknowledge validated input or copy staged bytes; all framing/Schema behavior
+remains in Core. Application callbacks run once outside C/locks. A retained
+prepared Schema is locked only during native conversion and diagnostic copying;
+Close is synchronized and invalidates subsequent operations. Byte spans whose
+diagnostics may borrow tags remain pinned until diagnostics are copied. Output is
+published only on success, and application callback errors are returned unchanged.</p>
+<p>The immutable wire <code>Generator</code> copies candidates (including tag presence), keeps
+the Format owner alive and calls <code>tlv_generator_workspace_size</code>/<code>tlv_generate</code>.
+Each call owns independent output and scratch, checked against the configured
+workspace budget before allocation. Temporary candidate tables contain only C
+allocations and are released before returning. No generator cursor or random
+state is retained between case indices. <code>GeneratorVersion</code> comes from the linked
+header. These APIs work with Builtins and Document disabled.</p>
 <p>Run <code>go run ./examples/codec</code>, and with Document enabled,
 <code>go run ./examples/query</code> for querying followed by typed Value decoding.</p>
 <h2 id="errors-and-diagnostics">Errors and diagnostics<a class="headerlink" href="#errors-and-diagnostics" title="Permanent link">&para;</a></h2>
@@ -6315,7 +6370,7 @@ Format; it also works with optional protocol presets and Document disabled.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6329,7 +6384,7 @@ Format; it also works with optional protocol presets and Document disabled.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6350,14 +6405,14 @@ Format; it also works with optional protocol presets and Document disabled.</p>
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     

@@ -5217,12 +5217,6 @@
         
       
         
-          
-        
-      
-        
-      
-        
       
         
       
@@ -5272,9 +5266,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../development/history/core/wasm-migration/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -5288,14 +5281,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7_10" id="__nav_7_10_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_10">
@@ -5323,36 +5310,6 @@
     
   
     Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../development/history/core/development/webassembly/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    WebAssembly before extraction
   
 
     
@@ -6051,7 +6008,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/5002c686efc49574c33de3ce3b714162f02e4632/docs/concepts/bindings.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/concepts/bindings.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6061,14 +6018,14 @@
 
 <h1 id="common-conceptual-model-for-language-bindings">Common conceptual model for language bindings<a class="headerlink" href="#common-conceptual-model-for-language-bindings" title="Permanent link">&para;</a></h1>
 <p>OpenTLV ships a canonical C execution engine, the header-only idiomatic
-<code>tlv++</code> C++ API, and official experimental Rust, Python, Lua and Go bindings.
-All use the public C API as their interoperability boundary. WebAssembly is a
-narrow tooling embedding over the same engine. The
+<code>tlv++</code> C++ API, and official experimental standalone language bindings.
+All use the public C API as their interoperability boundary. The
 <a href="../../development/architecture/architecture/#conceptual-model">architecture overview</a> defines the concepts;
 this page owns the shared adaptation contract and retains comparative evidence.
 Current standalone language API, feature, compatibility and test details belong
-to the <a href="../python/manual/guides/python/">Python</a>
-and <a href="../lua/manual/api/">Lua</a> manuals.
+to the <a href="../python/manual/guides/python/">Python</a>,
+<a href="../lua/manual/api/">Lua</a> and
+<a href="../wasm/manual/webassembly/">JS/WASM</a> manuals.
 The portal owns their combined presentation; a Core revision alone does not
 establish compatibility with independently selected component versions.</p>
 <p>This page is the design contract every official binding follows: the primary
@@ -6376,8 +6333,8 @@ native functionality; see <a href="../../api/configuration/">component selection
 <tbody>
 <tr>
 <td>C++</td>
-<td><a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/tlv%2B%2B/include/tlv%2B%2B">headers</a></td>
-<td><a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/tests/unit/reader">reader</a>, <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/tests/unit/writer">writer</a>, <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/tests/unit/document">document</a>, <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/tests/unit/codec">codecs</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tlv%2B%2B/include/tlv%2B%2B">headers</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/unit/reader">reader</a>, <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/unit/writer">writer</a>, <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/unit/document">document</a>, <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/unit/codec">codecs</a></td>
 <td><a href="../../tutorials/cpp-examples/">C++ examples</a></td>
 </tr>
 <tr>
@@ -6406,11 +6363,9 @@ native functionality; see <a href="../../api/configuration/">component selection
 </tr>
 </tbody>
 </table>
-<p>WASM includes both the parse-to-JSON tooling embedding and an owning compiled
-Query/Document facade. Its Query facade provides configured/custom Formats,
-Tag adapters, scoped/Definition/EMV resolvers, Schema, edits, source events,
-ordinals and bounded V1 path queries. General Reader/Writer parity remains a
-separate concern. Java remains future work. Exact signatures
+<p>Current JS/WASM capabilities and limitations are maintained in the
+<a href="../wasm/manual/webassembly/">standalone manual</a>.
+Java remains future work. Exact signatures
 belong in generated references and binding source documentation; this matrix
 records supported workflows and their limits. Do not treat an experimental
 label or raw FFI declaration as proof of parity.</p>
@@ -6613,8 +6568,6 @@ it. For example:</p>
   borrowed view, and <code>Reader.Err()</code> after iteration. Fallible constructors,
   writes and Document operations return errors through Go's normal conventions;
   <code>errors.Is</code> and <code>errors.As</code> retain native status and diagnostic context.</li>
-<li>A future JavaScript binding could expose a reader as a JS iterable and
-  surface failures as native exceptions.</li>
 </ul>
 <p>The syntax changes; the concepts (a read-only, one-pass <code>Reader</code> yielding
 <code>Element</code> values) do not.</p>
@@ -6662,10 +6615,10 @@ entry points are:</p>
 <td><a href="../go/manual/development/go/">Go development</a></td>
 </tr>
 <tr>
-<td>WebAssembly</td>
-<td>Parse tooling plus owning compiled Query and checked Document facade; advanced extension parity remains incomplete</td>
+<td>JS / WebAssembly</td>
+<td>Experimental standalone <code>opentlv-js</code> component</td>
 <td><a href="../wasm/manual/webassembly/">WASM tooling</a></td>
-<td><a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076/">WASM sources</a></td>
+<td><a href="https://github.com/OpenTLV/opentlv-js/">WASM sources</a></td>
 </tr>
 </tbody>
 </table>
@@ -6728,7 +6681,7 @@ storage according to their language contracts. See the
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632">5002c686efc4</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
         
       
     
@@ -6742,7 +6695,7 @@ storage according to their language contracts. See the
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/25d8783f1ef0def6c8790c7060a756fab635d3e4">25d8783f1ef0</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/9c27c7de77c4691e75b998f67d2778844eebcd13">9c27c7de77c4</a>
         
       
     
@@ -6763,14 +6716,14 @@ storage according to their language contracts. See the
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/6edf392293eb039986f0ca2aaa6936f8bc51607e">6edf392293eb</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/68af66efd7c482a1a8bf9e46e4b5ab2d294449b1">68af66efd7c4</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/e9d14f452bc024da3bc5ee1a474d3aba8944a076">e9d14f452bc0</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/c971205a1afeaeb2907998a60a0cc3448d1cd738">c971205a1afe</a>
         
       
     
