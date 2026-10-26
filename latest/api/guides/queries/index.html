@@ -5907,7 +5907,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5938,7 +5938,7 @@ the compiled program APIs; the V1 helpers retain their smaller grammar.</p>
 contain resolved function selectors, metadata selectors, integer magnitudes,
 tag bytes/masks and parameter names. Execution never interprets query source.
 Source text is optional and used only for diagnostics and frontend formatting.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/query/plan.c">standalone C plan test</a> manually defines
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/tests/query/plan.c">standalone C plan test</a> manually defines
 <code>/01[@len = $n]</code> as <code>static const</code> C data without source text. It validates the
 image with <code>tlv_query_plan_open</code>, discovers workspace with <code>tlv_query_exec_size</code>
 or <code>tlv_query_eval_size</code>, binds <code>n</code> with <code>tlv_query_exec_bind</code>, and executes using
@@ -6001,7 +6001,7 @@ conflicting types and invalid names fail constant evaluation. The builder bounds
 plans to 128 instructions and 65,536 payload bytes. It composes instructions directly;
 it does not provide a constexpr text parser or duplicate the full Query frontend.
 The existing runtime text builder remains available for the full language.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
 checks, allocation instrumentation, runtime/static parity in both execution modes,
 and frontend-disabled builds. C-only static plans remain independently supported.</p>
 <h2 id="full-programs-and-integration">Full programs and integration<a class="headerlink" href="#full-programs-and-integration" title="Permanent link">&para;</a></h2>
@@ -6386,7 +6386,7 @@ existing language and binding behavior.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -6428,7 +6428,7 @@ existing language and binding behavior.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     

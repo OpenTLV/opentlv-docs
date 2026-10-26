@@ -5985,7 +5985,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/guides/reader.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/docs/guides/reader.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6103,7 +6103,7 @@ must be made contiguous by the caller. No hidden copying or I/O occurs.</p>
 diagnostic referring to it. Updating Reader does not redirect old views to new
 storage. Release such views before compacting or reusing their bytes; retaining
 an old view is safe if its original backing storage remains alive and unchanged.</p>
-<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv/src/incremental_reader.c">incremental Reader example</a>:
+<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv/src/incremental_reader.c">incremental Reader example</a>:
 it processes a six-byte input using four bytes of caller-owned sliding storage.</p>
 <h2 id="source-and-diagnostics">Source and diagnostics<a class="headerlink" href="#source-and-diagnostics" title="Permanent link">&para;</a></h2>
 <p><code>tlv_reader_consumed()</code> (also <code>reader.pos</code>) is the consumed prefix size within
@@ -6186,9 +6186,9 @@ and contexts are borrowed. Input must outlive every retained Element or diagnost
 the range must also outlive any result borrowing its owned Format. Construction
 or movement of an application Format may itself allocate; the range machinery
 does not. Typed <code>reader&lt;F&gt;</code> continues to prohibit copying and moving.</p>
-<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv%2B%2B/src/basic_usage.cpp">basic example</a>,
-<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv%2B%2B/src/formats/custom_format.cpp">custom Format example</a>, and
-<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv%2B%2B/src/formats/fixed_format_runtime.cpp">runtime Fixed example</a>.</p>
+<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv%2B%2B/src/basic_usage.cpp">basic example</a>,
+<a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv%2B%2B/src/formats/custom_format.cpp">custom Format example</a>, and
+<a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv%2B%2B/src/formats/fixed_format_runtime.cpp">runtime Fixed example</a>.</p>
 <h2 id="pull-based-tree-traversal">Pull-based tree traversal<a class="headerlink" href="#pull-based-tree-traversal" title="Permanent link">&para;</a></h2>
 <p><code>tlv_tree_reader_t</code> is the canonical iterative structural cursor. Include
 <code>tlv/reader/tree.h</code>, supply caller-owned <code>tlv_tree_frame_t</code> storage, and initialize
@@ -6260,7 +6260,7 @@ not <code>TLV_NEED_MORE_DATA</code>. More bytes outside the parent cannot repair
 Incremental traversal resumes across complete subtrees and incomplete subsequent
 roots, without requiring the entire stream in memory. It does not provide an
 early-header stream or partial Elements.</p>
-<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv/src/tree_reader.c">Tree Reader example</a>
+<p>See the compiled <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv/src/tree_reader.c">Tree Reader example</a>
 for caller-owned frames, incomplete input, subtree skipping, window replacement,
 and EOF.</p>
 <h3 id="resumable-visitor-adapters">Resumable Visitor adapters<a class="headerlink" href="#resumable-visitor-adapters" title="Permanent link">&para;</a></h3>
@@ -6291,7 +6291,7 @@ while visitor errors identify the visited item and tree resource preflight
 errors retain UNKNOWN location. The canonical <code>tlv_tree_reader_visit()</code> accepts
 a Reader diagnostic directly. Known input coordinates include discarded windows;
 no offset-only output or <code>_diag</code> compatibility wrapper is retained.</p>
-<p>See the runnable <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/examples/tlv/src/visitor.c">Visitor example</a> for STOP,
+<p>See the runnable <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/examples/tlv/src/visitor.c">Visitor example</a> for STOP,
 resumption and incremental input replacement.</p>
 <h2 id="ownership-and-composition">Ownership and composition<a class="headerlink" href="#ownership-and-composition" title="Permanent link">&para;</a></h2>
 <p>Input storage belongs to the caller and must stay alive and unchanged while
@@ -6377,7 +6377,7 @@ is unchanged. <code>tlv_query_visit</code> remains the resumable cursor-based AP
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -6419,7 +6419,7 @@ is unchanged. <code>tlv_query_visit</code> remains the resumable cursor-based AP
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     

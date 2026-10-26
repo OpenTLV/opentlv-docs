@@ -541,7 +541,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/72338d82aad22c1620b75e0f8f190de11982a74a/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/42687fb3fc7552aed887badab9ea1ac0651748be/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -550,19 +550,19 @@
 
 
 <h1 id="private-jswasm-package-preparation">Private JS/WASM package preparation<a class="headerlink" href="#private-jswasm-package-preparation" title="Permanent link">&para;</a></h1>
-<p>The canonical <a href="https://github.com/OpenTLV/opentlv-js/blob/72338d82aad22c1620b75e0f8f190de11982a74a/package.json">package.json</a> defines the independent
+<p>The canonical <a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/package.json">package.json</a> defines the independent
 <code>opentlv-js</code> version, initially <code>0.1.0-dev.0</code>. This is an unreleased development
 identity, not the pinned Core version or a release tag. Change this version
 explicitly when advancing the binding; a Core pin change never changes it
 automatically. Record binding changes under <code>Unreleased</code> in
-<a href="https://github.com/OpenTLV/opentlv-js/blob/72338d82aad22c1620b75e0f8f190de11982a74a/CHANGELOG.md">CHANGELOG.md</a>. Release version/tag policy remains deferred.</p>
+<a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/CHANGELOG.md">CHANGELOG.md</a>. Release version/tag policy remains deferred.</p>
 <p>The name <code>opentlv-js</code> identifies this repository and its private local package.
 No npm registry name or scope is selected or reserved. <code>private: true</code> makes npm
 refuse publication, as described in the
 <a href="https://docs.npmjs.com/cli/v10/configuring-npm/package-json/#private">npm package metadata contract</a>.
 No publish command, credentials, lifecycle hook or GitHub release action is added.</p>
 <h2 id="build-and-check">Build and check<a class="headerlink" href="#build-and-check" title="Permanent link">&para;</a></h2>
-<p>Activate Emscripten 4.0.10 and Node 22 (including its bundled npm), then run:</p>
+<p>Activate Emscripten 4.0.10, Node 22 (including npm) and TypeScript 5.9.3 (<code>tsc</code> on <code>PATH</code>), then run:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>emcmake<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-wasm<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-wasm<span class="w"> </span>--target<span class="w"> </span>opentlv-wasm<span class="w"> </span>--parallel
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-wasm<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
@@ -571,7 +571,10 @@ No publish command, credentials, lifecycle hook or GitHub release action is adde
 <p>Use the default pinned Core build. The command verifies its live source receipt
 and rejects sibling development overrides. It checks all four nonempty outputs
 in <code>&lt;build&gt;/dist/</code>, the WASM header and wrapper equality with <code>src/*.mjs</code>.
-It runs <code>tests/smoke.mjs</code> and <code>examples/parse.mjs</code> against the installed package.
+It runs the smoke, Format/field and Reader/Writer streaming suites and their
+parse, fields and streaming examples against the installed package. It also runs
+the Document/Schema suite and example, and compiles the installed TypeScript
+consumer with strict NodeNext and Bundler resolution.
 These checks establish local package consistency, not attestation of arbitrary
 prebuilt binaries. CI builds the inputs afresh before packaging.</p>
 <p>The output directory must be new. The script stages an exact file allowlist,
@@ -583,8 +586,9 @@ expected SHA-256 bytes; missing, extra, duplicate and symlink entries fail.</p>
 <p>It then installs the archive into an isolated consumer using offline npm with
 scripts, audit and funding requests disabled. The consumer checks every public
 export, the independent version, the preserved Core version, WASM asset lookup,
-default/explicit loader locations and parsing. The original smoke test and parse
-example run against the installed archive. CI also runs the Core-owned Query
+default/explicit loader locations and parsing. The original smoke/parse checks
+and the generic field/streaming suites and examples run against the installed
+archive. CI also runs the Core-owned Query
 fixtures through the installed package's original facade runner.</p>
 <p>The source checkout is a metadata/build source, not an installable package:
 generated <code>index.mjs</code>, <code>version.mjs</code> and <code>dist/</code> live only in the staging area.
@@ -592,8 +596,9 @@ Do not pack or install the source root directly. For local experimentation,
 install the checked <code>build/package-check/opentlv-js-&lt;version&gt;.tgz</code> archive.
 The exact archive name, hashes and commands are in <code>build/package-check/result.json</code>.</p>
 <h2 id="api-and-evidence">API and evidence<a class="headerlink" href="#api-and-evidence" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/72338d82aad22c1620b75e0f8f190de11982a74a/packaging/README.md">package README</a> describes each export and asset
-location. The original four output filenames and bytes are preserved.
+<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/packaging/README.md">package README</a> describes each export and asset
+location. The four original runtime filenames remain unchanged; API additions
+are tracked separately from the immutable migration baseline.
 <code>packaging/index.mjs</code> re-exports the existing facade and adds <code>packageVersion</code>.
 The <code>opentlv-js/version</code> subpath exposes that value without loading the facade.
 Existing <code>(await loadOpenTLV()).version</code> and the C bridge version entry point continue
@@ -601,8 +606,11 @@ to identify Core, preserving their migration contract.</p>
 <p><code>package-info.json</code> includes binding identity and separate immutable Core source
 identity/output hashes. It excludes machine-specific build paths so identical
 builds can produce identical packages. Node 22 is the validated runtime; ESM is
-the only package module interface. Browser/worker runtime tests, CommonJS,
-TypeScript, CDN and bundler support are not claimed.</p>
+the only package module interface. The exact 15-file archive includes four
+<code>.d.mts</code> declarations, with <code>types</code> exports for the root, facade, Query and version
+entry points. TypeScript 5.9.3 checks both NodeNext and Bundler resolution; this
+does not establish browser/worker or bundler runtime compatibility. CommonJS
+and CDN support are not claimed.</p>
 <p>All <a href="../../../../development/components/js/ci/">CI tiers</a> run package checks. The Release reproducibility tier also
 compares the complete private archive hash, metadata and file hashes across two
 independent builds. CI evidence includes package reports, but the private npm
@@ -633,7 +641,7 @@ from this migration preparation. None is enabled by this change.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -675,7 +683,7 @@ from this migration preparation. None is enabled by this change.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     

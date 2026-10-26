@@ -4607,6 +4607,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#codeql-analysis-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CodeQL analysis scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#release-artifacts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5780,6 +5791,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#codeql-analysis-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CodeQL analysis scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#release-artifacts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5853,7 +5875,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/development/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/docs/development/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5884,7 +5906,7 @@ does not replace their coverage or the Query 1.0 acceptance contract.</p>
 <tr>
 <td><code>core-main.yml</code></td>
 <td>Push to <code>main</code></td>
-<td>One Linux shared C/C++ build and external consumer integration smoke configuration</td>
+<td>One Linux shared C/C++ build and external consumer integration smoke configuration, Full-configuration CodeQL</td>
 </tr>
 <tr>
 <td><code>core-full.yml</code></td>
@@ -5900,7 +5922,8 @@ does not replace their coverage or the Query 1.0 acceptance contract.</p>
 </table>
 <p>Core Pull Request CI replaces Core Fast CI. It has no branch-push trigger, so an
 open PR has one Core validation run per update. Main CI checks integration health
-after merge without repeating static analysis, unit suites or platform matrices.
+after merge without repeating unit suites or platform matrices; of the static
+analyzers it runs only CodeQL, which keeps default-branch code-scanning alerts current.
 Full CI has no push or scheduled trigger. Reusable workers still support manual
 diagnosis, but a standalone worker pass does not produce Full CI evidence.
 Manual <strong>Static Analysis</strong> runs all three source checks.</p>
@@ -5916,7 +5939,7 @@ of configuration helpers. These describe the declared tested configurations;
 binary package records additionally capture actual compiler and build metadata.
 The nested <code>Static analysis gate</code> requires pre-commit, clang-tidy and cppcheck
 to succeed in both PR and Full CI, without path filters. Main has its own
-always-running gate requiring its exact smoke job to succeed. Release reruns
+always-running gate requiring its exact smoke and CodeQL jobs to succeed. Release reruns
 every Full configuration for its exact candidate; historical PR results cannot
 substitute for this evidence.</p>
 <table>
@@ -5974,6 +5997,87 @@ substitute for this evidence.</p>
 general Core source mutation campaign; no such campaign is claimed by this gate.
 Benchmarks and Callgrind run automatically only through Release Gate. Performance
 changes are advisory; missing, failed or incomparable measurements block release.</p>
+<h2 id="codeql-analysis-scope">CodeQL analysis scope<a class="headerlink" href="#codeql-analysis-scope" title="Permanent link">&para;</a></h2>
+<p>CodeQL analyzes the C/C++ translation units its tracer sees during the build:
+OpenTLV production sources, first-party tests and, in Full CI, examples.
+GoogleTest is fetched third-party test infrastructure and is excluded by
+compiling its <code>gtest</code>, <code>gtest_main</code>, <code>gmock</code> and <code>gmock_main</code> targets before
+CodeQL initialization. The traced build then reuses those objects and fails if it
+compiles any fetched source under <code>build/_deps/</code>. GoogleTest headers included by
+first-party tests are still extracted with those tests.</p>
+<p>Main CI repeats the Full CodeQL configuration, including examples and
+<code>security-extended</code>, after every push to <code>main</code>. Code scanning closes a
+default-branch alert as fixed when an analysis of the same <code>/language:cpp</code>
+category no longer reports it, so a merged fix resolves its alert without
+waiting for a manual Full run or dismissal. Using the Full configuration also
+prevents alerts from <code>security-extended</code> queries or examples alternating between
+open and fixed across Main and Full analyses. PR analyses use the default suite
+and compare against the base branch; they never close default-branch alerts.</p>
+<p>The exclusion is a build boundary, not a result filter. Query suites, rules and
+first-party findings are not suppressed: PR CI keeps the default suite, Full CI
+keeps <code>security-extended</code>, and <code>paths-ignore</code> is not used because it does not
+control C/C++ extraction. GoogleTest sources are not modified. Findings reported
+in remaining third-party headers are triaged individually.</p>
+<p>Disabling <code>OPENTLV_BUILD_TESTS</code> for CodeQL was rejected. Measured on the CodeQL
+configurations, it would remove every first-party test, including all C++
+translation units in PR CI, the only ones that analyze the header-only <code>tlv++</code>
+layer there:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Production</th>
+<th>First-party tests</th>
+<th>Examples</th>
+<th>GoogleTest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PR, before</td>
+<td>89</td>
+<td>150</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>PR, tests disabled</td>
+<td>89</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PR, current</td>
+<td>89</td>
+<td>150</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Full, before</td>
+<td>89</td>
+<td>150</td>
+<td>36</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Full, tests disabled</td>
+<td>89</td>
+<td>0</td>
+<td>36</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Full, current</td>
+<td>89</td>
+<td>150</td>
+<td>36</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Counts are unique compiled source files. First-party test coverage is unchanged.</p>
 <h2 id="release-artifacts">Release artifacts<a class="headerlink" href="#release-artifacts" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Close <code>CHANGELOG.md</code> for the intended tag and merge it to <code>main</code>. Its first
@@ -6053,7 +6157,7 @@ workflow YAML cannot prohibit those actions. Configure release-tag rules and
 publisher access in repository settings when enabling production publication.
 Do not claim administrator-proof enforcement from the workflow alone.</p>
 <p>The live ruleset inspected on 2026-10-19 requires CodeQL scanning on <code>main</code>, with no
-bypass actors. CodeQL runs in PR and Full CI with the existing analysis
+bypass actors. CodeQL runs in PR, Main and Full CI with the existing analysis
 category. No repository settings were changed by this implementation. If requiring
 CI status checks for merges, select the new always-running Core quality gate after
 its first hosted PR run; do not require Full-only worker checks.</p>
@@ -6141,7 +6245,7 @@ a controlled prerelease on GitHub before declaring the release gate operational.
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -6183,7 +6287,7 @@ a controlled prerelease on GitHub before declaring the release gate operational.
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     

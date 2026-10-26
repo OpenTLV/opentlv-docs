@@ -5676,7 +5676,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/development/workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/docs/development/workflow.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5693,7 +5693,7 @@ submit a pull request to <code>main</code>.</p>
 release artifacts, provenance verification and timing evidence.</p>
 <p>Pull Request CI runs only on Linux for PRs targeting <code>main</code>, including clang-tidy,
 cppcheck, CodeQL and essential tests. Main pushes run only Linux build/integration
-smoke checks. Full CI runs manually or through Release Gate and repeats all
+smoke checks and CodeQL, which closes fixed code-scanning alerts on <code>main</code>. Full CI runs manually or through Release Gate and repeats all
 required source checks alongside the complete native and memory-safety matrix.
 Development branch pushes do not start a duplicate Core PR run.
 Run <strong>Core Release</strong> manually from <code>main</code> with its single <strong>tag</strong> input, such as
@@ -5706,10 +5706,10 @@ advisory; missing or failed verification blocks publication. Do not push the tag
 in advance. Automatic performance measurements run only through Release Gate.</p>
 <p>Binding and documentation workflows retain their independent responsibilities.
 Documentation publication remains owned by the standalone portal; see
-<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md#publishing">Publishing</a>. The existing
+<a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/CONTRIBUTING.md#publishing">Publishing</a>. The existing
 <a href="../query-release/">Query release checklist</a> still applies to the 1.0 contract.</p>
 <p>For local formatting, static analysis and documentation validation, see
-<a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 
 
 
@@ -5730,7 +5730,7 @@ Documentation publication remains owned by the standalone portal; see
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -5772,7 +5772,7 @@ Documentation publication remains owned by the standalone portal; see
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     

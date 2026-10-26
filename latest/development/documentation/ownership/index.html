@@ -5953,7 +5953,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6565,9 +6565,9 @@ structure; this table records ownership rather than replacing that audit.</p>
 </tbody>
 </table>
 <h2 id="infrastructure-and-sources-outside-the-page-inventory">Infrastructure and sources outside the page inventory<a class="headerlink" href="#infrastructure-and-sources-outside-the-page-inventory" title="Permanent link">&para;</a></h2>
-<p>Paths in this table are relative to the repository root. A directory name alone
-does not determine ownership: in particular, <code>tools/docs/</code> contains both native
-API generation inputs and portal code.</p>
+<p>Paths in this table are relative to the repository root unless stated otherwise.
+Core API generation inputs live in <code>docs/api/</code>; portal tooling lives in the
+standalone portal repository.</p>
 <table>
 <thead>
 <tr>
@@ -6585,7 +6585,7 @@ API generation inputs and portal code.</p>
 <td>Portal: browser UI and styling, transferred by portal #6; Core retains a Markdown entry-point link</td>
 </tr>
 <tr>
-<td><code>mkdocs.yml</code>, <code>requirements-docs.txt</code>, <code>tools/docs/hooks.py</code>, <code>tools/docs/overrides/main.html</code> in the portal repository</td>
+<td><code>mkdocs.yml</code>, <code>requirements-docs.txt</code>, the documentation hook and HTML override in the portal repository</td>
 <td>Portal: configuration, dependencies, source-link rewriting, generated artifact integration and version banner; removed from Core by #608</td>
 </tr>
 <tr>
@@ -6593,7 +6593,7 @@ API generation inputs and portal code.</p>
 <td>Core: read-only Markdown, example/inventory and Doxygen validation with API artifacts; replaces the removed <code>docs.yml</code> publisher</td>
 </tr>
 <tr>
-<td><code>tools/docs/Doxyfile.in</code>, <code>Doxyfile.cxx.in</code>, <code>Doxyfile.common.in</code>, <code>c-api.dox</code>, <code>cxx-api.dox</code> (all under <code>tools/docs/</code>)</td>
+<td><code>docs/api/Doxyfile.in</code>, <code>Doxyfile.cxx.in</code>, <code>Doxyfile.common.in</code>, <code>c-api.dox</code>, <code>cxx-api.dox</code> (all under <code>docs/api/</code>)</td>
 <td>Core: independent C/C++ extraction configuration, groups and landing pages; preserve C/C++ cross-links and <code>@docs</code> links when portal URLs change</td>
 </tr>
 <tr>
@@ -6817,7 +6817,7 @@ The historical playground and its version history remain unchanged.</p>
    checks of its own sources and API generation. Validate affected portal links
    using its local preview when presentation destinations change.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/1043bdccb0b5d3b519c5dd05cfc69bcdab511530/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -6840,7 +6840,7 @@ sequencing and preservation requirements.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/1043bdccb0b5d3b519c5dd05cfc69bcdab511530">1043bdccb0b5</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
         
       
     
@@ -6882,7 +6882,7 @@ sequencing and preservation requirements.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/72338d82aad22c1620b75e0f8f190de11982a74a">72338d82aad2</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
         
       
     
