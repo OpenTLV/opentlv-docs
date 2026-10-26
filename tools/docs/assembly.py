@@ -41,6 +41,12 @@ git = sources.git
 
 log = logging.getLogger("mkdocs.hooks.assembly")
 
+# Core-owned Doxygen inputs relocated by OpenTLV/opentlv#681.
+CORE_API_INPUTS = frozenset({
+    "api/Doxyfile.in", "api/Doxyfile.cxx.in", "api/Doxyfile.common.in",
+    "api/c-api.dox", "api/cxx-api.dox",
+})
+
 # Exact, portal-owned presentation files still present in transitional Core.
 # Adding a new override requires an explicit ownership decision here.
 PORTAL_OVERRIDES = frozenset({
@@ -223,6 +229,10 @@ def assemble(portal, selected=None):
             if not path.resolve().is_relative_to(checkout) or path.is_symlink() or not path.is_file():
                 raise PluginError(f"Documentation source must be a regular file inside {item['id']}: {name}")
             relative = Path(name).relative_to(item["docs_path"]).as_posix()
+            # Core generation inputs are not downloadable portal assets.
+            # Match exact paths so other API and component assets survive.
+            if item["id"] == "core" and relative in CORE_API_INPUTS:
+                continue
             target = (Path(item["mount"]) / relative).as_posix()
             add(target, path, {"id": item["id"], "path": name, "root": str(checkout)})
     if any(item["id"] == "cli" and item["included"] for _, item in selected):

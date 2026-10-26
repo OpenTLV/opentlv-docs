@@ -742,6 +742,11 @@ Doxygen declarations, aliases, source comments, and warning-as-error policy
 remain authoritative. Generation disables libraries' optional consumers, tests,
 and examples; it does not compile the C++ library or any bindings.
 
+Core's five Doxygen inputs under `docs/api/` are generation sources, so assembly
+omits them from the published site. Other API pages and assets remain included.
+Older Core revisions with inputs outside `docs/` remain supported. The generated
+references still use `api/reference/c-api/` and `api/reference/cxx-api/`.
+
 The portal owns disposable `build/api/`. A regeneration replaces that directory
 to prevent stale CMake settings or HTML from leaking between revisions. Do not
 store manually maintained files there. Valid artifacts are reused when their
