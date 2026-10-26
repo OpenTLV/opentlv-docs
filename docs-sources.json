@@ -44,7 +44,7 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "revision": "9c27c7de77c4691e75b998f67d2778844eebcd13",
+      "revision": "e2b65d515852748b80d1e4506c4b3a306d30a2f4",
       "docs_path": "docs",
       "mount": "lua",
       "updates": {
@@ -70,6 +70,9 @@
           },
           {
             "Quality gates": "quality-gates.md"
+          },
+          {
+            "Generic Core API coverage": "api-coverage.md"
           },
           {
             "Implementation and ownership": "implementation.md"
