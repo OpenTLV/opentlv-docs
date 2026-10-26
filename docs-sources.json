@@ -72,6 +72,9 @@
             "Quality gates": "quality-gates.md"
           },
           {
+            "Generic Core API coverage": "api-coverage.md"
+          },
+          {
             "Implementation and ownership": "implementation.md"
           },
           {

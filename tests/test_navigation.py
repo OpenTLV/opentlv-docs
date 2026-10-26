@@ -190,6 +190,7 @@ class NavigationTests(unittest.TestCase):
             "python/validation/ci.md": "development/history/python/validation/ci/",
             "cli/development.md": "development/components/cli/development/",
             "lua/testing.md": "development/components/lua/testing/",
+            "lua/api-coverage.md": "development/components/lua/api-coverage/",
             "python/releases.md": "development/components/python/releases/",
             "rust/validation/codecs-generator.md": "development/history/rust/validation/codecs-generator/",
             "rust/validation/api-coverage.md": "development/components/rust/validation/api-coverage/",

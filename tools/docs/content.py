@@ -80,6 +80,7 @@ COMPONENT_GUIDES = {
     "cli/releases.md": ("cli", "CLI versions and releases"),
     "lua/testing.md": ("lua", "Lua tests and CI"),
     "lua/quality-gates.md": ("lua", "Lua quality gates"),
+    "lua/api-coverage.md": ("lua", "Lua generic Core API coverage"),
     "lua/implementation.md": ("lua", "Lua implementation and ownership"),
     "lua/releases.md": ("lua", "Lua release quality gate"),
     "python/quality-gates.md": ("python", "Python tests and CI"),
