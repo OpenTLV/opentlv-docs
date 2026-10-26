@@ -11,8 +11,8 @@ COMPONENT_INDEX = "development/components.md"
 # original navigation and paths.
 ARCHIVES = {
     "development/webassembly.md": (
-        "core", "WebAssembly before extraction", "development/webassembly.md",
-        "js/webassembly.md", "current WebAssembly guide"),
+        "core", "JavaScript before extraction", "development/webassembly.md",
+        "js/webassembly.md", "current JavaScript guide"),
     "guides/go.md": ("core", "Go usage before extraction", "guides/go.md",
                      "go/guides/go.md", "current Go manual"),
     "development/go.md": ("core", "Go development before extraction", "development/go.md",
@@ -21,8 +21,8 @@ ARCHIVES = {
         "core", "Go migration baseline", "go-migration/index.md",
         "go/development/go.md", "current Go development guide"),
     "development/wasm-migration/README.md": (
-        "core", "WASM migration baseline", "wasm-migration/index.md",
-        "js/webassembly.md", "current WebAssembly guide"),
+        "core", "JavaScript migration baseline", "wasm-migration/index.md",
+        "js/webassembly.md", "current JavaScript guide"),
     "guides/python.md": ("core", "Python extraction guide", "guides/python.md",
                          "python/guides/python.md", "current Python manual"),
     "development/documentation-audit.md": (
@@ -73,7 +73,7 @@ ARCHIVES = {
 }
 
 COMPONENT_GUIDES = {
-    "js/ci.md": ("js", "JS/WASM tests, CI and documentation updates"),
+    "js/ci.md": ("js", "JavaScript tests, CI and documentation updates"),
     "go/development/ci.md": ("go", "Go tests, CI and documentation updates"),
     "go/implementation.md": ("go", "Go implementation and ownership"),
     "cli/development.md": ("cli", "CLI development"),

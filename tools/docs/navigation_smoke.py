@@ -233,7 +233,7 @@ def check_catalogs(page, base_url):
     """Follow discovery links into the actual selected manuals and application."""
     sources = page.request.get(base_url + "source-revision.json").json()["sources"]
     standalone_js = js.ready(sources)
-    wasm_manual = ("languages/wasm/manual/webassembly/" if standalone_js
+    wasm_manual = ("languages/javascript/manual/webassembly/" if standalone_js
                    else "development/history/core/development/webassembly/")
     languages = (
         ("C", "languages/c/", "C API reference", "api/reference/c/"),
@@ -242,7 +242,7 @@ def check_catalogs(page, base_url):
         ("Lua", "languages/lua/", "Lua manual", "languages/lua/manual/api/"),
         ("Rust", "languages/rust/", "Rust manual", "languages/rust/manual/guides/rust/"),
         ("Go", "languages/go/", "Go manual", "languages/go/manual/guides/go/"),
-        ("WebAssembly", "languages/wasm/", "WebAssembly manual", wasm_manual),
+        ("JavaScript", "languages/javascript/", "JavaScript manual", wasm_manual),
     )
     tools = (
         ("otlv CLI", "tools/otlv/", "otlv manual", "tools/otlv/manual/"),
@@ -267,7 +267,7 @@ def check_catalogs(page, base_url):
                     page.locator("article").get_by_role("link", name=manual_title, exact=True).click()
                     expect(page).to_have_url(base_url + manual)
                     expect(page.locator("article h1")).to_be_visible()
-                    if title in ("Python", "Lua", "Rust", "Go", "otlv CLI") or (title == "WebAssembly" and standalone_js):
+                    if title in ("Python", "Lua", "Rust", "Go", "otlv CLI") or (title == "JavaScript" and standalone_js):
                         expect(page.locator('[data-md-component="tabs"]')).to_have_count(0)
                         page.get_by_role("link", name="Return to the OpenTLV portal", exact=True).click()
                         expect(page).to_have_url(base_url)

@@ -91,7 +91,7 @@ Custom framing starts with the [Format extension guide](../formats/custom/README
 | Lua | [Standalone Lua manual](../lua/api.md) and [installation](../lua/development.md) |
 | Rust | [Standalone Rust setup and usage](../rust/guides/rust.md) |
 | Go | [Go setup and usage](../go/guides/go.md) |
-| WebAssembly | [WebAssembly integration](../bindings/wasm/index.md); for browser exploration, use the [playground](../playground/index.md) |
+| JavaScript | [JavaScript integration](../bindings/javascript/index.md); for browser exploration, use the [playground](../playground/index.md) |
 
 The [Languages catalog](../bindings/index.md) explains the available manuals and
 their versions. Check each guide's prerequisites, experimental status and

@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+- Name the language and binding JavaScript throughout portal navigation, catalogs, contributor guides and playground copy; correct standalone binding ownership and move its portal source to `bindings/javascript/` and public overview/manual routes to `languages/javascript/`. Retain WebAssembly terminology for the binary format, runtime requirements and historical source paths. (OpenTLV/opentlv-js#14)
 - Build the playground from selected standalone JS and Core sources, verify both revisions and fingerprints through publication, and accept Core Main CI documentation notifications. Support removal of the old Core WASM manual and migration records while preserving historical selections and rejecting partial cleanup. (OpenTLV/opentlv#698)
 - Register standalone JS/WASM documentation and Main notifications, preserve the historical Core manual, and route JS-owned manuals, examples and version metadata with an exact bootstrap pin. (#93)
 - Support Core revisions after the removal of its old Go manuals and baseline, while retaining complete archives for older selected revisions and immutable Git links to the original evidence. Reject partial archive removal through existing strict navigation checks. (OpenTLV/opentlv#686)

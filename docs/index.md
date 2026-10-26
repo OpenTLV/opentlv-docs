@@ -29,7 +29,7 @@ complete protocol semantics or the same feature coverage in every binding.
 | Understand TLV and complete a first task | [Tutorials](getting-started/overview.md) |
 | Use the shared model, operations and native reference | [API](api/index.md), including generic format configurations |
 | Choose a supported protocol | [Standards](formats/overview.md) |
-| Use C, C++, Python, Lua, Rust, Go or WebAssembly | [Languages](bindings/index.md), including capability and experimental-status guidance |
+| Use C, C++, Python, Lua, Rust, Go or JavaScript | [Languages](bindings/index.md), including capability and experimental-status guidance |
 | Inspect data in a terminal or explore it in a browser | [Tools](tools/index.md): the `otlv` CLI and TLV playground |
 | Build, test or contribute to a component | [Development](development/index.md) |
 

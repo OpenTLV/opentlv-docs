@@ -260,11 +260,11 @@
         "main"
       ],
       "navigation": {
-        "title": "JavaScript / WebAssembly",
+        "title": "JavaScript",
         "section": [],
         "items": [
           {
-            "JS/WASM manual": "webassembly.md"
+            "JavaScript manual": "webassembly.md"
           },
           {
             "Tests, CI and documentation updates": "ci.md"

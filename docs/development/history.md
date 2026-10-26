@@ -21,10 +21,10 @@ the immutable Git revision retains their inventory, results and source history.
 Older selected Core revisions still expose their original archive pages here.
 Historical evidence does not establish current standalone build or release readiness.
 
-The [WASM migration baseline](https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/docs/development/wasm-migration) records the original Core implementation, toolchain,
+The [JavaScript migration baseline](https://github.com/OpenTLV/opentlv/tree/5002c686efc49574c33de3ce3b714162f02e4632/docs/development/wasm-migration) records the original Core-hosted binding, toolchain,
 exports and local reproducibility evidence for the JavaScript extraction. Its
 inventory and validation results describe that immutable baseline; follow the
-[WebAssembly guide](../bindings/wasm/index.md) for the selected source's build instructions.
+[JavaScript guide](../bindings/javascript/index.md) for the selected source's build instructions.
 Core #698 removes the old manual and baseline from the current tree; this
 immutable Git revision and previously published snapshots retain the evidence.
 

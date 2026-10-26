@@ -103,7 +103,7 @@ pages or compatibility redirects are emitted; internal and API links resolve
 directly to the combined pages.
 
 Issue #48 adds lightweight overviews for C, C++, Python, Lua, Rust, Go and
-WebAssembly, plus otlv, the playground and planned imtlv. Catalogs state source
+JavaScript, plus otlv, the playground and planned imtlv. Catalogs state source
 availability separately from experimental status and independent publication.
 Overviews link setup and first examples in the owning manuals; they do not
 maintain copies of API tutorials. C/C++ technical ownership remains with Core.
@@ -165,7 +165,7 @@ upstream technical sources or establish current release/deployment evidence.
 Local documentation previews require the CLI, Lua, Python, Rust and Go documentation sources but do not
 build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
-[WASM and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
+[JavaScript binding and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
 
 ## Setup
@@ -1301,9 +1301,9 @@ extraction will update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
-owns the standalone WASM implementation, CMake target and Node smoke tests in
-`opentlv-js`. The selected Core still supplies the portal's legacy binary build;
-the [JS documentation handoff](#js-documentation-handoff) does not change it.
+owns the JavaScript binding, Emscripten build target and Node smoke tests in
+`opentlv-js`. Current playground builds combine the selected JS and Core sources;
+historical source selections retain support for the original Core-hosted target.
 See [Playground builds](#playground-builds) for verified artifacts and preview.
 
 ## Validation and scope
@@ -1467,7 +1467,7 @@ Docs owns the current portal publication workflow. Core supplies technical
 documentation and verified artifacts; its historical portal publisher is no
 longer the current publication path. Local checks cannot verify repository Pages
 settings, environment protection, or hosted deployment.
-Publication builds the selected Core WASM target, verifies provenance, and
+Publication builds the selected JavaScript binding and Core sources, verifies provenance, and
 exercises the prepared playground in Chromium. PR/Main builds and local previews
 may omit WASM; Full and publication require the verified playground.
 
@@ -1765,9 +1765,9 @@ the previous deployed site intact.
 The `js` source registers `OpenTLV/opentlv-js` at an independent exact commit.
 Its trusted documentation producer is `.github/workflows/js-main.yml`; the
 existing `component-docs-updated` receiver verifies successful Main push history
-and changes only the JS pin. JS owns the WASM manual, parse example and catalog
+and changes only the JS pin. JS owns the JavaScript manual, parse example and catalog
 version; Docs owns assembly, navigation and the playground UI. Catalog language
-`js` renders as JavaScript / WebAssembly and uses the JavaScript lexer.
+`js` renders as JavaScript and uses the JavaScript lexer.
 
 The initial pin `037fde09d3caf26f32071911ebc78c63cb84f2e0` is the merged layout
 baseline. It supplies packaging and CI pages but predates `docs/webassembly.md`.

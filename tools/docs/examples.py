@@ -13,7 +13,7 @@ from urllib.parse import quote, urlsplit
 from mkdocs.exceptions import PluginError
 
 LANGUAGES = {"c": ("C", "c"), "cpp": ("C++", "cpp"), "rust": ("Rust", "rust"),
-             "python": ("Python", "python"), "lua": ("Lua", "lua"), "go": ("Go", "go"), "js": ("JavaScript / WebAssembly", "javascript")}
+             "python": ("Python", "python"), "lua": ("Lua", "lua"), "go": ("Go", "go"), "js": ("JavaScript", "javascript")}
 IDENTIFIER = re.compile(r"[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*\Z")
 START = re.compile(r"<!-- opentlv-examples: ([a-z][a-z0-9._-]*) -->\Z")
 END = "<!-- /opentlv-examples -->"

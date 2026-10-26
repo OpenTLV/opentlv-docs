@@ -2,18 +2,18 @@
 
 Paste hexadecimal TLV data, choose a format and press **Parse** to see the
 nested structure as a tree, a hex dump or JSON. Parsing runs in your browser with the
-[OpenTLV WebAssembly build](../bindings/wasm/index.md), the same C core as
+[OpenTLV JavaScript binding](../bindings/javascript/index.md), backed by the same C core as
 native applications. Nothing you enter is uploaded.
 
-The published module uses the JS and Core sources selected for this
+The published binding uses the JavaScript and Core sources selected for this
 documentation version. Both sources are recorded in the site's
-`source-revision.json` and `playground/wasm/wasm-source.json`. Local previews without WASM artifacts
+`source-revision.json` and `playground/wasm/wasm-source.json`. Local previews without generated binding assets
 display an unavailable message.
 
 <!-- markdownlint-disable MD033 -->
 <div id="opentlv-playground" class="otlv-pg">
   <noscript>The playground needs JavaScript and WebAssembly.</noscript>
-  <p id="otlv-pg-status" class="otlv-pg-status" role="status">Loading the OpenTLV WebAssembly module…</p>
+  <p id="otlv-pg-status" class="otlv-pg-status" role="status">Loading the OpenTLV JavaScript binding…</p>
   <div class="otlv-pg-controls">
     <label>Sample
       <select id="otlv-pg-sample" disabled></select>
@@ -139,4 +139,4 @@ The playground only parses and inspects. Editing, re-encoding, schemas, `.otlv`
 and shareable sessions are not available. Library functionality
 not listed in the controls are not exposed by this playground yet. One parse reads at most 65,536
 elements and 64 levels of nesting; see
-[WebAssembly build](../bindings/wasm/index.md).
+[JavaScript binding guide](../bindings/javascript/index.md).
