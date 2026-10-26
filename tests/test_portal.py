@@ -120,6 +120,35 @@ add_dependencies(cxx-api-docs c-api-docs)
         self.assertEqual(snapshot, {p.relative_to(docs): p.read_bytes() for p in docs.rglob("*") if p.is_file()})
         self.assertEqual((docs / "assets/logo-mark.svg").read_text(), "<svg/>")
 
+    def test_relocated_core_doxygen_inputs_are_not_published(self):
+        names = ("Doxyfile.in", "Doxyfile.cxx.in", "Doxyfile.common.in",
+                 "c-api.dox", "cxx-api.dox")
+        for name in names:
+            self.write(self.core / "docs/api" / name, "Core generation input\n")
+        self.write(self.core / "docs/api/example.dox", "Downloadable example\n")
+        self.write(self.core / "docs/api/example.in", "Downloadable template\n")
+        for local in (True, False):
+            with self.subTest(local=local):
+                if not local:
+                    self.git("add", "docs/api")
+                    self.git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+                             "-c", "commit.gpgsign=false", "commit", "-m", "Relocate API inputs")
+                with patch.dict(os.environ, {
+                    "OPENTLV_DOCS_LOCAL": "1" if local else "0",
+                    "OPENTLV_CORE_REF": self.git("rev-parse", "HEAD"),
+                }):
+                    result = self.mkdocs()
+                self.assertEqual(result.returncode, 0, result.stderr)
+                for directory in ("build/assembled/docs", "site"):
+                    for name in names:
+                        self.assertFalse((self.portal / directory / "api" / name).exists())
+                    self.assertTrue((self.portal / directory / "api/example.dox").is_file())
+                    self.assertTrue((self.portal / directory / "api/example.in").is_file())
+                for tree in ("c-api", "cxx-api"):
+                    self.assertTrue((self.portal / f"site/api/reference/{tree}/html/index.html").is_file())
+                for name in names:
+                    self.assertEqual((self.core / "docs/api" / name).read_text(), "Core generation input\n")
+
     def test_unexpected_collision_rejected_before_replacing_output(self):
         assembly.assemble(self.portal)
         docs = self.portal / "build/assembled/docs"
