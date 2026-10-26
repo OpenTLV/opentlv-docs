@@ -14,7 +14,7 @@ which operations each binding exposes and the shared C boundary.
 | [Lua](lua/index.md) | Lua module for scripts and embedded applications | Available; experimental standalone binding |
 | [Rust](rust/index.md) | Safe Rust API over the C library | Available; experimental standalone binding |
 | [Go](go/index.md) | Go types, slices and errors | Available; experimental standalone binding |
-| [WebAssembly](wasm/index.md) | JavaScript access to Core in the browser | Available; experimental standalone JS/WASM binding |
+| [JavaScript](javascript/index.md) | JavaScript API over Core | Available; experimental standalone binding |
 
 C and C++ share the [memory and lifetime contracts](../guides/memory.md),
 [diagnostics](../guides/diagnostics.md), [Query](../guides/queries.md),
@@ -25,7 +25,7 @@ Language overviews own setup routing and language-specific usage guidance.
 
 ## Product manuals and versions
 
-Python, Lua, Rust, Go and JS/WASM maintain their own manuals. The manual links on their
+Python, Lua, Rust, Go and JavaScript maintain their own manuals. The manual links on their
 overview pages open the exact source selected for this portal version, with
 product-specific navigation and a return link to the portal. Python and Lua
 also have their own release schedules; independent publication reserves

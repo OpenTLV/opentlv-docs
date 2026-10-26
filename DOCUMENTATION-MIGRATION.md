@@ -1,5 +1,10 @@
 # Documentation inventory and migration mapping
 
+The JavaScript naming update (2026-10-26) moves the portal-owned overview to
+`bindings/javascript/index.md` and its current overview/manual routes to
+`languages/javascript/`. The older `wasm` paths in the baseline tables below
+record the historical mapping.
+
 Review baseline for [issue #44](https://github.com/OpenTLV/opentlv-docs/issues/44)
 and [epic #43](https://github.com/OpenTLV/opentlv-docs/issues/43), prepared
 2026-10-21. **Baseline merged in [PR #56](https://github.com/OpenTLV/opentlv-docs/pull/56);

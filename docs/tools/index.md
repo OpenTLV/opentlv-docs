@@ -9,7 +9,7 @@ For application integration, use [Languages](../bindings/index.md).
 | Tool | Purpose | Availability |
 | --- | --- | --- |
 | [otlv CLI](otlv/index.md) | Inspect, validate, encode and convert TLV data | Available from the standalone CLI repository |
-| [TLV playground](playground/overview.md) | Explore TLV bytes in a browser | Available interface; requires the matching WebAssembly module |
+| [TLV playground](playground/overview.md) | Explore TLV bytes in a browser | Available interface; requires the matching JavaScript binding assets |
 | [imtlv](imtlv/index.md) | Planned OpenTLV tool; scope to be defined | Planned; no installation or manual available |
 
 ## Product manuals and versions

@@ -1,5 +1,5 @@
 site_name: OpenTLV
-site_description: Portable TLV processing with a canonical C engine, language APIs, CLI and WebAssembly.
+site_description: Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.
 site_url: https://opentlv.github.io/opentlv-docs/
 repo_url: https://github.com/OpenTLV/opentlv
 repo_name: OpenTLV/opentlv
@@ -179,8 +179,7 @@ nav:
       - Lua: bindings/lua/index.md
       - Rust: bindings/rust/index.md
       - Go: bindings/go/index.md
-      - WebAssembly:
-          - WebAssembly overview: bindings/wasm/index.md
+      - JavaScript: bindings/javascript/index.md
   - Tools:
       - Overview: tools/index.md
       - otlv CLI: tools/otlv/index.md
@@ -234,8 +233,8 @@ nav:
       - Historical records:
           - Overview: development/history.md
           - Go migration baseline: development/go-migration/README.md
-          - WASM migration baseline: development/wasm-migration/README.md
-          - WebAssembly before extraction: development/webassembly.md
+          - JavaScript migration baseline: development/wasm-migration/README.md
+          - JavaScript before extraction: development/webassembly.md
           - Core Go usage before extraction: guides/go.md
           - Core Go development before extraction: development/go.md
           - Core Python transition guide: guides/python.md

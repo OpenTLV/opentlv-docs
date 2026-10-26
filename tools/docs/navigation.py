@@ -81,7 +81,7 @@ PAGE_ROUTES = {
     "guides/go.md": "languages/go/manual/index.md",
     "guides/python.md": "languages/python/core-transition.md",
     "guides/lua.md": "languages/lua/core-transition.md",
-    "development/webassembly.md": "languages/wasm/development.md",
+    "development/webassembly.md": "languages/javascript/development.md",
     "playground/index.md": "tools/playground/index.md",
     "concepts/architecture.md": "development/architecture/architecture.md",
     "concepts/runtime-model.md": "development/planning/runtime-model.md",
@@ -103,9 +103,9 @@ PAGE_ROUTES = {
 }
 PRODUCT_ROUTES = {"cli/": "tools/otlv/manual/", "lua/": "languages/lua/manual/",
                   "python/": "languages/python/manual/", "rust/": "languages/rust/manual/",
-                  "go/": "languages/go/manual/", "js/": "languages/wasm/manual/"}
+                  "go/": "languages/go/manual/", "js/": "languages/javascript/manual/"}
 # Archived Core copies link here when their standalone manual is not selected.
-ENTRY_POINTS = {"js": ("bindings/wasm/index.md", "WebAssembly language entry point"),
+ENTRY_POINTS = {"js": ("bindings/javascript/index.md", "JavaScript language entry point"),
                 "go": ("bindings/go/index.md", "Go language entry point"),
                 "python": ("bindings/python/index.md", "Python language entry point"),
                 "rust": ("bindings/rust/index.md", "Rust language entry point")}
@@ -208,7 +208,7 @@ def record_index(markdown, page, config, files):
 
 def on_page_markdown(markdown, page, config, files):
     markdown = record_index(markdown, page, config, files)
-    if (page.file.src_uri == "bindings/wasm/index.md"
+    if (page.file.src_uri == "bindings/javascript/index.md"
             and not js.ready(config.extra.get("sources", []))):
         markdown = markdown.replace("../../js/webassembly.md", "../../development/webassembly.md")
         markdown += ("\nThe selected JS layout baseline predates the standalone manual transfer. "

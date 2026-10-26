@@ -11,7 +11,7 @@ version or capability registry.
 The later JS handoff (#93, 2026-10-24) supersedes the WebAssembly disposition in
 this dated inventory: Core's `development/webassembly.md` is preserved at
 `development/history/core/development/webassembly/`, while the JS-owned manual
-is routed to `languages/wasm/manual/webassembly/` after its reviewed source pin.
+is routed to `languages/javascript/manual/webassembly/` after its reviewed source pin.
 The exact bootstrap exception and independent version identity are documented
 in the [current handoff contract](README.md#js-documentation-handoff).
 
@@ -84,7 +84,7 @@ planned runtime work and boundary reuse remain proposals in Development.
 | [bindings/lua/index.md](docs/bindings/lua/index.md) | Portal | Keep | `languages/lua/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
 | [bindings/python/index.md](docs/bindings/python/index.md) | Portal | Keep | `languages/python/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
 | [bindings/rust/index.md](docs/bindings/rust/index.md) | Portal | Keep | `languages/rust/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
-| [bindings/wasm/index.md](docs/bindings/wasm/index.md) | Portal | Keep | `languages/wasm/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
+| [bindings/javascript/index.md](docs/bindings/javascript/index.md) | Portal | Keep | `languages/javascript/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
 | [cli/README.md](https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/docs/README.md) | cli | Keep | `tools/otlv/manual/` | Tool-specific commands, JSON/UI behavior or discovery; preserve the tool owner and examples. |
 | [cli/development.md](https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/docs/development.md) | cli | Relocate | `development/components/cli/development/` | Current component contributor testing, implementation or release procedure; move portal placement to Development while retaining public-manual links. |
 | [cli/json-schema.md](https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/docs/json-schema.md) | cli | Keep | `tools/otlv/manual/json-schema/` | Tool-specific commands, JSON/UI behavior or discovery; preserve the tool owner and examples. |
@@ -132,7 +132,7 @@ planned runtime work and boundary reuse remain proposals in Development.
 | [development/rust.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/development/rust.md) | core | Keep | `languages/rust/manual/development/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
 | [development/testing.md](docs/development/testing.md) | Portal | Keep | `development/testing/` | Active contributor guidance, architecture or current portal routing; retain owner-maintained procedures. |
 | [development/valgrind.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/development/valgrind.md) | core | Keep | `development/valgrind/` | Active contributor guidance, architecture or current portal routing; retain owner-maintained procedures. |
-| [development/webassembly.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/development/webassembly.md) | core | Keep | `languages/wasm/development/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
+| [development/webassembly.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/development/webassembly.md) | core | Keep | `languages/javascript/development/` | Language-specific API, setup, conversions, lifetime or versioning; shared Core semantics remain linked. |
 | [development/workflow.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/development/workflow.md) | core | Keep | `development/workflow/` | Active contributor guidance, architecture or current portal routing; retain owner-maintained procedures. |
 | [formats/README.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/formats/README.md) | core | Keep | `api/formats/guide/` | Shared public contracts, configurations or native reference; retain the canonical technical details and examples. |
 | [formats/asn1/ber.md](https://github.com/OpenTLV/opentlv/blob/48e415d944c7e4ae6a30cff8566f0936bda7390d/docs/formats/asn1/ber.md) | core | Keep | `standards/asn1/ber/` | Protocol-specific behavior, wire examples and support limitations belong beside the standard. |

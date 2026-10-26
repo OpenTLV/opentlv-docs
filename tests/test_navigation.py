@@ -120,7 +120,7 @@ class NavigationTests(unittest.TestCase):
                           "formats/nfc/README.md", "formats/dhcp/README.md", "formats/lldp/README.md"),
             "Languages": ("bindings/c/index.md", "bindings/cpp/index.md",
                           "bindings/python/index.md", "bindings/lua/index.md", "bindings/rust/index.md",
-                          "bindings/go/index.md"),
+                          "bindings/go/index.md", "bindings/javascript/index.md"),
             "Development": ("development/webassembly.md", "concepts/architecture.md", "concepts/error-model.md",
                             "concepts/field-policies.md", "concepts/definition-boundaries.md",
                             "formats/format-roadmap.md", "development/documentation-layout.md",
@@ -179,6 +179,8 @@ class NavigationTests(unittest.TestCase):
         # Check representative user-visible destinations independently of the
         # route table, including paths that would otherwise match product rules.
         for source, url in {
+            "bindings/javascript/index.md": "languages/javascript/",
+            "js/webassembly.md": "languages/javascript/manual/webassembly/",
             "guides/go.md": "development/history/core/guides/go/",
             "development/go.md": "development/history/core/development/go/",
             "go/development/ci.md": "development/components/go/development/ci/",
@@ -285,7 +287,7 @@ class NavigationTests(unittest.TestCase):
             self.assertEqual((site / "development/go-migration" / name).read_bytes(),
                              b'{"preserved": true}\n')
         html = (site / "development/history/core/wasm-migration/index.html").read_text(encoding="utf-8")
-        self.assertIn('href="../../../../languages/wasm/"', html)
+        self.assertIn('href="../../../../languages/javascript/"', html)
         for name in ("inventory.json", "results.json", "logs.json", "exports.mjs"):
             self.assertIn(f'href="../../../wasm-migration/{name}"', html)
             self.assertEqual((site / "development/wasm-migration" / name).read_bytes(),

@@ -13,7 +13,7 @@ Core contributor guidance starts with [Architecture](architecture/index.md),
 [Building from Source](building/index.md) and [Testing and Quality Gates](testing.md).
 Go's standalone build guide remains with its public manual under
 [Languages](../bindings/go/index.md). The selected
-[WebAssembly guide](../bindings/wasm/index.md) combines language-specific setup and
+[JavaScript guide](../bindings/javascript/index.md) combines language-specific setup and
 development instructions.
 
 Migration evidence and dated validation reports are collected in

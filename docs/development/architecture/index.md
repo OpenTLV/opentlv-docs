@@ -15,7 +15,7 @@ owners rather than defining another architecture.
 | Query | The [Query language contract](../../concepts/query-language.md) and [Query guide](../../guides/queries.md) describe selection and execution over the shared model. |
 | Schema and Codec | [Schemas](../../guides/schemas.md) describe structural and value constraints; [codecs](../../guides/codecs.md) convert Value bytes and application representations. They are optional capabilities, not mandatory processing stages. |
 | Language bindings | The [binding contracts](../../concepts/bindings.md) describe facades over the canonical C engine. C++ remains Core-owned; [language overviews](../../bindings/index.md) lead to each implementation and manual. |
-| Tools | The [Tools catalog](../../tools/index.md) identifies the CLI, playground and planned imtlv. CLI behavior belongs to its repository; the portal owns the playground UI, while Core supplies the WebAssembly implementation. |
+| Tools | The [Tools catalog](../../tools/index.md) identifies the CLI, playground and planned imtlv. CLI behavior belongs to its repository; the portal owns the playground UI, `opentlv-js` owns its JavaScript binding, and Core owns native processing. |
 
 ## Current implementation and planned work
 

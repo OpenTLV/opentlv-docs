@@ -137,7 +137,7 @@ def navigation(base, selected):
                     {"Core quality gates": "development/quality-gates.md"},
                     {"Documentation ownership": "development/documentation-ownership.md"},
                     {"Go migration baseline": "development/go-migration/README.md"},
-                    {"WASM migration baseline": "development/wasm-migration/README.md"},
+                    {"JavaScript migration baseline": "development/wasm-migration/README.md"},
                 ):
                     continue
                 result.append({title: historical(value) if isinstance(value, list) else value
