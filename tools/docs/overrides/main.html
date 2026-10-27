@@ -54,3 +54,12 @@
     {% endfor %}
   </small></p>
 {% endblock %}
+
+{% block footer %}
+  {{ super() }}
+  {% if config.extra.license_manifest %}
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="{{ 'licenses/index.html' | url }}">Licenses and third-party notices</a>
+  </div></div>
+  {% endif %}
+{% endblock %}

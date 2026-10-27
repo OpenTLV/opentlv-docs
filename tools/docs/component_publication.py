@@ -32,6 +32,7 @@ def version(tag):
 
 def verify_site(site, selection):
     metadata = json.loads((site / "source-revision.json").read_text(encoding="utf-8"))
+    publication.licensing.verify_record(site, metadata)
     for key in ("source", "repository", "commit", "tag", "version", "local", "dirty"):
         if metadata.get(key) != selection[key]:
             raise ValueError("Component snapshot identity differs from the validated release.")
@@ -84,7 +85,8 @@ def assemble(portal, checkout, item, selection):
                   site_url=config["site_url"].rstrip("/") + "/" + item["id"] + "/",
                   repo_url=item["repository"], repo_name=events.repository(item),
                   docs_dir=str(docs), site_dir=str(output / "site"),
-                  hooks=[str(portal / "tools/docs/component_hooks.py")],
+                  hooks=[str(portal / "tools/docs/licensing.py"),
+                         str(portal / "tools/docs/component_hooks.py")],
                   nav=navigation + [{"OpenTLV portal": config["site_url"]}],
                   exclude_docs="", extra_css=[], extra_javascript=[], plugins=["search"])
     config["theme"] = dict(config["theme"], custom_dir=str(portal / "tools/docs/overrides"))
@@ -94,7 +96,8 @@ def assemble(portal, checkout, item, selection):
                   included=True, local=False, dirty=False)
     config["extra"] = {"docs_channel": "release", "sources": [source],
                        "component_generated_index": generated_index,
-                       "component_checkout": str(checkout), "version": {"provider": "mike", "alias": True},
+                       "component_checkout": str(checkout), "license_checkouts": {item["id"]: str(checkout)},
+                       "version": {"provider": "mike", "alias": True},
                        "release_identity": dict(selection, infrastructure_commit=sources.git(portal, "rev-parse", "HEAD"))}
     ci.check_navigation(docs, yaml.safe_dump(config))
     path = output / "mkdocs.yml"

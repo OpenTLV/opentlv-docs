@@ -1459,7 +1459,7 @@ repository through the event contract below.
 ### GitHub Pages setup and recovery
 
 Before the first publication, a repository administrator must select **Settings
-â†’ Pages â†’ Build and deployment â†’ Source: GitHub Actions**. Configure the
+Ã¢â€ â€™ Pages Ã¢â€ â€™ Build and deployment Ã¢â€ â€™ Source: GitHub Actions**. Configure the
 `github-pages` environment to allow deployments from `main`. Pages publication
 itself needs no personal access token; cross-repository notifications and update
 PRs use the tokens described below. `gh-pages` stores mike history; Pages serves the uploaded
@@ -1888,10 +1888,14 @@ the SVG assets, which do not carry headers, by exact path; add new files of
 those kinds there. [LICENSES/](LICENSES/) supplies the license text for REUSE.
 
 Assembled component manuals keep the license of their owning repository. Every
-published page shows the copyright and links the license and
-[third-party notices](THIRD_PARTY.md) for the theme, icons, generated API
-reference and playground. Update those notices with the theme or a new bundled
-dependency.
+published page shows the copyright and links to `licenses/index.html` inside
+its own snapshot. The bundle contains complete component, theme, icon and
+playground notices, with source versions and hashes in `licenses/manifest.json`.
+The installed theme supplies its notices; selected checkouts supply their own
+licenses. Reviewed Emscripten 4.0.10 notices are kept byte-for-byte in `notices/`
+for both current and historical producers. Build and publication checks reject
+missing or changed notices. See [third-party notices](THIRD_PARTY.md) for the
+update procedure. Existing published releases remain immutable.
 
 ## Community
 

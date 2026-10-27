@@ -1,29 +1,54 @@
 # Third-party notices
 
 This repository's own files are MIT licensed by Marek Cingel; see
-[LICENSE](LICENSE). It contains no vendored third-party code, fonts or images.
+[LICENSE](LICENSE). It contains no vendored third-party code, fonts or images. The `notices/`
+directory preserves upstream runtime license and copyright texts.
 The OpenTLV logo and favicon in `docs/assets/` are original project assets
 under the same license. The wordmark names Arial, Helvetica and sans-serif as
 fonts but embeds no font data.
 
 ## Published site
 
-A built site and its versioned snapshots contain more than this repository's
-files. Each part keeps the license of its owner:
+Every new portal and component snapshot contains `licenses/index.html` and the
+complete notice files linked there. The footer uses a relative link into that
+snapshot, so copies, nested pages, release versions and aliases retain their
+notices without requiring GitHub access. Previously published immutable snapshots
+are not rewritten.
 
-| Part of the site | Origin | License and notice |
+| Distributed content | Included notice |
+| --- | --- |
+| Portal pages, tools and original logo | `portal-LICENSE.txt`, copied from this repository |
+| Component manuals and API reference text | `<component>-LICENSE.txt`, copied from each selected checkout |
+| Material for MkDocs templates, JavaScript and CSS | `material-LICENSE.txt`, from the installed distribution's license metadata |
+| Theme icon collections | Original Material, Font Awesome, Octicons and Simple Icons notices from that same installed distribution; full Apache 2.0 text is also included |
+| Playground JS/WASM | Selected Core and JS licenses plus Emscripten, musl and compiler-rt notices below |
+| Doxygen-generated reference assets | Original notices remain in generated scripts and jQuery files |
+
+`licenses/manifest.json` records the installed theme version, selected component
+commits, toolchain identity when WASM is present, and SHA-256 hashes of the bundled
+notice bytes. The build rejects missing, empty, symlinked, shadowed or modified
+notices. New `source-revision.json` records bind that manifest by SHA-256; publication
+verification checks it again. Component snapshots also hash every distributed file.
+
+## Playground runtime notices
+
+The following files are copied byte-for-byte from Emscripten **4.0.10**, commit
+`b7dc6e5747465580df5984e723b9d1f10d8e804b`. The license hook checks their reviewed
+hashes before bundling them, including when building historical Core/JS producers.
+
+| Local file | Upstream path | Upstream terms |
 | --- | --- | --- |
-| Assembled manuals, examples and API reference text | The Core, CLI, Lua, Python, Rust, Go and JS repositories at the revisions recorded in `source-revision.json` | Each repository's `LICENSE`, currently MIT by Marek Cingel; contributors retain copyright in their contributions. Page source links point to the owning repository. |
-| `playground/wasm/` | `opentlv-js` and Core, compiled with Emscripten | MIT by Marek Cingel. Emscripten runtime and system library code linked into `opentlv-core.js` and `opentlv-core.wasm` is covered by the [Emscripten licenses](https://github.com/emscripten-core/emscripten/blob/main/LICENSE). |
-| Page templates, `assets/javascripts/` and `assets/stylesheets/` | [Material for MkDocs](https://github.com/squidfunk/mkdocs-material), selected by `requirements-docs.txt` | MIT by Martin Donath; see its [LICENSE](https://github.com/squidfunk/mkdocs-material/blob/master/LICENSE). The minified bundles do not repeat the notice, so this file records it. The footer keeps the theme's "Made with Material for MkDocs" credit. |
-| Interface icons inlined into pages | Material Design Icons by Pictogrammers, shipped with the theme | Apache License 2.0; see the [Pictogrammers license](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE). |
-| GitHub icon in the header and footer | Font Awesome Free, shipped with the theme | Icons under CC BY 4.0; each inlined SVG keeps the Font Awesome attribution comment. |
-| `api/` generated reference pages | Doxygen, run on Core's sources | Doxygen's scripts keep their MIT notices and jQuery keeps its OpenJS Foundation notice in the generated files. |
+| `notices/emscripten-LICENSE.txt` | `LICENSE` | MIT or NCSA, plus retained Node contributor notices |
+| `notices/musl-COPYRIGHT.txt` | `system/lib/libc/musl/COPYRIGHT` | musl MIT notice and file-specific origins |
+| `notices/compiler-rt-LICENSE.txt` | `system/lib/compiler-rt/LICENSE.TXT` | Apache 2.0 with LLVM exception and legacy MIT/NCSA terms |
 
-The Roboto and Roboto Mono fonts are loaded by the visitor's browser from Google
-Fonts; they are not part of the published files. MkDocs, mike, PyMdown
-Extensions, Playwright and the other build and check tools are not distributed
-with the site.
+[Exact upstream tree](https://github.com/emscripten-core/emscripten/tree/b7dc6e5747465580df5984e723b9d1f10d8e804b).
+These notices describe upstream inputs, not a claim that every upstream file is
+linked. Keep their original bytes and terms; the portal's MIT license does not
+relicense the runtime. A toolchain, allocator or optional runtime-library change
+requires reviewing the linked inputs and updating the notice set and hashes.
 
-Update this file when a theme, generator, icon set or bundled dependency is
-added or replaced. Keep notices that third-party files carry.
+The Roboto and Roboto Mono fonts are loaded by browsers from Google Fonts, not
+bundled in the site. Build tools such as MkDocs, mike and Playwright are not
+redistributed as runtime programs. Update this document and the distribution
+checks when adding a bundled dependency or changing the theme's icon collections.

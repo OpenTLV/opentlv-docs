@@ -119,6 +119,7 @@ class CliPublicationTests(unittest.TestCase):
             "# Commands\n\n[Schema](schema.md#schema) and [source](../README.md).\n", encoding="utf-8")
         (self.cli / "docs/schema.md").write_text("# Schema\n\n[Commands](README.md).\n", encoding="utf-8")
         (self.cli / "README.md").write_text("# CLI repository\n", encoding="utf-8")
+        (self.cli / "LICENSE").write_text("Fixture component license\n", encoding="utf-8")
         publication.run(self.cli, "git", "add", ".")
         publication.run(self.cli, "git", "commit", "-m", "CLI source")
         self.sha = publication.run(self.cli, "git", "rev-parse", "HEAD")
@@ -130,6 +131,8 @@ class CliPublicationTests(unittest.TestCase):
             {"id": "core", "repository": "https://github.com/OpenTLV/opentlv", "revision": "a" * 40,
              "docs_path": "docs", "mount": "", "required": True}, self.item]}))
         shutil.copytree(ROOT / "tools", self.portal / "tools", ignore=shutil.ignore_patterns("__pycache__"))
+        for name in ("LICENSE", "THIRD_PARTY.md", "LICENSES/Apache-2.0.txt"):
+            self.write(name, (ROOT / name).read_text(encoding="utf-8"))
         self.git("add", ".")
         self.git("commit", "-m", "CLI publication configuration")
         self.git("push", "origin", "main")
