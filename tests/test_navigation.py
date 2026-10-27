@@ -427,6 +427,10 @@ class NavigationTests(unittest.TestCase):
                 (portal / "mkdocs.yml").write_text(yaml.safe_dump(self.config, sort_keys=False))
                 shutil.copytree(fixture.ROOT / "tools/docs", portal / "tools/docs",
                                 ignore=shutil.ignore_patterns("__pycache__"))
+                for name in ("LICENSE", "THIRD_PARTY.md", "LICENSES/Apache-2.0.txt"):
+                    target = portal / name
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    target.write_bytes((fixture.ROOT / name).read_bytes())
                 checkout = (self.root / (identifier + "-source")).resolve()
                 names = ci.nav_paths(item["navigation"]["items"])
                 original = "# Owner manual\n\n## Evidence\n\nOriginal command and validation record.\n"
@@ -434,6 +438,7 @@ class NavigationTests(unittest.TestCase):
                     target = checkout / "docs" / name
                     target.parent.mkdir(parents=True, exist_ok=True)
                     target.write_text(original, encoding="utf-8")
+                (checkout / "LICENSE").write_text("Owner license notice\n", encoding="utf-8")
                 selection = dict(source=identifier, repository=item["repository"], commit="a" * 40,
                                  tag="v0.1.0", version="0.1.0", local=False, dirty=False)
 
@@ -450,11 +455,14 @@ class NavigationTests(unittest.TestCase):
                     path = engine.assemble(portal, checkout, item, selection)
                 manual = yaml.safe_load(path.read_text(encoding="utf-8"))
                 self.assertEqual(manual["nav"][1:-1], item["navigation"]["items"])
-                self.assertEqual([Path(name).name for name in manual["hooks"]], ["component_hooks.py"])
+                self.assertEqual([Path(name).name for name in manual["hooks"]],
+                                 ["licensing.py", "component_hooks.py"])
                 result = subprocess.run([sys.executable, "-B", "-m", "mkdocs", "build", "--strict", "-f", str(path)],
                                         cwd=portal, capture_output=True, text=True, encoding="utf-8")
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 site = portal / "build" / identifier / "site"
+                self.assertEqual((site / "licenses" / f"{identifier}-LICENSE.txt").read_bytes(),
+                                 (checkout / "LICENSE").read_bytes())
                 search = json.loads((site / "search/search_index.json").read_text(encoding="utf-8"))
                 locations = {entry["location"] for entry in search["docs"]}
                 self.assertIn("migration/", locations)

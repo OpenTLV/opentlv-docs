@@ -13,6 +13,7 @@ import sys
 import zipfile
 
 import wasm
+import licensing
 
 from ci import RELEASE
 
@@ -39,6 +40,7 @@ def release_aliases(version, versions):
 
 def verify_site(site, selection):
     source = json.loads((site / "source-revision.json").read_text(encoding="utf-8"))
+    licensing.verify_record(site, source)
     api = source.get("api", {})
     if (source.get("local") is not False or source.get("dirty") is not False
             or source.get("commit") != selection["commit"]

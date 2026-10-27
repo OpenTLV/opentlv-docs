@@ -341,6 +341,7 @@ def on_pre_build(config):
     selected = selected_sources(portal)
     root, source = assemble(portal, selected)
     config.nav = navigation(config.extra["base_navigation"], selected)
+    config.extra["license_checkouts"] = {item["id"]: str(checkout) for checkout, item in selected if checkout}
     config.extra["sources"] = source["sources"]
     config.extra["sources_dirty"] = any(item["dirty"] for item in source["sources"])
     config.extra["core_source"] = source

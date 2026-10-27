@@ -64,3 +64,22 @@ path = [
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Marek Cingel"
 SPDX-License-Identifier = "MIT"
+
+# Upstream runtime notices, preserved without changing their bytes.
+[[annotations]]
+path = ["notices/emscripten-LICENSE.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["2010-2014 Emscripten authors", "Joyent, Inc. and other Node contributors"]
+SPDX-License-Identifier = "(MIT OR NCSA) AND MIT"
+
+[[annotations]]
+path = ["notices/musl-COPYRIGHT.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2005-2020 Rich Felker, et al."
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["notices/compiler-rt-LICENSE.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2009-2019 LLVM contributors"
+SPDX-License-Identifier = "(Apache-2.0 WITH LLVM-exception) AND (MIT OR NCSA)"
