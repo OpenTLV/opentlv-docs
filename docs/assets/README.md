@@ -14,5 +14,6 @@ a self-contained version with a white background and a default width of 480 px.
 This avoids relying on HTML `<picture>` support in Markdown previews and keeps
 the wordmark readable on either editor theme. Use meaningful alternative text
 when embedding the logo. The wordmark uses Arial with Helvetica/sans-serif
-fallbacks; the source remains editable. Assets use the repository's
+fallbacks and embeds no font data; the source remains editable. The logo is
+an original OpenTLV asset by Marek Cingel under the repository's
 [MIT license](../../LICENSE).

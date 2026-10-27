@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2026 OpenTLV
+# Copyright (c) 2026 Marek Cingel
 """Exact bootstrap compatibility for the standalone JS documentation handoff."""
 
 BOOTSTRAP_COMMIT = "037fde09d3caf26f32071911ebc78c63cb84f2e0"

@@ -14,12 +14,20 @@ runs:
       with:
         python-version: '3.12'
         cache: pip
-        cache-dependency-path: requirements-docs.txt
+        cache-dependency-path: |
+          requirements-docs.txt
+          requirements-dev.txt
     - shell: bash
       run: |
         python -m pip install -r requirements-docs.txt
         sudo apt-get update
         sudo apt-get install -y doxygen ninja-build
+    - name: Check licensing metadata
+      if: inputs.mode == 'pr'
+      shell: bash
+      run: |
+        python -m pip install -r requirements-dev.txt
+        python -B -m reuse lint
     - name: Lock, assemble and build documentation
       shell: bash
       env:
@@ -37,6 +45,7 @@ runs:
       shell: bash
       run: |
         python -B -m unittest discover -s tests -p test_workflows.py -v
+        python -B -m unittest discover -s tests -p test_licensing.py -v
         python -B -m unittest discover -s tests -p test_sources.py -k registration -v
         python -B -m unittest discover -s tests -p test_sources.py -k overlapping_component_mounts -v
         python -B -m unittest discover -s tests -p test_sources.py -k keep_distinct_git_suffixes -v
