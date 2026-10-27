@@ -206,6 +206,9 @@
               },
               {
                 "Source layout": "validation/layout.md"
+              },
+              {
+                "Licensing": "validation/licensing.md"
               }
             ]
           }
