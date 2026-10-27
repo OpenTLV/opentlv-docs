@@ -1,0 +1,66 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
+version = 1
+
+# Documentation and configuration that cannot carry comments, or whose
+# rendered output would show a header. Keep paths explicit so new sources
+# cannot silently bypass the source-header policy.
+[[annotations]]
+path = [
+    ".markdownlint.json",
+    "CHANGELOG.md",
+    "DOCUMENTATION-CONTENT-REVIEW.md",
+    "DOCUMENTATION-MIGRATION.md",
+    "DOCUMENTATION-OWNERSHIP.md",
+    "DOCUMENTATION-VALIDATION.md",
+    "README.md",
+    "THIRD_PARTY.md",
+    "docs-sources.json",
+    "docs/api/formats.md",
+    "docs/api/index.md",
+    "docs/assets/README.md",
+    "docs/bindings/c/index.md",
+    "docs/bindings/cpp/index.md",
+    "docs/bindings/go/index.md",
+    "docs/bindings/index.md",
+    "docs/bindings/javascript/index.md",
+    "docs/bindings/lua/index.md",
+    "docs/bindings/python/index.md",
+    "docs/bindings/rust/index.md",
+    "docs/development/architecture/index.md",
+    "docs/development/building/index.md",
+    "docs/development/components.md",
+    "docs/development/contributing.md",
+    "docs/development/documentation.md",
+    "docs/development/history.md",
+    "docs/development/index.md",
+    "docs/development/product-catalogs.md",
+    "docs/development/releases.md",
+    "docs/development/testing.md",
+    "docs/formats/escaped.md",
+    "docs/formats/overview.md",
+    "docs/getting-started/overview.md",
+    "docs/index.md",
+    "docs/playground/index.md",
+    "docs/tools/imtlv/index.md",
+    "docs/tools/index.md",
+    "docs/tools/otlv/index.md",
+    "docs/tools/playground/overview.md",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Marek Cingel"
+SPDX-License-Identifier = "MIT"
+
+# Original OpenTLV logo and favicon, published unchanged as site assets.
+[[annotations]]
+path = [
+    "docs/assets/favicon.svg",
+    "docs/assets/logo-mark.svg",
+    "docs/assets/opentlv-dark.svg",
+    "docs/assets/opentlv-light.svg",
+    "docs/assets/opentlv.svg",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Marek Cingel"
+SPDX-License-Identifier = "MIT"

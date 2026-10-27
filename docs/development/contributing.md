@@ -5,6 +5,13 @@ change. The [documentation ownership and portal conventions](documentation.md)
 explain where a change belongs; the [architecture entry point](architecture/index.md)
 links the shared contracts that contributors must preserve.
 
+The shared [contribution guidelines](https://github.com/OpenTLV/.github/blob/main/CONTRIBUTING.md),
+[Code of Conduct](https://github.com/OpenTLV/.github/blob/main/CODE_OF_CONDUCT.md),
+[security policy](https://github.com/OpenTLV/.github/blob/main/SECURITY.md) and
+[support directory](https://github.com/OpenTLV/.github/blob/main/SUPPORT.md)
+apply to every repository; the entry points below add each repository's own
+instructions. Report suspected vulnerabilities privately, not in public issues.
+
 ## Repository entry points
 
 | Repository | Contribution guidance |
@@ -16,7 +23,7 @@ links the shared contracts that contributors must preserve.
 | Go | [Issues](https://github.com/OpenTLV/opentlv-go/issues) and the [standalone development guide](../go/development/go.md). |
 | Rust | [Issues](https://github.com/OpenTLV/opentlv-rust/issues) and the [build, features and contribution guide](../rust/development/rust.md#contributing). |
 | JavaScript | [Issues](https://github.com/OpenTLV/opentlv-js/issues) and the selected [JavaScript guide](../bindings/javascript/index.md). |
-| Portal | The [portal README](https://github.com/OpenTLV/opentlv-docs#readme) owns site setup, validation and operations. Follow the [portal documentation conventions](documentation.md) and [product registration convention](product-catalogs.md). |
+| Portal | The [portal README](https://github.com/OpenTLV/opentlv-docs#readme) owns site setup, validation, licensing and operations. Follow the [portal documentation conventions](documentation.md) and [product registration convention](product-catalogs.md). |
 | Workspace | The [workspace repository](https://github.com/OpenTLV/opentlv-workspace) owns shared editor configuration, bootstrap and integration orchestration. |
 
 Repository policy links above target current development on `main`. Manuals

@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+
 site_name: OpenTLV
 site_description: Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.
 site_url: https://opentlv.github.io/opentlv-docs/
@@ -5,6 +8,12 @@ repo_url: https://github.com/OpenTLV/opentlv
 repo_name: OpenTLV/opentlv
 # The source hook sets page-specific links to the owning repository.
 edit_uri: edit/main/docs/
+# Footer notice on every published page; the linked file lists the theme,
+# icon, generator and playground notices distributed with the site.
+copyright: >-
+  &copy; 2026 Marek Cingel and contributors &middot;
+  <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/LICENSE">MIT License</a> &middot;
+  <a href="https://github.com/OpenTLV/opentlv-docs/blob/main/THIRD_PARTY.md">Third-party notices</a>
 
 # Validated initially against portal assets; assembly selects disposable output.
 docs_dir: docs

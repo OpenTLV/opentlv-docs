@@ -1327,6 +1327,14 @@ python -m mkdocs build --strict
 git diff --check
 ```
 
+PR CI also checks licensing metadata with the pinned REUSE tool. It needs
+Python 3.10 or newer; install it into the portal environment or a separate one:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m reuse lint
+```
+
 Tests require CMake but no C compiler or Doxygen: disposable fixtures exercise
 the Core target contract without compiling a library. Full integration validation
 also runs the real build against the selected Core checkout and Doxygen.
@@ -1854,3 +1862,44 @@ loading, successful BER parsing and a truncated-input error. It checks the
 selected version and its aliases, including `stable` when publishing the newest
 release. A browser failure prevents artifact upload and deployment. CI installs
 Chromium OS dependencies with `playwright install --with-deps chromium`.
+
+## License
+
+MIT; see [LICENSE](LICENSE). Marek Cingel holds copyright in his original
+contributions, including the portal configuration, tools, pages and logo;
+other contributors retain copyright in theirs, since an MIT contribution does
+not assign copyright. OpenTLV is a GitHub organization, not a copyright holder.
+
+Sources, workflows and configuration carry SPDX headers such as:
+
+<!-- REUSE-IgnoreStart -->
+
+```python
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Marek Cingel
+```
+
+<!-- REUSE-IgnoreEnd -->
+
+Use the comment syntax of the file and your own name and year for your own
+work; do not apply this example to someone else's work or rewrite third-party
+notices. [REUSE.toml](REUSE.toml) lists Markdown pages, JSON configuration and
+the SVG assets, which do not carry headers, by exact path; add new files of
+those kinds there. [LICENSES/](LICENSES/) supplies the license text for REUSE.
+
+Assembled component manuals keep the license of their owning repository. Every
+published page shows the copyright and links the license and
+[third-party notices](THIRD_PARTY.md) for the theme, icons, generated API
+reference and playground. Update those notices with the theme or a new bundled
+dependency.
+
+## Community
+
+Contribution, conduct, security and support policies are shared across OpenTLV
+in [OpenTLV/.github](https://github.com/OpenTLV/.github); this repository has
+no local copies, so GitHub shows those defaults. This README and the
+[documentation contribution contract](docs/development/documentation.md) add the
+portal's setup, validation, source ownership and publication instructions.
+Report suspected vulnerabilities privately as described in the
+[security policy](https://github.com/OpenTLV/.github/blob/main/SECURITY.md),
+not in public issues.
