@@ -1520,7 +1520,13 @@ the selected Docs changelog notes and these four assets before becoming public:
 - `release-notes.md`: only the selected Docs changelog release section.
 - `SHA256SUMS`: checksums of the other three files.
 
-Uploaded asset digests must match the local verified bytes. The site archive and
+Uploaded asset digests must match the local verified bytes. When the upload
+response omits `digest` or returns `null`, the publisher downloads that asset by
+its numeric ID using the [binary asset API](https://docs.github.com/en/rest/releases/assets#get-a-release-asset)
+and checks its byte length and SHA-256 against the local file. Download redirects
+do not receive the API token. A reported mismatching digest, invalid asset ID,
+download error or different bytes blocks publication and leaves the draft for
+recovery; absent metadata never bypasses integrity verification. The site archive and
 history bundle remain in `docs-candidate-<attempt>` for seven days; they are not
 duplicated as release assets. `docs-version-release-<attempt>` retains the four
 release files for 30 days, including when a later remote operation fails.

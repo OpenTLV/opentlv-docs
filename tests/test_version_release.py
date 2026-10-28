@@ -17,6 +17,7 @@ import unittest
 from unittest.mock import patch
 from urllib.error import HTTPError
 from urllib.parse import urlsplit, parse_qs
+from urllib.request import HTTPRedirectHandler
 
 import yaml
 
@@ -182,6 +183,11 @@ class PublisherTests(unittest.TestCase):
         self.drafts = []
         self.fail = None
         self.bad_asset = False
+        self.digest_mode = "present"
+        self.uploaded = {}
+        self.download_change = None
+        self.asset_id = None
+        self.check_redirect = False
 
     def save(self):
         for path, data, key in ((self.request_path, self.request, "REQUEST_SHA256"),
@@ -219,8 +225,33 @@ class PublisherTests(unittest.TestCase):
             result = {"id": 17, "tag_name": "v0.1.0", "draft": True}
         elif method == "POST" and path == "releases/17/assets":
             self.assertEqual(parts.netloc, "uploads.github.com")
-            result = {"state": "uploaded", "name": parse_qs(parts.query)["name"][0], "size": len(request.data),
+            asset_id = len(self.uploaded) + 1 if self.asset_id is None else self.asset_id
+            self.uploaded[asset_id] = request.data
+            result = {"id": asset_id, "state": "uploaded", "name": parse_qs(parts.query)["name"][0], "size": len(request.data),
                       "digest": "sha256:" + ("0" * 64 if self.bad_asset else digest(request.data))}
+            if self.digest_mode == "missing":
+                del result["digest"]
+            elif self.digest_mode == "null":
+                result["digest"] = None
+            elif self.digest_mode == "malformed":
+                result["digest"] = ""
+        elif method == "GET" and path.startswith("releases/assets/"):
+            self.assertEqual(parts.netloc, "api.github.com")
+            self.assertEqual(request.get_header("Accept"), "application/octet-stream")
+            self.assertEqual(request.get_header("Authorization"), "Bearer offline-test-token")
+            if self.check_redirect:
+                redirected = HTTPRedirectHandler().redirect_request(
+                    request, None, 302, "Found", {}, "https://release-assets.githubusercontent.com/signed-file")
+                self.assertIsNone(redirected.get_header("Authorization"))
+                self.assertEqual(redirected.get_header("Accept"), "application/octet-stream")
+            raw = self.uploaded[int(path.rsplit("/", 1)[1])]
+            if self.download_change == "modified":
+                raw = bytes([raw[0] ^ 1]) + raw[1:]
+            elif self.download_change == "short":
+                raw = raw[:-1]
+            elif self.download_change == "long":
+                raw += b"extra"
+            return io.BytesIO(raw)
         elif method == "PATCH" and path == "releases/17":
             self.release_exists = True
             result = {"id": 17, "tag_name": "v0.1.0", "draft": False}
@@ -340,9 +371,74 @@ class PublisherTests(unittest.TestCase):
 
     def test_wrong_uploaded_bytes_leave_draft_unpublished(self):
         self.bad_asset = True
-        with self.assertRaisesRegex(ValueError, "asset mismatch"):
+        with self.assertRaisesRegex(ValueError, "asset digest mismatch"):
             self.publish()
         self.assertTrue(self.tag_exists)
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+        self.assertFalse(any(path.startswith("releases/assets/") for _, path, _ in self.calls))
+
+    def verify_download_fallback(self):
+        self.publish()
+        downloads = [(method, path) for method, path, _ in self.calls if path.startswith("releases/assets/")]
+        self.assertEqual(downloads, [("GET", f"releases/assets/{i}") for i in range(1, 5)])
+        self.assertEqual(self.mutations()[-1], ("PATCH", "releases/17"))
+        self.assertTrue(self.release_exists)
+
+    def test_missing_digest_verifies_downloaded_bytes_before_publication(self):
+        self.digest_mode = "missing"
+        self.verify_download_fallback()
+
+    def test_null_digest_verifies_downloaded_bytes_before_publication(self):
+        self.digest_mode = "null"
+        self.verify_download_fallback()
+
+    def test_download_redirect_does_not_forward_write_token(self):
+        self.digest_mode = "null"
+        self.check_redirect = True
+        self.verify_download_fallback()
+
+    def test_modified_download_blocks_publication(self):
+        self.digest_mode = "null"
+        self.download_change = "modified"
+        with self.assertRaisesRegex(ValueError, "Downloaded release asset mismatch"):
+            self.publish()
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+
+    def test_truncated_download_blocks_publication(self):
+        self.digest_mode = "missing"
+        self.download_change = "short"
+        with self.assertRaisesRegex(ValueError, "Downloaded release asset mismatch"):
+            self.publish()
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+
+    def test_oversized_download_blocks_publication(self):
+        self.digest_mode = "null"
+        self.download_change = "long"
+        with self.assertRaisesRegex(ValueError, "Downloaded release asset mismatch"):
+            self.publish()
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+
+    def test_failed_asset_download_leaves_draft_for_recovery(self):
+        self.digest_mode = "missing"
+        self.fail = "releases/assets/1"
+        with self.assertRaises(HTTPError):
+            self.publish()
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+        self.assertTrue((self.root / "build/version-release/release-manifest.json").is_file())
+
+    def test_invalid_asset_id_cannot_select_a_download_endpoint(self):
+        self.digest_mode = "null"
+        self.asset_id = "../other"
+        with self.assertRaisesRegex(ValueError, "Invalid uploaded release asset ID"):
+            self.publish()
+        self.assertFalse(any(path.startswith("releases/assets/") for _, path, _ in self.calls))
+        self.assertNotIn(("PATCH", "releases/17"), self.mutations())
+
+    def test_malformed_reported_digest_is_not_treated_as_missing(self):
+        self.digest_mode = "malformed"
+        with self.assertRaisesRegex(ValueError, "asset digest mismatch"):
+            self.publish()
+        self.assertFalse(any(path.startswith("releases/assets/") for _, path, _ in self.calls))
         self.assertNotIn(("PATCH", "releases/17"), self.mutations())
 
     def test_tag_creation_race_cannot_fall_through_to_release_creation(self):

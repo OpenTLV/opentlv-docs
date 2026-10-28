@@ -31,7 +31,6 @@ All notable changes to this project will be documented in this file.
 - Accept explicitly configured Python documentation pin notifications from successful Main CI without compatibility claims, and select the normalized Python source layout with its validation page. (OpenTLV/opentlv-python#13)
 - Assemble standalone Python manuals with independent source provenance, build and workspace instructions, and Python-owned source and contribution links. (#34)
 - Separate PR, Main, Full and Publishing CI with exact-attempt publication evidence, immutable snapshot checks and workflow timings; ordinary main pushes no longer publish. (#31)
-
 - Assemble Lua API, build, test and versioning documentation from the standalone Lua repository with explicit source provenance and cross-repository links, while retaining Core-driven portal versions and existing published snapshots. (#27)
 - Route automatic Core and component development updates through reviewed commit pins, reject stale Core pins, and keep release selection independent of development snapshots. (#6)
 - Move playground UI ownership into the portal and require verified, matching WASM artifacts and browser validation before publication. (#6)
@@ -41,6 +40,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
+- Verify uploaded Docs release assets by downloading and hashing their bytes when GitHub omits the digest or returns null, while rejecting mismatched digests and keeping credentials out of download redirects. (#142)
 - Correct the number and contents of the historical records for the current source pins; Core's Rust guides are no longer archived there. (#50)
 - Register Lua's generic Core API coverage guide in contributor navigation so the Lua source-pin update passes complete-documentation checks. (OpenTLV/opentlv-lua#31, #111)
 - Pair the Core documentation update with the JS pin already adopted in #103, restoring the WASM binding-contract anchor linked from Core's examples. (#104)
@@ -56,7 +56,6 @@ All notable changes to this project will be documented in this file.
 - Pin Python documentation to the merged standalone documentation fixes, resolving the Markdown lint failure and obsolete example links. (#34)
 - Support Core 0.7.1 with explicit standalone CLI page ownership and revision-specific navigation, preserving source tags, published snapshots and strict collision checks. (#31)
 - Include the updated Core quality-gates page in navigation and keep one monotonic source-update proposal per component, with optional auto-merge requiring the Docs PR gate. (#31)
-
 - Align the pinned Core and Lua documentation revisions with the completed manual migration, restoring standalone Lua pages and navigation. (#27)
 - Preserve the original rendered Core release snapshot on repeated publication instead of rebuilding it with the current portal layout. (#21)
 - Restore CLI pages from an independently pinned CLI repository after Core extraction, including navigation, cross-repository links and missing-page checks. (#25)
