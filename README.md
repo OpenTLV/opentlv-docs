@@ -1377,7 +1377,7 @@ Four entry points separate fast feedback from comprehensive publication checks:
 | `docs-pr.yml` / Docs PR | PR to `main` | Exact source assembly, strict MkDocs/Doxygen build, links, navigation, Markdown and workflow/evidence contract regressions; `Docs PR gate`. |
 | `docs-main.yml` / Docs Main | Push to `main` | Pinned source assembly, navigation and strict site generation smoke; `Docs Main gate`. |
 | `docs-full.yml` / Docs Full | Manual or called by Publishing Gate | All Docs tests, source inventories, formatting, API and playground generation, browser checks, versioned build and immutable history verification; `Docs Full gate`. |
-| `docs-release.yml` / Docs Release | Release dispatch or controlled manual request | Same-commit Full CI, exact attempt evidence verification and optional deployment; `Docs Publishing gate`. |
+| `docs-release.yml` / Docs Release | Release dispatch or controlled manual request | Same-commit Full CI, exact attempt evidence verification, optional deployment and explicitly requested Docs version publication; `Docs Publishing gate`. |
 
 Require **Docs PR gate** in branch protection or a ruleset. Aggregate gates reject
 failed, cancelled, missing and unexpectedly skipped prerequisites. Main does not
@@ -1397,9 +1397,12 @@ Full has read-only repository permissions. It runs mike against a local
 `gh-pages` branch, under the version's actual URL prefix, checks site/API/WASM
 metadata and prepares a Git bundle plus the complete versioned Pages artifact. Mike
 aliases use copies so assets and JSON work through `stable/` without symlinks.
-Only the separate deployment job can write: it imports the validated bundle,
+The separate deployment job imports the validated bundle,
 pushes the prepared history once without force, and deploys the prepared artifact
-with the official GitHub Pages Actions. It does not run Core or build scripts.
+with the official GitHub Pages Actions. A separate version job may create the
+requested Docs tag and GitHub Release only after Full and deployment succeed.
+Both write jobs execute trusted inline checks, without running Core or repository
+build scripts. The version job does not check out or import repository code.
 
 `docs-candidate-<attempt>` contains the bundle, site archive and `evidence.json`.
 Evidence records the repository, infrastructure SHA, workflow ref, run ID,
@@ -1433,12 +1436,18 @@ Local tests do not establish hosted success or production deployment.
 | Verified component main notification | With development opt-in, open a reviewed PR pinning the component commit and verified exact-pair evidence. |
 | Verified documentation-only main notification | With explicit documentation opt-in, propose a source commit pin without runtime compatibility claims. |
 | Manual run, `publish: false` | Validate and prepare artifacts for the selected channel; no remote changes. |
-| Manual run on `main`, `publish: true` | Validate and publish the selected channel. |
+| Manual run on `main`, `channel: development`, `publish: true` | Validate and deploy `latest`; no Docs tag or GitHub Release. |
+| Manual run on `main`, `channel: release`, `publish: true`, `tag: vX.Y.Z` | Validate and deploy the Core snapshot, then create the independent Docs tag and GitHub Release. |
 | Manual Full run | Complete verification and prepared artifacts; no deployment. |
 | Manual Release run on another branch, `publish: true` | Deployment is refused and the Publishing gate fails. |
 
 Manual inputs are `channel` (`development` or `release`), `core_ref` (empty uses
-the manifest), and `publish` (defaults to false). Development accepts a full SHA
+the manifest), `tag` (the independent Docs version), and `publish` (defaults to
+false). `tag` is required when both `channel=release` and `publish=true`; the
+workflow validates this combination before Full or deployment. It remains optional
+for nonpublishing release verification and must be empty for development.
+Repository-dispatch flows never create Docs tags or GitHub Releases, regardless
+of payload fields. Development accepts a full SHA
 or tag. Release requires a Core tag `X.Y.Z` or `vX.Y.Z`; branches, bare SHAs and
 prerelease tags cannot label a stable release. The resolved Core SHA is recorded
 in each version's `source-revision.json`. Release directories use the full
@@ -1455,6 +1464,82 @@ not move that alias backwards. The site root redirects to `stable` once a releas
 exists, otherwise to `latest`. Later development builds preserve that default
 and all release directories. Successful Core WASM workflows notify this
 repository through the event contract below.
+
+### Independent Docs tag and GitHub Release
+
+Docs versions identify this repository's verified infrastructure commit, not the
+Core version used in portal URLs. For example, Docs `v0.1.0` can publish Core
+`v0.8.0` documentation under `0.8.0/`; it does not rename that snapshot to `0.1.0/`.
+The latest closed `CHANGELOG.md` heading is the authoritative Docs release
+version and notes: use `## [0.1.0] - YYYY-MM-DD`, without `v`, a valid nonfuture
+date, and nonempty release entries. No nonempty `Unreleased` section may precede
+it. An empty `Unreleased` heading is allowed. Close the changelog in the release
+preparation PR, not while the workflow runs. No separate package version is used.
+
+To publish Docs `v0.1.0` for Core `v0.8.0`:
+
+1. Merge the release preparation, including the closed Docs changelog and reviewed
+   source selection, to `main`. Ensure Docs tag/release `v0.1.0` is unused.
+2. Rehearse with `publish=false`. Supplying `tag` also checks the Docs notes,
+   unused version and exact clean checkout; omitting it preserves the existing
+   documentation-only verification flow.
+
+   ```sh
+   gh workflow run docs-release.yml --repo OpenTLV/opentlv-docs --ref main \
+     -f channel=release -f core_ref=v0.8.0 -f tag=v0.1.0 -F publish=false
+   ```
+
+3. Inspect Full verification, immutable-history evidence and the prepared site.
+   Start the publishing operation with the same inputs and publication enabled:
+
+   ```sh
+   gh workflow run docs-release.yml --repo OpenTLV/opentlv-docs --ref main \
+     -f channel=release -f core_ref=v0.8.0 -f tag=v0.1.0 -F publish=true
+   ```
+
+4. Require **Validate publication request**, **Full / Docs Full gate**,
+   **Publish verified documentation**, **Publish Docs version** and
+   **Docs Publishing gate** to succeed in that operation. Verification is fresh;
+   a rehearsal or previous attempt cannot authorize the publishing attempt.
+5. Verify the Docs tag resolves to the run's exact infrastructure SHA, download
+   the release assets and check `sha256sum -c SHA256SUMS`. Compare the manifest's
+   run/attempt, Docs SHA, Core selection, Pages commit and evidence with that run.
+   Link the release and successful run in [#135](https://github.com/OpenTLV/opentlv-docs/issues/135)
+   and [Core #718](https://github.com/OpenTLV/opentlv/issues/718).
+
+The version job rechecks the request digest, Full evidence digest, complete
+workflow identity, source-manifest digest, Core release selection, Pages commit
+and prepared artifact hashes. It requires successful Full and deployment results
+from its dependencies. Only then does it create `refs/tags/v0.1.0` at the exact
+verified Docs SHA using the create-only Git refs API. A draft release receives
+the selected Docs changelog notes and these four assets before becoming public:
+
+- `release-manifest.json`: independent Docs version, exact workflow identity,
+  Core source selection, Pages commit/URL and verification/file digests.
+- `full-evidence.json`: the unchanged evidence accepted by the Full gate.
+- `release-notes.md`: only the selected Docs changelog release section.
+- `SHA256SUMS`: checksums of the other three files.
+
+Uploaded asset digests must match the local verified bytes. When the upload
+response omits `digest` or returns `null`, the publisher downloads that asset by
+its numeric ID using the [binary asset API](https://docs.github.com/en/rest/releases/assets#get-a-release-asset)
+and checks its byte length and SHA-256 against the local file. Download redirects
+do not receive the API token. A reported mismatching digest, invalid asset ID,
+download error or different bytes blocks publication and leaves the draft for
+recovery; absent metadata never bypasses integrity verification. The site archive and
+history bundle remain in `docs-candidate-<attempt>` for seven days; they are not
+duplicated as release assets. `docs-version-release-<attempt>` retains the four
+release files for 30 days, including when a later remote operation fails.
+This record links the existing Full/Pages evidence; it is not a new signature or
+attestation scheme. No publication occurs during a local test of the publisher.
+
+Existing tags and published releases are rejected before Full. Immediately before
+tag creation, the write job repeats the checks and enumerates releases, including
+drafts that the read-only preflight may not see. It never overwrites a tag, edits
+an existing release, or deletes failed release state. Tag creation races fail.
+The Publishing gate requires the version job only for an explicit manual version
+publication; development, repository dispatch and `publish=false` require it to
+remain skipped.
 
 ### GitHub Pages setup and recovery
 
@@ -1483,8 +1568,42 @@ whole site, including the preserved historical versions.
 
 For a release rehearsal, dispatch with `channel: release`, a Core release tag,
 and `publish: false`. Inspect the logs and artifacts, then dispatch on `main` with
-the same inputs and `publish: true`. `tools/docs/publication.py` is intended for
+the same inputs, the independent Docs `tag`, and `publish: true`.
+`tools/docs/publication.py` is intended for
 disposable CI checkouts: it creates local mike commits but never pushes itself.
+
+Pages deployment, Git tag creation and GitHub Release publication are separate
+operations. A failed Full or Pages job prevents Docs tag creation. If Pages
+succeeds but version publication fails before creating a tag, the site is already
+live; investigate the failure and rerun **all jobs** with the same inputs only
+after confirming that neither the tag nor any release/draft exists. Rerunning
+only failed jobs cannot reuse evidence from a previous attempt.
+
+If tag creation succeeds but release creation/upload/publication fails, do not
+rerun the publishing workflow: it deliberately rejects that existing tag. A
+maintainer must recover the same release, without moving/deleting the tag:
+
+1. Download `docs-version-release-<attempt>` and `docs-candidate-<attempt>` from
+   the failed run while retained. Verify checksums and compare the record with
+   the exact successful Full and Pages jobs, including run attempt and commit.
+   If the record is missing or mismatched, stop for investigation.
+2. Check `git ls-remote origin refs/tags/v0.1.0` equals the recorded Docs SHA.
+   Confirm the deployed Pages commit matches the record. Inspect published
+   releases and drafts through the Releases UI or authenticated
+   [Releases API](https://docs.github.com/en/rest/releases/releases#list-releases);
+   [lookup by tag](https://docs.github.com/en/rest/releases/releases#get-a-release-by-tag-name)
+   alone lists only a published release.
+3. If no release exists, create **one draft** for that existing tag using the
+   saved notes (`gh release create v0.1.0 --repo OpenTLV/opentlv-docs --verify-tag
+   --draft --title "OpenTLV Docs v0.1.0" --notes-file release-notes.md`). If a draft
+   already exists, verify its tag, notes and release ID before continuing.
+4. Compare any existing asset bytes against the saved checksums. Upload only
+   missing files to that draft, without `--clobber`; stop on a mismatched asset.
+   Once all four assets match and the tag still identifies the verified commit,
+   publish that draft. If publication actually succeeded despite a lost API
+   response, verify the existing public release instead of creating another.
+5. Record the partial failure and recovery evidence in #135 and Core #718. The
+   failed workflow stays failed; a manual recovery does not make its gate green.
 
 Docs owns the current portal publication workflow. Core supplies technical
 documentation and verified artifacts; its historical portal publisher is no
