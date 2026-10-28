@@ -2,10 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.0] - 2026-10-28
 
 ### Changed
 
+- Prepare the first independently versioned Docs release, v0.1.0, with Core v0.8.0 documentation and the released CLI/Lua v0.2.0 and Python/Rust/Go/JS v0.1.0 source selections; record the exact release baseline and publication checks. (#135)
 - Add independent Docs tag and GitHub Release publication after verified Full CI and successful Pages deployment for explicit manual releases from main, with closed changelog notes, exact-attempt release records, duplicate protection and documented partial-failure recovery. (#142)
 - Select released CLI v0.2.0 and Python v0.1.0 manuals and include their quality-gate and release-note pages in navigation, allowing the Workspace release combination to pass strict documentation checks. (OpenTLV/opentlv-workspace#51)
 - Bundle exact component, theme, icon and playground runtime license notices with new portal and component snapshots; link them locally from the footer and reject missing or modified notices during the build. (#125)
