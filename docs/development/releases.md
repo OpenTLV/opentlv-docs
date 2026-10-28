@@ -41,6 +41,15 @@ documentation uses full `X.Y.Z` snapshots; `stable` follows the newest published
 release. Existing release snapshots remain immutable when the portal layout or
 development sources change.
 
+The Docs repository has its own Git tags and GitHub Releases, independently of
+those Core-versioned site paths. A manual Docs Release on `main` with
+`channel=release`, `core_ref=v0.8.0`, `tag=v0.1.0` and `publish=true` first verifies
+and deploys the portal, then tags the exact verified Docs commit and publishes
+its changelog notes and release evidence. The Docs changelog must first be closed
+as `[0.1.0]`; automated notifications never create Docs version tags. See the
+[versioned release procedure](https://github.com/OpenTLV/opentlv-docs#independent-docs-tag-and-github-release)
+for rehearsals, expected assets and partial-failure recovery.
+
 CLI, Lua and Python have independently versioned documentation publication.
 Their manuals selected inside a portal version are not proof that the same
 independent release is published. Rust manuals are available only at the

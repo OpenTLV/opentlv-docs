@@ -16,6 +16,10 @@ on:
         description: Core SHA or release tag (empty uses reviewed pin)
         type: string
         default: ''
+      tag:
+        description: Docs vMAJOR.MINOR.PATCH (required when channel=release and publish=true)
+        type: string
+        default: ''
       publish:
         description: Publish the verified candidate (main only)
         type: boolean
@@ -28,14 +32,43 @@ concurrency:
   group: docs-${{ github.event_name == 'repository_dispatch' && github.event.client_payload.ref == 'main' && 'proposal-notification' || 'publication' }}
   cancel-in-progress: false
 jobs:
-  full:
-    name: Full
+  request:
+    name: Validate publication request
     if: >-
       github.repository == 'OpenTLV/opentlv-docs' &&
       (github.event_name == 'workflow_dispatch' ||
        github.event.action == 'cli-docs-released' ||
        github.event.action == 'component-release-published' ||
        (github.event.action == 'core-docs-updated' && github.event.client_payload.ref != 'main'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      versioned: ${{ steps.request.outputs.versioned }}
+      request_sha256: ${{ steps.request.outputs.request_sha256 }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Validate independent Docs version and release notes
+        id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_CHANNEL: ${{ inputs.channel || 'development' }}
+          INPUT_CORE_REF: ${{ inputs.core_ref || '' }}
+          INPUT_TAG: ${{ inputs.tag || '' }}
+          INPUT_PUBLISH: ${{ inputs.publish || false }}
+        run: python -B tools/docs/version_release.py
+      - uses: actions/upload-artifact@v4
+        if: steps.request.outputs.request_sha256 != ''
+        with:
+          name: docs-version-request-${{ github.run_attempt }}
+          path: build/version-request/request.json
+          if-no-files-found: error
+          retention-days: 7
+  full:
+    name: Full
+    needs: [request]
     uses: ./.github/workflows/docs-full.yml
     with:
       channel: ${{ inputs.channel || 'development' }}
@@ -53,6 +86,8 @@ jobs:
       (github.event_name == 'repository_dispatch' || inputs.publish)
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write
       pages: write
@@ -102,26 +137,193 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           artifact_name: docs-pages-${{ github.run_attempt }}
+  version:
+    name: Publish Docs version
+    needs: [request, full, deploy]
+    if: >-
+      needs.request.outputs.versioned == 'true' &&
+      needs.full.result == 'success' && needs.deploy.result == 'success' &&
+      github.repository == 'OpenTLV/opentlv-docs' &&
+      github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' &&
+      inputs.channel == 'release' && inputs.publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          name: docs-version-request-${{ github.run_attempt }}
+          path: build/version-request
+      - uses: actions/download-artifact@v5
+        with:
+          name: docs-candidate-${{ github.run_attempt }}
+          path: build/candidate
+      # No checkout or repository/build code runs with this write token.
+      - name: Create the exact verified Docs tag and release
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_SHA256: ${{ needs.request.outputs.request_sha256 }}
+          EVIDENCE_SHA256: ${{ needs.full.outputs.evidence_sha256 }}
+          PAGES_COMMIT: ${{ needs.full.outputs.pages_commit }}
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+          FULL: ${{ needs.full.result }}
+          DEPLOY: ${{ needs.deploy.result }}
+          INPUT_CHANNEL: ${{ inputs.channel }}
+          INPUT_TAG: ${{ inputs.tag }}
+          INPUT_CORE_REF: ${{ inputs.core_ref }}
+          INPUT_PUBLISH: ${{ inputs.publish }}
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, re
+          from pathlib import Path
+          from urllib.error import HTTPError
+          from urllib.request import Request, urlopen
+
+          def require(condition, message):
+              if not condition:
+                  raise ValueError(message)
+
+          def digest(path):
+              with path.open('rb') as stream:
+                  return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+          repo = 'OpenTLV/opentlv-docs'
+          identity = {key: os.environ['GITHUB_' + key.upper()] for key in
+                      ('repository', 'sha', 'run_id', 'run_attempt', 'workflow_ref')}
+          require(os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch'
+                  and os.environ['GITHUB_REF'] == 'refs/heads/main'
+                  and os.environ['INPUT_CHANNEL'] == 'release' and os.environ['INPUT_PUBLISH'] == 'true'
+                  and identity['repository'] == repo
+                  and identity['workflow_ref'] == repo + '/.github/workflows/docs-release.yml@refs/heads/main'
+                  and re.fullmatch(r'[0-9a-f]{40}', identity['sha'])
+                  and all(identity[k].isdigit() and int(identity[k]) > 0 for k in ('run_id', 'run_attempt')),
+                  'Docs versions require an explicit manual release on main')
+          require(os.environ['FULL'] == os.environ['DEPLOY'] == 'success', 'Full and Pages must succeed')
+          request_path = Path('build/version-request/request.json')
+          candidate = Path('build/candidate')
+          require(digest(request_path) == os.environ['REQUEST_SHA256'], 'Release request digest mismatch')
+          require(digest(candidate / 'evidence.json') == os.environ['EVIDENCE_SHA256'], 'Full evidence digest mismatch')
+          request = json.loads(request_path.read_bytes())
+          evidence = json.loads((candidate / 'evidence.json').read_bytes())
+          tag = os.environ['INPUT_TAG']
+          require(re.fullmatch(r'v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)', tag)
+                  and request['schema'] == evidence['schema'] == 1
+                  and request['identity'] == evidence['identity'] == identity
+                  and request['publish'] is True and request['tag'] == tag and request['version'] == tag[1:]
+                  and request['core_ref'] == os.environ['INPUT_CORE_REF']
+                  and request['manifest_sha256'] == evidence['manifest_sha256'], 'Release identity mismatch')
+          require(evidence['pages_commit'] == os.environ['PAGES_COMMIT']
+                  and re.fullmatch(r'[0-9a-f]{40}', evidence['pages_commit'])
+                  and os.environ['PAGE_URL'].startswith('https://'), 'Pages deployment identity mismatch')
+          require(evidence['files'] == {name: digest(candidate / name) for name in ('site.tar', 'history.bundle')},
+                  'Full artifact checksum mismatch')
+          selected = evidence['selection']
+          require(selected.get('source') in (None, 'core') and selected['channel'] == 'release'
+                  and selected['repository'] == 'OpenTLV/opentlv'
+                  and selected['revision'] == request['core_ref']
+                  and selected['version'] == request['core_ref'].removeprefix('v')
+                  and re.fullmatch(r'[0-9a-f]{40}', selected['commit']), 'Core release selection mismatch')
+          require(request['notes'].startswith('## [' + tag[1:] + '] - '), 'Release notes mismatch')
+          output = Path('build/version-release')
+          output.mkdir(parents=True, exist_ok=False)
+          (output / 'release-notes.md').write_bytes(request['notes'].encode('utf-8'))
+          (output / 'full-evidence.json').write_bytes((candidate / 'evidence.json').read_bytes())
+          record = {'schema': 1, 'kind': 'docs-version', 'tag': tag, 'version': tag[1:], 'identity': identity,
+                    'core': selected, 'manifest_sha256': evidence['manifest_sha256'],
+                    'pages': {'commit': evidence['pages_commit'], 'url': os.environ['PAGE_URL']},
+                    'verification': {'full': 'success', 'deployment': 'success'},
+                    'files': {name: digest(output / name) for name in ('release-notes.md', 'full-evidence.json')}}
+          (output / 'release-manifest.json').write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
+          files = sorted(output.iterdir())
+          (output / 'SHA256SUMS').write_text(''.join(digest(path) + '  ' + path.name + '\n' for path in files),
+                                           encoding='utf-8')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as stream:
+              stream.write('record_ready=true\n')
+
+          def api(path, method='GET', data=None, *, upload=False, missing=False):
+              host = 'uploads.github.com' if upload else 'api.github.com'
+              raw = data if upload else json.dumps(data).encode('utf-8') if data is not None else None
+              headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                         'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28',
+                         'User-Agent': 'OpenTLV-Docs-release',
+                         'Content-Type': 'application/octet-stream' if upload else 'application/json'}
+              try:
+                  with urlopen(Request(f'https://{host}/repos/{repo}/{path}', data=raw,
+                                       headers=headers, method=method), timeout=60) as response:
+                      return json.load(response)
+              except HTTPError as error:
+                  if missing and error.code == 404:
+                      return None
+                  raise
+
+          # Recheck with write authority, including drafts invisible to the read-only preflight.
+          require(api('git/ref/tags/' + tag, missing=True) is None, 'Docs tag already exists')
+          require(api('releases/tags/' + tag, missing=True) is None, 'Docs release already exists')
+          page = 1
+          while True:
+              releases = api(f'releases?per_page=100&page={page}')
+              require(not any(item['tag_name'] == tag for item in releases), 'Docs release or draft already exists')
+              if len(releases) < 100:
+                  break
+              page += 1
+          # Create-only API rejects races. Never update, delete or silently reuse a tag/release.
+          ref = api('git/refs', 'POST', {'ref': 'refs/tags/' + tag, 'sha': identity['sha']})
+          require(ref['object']['sha'] == identity['sha'], 'Created tag differs from verified commit')
+          release = api('releases', 'POST', {'tag_name': tag, 'target_commitish': identity['sha'],
+                        'name': 'OpenTLV Docs ' + tag, 'body': request['notes'], 'draft': True, 'prerelease': False})
+          release_id = release['id']
+          require(type(release_id) is int and release_id > 0 and release['tag_name'] == tag and release['draft'],
+                  'Created release identity mismatch')
+          for path in sorted(output.iterdir()):
+              asset = api(f'releases/{release_id}/assets?name={path.name}', 'POST', path.read_bytes(), upload=True)
+              require(asset['state'] == 'uploaded' and asset['name'] == path.name
+                      and asset['size'] == path.stat().st_size and asset['digest'] == 'sha256:' + digest(path),
+                      'Uploaded release asset mismatch')
+          # Publish only once all four assets are present with their exact verified bytes.
+          require(api('git/ref/tags/' + tag)['object']['sha'] == identity['sha'], 'Tag moved before publication')
+          published = api(f'releases/{release_id}', 'PATCH', {'draft': False, 'make_latest': 'legacy'})
+          require(published['id'] == release_id and published['tag_name'] == tag and not published['draft'],
+                  'Published release identity mismatch')
+          print(f'https://github.com/{repo}/releases/tag/{tag}')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.publish.outputs.record_ready == 'true'
+        with:
+          name: docs-version-release-${{ github.run_attempt }}
+          path: build/version-release/
+          if-no-files-found: error
+          retention-days: 30
   gate:
     name: Docs Publishing gate
-    if: always() && needs.full.result != 'skipped'
-    needs: [full, deploy]
+    if: always() && needs.request.result != 'skipped'
+    needs: [request, full, deploy, version]
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Require verification and requested publication
         env:
+          REQUEST: ${{ needs.request.result }}
           FULL: ${{ needs.full.result }}
           DEPLOY: ${{ needs.deploy.result }}
+          VERSION: ${{ needs.version.result }}
+          VERSIONED: ${{ github.event_name == 'workflow_dispatch' && inputs.channel == 'release' && inputs.publish }}
           PUBLISH: ${{ github.event_name == 'repository_dispatch' || inputs.publish }}
           MAIN: ${{ github.ref == 'refs/heads/main' }}
         run: |
+          test "$REQUEST" = success
           test "$FULL" = success
           if [ "$PUBLISH" = true ]; then
             test "$MAIN" = true
             test "$DEPLOY" = success
           else
             test "$DEPLOY" = skipped
+          fi
+          if [ "$VERSIONED" = true ]; then
+            test "$VERSION" = success
+          else
+            test "$VERSION" = skipped
           fi
       - uses: actions/checkout@v5
         if: always()
@@ -134,8 +336,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: >-
           python -B tools/docs/ci_timings.py --current
+          --job 'Validate publication request'
           --job 'Full / Full documentation verification'
-          --job 'Full / Docs Full gate' --job 'Publish verified documentation'
+          --job 'Full / Docs Full gate' --job 'Publish verified documentation' --job 'Publish Docs version'
           --output build/timings/release.json
       - uses: actions/upload-artifact@v4
         if: always()
