@@ -1,0 +1,409 @@
+{
+  "id": "core",
+  "repository": "https://github.com/OpenTLV/opentlv",
+  "revision": "v0.8.0",
+  "docs_path": "docs",
+  "mount": "",
+  "required": true,
+  "link_aliases": [
+    "main"
+  ],
+  "local": false,
+  "dirty": false,
+  "commit": "345c77acb29266036df5f27d04ce315bb61853cc",
+  "included": true,
+  "sources": [
+    {
+      "id": "core",
+      "repository": "https://github.com/OpenTLV/opentlv",
+      "revision": "v0.8.0",
+      "docs_path": "docs",
+      "mount": "",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "local": false,
+      "dirty": false,
+      "commit": "345c77acb29266036df5f27d04ce315bb61853cc",
+      "included": true
+    },
+    {
+      "id": "cli",
+      "repository": "https://github.com/OpenTLV/opentlv-cli",
+      "revision": "514d76f48485cc7fc602f8287b9f22e4ce015997",
+      "docs_path": "docs",
+      "mount": "cli",
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "CLI",
+        "section": [],
+        "items": [
+          {
+            "otlv command line": "README.md"
+          },
+          {
+            "TLV JSON document": "json-schema.md"
+          },
+          {
+            "Development": "development.md"
+          },
+          {
+            "Quality gates": "quality-gates.md"
+          },
+          {
+            "Versions and releases": "releases.md"
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "514d76f48485cc7fc602f8287b9f22e4ce015997",
+      "included": true
+    },
+    {
+      "id": "lua",
+      "repository": "https://github.com/OpenTLV/opentlv-lua",
+      "revision": "77abc807bdd59956790497483a9d1fbad4b79019",
+      "docs_path": "docs",
+      "mount": "lua",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/lua-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Lua",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Lua": "api.md"
+          },
+          {
+            "Build and installation": "development.md"
+          },
+          {
+            "Tests and CI": "testing.md"
+          },
+          {
+            "Quality gates": "quality-gates.md"
+          },
+          {
+            "Generic Core API coverage": "api-coverage.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release quality gate": "releases.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          }
+        ]
+      },
+      "publication": {
+        "workflow": ".github/workflows/release.yml",
+        "artifact": "component-release-{attempt}",
+        "asset": "release.json"
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "77abc807bdd59956790497483a9d1fbad4b79019",
+      "included": true
+    },
+    {
+      "id": "python",
+      "repository": "https://github.com/OpenTLV/opentlv-python",
+      "revision": "52e15f8028da8521ccf64a97b03f7e6e249a0912",
+      "docs_path": "docs",
+      "mount": "python",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/python-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Python",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Python": "guides/python.md"
+          },
+          {
+            "Build, workspace and contributing": "development/python.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Versioning": "versioning.md"
+          },
+          {
+            "Release preparation": "releases.md"
+          },
+          {
+            "Release notes": "release-notes.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              },
+              {
+                "Source layout": "validation/layout.md"
+              }
+            ]
+          }
+        ]
+      },
+      "publication": {
+        "workflow": ".github/workflows/python-release.yml",
+        "artifact": "component-release-{attempt}",
+        "asset": "release.json"
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "52e15f8028da8521ccf64a97b03f7e6e249a0912",
+      "included": true
+    },
+    {
+      "id": "rust",
+      "repository": "https://github.com/OpenTLV/opentlv-rust",
+      "revision": "f297ab3899bafb95716a39a38dfaf7df14e8768d",
+      "docs_path": "docs",
+      "mount": "rust",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/rust-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Rust",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Rust": "guides/rust.md"
+          },
+          {
+            "Build, features and contributing": "development/rust.md"
+          },
+          {
+            "Tests and CI": "quality-gates.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          },
+          {
+            "Generic Core API coverage": "validation/api-coverage.md"
+          },
+          {
+            "Codec and Generator validation": "validation/codecs-generator.md"
+          },
+          {
+            "Migration provenance": "migration.md"
+          },
+          {
+            "Validation records": [
+              {
+                "Standalone build": "validation/standalone-build.md"
+              },
+              {
+                "CI": "validation/ci.md"
+              },
+              {
+                "Packaging": "validation/packaging.md"
+              },
+              {
+                "Source layout": "validation/layout.md"
+              },
+              {
+                "Licensing": "validation/licensing.md"
+              }
+            ]
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "f297ab3899bafb95716a39a38dfaf7df14e8768d",
+      "included": true
+    },
+    {
+      "id": "go",
+      "repository": "https://github.com/OpenTLV/opentlv-go",
+      "revision": "247da7863510ebed64030a8c6c01e122ad122a31",
+      "docs_path": "docs",
+      "mount": "go",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/go-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "Go",
+        "section": [],
+        "items": [
+          {
+            "Using OpenTLV from Go": "guides/go.md"
+          },
+          {
+            "Build and native dependency": "development/go.md"
+          },
+          {
+            "Tests, CI and documentation updates": "development/ci.md"
+          },
+          {
+            "Implementation and ownership": "implementation.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "247da7863510ebed64030a8c6c01e122ad122a31",
+      "included": true
+    },
+    {
+      "id": "js",
+      "repository": "https://github.com/OpenTLV/opentlv-js",
+      "revision": "22efa490f25e5d947a7b88f451f68f4aab28b6a9",
+      "docs_path": "docs",
+      "mount": "js",
+      "updates": {
+        "mode": "documentation",
+        "workflow": ".github/workflows/js-main.yml"
+      },
+      "required": true,
+      "link_aliases": [
+        "main"
+      ],
+      "navigation": {
+        "title": "JavaScript",
+        "section": [],
+        "items": [
+          {
+            "JavaScript manual": "webassembly.md"
+          },
+          {
+            "Tests, CI and documentation updates": "ci.md"
+          },
+          {
+            "Packaging and versioning": "packaging.md"
+          },
+          {
+            "Distribution follow-ups": "distribution-follow-ups.md"
+          }
+        ]
+      },
+      "local": false,
+      "dirty": false,
+      "commit": "22efa490f25e5d947a7b88f451f68f4aab28b6a9",
+      "included": true
+    }
+  ],
+  "example_inputs": [
+    {
+      "source": "core",
+      "path": "docs-examples.json",
+      "sha256": "871726a1485911fe9a7fc8a0504619f1ae88288a905cc9cb32b858b09906b61a"
+    },
+    {
+      "source": "core",
+      "path": "examples/tlv/src/quick_start.c",
+      "sha256": "a0e050370c871d93da65cd8d4e3fdc4e15b6103f0b3c880144681a800e3de2a3"
+    },
+    {
+      "source": "core",
+      "path": "examples/tlv++/src/quick_start.cpp",
+      "sha256": "8a26ef744ec910288d9b4fb9e58fd1c67ffe1947db6fd2b161c9c8e67c6b32bd"
+    },
+    {
+      "source": "go",
+      "path": "docs-examples.json",
+      "sha256": "d8e88a83af56069d21f7bfafd6cc8106de3e92d165ca7c235e420877e5a0ded9"
+    },
+    {
+      "source": "go",
+      "path": "examples/quick_start/main.go",
+      "sha256": "b586dab44376cc53be5bd195e65fed489a055bee333addae1f38e2604247168e"
+    },
+    {
+      "source": "js",
+      "path": "docs-examples.json",
+      "sha256": "3980728b59b34d6c9ba4e1252c2fcd15897ed8b4e0ca6e65e54a2201c6a17193"
+    },
+    {
+      "source": "js",
+      "path": "examples/parse.mjs",
+      "sha256": "e44d68b0d11ec39f7965802f127dd766cc87ac6753732a8034ff5a691e756afc"
+    }
+  ],
+  "api": {
+    "schema": 1,
+    "repository": "https://github.com/OpenTLV/opentlv",
+    "commit": "345c77acb29266036df5f27d04ce315bb61853cc",
+    "source_sha256": "e00b2870eb826adb9d7de701eed6442e6dfb0b3cc78c98df5abe09b8bb7635f4",
+    "local": false,
+    "dirty": false,
+    "doxygen_version": "1.9.8",
+    "guide_base": "https://opentlv.github.io/opentlv-docs/latest/",
+    "manifest": "api/reference/api-source.json"
+  },
+  "wasm": {
+    "schema": 2,
+    "repository": "https://github.com/OpenTLV/opentlv",
+    "commit": "345c77acb29266036df5f27d04ce315bb61853cc",
+    "local": false,
+    "dirty": false,
+    "source_sha256": "e00b2870eb826adb9d7de701eed6442e6dfb0b3cc78c98df5abe09b8bb7635f4",
+    "emscripten": "4.0.10",
+    "files": {
+      "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
+      "query.mjs": "a10ec496a246360547b64f228b14b3930acdbc1226460c91db98841dd8547b09",
+      "opentlv-core.js": "4fcd6ce246545dd8dfc3d9bd687436c716e709c107d6d5fdba697cfd636166f6",
+      "opentlv-core.wasm": "484f94cb0f6a37819121bd6343ed9baeb8638aebb71ff18b8d75f6e9c45f42f3"
+    },
+    "js": {
+      "repository": "https://github.com/OpenTLV/opentlv-js",
+      "commit": "22efa490f25e5d947a7b88f451f68f4aab28b6a9",
+      "local": false,
+      "dirty": false,
+      "source_sha256": "8ef9cd8c80829bc8b9927026ede86a5746f3ffcf8072f8eeb094f4698734a9a8"
+    },
+    "manifest": "playground/wasm/wasm-source.json"
+  },
+  "licensing": {
+    "manifest": "licenses/manifest.json",
+    "sha256": "bd35848d10780e1b3f19883308a6038a337c5415413490415a0a22da27b9b20f"
+  }
+}

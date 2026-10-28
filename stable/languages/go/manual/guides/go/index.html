@@ -1,0 +1,1621 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
+      
+      
+      
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/0.8.0/languages/go/manual/guides/go/">
+      
+      
+      
+        <link rel="next" href="../../development/go/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Using OpenTLV from Go - OpenTLV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../playground/playground.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-opentlv-from-go" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenTLV
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Using OpenTLV from Go
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../../../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    OpenTLV
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenTLV portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using OpenTLV from Go
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using OpenTLV from Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-integrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and integrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference-and-runnable-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API reference and runnable examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-and-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format and Element
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format and Element">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generic-fields-and-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic fields and composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reader-and-input-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader and input windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer-and-nested-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer and nested construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tree-streaming-and-visitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree streaming and visitors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-edits-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document, edits and cleanup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Document, edits and cleanup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#document-result-visitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document result visitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural schemas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-and-typed-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query and typed Values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors-diagnostics-and-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors, diagnostics and concurrency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-codecs-and-wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic codecs and wire generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definition-registries-and-diagnostic-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition registries and diagnostic locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and native dependency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging and versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-integrate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and integrate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-reference-and-runnable-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API reference and runnable examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-and-element" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format and Element
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format and Element">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generic-fields-and-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic fields and composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reader-and-input-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reader and input windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writer-and-nested-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer and nested construction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tree-streaming-and-visitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tree streaming and visitors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-edits-and-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document, edits and cleanup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Document, edits and cleanup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#document-result-visitors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document result visitors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structural-schemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structural schemas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#query-and-typed-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query and typed Values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#errors-diagnostics-and-concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errors, diagnostics and concurrency
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generic-codecs-and-wire-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generic codecs and wire generation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definition-registries-and-diagnostic-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definition registries and diagnostic locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#current-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next step
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+    <p class="md-typeset">
+      <strong>Go manual</strong> from the
+      source selected for this portal version.
+      <a href="../../../../..">Return to the OpenTLV portal</a>.
+    </p>
+  
+  
+                  
+
+
+  
+    <a href="https://github.com/OpenTLV/opentlv-go/edit/247da7863510ebed64030a8c6c01e122ad122a31/docs/guides/go.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="using-opentlv-from-go">Using OpenTLV from Go<a class="headerlink" href="#using-opentlv-from-go" title="Permanent link">&para;</a></h1>
+<p>Start with setup below, then run the <a href="#quick-start">Go quick start</a>
+for input, expected output and the public API. You can use this guide without
+studying native C implementation contracts.</p>
+<p>The experimental <code>opentlv</code> package exposes the canonical C engine through Go
+types, slices and errors. Application code imports
+<code>github.com/OpenTLV/opentlv-go</code>; cgo and native handles stay inside
+the binding. See the <a href="../../../../contracts/">binding capability reference</a>
+for current parity, and the <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/quick_start/main.go">standalone quick-start source</a>
+for a complete runnable program.</p>
+<h2 id="install-and-integrate">Install and integrate<a class="headerlink" href="#install-and-integrate" title="Permanent link">&para;</a></h2>
+<p>For external projects, see <a href="../../packaging/#external-consumption">module packaging</a>.
+<code>opentlv.BindingVersion</code> identifies the binding source; <code>opentlv.Version()</code> reports
+the linked Core library. Select a release with
+<code>go get github.com/OpenTLV/opentlv-go@v0.1.0</code>; it builds against Core <code>v0.8.0</code>.</p>
+<p>Use Go 1.22 or newer, cgo enabled, a C compiler supported by cgo, and matching
+OpenTLV headers and a compiled library. Build or install the C library separately;
+<code>go build</code> neither invokes CMake nor compiles a second copy of the C sources.
+Generated <code>tlv/config.h</code>, <code>tlv/export.h</code> and <code>tlv/version.h</code> must match the library.</p>
+<p>From the standalone repository root, the build helper selects the exact Core
+source commit in <code>core-source.json</code>, builds matching native inputs, and runs Go:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/quick_start
+</code></pre></div>
+<p>See the <a href="../../development/go/">standalone build guide</a> for local Core overrides,
+static/shared linking and PowerShell commands. The helper leaves the public cgo
+link contract unchanged. Direct Go commands remain usable with matching manually
+supplied headers/library; the helper avoids stale native inputs with a dedicated
+Go cache. No workspace repository or sibling checkout is required.</p>
+<h2 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>From the standalone repository root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/quick_start
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Hello, world!
+</code></pre></div>
+<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/quick_start/main.go">complete program</a> imports
+<code>github.com/OpenTLV/opentlv-go</code>, constructs a one-byte Tag/Length Format, writes
+Tag <code>01</code> and the UTF-8 Value <code>Hello, world!</code>, then reads the encoded bytes.
+It checks construction, write and Reader errors. Elements borrow the Writer
+output, which remains unchanged until reading completes.</p>
+<h2 id="api-reference-and-runnable-examples">API reference and runnable examples<a class="headerlink" href="#api-reference-and-runnable-examples" title="Permanent link">&para;</a></h2>
+<p>This guide documents public contracts and limitations. For the selected checkout's
+exported API comments, run <code>go doc .</code> or <code>go doc . NewReader</code> from the module root.
+The <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/opentlv.go">public package sources</a> and tests belong to this repository;
+Core's generated C/C++ reference is not the Go API reference.</p>
+<p>Run examples with <code>python3 scripts/go.py -- run ./examples/&lt;name&gt;</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Example</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/version/main.go">version</a></td>
+<td>Independent binding and linked Core identities</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/quick_start/main.go">quick_start</a></td>
+<td>Fixed-format write/read round trip</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/formats/main.go">formats</a></td>
+<td>Mixed field encodings, tag-only elements and packed headers</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/reader/main.go">reader</a></td>
+<td>Reader and borrowed input</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/writer/main.go">writer</a></td>
+<td>Writer output and sizing</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/streaming/main.go">streaming</a></td>
+<td>Incremental tree events and output-capacity retry</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/errors/main.go">errors</a></td>
+<td>Status and diagnostic handling</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/codec/main.go">codec</a></td>
+<td>Typed Value conversion</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/document/main.go">document</a></td>
+<td>Owned Document editing; requires Document support</td>
+</tr>
+<tr>
+<td><a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/query/main.go">query</a></td>
+<td>Document queries; requires Document support</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/query_conformance/main.go">query_conformance adapter</a> is a test
+driver for Core's shared corpus, not an interactive tutorial. Its build and runner
+commands are in <a href="../../development/go/#examples-and-shared-tests">Examples and shared tests</a>.</p>
+<h2 id="format-and-element">Format and Element<a class="headerlink" href="#format-and-element" title="Permanent link">&para;</a></h2>
+<p><code>NewFixed(FixedConfig{TagSize: 1, LengthSize: 1, ByteOrder: BigEndian})</code> creates
+an immutable generic Format. <code>Order</code> defaults to TLV and <code>LengthScope</code> to Value
+length. Byte order is explicit. <code>Builtin(BER)</code> selects a compiled preset;
+disabled presets return an error rather than selecting another Format.
+Constructors return <code>(Format, error)</code>; zero and failed Formats are invalid.</p>
+<p><code>NewElement(tag, value)</code> borrows binary Tag and Value slices. <code>Tag()</code> preserves
+byte identity and <code>Value()</code> does not interpret content. <code>Clone()</code> copies all
+bytes, including available raw encoding. <code>Source()</code> exposes Header, Tag,
+Length, Value and Trailer ranges relative to the element start, with presence
+flags; <code>Offset()</code> is absolute in the input. Logical Elements have no source
+encoding. Format-supplied identifiers are copied into Go storage.</p>
+<h3 id="generic-fields-and-composition">Generic fields and composition<a class="headerlink" href="#generic-fields-and-composition" title="Permanent link">&para;</a></h3>
+<p><code>NewFixedIdentifier</code> and <code>NewVariableIdentifier</code> create immutable
+<code>IdentifierEncoding</code> values. <code>NewFixedLength</code>, <code>NewVariableLength</code> and
+<code>NewEscapedLength</code> create <code>LengthEncoding</code> values. Each validates its configuration
+through Core and exposes <code>Read</code>, <code>Measure</code> and <code>Write</code>. Identifier reads borrow
+input; count reads return <code>uint64</code>. Failed reads return no semantic result and
+preserve Core's consumed-prefix detail. Failed field writes leave the destination
+unchanged and return zero written. <code>Write(nil, ...)</code> is a capacity error; use
+<code>Measure</code> to query width. Identifier writes reject overlapping slices.</p>
+<p><code>NewComposed(CompositionConfig{Identifier: identifier, Length: length})</code> combines
+any of those identifier/count encodings. <code>Order</code> selects TLV or LTV, and
+<code>LengthScope</code> selects Value or Tag-and-Value counting. <code>TagOnly</code> is an optional
+table of identifiers that omit Length and require an empty Value. It requires
+TLV/ValueLength framing and implies no skipping or termination. A fixed field
+identifier width must be nonzero; use <code>NewFixed</code> for its existing absent-Tag case.</p>
+<p><code>NewVariable(VariableConfig)</code> configures both variable fields and optional
+<code>IdentifierPolicy</code>, <code>LengthPolicy</code> and <code>ConstructedBit</code>. <code>NewEscaped(EscapedConfig)</code>
+combines fixed identifiers with inline or escape-prefixed counts. These APIs
+describe definite generic framing; protocol-specific and indefinite-length
+semantics remain with existing Builtin presets.</p>
+<p><code>PackedField.Read</code> and <code>PackedField.Write</code> extract/insert unsigned bit fields in
+initialized backing bytes. Writes preserve unrelated bits and reject overflow.
+<code>NewPacked(PackedConfig)</code> composes nonoverlapping Tag/Length bit fields. Supply
+<code>TagStorage</code> as a complete table: entry <code>i</code> is <code>i</code> in <code>TagSize</code> big-endian bytes.
+For a two-bit Tag and one-byte canonical identifiers, this is <code>[]byte{0, 1, 2, 3}</code>.
+Core checks layout and capacity at construction and checks the selected table
+entry when decoding. Packed semantic tags are copied into Go storage; Values
+and source bytes still borrow input. Tag-and-Value scope counts the Tag's wire
+envelope rather than its canonical width.</p>
+<p>Constructors snapshot all policies, tables and predicates, so later changes to
+the input configuration do not affect the result. Encodings and Formats are
+safe to share concurrently; each consumer still owns its cursor and output.
+Composed native configuration is reclaimed automatically and needs no <code>Close</code>.
+Document and Query consumers retain it for their full lifetime.</p>
+<p><code>Format.CanRead()</code> and <code>CanWrite()</code> inspect Core capabilities. <code>IsConstructed(tag)</code>
+applies the configured predicate to canonical Tag bytes without validating their
+wire representability. All return false for an invalid Format.
+<code>ConstructedBit{ByteIndex: 0, Mask: 0x20, Value: 0x20}</code> recognizes Tags with that
+bit set; supply it to variable, mixed or packed configuration for nested values.</p>
+<p><code>format.Preserve(element)</code> returns an independent copy of the original encoding,
+including accepted nonminimal fields. It revalidates <code>element.Source().Bytes</code>
+and checks semantic equality through Core. Use the originating Format and keep
+source bytes unchanged; a logical Element without source returns <code>ErrInvalidArg</code>.
+<code>Writer.Write</code> instead regenerates framing according to the Format's policy.</p>
+<p>Run the <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/formats/main.go">complete generic format example</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/formats
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>wire=0102476f tag=01 value=476f
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>wire=00 tag=00 value=
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>wire=82476f tag=02 value=476f
+</code></pre></div>
+<h2 id="reader-and-input-windows">Reader and input windows<a class="headerlink" href="#reader-and-input-windows" title="Permanent link">&para;</a></h2>
+<p>Use <code>NewReader(data, format)</code> for complete input. <code>Next()</code> publishes one Element;
+call <code>Element()</code> inside the loop and check <code>Err()</code> afterward. Clean EOF is not
+an error. Retained Elements borrow their original input even after another
+read. Keep it unchanged or clone the Element before reusing a receive buffer.</p>
+<p><code>NewIncrementalReader(data, format)</code> starts with non-final input. A false <code>Next()</code>
+with <code>NeedsMoreData()</code> and nil <code>Err()</code> is a pause. Use
+<code>SetInput(window, discard, final)</code> to replace the contiguous window, preserving
+all undiscarded bytes and appending new input. Offsets stay absolute. An
+incomplete final element is an error; final input cannot be reopened.
+The caller assembles windows: the binding does not buffer an <code>io.Reader</code>.
+Readers require no <code>Close</code>.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/reader/main.go">reader/main.go</a>.</p>
+<h2 id="writer-and-nested-construction">Writer and nested construction<a class="headerlink" href="#writer-and-nested-construction" title="Permanent link">&para;</a></h2>
+<p><code>NewWriter(format)</code> grows owned output. <code>NewWriterBuffer(format, buffer)</code> uses
+the slice's length as fixed capacity. <code>WriteElement(tag, value)</code> and
+<code>Write(element)</code> regenerate framing through C; <code>Measure(tag, value)</code> obtains
+exact sizing. <code>Bytes()</code> borrows the completed output prefix and <code>Size()</code> reports
+its length. Do not mutate it while a Reader or retained Element uses it.</p>
+<p><code>Begin(tag)</code>, <code>Value(bytes)</code>, <code>WriteElement</code> and <code>End()</code> stage constructed
+output through the C Tree Writer; <code>Finish()</code> checks that parents are closed.
+The Format must recognize the parent as constructed. Generic Fixed cannot do
+so; BER SEQUENCE can. Tags are copied at Begin. Open parents allocate Go staging
+storage even with fixed root output; this construction does not stream bytes
+to a sink. <code>Bytes()</code> excludes unfinished parents.</p>
+<p>Errors preserve published output and logical parent state. A <code>CapacityError</code>
+reports total <code>Required</code> and <code>Available</code> sizes. <code>SetBuffer</code> copies the completed
+prefix into larger storage so the failed write or End can be retried. Writer
+requires no <code>Close</code>.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/writer/main.go">writer/main.go</a>.</p>
+<h2 id="tree-streaming-and-visitors">Tree streaming and visitors<a class="headerlink" href="#tree-streaming-and-visitors" title="Permanent link">&para;</a></h2>
+<p><code>NewTreeReader(input, format, nil)</code> borrows a final input window.
+<code>NewIncrementalTreeReader</code> starts with non-final input. Both return <code>(*TreeReader,
+error)</code> and need no <code>Close</code>. Choose one projection for the cursor's lifetime:</p>
+<ul>
+<li><code>Next()</code> / <code>Item()</code> produces preorder <code>TreeItem</code> values with depth, absolute
+  offset and constructed classification.</li>
+<li><code>NextEvent()</code> / <code>Event()</code> produces balanced <code>TreeBegin</code>, <code>TreeElement</code> and
+  <code>TreeEnd</code> events, including BEGIN/END for empty parents. END has no borrowed
+  payload; its offset is the end of the parent's value.</li>
+</ul>
+<p>Check <code>Err()</code> after a false pull. <code>NeedsMoreData()</code> identifies an incremental
+pause. BEGIN requires the complete encoded parent; this is not an early-header
+parser. <code>Consumed()</code> is the discardable prefix of the current window, while
+<code>Offset()</code> includes prior discards. <code>AtEnd()</code> requires final input and closure of
+all scopes. <code>SetInput(window, discard, final)</code> preserves the undiscarded suffix
+unchanged; retained views still borrow their original storage. Clone them before
+overwriting it. These consumption/end accessors are also available on <code>Reader</code>.</p>
+<p>Nil <code>TreeReaderOptions</code> selects 64 frames, maximum depth 64 and an unlimited item
+count. With explicit options, zero is literal: <code>FrameCapacity: 0</code> allows roots
+and skipping, <code>MaxDepth: 0</code> permits roots only, and <code>MaxElements: 0</code> permits no
+nodes. A frame shortage leaves descent pending: call <code>GrowFrames</code> and retry.
+<code>SkipSubtree()</code> can recover from a descent limit without validating descendants;
+event mode emits a skipped END. Limits and parse errors preserve the native
+continuation; a retry repeats the failing operation unless the caller changes
+input/storage or skips a pending subtree. Mixing projections fails without
+advancing the cursor.</p>
+<p><code>Reader.Visit</code> and <code>TreeReader.Visit</code> take callbacks returning <code>(VisitAction,
+error)</code>. <code>VisitContinue</code> advances; <code>VisitStop</code> returns successfully. A callback
+error is returned unchanged. The current node has already been consumed, so
+another Visit resumes without replay; a stopped constructed item still has
+pending children. <code>ErrNeedMoreData</code> reports a resumable pause. A nil TreeReader
+callback validates only; a nil Reader callback is invalid. Callbacks must not
+advance or mutate their cursor; reentrant operations are rejected. Callback
+side effects are never rolled back.</p>
+<p><code>Writer.WriteEvent(event)</code> consumes a balanced stream, copying BEGIN tags and
+ignoring source metadata. Its source Value is ignored on BEGIN; subsequent
+events build the new children. A skipped event cannot represent complete output
+and is rejected. On failure, keep the current event for retry before advancing
+the producer. <code>NewTreeWriter</code> and <code>NewTreeWriterBuffer</code> add explicit maximum depth
+and node-count budgets (<code>TreeWriterOptions</code>); END does not consume that budget.
+Nil options select depth 64 and unlimited nodes. They use the same Go staging
+as Writer, including with fixed root output; frame/tag/scratch memory is not
+bounded or allocation-free. <code>Finish</code> checks balance, and <code>SetBuffer</code> permits a
+failed root write/close to be retried. No writer streams unfinished parents to
+an I/O sink, and native Format restrictions remain in force.</p>
+<p><code>format.EncodeEvents(events, options)</code> and <code>EncodeTree(preorderItems, options)</code>
+return staged bytes. <code>MeasureEvents</code> and <code>MeasureTree</code> return their exact size
+by performing the same encoding, necessary for content-dependent formats. They
+allocate complete output; when bytes are also needed, call Encode once and use
+<code>len</code>. Preorder construction closes parents from depth transitions and retains
+empty constructed nodes. Measurement and encoding errors return no partial result.</p>
+<p>For exact framing, <code>writer.Preserve(element)</code> revalidates the original bytes
+with the writer's Format and checks unchanged logical content through Core.
+Use the originating Format. <code>CopyEncoded(bytes)</code> deliberately copies without
+validation or conversion. Both work at roots and inside staged parents, copy
+input before publication, support aliasing with <code>Bytes</code>, and preserve state on
+failure. <code>Remaining()</code> returns <code>(bytes, true)</code> for fixed root capacity or
+<code>(0, false)</code> for growable output; open parents are not subtracted.</p>
+<p>Run the generic <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/streaming/main.go">streaming example</a>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/streaming
+</code></pre></div>
+<p>It demonstrates incomplete-parent input, balanced events and retrying END after
+enlarging the output buffer. It runs in all CI tiers, including minimal builds.</p>
+<h2 id="document-edits-and-cleanup">Document, edits and cleanup<a class="headerlink" href="#document-edits-and-cleanup" title="Permanent link">&para;</a></h2>
+<p><code>Parse(data, format)</code> copies input into the canonical owned mutable Document.
+<code>ParseWithOptions</code> accepts explicit depth and element limits; zero is a literal
+limit. A disabled <code>OPENTLV_DOCUMENT</code> returns an unsupported error.
+After success, use <code>defer doc.Close()</code>. Close is nil-safe and idempotent; the
+finalizer is a fallback. Copies of a Document share ownership and closing one
+closes all. Nodes retain their Document.</p>
+<p><code>Elements()</code> returns roots; <code>Children()</code> and <code>Parent()</code> navigate Nodes.
+<code>Tag()</code>, primitive <code>Value()</code> and <code>Element()</code> produce independent Go snapshots;
+constructed Values are empty, so navigate children instead. <code>SetValue</code>, <code>Erase</code>
+and <code>Insert</code> delegate mutation to C. Every successful edit invalidates all old
+Node handles: reacquire them before further use. Failed edits preserve handles.
+Foreign and stale Nodes are rejected before native access.</p>
+<p><code>Source()</code> copies the original whole input until the first successful edit or
+Close. Nodes have no individual wire ranges. <code>Encode()</code> regenerates framing;
+<code>EncodeAs(format)</code> selects a compatible destination without remapping Tags.
+<code>writer.WriteDocument(doc)</code> writes in the Writer's Format, including inside an
+open parent. Capacity failures preserve the Writer.</p>
+<p>Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/document/main.go">document/main.go</a>.</p>
+<p>For direct navigation, <code>doc.Find(parent, tag)</code> searches one scope (zero parent
+means roots), and <code>node.Next()</code>/<code>NextSameTag()</code> navigate siblings. A missing match
+is an invalid Node with no error; a stale or foreign parent is rejected.
+<code>doc.EncodedSize()</code>/<code>EncodedSizeAs(format)</code> measure the whole tree, while
+<code>node.Encode()</code>/<code>EncodeAs(format)</code> and <code>EncodedSize()</code>/<code>EncodedSizeAs(format)</code>
+operate on exactly one subtree. Encoding returns owned bytes and never remaps tags.
+An incompatible destination returns a <code>WriteError</code> with native status; the Core
+Document encoder does not provide optional diagnostic detail.</p>
+<p>With <code>DocumentOptions.RetainSourceLocations</code>, <code>node.SourceLocation()</code> returns
+independent optional <code>Offset</code> and <code>HeaderSize</code> values from the original input.
+They are coordinates, not ranges into the current encoding. Without retention
+they are absent. After mutation, reacquire all Nodes: affected nodes and ancestors
+lose their source coordinates, while unaffected nodes may retain old coordinates.
+An already returned location or encoding snapshot remains valid after Close.</p>
+<h3 id="document-result-visitors">Document result visitors<a class="headerlink" href="#document-result-visitors" title="Permanent link">&para;</a></h3>
+<p>After <code>execution.EvaluateDocument(doc, context, capacity)</code>, use
+<code>execution.VisitDocument(func(node Node) QueryVisit)</code> to visit remaining results.
+<code>QueryStop</code> returns successfully and the next call resumes after that node.
+<code>QueryVisitorError</code> returns <code>ErrVisitor</code>; an invalid action returns <code>ErrCallback</code>.
+Both preserve native callback diagnostics and invalidate the execution until Reset.
+Panics propagate after C returns and guards are restored, also requiring Reset.
+Keep the returned <code>*QueryExecution</code>; do not copy its mutable value. The callback
+cannot reenter the execution or edit/close the Document, including through copies
+of the Document. Read-only Node inspection is permitted. Document access
+still requires external serialization, and any edit outside a callback invalidates
+the retained Query results. <code>doc.EncodedSize()</code> supplies the complete snapshot
+capacity; passing a negative capacity to EvaluateDocument already measures it.</p>
+<h2 id="structural-schemas">Structural schemas<a class="headerlink" href="#structural-schemas" title="Permanent link">&para;</a></h2>
+<p>Structural validation operates directly on encoded input, independently of
+Document and compiled Query assertions. Core checks framing, nesting, lengths,
+occurrences, ordering, alternative groups and child membership; it does not decode
+semantic Values. The existing <code>ValidateQueryBuffer</code>/<code>ValidateQueryDocument</code> APIs
+continue to handle contextual boolean assertions with Query execution limits.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">schema</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">PrepareStructure</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">StructureDefinition</span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nx">Rules</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">StructureRule</span><span class="p">{{</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="nx">Entry</span><span class="p">:</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">SchemaEntry</span><span class="p">{</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">            </span><span class="nx">Tag</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"payload"</span><span class="p">,</span><span class="w"> </span><span class="nx">MinLength</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxLength</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">            </span><span class="nx">LengthMultiple</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="nx">MinOccurs</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxOccurs</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">Kind</span><span class="p">:</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">SchemaPrimitive</span><span class="p">,</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="p">}},</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">})</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">defer</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="nx">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">schema</span><span class="p">.</span><span class="nx">Validate</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">format</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">DefaultSchemaLimits</span><span class="p">())</span>
+</code></pre></div>
+<p>Prepare copies all tags, names, tables and groups into native-owned immutable
+storage and checks the definition once. Shared and recursive <code>Children</code> references
+are supported, up to 256 distinct tables. Do not mutate the input graph during
+preparation; afterward it can be changed or discarded. Copies of the prepared
+handle share ownership. Close and validation serialize access; closing one copy
+closes all, and future validation returns <code>ErrInvalidState</code>. Garbage collection
+is a fallback for deterministic Close. No Go pointers are retained by C.</p>
+<p>Length and occurrence bounds are inclusive; <strong>zero is literal</strong> and <code>-1</code> means
+unbounded only for <code>MaxLength</code> and <code>MaxOccurs</code>. <code>Endpoints</code> permits only the two
+length bounds; <code>LengthMultiple</code> additionally requires divisibility. Individual
+length checks use <code>SchemaEntry.ValidateLength</code>. <code>Children</code> requires
+<code>SchemaConstructed</code>; a nil child schema leaves membership unrestricted while
+wire nesting is still validated. <code>SchemaOrderSequence</code> orders matched siblings.
+Nonzero rule <code>Group</code> references a <code>StructureGroup</code> in the same table; grouped
+rules require <code>MinOccurs == 0</code>, and the group bounds the combined occurrences.
+Names cannot contain NUL. Invalid definitions match <code>ErrInvalidSchema</code>;
+unrepresentable Go arguments match <code>ErrInvalidArg</code>.</p>
+<p><code>SchemaLimits</code> explicitly bounds input depth and total elements. Zero limits are
+literal; <code>DefaultSchemaLimits()</code> returns 64 and 65536. These are traversal bounds,
+not an allocation-free guarantee or a bound on definition storage. Preparation
+allocates the copied graph; collection allocates up to the requested report capacity.</p>
+<p><code>Validate</code> returns the first <code>*SchemaError</code>. <code>ValidateAll(data, format, limits,
+policy, capacity)</code> returns a <code>SchemaReport</code> with total <code>Count</code> and at most
+<code>capacity</code> stored <code>Findings</code>. Capacity zero counts without storing. Schema
+violations return <code>ErrSchema</code> together with the report. Fatal wire/resource
+errors return an empty report and <code>*SchemaError</code>. The unknown-tag policy either
+follows each scope's <code>AllowUnknown</code>, allows everywhere, or rejects everywhere.
+Finding order within one scope is not a public ordering guarantee.</p>
+<p><code>SchemaError</code> preserves common location/path metadata, the discriminated Schema,
+Reader or Codec cause, and owned expected-versus-actual detail. Definition failures
+identify <code>DefinitionTable</code> (breadth-first table index, root zero) and
+<code>Detail.DefinitionIndex</code>; they have no wire location, and absent native fields
+are not inferred. Diagnostics survive input mutation and schema Close. <code>errors.Is</code>
+continues to match native statuses. Run the complete generic example with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/schema
+</code></pre></div>
+<h2 id="query-and-typed-values">Query and typed Values<a class="headerlink" href="#query-and-typed-values" title="Permanent link">&para;</a></h2>
+<p>Compiled expressions use <code>CompileQuery(text, ProgramOptions)</code> and immutable
+<code>QueryProgram</code> owners. <code>LoadQuery</code> validates same-release images using the
+original compile options; <code>Info</code>, <code>Variables</code>, <code>Format</code>, <code>Explain</code> and <code>Image</code>
+expose native metadata. Compile-time declarations use <code>QueryType</code>; runtime
+values use <code>QueryValue</code> and <code>Bind</code> rather than text interpolation.</p>
+<p><code>Execution(limits, retained)</code> creates independent bounded execution state.
+<code>SetInput(data, discard, final)</code>, <code>Next</code>, <code>Visit</code>, <code>Exists</code>, <code>Context</code>, <code>Pruning</code>
+and <code>Reset</code> preserve canonical continuation and validation behavior.
+<code>EvaluateDocument</code> and <code>NextDocument</code> return checked Nodes; <code>Result</code> exposes
+scalars. Input and match bytes are copied and retained as required. Callback
+panics invalidate an execution until reset; reentrant operations are rejected.
+Call <code>Close</code> for deterministic cleanup. <code>ProgramError</code> retains Query diagnostics.
+Its <code>Kind</code> is a <code>QueryErrorKind</code> with canonical <code>String()</code> names; use
+<code>QueryErrorKindSyntax</code> or <code>QueryErrorKindState</code> instead of numeric literals.
+Common <code>Diagnostic</code> evidence survives failures without a Reader cause; when
+<code>HasReader</code> is true, the same <code>Diagnostic</code> also carries the Reader detail.
+<code>Expression</code> is the related expression span, with <code>LocationUnknown</code> kind when
+the primary <code>Location</code> already is that span, and <code>SourceOffset()</code> projects a
+primary input location. <code>CodecDetail.Reported</code> is the raw provider result.
+See <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/program_test.go">consumer tests</a>.</p>
+<p><code>ProgramOptions.Providers</code> maps <code>QueryNum</code>, <code>QueryBCD</code>, <code>QueryText</code> and <code>QueryDate</code>
+to <code>QueryProvider</code> values. Each owns a stable nonzero ID and a <code>Decode</code> callback
+receiving copied input and optional <code>QueryMetadata</code>. Text outputs use explicit
+<code>MaxResultBytes</code> scratch. Provider panics become codec diagnostics. Independent
+executions may call a provider concurrently, so shared callback state must be
+synchronized by its owner.</p>
+<p><code>Feed(QueryEvent)</code> and <code>Finish</code> support canonical events without a Reader; native
+state rejects mixing input modes until reset. <code>EditDocument</code> applies a completed
+selection with explicit target capacity and returns the applied count, including
+on partial failure. Short target storage preserves the selection for retry.</p>
+<p><code>ValidateQueryBuffer</code> and <code>ValidateQueryDocument</code> accept <code>[]QueryRule</code> with context
+selectors, Boolean assertions and diagnostic names. Pass
+<code>DefaultQuerySchemaLimits()</code> or explicit resource limits. Validation retains
+programs/providers. <code>QuerySchemaError.Schema</code> holds the failed assertion's <code>Kind</code>,
+<code>Tag</code> and <code>Field</code>, and is nil for any other failure; its location, path and
+expected text are read from <code>Failure</code>.
+Document mutation and close are rejected while provider callbacks are active.</p>
+<p><code>doc.Query("6F/A5/50")</code> delegates path parsing and matching to C and returns all
+matching Nodes in document order. Exact hexadecimal tags and direct-child <code>/</code>
+steps are supported; wildcards, predicates and <code>//</code> are rejected. No matches
+returns an empty slice. Edits and Close invalidate Query Nodes; previously
+copied Value snapshots remain valid. Borrowed/resumable Query is not exposed.</p>
+<p><code>Codec[T]</code> delegates Value conversion, validation and measurement to C.
+Available constructors include fixed-width integer codecs, <code>Int64Codec</code>,
+<code>BytesCodec</code>, configured <code>NumberCodec</code>, <code>TextCodec</code>, <code>DigitsCodec</code>, <code>IPv4Codec</code>
+and <code>IPv4ListCodec</code>. Decode returns owned Go values; Encode returns owned Value
+bytes for a Writer or edit. Numbers explicitly select width and byte order;
+decimal digit codecs preserve leading zeros. Codecs do not infer semantics from
+an enclosing Tag. Zero Codecs are unsupported. Protocol-specific and
+application-object Structure codecs remain unbound.</p>
+<p>Runnable versions: <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/query/main.go">query/main.go</a>
+and <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/codec/main.go">codec/main.go</a>.</p>
+<h2 id="errors-diagnostics-and-concurrency">Errors, diagnostics and concurrency<a class="headerlink" href="#errors-diagnostics-and-concurrency" title="Permanent link">&para;</a></h2>
+<p>Use <code>errors.Is</code> with named statuses such as <code>ErrInvalidTag</code>; use <code>errors.As</code> for
+<code>*ParseError</code>, <code>*WriteError</code>, <code>*QueryError</code>, <code>CapacityError</code> or <code>StatusError</code>.
+Wrapping with <code>%w</code> preserves matching. Value conversion returns <code>*CodecError</code>
+with an unwrapped common status, for example <code>ErrInvalidValue</code>; its <code>Detail</code>
+retains the owned conversion evidence. Query providers return a shared error
+or nil, and <code>ProgramError.CodecDetail</code> preserves native conversion detail.
+EOF and incremental pauses remain flow control with nil <code>Err()</code>.</p>
+<p>Diagnostics copy byte slices, text, context and paths into Go storage, surviving
+input reuse or Document cleanup. Presence flags distinguish absent information
+from zero or empty values. Only detail supplied by C is exposed: Document
+encoding can return a status without wire detail, Query reports its text error
+offset where available, and Value/Structure codecs preserve their native
+conversion evidence in <code>CodecError.Detail</code>.
+Runnable version: <a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/examples/errors/main.go">errors/main.go</a>.</p>
+<p>Immutable Formats and Codecs can be shared concurrently. Readers, Writers,
+Documents and their mutable buffers require separate instances or external
+synchronization. Returned slices are mutable; synchronize their use as well.
+C retains no Go pointer across calls. See the
+<a href="../../development/go/">Go development guide</a> for race and cgo-boundary checks.</p>
+<h2 id="generic-codecs-and-wire-generation">Generic codecs and wire generation<a class="headerlink" href="#generic-codecs-and-wire-generation" title="Permanent link">&para;</a></h2>
+<p><code>SchemaNumberCodec(entry, config)</code> composes <code>SchemaEntry</code> byte-length rules with
+the existing unsigned BE, LE or BCD conversion. Width zero chooses the shortest
+schema-permitted width; a fixed width is never silently widened. The codec copies
+the entry's tag and name, validates on use and returns owned <code>CodecError</code> evidence
+for representation or Schema failures. <code>MaxLength: -1</code> means unrestricted, while
+zero is a literal bound. Existing scalar, byte, text, digit and IPv4 codecs remain
+available; <code>IPv4ListCodec</code> returns an ordinary owned slice for indexed access.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">entry</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">SchemaEntry</span><span class="p">{</span><span class="nx">Tag</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"counter"</span><span class="p">,</span><span class="w"> </span><span class="nx">MinLength</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxLength</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">}</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nx">number</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">SchemaNumberCodec</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NumberConfig</span><span class="p">{</span><span class="nx">Encoding</span><span class="p">:</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NumberBE</span><span class="p">})</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nx">wire</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">number</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span><span class="w"> </span><span class="c1">// 00 2a: shortest permitted width</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">number</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="nx">wire</span><span class="p">)</span>
+</code></pre></div>
+<p><code>NewValueConstraint</code> snapshots inclusive signed bounds or an allowed-value set.
+Call <code>Validate</code> on the decoded scalar; violations match <code>ErrSchema</code>, malformed
+native definitions match <code>ErrInvalidSchema</code>. Optional <code>Names</code> parallels
+<code>AllowedValues</code>; <code>Name(value)</code> returns <code>(name, found, error)</code>, preserving a named
+empty string separately from an absent name. NUL names and mismatched name counts
+match <code>ErrInvalidArg</code>. An empty allowed set rejects all values; the zero
+<code>ValueConstraint</code> permits all values. Convert unsigned numbers to <code>int64</code> only
+after checking they are representable. Length and occurrence rules remain
+separate from scalar constraints.</p>
+<p><code>NewStructureCodec[T](format, schema, options, decode, encode)</code> maps an entire
+sequence to an application object. A nil Schema validates framing and nesting;
+a prepared Schema also validates its rules. Decode invokes Core before the Go
+callback and gives the callback a private input copy that it may retain. Encode
+calls the Go callback once and sends its complete bytes through Core's structure
+encoder for validation and an owned output copy. Invalid output is never returned.
+The callback must keep its returned bytes stable until Encode returns. A nil
+callback disables its operation with <code>ErrUnsupported</code>.</p>
+<p>Callbacks run outside C and native locks; application errors are returned
+unchanged and decode errors return the zero object. Native failures wrap
+<code>CodecError</code> with owned Reader/Schema evidence; encode locations refer to output.
+Closing the retained Schema invalidates future native conversions, including
+encode validation if a callback closes it. A successful decode callback may close
+the Schema after validation without invalidating the returned Go object. Codec
+copies share this lifetime, and concurrent use requires concurrency-safe callbacks.
+Callback panics propagate normally. No Go callback is retained by C.</p>
+<p><code>DefaultStructureCodecOptions</code> permits depth 64, 65536 elements and a 16 MiB
+sequence. Custom zero limits are literal. <code>MaxBytes</code> checks incoming or callback
+output size before binding copies; callbacks must bound their own allocations.
+Core performs traversal checks, with its pinned native depth ceiling. These are
+owned Go operations, without a caller-owned native workspace or allocation-free
+promise.</p>
+<p><code>NewGenerator(format, options)</code> snapshots the ordered candidate table and retains
+Format. <code>Generate(caseIndex)</code> calls the canonical wire Generator and returns owned
+bytes. Same <code>GeneratorVersion</code>, Format, candidates, options, seed and case index
+give identical results independent of call order. Different inputs need not yield
+distinct bytes. The zero Generator is invalid; valid instances need no Close and
+can be shared concurrently.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nx">options</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">DefaultGeneratorOptions</span><span class="p">()</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nx">options</span><span class="p">.</span><span class="nx">Seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nx">options</span><span class="p">.</span><span class="nx">Candidates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">GeneratorCandidate</span><span class="p">{</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="p">{</span><span class="nx">Tag</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="nx">MinValueSize</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">MaxValueSize</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">},</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nx">generator</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NewGenerator</span><span class="p">(</span><span class="nx">format</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="nx">wire</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">generator</span><span class="p">.</span><span class="nx">Generate</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></div>
+<p><code>MaxElements</code>, <code>MaxDepth</code>, <code>MaxValueSize</code> and <code>MaxCaseSize</code> constrain generation.
+<code>MaxWorkspaceSize</code> explicitly bounds native scratch: Core requires
+<code>(MaxDepth + 1) * MaxCaseSize</code> bytes, exposed by <code>WorkspaceSize()</code>. Output requires
+another <code>MaxCaseSize</code> bytes, and candidate tables/tags require their own copied
+storage; the scratch budget is not a total process-memory limit. Defaults use
+depth 8, 64 elements, 256 Value bytes, 4096 case bytes and a 1 MiB scratch budget.
+Zero seed, case index, depth and Value size are valid. Missing candidates,
+negative bounds or zero element/case/workspace limits are invalid. Unsupported
+depth, native overflow, insufficient scratch budget and an unproductive bounded
+search preserve their corresponding errors; failures return no partial bytes.</p>
+<p>Primitive Values contain arbitrary bytes, not Schema-valid or Codec-valid
+content. Format alone identifies constructed tags. Candidates must be
+independently composable: exclude terminators and identifiers requiring
+message-level ordering. Nil tags are absent; nonnil empty slices are explicitly
+present-empty identifiers. Run the generic example in every feature configuration:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>./examples/generation
+</code></pre></div>
+<p>The example combines a counter object codec with a length Schema and scalar
+constraint, then reproduces a generated wire case. Core owns algorithms and
+protocol behavior; Go tests its input mapping, ownership, limits and errors.</p>
+<h2 id="definition-registries-and-diagnostic-locations">Definition registries and diagnostic locations<a class="headerlink" href="#definition-registries-and-diagnostic-locations" title="Permanent link">&para;</a></h2>
+<p><code>NewDefinitionRegistry(entries)</code> snapshots an application-selected list of
+<code>Definition{Tag, Name}</code> values. <code>registry.Find(tag)</code> uses Core's first exact
+tag-byte match and returns <code>(Definition, bool)</code>. Tags may be empty; nil and empty
+lookup tags are equal. Duplicate tags retain entry order. Names need not be
+unique; empty means unnamed, and Go strings preserve embedded NUL bytes.
+An unknown tag returns false without implying that it is structurally invalid.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nx">registry</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NewDefinitionRegistry</span><span class="p">([]</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">Definition</span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p">{</span><span class="nx">Tag</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">"counter"</span><span class="p">},</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">})</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nx">definition</span><span class="p">,</span><span class="w"> </span><span class="nx">found</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">registry</span><span class="p">.</span><span class="nx">Find</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+</code></pre></div>
+<p>The registry is immutable and safe for concurrent lookups. Copies share ownership
+and need no <code>Close</code>; native storage follows Go object lifetime. Construction copies
+tag bytes, and every returned tag is independent. Do not mutate constructor or
+lookup inputs concurrently with the call. The zero registry is empty. Lookup
+does not select a Format, Codec or Schema, resolve a protocol context or convert
+canonical tag bytes into a wire header.</p>
+<p><code>NewLocation(domain, kind, begin, end)</code> checks coordinates through Core. Invalid
+domains, kinds, reversed spans, unequal point/boundary endpoints and coordinates
+outside native <code>size_t</code> become unknown evidence. A known point or empty span at
+zero remains distinct from unknown. Coordinates use <code>uint64</code> in Go; valid native
+ranges therefore depend on the target architecture.</p>
+<p><code>location.Translate(origin)</code> returns a checked offset in the same domain.
+<code>location.Resolve(origin, domain)</code> places Value-local evidence in its enclosing
+coordinate space, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nx">local</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">NewLocation</span><span class="p">(</span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationValue</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationSpan</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nx">wire</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">local</span><span class="p">.</span><span class="nx">Resolve</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="nx">opentlv</span><span class="p">.</span><span class="nx">LocationInput</span><span class="p">)</span><span class="w"> </span><span class="c1">// input span 4..6</span>
+</code></pre></div>
+<p>Both return new values. Overflow becomes unknown; Resolve leaves other domains
+and invalid enclosing domains unchanged after checking the original coordinates.
+Use the actual Value origin supplied by your input/source metadata. These helpers
+do not change the error code. Assigning exported <code>Diagnostic</code> snapshot fields
+does not change its error wrapper's identity or automatically update legacy
+<code>Offset</code>/<code>HasOffset</code> projections. Diagnostic contexts and paths are owned Go data;
+applications enrich/render snapshots with Go values, slices and formatting tools.
+There is no native borrowed path-stack or exact native path-formatting API.</p>
+<p>The executable <code>ExampleDefinitionRegistry_Find</code> and <code>ExampleLocation_Resolve</code>
+examples run via <code>python3 scripts/go.py -- test -run Example ./...</code>.</p>
+<p>Copy operations use existing Go APIs: <code>bytes.Clone(element.Value())</code> makes an
+owned value copy, and <code>element.Clone()</code> also retains copied tag/source metadata.
+<code>Writer.Measure</code> and <code>Writer.Write</code>/<code>WriteElement</code> measure and serialize canonical
+framing through Core. <code>Writer.CopyEncoded</code> copies exact bytes without validation;
+<code>Format.Preserve</code>/<code>Writer.Preserve</code> check original framing. Fixed Writer buffers
+reject short capacity without publishing partial output. These are the reviewed
+alternatives to native copy helpers, not additional raw-pointer APIs.</p>
+<h2 id="current-limitations">Current limitations<a class="headerlink" href="#current-limitations" title="Permanent link">&para;</a></h2>
+<p>There is no custom Format callback adapter, borrowed Query or resumable Document
+Builder. Generic structured codecs use
+application-supplied Go object mappings; protocol-specific Builtins codec parity
+is outside this binding's generic API work.
+Go's copied Node snapshots, owned diagnostics and explicit Close are intentional
+ergonomic differences. The <a href="../../../../../development/components/go/development/ci/#generic-completeness-review-and-gate-21">reviewed generic contract baseline</a>
+records supported families and these limitations against the exact Core pin;
+zero unreviewed symbols does not promise every C storage or callback ABI. The
+<a href="../../../../contracts/#capability-implementation-matrix">binding matrix</a>
+distinguishes these from disabled native components.</p>
+<h2 id="next-step">Next step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
+<p>Use <a href="../../../../../tutorials/concepts/learning-model/">the basic model</a> to choose borrowed processing
+or owned editing, then <a href="../../../../../tutorials/processing/">processing choices</a> for your next task.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+  <p class="md-typeset"><small>
+    Sources:
+    
+      
+        core
+        
+        <a href="https://github.com/OpenTLV/opentlv/tree/345c77acb29266036df5f27d04ce315bb61853cc">345c77acb292</a>
+        
+      
+    
+      
+        cli
+        
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
+        
+      
+    
+      
+        lua
+        
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/77abc807bdd59956790497483a9d1fbad4b79019">77abc807bdd5</a>
+        
+      
+    
+      
+        python
+        
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/52e15f8028da8521ccf64a97b03f7e6e249a0912">52e15f8028da</a>
+        
+      
+    
+      
+        rust
+        
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        
+      
+    
+  </small></p>
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="../../development/go/" class="md-footer__link md-footer__link--next" aria-label="Next: Build and native dependency">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Build and native dependency
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenTLV" target="_blank" rel="noopener" title="OpenTLV on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../../../../../playground/playground.js" type="module"></script>
+      
+    
+  </body>
+</html>

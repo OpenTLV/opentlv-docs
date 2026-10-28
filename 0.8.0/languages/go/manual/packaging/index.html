@@ -1,0 +1,957 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
+      
+      
+      
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/0.8.0/languages/go/manual/packaging/">
+      
+      
+        <link rel="prev" href="../development/go/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Packaging and versioning - OpenTLV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../playground/playground.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#go-module-packaging-and-versioning" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenTLV
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Packaging and versioning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    OpenTLV
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OpenTLV portal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using OpenTLV from Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build and native dependency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging and versioning
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging and versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#independent-versions-and-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent versions and tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External consumption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-validation-and-migration-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packaging validation and migration limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#independent-versions-and-tags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent versions and tags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#external-consumption" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External consumption
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-compatibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core compatibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-validation-and-migration-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packaging validation and migration limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+    <p class="md-typeset">
+      <strong>Go manual</strong> from the
+      source selected for this portal version.
+      <a href="../../../..">Return to the OpenTLV portal</a>.
+    </p>
+  
+  
+                  
+
+
+  
+    <a href="https://github.com/OpenTLV/opentlv-go/edit/247da7863510ebed64030a8c6c01e122ad122a31/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="go-module-packaging-and-versioning">Go module packaging and versioning<a class="headerlink" href="#go-module-packaging-and-versioning" title="Permanent link">&para;</a></h1>
+<h2 id="module-identity">Module identity<a class="headerlink" href="#module-identity" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module / repository</td>
+<td><code>github.com/OpenTLV/opentlv-go</code> / <code>https://github.com/OpenTLV/opentlv-go</code></td>
+</tr>
+<tr>
+<td>Public package</td>
+<td><code>opentlv</code></td>
+</tr>
+<tr>
+<td>Minimum Go</td>
+<td>1.22</td>
+</tr>
+<tr>
+<td>Binding source version</td>
+<td><code>opentlv.BindingVersion</code>, currently <code>0.1.0</code> (first release, tag <code>v0.1.0</code>)</td>
+</tr>
+<tr>
+<td>License</td>
+<td>MIT; original Marek Cingel attribution in <code>LICENSE</code></td>
+</tr>
+<tr>
+<td>Native dependency</td>
+<td>Core <code>v0.8.0</code> source commit in <code>core-source.json</code></td>
+</tr>
+</tbody>
+</table>
+<p>The root <code>go.mod</code> is the canonical module identity. There are no third-party Go
+dependencies, <code>replace</code> directives or required Go workspace. No <code>go.sum</code> is needed
+in this module today. All C/cgo implementation remains private in <code>internal/capi</code>.
+The module contains the bridge sources; it does not bundle the Core library.</p>
+<p>The module ZIP carries the root <code>LICENSE</code> with original attribution,
+<code>LICENSES/MIT.txt</code>, <code>REUSE.toml</code> and <code>THIRD_PARTY.md</code>. The package check rejects
+missing licensing inputs and tests exact notice bytes in the ZIP. See
+<a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/THIRD_PARTY.md">dependencies and attribution</a> for the Core and toolchain review
+and notice handling when distributing linked binaries. Shared community policies
+remain in <code>OpenTLV/.github</code>; they do not supply a module license.</p>
+<h2 id="independent-versions-and-tags">Independent versions and tags<a class="headerlink" href="#independent-versions-and-tags" title="Permanent link">&para;</a></h2>
+<p><code>BindingVersion</code> identifies the Go binding source independently of Core. The
+first Go release is <code>0.1.0</code>, prepared against Core <code>v0.8.0</code> (#31); it is not a
+Core version. Migration development used the unreleased <code>0.1.0-dev</code>; there were
+no Go repository tags or GitHub releases when checked on 2026-10-28. Before a
+release, update this constant, <code>docs-examples.json</code>, <code>ci/release-notes.md</code> and
+the changelog together. The tag is <code>v</code> plus that version, at the repository root
+(for example <code>v0.1.0</code> or <code>v0.1.0-rc.1</code>), without a <code>bindings/go/</code> prefix. The
+release workflow publishes stable <code>vMAJOR.MINOR.PATCH</code> tags only.</p>
+<p>While experimental (v0), incompatible API, minimum-Go or native linking-contract
+changes increment the minor version; compatible fixes increment the patch.
+Core lock updates require a new binding version and compatibility validation;
+they never automatically copy Core's version. After v1, incompatible changes
+require a major version and v2+ requires a matching <code>/v2</code> (etc.) module/import
+suffix. Follow the <a href="https://go.dev/ref/mod#versions">Go module version rules</a>.</p>
+<p><code>Version()</code> retains its original meaning: the version string of the linked C
+library, including a deliberately selected local Core. Its value is unrelated to
+<code>BindingVersion</code>. The exact selected Go dependency version comes from
+<code>go list -m github.com/OpenTLV/opentlv-go</code> or <code>runtime/debug.ReadBuildInfo</code>; an
+untagged commit resolves to a pseudo-version, whatever the source constant says.
+Neither value proves release publication or binary provenance.</p>
+<h2 id="external-consumption">External consumption<a class="headerlink" href="#external-consumption" title="Permanent link">&para;</a></h2>
+<p>Use the canonical import in your application:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nx">opentlv</span><span class="w"> </span><span class="s">"github.com/OpenTLV/opentlv-go"</span>
+</code></pre></div>
+<p>Select the release tag with <code>go get github.com/OpenTLV/opentlv-go@v0.1.0</code>; the
+public Go module proxy and checksum database serve and authenticate it. For an
+unreleased change, select an exact <strong>merged commit containing the canonical
+module path</strong> with <code>go get github.com/OpenTLV/opentlv-go@&lt;commit&gt;</code>; Go records
+its pseudo-version.
+Do not use the old Core subtree path and the new path together: Go treats their
+types and packages as distinct. There is no forwarding compatibility module.</p>
+<p>For local development before merge, create a separate application directory,
+run <code>go mod init example.test/app</code>, and add a local replacement explicitly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>go<span class="w"> </span>mod<span class="w"> </span>edit<span class="w"> </span>-require<span class="o">=</span>github.com/OpenTLV/opentlv-go@v0.1.0-dev
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>go<span class="w"> </span>mod<span class="w"> </span>edit<span class="w"> </span>-replace<span class="o">=</span>github.com/OpenTLV/opentlv-go<span class="o">=</span>/absolute/path/to/opentlv-go
+</code></pre></div>
+<p>Build or run that application using the binding checkout's helper:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>/absolute/path/to/opentlv-go/scripts/go.py<span class="w"> </span>--working-dir<span class="w"> </span>/absolute/path/to/app<span class="w"> </span>--<span class="w"> </span>run<span class="w"> </span>.
+</code></pre></div>
+<p>The helper builds the pinned Core and supplies matching native paths for the
+external command. Keep the helper checkout aligned with the selected binding
+revision. A dependency's Python helper is not executed automatically by <code>go get</code>
+or <code>go build</code>. Direct Go commands require <code>CGO_ENABLED=1</code>, a matching C compiler,
+<code>CGO_CPPFLAGS</code> with Core public and generated include directories, and
+<code>CGO_LDFLAGS</code> with the matching library directory. Static builds additionally
+define <code>TLV_STATIC_DEFINE</code>; shared builds need the runtime library search path.
+See the <a href="../development/go/">development guide</a> and
+<a href="https://pkg.go.dev/cmd/cgo">cgo documentation</a>.</p>
+<h2 id="core-compatibility">Core compatibility<a class="headerlink" href="#core-compatibility" title="Permanent link">&para;</a></h2>
+<p>The supported source-build baseline is exactly Core <code>v0.8.0</code>, commit
+<code>345c77acb29266036df5f27d04ce315bb61853cc</code>, recorded with its release version in
+<code>core-source.json</code>. The build helper requires that version field; the release
+workflow additionally requires the Core tag to resolve to that commit and to be
+a published, non-prerelease Core release. No wider Core version range or stable
+native ABI is claimed.</p>
+<p>The pin moved from the migration baseline
+<code>cb3caed5b09706ce11ecfae839397fd4f99d0025</code> for the first release (#31). Between
+both commits Core changed no public header. Its native changes are internal
+Query program and executor workspace layout accessors with unchanged image
+format, public API and ABI (OpenTLV/opentlv#707, OpenTLV/opentlv#709); it also
+removed the WASM build option and the migrated Go, WASM and JavaScript sources.
+The Query conformance runner and corpus used by Full are unchanged. The reviewed
+generic API inventory is unchanged (166 referenced, zero missing and 131
+excluded symbols), and the generated diagnostic snapshots are identical. Reader, Writer,
+Query, Schema and Codec must be enabled. Minimal builds may disable ASN.1,
+Bluetooth, LLDP, DHCP, NFC and Document; corresponding public APIs retain their
+existing unavailable-feature errors. Use matching headers, generated config and
+library from the same build and target. Windows requires GCC/MinGW compatible
+with cgo; an MSVC library is not supported by this setup. No pure-Go fallback is
+provided. Explicit local Core overrides are development evidence only.</p>
+<h2 id="packaging-validation-and-migration-limits">Packaging validation and migration limits<a class="headerlink" href="#packaging-validation-and-migration-limits" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python3<span class="w"> </span>scripts/go.py<span class="w"> </span>--<span class="w"> </span>package-check
+</code></pre></div>
+<p>This builds the selected Core, checks module/version/license metadata, creates a
+deterministic local module ZIP from repository sources, and serves it through a
+temporary file proxy. A separate consumer with a fresh module cache downloads,
+builds and runs the package without a <code>replace</code> directive or Go workspace. It
+checks the resolved module version and a Reader/Writer round trip. The ZIP hash
+and result are logged; the candidate and temporary consumer are removed afterward.
+The local proxy disables the checksum database only for this private test. It
+does not modify user Go settings. PR/Fast, Main and every Full configuration run
+this check against their own Core configuration.</p>
+<p>The binding intentionally uses source-built Core rather than a verified release
+binary. The local ZIP has synthetic version/time metadata solely for testing;
+it is not an official release artifact. The published module is the Git tag,
+served by the public Go module proxy; the release workflow checks that the proxy
+and checksum database serve exactly the tagged tree.</p>
+<h2 id="github-release">GitHub release<a class="headerlink" href="#github-release" title="Permanent link">&para;</a></h2>
+<p>The manual <code>Go Release</code> workflow (<code>.github/workflows/go-release.yml</code>) accepts an
+unused <code>vMAJOR.MINOR.PATCH</code> tag matching <code>BindingVersion</code>, <code>docs-examples.json</code>
+and <code>ci/release-notes.md</code>. Changes stay under <code>Unreleased</code> during development;
+close the changelog under the matching version without the tag's <code>v</code> prefix and
+the release date before dispatching the release (for example,
+<code>## [0.1.0] - 2026-10-28</code>). The versioned release notes are the publication text
+and are included in the hashed CI definitions.</p>
+<ol>
+<li>Review and merge the release preparation and the closed changelog. Wait for
+   successful Go Main CI on that exact commit. Dispatch <code>Go Release</code> on <code>main</code>
+   with <code>tag: v0.1.0</code>.</li>
+<li>The workflow rejects a foreign, dirty or non-main checkout, a changed main
+   tip, an existing tag or release, wrong versions, an open changelog, missing
+   Main evidence or a Core lock that is not the published Core release. It then
+   runs <a href="../../../../development/components/go/development/ci/#workflows-and-coverage">Full CI</a>: all six native
+   configurations, each with the external-consumer package check, and the
+   attempt-matched Go quality gate.</li>
+<li>Assembly revalidates every Full record against the current commit, run,
+   attempt, Core lock and CI definition hashes, then attests three assets:
+   <code>release-manifest.json</code> (request, Main run, Core release and all Full
+   records), <code>release-notes.md</code> and <code>SHA256SUMS</code>. There are no binaries.</li>
+<li>Publication rechecks the request, Full evidence, checksums, attestations and
+   unused tag status, then creates the tag and a draft release. Only after the
+   uploaded asset names, sizes, SHA-256 digests, notes and tag commit match does
+   it publish the draft and verify the public result. <code>go-published-&lt;attempt&gt;</code>
+   records the URL, source, Core and asset identities.</li>
+<li>The final job downloads <code>github.com/OpenTLV/opentlv-go@&lt;tag&gt;</code> through
+   <code>proxy.golang.org</code> with <code>sum.golang.org</code> verification in a fresh module
+   cache. It requires the module path, version and origin commit to match and
+   the module files to equal the tagged tree byte for byte, retrying while the
+   proxy fetches the new tag. <code>go-module-&lt;attempt&gt;</code> records the <code>h1:</code> sums.</li>
+<li>Record the published URL and exact commit, Main and Release/Full run links
+   in <a href="https://github.com/OpenTLV/opentlv-go/issues/31">issue #31</a> and
+   <a href="https://github.com/OpenTLV/opentlv/issues/718">Core epic #718</a>. Close the
+   tracking only after publication and module verification.</li>
+</ol>
+<p>If a failure occurs after creating a tag or draft, inspect that state before
+retrying; the workflow deliberately refuses to overwrite either. Never move or
+delete a published tag: the checksum database permanently records its content,
+so a correction needs a new version. Earlier attempts' artifacts cannot satisfy
+a new attempt. A new main commit or Main run requires a new release attempt.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+  <p class="md-typeset"><small>
+    Sources:
+    
+      
+        core
+        
+        <a href="https://github.com/OpenTLV/opentlv/tree/345c77acb29266036df5f27d04ce315bb61853cc">345c77acb292</a>
+        
+      
+    
+      
+        cli
+        
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
+        
+      
+    
+      
+        lua
+        
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/77abc807bdd59956790497483a9d1fbad4b79019">77abc807bdd5</a>
+        
+      
+    
+      
+        python
+        
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/52e15f8028da8521ccf64a97b03f7e6e249a0912">52e15f8028da</a>
+        
+      
+    
+      
+        rust
+        
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        
+      
+    
+  </small></p>
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../development/go/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Build and native dependency">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Build and native dependency
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenTLV" target="_blank" rel="noopener" title="OpenTLV on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../../../../playground/playground.js" type="module"></script>
+      
+    
+  </body>
+</html>
