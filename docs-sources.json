@@ -15,7 +15,7 @@
     {
       "id": "cli",
       "repository": "https://github.com/OpenTLV/opentlv-cli",
-      "revision": "abd2bce09a9f25071a41d7c1f3249fd48e8a0b20",
+      "revision": "514d76f48485cc7fc602f8287b9f22e4ce015997",
       "docs_path": "docs",
       "mount": "cli",
       "required": true,
@@ -34,6 +34,9 @@
           },
           {
             "Development": "development.md"
+          },
+          {
+            "Quality gates": "quality-gates.md"
           },
           {
             "Versions and releases": "releases.md"
@@ -97,7 +100,7 @@
     {
       "id": "python",
       "repository": "https://github.com/OpenTLV/opentlv-python",
-      "revision": "c84dcce908b042d2663e3f1895a9c34248a0c0e0",
+      "revision": "52e15f8028da8521ccf64a97b03f7e6e249a0912",
       "docs_path": "docs",
       "mount": "python",
       "updates": {
@@ -126,6 +129,9 @@
           },
           {
             "Release preparation": "releases.md"
+          },
+          {
+            "Release notes": "release-notes.md"
           },
           {
             "Migration provenance": "migration.md"

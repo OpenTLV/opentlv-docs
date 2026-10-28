@@ -65,6 +65,7 @@ class CliSourceTests(unittest.TestCase):
         self.write(self.cli / "docs/development.md", "# Development\n\n"
                    "[Repository](../README.md#cli-root) | [Tests](../tests/README.md#tests)\n")
         self.write(self.cli / "docs/releases.md", "# Releases\n")
+        self.write(self.cli / "docs/quality-gates.md", "# Quality gates\n")
         self.write(self.cli / "README.md", "# CLI root\n")
         self.write(self.cli / "tests/README.md", "# Tests\n")
         self.cli_git("init", "-b", "main")
