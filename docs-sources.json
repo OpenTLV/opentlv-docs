@@ -15,7 +15,7 @@
     {
       "id": "cli",
       "repository": "https://github.com/OpenTLV/opentlv-cli",
-      "revision": "abd2bce09a9f25071a41d7c1f3249fd48e8a0b20",
+      "revision": "514d76f48485cc7fc602f8287b9f22e4ce015997",
       "docs_path": "docs",
       "mount": "cli",
       "required": true,
@@ -34,6 +34,9 @@
           },
           {
             "Development": "development.md"
+          },
+          {
+            "Quality gates": "quality-gates.md"
           },
           {
             "Versions and releases": "releases.md"
@@ -221,7 +224,7 @@
     {
       "id": "go",
       "repository": "https://github.com/OpenTLV/opentlv-go",
-      "revision": "2e69c286a91d5e5f34376a30d3954a956d9d73d4",
+      "revision": "247da7863510ebed64030a8c6c01e122ad122a31",
       "docs_path": "docs",
       "mount": "go",
       "updates": {
@@ -257,7 +260,7 @@
     {
       "id": "js",
       "repository": "https://github.com/OpenTLV/opentlv-js",
-      "revision": "56b1cb79ee121ee19525d63cf109ba2ad4fa2d9b",
+      "revision": "22efa490f25e5d947a7b88f451f68f4aab28b6a9",
       "docs_path": "docs",
       "mount": "js",
       "updates": {
