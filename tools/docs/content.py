@@ -39,6 +39,9 @@ ARCHIVES = {
         "development/testing.md", "current testing entry points"),
     "lua/migration.md": ("lua", "Lua migration provenance", "migration.md",
                          "lua/development.md", "current Lua build guide"),
+    "lua/release-notes-v0.2.0-example.md": (
+        "lua", "Lua v0.2.0 release description example", "release-notes-v0.2.0-example.md",
+        "lua/release-notes.md", "current Lua release description guide"),
     "python/migration.md": ("python", "Python migration provenance", "migration.md",
                             "python/development/python.md", "current Python development guide"),
     "python/validation/standalone-build.md": (
@@ -83,6 +86,8 @@ COMPONENT_GUIDES = {
     "lua/api-coverage.md": ("lua", "Lua generic Core API coverage"),
     "lua/implementation.md": ("lua", "Lua implementation and ownership"),
     "lua/releases.md": ("lua", "Lua release quality gate"),
+    "lua/release-notes.md": ("lua", "Lua release description guide"),
+    "lua/release-preview.md": ("lua", "Lua candidate release preview"),
     "python/quality-gates.md": ("python", "Python tests and CI"),
     "python/releases.md": ("python", "Python release preparation"),
     "rust/quality-gates.md": ("rust", "Rust tests and CI"),
