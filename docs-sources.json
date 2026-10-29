@@ -87,6 +87,15 @@
             "Release quality gate": "releases.md"
           },
           {
+            "Release description guide": "release-notes.md"
+          },
+          {
+            "Candidate release preview": "release-preview.md"
+          },
+          {
+            "Historical v0.2.0 release description example": "release-notes-v0.2.0-example.md"
+          },
+          {
             "Migration provenance": "migration.md"
           }
         ]

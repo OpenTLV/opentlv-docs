@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Include the selected Lua release description guide, candidate preview and historical v0.2.0 example in navigation so the Lua documentation update passes the complete-page inventory check. Route the guide and preview to Development and the example to historical records, preserving Lua source ownership and independent manual navigation. (#153)
 - Include Core's proposed functional module contracts, diagnostics and Reader/Format/Field boundary in Development navigation and link them from the architecture overview, restoring strict documentation builds for the updated Core pin. (#146)
 
 ## [0.1.0] - 2026-10-28
