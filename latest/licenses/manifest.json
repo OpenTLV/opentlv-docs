@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "theme": {
+    "name": "mkdocs-material",
+    "version": "9.8.0"
+  },
+  "sources": [
+    {
+      "id": "core",
+      "repository": "https://github.com/OpenTLV/opentlv",
+      "commit": "70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6"
+    },
+    {
+      "id": "cli",
+      "repository": "https://github.com/OpenTLV/opentlv-cli",
+      "commit": "514d76f48485cc7fc602f8287b9f22e4ce015997"
+    },
+    {
+      "id": "lua",
+      "repository": "https://github.com/OpenTLV/opentlv-lua",
+      "commit": "2fece68b7b2286656b6f080694f931d3e1730cd6"
+    },
+    {
+      "id": "python",
+      "repository": "https://github.com/OpenTLV/opentlv-python",
+      "commit": "2a6aa299037ba43c91ddf43704b769d8ea81958e"
+    },
+    {
+      "id": "rust",
+      "repository": "https://github.com/OpenTLV/opentlv-rust",
+      "commit": "f297ab3899bafb95716a39a38dfaf7df14e8768d"
+    },
+    {
+      "id": "go",
+      "repository": "https://github.com/OpenTLV/opentlv-go",
+      "commit": "247da7863510ebed64030a8c6c01e122ad122a31"
+    },
+    {
+      "id": "js",
+      "repository": "https://github.com/OpenTLV/opentlv-js",
+      "commit": "22efa490f25e5d947a7b88f451f68f4aab28b6a9"
+    }
+  ],
+  "emscripten": {
+    "version": "4.0.10",
+    "commit": "b7dc6e5747465580df5984e723b9d1f10d8e804b"
+  },
+  "files": {
+    "material-LICENSE.txt": "e1150f26b4c0f872627b39fda49ae3bd850304f2f7f3171ae0531c1f8f4dd078",
+    "icons-material-LICENSE.txt": "3bae6305bcaa6d10219b999f65c342034c2d40b1c0e8567fa08605e73ccba829",
+    "icons-fontawesome-LICENSE.txt": "329f24fdba0c57714d7d202d30a74767feac6907685ee24f0abbf1bd47581a07",
+    "icons-octicons-LICENSE.txt": "3d8b9d9254e7aa7517ed5abc8df3a4bc230081a613e8e872fb6558e8759c9040",
+    "icons-simple-LICENSE.txt": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5",
+    "portal-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "THIRD_PARTY.txt": "1e8be774fbb116a5d6e30b4934f3fa1b9b342e920eda7e2b3f36f5bbf7fb2e82",
+    "Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
+    "core-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "cli-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "lua-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "python-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "rust-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "go-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "js-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "emscripten-LICENSE.txt": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86",
+    "musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+    "compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
+    "index.html": "468b26cd847c1f41ed073f979e4e06ec35a319d268a879468cbb41fa98ddadf5"
+  }
+}

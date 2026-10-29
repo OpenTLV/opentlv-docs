@@ -1,3 +1,6 @@
+/* SPDX-License-Identifier: MIT */
+/* Copyright (c) 2026 Marek Cingel */
+
 .otlv-pg-status { color: var(--md-default-fg-color--light); }
 .otlv-pg-controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.8rem; }
 .otlv-pg-controls label { display: flex; flex-direction: column; font-size: 0.75rem; gap: 0.2rem; }

@@ -3396,6 +3396,8 @@
       
         
       
+        
+      
     
     
     
@@ -3443,6 +3445,141 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../modules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional module design
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_3_1" id="__nav_7_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functional module design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/reader-format-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reader, Format and Field boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -4164,6 +4301,17 @@
     <span class="md-ellipsis">
       
         Release evidence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-publication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation publication
       
     </span>
   </a>
@@ -5790,6 +5938,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#documentation-publication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation publication
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -5809,7 +5968,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-cli/edit/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/docs/releases.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-cli/edit/514d76f48485cc7fc602f8287b9f22e4ce015997/docs/releases.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5884,37 +6043,51 @@ new contract, including empty stderr, exit zero and no output files.</p>
 selection and Core pin updates. The CMake <code>Release</code> configuration controls
 compiler settings; it does not establish an official CLI release. Normal
 development builds derive their version from Git even when built in Release.</p>
-<p>Pull requests and pushes to <code>main</code> run Windows/MSVC static and Linux/GCC shared
-builds, pinned dependency selection, all applicable command and tooling tests,
-pre-commit checks and cppcheck. They upload CTest XML, baseline and Query
-reports. The quality job records the static analyzer version and logs.</p>
+<p>The <a href="../../../../tools/otlv/manual/quality-gates/">Core-aligned quality gates</a> separate Linux Pull Request
+validation, lightweight Main integration, manual Full CI and release publication.
+PR and Full require formatting, static analysis and CodeQL. Main runs only
+a build and narrow integration smoke checks.</p>
 <p>Cppcheck analyzes CLI sources, including conditional command implementations;
 it uses normal checking depth to keep development checks fast and does not
 analyze Core or JSON internals. The compiler validates
 <code>core_requirements.cpp</code>, whose sole purpose is rejecting unsupported Core
 configurations. Its deliberate <code>#error</code> paths are excluded from cppcheck.</p>
-<p>The full dependency-resolution matrix is reserved for release validation.
+<p>The full dependency-resolution matrix runs in Full CI and release validation.
 Run it locally when changing dependency selection or runtime linkage, as
-described in <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/tests/README.md">the test guide</a>.</p>
+described in <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/tests/README.md">the test guide</a>.</p>
 <h2 id="request-a-release">Request a release<a class="headerlink" href="#request-a-release" title="Permanent link">&para;</a></h2>
-<p>Merge the intended source, documentation and changelog changes first. Obtain
-the full 40-character CLI commit SHA. Run <strong>CLI release gate</strong> from <code>main</code>,
-supplying that SHA as <code>commit</code> and a new tag such as <code>v0.1.0</code> as <code>tag</code>.
-These versions are examples, not an automatic first-release choice.</p>
+<p>The next candidate is CLI <code>v0.2.0</code>, independently versioned from Core. It pins
+Core <code>v0.8.0</code> at <code>345c77acb29266036df5f27d04ce315bb61853cc</code> in both dependency
+files. The existing <code>v0.1.0</code> release and frozen migration fixtures remain historical
+evidence; they must not be regenerated from this candidate.</p>
+<p>Select a published Core release with the #637 schema-2 artifacts and update
+the matching Core SHA and <code>cmake/core-artifact.json</code> lock. An unset artifact
+release is development-only and blocks CLI release.</p>
+<p>Close the changelog before merging the release candidate: its first release
+heading must be <code>## [0.2.0] - YYYY-MM-DD</code>, match the requested tag without its <code>v</code> prefix, contain
+changes and have a valid date. No <code>Unreleased</code> text may remain. During ordinary
+development keep the normal <code>Unreleased</code> section. Preserve historical releases.</p>
+<p>Publication uses only that first release section as the GitHub Release notes;
+older entries are excluded. Git tags retain their <code>v</code> prefix.</p>
+<p>After merging, confirm successful <strong>CLI Main CI</strong> on the exact intended release
+commit and check that <code>v0.2.0</code> is still unused. Local tests and earlier PR runs
+cannot establish that result. The release workflow runs its own Full CI for the
+dispatch commit before publication; a standalone Full run does not replace it.</p>
+<p>Run <strong>CLI release gate</strong> from <code>main</code>, supplying only a new <code>tag</code>, for example
+<code>v0.2.0</code>. The dispatch SHA is the locked candidate; there is no alternate commit
+or skip-verification input. Do not create the tag in advance.</p>
 <p>The workflow:</p>
 <ol>
-<li>Verifies that the requested object is exactly that commit and is an ancestor
-   of the trusted workflow revision on <code>main</code>. Rejects malformed/existing tags.</li>
-<li>Reads the immutable Core and JSON pins from that commit. The request records
-   those SHAs, CLI SHA, workflow SHA, requested version, run ID and attempt.</li>
-<li>Checks out the exact CLI SHA on Windows and Linux, for static and shared
-   Core. Each job fetches and verifies the pinned dependencies, exercises all
-   successful and rejected dependency scenarios, and runs every required test.</li>
-<li>Runs the same formatting, license, syntax and static checks on the candidate.</li>
-<li>Aggregates all four matrix reports and rejects missing/duplicate scenarios,
-   dirty or mismatched revisions, stale runs, failed tests and unexpected skips.</li>
-<li>Uploads the validation report, then creates the requested tag at the tested
-   SHA only when validation and quality jobs succeeded. It never moves a tag.</li>
+<li>Verifies the dispatch commit, closed changelog and new version tag on <code>main</code>.</li>
+<li>Locks CLI/Core/JSON/workflow SHAs, the Core artifact policy, version, run and attempt.</li>
+<li>Runs Full CI for the exact CLI SHA: platform/linkage and dependency scenarios,
+   CLI suites, sanitizers, static analysis and CodeQL. Core suites are not repeated.</li>
+<li>Authenticates Core artifacts, builds and tests CLI executables, then validates
+   their archives after extraction into a separate location.</li>
+<li>Rejects incomplete, failed, skipped or stale evidence and mismatched artifacts.</li>
+<li>Generates SHA-256 checksums and attestations, verifies every producer identity,
+   creates the tag and publishes the GitHub Release. Tags/assets are not replaced.
+   The portal-compatible result is uploaded after successful publication.</li>
 </ol>
 <p>Candidate builds use <code>OPENTLV_CLI_CANDIDATE_VERSION</code> together with
 <code>OPENTLV_CLI_CANDIDATE_SHA</code>. CMake accepts this pair only for the exact clean
@@ -5923,7 +6096,8 @@ creating a tag before validation. Normal builds derive versions from Git.
 Neither the source nor changelog is rewritten by the workflow.</p>
 <p>Validation jobs have read-only repository permissions and checkout credentials
 are not persisted. Only the final job can create the tag; its gate code comes
-from the trusted workflow revision. Concurrent requests for a tag are serialized.
+from the trusted workflow revision. CLI releases are serialized, including requests
+for different tags, because one commit must not receive multiple version tags.
 If another actor creates the tag during validation, create-only publication
 fails instead of replacing it. Repository tag rules must allow the workflow
 token to create the requested tag; a policy rejection leaves validation
@@ -5936,7 +6110,12 @@ evidence available and does not create a release.</p>
   compiler identity, architecture, C++ standard and Release configuration.</li>
 <li><code>cli-quality-&lt;attempt&gt;</code>: formatting/license and static-analysis logs.</li>
 <li><code>release-result-&lt;attempt&gt;</code>: aggregate validation status, required job outcomes,
-  per-matrix summaries and their SHA-256 hashes, build and test counts.</li>
+  per-matrix summaries and their SHA-256 hashes, build and test counts, exact
+  Full CI evidence and package records.</li>
+<li><code>cli-quality-full-&lt;sha&gt;-&lt;attempt&gt;</code>: exact revision, job results and configuration.</li>
+<li><code>release-binary-&lt;platform&gt;-&lt;linkage&gt;-&lt;attempt&gt;</code>: tested archives and build records.</li>
+<li>GitHub Release assets: four CLI archives and their JSON records,
+  <code>release-manifest.json</code> and <code>SHA256SUMS</code>, all with producer attestations.</li>
 </ul>
 <p>Each successful dependency scenario runs 11 CTest entries, 154 CLI behavior
 cases (153 original plus the independent version contract), and 338 Query
@@ -5952,10 +6131,47 @@ and job summary. Download artifacts for durable retention as required by your
 release process; GitHub's configured artifact retention still applies.
 Retry with <strong>Re-run all jobs</strong> or a new dispatch. Evidence from a previous
 attempt is never reused; rerunning only failed jobs cannot authorize a release.</p>
-<p>This workflow creates a Git tag only. Binary archives, package-manager
-publishing and binary distribution remain outside this migration. Local
-checks and synthetic gate tests do not establish hosted release readiness;
-the first real release still needs a successful hosted workflow and tag step.</p>
+<p>Package-manager publishing remains outside this scope. Local checks and synthetic
+tests do not establish hosted release readiness; the new artifact path requires
+a controlled hosted release. A publication-service failure can leave a tag without
+a release or a partial release. Inspect and recover manually; a new dispatch
+rejects an existing tag.</p>
+<p>For <a href="https://github.com/OpenTLV/opentlv-cli/issues/25">CLI #25</a>, verify the published
+tag resolves to the tested CLI SHA, the notes match the <code>0.2.0</code> changelog section,
+and all ten expected assets are present: four platform/linkage archives, four
+matching JSON records, <code>release-manifest.json</code> and <code>SHA256SUMS</code>. Verify downloaded
+checksums and producer attestations against the release workflow and CLI SHA.
+Record the release URL and successful Main/release run evidence in
+<a href="https://github.com/OpenTLV/opentlv/issues/718">Core #718</a> only after publication.
+Candidate preparation alone does not satisfy the issue's acceptance criteria.</p>
+<h2 id="documentation-publication">Documentation publication<a class="headerlink" href="#documentation-publication" title="Permanent link">&para;</a></h2>
+<p>After a successful <strong>CLI release gate</strong>, <strong>Notify CLI documentation portal</strong>
+sends the exact CLI tag, released commit, gate run ID and attempt to
+<code>OpenTLV/opentlv-docs</code>. The notifier reads <code>release-result-&lt;attempt&gt;</code> from that
+run; it does not check out or execute candidate code. The gate's workflow
+commit equals the locked release SHA in the new workflow; historical evidence
+with distinct workflow/candidate commits remains readable. Notification is a separate workflow: a documentation failure does
+not undo the CLI tag or change the gate result.</p>
+<p>The portal independently verifies the successful gate and its release
+evidence, resolves the tag and publishes CLI-owned <code>docs/</code> at
+<code>https://opentlv.github.io/opentlv-docs/cli/&lt;version&gt;/</code>.
+CLI documentation has its own version selector and stable alias. Core and
+Docs version numbers do not determine CLI documentation versions. Prerelease
+tags are published under their own versions without replacing CLI stable.
+Existing release snapshots remain unchanged when the portal layout evolves.</p>
+<p>Repository setup requires <code>OPENTLV_DOCS_DISPATCH_TOKEN</code>, scoped to dispatching
+events to <code>OpenTLV/opentlv-docs</code>, and the receiver workflow merged in Docs.
+Docs also needs <code>OPENTLV_CLI_READ_TOKEN</code> with read access to CLI workflow
+artifacts and repository metadata to verify the release independently.
+See the <a href="https://github.com/OpenTLV/opentlv-docs#independent-cli-release-publication">portal publication guide</a>
+for permissions, activation and provenance checks. The cross-repository
+credential is available only to the notifier's API step.</p>
+<p>If notification fails, rerun <strong>Notify CLI documentation portal</strong> for the same
+successful gate; do not rerun the gate to recreate an existing tag. Repeated
+notifications safely reuse the existing documentation snapshot. Preserve the
+release evidence artifacts for retries: missing or expired evidence fails
+verification. Verify the notifier, Docs workflow and published snapshot
+separately before claiming production documentation publication succeeded.</p>
 
 
 
@@ -5976,49 +6192,49 @@ the first real release still needs a successful hosted workflow and tag step.</p
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -6041,6 +6257,7 @@ the first real release still needs a successful hosted workflow and tag step.</p
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -6087,6 +6304,10 @@ the first real release still needs a successful hosted workflow and tag step.</p
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -6112,6 +6333,12 @@ the first real release still needs a successful hosted workflow and tag step.</p
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

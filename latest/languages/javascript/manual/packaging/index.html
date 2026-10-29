@@ -412,6 +412,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-preparation-evidence-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local preparation evidence (2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#separate-distribution-work" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -506,6 +534,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-preparation-evidence-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local preparation evidence (2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#separate-distribution-work" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -541,7 +597,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/42687fb3fc7552aed887badab9ea1ac0651748be/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -550,17 +606,26 @@
 
 
 <h1 id="private-jswasm-package-preparation">Private JS/WASM package preparation<a class="headerlink" href="#private-jswasm-package-preparation" title="Permanent link">&para;</a></h1>
-<p>The canonical <a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/package.json">package.json</a> defines the independent
-<code>opentlv-js</code> version, initially <code>0.1.0-dev.0</code>. This is an unreleased development
-identity, not the pinned Core version or a release tag. Change this version
-explicitly when advancing the binding; a Core pin change never changes it
-automatically. Record binding changes under <code>Unreleased</code> in
-<a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/CHANGELOG.md">CHANGELOG.md</a>. Release version/tag policy remains deferred.</p>
-<p>The name <code>opentlv-js</code> identifies this repository and its private local package.
+<p>The canonical <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/package.json">package.json</a> defines the independent
+<code>opentlv-js</code> version. The first standalone release is <code>0.1.0</code> (#32), prepared
+against Core <code>v0.8.0</code>. The earlier <code>0.1.0-dev.0</code> was an unreleased development
+identity, not a previous JS release; there were no JS repository tags or GitHub
+releases when checked on 2026-10-28. The JS version is not the pinned Core
+version: change it explicitly when advancing the binding; a Core pin change
+never changes it automatically. Record binding changes under <code>Unreleased</code> in
+<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/CHANGELOG.md">CHANGELOG.md</a>.</p>
+<p>Release tags are <code>vMAJOR.MINOR.PATCH</code> and must equal <code>v</code> plus the
+<code>package.json</code> version, the <code>component_version</code> in
+<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs-examples.json">docs-examples.json</a> and the heading of
+<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/ci/release-notes.md">ci/release-notes.md</a>. Prerelease tags and npm
+dist-tags are not used.</p>
+<p>The name <code>opentlv-js</code> identifies this repository and its package archive.
 No npm registry name or scope is selected or reserved. <code>private: true</code> makes npm
 refuse publication, as described in the
 <a href="https://docs.npmjs.com/cli/v10/configuring-npm/package-json/#private">npm package metadata contract</a>.
-No publish command, credentials, lifecycle hook or GitHub release action is added.</p>
+No npm publish command, registry credential or lifecycle hook is added. The
+<a href="#github-release">GitHub release</a> workflow attaches the tested archive to a
+GitHub release only.</p>
 <h2 id="build-and-check">Build and check<a class="headerlink" href="#build-and-check" title="Permanent link">&para;</a></h2>
 <p>Activate Emscripten 4.0.10, Node 22 (including npm) and TypeScript 5.9.3 (<code>tsc</code> on <code>PATH</code>), then run:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>emcmake<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-wasm<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
@@ -596,7 +661,7 @@ Do not pack or install the source root directly. For local experimentation,
 install the checked <code>build/package-check/opentlv-js-&lt;version&gt;.tgz</code> archive.
 The exact archive name, hashes and commands are in <code>build/package-check/result.json</code>.</p>
 <h2 id="api-and-evidence">API and evidence<a class="headerlink" href="#api-and-evidence" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/42687fb3fc7552aed887badab9ea1ac0651748be/packaging/README.md">package README</a> describes each export and asset
+<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/packaging/README.md">package README</a> describes each export and asset
 location. The four original runtime filenames remain unchanged; API additions
 are tracked separately from the immutable migration baseline.
 <code>packaging/index.mjs</code> re-exports the existing facade and adds <code>packageVersion</code>.
@@ -606,17 +671,89 @@ to identify Core, preserving their migration contract.</p>
 <p><code>package-info.json</code> includes binding identity and separate immutable Core source
 identity/output hashes. It excludes machine-specific build paths so identical
 builds can produce identical packages. Node 22 is the validated runtime; ESM is
-the only package module interface. The exact 15-file archive includes four
+the only package module interface. The exact 21-file archive includes four
 <code>.d.mts</code> declarations, with <code>types</code> exports for the root, facade, Query and version
 entry points. TypeScript 5.9.3 checks both NodeNext and Bundler resolution; this
 does not establish browser/worker or bundler runtime compatibility. CommonJS
 and CDN support are not claimed.</p>
-<p>All <a href="../../../../development/components/js/ci/">CI tiers</a> run package checks. The Release reproducibility tier also
+<p>The package keeps <code>license: "MIT"</code> for original binding code and includes the
+root <code>LICENSE</code>, <code>LICENSES/MIT.txt</code>, <code>THIRD_PARTY.md</code> and four upstream <code>notices/</code>
+files for Core, Emscripten, musl and compiler-rt. The generated <code>version.mjs</code>
+has the binding's SPDX/author header. Runtime JS/WASM retains its upstream
+ownership; the package MIT field does not replace those terms. Missing, empty
+or symlinked notices fail staging, and archive/installed-consumer checks verify
+their exact bytes. Keep notices with copied runtime assets. See
+<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/THIRD_PARTY.md">dependency attribution</a> before changing Core or toolchains.</p>
+<p>All <a href="../../../../development/components/js/ci/">CI tiers</a> run package checks. The double-build tier in Full CI also
 compares the complete private archive hash, metadata and file hashes across two
-independent builds. CI evidence includes package reports, but the private npm
-archives are not uploaded as release artifacts. <code>published</code> and
-<code>release_verified</code> stay false. A passing local run does not establish hosted CI
+independent builds and uploads the first build's archive as
+<code>js-package-&lt;attempt&gt;</code>. Package reports keep <code>published</code> and <code>release_verified</code>
+false: they are build results. A passing local run does not establish hosted CI
 or a verified release.</p>
+<h2 id="github-release">GitHub release<a class="headerlink" href="#github-release" title="Permanent link">&para;</a></h2>
+<p>The manual <code>JS Release</code> workflow
+(<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/.github/workflows/js-release.yml">js-release.yml</a>) accepts an unused tag
+matching the versions above. Changes stay under <code>Unreleased</code> during
+development; close the changelog under the matching version without the tag's
+<code>v</code> prefix and the release date before dispatching the release (for example,
+<code>## [0.1.0] - 2026-10-28</code>). The release rejects a changelog without that
+section. The versioned release notes are the publication text.</p>
+<ol>
+<li>Review and merge the release preparation. Wait for successful JS Main CI on
+   that exact commit. Dispatch <code>JS Release</code> on <code>main</code> with <code>tag: v0.1.0</code>.</li>
+<li><code>scripts/release.py prepare</code> rejects a missing, unprefixed or otherwise
+   malformed tag, a foreign, dirty or non-main checkout, a dispatch from another
+   workflow revision, a changed main tip, an existing tag or release, differing
+   versions, notes or changelog, a Core lock that is not an exact <code>v</code> release
+   tag commit (currently Core <code>v0.8.0</code>), and missing or failed Main CI,
+   including its <code>JS quality gate</code> (#34).</li>
+<li>The workflow then runs <a href="../../../../development/components/js/ci/#tiers">Full CI</a> in the same attempt: Release and
+   Debug, the double-build reproducibility tier, migration compatibility,
+   package checks and both quality gates.</li>
+<li>Assembly revalidates the request and every Full record against the commit,
+   run, attempt and Core lock. It copies the exact <code>opentlv-js-&lt;version&gt;.tgz</code>
+   whose SHA-256 and file hashes the reproduced builds recorded; it does not
+   rebuild it. The workflow attests all four assets: the archive,
+   <code>release-manifest.json</code>, <code>release-notes.md</code> and <code>SHA256SUMS</code>.</li>
+<li>Publication rechecks evidence, checksums, attestations and unused tag status,
+   then creates the tag and a draft release. Only after the uploaded asset
+   names, sizes, SHA-256 digests, notes and tag commit match does it publish the
+   draft and verify the public result. It emits <code>js-published-&lt;attempt&gt;</code> with
+   the URL, source and asset identities.</li>
+<li>Record the published URL, exact commit, Main and release run links in
+   <a href="https://github.com/OpenTLV/opentlv-js/issues/32">issue #32</a> and
+   <a href="https://github.com/OpenTLV/opentlv/issues/718">Core epic #718</a>. Close the
+   tracking only after publication and asset verification.</li>
+</ol>
+<p>If a failure occurs after creating a tag or draft, inspect that state before
+retrying; the workflow refuses to overwrite either. Earlier attempts' artifacts
+cannot satisfy a new attempt. A new main commit or Main run requires a new
+release attempt. No workflow has a tag-push trigger, so creating or pushing a
+tag cannot run checks or publish outside this gated workflow; a regression test
+enforces this for every workflow.</p>
+<p>Install a downloaded release archive after checking it against <code>SHA256SUMS</code>
+and its attestation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gh<span class="w"> </span>attestation<span class="w"> </span>verify<span class="w"> </span>opentlv-js-0.1.0.tgz<span class="w"> </span>--repo<span class="w"> </span>OpenTLV/opentlv-js
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>npm<span class="w"> </span>install<span class="w"> </span>./opentlv-js-0.1.0.tgz
+</code></pre></div>
+<p>The archive contains the four runtime files, so consumers do not need
+Emscripten or Core. <code>packageVersion</code> reports <code>0.1.0</code>; the existing
+<code>(await loadOpenTLV()).version</code> reports the embedded Core <code>0.8.0</code>.</p>
+<h3 id="local-preparation-evidence-2026-10-28">Local preparation evidence (2026-10-28)<a class="headerlink" href="#local-preparation-evidence-2026-10-28" title="Permanent link">&para;</a></h3>
+<p>WSL Ubuntu with Emscripten 4.0.10, Node 22.16.0 and TypeScript 5.9.3 passed the
+PR and Main tiers of <code>scripts/ci.py</code> against the fetched Core <code>v0.8.0</code> pin: all
+CTest suites, the Core-owned Query fixtures through the source and installed
+facades, the wasm32 Query ABI check and the installed 21-file archive with its
+runtime, example and TypeScript checks. Both tiers produced the same archive
+SHA-256. The changed migration gate was run on its own against the PR build:
+the reconstructed migration sources rebuilt from <code>ci/migration-core-source.json</code>
+matched all four historical Core outputs. The Python infrastructure suite passed
+on Linux and Windows. The Core API report lists 197/197 generic symbols
+referenced with 100 exclusions, and the Core pin diff adds or removes no public
+symbols.</p>
+<p>Full CI (Debug, double build), attestations and publication were not run
+locally; they require the hosted release run on the merged commit. Local logs are
+under <code>build/issue32-validation/</code>; they are not committed release evidence.</p>
 <h2 id="separate-distribution-work">Separate distribution work<a class="headerlink" href="#separate-distribution-work" title="Permanent link">&para;</a></h2>
 <p>The <a href="../distribution-follow-ups/">distribution follow-up register</a> tracks npm
 publishing, security/advisory procedures and distribution improvements separately
@@ -641,49 +778,49 @@ from this migration preparation. None is enabled by this change.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -706,6 +843,7 @@ from this migration preparation. None is enabled by this change.</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -752,6 +890,10 @@ from this migration preparation. None is enabled by this change.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -777,6 +919,12 @@ from this migration preparation. None is enabled by this change.</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

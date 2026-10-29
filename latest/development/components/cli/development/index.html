@@ -3396,6 +3396,8 @@
       
         
       
+        
+      
     
     
     
@@ -3443,6 +3445,141 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../modules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional module design
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_3_1" id="__nav_7_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functional module design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/reader-format-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reader, Format and Field boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -6041,7 +6178,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-cli/edit/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/docs/development.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-cli/edit/514d76f48485cc7fc602f8287b9f22e4ce015997/docs/development.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6053,7 +6190,7 @@
 <p>This guide covers building and testing <code>otlv</code> from the standalone CLI
 repository or alongside a Core checkout. Run commands from <code>opentlv-cli</code>
 unless a step says otherwise. See the <a href="../../../../tools/otlv/manual/">command guide</a> for CLI use,
-<a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/CONTRIBUTING.md">contributor guide</a> for formatting and license checks, and
+<a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/CONTRIBUTING.md">contributor guide</a> for formatting and license checks, and
 <a href="../releases/">release guide</a> for independent versioning and release validation.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <ul>
@@ -6120,7 +6257,7 @@ changes; rerun configuration when changing build options.</p>
 <code>"-DFETCHCONTENT_SOURCE_DIR_OPENTLV_CORE=D:/My Projects/opentlv"</code>.
 The JSON dependency may still need a download; see <a href="#offline-builds">offline builds</a>.</p>
 <h2 id="presets-and-build-configurations">Presets and build configurations<a class="headerlink" href="#presets-and-build-configurations" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/CMakePresets.json">CMakePresets.json</a> defines these configure, build and
+<p><a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/CMakePresets.json">CMakePresets.json</a> defines these configure, build and
 test presets:</p>
 <table>
 <thead>
@@ -6191,7 +6328,7 @@ This example adds a local static build and keeps its directory separate:</p>
 <p>Configure, build and test with <code>--preset local-static</code> using the corresponding
 tools. Do not overwrite an existing user presets file; merge the entries.</p>
 <h2 id="dependency-resolution">Dependency resolution<a class="headerlink" href="#dependency-resolution" title="Permanent link">&para;</a></h2>
-<p>Core selection in <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/cmake/Core.cmake">cmake/Core.cmake</a> follows this order:</p>
+<p>Core selection in <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/cmake/Core.cmake">cmake/Core.cmake</a> follows this order:</p>
 <ol>
 <li><code>FETCHCONTENT_SOURCE_DIR_OPENTLV_CORE</code> selects explicit source and bypasses
    package lookup and Git downloads/updates for Core.</li>
@@ -6206,7 +6343,7 @@ version alone does not prove compatibility with the public integration from
 <a href="https://github.com/OpenTLV/opentlv/issues/620">Core #620</a>.</p>
 <p>Core source builds use its embedded library defaults. The CLI consumes public
 targets, headers and APIs; Core implementation code is not copied into CLI.</p>
-<p>JSON selection in <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/cmake/Json.cmake">cmake/Json.cmake</a> is independent:
+<p>JSON selection in <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/cmake/Json.cmake">cmake/Json.cmake</a> is independent:
 <code>FETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON</code>, then an installed <strong>3.11.3 exact</strong>
 <code>nlohmann_json</code> package, then the pinned Git commit. Supply version 3.11.3
 when providing a local JSON source tree. This header-only dependency belongs
@@ -6241,7 +6378,7 @@ options in CLI does not rebuild an installed Core.</p>
 Git and network access on the first configure. <code>NEVER</code> affects both dependencies.
 An explicit source override still wins over this setting. The dependency
 matrix verifies the fetched SHA and target provenance as described in the
-<a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/tests/README.md#core-dependency-integration">test guide</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/tests/README.md#core-dependency-integration">test guide</a>.</p>
 <h3 id="switching-modes">Switching modes<a class="headerlink" href="#switching-modes" title="Permanent link">&para;</a></h3>
 <p>Keep separate directories for workspace, package and pinned builds. Switch
 from local Core to pinned Core by running the pinned procedure above, and
@@ -6269,7 +6406,7 @@ Core checkout alone does not prevent a JSON download. Merely setting
 and is not a replacement for supplying them.</p>
 <p>Contributor tooling has separate offline requirements: install its dedicated
 Python environment and populate pre-commit hook environments while online.
-See <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/CONTRIBUTING.md#contributor-tools">contributor tools</a>. The full dependency
+See <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/CONTRIBUTING.md#contributor-tools">contributor tools</a>. The full dependency
 matrix intentionally checks real Git fallback and needs network access; its
 documented <code>--skip-git</code> mode provides partial offline validation only.</p>
 <h2 id="supported-core-configurations">Supported Core configurations<a class="headerlink" href="#supported-core-configurations" title="Permanent link">&para;</a></h2>
@@ -6312,10 +6449,10 @@ those skips do not constitute full release validation.</p>
 CTest includes dependency consumers, command regressions, the frozen baseline,
 Query conformance, version contracts and release-gate tests. Run all entries
 for complete coverage; filtering only the <code>integration</code> label omits Query and
-some tooling tests. See the <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/tests/README.md">test guide</a> for detailed
+some tooling tests. See the <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/tests/README.md">test guide</a> for detailed
 coverage, capability skips, direct runners and the shared/static dependency matrix.</p>
 <p>For formatting, license metadata and static analysis, follow
-<a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/CONTRIBUTING.md#validation">CONTRIBUTING.md</a>. Keep local results separate
+<a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/CONTRIBUTING.md#validation">CONTRIBUTING.md</a>. Keep local results separate
 from hosted CI evidence. A development build or a local passing test suite
 does not establish hosted release readiness.</p>
 <h2 id="updating-the-pinned-core-revision">Updating the pinned Core revision<a class="headerlink" href="#updating-the-pinned-core-revision" title="Permanent link">&para;</a></h2>
@@ -6324,6 +6461,8 @@ does not establish hosted release readiness.</p>
    targets and capabilities. First develop against an explicit local checkout
    if changes to Core and CLI must be tested together.</li>
 <li>Update <code>GIT_TAG</code> in <code>cmake/Core.cmake</code>. Keep a full SHA, not a moving branch.
+   Update the matching commit in <code>cmake/core-artifact.json</code>; select a published
+   schema-2 Core release there to enable authenticated release consumption.
    Update documentation that describes the current dependency and record the
    change under <code>Unreleased</code>. Historical migration/provenance references must
    continue to identify their original source revisions.</li>
@@ -6354,8 +6493,9 @@ other Core revisions without changing the CLI version.</p>
 prereleases, clean candidate builds and the release workflow. The gate checks
 the exact CLI commit and pinned Core/JSON revisions on both platforms and
 linkages before creating a new CLI tag. Candidate version overrides are
-reserved for that workflow. It creates a Git tag only; binary distribution
-and package-manager publishing are outside this development guide.</p>
+reserved for that workflow. It publishes tested executable archives with
+checksums and attestations. See the <a href="../../../../tools/otlv/manual/quality-gates/">quality gate policy</a>
+for Core artifact selection and the release activation prerequisite.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -6399,7 +6539,7 @@ and package-manager publishing are outside this development guide.</p>
 </tr>
 <tr>
 <td>Runtime cannot load a shared Core library</td>
-<td>In build trees the CLI prepares Windows DLL placement; for deployment follow the <a href="https://github.com/OpenTLV/opentlv-cli/blob/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20/README.md#install">installation notes</a> and provide the installed Core runtime on the platform's library search path</td>
+<td>In build trees the CLI prepares Windows DLL placement; for deployment follow the <a href="https://github.com/OpenTLV/opentlv-cli/blob/514d76f48485cc7fc602f8287b9f22e4ce015997/README.md#install">installation notes</a> and provide the installed Core runtime on the platform's library search path</td>
 </tr>
 <tr>
 <td>Generator/compiler mismatch after reconfiguration</td>
@@ -6430,49 +6570,49 @@ APIs and generic processing semantics.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -6495,6 +6635,7 @@ APIs and generic processing semantics.</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -6541,6 +6682,10 @@ APIs and generic processing semantics.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -6566,6 +6711,12 @@ APIs and generic processing semantics.</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

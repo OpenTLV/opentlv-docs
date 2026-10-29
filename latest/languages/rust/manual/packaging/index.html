@@ -16,6 +16,8 @@
         <link rel="prev" href="../development/rust/">
       
       
+        <link rel="next" href="../validation/licensing/">
+      
       
         
       
@@ -487,6 +489,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Licensing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-preparation-evidence-2026-10-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local preparation evidence (2026-10-27)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#remaining-cratesio-prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -500,6 +541,92 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Validation records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validation/licensing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -604,6 +731,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#licensing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Licensing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GitHub release
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GitHub release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-preparation-evidence-2026-10-27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local preparation evidence (2026-10-27)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#remaining-cratesio-prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -639,7 +805,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -650,7 +816,8 @@
 <h1 id="packaging-and-versioning">Packaging and versioning<a class="headerlink" href="#packaging-and-versioning" title="Permanent link">&para;</a></h1>
 <p>The two crates of this repository are prepared as independent Cargo packages
 (<a href="https://github.com/OpenTLV/opentlv-rust/issues/4">issue #4</a>). They are not
-published: crates.io publication is a separate step after the migration. The
+published to crates.io: registry publication is a separate step. The first
+GitHub release is prepared as <code>v0.1.0</code> against Core <code>v0.8.0</code> (#33). The
 <a href="../../../../development/history/rust/validation/packaging/">packaging validation</a> records the local results.</p>
 <h2 id="package-identities">Package identities<a class="headerlink" href="#package-identities" title="Permanent link">&para;</a></h2>
 <table>
@@ -693,7 +860,7 @@ the root <code>Cargo.toml</code>:</p>
 <tbody>
 <tr>
 <td><code>version</code></td>
-<td><code>0.7.1</code></td>
+<td><code>0.1.0</code></td>
 </tr>
 <tr>
 <td><code>edition</code></td>
@@ -723,10 +890,10 @@ license text. Both copies must equal the root <code>LICENSE</code>.</p>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p>The Rust bindings have their own version, independent of OpenTLV Core:</p>
 <ul>
-<li>The current workspace version <code>0.7.1</code> is the migration baseline. It equals
-  Core's version only because the crates were imported from Core <code>0.7.1</code>; it is
-  not synchronized with Core and not derived from Git tags in either
-  repository.</li>
+<li>The first standalone Rust release is <code>0.1.0</code>. The inherited <code>0.7.1</code> was
+  an unpublished migration baseline, not a previous Rust release. There were
+  no Rust repository tags or GitHub releases when checked on 2026-10-27.
+  The Rust version is independent of Core's <code>0.8.0</code> dependency version.</li>
 <li>Both crates always have the same version, the single
   <code>[workspace.package]</code> <code>version</code>, and are released together. <code>Cargo.lock</code>
   records it for both.</li>
@@ -741,7 +908,7 @@ license text. Both copies must equal the root <code>LICENSE</code>.</p>
 </ul>
 <h3 id="version-relationship">Version relationship<a class="headerlink" href="#version-relationship" title="Permanent link">&para;</a></h3>
 <p><code>opentlv</code> depends on exactly the <code>opentlv-sys</code> version it is released with:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">opentlv-sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"=0.7.1"</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"../opentlv-sys"</span><span class="p">,</span><span class="w"> </span><span class="n">default-features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">opentlv-sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"=0.1.0"</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"../opentlv-sys"</span><span class="p">,</span><span class="w"> </span><span class="n">default-features</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p>The exact requirement is deliberate. <code>links = "tlv"</code> permits only one
 <code>opentlv-sys</code> in a dependency graph, the CI tests the two crates only as a
@@ -751,7 +918,7 @@ Inside the workspace, Cargo uses the <code>path</code>; in the package, Cargo re
 <code>path</code> and keeps the version requirement.</p>
 <h2 id="core-compatibility">Core compatibility<a class="headerlink" href="#core-compatibility" title="Permanent link">&para;</a></h2>
 <p>Each <code>opentlv-sys</code> version pins exactly one Core dependency, recorded in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv-sys/core/core-artifact.json"><code>core/core-artifact.json</code></a>,
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/opentlv-sys/core/core-artifact.json"><code>core/core-artifact.json</code></a>,
 which is part of the package:</p>
 <table>
 <thead>
@@ -764,17 +931,18 @@ which is part of the package:</p>
 </thead>
 <tbody>
 <tr>
-<td>0.7.1</td>
-<td>0.7.1</td>
-<td><code>476f1fbecde6b056419e43c9a6cea4d1ca8df1cf</code></td>
-<td>none locked</td>
+<td>0.1.0</td>
+<td>0.8.0</td>
+<td><code>345c77acb29266036df5f27d04ce315bb61853cc</code></td>
+<td>v0.8.0</td>
 </tr>
 </tbody>
 </table>
 <p>The packages do not contain Core. A build from an archive selects Core exactly
 as a build from the repository does, as described in the
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/README.md#core-dependency">README</a>: while no release is locked it clones
-the pinned commit from <code>OpenTLV/opentlv</code>. <code>opentlv::version()</code> reports the
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/README.md#core-dependency">README</a>: it authenticates the locked Core release
+and selects its compatible static binary or builds its verified source.
+<code>opentlv::version()</code> reports the
 version of the Core library actually linked at run time, which can differ from
 the pinned one when <code>OPENTLV_LIB_DIR</code> links a prebuilt library.</p>
 <h2 id="package-contents">Package contents<a class="headerlink" href="#package-contents" title="Permanent link">&para;</a></h2>
@@ -804,14 +972,14 @@ Cargo <code>OUT_DIR</code>, the selected Core tree and their own temporary direc
 The only local path in a manifest
 is the declared <code>opentlv-sys</code> workspace dependency, which carries a version.</p>
 <h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
-<p>The <code>package</code> check of <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/scripts/ci.py"><code>scripts/ci.py</code></a>, part of the
+<p>The <code>package</code> check of <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/ci.py"><code>scripts/ci.py</code></a>, part of the
 stable <a href="../../../../development/components/rust/quality-gates/">CI configurations</a>, runs
 <code>cargo package --workspace --locked</code>, which builds both crates from their
 archives. It requires the exact file lists above, a <code>LICENSE</code> equal to the
 repository license and, in each archive's normalized <code>Cargo.toml</code>, the crate
 name, the workspace version, <code>MIT</code>, the <code>README.md</code> readme, this repository
 URL, no dependency <code>path</code> and the dependency <code>opentlv-sys = "=&lt;version&gt;"</code> for
-<code>opentlv</code> only. <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/tests/test_packaging.py"><code>tests/test_packaging.py</code></a> checks
+<code>opentlv</code> only. <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/tests/test_packaging.py"><code>tests/test_packaging.py</code></a> checks
 the manifests, the shared version, the unchanged features against the
 migration baseline, the license copies and the Core compatibility table
 without building.</p>
@@ -825,6 +993,102 @@ without building.</p>
 <code>opentlv-sys</code> is not on crates.io: Cargo resolves an unpublished dependency
 from a local archive only for crates packaged in the same invocation. Use
 <code>--workspace</code>, as CI does.</p>
+<h2 id="licensing">Licensing<a class="headerlink" href="#licensing" title="Permanent link">&para;</a></h2>
+<p>Both crates declare the SPDX expression <code>MIT</code> in <code>license</code> and carry a
+<code>LICENSE</code> copy equal to the root <code>LICENSE</code>, which names Marek Cingel as the
+copyright holder. Packaged Rust, Python and CMake sources keep their SPDX
+headers. The repository's <code>REUSE.toml</code> and <code>LICENSES/</code> are not packaged: in an
+archive, the crate <code>LICENSE</code> covers the files without a header, which are the
+README, the Core lock, the C ABI probe's <code>CMakeLists.txt</code> imported from Core
+and Cargo's generated files. Neither crate has Cargo dependencies beyond <code>opentlv-sys</code>, and no
+third-party code is vendored.</p>
+<p>The archives contain no Core sources. <code>opentlv-sys</code> authenticates the pinned Core
+release at build time, or links a library selected with <code>OPENTLV_LIB_DIR</code>, and
+the resulting <code>tlv</code> library becomes part of the Rust binary. At the pinned
+commit, Core's <code>LICENSE</code> is byte-identical to this repository's and its
+library sources carry only <code>MIT</code> and <code>Copyright (c) 2026 Marek Cingel</code>
+notices. A binary distribution therefore needs that one MIT notice; recheck
+Core's licensing notices when changing the pinned commit, and add the license
+of every new bundled or linked dependency here and to the crate archives.</p>
+<h2 id="github-release">GitHub release<a class="headerlink" href="#github-release" title="Permanent link">&para;</a></h2>
+<p>The manual <code>Rust Release</code> workflow accepts an unused <code>vMAJOR.MINOR.PATCH</code> tag
+matching both Cargo manifests, <code>Cargo.lock</code> and <code>ci/release-notes.md</code>.
+Changes stay under <code>Unreleased</code> during development; close the changelog under
+the matching version without the tag's <code>v</code> prefix and the release date
+before dispatching the release (for example, <code>## [0.1.0] - 2026-10-28</code>). The
+versioned release notes are the publication text and are included in the
+hashed CI definitions. No crates.io credentials or uploads are involved.</p>
+<ol>
+<li>Review and merge the release preparation. Wait for successful Rust Main CI
+   on that exact commit. Dispatch <code>Rust Release</code> on <code>main</code> with <code>tag: v0.1.0</code>.</li>
+<li>The workflow rejects a foreign, dirty or non-main checkout, a changed main
+   tip, an existing tag/release, wrong versions or missing Main evidence.
+   It runs Full CI with <code>require_verified_core: true</code>: all seven configurations,
+   source quality, CodeQL, API coverage, packaging and the aggregate gate.</li>
+<li>Assembly revalidates every record against the current commit, run, attempt,
+   Core lock and source hashes. It copies the exact two Linux stable packages
+   whose digests the Full record contains. It does not rebuild them.</li>
+<li>The workflow attests all five assets: <code>opentlv-sys-0.1.0.crate</code>,
+   <code>opentlv-0.1.0.crate</code>, <code>release-manifest.json</code>, <code>release-notes.md</code> and
+   <code>SHA256SUMS</code>. Publication rechecks evidence, checksums, attestations and
+   unused tag status, then creates the tag and a draft release. Only after the
+   uploaded asset names, sizes, SHA-256 digests, notes and tag commit match
+   does it publish the draft and verify the public result.</li>
+<li>Record the published URL and exact commit, Main and Release/Full run links
+   in <a href="https://github.com/OpenTLV/opentlv-rust/issues/33">issue #33</a> and
+   <a href="https://github.com/OpenTLV/opentlv/issues/718">Core epic #718</a>. Close the
+   tracking only after publication and asset verification. The workflow emits
+   <code>rust-published-&lt;attempt&gt;</code> with the URL, source and asset identities.</li>
+</ol>
+<p>If a failure occurs after creating a tag or draft, inspect that state before
+retrying; the workflow deliberately refuses to overwrite either. Earlier
+attempts' artifacts cannot satisfy a new attempt. A new main commit or a new
+Main run requires a new release attempt with matching evidence.</p>
+<p>For GitHub release archives before crates.io publication, extract both <code>.crate</code>
+files into adjacent directories, then use a Cargo path dependency and patch
+the exact registry dependency back to the extracted raw crate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[dependencies]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">opentlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"vendor/opentlv-0.1.0"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">[patch.crates-io]</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">opentlv-sys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">"vendor/opentlv-sys-0.1.0"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>The normal Core build requirements still apply. Rust's crate version is
+<code>0.1.0</code>; <code>opentlv::version()</code> should report linked Core <code>0.8.0</code>.</p>
+<h3 id="local-preparation-evidence-2026-10-27">Local preparation evidence (2026-10-27)<a class="headerlink" href="#local-preparation-evidence-2026-10-27" title="Permanent link">&para;</a></h3>
+<p>Windows/MSVC with Rust 1.99.1 passed the exact test inventory in all five
+feature configurations: default 299, none 276, LLDP 277, NFC 276 and
+Document 298, including the C ABI probes and compile-fail lifetime tests.
+rustfmt, Clippy with <code>-D warnings</code> for default and no-default features,
+Rustdoc with <code>-D warnings</code>, all ten examples, 171 Query fixtures with 2,133
+native executions, and <code>cargo package --workspace --locked --allow-dirty</code>
+passed. Both archives were built from their packaged contents; the package
+inventory, normalized manifests, licenses and crate digests were checked.
+All 100 infrastructure tests, actionlint and source quality/REUSE passed.</p>
+<p>Core API coverage remains 215/215 generic symbols with 82 exclusions;
+the Core pin diff has no added or removed public symbols. The actual Core
+v0.8.0 manifest, <code>SHA256SUMS</code> and source archive were verified against their
+saved Sigstore bundles, enforcing the Core release signer and exact source
+commit. Their checksums, source identity and recorded configuration passed
+the Rust verifier. The 431 Core build and corpus files compared with the
+clean pinned checkout matched after line-ending normalization.</p>
+<p>Cargo used the development-only <code>OPENTLV_CORE_SOURCE</code> override to that exact
+clean Core commit. The GitHub CLI was not authenticated for the default online
+resolver; separate artifact verification does not turn those Cargo runs into
+verified-mode or hosted evidence. Linux, macOS, MSRV, sanitizer, prebuilt-linking
+Full jobs, release attestations and publication still require the hosted
+release run on the merged commit. Local logs and the machine-readable result
+are under <code>build/issue33-*</code>; they are not committed release evidence.</p>
+<p>The subsequent <a href="https://github.com/OpenTLV/opentlv-rust/actions/runs/40559017343/attempts/1">Full run 40559017343, attempt 1</a>
+on <code>df4faeb87c923a042944977eea5e96cf2f0017b5</code> failed all seven build
+configurations: a second Verified Source resolution changed the extracted
+source path while reusing the first CMake cache. The follow-up gives each
+resolution its own build directory. A regression reproduced the original
+failure and passed after the fix; the 101-test infrastructure suite, Clippy,
+rustfmt and source quality/REUSE passed locally. Two successive builds also
+passed with the actual Core v0.8.0 source archive and an offline acquisition
+fixture. These checks cover compilation and reruns, not online authentication
+or hosted acceptance; a new Full run on the fix commit is still required.</p>
 <h2 id="remaining-cratesio-prerequisites">Remaining crates.io prerequisites<a class="headerlink" href="#remaining-cratesio-prerequisites" title="Permanent link">&para;</a></h2>
 <p>These are not part of this preparation and must be resolved before or at the
 first publication:</p>
@@ -834,21 +1098,20 @@ first publication:</p>
   owners, such as an OpenTLV GitHub team, are set then.</li>
 <li><strong>Order.</strong> <code>opentlv-sys</code> must be published before <code>opentlv</code>, whose exact
   requirement must resolve from the registry.</li>
-<li><strong>Core availability.</strong> A build from crates.io needs Git, CMake, a C99
-  compiler and network access to GitHub, and the pinned commit must stay
-  reachable in <code>OpenTLV/opentlv</code>. Locking an attested Core release with
-  Verified Binaries before publication reduces this, but Verified Binary and
-  Verified Source selection additionally need Python 3.11 and an
-  authenticated GitHub CLI.</li>
+<li><strong>Core availability.</strong> A build needs CMake, a C99 compiler, Python 3.11,
+  an authenticated GitHub CLI and network access to GitHub. The locked
+  Core v0.8.0 release assets and attestations must remain available. A
+  compatible Verified Binary avoids compiling Core; otherwise the verified
+  source is built locally.</li>
 <li><strong>docs.rs.</strong> docs.rs builds without network access, so the default build
   script cannot fetch Core there. Rendering the documentation on docs.rs needs
   a documentation-only build path in <code>build.rs</code>.</li>
 <li><strong>Documentation.</strong> The crate-level Rustdoc, the crate READMEs and the
   <a href="../guides/rust/">user guide</a> describe a path dependency on an opentlv-rust
   checkout. They need the crates.io dependency once the crates are published.</li>
-<li><strong>Release process.</strong> Release tags, the release workflow and the crates.io
-  token or trusted publishing configuration are defined with publication. The
-  CI never publishes.</li>
+<li><strong>Registry process.</strong> A crates.io token or trusted publishing configuration
+  and a registry-specific publish gate remain to be defined. The GitHub
+  release workflow publishes source packages only to GitHub Releases.</li>
 </ul>
 
 
@@ -870,49 +1133,49 @@ first publication:</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -935,6 +1198,7 @@ first publication:</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -958,12 +1222,32 @@ first publication:</p>
           </a>
         
         
+          
+          <a href="../validation/licensing/" class="md-footer__link md-footer__link--next" aria-label="Next: Licensing">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Licensing
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
       </nav>
     
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
   
   
     Made with
@@ -990,6 +1274,12 @@ first publication:</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

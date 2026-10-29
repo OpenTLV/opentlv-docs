@@ -3396,6 +3396,8 @@
       
         
       
+        
+      
     
     
     
@@ -3443,6 +3445,141 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../modules/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional module design
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_3_1" id="__nav_7_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functional module design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/reader-format-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reader, Format and Field boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -5919,7 +6056,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6016,11 +6153,11 @@ its artifact remains available. Replaying a delivered event is safe. After
 artifact expiry, rerun the producer. A 204 response means GitHub accepted the
 event; confirm the Docs receiver run and source-update PR separately. Local
 mocked HTTP tests do not establish hosted delivery or publication.</p>
-<p>Independent Rust documentation releases are not configured: this repository
-has no release workflow yet, so no release receipt is sent and the portal
-shows the manuals of its selected source pin.</p>
+<p>Independent Rust documentation releases are not configured: the Rust release
+workflow publishes crate assets without sending a Docs release receipt.
+The portal continues to show the manuals of its selected source pin.</p>
 <h2 id="supported-configurations">Supported configurations<a class="headerlink" href="#supported-configurations" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/ci/matrix.json"><code>ci/matrix.json</code></a> holds the toolchains, platforms, Cargo
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/matrix.json"><code>ci/matrix.json</code></a> holds the toolchains, platforms, Cargo
 feature sets and the test inventory used by both the workflow planner and the
 evidence verifier.</p>
 <table>
@@ -6115,7 +6252,7 @@ Format compositions, <code>tlv_format_error_t</code> and <code>tlv_encoding_t</c
 imported probe intact. Both run in every <code>default</code> and reduced-feature suite,
 on every platform and toolchain.</p>
 <h2 id="checks">Checks<a class="headerlink" href="#checks" title="Permanent link">&para;</a></h2>
-<p>Each configuration runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/scripts/ci.py"><code>scripts/ci.py</code></a> in a fresh work
+<p>Each configuration runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/ci.py"><code>scripts/ci.py</code></a> in a fresh work
 directory with its own Cargo target directories, the pinned toolchain from
 <code>RUSTUP_TOOLCHAIN</code> and an environment without inherited Core overrides,
 <code>RUSTFLAGS</code> or <code>CC</code>/<code>CFLAGS</code>. Every Cargo command uses <code>--locked</code> and, except
@@ -6170,15 +6307,17 @@ Rustdoc, <code>RUSTFLAGS=-D warnings</code>.</p>
 <li><strong>Core provenance.</strong> Every <code>core-selection.json</code> written by an
   <code>opentlv-sys</code> build script in the work directory is checked against the
   lock: repository, commit, version, release tag and a clean tree. With the
-  current <code>release_tag: null</code> this requires <code>pinned-git</code> with
-  <code>verified: false</code>, which is exact source identity, not an authenticated Core
-  release. Core must have been resolved inside the work directory, so a local
+  current <code>release_tag: v0.8.0</code> this requires <code>verified-source</code> or
+  <code>verified-binary</code>, with authenticated Core release artifacts.
+  Core must have been resolved inside the work directory, so a local
   <code>OPENTLV_CORE_SOURCE</code> is never accepted; <code>build.rs</code> also rejects it in CI.</li>
 </ul>
-<p>Source quality runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/scripts/check_quality.py"><code>scripts/check_quality.py</code></a>
-(Python syntax, workflow structure and whitespace of all files except the
-preserved migration evidence), the existing release-verifier tests, the CI and
-documentation notification regression tests with
+<p>Source quality runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/check_quality.py"><code>scripts/check_quality.py</code></a>
+(Python syntax, workflow structure, whitespace of all files except the
+preserved migration evidence and <code>reuse lint</code>, which requires license and
+copyright metadata for every file from its SPDX header or <code>REUSE.toml</code>), the
+existing release-verifier tests, the CI, documentation notification and
+licensing regression tests with
 <code>python -m unittest discover -s tests</code>, and actionlint.
 CodeQL analyzes Rust and Python from source.</p>
 <p>Each build configuration also executes the workflow's build and gate shell
@@ -6193,7 +6332,7 @@ desired Bash executable and run <code>tests/test_ci_shell.py</code>.</p>
 runs in PR and Full, not Main, and is a <code>Rust quality gate</code> prerequisite. The
 reviewed per-header baseline, with the public Rust API and binding tests of
 each header, is the <a href="../validation/api-coverage/">Core API coverage record</a>.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
 script of the Python repository, with three changes: its default configuration
 is <code>ci/api-coverage.json</code>, the report states that a referenced symbol does not
 prove functional parity, and scopes that the configuration lists as <code>complete</code>
@@ -6216,7 +6355,7 @@ not use is in the ignore list; the
 the symbols added and removed between the two pins. Added symbols show whether
 the safe crate already references or ignores them. An unchanged pin is reported
 as such.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/ci/api-coverage.json"><code>ci/api-coverage.json</code></a> is the configuration and
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/api-coverage.json"><code>ci/api-coverage.json</code></a> is the configuration and
 ignore list. It names the Core lock <code>opentlv-sys/core/core-artifact.json</code> and
 the reference directory. Each ignore entry has a <code>reason</code> and matches header
 paths relative to <code>tlv/include</code> (<code>headers</code>) or symbol names (<code>symbols</code>); both
@@ -6293,14 +6432,28 @@ adds no second resolver. A release caller must invoke:</p>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">with</span><span class="p">:</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">require_verified_core</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<p>That mode requires Full CI and rejects the current null release lock before
-building. Once an approved release is locked, every Cargo command runs with
+<p>That mode requires Full CI and rejects any null release lock before
+building. Core v0.8.0 is locked; every Cargo command runs with
 <code>OPENTLV_REQUIRE_VERIFIED_CORE=1</code>. Each selection must then be
 <code>verified-binary</code> or <code>verified-source</code>, and its <code>verification.json</code> must name
 the locked release tag, a release ID, the manifest SHA-256 and the
 <code>core-release.yml</code> signer. Failed attestations, checksums or producer evidence
 stop the build in <code>build.rs</code>; they never fall back to Git. Testing fixtures is
 not evidence that a real published Core attestation was consumed.</p>
+<p>Each Verified Source resolution has its own <code>cmake-build</code> directory beside
+the attempt's <code>source/</code> directory. Repeated Cargo commands in one <code>OUT_DIR</code>
+therefore cannot reuse a CMake cache pointing to a previous extraction.
+<code>tests/test_build_script.py</code> compiles the real build script with <code>rustc</code> and
+runs it twice with fresh resolver fixtures and a real CMake C library build,
+then checks that a verification failure removes selection evidence and stops
+before linking. This infrastructure test requires Rust, CMake and a C compiler;
+its fixture resolver does not authenticate release artifacts.</p>
+<p>The manual <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/.github/workflows/rust-release.yml">Rust Release workflow</a>
+uses this mode, revalidates every Full record and publishes the exact Linux
+stable <code>.crate</code> files tested by Cargo packaging. It also requires successful
+Main CI on the dispatch commit. See the <a href="../../../../languages/rust/manual/packaging/#github-release">release procedure</a>.
+The compiler evidence includes the verified-binary toolchain probe, even
+when a compatible binary means that no Core source compilation is needed.</p>
 <h2 id="evidence-and-required-check">Evidence and required check<a class="headerlink" href="#evidence-and-required-check" title="Permanent link">&para;</a></h2>
 <p>Successful records include the repository, checkout SHA, run ID and attempt,
 the matrix configuration, the Rust release, host triple and LLVM version, the
@@ -6329,7 +6482,7 @@ Reported job seconds are elapsed runner time, not billed minutes. This is the
 first standalone CI baseline; no hosted speedup or measured latency is claimed.</p>
 <h2 id="changing-the-inventory">Changing the inventory<a class="headerlink" href="#changing-the-inventory" title="Permanent link">&para;</a></h2>
 <p>Intentional changes to tests, examples, features, toolchains or the pinned
-Core corpus must update <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/ci/matrix.json"><code>ci/matrix.json</code></a> in the same
+Core corpus must update <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/matrix.json"><code>ci/matrix.json</code></a> in the same
 change, with reviewed evidence. Updating the stable toolchain or the sanitizer
 nightly is a deliberate matrix change; raising the MSRV also changes
 <code>rust-version</code>.</p>
@@ -6342,9 +6495,10 @@ crates.io:</p>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_quality.py
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>actionlint
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>matrix<span class="w"> </span>--tier<span class="w"> </span>full
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>build<span class="w"> </span>--tier<span class="w"> </span>full<span class="w"> </span>--configuration<span class="w"> </span>linux-stable<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span>--work<span class="w"> </span>build/ci-full-linux<span class="w"> </span>--output<span class="w"> </span>build/full-linux-stable.json
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>-m<span class="w"> </span>pre_commit<span class="w"> </span>run<span class="w"> </span>--all-files<span class="w">    </span><span class="c1"># optional, with pre-commit installed</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>matrix<span class="w"> </span>--tier<span class="w"> </span>full
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>build<span class="w"> </span>--tier<span class="w"> </span>full<span class="w"> </span>--configuration<span class="w"> </span>linux-stable<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span>--work<span class="w"> </span>build/ci-full-linux<span class="w"> </span>--output<span class="w"> </span>build/full-linux-stable.json
 </code></pre></div>
 <p>Choose a configuration that matches the host system, such as <code>windows-msrv</code> or
 <code>macos-stable</code>; <code>linux-sanitizer</code> needs <code>clang-18</code>. Every invocation requires a
@@ -6370,49 +6524,49 @@ new <code>--work</code> directory.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -6435,6 +6589,7 @@ new <code>--work</code> directory.</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -6481,6 +6636,10 @@ new <code>--work</code> directory.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -6506,6 +6665,12 @@ new <code>--work</code> directory.</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

@@ -589,6 +589,92 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Validation records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/licensing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licensing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -805,7 +891,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1140,21 +1226,22 @@ than DER/CER; ordinary framing remains available through Reader/Writer. Failures
 <p>Reader and Tree Reader callbacks and resumable Query matching delegate to C.
 The DOL component is not bound yet.</p>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
-<p>Requirements: Rust 1.82 or newer, CMake 3.16 or newer, a C99 compiler and Git.
+<p>Requirements: Rust 1.82 or newer, CMake 3.16 or newer, a C99 compiler, Git,
+Python 3.11 or newer and an authenticated GitHub CLI (<code>gh auth login</code>).
 On Windows use the MSVC Rust toolchain with Visual Studio. The first build of
 each configuration downloads Core from GitHub.</p>
 <p>From the repository root:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cargo<span class="w"> </span>build<span class="w"> </span>--workspace
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--workspace
 </code></pre></div>
-<p>By default the build script of <code>opentlv-sys</code> clones OpenTLV Core into Cargo's
-<code>OUT_DIR</code>, checks out the commit locked in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
-and verifies its identity. It builds Core with CMake as a static,
+<p>By default the build script of <code>opentlv-sys</code> authenticates the Core release locked in
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
+and records its identity in Cargo's <code>OUT_DIR</code>. It selects a compatible verified
+static binary or builds the verified source with CMake as a static,
 position-independent Release library and links it. The C++ layer, CLI, tests
 and examples of Core are not built. After building, it checks that Core's
 public <code>tlv/version.h</code> and <code>tlv/config.h</code> report the locked version, commit and
-components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe/README.md#core-dependency">repository README</a> describes
+components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/README.md#core-dependency">repository README</a> describes
 every Core selection mode, including verified Core releases, and the recorded
 selection evidence.</p>
 <h2 id="cargo-features">Cargo features<a class="headerlink" href="#cargo-features" title="Permanent link">&para;</a></h2>
@@ -1213,8 +1300,8 @@ this override. Unset the variable to return to the locked Core. Local builds are
 for development only and are not release evidence.</p>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p><code>opentlv</code> and <code>opentlv-sys</code> share the Cargo workspace version
-(<code>version.workspace = true</code> in each crate's <code>Cargo.toml</code>). It started from the
-<code>0.7.1</code> migration baseline and is independent of the OpenTLV C library's
+(<code>version.workspace = true</code> in each crate's <code>Cargo.toml</code>). The first standalone
+release is <code>0.1.0</code>; <code>0.7.1</code> was an unpublished migration baseline. It is independent of the OpenTLV C library's
 version; it is not derived from Core's Git tags. <code>opentlv</code> requires exactly the
 <code>opentlv-sys</code> version it is released with, and each <code>opentlv-sys</code> version
 records its compatible Core dependency. <code>opentlv::version()</code> is a separate
@@ -1249,10 +1336,36 @@ without being copied.</p>
 shared TLV semantics, the C API or Core components belong to
 <a href="https://github.com/OpenTLV/opentlv/issues">OpenTLV Core</a>; this repository then
 selects the Core revision that contains them.</p>
+<p>The shared
+<a href="https://github.com/OpenTLV/.github/blob/main/CONTRIBUTING.md">OpenTLV contribution guidelines</a>,
+<a href="https://github.com/OpenTLV/.github/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>
+and <a href="https://github.com/OpenTLV/.github/blob/main/SUPPORT.md">support directory</a>
+apply; this guide adds the Rust build and test rules. Report suspected
+vulnerabilities privately through the repository's Security tab as described
+in the <a href="https://github.com/OpenTLV/.github/blob/main/SECURITY.md">security policy</a>,
+not in public issues.</p>
+<p>The bindings are MIT licensed. Marek Cingel holds copyright in his original
+contributions; other contributors retain copyright in theirs, since an MIT
+contribution does not assign copyright, and OpenTLV is a GitHub organization,
+not a copyright holder. Start new Rust sources by Marek Cingel with:</p>
+<!-- REUSE-IgnoreStart -->
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">// SPDX-License-Identifier: MIT</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">// Copyright (c) 2026 Marek Cingel</span>
+</code></pre></div>
+<!-- REUSE-IgnoreEnd -->
+
+<p>Use <code>#</code> comments in TOML, Python, YAML and CMake files, and your own name and
+year for your own work; never rewrite an existing or third-party notice.
+Documentation and data files that cannot carry a header are listed by exact
+path in the repository's <code>REUSE.toml</code>; add new ones there. The migration
+evidence in <code>docs/migration/</code> and the C ABI probe imported from Core keep their
+original bytes and never receive headers. <code>scripts/check_quality.py</code> runs
+<code>reuse lint</code> over every file Git does not ignore; the optional <code>.pre-commit-config.yaml</code>
+runs the same lint and the whitespace, YAML, JSON and TOML checks.</p>
 <h2 id="linking-a-prebuilt-library">Linking a prebuilt library<a class="headerlink" href="#linking-a-prebuilt-library" title="Permanent link">&para;</a></h2>
 <p>To link a library you built yourself, point <code>OPENTLV_LIB_DIR</code> at the directory
 containing it:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">OPENTLV_LIB_DIR</span><span class="o">=</span>/path/to/build/tlv<span class="w"> </span>cargo<span class="w"> </span>build
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">OPENTLV_LIB_DIR</span><span class="o">=</span>/path/to/build/tlv<span class="w"> </span>cargo<span class="w"> </span>build
 </code></pre></div>
 <p><code>OPENTLV_LINK_KIND</code> selects <code>static</code> or <code>dylib</code> (default <code>dylib</code>, matching the
 default CMake build). With a shared library, the platform's loader must find it
@@ -1287,49 +1400,49 @@ source locations and Query visits of Document nodes.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -1352,6 +1465,7 @@ source locations and Query visits of Document nodes.</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -1398,6 +1512,10 @@ source locations and Query visits of Document nodes.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -1423,6 +1541,12 @@ source locations and Query visits of Document nodes.</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>

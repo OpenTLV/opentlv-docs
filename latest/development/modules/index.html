@@ -1,0 +1,7409 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Portable TLV processing with a canonical C engine, language APIs including JavaScript, and a CLI.">
+      
+      
+      
+        <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/modules/">
+      
+      
+        <link rel="prev" href="../architecture/field-policies/">
+      
+      
+        <link rel="next" href="diagnostics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Module contracts - OpenTLV</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../playground/playground.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#functional-module-contracts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  
+    This is the <strong>development</strong> documentation. It may describe
+    changes that are not part of any release; use the version selector in the
+    header for released versions.
+  
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OpenTLV" class="md-header__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenTLV
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Module contracts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../standards/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Standards
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../languages/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Languages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tools/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Development
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OpenTLV" class="md-nav__button md-logo" aria-label="OpenTLV" data-md-component="logo">
+      
+  <img src="../../assets/logo-mark.svg" alt="logo">
+
+    </a>
+    OpenTLV
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/OpenTLV/opentlv" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    OpenTLV/opentlv
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorials/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/concepts/learning-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understand the basic model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/first-program/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    First program and Core integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/processing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choose a processing API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Executable examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/cpp-examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Format examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts and contracts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts and contracts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/core-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/value/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Borrowed values
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/length/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logical lengths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/endian/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Byte order
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/format-contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Format, Element and source layout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/concepts/format-capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generic Format capability space
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Processing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/reader/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pull-based Reader
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/writer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writer and scoped construction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/document/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mutable documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/queries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Path queries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/query-language/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query language contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schemas and length validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/codecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Value codecs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics and memory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagnostics and memory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/reference/errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Error codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Memory ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/guides/copy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Copy helpers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/capabilities/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implemented capabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api/formats/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Generic formats
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Generic formats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shared format operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/fixed/configurable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable fixed-width TLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/variable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configurable variable-width TLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/packed/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packed Tag/Length headers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/escaped/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Escaped lengths
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/formats/custom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Custom formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api/reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Native reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/reference/c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/reference/cpp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../standards/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Standards
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Standards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../standards/bluetooth/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocols and standards
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Protocols and standards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/nfc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NFC Type 2 Tag framing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCPv4 option framing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/lldp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLDP TLV support
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/lldp/conformance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLDP reference and conformance notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/asn1/ber/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BER-TLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/asn1/der/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DER-TLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/asn1/cer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CER-TLV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../standards/emv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EMV
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../languages/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Languages
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Languages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Language contracts and capabilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/c/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../languages/cpp/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C++
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/cpp/concepts/cxx-native-boundary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ public/native boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/cpp/concepts/cxx-formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ Format customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/cpp/concepts/cxx-builtins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ built-in standards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/lua/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../languages/javascript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tools/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/otlv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    otlv CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tools/playground/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TLV playground
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    TLV playground
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/playground/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Playground overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/imtlv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    imtlv (planned)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../architecture/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_2" id="__nav_7_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/processing-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processing pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/architectural-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core architectural rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/error-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Failure model contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/definition-boundaries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definition boundaries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/field-policies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Declarative field policy design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning and reviews
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Planning and reviews
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional module design
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_7_3_1" id="__nav_7_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Functional module design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reader-format-field/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reader, Format and Field boundary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planning/runtime-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planned runtime model and canonical IR
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planning/indefinite-boundary-reuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Indefinite boundary reuse proposal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planning/format-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Format roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planning/format-catalogue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Format candidate catalogue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../planning/lldp-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLDP requirements review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../building/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building from source
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7_4" id="__nav_7_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Building from source
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core installation and developer builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/compilers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compilers and build settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contribution entry points
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python ownership in Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bindings/rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust ownership in Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Component guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Component guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cli/development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/cli/releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI versions and releases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua tests and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua quality gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/api-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua implementation and ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/python/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python tests and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/python/releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python release preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rust/quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust tests and CI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/rust/validation/api-coverage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust generic Core API coverage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/go/development/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go tests, CI and documentation updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/go/implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Go implementation and ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/js/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JavaScript tests, CI and documentation updates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing and quality gates
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testing and quality gates
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quality-gates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core quality gates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../abi-compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C ABI compatibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fuzzing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fuzzing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valgrind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Valgrind checks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query-adversarial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query adversarial verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI and release process
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    CI and release process
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../query-release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query release checklist
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_9" id="__nav_7_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Current portal conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../product-catalogs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Register a binding or tool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core writing conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/ownership/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation ownership
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logo assets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_10" id="__nav_7_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Historical records
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Historical records
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/core/guides/python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Python transition guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/core/query-phase-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Query phase implementation audit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/core/reader-decode-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reader decode performance record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/core/cxx-facade-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ facade performance record
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/core/documentation-audit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/lua/migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua migration provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/python/migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python migration provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/python/validation/standalone-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python standalone build validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/python/validation/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python CI validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/python/validation/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python packaging validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/python/validation/layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python source layout validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/validation/codecs-generator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust Codec and Generator validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust migration provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/validation/standalone-build/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust standalone build validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/validation/ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust CI validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/validation/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust packaging validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/rust/validation/layout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rust source layout validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modules-and-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modules and targets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modules and targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-facades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C++ facades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#target-dependency-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Target dependency graph
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Target dependency graph">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-and-shared-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static and shared dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ownership-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ownership inventory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ownership inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-api-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public API ownership
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#existing-cycles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Existing cycles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Existing cycles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dependency-and-private-header-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency and private-header exceptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cross-target-internal-symbols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-target internal symbols
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#private-header-boundaries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private-header boundaries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-ownership" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration ownership
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integration ownership">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#documentquery-across-648-and-650" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document–Query across #648 and #650
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  
+                  
+
+
+  
+    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/development/modules/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="functional-module-contracts">Functional module contracts<a class="headerlink" href="#functional-module-contracts" title="Permanent link">&para;</a></h1>
+<p>This page defines the functional module architecture that epic
+<a href="https://github.com/OpenTLV/opentlv/issues/643">#643</a> implements. It is the
+deliverable of <a href="https://github.com/OpenTLV/opentlv/issues/644">#644</a> (Issue 1)
+and is written for contributors who implement Issues 2 to 12 and for the
+reviewers who approve these contracts. Read the
+<a href="../architecture/architectural-rules/">architectural rules</a> and the
+<a href="../architecture/error-model/">failure model</a> first.</p>
+<p><strong>Status: proposed.</strong> Approval of the pull request that adds this page
+approves the decisions listed in <a href="#decisions-to-approve">Decisions to approve</a>.
+This page changes no source file, build option or behavior; the current
+capability options and the single <code>tlv</code> target stay until the extraction
+issues replace them.</p>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tests/baseline/README.md">pre-refactor behavioral baseline</a> for
+issue #645 pins the released behavior and diagnostic inventory used when applying
+these contracts. Approve that evidence before starting #646.</p>
+<p>The public target names below (<code>OpenTLV::Core</code> and so on) are the working
+names of the epic. Execution order puts
+<a href="https://github.com/OpenTLV/opentlv/issues/702">#702</a> first: its approved
+naming contract decides the final CMake package, component, target and export
+names. The contracts here use stable internal keys (<code>core</code>, <code>query-document</code>,
+...) so a rename does not change any boundary.</p>
+<table>
+<thead>
+<tr>
+<th>Deliverable</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Module ownership inventory</td>
+<td><a href="ownership.json">ownership.json</a> <code>files</code>, summarized in <a href="#ownership-inventory">Ownership inventory</a></td>
+</tr>
+<tr>
+<td>Public API ownership inventory</td>
+<td>Header ownership plus the <code>api</code> moves in <a href="ownership.json">ownership.json</a>; see <a href="#public-api-ownership">Public API ownership</a></td>
+</tr>
+<tr>
+<td>Dependency graph</td>
+<td><a href="ownership.json">ownership.json</a> <code>targets</code>; see <a href="#target-dependency-graph">Target dependency graph</a></td>
+</tr>
+<tr>
+<td>Cross-module integration ownership matrix</td>
+<td><a href="#integration-ownership">Integration ownership</a></td>
+</tr>
+<tr>
+<td>Diagnostic architecture specification</td>
+<td><a href="diagnostics/">Module diagnostics</a></td>
+</tr>
+<tr>
+<td>Complete baseline diagnostic code mapping</td>
+<td><a href="diagnostic-mapping.json">diagnostic-mapping.json</a>; see <a href="diagnostics/#code-mapping">Code mapping</a></td>
+</tr>
+<tr>
+<td>Query feature decisions</td>
+<td><a href="#query-features">Query features</a></td>
+</tr>
+<tr>
+<td>ASN.1 granularity decision</td>
+<td><a href="#asn1-granularity">ASN.1 granularity</a></td>
+</tr>
+<tr>
+<td>Reader → Format → Field boundary specification</td>
+<td><a href="reader-format-field/">Reader, Format and Field boundary</a></td>
+</tr>
+</tbody>
+</table>
+<p><code>python scripts/check_module_contracts.py</code> verifies both JSON files against the
+source tree without a native build; see <a href="#enforcement">Enforcement</a>.</p>
+<h2 id="modules-and-targets">Modules and targets<a class="headerlink" href="#modules-and-targets" title="Permanent link">&para;</a></h2>
+<p>A <em>module</em> is a unit of functionality with one owner. It has one public
+<em>module target</em>, which consumers link and install as a CMake component. The
+seven generic and six builtin modules are the public modules of the epic.</p>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Key</th>
+<th>Responsibility</th>
+<th>Direct dependencies</th>
+<th>Extracted by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OpenTLV::Core</code></td>
+<td><code>core</code></td>
+<td>Definition, Format contract and composition, Layout, Element, Value, Tag, size and endian utilities, Field Encoding, result taxonomy, generic diagnostic infrastructure, version</td>
+<td>none</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/647">#647</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::IO</code></td>
+<td><code>io</code></td>
+<td>Reader, Tree Reader, visitor traversal, Writer, Tree Writer, Element copy through a Format</td>
+<td>Core</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/647">#647</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Document</code></td>
+<td><code>document</code></td>
+<td>Owned mutable Document, wire import and export</td>
+<td>Core, IO</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/648">#648</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Query</code></td>
+<td><code>query</code></td>
+<td>Query text frontend, programs, plans, buffer and event execution</td>
+<td>Core, IO</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/650">#650</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Schema</code></td>
+<td><code>schema</code></td>
+<td>Schema definitions, length and value constraints, structural validation and reports</td>
+<td>Core, IO</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Codec</code></td>
+<td><code>codec</code></td>
+<td>Value codec contract and generic numeric, digit, text, IPv4 and byte codecs</td>
+<td>Core</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/651">#651</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Generator</code></td>
+<td><code>generator</code></td>
+<td>Deterministic wire-data generation</td>
+<td>Core; IO privately</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/649">#649</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::ASN1</code></td>
+<td><code>asn1</code></td>
+<td>BER, DER and CER formats, identifiers, validation, ASN.1 codecs, DER Schema, ASN.1 Query hooks</td>
+<td>Core, IO, Codec, Schema, Query</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::EMV</code></td>
+<td><code>emv</code></td>
+<td>EMV framing, DOL, dictionary, codecs, schemas, presentation, Query hooks</td>
+<td>Core, Codec, Schema, Query; ASN.1 and Schema numbers privately; IO for the C++ facade</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::Bluetooth</code></td>
+<td><code>bluetooth</code></td>
+<td>Bluetooth LTV format, AD data, definitions, schema and codecs</td>
+<td>Core, IO, Codec, Schema</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::NFC</code></td>
+<td><code>nfc</code></td>
+<td>NFC Type 2 framing</td>
+<td>Core; IO for the C++ facade</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::DHCP</code></td>
+<td><code>dhcp</code></td>
+<td>DHCPv4 option framing, definitions, options container and codecs</td>
+<td>Core, Codec, Schema; IO privately</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+<tr>
+<td><code>OpenTLV::LLDP</code></td>
+<td><code>lldp</code></td>
+<td>LLDP framing, definitions, LLDPDU validation and codecs</td>
+<td>Core, Codec, Schema; IO privately</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/653">#653</a></td>
+</tr>
+</tbody>
+</table>
+<p>An <em>integration target</em> owns only the public API that combines modules which
+must not depend on each other. It has exactly one owning module, depends on
+that module and on the other participants, and is never a dependency of the
+participants themselves. Integration targets are built, installed and
+exported like modules and are linked explicitly by the consumers that use
+them, as <a href="../architecture/architectural-rules/#18-features-must-remain-independently-usable">rule 18</a>
+requires ("capabilities compose through explicit integrations"). They do not
+count as public modules. A <em>facade-only</em> integration target is a header-only
+<code>INTERFACE</code> target for C++ conveniences that have no C implementation.</p>
+<table>
+<thead>
+<tr>
+<th>Integration target</th>
+<th>Owner</th>
+<th>Direct dependencies</th>
+<th>Contents</th>
+<th>Implemented by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query-document</code></td>
+<td>Query</td>
+<td>Core, IO, Document, Query</td>
+<td>Document Query visit, evaluation, values, programs, edits and <code>tlv_document_find_path()</code></td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/648">#648</a> prepares, <a href="https://github.com/OpenTLV/opentlv/issues/650">#650</a> completes</td>
+</tr>
+<tr>
+<td><code>query-codec</code></td>
+<td>Query</td>
+<td>Query, Codec</td>
+<td>Codec-backed conversion adapters and builtin hooks</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/650">#650</a></td>
+</tr>
+<tr>
+<td><code>codec-structure</code></td>
+<td>Codec</td>
+<td>Core, Codec, Schema; IO privately</td>
+<td>Structure Codec</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/651">#651</a></td>
+</tr>
+<tr>
+<td><code>schema-number</code></td>
+<td>Schema</td>
+<td>Schema, Codec</td>
+<td>Numeric Schema constraints through number codecs</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
+</tr>
+<tr>
+<td><code>schema-query</code></td>
+<td>Schema</td>
+<td>Core, IO, Schema, Query</td>
+<td>Contextual Query assertions over buffers and events</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
+</tr>
+<tr>
+<td><code>schema-query-document</code></td>
+<td>Schema</td>
+<td>Document, <code>schema-query</code>, <code>query-document</code></td>
+<td><code>tlv_schema_query_validate_document()</code></td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
+</tr>
+<tr>
+<td><code>document-codec</code> (facade only)</td>
+<td>Document</td>
+<td>Document, Codec</td>
+<td>Typed decoding of Document nodes in C++</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/648">#648</a></td>
+</tr>
+<tr>
+<td><code>io-codec</code> (facade only)</td>
+<td>Codec</td>
+<td>IO, Codec</td>
+<td>Typed <code>writer_base::write()</code> overloads in C++</td>
+<td><a href="https://github.com/OpenTLV/opentlv/issues/651">#651</a></td>
+</tr>
+</tbody>
+</table>
+<p>The <em>aggregate</em> interface target links every public module and integration
+target. It owns the umbrella headers <code>tlv/tlv.h</code>, <code>tlv++/tlv.hpp</code> and
+<code>tlv++/native.hpp</code>, and nothing depends on it. It replaces "link everything"
+use of the former monolithic <code>tlv</code> target; <a href="https://github.com/OpenTLV/opentlv/issues/654">#654</a>
+decides its final name with the #702 contract.</p>
+<p>Builtins stay one module per protocol family. Their integrations with Codec,
+Schema and Query stay inside the family module: builtins may depend on any
+generic module or integration target, so no cycle can result, and a separate
+target per builtin integration would only multiply public names. EMV depends
+privately on ASN.1 for the BER identifier reader of its DOL helper; epic
+<a href="https://github.com/OpenTLV/opentlv/issues/695">#695</a> replaces that helper
+with generic composition and then removes the dependency.</p>
+<h3 id="c-facades">C++ facades<a class="headerlink" href="#c-facades" title="Permanent link">&para;</a></h3>
+<p>Every module and integration target owns the header-only C++ facade of its C
+API. The facade is a separate <code>INTERFACE</code> target per module that requires C++11
+and depends on its C target and on the facades of that target's dependencies.
+Pure C consumers never link a facade target, so they never need a C++
+compiler, and <code>OPENTLV_BUILD_CXX</code> keeps controlling only C++ tests, examples
+and tools. A facade may depend on more than its C target only where
+<a href="ownership.json">ownership.json</a> lists a <code>facade</code> dependency (EMV and NFC
+facades read and write through the IO facade). A facade that combines two
+modules belongs to their integration target.</p>
+<h2 id="target-dependency-graph">Target dependency graph<a class="headerlink" href="#target-dependency-graph" title="Permanent link">&para;</a></h2>
+<p><a href="ownership.json">ownership.json</a> <code>targets</code> is the authoritative graph. Each
+target lists its direct dependencies: <code>public</code> ones are required by its public
+headers, <code>private</code> ones only by its sources, and <code>facade</code> ones only by its C++
+headers. The graph is acyclic, and the checker rejects any change that adds a
+cycle. Generic modules:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>core &lt;- io &lt;- document
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>          &lt;- query
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>          &lt;- schema
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>          &lt;- generator (private)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>core &lt;- codec
+</code></pre></div>
+<p>Integration targets sit above the modules they join:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>query + document          &lt;- query-document
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>query + codec             &lt;- query-codec
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>codec + schema (+ io)     &lt;- codec-structure
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>schema + codec            &lt;- schema-number
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>schema + query            &lt;- schema-query
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>schema-query + query-document &lt;- schema-query-document
+</code></pre></div>
+<p>Builtins depend on generic modules and integration targets, never the reverse:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>asn1      -&gt; core, io, codec, schema, query
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>emv       -&gt; core, codec, schema, query; asn1, schema-number (private)
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>bluetooth -&gt; core, io, codec, schema
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>nfc       -&gt; core
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>dhcp      -&gt; core, codec, schema; io (private)
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>lldp      -&gt; core, codec, schema; io (private)
+</code></pre></div>
+<p>Permitted directions:</p>
+<ol>
+<li>Core depends on nothing. IO depends on Core.</li>
+<li>Document, Query, Schema and Generator depend on IO; Codec depends only on
+   Core. No generic module depends on another generic module at the same level.</li>
+<li>An integration target depends on its owner and the other participants;
+   no module target depends on an integration target of a generic module,
+   except builtins.</li>
+<li>Builtins depend on generic targets. A builtin may depend on another
+   builtin only with a documented reason (EMV on ASN.1 above).</li>
+<li>Nothing depends on the aggregate.</li>
+</ol>
+<h3 id="static-and-shared-dependencies">Static and shared dependencies<a class="headerlink" href="#static-and-shared-dependencies" title="Permanent link">&para;</a></h3>
+<p>The lists map directly to CMake: <code>public</code> dependencies are
+<code>target_link_libraries(... PUBLIC ...)</code>, <code>private</code> ones <code>PRIVATE</code>. A shared
+module records every dependency as a runtime dependency (<code>DT_NEEDED</code>, an
+import library on Windows), while only public dependencies propagate include
+directories and link options to consumers. A static module also propagates
+private dependencies as link-only requirements (<code>$&lt;LINK_ONLY:...&gt;</code>), because a
+static archive cannot carry its dependencies. The installed package exports
+the same graph per component, so <code>find_package(OpenTLV COMPONENTS EMV)</code> makes
+Core, Codec, Schema, Query, ASN.1, Schema numbers and IO available. Static and
+shared builds keep the same graph; neither may need an extra dependency.</p>
+<h2 id="ownership-inventory">Ownership inventory<a class="headerlink" href="#ownership-inventory" title="Permanent link">&para;</a></h2>
+<p><a href="ownership.json">ownership.json</a> <code>files</code> assigns every C source, private
+header, public header, C++ facade header and resource template under <code>tlv/</code>
+and <code>tlv++/</code> (256 files) to one target. Generated headers (<code>tlv/config.h</code>,
+<code>tlv/export.h</code>, <code>tlv/version.h</code>) belong to Core until #654 removes or moves
+their module-selection parts. The inventory and symbol counts below come from
+the current <code>main</code> revision; exported symbols are those of the shared library,
+internal ones are global but hidden.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th style="text-align: right;">Sources</th>
+<th style="text-align: right;">Private headers</th>
+<th style="text-align: right;">Public C headers</th>
+<th style="text-align: right;">C++ headers</th>
+<th style="text-align: right;">Exported symbols</th>
+<th style="text-align: right;">Internal symbols</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>core</code></td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">109</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr>
+<td><code>io</code></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>document</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr>
+<td><code>query</code></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr>
+<td><code>schema</code></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>codec</code></td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>generator</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>query-document</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><code>query-codec</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>codec-structure</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>schema-number</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>schema-query</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>schema-query-document</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>asn1</code></td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">46</td>
+</tr>
+<tr>
+<td><code>emv</code></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">188</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td><code>bluetooth</code></td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>nfc</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>dhcp</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td><code>lldp</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>aggregate</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>removed (<code>tlv_config_*</code>)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>87</strong></td>
+<td style="text-align: right;"><strong>22</strong></td>
+<td style="text-align: right;"><strong>84</strong></td>
+<td style="text-align: right;"><strong>59</strong></td>
+<td style="text-align: right;"><strong>615</strong></td>
+<td style="text-align: right;"><strong>78</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The four resource templates (<code>tlv/resources/*.in</code>) belong to Core and are not
+counted above. Symbol counts assign each symbol to its target after the <code>api</code>
+moves below; Query and Document files that implement <code>query-document</code> stay in
+their current directories until #650 moves them. The symbols were collected
+from a GCC build of <code>main</code> with <code>nm</code> (static objects for definitions and
+references, <code>nm -D</code> on the shared library for exports); #646 automates this
+for every build.</p>
+<h3 id="public-api-ownership">Public API ownership<a class="headerlink" href="#public-api-ownership" title="Permanent link">&para;</a></h3>
+<p>A public declaration is owned by the target that owns its header. The <code>api</code>
+section of <a href="ownership.json">ownership.json</a> lists every declaration or
+definition whose owner differs from the file it is in today, each with the
+resolution that moves it:</p>
+<table>
+<thead>
+<tr>
+<th>Moved API</th>
+<th>From</th>
+<th>To</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tlv_copy_element()</code></td>
+<td>Core <code>copy.h</code></td>
+<td>IO</td>
+<td><code>core-copy-element</code></td>
+</tr>
+<tr>
+<td><code>tlv_utf8_*</code> helpers</td>
+<td>Core private header</td>
+<td>Core public API</td>
+<td><code>core-utf8-api</code></td>
+</tr>
+<tr>
+<td>Reader and Writer operation names</td>
+<td>Core <code>diagnostic_strings.c</code></td>
+<td>IO</td>
+<td><code>io-diagnostic-names</code></td>
+</tr>
+<tr>
+<td><code>tree_writer_measure_events_observed()</code></td>
+<td>IO private header</td>
+<td>IO public API</td>
+<td><code>io-tree-measure</code></td>
+</tr>
+<tr>
+<td><code>tlv_document_query_*</code>, <code>tlv_document_find_path()</code> and their types</td>
+<td>Document <code>document.h</code></td>
+<td><code>query-document</code></td>
+<td><code>document-query-boundary</code></td>
+</tr>
+<tr>
+<td><code>document_contains()</code>, <code>document_format()</code>, <code>document_node_tag()</code></td>
+<td>Document internals</td>
+<td>Document public boundary</td>
+<td><code>document-query-boundary</code></td>
+</tr>
+<tr>
+<td><code>query_document_*</code>, <code>query_live_overlap()</code>, <code>query_retained_overlap()</code></td>
+<td>Query internals</td>
+<td>Query owner-internal interface</td>
+<td><code>query-document-integration</code></td>
+</tr>
+<tr>
+<td><code>tlv_query_definition_resolve()</code></td>
+<td><code>query-codec</code> <code>adapters.h</code></td>
+<td>Query</td>
+<td><code>query-codec-hooks</code></td>
+</tr>
+<tr>
+<td>Query kind and cause names</td>
+<td>Core <code>diagnostic_strings.c</code></td>
+<td>Query</td>
+<td><code>query-diagnostic-names</code></td>
+</tr>
+<tr>
+<td><code>tlv_codec_diagnostic_init()</code> and Codec names</td>
+<td>Core <code>diagnostic.c</code>, <code>diagnostic_strings.c</code></td>
+<td>Codec</td>
+<td><code>codec-diagnostic-vocabulary</code></td>
+</tr>
+<tr>
+<td>Schema issue, definition and cause names</td>
+<td>Core <code>diagnostic_strings.c</code></td>
+<td>Schema</td>
+<td><code>schema-diagnostic-causes</code></td>
+</tr>
+<tr>
+<td><code>tlv_schema_query_validate_document()</code></td>
+<td><code>schema-query</code></td>
+<td><code>schema-query-document</code></td>
+<td><code>schema-query-integration</code></td>
+</tr>
+<tr>
+<td><code>tlv_config_query_frontend()</code>, <code>tlv_config_query_set_operations()</code></td>
+<td>Core <code>config.h</code></td>
+<td>Query</td>
+<td><code>query-features</code></td>
+</tr>
+<tr>
+<td>Other <code>tlv_config_*()</code> mirrors</td>
+<td>Core <code>config.h</code></td>
+<td>removed</td>
+<td><code>remove-module-selection</code></td>
+</tr>
+</tbody>
+</table>
+<p>The name functions currently promise availability "even when the corresponding
+capability is disabled". In the module architecture a module is never
+disabled: the name function is available wherever its module is linked, and a
+consumer that holds a diagnostic of a module has linked it. Cause frames carry
+their domain's name lookup, so a consumer can name a foreign cause without
+linking its module; see <a href="diagnostics/#names">Module diagnostics</a>.</p>
+<h2 id="existing-cycles">Existing cycles<a class="headerlink" href="#existing-cycles" title="Permanent link">&para;</a></h2>
+<p>The current <code>tlv</code> target compiles everything together, so its include and
+symbol graph contains cycles that separate targets cannot have. Assigning the
+current files to their target owners gives these cycles, computed by
+<code>python scripts/check_module_contracts.py --report</code> and by <code>nm</code> symbol
+references:</p>
+<table>
+<thead>
+<tr>
+<th>Cycle</th>
+<th>Evidence</th>
+<th>Resolution</th>
+<th>Issue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core ↔ IO</td>
+<td><code>copy.c</code> calls <code>tlv_write_element()</code> and <code>tlv_element_encoded_size()</code>; <code>writer.c</code> calls <code>tlv_copy_encoded()</code>; <code>diagnostic_strings.c</code> includes Reader and Writer headers</td>
+<td><code>core-copy-element</code>, <code>io-diagnostic-names</code></td>
+<td>#647</td>
+</tr>
+<tr>
+<td>Core ↔ Query</td>
+<td><code>diagnostic_strings.c</code> includes <code>tlv/query/program.h</code></td>
+<td><code>query-diagnostic-names</code></td>
+<td>#650</td>
+</tr>
+<tr>
+<td>Core ↔ Codec</td>
+<td><code>diagnostic.c</code> defines <code>tlv_codec_diagnostic_init()</code>; both diagnostic files include <code>tlv/codec/diagnostic.h</code></td>
+<td><code>codec-diagnostic-vocabulary</code></td>
+<td>#651</td>
+</tr>
+<tr>
+<td>Core ↔ Schema</td>
+<td><code>diagnostic_strings.c</code> and <code>tlv++/error.hpp</code> include <code>tlv/schema/schema.h</code></td>
+<td><code>schema-diagnostic-causes</code></td>
+<td>#652</td>
+</tr>
+<tr>
+<td>Codec ↔ Schema</td>
+<td><code>tlv_codec_detail_t</code> embeds <code>tlv_schema_detail_t</code>; <code>tlv_schema_diagnostic_t</code> embeds <code>tlv_codec_detail_t</code></td>
+<td><code>codec-diagnostic-vocabulary</code>, <code>schema-diagnostic-causes</code></td>
+<td>#651, #652</td>
+</tr>
+<tr>
+<td>Query ↔ <code>query-codec</code></td>
+<td><code>tlv++/query/options.hpp</code> includes <code>tlv/query/adapters.h</code> for codec hooks</td>
+<td><code>query-codec-hooks</code></td>
+<td>#650</td>
+</tr>
+<tr>
+<td>Document ↔ Query (modules)</td>
+<td><code>document.h</code> includes <code>tlv/query/query.h</code> and declares Document Query; <code>document/query.c</code> and <code>query/document_backend.c</code> use both modules' internals</td>
+<td><code>document-query-boundary</code>, <code>query-document-integration</code></td>
+<td>#648, #650</td>
+</tr>
+<tr>
+<td>Query ↔ Schema (modules)</td>
+<td><code>tlv_query_diagnostic_t</code> embeds Schema and Codec detail; <code>schema/query.c</code> includes <code>query/program_internal.h</code></td>
+<td><code>query-codec-hooks</code>, <code>schema-query-integration</code></td>
+<td>#650, #652</td>
+</tr>
+</tbody>
+</table>
+<p>Every resolution is approved with this page. After them the target graph in
+<a href="ownership.json">ownership.json</a> has no cycle, which the checker verifies.</p>
+<h3 id="dependency-and-private-header-exceptions">Dependency and private-header exceptions<a class="headerlink" href="#dependency-and-private-header-exceptions" title="Permanent link">&para;</a></h3>
+<p>Besides the cycles, these includes reach a target outside the declared
+dependencies or a private header of another module. The <code>exceptions</code> of
+<a href="ownership.json">ownership.json</a> list each include, and an extraction removes
+its entries when it applies the resolution:</p>
+<table>
+<thead>
+<tr>
+<th>Resolution</th>
+<th>Includes it removes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>core-copy-element</code></td>
+<td><code>copy.c</code> → <code>tlv/writer/writer.h</code></td>
+</tr>
+<tr>
+<td><code>core-utf8-api</code></td>
+<td><code>utf8_internal.h</code> from ASN.1 <code>asn1_values_internal.h</code>, Bluetooth <code>ad_codec.c</code> and Query <code>adapters.c</code>, <code>compiler.c</code>, <code>evaluation.c</code>, <code>execute.c</code></td>
+</tr>
+<tr>
+<td><code>core-callback-api</code></td>
+<td><code>callback_internal.h</code> from IO <code>writer/tree.c</code>, Codec <code>result_internal.h</code>, Query <code>program_internal.h</code> and ASN.1 <code>der_schema.c</code></td>
+</tr>
+<tr>
+<td><code>io-diagnostic-names</code></td>
+<td><code>diagnostic_strings.c</code> → Reader and Writer headers</td>
+</tr>
+<tr>
+<td><code>io-tree-measure</code></td>
+<td><code>query/document_backend.c</code> → <code>writer/tree_internal.h</code></td>
+</tr>
+<tr>
+<td><code>document-query-boundary</code></td>
+<td><code>document.h</code> → <code>tlv/query/query.h</code>; <code>document.hpp</code> → Query facades</td>
+</tr>
+<tr>
+<td><code>document-codec-facade</code></td>
+<td><code>document.hpp</code> → <code>tlv++/codec/typed.hpp</code></td>
+</tr>
+<tr>
+<td><code>query-document-integration</code></td>
+<td><code>document/query.c</code> and <code>query/document_backend.c</code> → <code>document_internal.h</code></td>
+</tr>
+<tr>
+<td><code>query-codec-hooks</code></td>
+<td><code>tlv/query/program.h</code> → <code>tlv/codec/codec.h</code>; <code>query/evaluation.c</code> → <code>codec/result_internal.h</code>; <code>tlv++/query/options.hpp</code> → <code>tlv/query/adapters.h</code></td>
+</tr>
+<tr>
+<td><code>query-diagnostic-names</code></td>
+<td><code>diagnostic_strings.c</code> → <code>tlv/query/program.h</code></td>
+</tr>
+<tr>
+<td><code>codec-diagnostic-vocabulary</code></td>
+<td><code>diagnostic.c</code>, <code>diagnostic_strings.c</code> → <code>tlv/codec/diagnostic.h</code>; <code>tlv/codec/diagnostic.h</code> → Reader and Schema detail headers</td>
+</tr>
+<tr>
+<td><code>io-codec-facade</code></td>
+<td><code>tlv++/codec/typed.hpp</code> → <code>tlv++/writer/writer.hpp</code></td>
+</tr>
+<tr>
+<td><code>schema-diagnostic-causes</code></td>
+<td><code>tlv/schema/schema.h</code> → <code>tlv/codec/diagnostic.h</code>; <code>diagnostic_strings.c</code> and <code>tlv++/error.hpp</code> → <code>tlv/schema/schema.h</code></td>
+</tr>
+<tr>
+<td><code>schema-number-api</code></td>
+<td>EMV <code>emv_codec.c</code> → <code>schema/codec_internal.h</code></td>
+</tr>
+<tr>
+<td><code>schema-query-integration</code></td>
+<td><code>schema/query.c</code> → <code>query/program_internal.h</code>; <code>tlv/schema/query.h</code> → <code>tlv/document/document.h</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>core-diagnostic-causes</code> (#647) has no include of its own: it adds the Core
+cause infrastructure that <code>query-codec-hooks</code>, <code>codec-diagnostic-vocabulary</code>
+and <code>schema-diagnostic-causes</code> require. The summaries in
+<a href="ownership.json">ownership.json</a> <code>resolutions</code> state each resolution in full.</p>
+<h3 id="cross-target-internal-symbols">Cross-target internal symbols<a class="headerlink" href="#cross-target-internal-symbols" title="Permanent link">&para;</a></h3>
+<p>A shared module exports only its declared API. These hidden symbols are
+called across targets today and therefore need a resolution before the
+targets are separate libraries:</p>
+<table>
+<thead>
+<tr>
+<th>Symbols</th>
+<th>Caller → owner</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tlv_utf8_validate()</code>, <code>tlv_utf8_find_invalid()</code>, <code>tlv_utf8_stream_*()</code></td>
+<td>ASN.1, Bluetooth, Query, <code>query-codec</code> → Core</td>
+<td><code>core-utf8-api</code></td>
+</tr>
+<tr>
+<td><code>document_query_callback()</code>, <code>document_edit_targets()</code>, <code>document_node_tag()</code>, <code>document_contains()</code>, <code>document_format()</code></td>
+<td><code>query-document</code> → Document</td>
+<td><code>document-query-boundary</code></td>
+</tr>
+<tr>
+<td><code>tree_writer_measure_events_observed()</code></td>
+<td><code>query-document</code> → IO</td>
+<td><code>io-tree-measure</code></td>
+</tr>
+<tr>
+<td><code>query_document_end()</code>, <code>query_document_handle()</code>, <code>query_document_next()</code>, <code>query_document_result_count()</code>, <code>query_live_overlap()</code>, <code>query_retained_overlap()</code></td>
+<td><code>query-document</code> → Query</td>
+<td><code>query-document-integration</code></td>
+</tr>
+</tbody>
+</table>
+<p>All other cross-target references already use exported symbols. No exported
+symbol lacks a public declaration.</p>
+<h2 id="private-header-boundaries">Private-header boundaries<a class="headerlink" href="#private-header-boundaries" title="Permanent link">&para;</a></h2>
+<ul>
+<li>A header under <code>tlv/src/</code> is private to the module that owns it. Files of
+  that module, including its integration targets, may include it; no other
+  module may.</li>
+<li>An integration target may use its owner's private headers, but only the
+  public API of the other participants. Document–Query is owned by Query, so
+  it may use Query internals but needs a public Document boundary.</li>
+<li>An out-of-line function that an integration calls in its owner is an
+  <em>owner-internal interface</em>: declared in the owner's private header,
+  exported with the owner's export macro, absent from user documentation and
+  without compatibility promise, and referenced only by the owner's
+  integration targets (checked by #646). It is the only exported API that is
+  not public.</li>
+<li>Public headers include only public headers of their target and its declared
+  dependencies.</li>
+<li>Core's generic helpers that other modules need become documented Core API
+  (<code>core-utf8-api</code>, <code>core-callback-api</code>) rather than shared private headers.</li>
+</ul>
+<h2 id="integration-ownership">Integration ownership<a class="headerlink" href="#integration-ownership" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Integration</th>
+<th>Owner</th>
+<th>Strategy</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Document–Query</td>
+<td>Query</td>
+<td>Query owns the integration; Document exposes a public traversal and edit boundary without depending on Query. #648 moves the Document Query declarations, types and edit helpers out of the Document target and keeps them building in place against that boundary; #650 moves the implementation into <code>query-document</code>, replaces private Document and Writer access, and makes the Query internals it uses an owner-internal interface.</td>
+<td><code>query-document</code></td>
+</tr>
+<tr>
+<td>Query–Codec</td>
+<td>Query</td>
+<td>Base Query keeps conversion hooks but reports their failures through Core cause frames; Codec-backed adapters, builtin hooks and C++ hook options move to the integration. Basic Query builds without Codec.</td>
+<td><code>query-codec</code></td>
+</tr>
+<tr>
+<td>Schema–Codec</td>
+<td>Schema for numeric constraints, Codec for Structure Codec</td>
+<td>Two directions, two targets: numeric constraints use number codecs (<code>schema-number</code>); Structure Codec composes Reader, Schema and value codecs (<code>codec-structure</code>). Neither base module includes the other; foreign detail travels as cause frames.</td>
+<td><code>schema-number</code>, <code>codec-structure</code></td>
+</tr>
+<tr>
+<td>Schema–Query</td>
+<td>Schema</td>
+<td>Contextual assertions use only public Query execution APIs. Document-based validation needs Document Query and is a separate target so buffer and event validation do not link Document.</td>
+<td><code>schema-query</code>, <code>schema-query-document</code></td>
+</tr>
+<tr>
+<td>Document–Codec (C++)</td>
+<td>Document</td>
+<td>Typed node decoding moves out of <code>document.hpp</code>.</td>
+<td><code>document-codec</code></td>
+</tr>
+<tr>
+<td>IO–Codec (C++)</td>
+<td>Codec</td>
+<td>Typed writer overloads move out of <code>typed.hpp</code>.</td>
+<td><code>io-codec</code></td>
+</tr>
+<tr>
+<td>Builtin–generic</td>
+<td>Each builtin</td>
+<td>Inside the family module, which depends on the generic targets it uses.</td>
+<td>builtin module</td>
+</tr>
+</tbody>
+</table>
+<h3 id="documentquery-across-648-and-650">Document–Query across #648 and #650<a class="headerlink" href="#documentquery-across-648-and-650" title="Permanent link">&para;</a></h3>
+<p>The repository stays buildable and testable between the two issues:</p>
+<ol>
+<li>
+<h1 id="648-creates-the-document-target-with-core-and-io-only-the-document-query">648 creates the Document target with Core and IO only. The Document Query<a class="headerlink" href="#648-creates-the-document-target-with-core-and-io-only-the-document-query" title="Permanent link">&para;</a></h1>
+   declarations move to a Query-owned header, and <code>document/query.c</code>,
+   <code>query/document_backend.c</code> and the Query-specific part of <code>document.c</code>
+   (<code>document_query_callback()</code>, <code>document_edit_targets()</code> and the edit
+   helpers) stay with Query in the part of the library that is not extracted
+   yet. They may still use the current private headers, recorded as
+   exceptions.</li>
+<li>
+<h1 id="650-creates-the-query-target-completes-query-document-on-public">650 creates the Query target, completes <code>query-document</code> on public<a class="headerlink" href="#650-creates-the-query-target-completes-query-document-on-public" title="Permanent link">&para;</a></h1>
+   Document and IO APIs and the Query owner-internal interface, and removes
+   the exceptions. The Document Query tests then run against the integration
+   target.</li>
+</ol>
+<h2 id="static-and-shared-builds">Static and shared builds<a class="headerlink" href="#static-and-shared-builds" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Each compiled target has its own export macro and export header, generated
+  per target; #646 defines the naming. A target compiles with hidden default
+  visibility and exports only its own public API and its owner-internal
+  interface.</li>
+<li>A target never re-exports symbols of another target. Header-only inline
+  helpers are part of the API of the target that owns the header.</li>
+<li>Static targets keep their current object granularity, so a static consumer
+  links only the archive members it references. Shared targets load each
+  linked module completely.</li>
+<li><code>OPENTLV_BUILD_SHARED_LIBS</code> keeps selecting static or shared libraries for
+  every compiled target together. Pure C consumers link only C targets.</li>
+</ul>
+<h2 id="configuration-options">Configuration options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h2>
+<p>The module architecture removes options that select functionality and keeps
+build, language and development options. #654 removes options; extraction
+issues stop using them for their own sources.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OPENTLV_READER</code>, <code>OPENTLV_WRITER</code></td>
+<td>Remove; IO always provides both.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_DOCUMENT</code>, <code>OPENTLV_QUERY</code>, <code>OPENTLV_SCHEMA</code>, <code>OPENTLV_CODEC</code></td>
+<td>Remove; module selection is linking.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_FORMAT_ASN1</code>, <code>OPENTLV_FORMAT_BER</code>, <code>OPENTLV_FORMAT_DER</code>, <code>OPENTLV_FORMAT_CER</code></td>
+<td>Remove; see <a href="#asn1-granularity">ASN.1 granularity</a>.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_EMV</code>, <code>OPENTLV_BLUETOOTH</code>, <code>OPENTLV_NFC</code>, <code>OPENTLV_DHCP</code>, <code>OPENTLV_LLDP</code></td>
+<td>Remove; module selection is linking.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_QUERY_FRONTEND</code>, <code>OPENTLV_QUERY_SET_OPERATIONS</code></td>
+<td>Keep as Query-internal features; see <a href="#query-features">Query features</a>.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_BUILD_SHARED_LIBS</code></td>
+<td>Keep.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_BUILD_CXX</code></td>
+<td>Keep as the language switch for C++ tests, examples and tools.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_BUILD_DOCS</code>, <code>OPENTLV_BUILD_EXAMPLES</code>, <code>OPENTLV_BUILD_TESTS</code> and the other <code>OPENTLV_BUILD_*</code> test, benchmark, fuzzing and Memcheck options, <code>OPENTLV_WARNINGS_AS_ERRORS</code></td>
+<td>Keep.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>tlv_config_*()</code> mirrors and <code>tlv/config.h</code> macros of removed options go
+with them. Code that checks them, such as <code>#if OPENTLV_READER</code> in <code>ber.h</code> or
+<code>document.c</code>, takes the always-available branch.</p>
+<h2 id="query-features">Query features<a class="headerlink" href="#query-features" title="Permanent link">&para;</a></h2>
+<p>Both Query features stay, as options of the Query target only:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Decision and reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OPENTLV_QUERY_FRONTEND</code></td>
+<td>Keep. It omits the text parser and compiler (<code>compiler.c</code> and the V1 path parser in <code>query.c</code>) for frontend-free execution of <a href="../../api/guides/queries/">static C plans</a>, a documented embedded use case. It adds no dependency on another module, so it is a feature of Query, not a module.</td>
+</tr>
+<tr>
+<td><code>OPENTLV_QUERY_SET_OPERATIONS</code></td>
+<td>Keep. It omits union, intersection and difference from both executors; compilation and plan validation reject them with <code>UNSUPPORTED</code> + <code>CAPABILITY</code>. The <a href="../../api/guides/queries/">Query guide</a> defines such operation-family switches as capability choices within one plan and execution architecture.</td>
+</tr>
+</tbody>
+</table>
+<p>Retained features must not change dependencies or what other modules see:</p>
+<ul>
+<li>Their macros and runtime mirrors move from Core <code>tlv/config.h</code> to a
+  Query-owned configuration header (<code>query-features</code>, #650); no other module
+  reads them.</li>
+<li>They no longer turn off unrelated tests, examples, benchmarks or fuzzers
+  globally; the Query test targets select what they need (#646, #650).</li>
+<li><code>query_plan_supported()</code> stops checking <code>OPENTLV_DOCUMENT</code>: Document-level
+  plans are valid representations, executable through <code>query-document</code>.</li>
+</ul>
+<h2 id="asn1-granularity">ASN.1 granularity<a class="headerlink" href="#asn1-granularity" title="Permanent link">&para;</a></h2>
+<p><code>OpenTLV::ASN1</code> is one public module containing BER, DER and CER, their
+identifier and length helpers, strict universal value validation, ASN.1
+codecs, DER Schema and the ASN.1 Query hooks. BER, DER and CER share
+identifier, length and value-validation implementation
+(<code>asn1_internal.c</code>, <code>ber_internal.c</code>, <code>asn1_values_internal.c</code>), so separate
+public targets would need further internal targets without serving a
+protocol family boundary.</p>
+<p>This removes <code>OPENTLV_FORMAT_ASN1</code>, <code>OPENTLV_FORMAT_BER</code>,
+<code>OPENTLV_FORMAT_DER</code> and <code>OPENTLV_FORMAT_CER</code>: a consumer can no longer build
+BER without compiling DER and CER. Expected footprint:</p>
+<ul>
+<li>A static consumer links only the archive members it references. A BER-only
+  program pulls <code>ber.c</code>, <code>ber_internal.c</code>, <code>identifier.c</code> and their Core
+  dependencies, as it does today with DER and CER disabled; DER, CER, DER
+  Schema and codec objects stay out unless referenced.</li>
+<li>A shared consumer loads the whole ASN.1 library and its dependencies (Core,
+  IO, Codec, Schema and Query). Size-sensitive shared deployments should link
+  ASN.1 statically.</li>
+</ul>
+<p>For scale, a GCC 13 <code>MinSizeRel</code> static build of <code>main</code> has these ASN.1
+object sizes (text + data + bss): BER format and helpers (<code>ber.c</code>,
+<code>ber_internal.c</code>, <code>identifier.c</code>) 4.4 KiB, shared value validation 3.8 KiB,
+DER/CER identifier helpers 0.9 KiB, DER format and validation 3.7 KiB, CER
+format and validation 8.0 KiB, ASN.1 codecs 13.8 KiB, DER Schema 14.7 KiB and
+Query hooks 1.2 KiB; 50.6 KiB in total. #653 records the actual before/after
+footprint.</p>
+<h2 id="enforcement">Enforcement<a class="headerlink" href="#enforcement" title="Permanent link">&para;</a></h2>
+<p><code>scripts/check_module_contracts.py</code> runs in the static-analysis pre-commit job
+of every Core pull request, with its tests in
+<code>scripts/test_module_contracts.py</code>. It checks:</p>
+<ul>
+<li>the seven generic and six builtin modules, valid targets and an acyclic
+  dependency graph including facade dependencies;</li>
+<li>that every <code>.c</code>, <code>.h</code>, <code>.hpp</code> and <code>.in</code> file under <code>tlv/</code> and <code>tlv++/</code> has
+  one owner, with no stale entries;</li>
+<li>that every quoted include stays within its target or a declared
+  dependency, and never reaches another module's private header, except for
+  the recorded exceptions; new and resolved-but-recorded exceptions both fail;</li>
+<li>that every <code>api</code> move and resolution is still current;</li>
+<li>that <a href="diagnostic-mapping.json">diagnostic-mapping.json</a> maps every enumerator
+  of the public diagnostic vocabularies and every Query limit name, with
+  unique domains and no merged codes.</li>
+</ul>
+<p>An extraction PR updates <a href="ownership.json">ownership.json</a> with the code it
+moves: new files get an owner, applied resolutions lose their exceptions and
+<code>api</code> entries, and a resolution without remaining entries is removed.
+The CMake and symbol gates below enforce the implemented build graph as modules
+are registered during extraction.</p>
+<h3 id="cmake-infrastructure-and-naming">CMake infrastructure and naming<a class="headerlink" href="#cmake-infrastructure-and-naming" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/OpenTLV/opentlv/issues/646">#646</a> supplies
+<a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/cmake/modules.cmake"><code>cmake/modules.cmake</code></a>. It does not extract a
+functional module or replace the existing <code>OpenTLV::tlv</code> and <code>OpenTLV::tlv++</code>
+targets. The public naming decision remains with #702; explicit <code>EXPORT_NAME</code>
+arguments keep that decision separate from internal ownership keys.</p>
+<table>
+<thead>
+<tr>
+<th>Identity</th>
+<th>Convention</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Package</td>
+<td><code>OpenTLV</code>; <code>find_package(OpenTLV CONFIG REQUIRED COMPONENTS &lt;name&gt;)</code></td>
+</tr>
+<tr>
+<td>Internal key</td>
+<td>Lowercase contract key, for example <code>query-document</code></td>
+</tr>
+<tr>
+<td>Build target</td>
+<td><code>opentlv_&lt;key&gt;</code> with hyphens replaced by underscores</td>
+</tr>
+<tr>
+<td>Public target</td>
+<td><code>OpenTLV::&lt;EXPORT_NAME&gt;</code>; the component has the same name</td>
+</tr>
+<tr>
+<td>Compiled export macro</td>
+<td><code>OPENTLV_&lt;KEY&gt;_API</code>, uppercase with underscores</td>
+</tr>
+<tr>
+<td>Static usage requirement</td>
+<td><code>OPENTLV_&lt;KEY&gt;_STATIC_DEFINE</code>, propagated to consumers</td>
+</tr>
+<tr>
+<td>Generated export header</td>
+<td><code>tlv/&lt;key&gt;/export.h</code></td>
+</tr>
+<tr>
+<td>Module test build target</td>
+<td><code>test-module-&lt;key&gt;</code></td>
+</tr>
+<tr>
+<td>CTest ownership label</td>
+<td><code>module:&lt;key&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Register each compiled target with <code>opentlv_add_module(key ...)</code>, giving
+<code>EXPORT_NAME</code>, <code>INCLUDE_DIR</code>, <code>SOURCES</code>, <code>PUBLIC_HEADERS</code>, <code>PRIVATE_HEADERS</code>,
+<code>PUBLIC_DEPS</code>, <code>PRIVATE_DEPS</code>, <code>PUBLIC_SYMBOLS</code> and a runnable C <code>CONSUMER</code> source.
+Paths are relative to the calling source directory. Public headers are installed
+relative to <code>INCLUDE_DIR</code>; private headers are never installed. Lists of symbols
+contain exact external names, including exported data. No symbol-prefix wildcard
+grants ownership. Every registered source/header must agree with <code>ownership.json</code>.
+Generated export headers are handled by the helper.
+Feature-disabled C sources retain their contract owner but are omitted from that
+configuration's <code>SOURCES</code> and symbol lists; headers retain their registered
+boundaries. Source selection belongs to the registering module.</p>
+<p>For an integration, set <code>OWNER</code> to its owning module and depend directly on that
+module. <code>OWNER_SYMBOLS</code> declares the owner's exported internal interfaces, which
+only integrations with the same owner may reference. Other hidden global
+functions remain private even in static archives. Integrations are real
+independently linkable targets, not aliases to their participants.</p>
+<p>A <code>FACADE</code> registration has public headers and public dependencies, no compiled
+sources, and a C++ <code>CONSUMER</code>. It propagates <code>cxx_std_11</code> through an <code>INTERFACE</code>
+target. Register its own contract key and dependency edges in <code>ownership.json</code>;
+assign its <code>.hpp</code> files to that key when moving them out of the original module.
+Creating or installing facade targets does not enable a C++ compiler. C++ tests,
+examples and benchmarks enable C++ when they actually compile C++ sources.</p>
+<p><code>opentlv_finalize_modules()</code> runs after registrations. It rejects cycles,
+undeclared links, missing owners and sources added outside the registration. It
+writes the per-configuration <code>modules-&lt;config&gt;.json</code> build inventory and the
+installed component registry. Components load their dependencies transitively,
+including private archive dependencies, before importing their own targets.
+Unknown required components reject package discovery; unknown optional components
+report <code>OpenTLV_&lt;name&gt;_FOUND=FALSE</code>. No-component discovery preserves existing
+consumption and includes all available module targets. During the transition,
+<code>tlv</code> and, when enabled, <code>tlv++</code> are the available legacy components; names of
+unextracted modules are not advertised as working components.</p>
+<p>All compiled modules follow <code>OPENTLV_BUILD_SHARED_LIBS</code>. Shared targets use hidden
+default visibility, disable Windows automatic symbol export and export only
+their public or owner-internal symbol lists through their own macros. Static
+targets propagate their own static definition without suppressing another
+module's exports. The ELF symbol gate compares shared exports exactly and checks
+archive references against direct dependencies and symbol ownership.
+Installed shared modules locate adjacent dependencies through <code>$ORIGIN</code> on ELF
+or <code>@loader_path</code> on macOS, unless an installation RPATH was explicitly supplied.</p>
+<h3 id="isolation-and-test-ownership-during-extraction">Isolation and test ownership during extraction<a class="headerlink" href="#isolation-and-test-ownership-during-extraction" title="Permanent link">&para;</a></h3>
+<p>Run these checks for each extraction, alongside the existing contract checks:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/test_module_isolation.py
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/test_module_isolation.py<span class="w"> </span>--integration
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_module_isolation.py<span class="w"> </span>--shared<span class="w"> </span>OFF
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_module_isolation.py<span class="w"> </span>--shared<span class="w"> </span>ON
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>scripts/check_cmake_integration.py<span class="w"> </span>--shared<span class="w"> </span>OFF<span class="w"> </span>--cxx<span class="w"> </span>ON
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>python<span class="w"> </span>scripts/check_cmake_integration.py<span class="w"> </span>--shared<span class="w"> </span>ON<span class="w"> </span>--cxx<span class="w"> </span>OFF
+</code></pre></div>
+<p>The isolation runner requires an ELF platform with CMake, Ninja, C/C++ compilers
+and GNU or LLVM <code>nm</code>. It configures a fresh directory for every compiled module,
+builds only that target and its dependency closure, checks declared dependencies
+against the architecture contract, checks quoted and angle-bracket includes,
+rejects foreign private headers and unintended symbol dependencies, and builds
+and runs one installed consumer per component from a relocated package. C
+consumers enable only C; facade consumers link only their facade target and
+inherit its C++ requirements. Platform runtime/toolchain symbols are external to
+the OpenTLV module graph; unresolved <code>tlv_</code>/<code>opentlv_</code> symbols are rejected.</p>
+<p>The real static/shared fixture exercises public and private dependencies,
+owner-internal integration, hidden symbols, per-module exports and a C++ facade.
+Negative tests deliberately introduce dependency cycles, duplicate ownership,
+undeclared dependencies, private-header access and incorrect exports. The
+<code>cmake-consumers.yml</code> job runs these gates for PR, Main and Full validation, and
+automatically discovers new module registrations. Its existing Windows/Linux
+consumer matrix continues to check the transitional library. ELF symbol evidence
+does not claim Windows or macOS symbol inspection.</p>
+<p>Before the first extraction, the production inventory contains zero extracted
+modules. The fixture proves that the infrastructure works; it does not claim
+that the monolith is already isolated. The #644 checker still governs all
+unextracted code and its explicitly recorded migration exceptions.</p>
+<p>Use <code>opentlv_add_module_test(name OWNER key SOURCES ... DEPENDENCIES ...)</code> for
+extracted scenarios. A source belongs to one test owner; attempting to compile
+the same scenario source into another module test fails configuration. The
+helper creates a labeled CTest executable and adds it to <code>test-module-&lt;key&gt;</code>.
+<code>cmake --build &lt;build&gt; --target test-module-&lt;key&gt;</code> builds that owner's tests;
+<code>ctest --test-dir &lt;build&gt; -L '^module:&lt;key&gt;$' --output-on-failure</code> runs them.
+On Windows, provide the linked shared modules on the test process's <code>PATH</code>.</p>
+<p>Keep existing tests in their current targets until their behavior is extracted.
+In that extraction PR, move the scenarios to the owning module's test target and
+remove them from the old source list; preserve assertions and case coverage.
+Tests combining modules belong to the integration that owns that behavior.
+Use additional <code>DEPENDENCIES</code> only for fixtures needed by the scenario, not to
+make a module test exercise unrelated behavior. Query feature switches select
+Query tests locally when Query is extracted. Re-run the behavioral baseline and
+the existing native suite to demonstrate that no scenarios disappeared.</p>
+<h2 id="decisions-to-approve">Decisions to approve<a class="headerlink" href="#decisions-to-approve" title="Permanent link">&para;</a></h2>
+<ol>
+<li>The seven generic and six builtin module boundaries, and the target graph
+   in <a href="ownership.json">ownership.json</a>.</li>
+<li>Integration targets with one owning module, explicitly linked by
+   consumers, including the facade-only <code>document-codec</code> and <code>io-codec</code>.</li>
+<li>Query owns Document–Query; Document exposes a public boundary.</li>
+<li>The resolution of every cycle and exception listed above, including
+   publishing the Core UTF-8 and callback helpers.</li>
+<li>Owner-internal interfaces as the only non-public exported API.</li>
+<li>Builtin integrations inside their family modules; EMV's private ASN.1
+   dependency until #695.</li>
+<li>Separate C++ facade targets per module, with <code>facade</code> dependencies.</li>
+<li>The diagnostic architecture and code ownership mechanism in
+   <a href="diagnostics/">Module diagnostics</a>.</li>
+<li>Keeping both Query features as Query-internal options.</li>
+<li>One ASN.1 module with BER, DER and CER.</li>
+<li>The Reader → Format → Field boundary in
+    <a href="reader-format-field/">reader-format-field.md</a>.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+  <p class="md-typeset"><small>
+    Sources:
+    
+      
+        core
+        
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        
+      
+    
+      
+        cli
+        
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
+        
+      
+    
+      
+        lua
+        
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        
+      
+    
+      
+        python
+        
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        
+      
+    
+      
+        rust
+        
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        
+      
+    
+      
+        go
+        
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
+        
+      
+    
+      
+        js
+        
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        
+      
+    
+  </small></p>
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+  
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture/field-policies/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Declarative field policy design">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Declarative field policy design
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="diagnostics/" class="md-footer__link md-footer__link--next" aria-label="Next: Module diagnostics">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Module diagnostics
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/OpenTLV" target="_blank" rel="noopener" title="OpenTLV on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.sections", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.action.edit", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="../../playground/playground.js" type="module"></script>
+      
+    
+  </body>
+</html>

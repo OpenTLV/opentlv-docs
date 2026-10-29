@@ -470,10 +470,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-process-handoff" class="md-nav__link">
+  <a href="#github-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release process handoff
+        GitHub release
       
     </span>
   </a>
@@ -570,10 +570,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#release-process-handoff" class="md-nav__link">
+  <a href="#github-release" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Release process handoff
+        GitHub release
       
     </span>
   </a>
@@ -605,7 +605,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-go/edit/bc73a5100ef6109e8e5634add62785eb21352254/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-go/edit/247da7863510ebed64030a8c6c01e122ad122a31/docs/packaging.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -637,7 +637,7 @@
 </tr>
 <tr>
 <td>Binding source version</td>
-<td><code>opentlv.BindingVersion</code>, currently <code>0.1.0-dev</code></td>
+<td><code>opentlv.BindingVersion</code>, currently <code>0.1.0</code> (first release, tag <code>v0.1.0</code>)</td>
 </tr>
 <tr>
 <td>License</td>
@@ -645,7 +645,7 @@
 </tr>
 <tr>
 <td>Native dependency</td>
-<td>Immutable Core source commit in <code>core-source.json</code></td>
+<td>Core <code>v0.8.0</code> source commit in <code>core-source.json</code></td>
 </tr>
 </tbody>
 </table>
@@ -653,12 +653,21 @@
 dependencies, <code>replace</code> directives or required Go workspace. No <code>go.sum</code> is needed
 in this module today. All C/cgo implementation remains private in <code>internal/capi</code>.
 The module contains the bridge sources; it does not bundle the Core library.</p>
+<p>The module ZIP carries the root <code>LICENSE</code> with original attribution,
+<code>LICENSES/MIT.txt</code>, <code>REUSE.toml</code> and <code>THIRD_PARTY.md</code>. The package check rejects
+missing licensing inputs and tests exact notice bytes in the ZIP. See
+<a href="https://github.com/OpenTLV/opentlv-go/blob/247da7863510ebed64030a8c6c01e122ad122a31/THIRD_PARTY.md">dependencies and attribution</a> for the Core and toolchain review
+and notice handling when distributing linked binaries. Shared community policies
+remain in <code>OpenTLV/.github</code>; they do not supply a module license.</p>
 <h2 id="independent-versions-and-tags">Independent versions and tags<a class="headerlink" href="#independent-versions-and-tags" title="Permanent link">&para;</a></h2>
 <p><code>BindingVersion</code> identifies the Go binding source independently of Core. The
-initial <code>0.1.0-dev</code> is an unreleased development version, not a Core version or a
-claim that a public tag exists. Before a release, update this constant and the
-changelog together. The tag is <code>v</code> plus that version, at the repository root
-(for example <code>v0.1.0</code> or <code>v0.1.0-rc.1</code>), without a <code>bindings/go/</code> prefix.</p>
+first Go release is <code>0.1.0</code>, prepared against Core <code>v0.8.0</code> (#31); it is not a
+Core version. Migration development used the unreleased <code>0.1.0-dev</code>; there were
+no Go repository tags or GitHub releases when checked on 2026-10-28. Before a
+release, update this constant, <code>docs-examples.json</code>, <code>ci/release-notes.md</code> and
+the changelog together. The tag is <code>v</code> plus that version, at the repository root
+(for example <code>v0.1.0</code> or <code>v0.1.0-rc.1</code>), without a <code>bindings/go/</code> prefix. The
+release workflow publishes stable <code>vMAJOR.MINOR.PATCH</code> tags only.</p>
 <p>While experimental (v0), incompatible API, minimum-Go or native linking-contract
 changes increment the minor version; compatible fixes increment the patch.
 Core lock updates require a new binding version and compatibility validation;
@@ -669,15 +678,17 @@ suffix. Follow the <a href="https://go.dev/ref/mod#versions">Go module version r
 library, including a deliberately selected local Core. Its value is unrelated to
 <code>BindingVersion</code>. The exact selected Go dependency version comes from
 <code>go list -m github.com/OpenTLV/opentlv-go</code> or <code>runtime/debug.ReadBuildInfo</code>; an
-untagged commit resolves to a pseudo-version even while the source constant says
-<code>0.1.0-dev</code>. Neither value proves release publication or binary provenance.</p>
+untagged commit resolves to a pseudo-version, whatever the source constant says.
+Neither value proves release publication or binary provenance.</p>
 <h2 id="external-consumption">External consumption<a class="headerlink" href="#external-consumption" title="Permanent link">&para;</a></h2>
 <p>Use the canonical import in your application:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nx">opentlv</span><span class="w"> </span><span class="s">"github.com/OpenTLV/opentlv-go"</span>
 </code></pre></div>
-<p>Before a first release, select an exact <strong>merged commit containing the canonical
-module path</strong> with <code>go get github.com/OpenTLV/opentlv-go@&lt;commit&gt;</code>. Go records its
-pseudo-version. After publication, select the intended <code>vX.Y.Z</code> tag instead.
+<p>Select the release tag with <code>go get github.com/OpenTLV/opentlv-go@v0.1.0</code>; the
+public Go module proxy and checksum database serve and authenticate it. For an
+unreleased change, select an exact <strong>merged commit containing the canonical
+module path</strong> with <code>go get github.com/OpenTLV/opentlv-go@&lt;commit&gt;</code>; Go records
+its pseudo-version.
 Do not use the old Core subtree path and the new path together: Go treats their
 types and packages as distinct. There is no forwarding compatibility module.</p>
 <p>For local development before merge, create a separate application directory,
@@ -698,9 +709,21 @@ define <code>TLV_STATIC_DEFINE</code>; shared builds need the runtime library se
 See the <a href="../development/go/">development guide</a> and
 <a href="https://pkg.go.dev/cmd/cgo">cgo documentation</a>.</p>
 <h2 id="core-compatibility">Core compatibility<a class="headerlink" href="#core-compatibility" title="Permanent link">&para;</a></h2>
-<p>The supported source-build baseline is exactly commit
-<code>cb3caed5b09706ce11ecfae839397fd4f99d0025</code>, recorded in <code>core-source.json</code>.
-No wider Core version range or stable native ABI is claimed. Reader, Writer,
+<p>The supported source-build baseline is exactly Core <code>v0.8.0</code>, commit
+<code>345c77acb29266036df5f27d04ce315bb61853cc</code>, recorded with its release version in
+<code>core-source.json</code>. The build helper requires that version field; the release
+workflow additionally requires the Core tag to resolve to that commit and to be
+a published, non-prerelease Core release. No wider Core version range or stable
+native ABI is claimed.</p>
+<p>The pin moved from the migration baseline
+<code>cb3caed5b09706ce11ecfae839397fd4f99d0025</code> for the first release (#31). Between
+both commits Core changed no public header. Its native changes are internal
+Query program and executor workspace layout accessors with unchanged image
+format, public API and ABI (OpenTLV/opentlv#707, OpenTLV/opentlv#709); it also
+removed the WASM build option and the migrated Go, WASM and JavaScript sources.
+The Query conformance runner and corpus used by Full are unchanged. The reviewed
+generic API inventory is unchanged (166 referenced, zero missing and 131
+excluded symbols), and the generated diagnostic snapshots are identical. Reader, Writer,
 Query, Schema and Codec must be enabled. Minimal builds may disable ASN.1,
 Bluetooth, LLDP, DHCP, NFC and Document; corresponding public APIs retain their
 existing unavailable-feature errors. Use matching headers, generated config and
@@ -719,24 +742,53 @@ and result are logged; the candidate and temporary consumer are removed afterwar
 The local proxy disables the checksum database only for this private test. It
 does not modify user Go settings. PR/Fast, Main and every Full configuration run
 this check against their own Core configuration.</p>
-<p>Migration intentionally uses source-built Core rather than a verified release
+<p>The binding intentionally uses source-built Core rather than a verified release
 binary. The local ZIP has synthetic version/time metadata solely for testing;
-it is not an official release artifact. Public proxy retrieval, a published tag,
-checksum database registration and release readiness remain unclaimed. Publishing
-requires a separate approved release with successful hosted validation of the
-exact revision. This migration creates no tag or release.</p>
-<h2 id="release-process-handoff">Release process handoff<a class="headerlink" href="#release-process-handoff" title="Permanent link">&para;</a></h2>
-<p>The independently dispatched <code>go-full.yml</code> workflow is the technical release
-quality gate. Before authorizing a module tag, select the exact committed binding
-version and Core source lock, run Full on that commit, and require all six native
-configurations plus the attempt-matched Go quality gate. Each configuration
-includes the external-consumer package check. Retain the commit, run, attempt
-and artifact digests with the release decision; PR/Main or historical Full
-results cannot replace that candidate's Full evidence.</p>
-<p>The current <code>0.1.0-dev</code> metadata supports migration development and validation.
-A release owner separately approves a publishable version, changelog, tag and
-publication. Migration completion establishes that this process can be followed;
-it does not grant publication permission or claim public proxy availability.</p>
+it is not an official release artifact. The published module is the Git tag,
+served by the public Go module proxy; the release workflow checks that the proxy
+and checksum database serve exactly the tagged tree.</p>
+<h2 id="github-release">GitHub release<a class="headerlink" href="#github-release" title="Permanent link">&para;</a></h2>
+<p>The manual <code>Go Release</code> workflow (<code>.github/workflows/go-release.yml</code>) accepts an
+unused <code>vMAJOR.MINOR.PATCH</code> tag matching <code>BindingVersion</code>, <code>docs-examples.json</code>
+and <code>ci/release-notes.md</code>. Changes stay under <code>Unreleased</code> during development;
+close the changelog under the matching version without the tag's <code>v</code> prefix and
+the release date before dispatching the release (for example,
+<code>## [0.1.0] - 2026-10-28</code>). The versioned release notes are the publication text
+and are included in the hashed CI definitions.</p>
+<ol>
+<li>Review and merge the release preparation and the closed changelog. Wait for
+   successful Go Main CI on that exact commit. Dispatch <code>Go Release</code> on <code>main</code>
+   with <code>tag: v0.1.0</code>.</li>
+<li>The workflow rejects a foreign, dirty or non-main checkout, a changed main
+   tip, an existing tag or release, wrong versions, an open changelog, missing
+   Main evidence or a Core lock that is not the published Core release. It then
+   runs <a href="../../../../development/components/go/development/ci/#workflows-and-coverage">Full CI</a>: all six native
+   configurations, each with the external-consumer package check, and the
+   attempt-matched Go quality gate.</li>
+<li>Assembly revalidates every Full record against the current commit, run,
+   attempt, Core lock and CI definition hashes, then attests three assets:
+   <code>release-manifest.json</code> (request, Main run, Core release and all Full
+   records), <code>release-notes.md</code> and <code>SHA256SUMS</code>. There are no binaries.</li>
+<li>Publication rechecks the request, Full evidence, checksums, attestations and
+   unused tag status, then creates the tag and a draft release. Only after the
+   uploaded asset names, sizes, SHA-256 digests, notes and tag commit match does
+   it publish the draft and verify the public result. <code>go-published-&lt;attempt&gt;</code>
+   records the URL, source, Core and asset identities.</li>
+<li>The final job downloads <code>github.com/OpenTLV/opentlv-go@&lt;tag&gt;</code> through
+   <code>proxy.golang.org</code> with <code>sum.golang.org</code> verification in a fresh module
+   cache. It requires the module path, version and origin commit to match and
+   the module files to equal the tagged tree byte for byte, retrying while the
+   proxy fetches the new tag. <code>go-module-&lt;attempt&gt;</code> records the <code>h1:</code> sums.</li>
+<li>Record the published URL and exact commit, Main and Release/Full run links
+   in <a href="https://github.com/OpenTLV/opentlv-go/issues/31">issue #31</a> and
+   <a href="https://github.com/OpenTLV/opentlv/issues/718">Core epic #718</a>. Close the
+   tracking only after publication and module verification.</li>
+</ol>
+<p>If a failure occurs after creating a tag or draft, inspect that state before
+retrying; the workflow deliberately refuses to overwrite either. Never move or
+delete a published tag: the checksum database permanently records its content,
+so a correction needs a new version. Earlier attempts' artifacts cannot satisfy
+a new attempt. A new main commit or Main run requires a new release attempt.</p>
 
 
 
@@ -757,49 +809,49 @@ it does not grant publication permission or claim public proxy availability.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/4cd674fe87d7d4af1695f6bcd224bbca6344c4cb">4cd674fe87d7</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
         
       
     
       
         cli
         
-        <a href="https://github.com/OpenTLV/opentlv-cli/tree/abd2bce09a9f25071a41d7c1f3249fd48e8a0b20">abd2bce09a9f</a>
+        <a href="https://github.com/OpenTLV/opentlv-cli/tree/514d76f48485cc7fc602f8287b9f22e4ce015997">514d76f48485</a>
         
       
     
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/e2b65d515852748b80d1e4506c4b3a306d30a2f4">e2b65d515852</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/74d7ed756229ab11544d5eba38568ae6f2bfddb0">74d7ed756229</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/ee2d1f4eae24321f9dbd62d35fdeaf79e344bfbe">ee2d1f4eae24</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
         
       
     
       
         go
         
-        <a href="https://github.com/OpenTLV/opentlv-go/tree/bc73a5100ef6109e8e5634add62785eb21352254">bc73a5100ef6</a>
+        <a href="https://github.com/OpenTLV/opentlv-go/tree/247da7863510ebed64030a8c6c01e122ad122a31">247da7863510</a>
         
       
     
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/42687fb3fc7552aed887badab9ea1ac0651748be">42687fb3fc75</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
         
       
     
@@ -822,6 +874,7 @@ it does not grant publication permission or claim public proxy availability.</p>
         
       </main>
       
+  
         <footer class="md-footer">
   
     
@@ -852,6 +905,10 @@ it does not grant publication permission or claim public proxy availability.</p>
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
   
+    <div class="md-copyright__highlight">
+      &copy; 2026 Marek Cingel and contributors
+    </div>
+  
   
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
@@ -877,6 +934,12 @@ it does not grant publication permission or claim public proxy availability.</p>
   </div>
 </footer>
       
+  
+  <div class="md-footer-meta md-typeset"><div class="md-grid">
+    <a href="../../../../licenses/index.html">Licenses and third-party notices</a>
+  </div></div>
+  
+
     </div>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
