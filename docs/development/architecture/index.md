@@ -26,6 +26,11 @@ documentation for that planned work, not an available parsing mode. Check the
 [implemented capabilities](../../formats/support.md) and the selected binding's
 manual before assuming an API is exposed.
 
+The proposed [functional module contracts](../modules/README.md) define the
+module ownership and dependency graph for the planned split. They also cover
+[module diagnostics](../modules/diagnostics.md) and the
+[Reader, Format and Field boundary](../modules/reader-format-field.md).
+
 Preserve the [failure model](../../concepts/error-model.md), ownership and
 continuation contracts when changing a component. Update the owning technical
 source and its examples with the implementation; use the

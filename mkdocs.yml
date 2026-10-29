@@ -204,6 +204,10 @@ nav:
           - Definition boundaries: concepts/definition-boundaries.md
           - Declarative field policy design: concepts/field-policies.md
       - Planning and reviews:
+          - Functional module design:
+              - Module contracts: development/modules/README.md
+              - Module diagnostics: development/modules/diagnostics.md
+              - Reader, Format and Field boundary: development/modules/reader-format-field.md
           - Planned runtime model and canonical IR: concepts/runtime-model.md
           - Indefinite boundary reuse proposal: development/indefinite-boundary-reuse.md
           - Format roadmap: formats/format-roadmap.md
