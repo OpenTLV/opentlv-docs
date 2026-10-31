@@ -224,6 +224,15 @@
               },
               {
                 "Licensing": "validation/licensing.md"
+              },
+              {
+                "crates.io identity and packages": "validation/crates-io.md"
+              },
+              {
+                "Registry-style builds": "validation/registry-builds.md"
+              },
+              {
+                "crates.io publication": "validation/crates-io-publication.md"
               }
             ]
           }
