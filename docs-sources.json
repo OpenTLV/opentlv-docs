@@ -172,7 +172,7 @@
     {
       "id": "rust",
       "repository": "https://github.com/OpenTLV/opentlv-rust",
-      "revision": "f297ab3899bafb95716a39a38dfaf7df14e8768d",
+      "revision": "e10e6afe65851346a37916a22f8e3ecd22fffd5f",
       "docs_path": "docs",
       "mount": "rust",
       "updates": {
@@ -224,6 +224,15 @@
               },
               {
                 "Licensing": "validation/licensing.md"
+              },
+              {
+                "crates.io identity and packages": "validation/crates-io.md"
+              },
+              {
+                "Registry-style builds": "validation/registry-builds.md"
+              },
+              {
+                "crates.io publication": "validation/crates-io-publication.md"
               }
             ]
           }
