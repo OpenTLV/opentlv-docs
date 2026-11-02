@@ -233,6 +233,9 @@
               },
               {
                 "crates.io publication": "validation/crates-io-publication.md"
+              },
+              {
+                "crates.io release": "validation/crates-io-release.md"
               }
             ]
           }
