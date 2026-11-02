@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Include Core's module-first header migration page in Development navigation and link it from the architecture overview, so the Core documentation update to `7ff1e96e` passes the complete-page inventory check. (#170)
 - List the crates.io release validation record of the selected Rust revision under Rust validation records, so the Rust documentation update passes the complete-page inventory check. (#167)
 - List the crates.io identity, registry-style build and crates.io publication validation records of the selected Rust revision under Rust validation records, so the Rust documentation update passes the complete-page inventory check. (#161)
 - Include the selected Lua release description guide, candidate preview and historical v0.2.0 example in navigation so the Lua documentation update passes the complete-page inventory check. Route the guide and preview to Development and the example to historical records, preserving Lua source ownership and independent manual navigation. (#153)
