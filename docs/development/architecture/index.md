@@ -30,6 +30,8 @@ The proposed [functional module contracts](../modules/README.md) define the
 module ownership and dependency graph for the planned split. They also cover
 [module diagnostics](../modules/diagnostics.md) and the
 [Reader, Format and Field boundary](../modules/reader-format-field.md).
+The [module-first header migration](../modules/layout-migration.md) maps the
+old public include paths to the functional layout.
 
 Preserve the [failure model](../../concepts/error-model.md), ownership and
 continuation contracts when changing a component. Update the owning technical
