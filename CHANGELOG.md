@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- List the crates.io Trusted Publishing validation record of the selected Rust revision under Rust validation records, so the Rust documentation update to `1b860286` passes the complete-page inventory check. (#173)
 - Include Core's module-first header migration page in Development navigation and link it from the architecture overview, so the Core documentation update to `7ff1e96e` passes the complete-page inventory check. (#170)
 - List the crates.io release validation record of the selected Rust revision under Rust validation records, so the Rust documentation update passes the complete-page inventory check. (#167)
 - List the crates.io identity, registry-style build and crates.io publication validation records of the selected Rust revision under Rust validation records, so the Rust documentation update passes the complete-page inventory check. (#161)
