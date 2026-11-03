@@ -284,7 +284,7 @@
     {
       "id": "js",
       "repository": "https://github.com/OpenTLV/opentlv-js",
-      "revision": "a8bf32ae33de55cf79a8a99f6aa1e50363d72dc5",
+      "revision": "cb81e5818477c7c33dc468d3edabc6ff9acb3403",
       "docs_path": "docs",
       "mount": "js",
       "updates": {
