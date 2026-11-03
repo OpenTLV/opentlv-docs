@@ -209,6 +209,8 @@ nav:
               - Module diagnostics: development/modules/diagnostics.md
               - Reader, Format and Field boundary: development/modules/reader-format-field.md
               - Module-first header migration: development/modules/layout-migration.md
+              - Final modular verification: development/modules/final-verification.md
+          - Library and Core naming contract: development/naming.md
           - Planned runtime model and canonical IR: concepts/runtime-model.md
           - Indefinite boundary reuse proposal: development/indefinite-boundary-reuse.md
           - Format roadmap: formats/format-roadmap.md
