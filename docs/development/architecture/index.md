@@ -31,7 +31,11 @@ module ownership and dependency graph for the planned split. They also cover
 [module diagnostics](../modules/diagnostics.md) and the
 [Reader, Format and Field boundary](../modules/reader-format-field.md).
 The [module-first header migration](../modules/layout-migration.md) maps the
-old public include paths to the functional layout.
+old public include paths to the functional layout, and the
+[final modular verification](../modules/final-verification.md) records the
+completion gate against the v0.8.0 reference. The
+[Library and Core naming contract](../naming.md) separates the OpenTLV Library
+from the Core module and sets the rules for later renames.
 
 Preserve the [failure model](../../concepts/error-model.md), ownership and
 continuation contracts when changing a component. Update the owning technical
