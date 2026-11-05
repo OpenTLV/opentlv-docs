@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Include Core's C source amalgamation contract page in Development navigation and link it from the architecture overview, so the Core documentation update to `283797be` passes the complete-page inventory check. (#184)
 - Serve the playground from the exact pinned `@opentlv/opentlv` 0.2.1 npm package instead of compiling JS and Core with Emscripten, so Docs Full no longer depends on Core's CMake layout. Lock the registry tarball and SHA-512 integrity, check the package API, assets, declared outputs and SLSA publisher provenance, audit npm registry signatures in Full and record the evidence for publication and replay. Distribute the package's license and third-party notices, exercise its API in the Chromium smoke, keep Core documentation pinned independently and keep historical source-built snapshots verifiable. (#183)
 - Include Core's final modular verification and Library and Core naming contract pages in Development navigation and link them from the architecture overview, so the Core documentation update to `ca235060` passes the complete-page inventory check. (#172)
 - List the crates.io Trusted Publishing validation record of the selected Rust revision under Rust validation records, so the Rust documentation update to `1b860286` passes the complete-page inventory check. (#173)
