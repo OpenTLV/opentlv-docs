@@ -89,7 +89,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1c9fe1b7ab55e902efcaf08affdd24f5" id="r_a1c9fe1b7ab55e902efcaf08affdd24f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtlv_1_1query__environment.html#a1c9fe1b7ab55e902efcaf08affdd24f5">query_environment</a> (<a class="el" href="classtlv_1_1format.html">tlv::format</a> <a class="el" href="classtlv_1_1format.html">format</a>)</td></tr>
-<tr class="memdesc:a1c9fe1b7ab55e902efcaf08affdd24f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select a borrowed Format and the standard generic Value providers.  <br /></td></tr>
+<tr class="memdesc:a1c9fe1b7ab55e902efcaf08affdd24f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Select a borrowed Format without external Value providers.  <br /></td></tr>
 <tr class="separator:a1c9fe1b7ab55e902efcaf08affdd24f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aa87f030ad109ca772deb857c7508bc" id="r_a3aa87f030ad109ca772deb857c7508bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtlv_1_1query__environment.html#a3aa87f030ad109ca772deb857c7508bc">query_environment</a> (const <a class="el" href="classtlv_1_1query__environment.html">query_environment</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a3aa87f030ad109ca772deb857c7508bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Environments remain stationary because programs borrow their capabilities.  <br /></td></tr>
@@ -111,7 +111,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Stationary Query capabilities borrowing immutable Format and provider contexts. </p>
-<dl class="section note"><dt>Note</dt><dd>With Codec enabled, construction adds canonical NUM, BCD and TEXT providers. Provider storage grows only when configuring the environment, never during execution. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Construction has no conversion providers. Provider storage grows only when configuring the environment, never during execution. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Finish configuration before compiling; this owner and every borrowed provider context must outlive compiled programs and executions using them. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1c9fe1b7ab55e902efcaf08affdd24f5" name="a1c9fe1b7ab55e902efcaf08affdd24f5"></a>
@@ -138,7 +138,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Select a borrowed Format and the standard generic Value providers. </p>
+<p>Select a borrowed Format without external Value providers. </p>
 
 </div>
 </div>
@@ -277,7 +277,7 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tlv++/query/<a class="el" href="query_2options_8hpp.html">options.hpp</a></li>
+<li>opentlv/query/<a class="el" href="query_2options_8hpp.html">options.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

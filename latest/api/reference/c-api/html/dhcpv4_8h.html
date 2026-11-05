@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/dhcp/dhcpv4.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/dhcp/dhcpv4.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_16cf47fedc8ebb34267be16679780400.html">dhcp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_b91e5b95d54ae9590b30808e47b020ce.html">dhcp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -81,7 +81,8 @@ $(function() {
 
 <p>DHCPv4 option framing from RFC 2132 sections 2, 3.1 and 3.2.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="format_8h.html">tlv/format.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/builtin/dhcp/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2format_8h.html">opentlv/core/format.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -91,8 +92,8 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DHCPv4 option framing from RFC 2132 sections 2, 3.1 and 3.2. </p>
-<p>Normal options have a one-byte Code, one-byte Length and 0..255 Value bytes. Pad (0) and End (255) contain only Code and have an empty semantic Value. Identifiers and Values borrow the input. All values are opaque; no operation allocates. Requires <code>OPENTLV_DHCP=ON</code>.</p>
-<p>The caller supplies an option region without the packet header or magic cookie. Pad and End are returned as elements; the generic Reader neither skips Pad nor stops at End. Use <a class="el" href="container_8h.html#a171cad7865620d1a57c69b4cb9eaecbf" title="Validates option framing, termination and trailing bytes without allocation.">tlv_dhcpv4_options_validate()</a> from <code><a class="el" href="container_8h.html" title="DHCPv4 options sequence validation above generic Reader.">tlv/builtins/dhcp/container.h</a></code> for termination and tail validation. Option-specific validation, concatenation, overload and nested suboptions belong to the caller. </p>
+<p>Normal options have a one-byte Code, one-byte Length and 0..255 Value bytes. Pad (0) and End (255) contain only Code and have an empty semantic Value. Identifiers and Values borrow the input. All values are opaque; no operation allocates. Requires linking <code>OpenTLV::DHCP</code>.</p>
+<p>The caller supplies an option region without the packet header or magic cookie. Pad and End are returned as elements; the generic Reader neither skips Pad nor stops at End. Use <a class="el" href="container_8h.html#a171cad7865620d1a57c69b4cb9eaecbf" title="Validates option framing, termination and trailing bytes without allocation.">tlv_dhcpv4_options_validate()</a> from <code><a class="el" href="container_8h.html" title="DHCPv4 options sequence validation above generic Reader.">opentlv/builtin/dhcp/container.h</a></code> for termination and tail validation. Option-specific validation, concatenation, overload and nested suboptions belong to the caller. </p>
 </div><h2 class="groupheader">Variable Documentation</h2>
 <a id="a04e13635ad3b9cb95e17ec850be18b06" name="a04e13635ad3b9cb95e17ec850be18b06"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a04e13635ad3b9cb95e17ec850be18b06">&#9670;&#160;</a></span>tlv_format_dhcpv4</h2>

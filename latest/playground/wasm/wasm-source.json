@@ -1,22 +1,43 @@
 {
-  "schema": 2,
-  "repository": "https://github.com/OpenTLV/opentlv",
-  "commit": "70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6",
-  "local": false,
-  "dirty": false,
-  "source_sha256": "0446ae33dfe47947a21d90b68bcab50d81db279da62af14ae27c735db0018d8f",
-  "emscripten": "4.0.10",
+  "schema": 3,
+  "package": {
+    "name": "@opentlv/opentlv",
+    "version": "0.2.1",
+    "resolved": "https://registry.npmjs.org/@opentlv/opentlv/-/opentlv-0.2.1.tgz",
+    "integrity": "sha512-hm2etUGCbLBEn9rgWGIf3zYg6NIHaMlRi1sp8KNST0mz1HHzc8kRvUMh6bLx4UVY/mt2Pxdho/sfY405r6gFrQ==",
+    "lock_sha256": "8dcc2ebabea204d4fc2c2356f890f2ba80edf3a87f75e345ef2984b2f12857c3",
+    "sha256": "275f832cb7c1097a0cae12e73a7a897bccb7773487853110bf3ac7c39875a2ae"
+  },
+  "provenance": {
+    "repository": "https://github.com/OpenTLV/opentlv-js",
+    "workflow": ".github/workflows/js-release.yml",
+    "ref": "refs/heads/main",
+    "commit": "cb81e5818477c7c33dc468d3edabc6ff9acb3403",
+    "invocation": "https://github.com/OpenTLV/opentlv-js/actions/runs/41638000855/attempts/1"
+  },
+  "signatures": {
+    "tool": "npm audit signatures",
+    "npm": "11.19.1"
+  },
+  "core": {
+    "repository": "https://github.com/OpenTLV/opentlv.git",
+    "commit": "345c77acb29266036df5f27d04ce315bb61853cc",
+    "tree": "79322520a1589444d9afee8321e7a9e62ea370fb",
+    "tag": "v0.8.0"
+  },
   "files": {
     "opentlv.mjs": "73be28ae8af25e78829671218dbb62e6392b786a18664c51aaa70a2a85f0b1a7",
     "query.mjs": "a10ec496a246360547b64f228b14b3930acdbc1226460c91db98841dd8547b09",
     "opentlv-core.js": "4fcd6ce246545dd8dfc3d9bd687436c716e709c107d6d5fdba697cfd636166f6",
     "opentlv-core.wasm": "484f94cb0f6a37819121bd6343ed9baeb8638aebb71ff18b8d75f6e9c45f42f3"
   },
-  "js": {
-    "repository": "https://github.com/OpenTLV/opentlv-js",
-    "commit": "22efa490f25e5d947a7b88f451f68f4aab28b6a9",
-    "local": false,
-    "dirty": false,
-    "source_sha256": "8ef9cd8c80829bc8b9927026ede86a5746f3ffcf8072f8eeb094f4698734a9a8"
+  "notices": {
+    "npm-opentlv-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "npm-opentlv-MIT.txt": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+    "npm-opentlv-THIRD_PARTY.txt": "3868fccaa3b4df23a010fbc3b7e0b821c850f6fa459e3eff9be743fbeb75c529",
+    "npm-opentlv-core-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "emscripten-LICENSE.txt": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86",
+    "musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
+    "compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d"
   }
 }

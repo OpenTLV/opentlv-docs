@@ -1195,7 +1195,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/2fece68b7b2286656b6f080694f931d3e1730cd6/docs/api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/adabdbe9b85187ff5db877142b26d33d20a5917e/docs/api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1204,7 +1204,7 @@
 
 
 <h1 id="using-opentlv-from-lua">Using OpenTLV from Lua<a class="headerlink" href="#using-opentlv-from-lua" title="Permanent link">&para;</a></h1>
-<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/quick_start.lua">Lua quick start</a>
+<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/quick_start.lua">Lua quick start</a>
 for input, expected output and the public API. You can use this guide without
 studying native C implementation contracts.</p>
 <p>The <code>opentlv</code> module is an experimental Lua binding for OpenTLV. It binds a
@@ -1233,7 +1233,7 @@ Core no longer builds or installs the Lua module.</p>
 an explicit <code>scm</code> or dirty identity; see <a href="../versioning/">versioning</a>. Core's
 version and commit SHA are not exposed through the Lua API.</p>
 <p>Runnable version:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/quick_start.lua">quick_start.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/quick_start.lua">quick_start.lua</a>
 (<code>lua examples/quick_start.lua</code> from the <code>opentlv-lua</code> repository root).</p>
 <h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.reader(data, format)</code> returns a Reader over <code>data</code>, a Lua string.
@@ -1266,7 +1266,7 @@ with its encoded size; trailing bytes are not read and empty input returns
 <a href="#source-preservation">Source</a> instead.</p>
 <p>Runnable version, parsing a nested BER document and handling truncated
 input:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/parse.lua">parse.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/parse.lua">parse.lua</a>
 (<code>lua examples/parse.lua</code>).</p>
 <h3 id="incremental-input">Incremental input<a class="headerlink" href="#incremental-input" title="Permanent link">&para;</a></h3>
 <p><code>opentlv.reader(data, format, {final_input = false})</code> starts a Reader over
@@ -1499,7 +1499,7 @@ and a fresh item source. Errors raised by an item function propagate
 unchanged.</p>
 <p>Runnable version, feeding chunked input through an incremental Tree Reader
 into a Tree Writer and preserving one element's original framing:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/stream.lua">stream.lua</a> (<code>lua examples/stream.lua</code>).</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/stream.lua">stream.lua</a> (<code>lua examples/stream.lua</code>).</p>
 <h3 id="writer-errors">Writer errors<a class="headerlink" href="#writer-errors" title="Permanent link">&para;</a></h3>
 <p>Core failures raise the same structured error-table type as Reader. In addition
 to <code>code</code> and <code>message</code>, diagnostic operations copy <code>offset</code>, <code>operation</code>,
@@ -1696,7 +1696,7 @@ output <code>BUFFER_TOO_SHORT</code>, a value wider than the field <code>OVERFLO
 invalid field <code>INVALID_ARG</code>.</p>
 <p>Runnable version, using one composed Format with Tree Writer, traversal,
 Query and Document:
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/compose.lua">compose.lua</a>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/compose.lua">compose.lua</a>
 (<code>lua examples/compose.lua</code>).</p>
 <h2 id="structural-schemas">Structural schemas<a class="headerlink" href="#structural-schemas" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.schema(config)</code> creates an immutable structural Schema. It snapshots
@@ -1925,8 +1925,8 @@ textual <code>expected</code>/<code>actual</code> descriptions. Missing-field re
 parent-element offset when nested and have no offset at root level. Fatal
 diagnostics carry only code/message/severity and the offset if C provided one;
 the binding does not reparse the input to reconstruct tag or path information.</p>
-<p>See the runnable <a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/schema.lua">schema example</a> and the
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/audit.lua">audit example</a> (<code>lua examples/audit.lua</code>).</p>
+<p>See the runnable <a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/schema.lua">schema example</a> and the
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/audit.lua">audit example</a> (<code>lua examples/audit.lua</code>).</p>
 <h2 id="identifier-definitions">Identifier definitions<a class="headerlink" href="#identifier-definitions" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.definition_registry(definitions)</code> snapshots an array of
 <code>{tag = raw_tag, name = "..."}</code> tables into a <code>tlv_definition_registry_t</code>.
@@ -1949,7 +1949,7 @@ the input table afterwards does not change the registry, and changing a
 returned table does not change later lookups. Compiled Query programs take the
 same entry tables through
 <a href="#compiled-query"><code>opentlv.query_definition_resolver()</code></a>. See the
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/audit.lua">audit example</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/audit.lua">audit example</a>.</p>
 <h2 id="value-codecs">Value codecs<a class="headerlink" href="#value-codecs" title="Permanent link">&para;</a></h2>
 <p>Select a codec explicitly and pass only an element's Value bytes:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">tlv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
@@ -2162,7 +2162,7 @@ objects propagate unchanged after the C call returns. Recursive codec calls
 and use from different coroutines are supported, but yielding through a
 callback is not. Callback references participate in Lua garbage collection,
 including cycles that capture the codec itself. See the runnable
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/codec.lua">codec example</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/codec.lua">codec example</a>.</p>
 <h3 id="structure-codecs">Structure codecs<a class="headerlink" href="#structure-codecs" title="Permanent link">&para;</a></h3>
 <p><code>opentlv.structure_codec(config)</code> maps one complete TLV sequence to one Lua
 value through <code>tlv_structure_decode()</code> and <code>tlv_structure_encode()</code>. <code>config</code>
@@ -2193,7 +2193,7 @@ because offsets refer to the produced bytes. A missing callback raises
 above: they are snapshotted, run under protected calls and raise their own
 errors unchanged; recursion and coroutines work, yielding does not, and
 cycles are collectible. The codec keeps its Format and Schema alive. The
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/generate.lua">generate example</a> decodes records this way.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/generate.lua">generate example</a> decodes records this way.</p>
 <h2 id="wire-generation">Wire generation<a class="headerlink" href="#wire-generation" title="Permanent link">&para;</a></h2>
 <p><code>opentlv.generator(config)</code> binds Core's deterministic wire generator
 (<code>tlv_generate()</code>). Each case is one nonempty complete stream of candidate
@@ -2267,7 +2267,7 @@ Format's read and write capability on every <code>generate()</code> call
 <code>UNSUPPORTED</code> (no read or write capability, or <code>max_depth</code> above 64),
 <code>OVERFLOW</code>, or <code>LIMIT</code> when its bounded search finds no case, for example
 because the Format cannot write any candidate. See the
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/examples/generate.lua">generate example</a> (<code>lua examples/generate.lua</code>).</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/examples/generate.lua">generate example</a> (<code>lua examples/generate.lua</code>).</p>
 <h2 id="query-and-document">Query and Document<a class="headerlink" href="#query-and-document" title="Permanent link">&para;</a></h2>
 <p><code>tlv.query(path)</code> compiles the C Query language: exact hexadecimal tags separated
 by <code>/</code>, such as <code>E1/9F02</code>. Tags are byte identities; there are no wildcards,
@@ -2496,7 +2496,7 @@ and field offsets retain their presence, and lengths beyond Lua's exact numeric
 range use decimal strings. Codec detail adds <code>operation_name</code>, <code>cause_name</code> and
 <code>violation_name</code> beside raw numeric values. See the
 <a href="../../../../api/reference/errors/#binding-diagnostics">binding diagnostic reference</a> and
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/tests/program_spec.lua">consumer tests</a>.</p>
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/tests/program_spec.lua">consumer tests</a>.</p>
 <p>Compile options accept <code>providers = {num = {id = ..., decode = ...}, ...}</code> for
 <code>num</code>, <code>bcd</code>, <code>text</code> and <code>date</code>. Callbacks receive a Value string and optional
 copied event metadata; return an integer or a UTF-8 string for <code>text</code>. Set
@@ -2556,7 +2556,7 @@ or owned editing, then <a href="../../../../tutorials/processing/">processing ch
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -2570,21 +2570,21 @@ or owned editing, then <a href="../../../../tutorials/processing/">processing ch
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -2598,7 +2598,7 @@ or owned editing, then <a href="../../../../tutorials/processing/">processing ch
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

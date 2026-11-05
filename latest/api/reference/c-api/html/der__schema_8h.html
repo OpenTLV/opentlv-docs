@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/asn1/der_schema.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/asn1/der_schema.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_c5eacbedfec0e484f2e3bad41c977e92.html">asn1</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_dd38b71010fe5d261e96d1e86f862dba.html">asn1</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -85,13 +85,13 @@ $(function() {
 
 <p>Schema-aware ASN.1 DER validation and encoding.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">tlv/result.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="der__validation_8h.html">tlv/builtins/asn1/der_validation.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="der_8h.html">tlv/builtins/asn1/der.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="constraint_8h.html">tlv/schema/constraint.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="schema_2schema_8h.html">tlv/schema/schema.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="element_8h.html">tlv/element.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">opentlv/core/result.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="der__validation_8h.html">opentlv/builtin/asn1/der_validation.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="der_8h.html">opentlv/builtin/asn1/der.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="constraint_8h.html">opentlv/schema/constraint.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="schema_2schema_8h.html">opentlv/schema/schema.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="element_8h.html">opentlv/core/element.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/builtin/asn1/export.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -216,8 +216,8 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Schema-aware ASN.1 DER validation and encoding. </p>
-<p>A small, fixed subset of ASN.1 (SEQUENCE, SEQUENCE OF, SET, SET OF, CHOICE, UNIVERSAL leaves, IMPLICIT/EXPLICIT tagging, REQUIRED/OPTIONAL/DEFAULT components, a SEQUENCE extension marker, and an unrestricted ANY escape hatch), layered on top of <a class="el" href="der__validation_8h.html" title="Bounded recursive DER validation, traversal and canonical writing.">tlv/builtins/asn1/der_validation.h</a> to enforce canonical rules raw TLV structure alone cannot express: SET vs SET OF ordering, underlying-type validation of implicitly tagged content, explicit-tag wrapper structure, CHOICE resolution and DEFAULT-value omission.</p>
-<p>This is not an ASN.1 compiler or an unrestricted type system. Schemas are borrowed, immutable, caller-authored static tables (as with <a class="el" href="schema_2schema_8h.html" title="Length schemas and structural schemas for validating TLV data.">tlv/schema/schema.h</a>'s <a class="el" href="group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf" title="Borrowed set of structural rules for one parent scope.">tlv_structure_schema_t</a>, which this module does not use or extend: that type is format-agnostic and has no ASN.1 semantics). Every entry point here is unconditionally as strict as <a class="el" href="group__builtins.html#gaf302878b8788cc84f6b6c37d24088df3" title="Strict counterpart of tlv_der_read().">tlv_der_read_strict()</a>: there is no permissive mode, so unresolved CHOICE tags, unsupported universal types and inconsistent schemas are always explicit errors. No allocation and no unbounded C recursion are used. </p>
+<p>A small, fixed subset of ASN.1 (SEQUENCE, SEQUENCE OF, SET, SET OF, CHOICE, UNIVERSAL leaves, IMPLICIT/EXPLICIT tagging, REQUIRED/OPTIONAL/DEFAULT components, a SEQUENCE extension marker, and an unrestricted ANY escape hatch), layered on top of <a class="el" href="der__validation_8h.html" title="Bounded recursive DER validation, traversal and canonical writing.">opentlv/builtin/asn1/der_validation.h</a> to enforce canonical rules raw TLV structure alone cannot express: SET vs SET OF ordering, underlying-type validation of implicitly tagged content, explicit-tag wrapper structure, CHOICE resolution and DEFAULT-value omission.</p>
+<p>This is not an ASN.1 compiler or an unrestricted type system. Schemas are borrowed, immutable, caller-authored static tables (as with <a class="el" href="schema_2schema_8h.html" title="Length schemas and structural schemas for validating TLV data.">opentlv/schema/schema.h</a>'s <a class="el" href="group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf" title="Borrowed set of structural rules for one parent scope.">tlv_structure_schema_t</a>, which this module does not use or extend: that type is format-agnostic and has no ASN.1 semantics). Every entry point here is unconditionally as strict as <a class="el" href="group__builtins.html#gaf302878b8788cc84f6b6c37d24088df3" title="Strict counterpart of tlv_der_read().">tlv_der_read_strict()</a>: there is no permissive mode, so unresolved CHOICE tags, unsupported universal types and inconsistent schemas are always explicit errors. No allocation and no unbounded C recursion are used. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

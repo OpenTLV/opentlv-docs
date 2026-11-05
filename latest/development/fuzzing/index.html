@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4091,6 +4181,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4350,6 +4444,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5290,6 +5440,8 @@
       
         
       
+        
+      
     
     
     
@@ -5493,6 +5645,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5946,7 +6126,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/development/fuzzing.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/development/fuzzing.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6028,12 +6208,12 @@ in the existing ASan/UBSan fuzz workflow; release requirements are tracked by th
 </tr>
 </tbody>
 </table>
-<p>The reader, visitor, and round-trip targets run each input against every enabled
-built-in format: default, fixed-width (one tag byte, one length byte), Bluetooth LTV, BER, and DER. Component switches still
-apply; <code>fuzz_fixed</code> is always built when fuzzing is enabled, while <code>fuzz_der</code> and
-<code>fuzz_der_schema</code> are omitted when <code>OPENTLV_FORMAT_DER=OFF</code>,
-and <code>fuzz_codec</code> and <code>fuzz_dol</code> are omitted when <code>OPENTLV_EMV=OFF</code>. At
-least one built-in format must be enabled. For the raw-byte formats, the
+<p>The reader, visitor, and round-trip targets run each input against the supported
+built-in formats: default, fixed-width (one tag byte, one length byte), Bluetooth
+LTV, BER and DER. All protocol families are available as link-selected modules;
+the former builtin CMake switches are removed. <code>fuzz_fixed</code>, <code>fuzz_der</code>,
+<code>fuzz_der_schema</code>, <code>fuzz_codec</code> and <code>fuzz_dol</code> remain available when fuzzing is
+built. For raw-byte formats, the
 Visitor harness uses tag bit <code>0x20</code> as a test-only container convention. BER
 and DER use their public nesting predicates. <code>fuzz_fixed</code> covers the
 configurable dimensions (tag width, length width, byte order) that the
@@ -6056,7 +6236,7 @@ exceptions rather than requiring every output to remain unchanged on error.</p>
 <h2 id="seed-corpus">Seed corpus<a class="headerlink" href="#seed-corpus" title="Permanent link">&para;</a></h2>
 <p>Each harness's checked-in seed corpus lives next to it, under a <code>corpus/</code>
 folder in the same subsystem or built-in directory of <code>tests/fuzz/</code>, which
-mirrors <code>tlv/src</code>'s own layout: <code>tests/fuzz/reader/corpus/read</code> and
+mirrors <code>src</code>'s own layout: <code>tests/fuzz/reader/corpus/read</code> and
 <code>tests/fuzz/reader/corpus/visitor</code> for the generic reader/visitor targets,
 <code>tests/fuzz/corpus/roundtrip</code> for the cross-cutting round-trip target,
 <code>tests/fuzz/corpus/utf8</code> for the UTF-8 agreement target,
@@ -6148,7 +6328,7 @@ number of executions. <code>-max_len</code> limits generated inputs, not the API
 input size. <code>-timeout</code> bounds one execution and the RSS option limits memory.
 With <code>-runs=0</code>, libFuzzer replays the seed corpus without a mutation campaign.</p>
 <h2 id="reproduce-and-minimize-a-finding">Reproduce and minimize a finding<a class="headerlink" href="#reproduce-and-minimize-a-finding" title="Permanent link">&para;</a></h2>
-<p>The reusable <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/.github/workflows/fuzz.yml">C API Fuzzing</a> workflow runs in
+<p>The reusable <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/.github/workflows/fuzz.yml">C API Fuzzing</a> workflow runs in
 <a href="../quality-gates/">Core Full CI</a>: manual Full CI and release verification.
 It also supports standalone manual diagnosis. Fuzzing stays outside PR and Main
 CI. It builds the C fuzz targets
@@ -6197,7 +6377,7 @@ the violated library contract.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6211,21 +6391,21 @@ the violated library contract.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6239,7 +6419,7 @@ the violated library contract.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

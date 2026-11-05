@@ -3624,6 +3624,8 @@
       
         
       
+        
+      
     
     
     
@@ -3683,6 +3685,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3799,9 +3805,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4317,6 +4407,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4576,6 +4670,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5423,6 +5573,8 @@
       
         
       
+        
+      
     
     
     
@@ -5626,6 +5778,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6212,7 +6392,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/architecture.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6225,7 +6405,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Format describes wire rules
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Reader/Writer use Format; Definition, Schema and Codec are optional
 </code></pre></div>
-<p>OpenTLV provides one C library (<code>tlv</code>) and a header-only C++ interface (<code>tlv++</code>)
+<p>OpenTLV provides functional C libraries with header-only C++ interfaces
 that links to it. Core is a logical responsibility, not a directory. Optional
 components are concrete formats and standard-specific capabilities, rather than entire layers.</p>
 <p>The <a href="../architectural-rules/">core architectural rules</a> define the design and
@@ -6272,16 +6452,16 @@ wire bytes: Header, optional Tag and Length fields, Value, Trailer and their
 ranges. In the current C API, this source information belongs to <code>tlv_source_t</code>
 and <code>tlv_range_t</code>; <code>tlv_decoded_t</code> pairs it with <code>tlv_element_t</code>.</p>
 <p>Field Encoding has two reusable levels. Low-level bit, byte and integer
-primitives include packed fields in <code>tlv/field/packed.h</code>. Identifier and Length
-encodings use the callback contracts in <code>tlv/field/encoding.h</code> and the standalone
-fixed-width, variable-width and escape-prefixed primitives in <code>tlv/field/fixed.h</code>,
-<code>tlv/field/variable.h</code> and <code>tlv/field/escaped.h</code>. Neither level describes a
+primitives include packed fields in <code>opentlv/core/field/packed.h</code>. Identifier and Length
+encodings use the callback contracts in <code>opentlv/core/field/encoding.h</code> and the standalone
+fixed-width, variable-width and escape-prefixed primitives in <code>opentlv/core/field/fixed.h</code>,
+<code>opentlv/core/field/variable.h</code> and <code>opentlv/core/field/escaped.h</code>. Neither level describes a
 complete element. Fixed, variable and escaped Format configurations embed
 their <code>identifier</code> and <code>length</code> descriptions and use <code>element_order</code> and
 <code>length_scope</code> for composition policy. Adapters follow the shared Field Encoding
 validation and prefix-reporting contract. Codec is reserved for converting Value bytes to and from
 application values; individual wire fields use field encodings.</p>
-<p>Format composition in <code>tlv/formats/compose.h</code> combines field encodings with
+<p>Format composition in <code>opentlv/core/formats/compose.h</code> combines field encodings with
 ordering, count scope, tag-only selection and optional boundary resolution.
 Its <code>tlv_field_composition_t</code>, <code>tlv_binary_composition_t</code>,
 <code>tlv_tagged_fields_composition_t</code> and <code>tlv_tagged_binary_composition_t</code>
@@ -6297,7 +6477,7 @@ roles, not a one-to-one mapping to directories or C types.</p>
 <p>See the <a href="../../../api/concepts/format-contract/">Format and Element contract</a> for the precise
 boundary between semantic content, source layout and wire preservation.</p>
 <h2 id="planned-runtime-and-compiled-models">Planned runtime and compiled models<a class="headerlink" href="#planned-runtime-and-compiled-models" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/ROADMAP.md">roadmap</a> separates Execution Foundation (Phase 1),
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/ROADMAP.md">roadmap</a> separates Execution Foundation (Phase 1),
 Runtime Model &amp; OTLV (Phase 2), Protocol Inference (Phase 3), and Compilation
 (Phase 4). The latter three are
 planned capabilities built on the current execution contracts.</p>
@@ -6404,120 +6584,50 @@ validation operations live in separate files. BER uses generic Variable primitiv
 through a private ASN.1 field adapter also consumed by DER/CER. The wrappers
 retain their concrete rules and current component dependencies.</p>
 <h2 id="repository-layout">Repository layout<a class="headerlink" href="#repository-layout" title="Permanent link">&para;</a></h2>
-<p>Public headers under <code>tlv/include/tlv/</code> and sources under <code>tlv/src/</code> use:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>tlv/
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  element.h, value.h, length.h, size.h, result.h, endian.h, copy.h, format.h, tlv.h
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  compiler.h, attributes.h, definition.h
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  reader/    reader.h, tree.h, visitor.h
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  query/     query.h
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  document/  document.h
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  writer/    writer.h
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  schema/    schema.h
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  codec/     codec.h, structure.h
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  field/     encoding.h, fixed.h, packed.h, variable.h, escaped.h
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>  formats/
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    compose.h, fixed.h, variable.h, escaped.h, packed.h
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  builtins/
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    bluetooth/ bluetooth_ltv.h, ad_types.h
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    asn1/      ber.h, der.h, cer.h, der_validation.h, cer_validation.h, der_schema.h
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    emv/       emv.h, emv_schema.h, dol.h, emv_codec.h
+<p>The OpenTLV Library uses a module-first layout. Public C and header-only C++
+interfaces live side by side with <code>.h</code> and <code>.hpp</code> extensions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>include/opentlv/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  core/       fundamental types, Format, field/, formats/, diagnostics
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  io/         reader/, writer/, traversal
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  document/   owned tree and its Codec integration
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  query/      execution, Document and Codec integrations
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  schema/     validation and Query/number integrations
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  codec/      value codecs, structure codecs and typed Writer integration
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  generator/  deterministic generation
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  builtin/    asn1/, emv/, bluetooth/, nfc/, dhcp/, lldp/
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>  tlv.h, tlv.hpp, native.hpp
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>src/
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>  &lt;module&gt;/                  C implementations and source templates
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>  &lt;module&gt;/internal/         module-owned private headers
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>  builtin/&lt;family&gt;/          builtin implementations
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>  builtin/&lt;family&gt;/internal/ builtin-owned private headers
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>cmake/library/               module and facade target registrations
 </code></pre></div>
-<p>The tree shows the public layout; corresponding implementation files use <code>.c</code>.
-<code>definition.h</code> provides borrowed identifier/name entries and a generic registry
-lookup. Bluetooth AD types use this model independently of their wire format;
-definitions neither validate structure nor decode values.
-Identifier meaning is scoped to the selected registry, and descriptive names are
-not unique domain identities. Rich standard dictionaries may compose Definition,
-Schema and Codec without adding protocol fields to the generic Definition or
-requiring Definition lookup before parsing or decoding. The caller/dictionary
-selects the value codec; the codec does not resolve its enclosing tag.
-The <a href="../definition-boundaries/">Definition boundary audit</a> records this contract,
-evidence across five standard families and the identifier-mapping decision.
-Small fundamental types (<code>tag.h</code>, <code>length.h</code>, <code>size.h</code>, <code>value.h</code>, <code>element.h</code>, and the
-generic <code>format.h</code> descriptor contracts) sit directly under <code>tlv/</code>, alongside
-the generic subsystem folders. <code>field/</code> contains individual-field mechanics;
-<code>formats/compose.h</code> combines them into complete Format operations.
-<code>formats/fixed.h</code>, <code>formats/variable.h</code> and <code>formats/escaped.h</code> provide complete
-generic format configurations and their adapters. These mechanisms name no
-protocol; every protocol-specific format or standard OpenTLV ships lives under
-<code>builtins/&lt;protocol&gt;/</code>, so all of a protocol's
-functionality is in one place instead of scattered across role-based folders: EMV's schema,
-codec, DOL and dictionary header are all under <code>builtins/emv/</code>, and
-ASN.1's wire formats and bounded DER/CER validation operations are all under
-<code>builtins/asn1/</code>. Wire-level <code>der.h</code>/<code>cer.h</code> and the bounded validation headers
-that build on them would otherwise share a name, so the validation headers are
-<code>der_validation.h</code>/<code>cer_validation.h</code>; similarly <code>builtins/emv/emv_codec.h</code> (moved
-from <code>codec/emv.h</code>) is distinct from the umbrella <code>builtins/emv/emv.h</code>.
-BER, DER and CER share the ASN.1 field adapter in
-<code>src/builtins/asn1/ber_internal.c</code> and its private header. Reusable variable-width
-identifier and definite-length algorithms live in <code>src/field/variable.c</code>;
-<code>src/formats/variable.c</code> supplies their complete-format adapter. Fixed-width
-identifier and count algorithms live in <code>src/field/fixed.c</code>; binary composition
-and the Escaped format reuse them through thin field callback adapters.
-Internal schema validation, BER helpers and EMV value codecs have dedicated
-source files. <code>config.h</code> and <code>version.h</code> are generated into the build include
-directory. The public aggregate <code>tlv/tlv.h</code> includes enabled components; generic
-headers include only their direct contracts. Use explicit headers for small
-consumers. C++ common types are in <code>tlv++/types.hpp</code>, independent of codecs.</p>
-<p>Public headers under <code>tlv++/include/tlv++/</code> mirror the same layout (#280),
-grouping the C++ wrapper for each generic subsystem alongside its C
-counterpart and each protocol's wrapper under <code>builtins/&lt;protocol&gt;/</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>tlv++/
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  types.hpp, compat.hpp, diagnostic.hpp, tlv.hpp
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  format.hpp, format_traits.hpp, native.hpp
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  reader/    reader.hpp, tree.hpp
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  query/     query.hpp
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  document/  document.hpp
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  writer/    writer.hpp, tree.hpp, builder.hpp
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  schema/    schema.hpp
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  codec/     dynamic.hpp, typed.hpp, structure.hpp, registry.hpp
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  formats/
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    fixed_format.hpp
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  builtins/
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    asn1/       ber.hpp, der.hpp, cer.hpp, codec.hpp
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    bluetooth/  ltv.hpp, codec.hpp
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    emv/        format.hpp, codec.hpp
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    lldp/       lldp.hpp, codec.hpp
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    dhcp/       dhcpv4.hpp, codec.hpp, container.hpp
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    nfc/        type2.hpp
-</code></pre></div>
-<p><code>tlv++</code> is header-only, so there is no separate <code>tlv++/src/</code>. <code>registry.hpp</code>
-sits under <code>codec/</code> alongside the typed and structure codecs: it maps Tags to
-decoders selected at runtime, with no C counterpart. Built-in C++ APIs now cover ASN.1, EMV, Bluetooth, LLDP, DHCP
-and NFC under <code>builtins/&lt;protocol&gt;/</code>, following the enabled native components.
-See <a href="../../../languages/cpp/concepts/cxx-builtins/">C++ built-in standards</a> for their scoped coverage.
-Every <code>tlv++</code> header keeps using full paths from the include root
-(<code>#include "tlv++/reader/reader.hpp"</code>, not a relative <code>#include
-"reader.hpp"</code>), so moving a header between folders only requires updating
-<code>#include</code> lines that name it, not every include inside sibling headers.</p>
-<p><code>tests/unit/</code>, <code>tests/integration/</code> and <code>tests/fuzz/</code> (#281) each keep their
-own existing top-level meaning â€” component contracts, concrete wire formats
-and layer interactions, and libFuzzer harnesses, respectively (see
-<a href="../../building/core/#build-and-run-tests">tests</a>) â€” and each
-independently mirrors <code>tlv/src</code>'s own layout underneath: a generic
-subsystem's tests sit under its own <code>reader/</code>, <code>writer/</code>, <code>query/</code>, <code>schema/</code>,
-<code>codec/</code> or <code>document/</code> folder, and a built-in's tests sit together under
-<code>builtins/&lt;protocol&gt;/</code>, regardless of whether they exercise its schema, codec,
-DOL or parser. Small core-type tests and cross-cutting tests (such as
-<code>architecture_test.cpp</code>, and the <code>tlv++</code> aggregate <code>test_tlvpp.cpp</code>) stay
-directly under <code>tests/unit/</code> or <code>tests/integration/</code>, without a subsystem
-folder, the same way <code>tag.h</code> and <code>value.h</code> sit directly under <code>tlv/</code>. A
-shared folder's C and C++ files are told apart by name, not by a separate
-<code>tlv</code>/<code>tlv++</code> folder (<code>document_test.cpp</code> next to <code>test_document.cpp</code>).
-<code>tests/fuzz/</code> uses the same subsystem/<code>builtins/&lt;protocol&gt;/</code> split for its
-harnesses, each with its checked-in seed corpus in a sibling <code>corpus/</code> folder
-(<code>tests/fuzz/reader/read.c</code> and <code>tests/fuzz/reader/corpus/read/</code>,
-<code>tests/fuzz/builtins/asn1/der.c</code> and its <code>corpus/der/</code>); it keeps its own
-<code>tests/fuzz/CMakeLists.txt</code> since <code>OPENTLV_BUILD_FUZZING</code> is independent of
-<code>OPENTLV_BUILD_TESTS</code>. Compile/API checks stay separate from this tree.</p>
+<p>Fundamental types and generic field/format mechanisms belong to <code>core/</code>.
+Reader and Writer share <code>io/</code>. Builtins consume generic public contracts;
+they never include generic private headers. Integration targets retain their
+owning module's directory. Installed C++ <code>detail/</code> helpers support public
+templates; there is no compiled C++ implementation.</p>
+<p>Version, Query feature and visibility headers are generated under the same
+<code>opentlv/</code> namespace and installed with the public headers. The optional aggregate
+<code>opentlv/tlv.h</code> includes all C components. Module consumers include their direct
+contracts; common C++ types live in <code>opentlv/core/types.hpp</code>, independently of codecs.</p>
+<p>See the <a href="../../modules/layout-migration/">layout migration guide</a>
+for the complete include-path map. The old root <code>tlv/</code> and <code>tlv++/</code> trees are
+removed, without forwarding headers.</p>
+<p>Tests retain their unit/integration/fuzz categories and subsystem folders.
+Module CMake helpers declare test ownership and functional dependencies.
+Examples, benchmarks and tests use the new public include paths. The
+<a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/scripts/check_module_contracts.py">module contract checker</a> resolves
+source includes, including relative paths, to enforce private ownership.</p>
 <h2 id="mutable-document">Mutable document<a class="headerlink" href="#mutable-document" title="Permanent link">&para;</a></h2>
 <p><code>document/document.h</code> provides the canonical owned mutable tree, selected by
-<code>OPENTLV_DOCUMENT</code>. Programmatic construction and mutation need neither Reader
+<code>OpenTLV::Document</code>. Programmatic construction and mutation need neither Reader
 nor Writer. Document owns its Tags and Values and supports a caller allocator;
 enabling the capability alone does not allocate a tree.</p>
 <p>Wire import is a Reader + Document integration (<code>document/reader.c</code>), serialization
 is a Writer + Document integration (<code>document/writer.c</code>), and path matching is a
-Query + Document integration (<code>document/query.c</code>). Nonempty constructed Values
+Query + Document integration (<code>query/document_path.c</code>). Nonempty constructed Values
 passed to insert/set-value are encoded children and require Reader; without it,
 these operations return <code>TLV_ERR_UNSUPPORTED</code> without changing the tree.
 Empty constructed nodes and programmatically inserted children remain available.
@@ -6595,7 +6705,7 @@ own option, and no code or dependency added to builds that do not enable it.</p>
 <p>Language bindings are expected to follow the same rule: a binding should expose a
 component only when the matching C component is enabled, so a binding build can also be
 limited to what it needs. Rust maps its default <code>lldp</code> Cargo feature to
-<code>OPENTLV_LLDP</code>; Reader, Writer, Query, Schema and Codec are explicitly enabled by its native build. Mapping the
+<code>OpenTLV::LLDP</code>; standalone bindings own their native target selection. Mapping the
 remaining component options to Cargo features is future work; see
 <a href="../../../languages/rust/manual/development/rust/#cargo-features">Rust Cargo features</a>. Ready-made CMake recipes are in
 <a href="../../../api/configuration/">building only the components you need</a>.</p>
@@ -6604,8 +6714,7 @@ remaining component options to Cargo features is future work; see
 diagnostics and shared utilities) and configurable Fixed/Variable formats are always available.
 Reader, Writer, Document, Query, Schema and Codec are independent optional
 capabilities, enabled by default. Their source groups are excluded when disabled;
-this does not depend on static-linker dead stripping. A single <code>tlv</code> library
-remains the distribution unit.</p>
+this does not depend on static-linker dead stripping. Each functional module has its own library and package component.</p>
 <h3 id="generic-core-formats">Generic core formats<a class="headerlink" href="#generic-core-formats" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -6626,54 +6735,21 @@ remains the distribution unit.</p>
 </tbody>
 </table>
 <h3 id="built-in-standards">Built-in standards<a class="headerlink" href="#built-in-standards" title="Permanent link">&para;</a></h3>
-<p>These packages default to ON and can be disabled subject to the dependencies below.</p>
-<table>
-<thead>
-<tr>
-<th>CMake option / generated config macro</th>
-<th>Included component</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>OPENTLV_NFC</code></td>
-<td><a href="../../../standards/nfc/">NFC Type 2 Tag framing</a> for contiguous TLV streams</td>
-</tr>
-<tr>
-<td><code>OPENTLV_DHCP</code></td>
-<td><a href="../../../standards/dhcp/">DHCPv4 option framing</a>, including Pad and End</td>
-</tr>
-<tr>
-<td><code>OPENTLV_BLUETOOTH</code></td>
-<td>Bluetooth LTV format, containers, definitions, schemas and codecs</td>
-</tr>
-<tr>
-<td><code>OPENTLV_LLDP</code></td>
-<td>LLDP packed framing, base definitions, LLDPDU structural validation, Value codecs and binding presets</td>
-</tr>
-<tr>
-<td><code>OPENTLV_FORMAT_ASN1</code></td>
-<td>ASN.1-related wire formats (BER, DER, CER)</td>
-</tr>
-<tr>
-<td><code>OPENTLV_FORMAT_BER</code></td>
-<td>Public BER format</td>
-</tr>
-<tr>
-<td><code>OPENTLV_FORMAT_DER</code></td>
-<td>DER format and bounded DER validation operations</td>
-</tr>
-<tr>
-<td><code>OPENTLV_FORMAT_CER</code></td>
-<td>CER format and bounded CER validation operations</td>
-</tr>
-<tr>
-<td><code>OPENTLV_EMV</code></td>
-<td>EMV framing, dictionary, schemas and value codecs</td>
-</tr>
-</tbody>
-</table>
+<p>Protocol families are selected by linking independent public targets:
+<code>OpenTLV::ASN1</code>, <code>OpenTLV::EMV</code>, <code>OpenTLV::Bluetooth</code>, <code>OpenTLV::NFC</code>,
+<code>OpenTLV::DHCP</code> and <code>OpenTLV::LLDP</code>. Each owns its public exports and depends
+explicitly on generic modules. Generic modules never depend on builtins.
+ASN1 contains BER, DER and CER together; EMV privately uses its DOL identifier
+helper. DHCP contains the existing DHCPv4 implementation only.</p>
+<p>See <a href="../../../api/configuration/#built-in-standards">component selection</a>
+for exact dependencies, installed-package recipes and migration from the removed
+builtin CMake options.</p>
 <h3 id="core-capabilities-and-query-features">Core capabilities and Query features<a class="headerlink" href="#core-capabilities-and-query-features" title="Permanent link">&para;</a></h3>
+<p>Core primitives are provided by <code>OpenTLV::Core</code>. Reader, Writer, traversal and
+serialization are provided together by <code>OpenTLV::IO</code>, which depends only on Core.
+The former <code>OPENTLV_READER</code> and <code>OPENTLV_WRITER</code> CMake options are removed; see
+<a href="../../../api/configuration/#core-io-and-document">component selection</a> for migration.
+Select generic modules by linking; only the Query features remain options.</p>
 <table>
 <thead>
 <tr>
@@ -6683,24 +6759,16 @@ remains the distribution unit.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>OPENTLV_READER</code></td>
-<td>Wire Reader and Tree traversal</td>
+<td><code>OpenTLV::Query</code> target</td>
+<td>Canonical Query compiler/execution and path matching; link-selected</td>
 </tr>
 <tr>
-<td><code>OPENTLV_WRITER</code></td>
-<td>Wire Writer, Tree Writer and generation</td>
+<td><code>OpenTLV::Schema</code> target</td>
+<td>Schema length, structure and value constraints with Core/IO only; numeric and contextual Query validation use explicit integrations. The <code>OPENTLV_SCHEMA</code> option was removed.</td>
 </tr>
 <tr>
-<td><code>OPENTLV_QUERY</code></td>
-<td>Canonical Query compiler/execution and path matching</td>
-</tr>
-<tr>
-<td><code>OPENTLV_SCHEMA</code></td>
-<td>Schema descriptions, length and value constraints; wire traversal requires Reader</td>
-</tr>
-<tr>
-<td><code>OPENTLV_CODEC</code></td>
-<td>Semantic Value codecs; structure codecs require Schema and Reader</td>
+<td><code>OpenTLV::Codec</code> target</td>
+<td>Semantic Value codecs with Core only; structured codecs are an explicit Schema/IO integration. The <code>OPENTLV_CODEC</code> option was removed.</td>
 </tr>
 <tr>
 <td><code>OPENTLV_QUERY_FRONTEND</code></td>
@@ -6711,70 +6779,55 @@ remains the distribution unit.</p>
 <td>Query union, intersection and difference in the shared executor</td>
 </tr>
 <tr>
-<td><code>OPENTLV_DOCUMENT</code></td>
-<td>Canonical owned mutable <a href="../../../api/guides/document/">Document</a>; optional build inclusion, not a format or standard package</td>
+<td><code>OpenTLV::Document</code> target</td>
+<td>Canonical owned mutable <a href="../../../api/guides/document/">Document</a>; links Core and IO. The former <code>OPENTLV_DOCUMENT</code> option is removed.</td>
 </tr>
 </tbody>
 </table>
-<p><code>OPENTLV_FORMAT_ASN1</code>, <code>OPENTLV_FORMAT_BER</code>, <code>OPENTLV_FORMAT_DER</code>, and
-<code>OPENTLV_EMV</code> form a tree (ASN1 -&gt; BER -&gt; DER/CER/EMV): disabling an
-option forces every option below it OFF as well, regardless of how that
-option was set, so <code>-DOPENTLV_FORMAT_BER=OFF</code> also disables DER, CER and EMV.
-<code>OPENTLV_FORMAT_CER</code> is an independent sibling of <code>OPENTLV_FORMAT_DER</code> under
-<code>OPENTLV_FORMAT_BER</code>, not a descendant of it: CER never depends on DER (or
-vice versa), and disabling DER does not affect CER or EMV. This cascade is
-centralized in <code>cmake/format_options.cmake</code>. EMV element framing uses generic
-variable-width primitives directly; the BER build dependency remains only for
-the unchanged DOL identifier helper. No component creates
-another public binary library. <code>tlv/config.h</code> exposes the configured
-selection, including <code>OPENTLV_FORMAT_ASN1</code>. Explicitly including a disabled
-component's header does not provide its symbols; consumers should use the
-config macros when supporting reduced builds.</p>
-<p>Tests that require disabled components and examples that demonstrate them are
-omitted. Generic architecture tests use an application-defined format and run
-even when all protocol extensions are disabled. The benchmark uses BER and
-is built only when that component is enabled.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-minimal<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span>-DOPENTLV_BLUETOOTH<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_LLDP<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_DHCP<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_NFC<span class="o">=</span>OFF<span class="w"> </span>-DOPENTLV_FORMAT_ASN1<span class="o">=</span>OFF
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-minimal<span class="w"> </span>--parallel
-</code></pre></div>
+<p>All compiled modules have independent static/shared libraries. The compatibility
+<code>OpenTLV::tlv</code> target links every module transitively, while component-only
+package discovery loads the requested dependency closure. <code>tlv/config.h</code>, its
+module-selection macros and runtime availability mirrors have been removed.
+Only Query frontend/set operations remain selectable implementation features.
+C and C++ share the functional targets; C++ headers are always installed.
+<code>OPENTLV_BUILD_CXX</code> controls C++ development targets and compiler enablement.</p>
 <h2 id="migration">Migration<a class="headerlink" href="#migration" title="Permanent link">&para;</a></h2>
 <p>OpenTLV is before 1.0.0, so the public API is still allowed to change; see
 <a href="../../abi-compatibility/">C ABI compatibility</a>. This section is a
 best-effort record of the breaking changes below, not a compatibility
 guarantee or an exhaustive migration guide.</p>
 <p>Update flat includes to the folders above (<code>tlv/reader.h</code> becomes
-<code>tlv/reader/reader.h</code>, and so on). Concrete format declarations use
-<code>tlv/formats/fixed.h</code>,
-<code>tlv/builtins/asn1/ber.h</code>, or <code>tlv/builtins/asn1/der.h</code>; the public
+<code>opentlv/io/reader/reader.h</code>, and so on). Concrete format declarations use
+<code>opentlv/core/formats/fixed.h</code>,
+<code>opentlv/builtin/asn1/ber.h</code>, or <code>opentlv/builtin/asn1/der.h</code>; the public
 aggregate includes enabled formats.</p>
 <p><code>tlv/formats/</code> and <code>tlv/profiles/</code> (#279) no longer exist: every built-in
 protocol implementation moved under <code>builtins/&lt;protocol&gt;/</code>. Concrete format
 headers keep their names (<code>tlv/formats/asn1/der.h</code> becomes
-<code>tlv/builtins/asn1/der.h</code>); the bounded DER/CER validation headers are renamed
+<code>opentlv/builtin/asn1/der.h</code>); the bounded DER/CER validation headers are renamed
 to avoid colliding with the wire-format headers of the same name
-(<code>tlv/profiles/der.h</code> becomes <code>tlv/builtins/asn1/der_validation.h</code>,
-<code>tlv/profiles/cer.h</code> becomes <code>tlv/builtins/asn1/cer_validation.h</code>). EMV moves
+(<code>tlv/profiles/der.h</code> becomes <code>opentlv/builtin/asn1/der_validation.h</code>,
+<code>tlv/profiles/cer.h</code> becomes <code>opentlv/builtin/asn1/cer_validation.h</code>). EMV moves
 and consolidates under <code>tlv/builtins/emv/</code>: <code>tlv/profiles/emv.h</code> becomes
-<code>tlv/builtins/emv/emv.h</code>, <code>tlv/profiles/emv_schema.h</code>,
+<code>opentlv/builtin/emv/emv.h</code>, <code>tlv/profiles/emv_schema.h</code>,
 and <code>tlv/profiles/dol.h</code> move alongside it unchanged, and <code>tlv/codec/emv.h</code> (the semantic value codecs) becomes
-<code>tlv/builtins/emv/emv_codec.h</code> to avoid colliding with the umbrella EMV
+<code>opentlv/builtin/emv/emv_codec.h</code> to avoid colliding with the umbrella EMV
 header. The former <code>emv_tags.def</code> X-macro is subsequently removed in #381;
-EMV uses explicit domain dictionary tables. <code>tlv/schemas/schema.h</code> becomes <code>tlv/schema/schema.h</code>.</p>
-<p><code>tlv++</code>'s previously flat <code>tlv++/include/tlv++/*.hpp</code> headers (#280) move
+EMV uses explicit domain dictionary tables. <code>tlv/schemas/schema.h</code> becomes <code>opentlv/schema/schema.h</code>.</p>
+<p><code>tlv++</code>'s previously flat <code>include/opentlv/*.hpp</code> headers (#280) move
 into the same folders as their C counterparts:
 the former flat reader headers become
-<code>tlv++/reader/reader.hpp</code>/<code>tlv++/reader/tree.hpp</code>;
+<code>opentlv/io/reader/reader.hpp</code>/<code>opentlv/io/reader/tree.hpp</code>;
 <code>tlv++/writer.hpp</code>, <code>tlv++/query.hpp</code> and <code>tlv++/schema.hpp</code> become
-<code>tlv++/writer/writer.hpp</code>, <code>tlv++/query/query.hpp</code> and
-<code>tlv++/schema/schema.hpp</code>; <code>tlv++/codec.hpp</code>, <code>tlv++/structure.hpp</code> and
+<code>opentlv/io/writer/writer.hpp</code>, <code>opentlv/query/query.hpp</code> and
+<code>opentlv/schema/schema.hpp</code>; <code>tlv++/codec.hpp</code>, <code>tlv++/structure.hpp</code> and
 <code>tlv++/registry.hpp</code> become <code>tlv++/codec/codec.hpp</code>,
-<code>tlv++/codec/structure.hpp</code> and <code>tlv++/codec/registry.hpp</code>;
-<code>tlv++/document.hpp</code> becomes <code>tlv++/document/document.hpp</code>; and
+<code>opentlv/codec/structure.hpp</code> and <code>opentlv/codec/registry.hpp</code>;
+<code>tlv++/document.hpp</code> becomes <code>opentlv/document/document.hpp</code>; and
 <code>tlv++/ber.hpp</code>/<code>tlv++/fixed_format.hpp</code> become
-<code>tlv++/builtins/asn1/ber.hpp</code>/<code>tlv++/builtins/fixed/fixed_format.hpp</code>.
-<code>tlv++/types.hpp</code>, <code>tlv++/compat.hpp</code>, <code>tlv++/diagnostic.hpp</code> and the
-aggregate <code>tlv++/tlv.hpp</code> are unaffected. No type, function or namespace
+<code>opentlv/builtin/asn1/ber.hpp</code>/<code>tlv++/builtins/fixed/fixed_format.hpp</code>.
+<code>opentlv/core/types.hpp</code>, <code>opentlv/core/compat.hpp</code>, <code>opentlv/core/diagnostic.hpp</code> and the
+aggregate <code>opentlv/tlv.hpp</code> are unaffected. No type, function or namespace
 changed; only header locations did. <code>tlv++/codec/codec.hpp</code> was later removed
 together with its tag-carrying payload interface; use typed fields instead.</p>
 <p>Typed C++ writes use typed fields (<code>writer.write&lt;Field&gt;(value)</code>). Raw
@@ -6809,8 +6862,8 @@ the same way, with <code>fixed_format&lt;&gt;::reader()</code>/<code>::writer()<
 <code>::format()</code>. Rebuild all consumers. (#326)</p>
 <p>Move the configurable fixed-width format out of <code>builtins/</code> into the new
 top-level <code>formats/</code>, since it names no protocol: <code>tlv/builtins/fixed/fixed.h</code>
-becomes <code>tlv/formats/fixed.h</code>, and <code>tlv++/builtins/fixed/fixed_format.hpp</code>
-becomes <code>tlv++/formats/fixed_format.hpp</code>. This is a narrower, second
+becomes <code>opentlv/core/formats/fixed.h</code>, and <code>tlv++/builtins/fixed/fixed_format.hpp</code>
+becomes <code>opentlv/core/formats/fixed_format.hpp</code>. This is a narrower, second
 reintroduction of a <code>formats/</code> folder than the one #279 removed (see above):
 it holds only mechanisms that are themselves protocol-agnostic, not every
 concrete format regardless of protocol. <code>tlv_fixed_config_t</code> is renamed to <code>tlv_fixed_format_t</code>
@@ -6854,7 +6907,7 @@ optional implementations that work without the future <code>.otlv</code> interpr
 <tbody>
 <tr>
 <td><code>OPENTLV_PROFILE_EMV</code></td>
-<td><code>OPENTLV_EMV</code> (same defaults and dependencies)</td>
+<td><code>OpenTLV::EMV</code> target (builtin selection options were removed in #653)</td>
 </tr>
 <tr>
 <td><code>tlv_config_profile_emv()</code></td>
@@ -6862,11 +6915,11 @@ optional implementations that work without the future <code>.otlv</code> interpr
 </tr>
 <tr>
 <td><code>tlv/builtins/asn1/der_profile.h</code></td>
-<td><code>tlv/builtins/asn1/der_validation.h</code></td>
+<td><code>opentlv/builtin/asn1/der_validation.h</code></td>
 </tr>
 <tr>
 <td><code>tlv/builtins/asn1/cer_profile.h</code></td>
-<td><code>tlv/builtins/asn1/cer_validation.h</code></td>
+<td><code>opentlv/builtin/asn1/cer_validation.h</code></td>
 </tr>
 <tr>
 <td>CLI <code>--profile emv</code></td>
@@ -6887,7 +6940,7 @@ optional implementations that work without the future <code>.otlv</code> interpr
 </tbody>
 </table>
 <p>The old names have no compatibility aliases. Reconfigure existing builds using
-<code>OPENTLV_EMV</code>; an old cache entry does not control the renamed option. Rust
+<code>OpenTLV::EMV</code>; remove both historical cache options. Rust
 <code>default_limits()</code> now returns a <code>Result</code>; bounded validation operations reject
 formats other than DER/CER with <code>InvalidArg</code> and unknown location. Reader/Writer keep
 using their selected Format directly. Standard guides now live in <code>standards/</code>.</p>
@@ -6917,7 +6970,7 @@ migration details belong to the standalone component manuals.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6931,21 +6984,21 @@ migration details belong to the standalone component manuals.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6959,7 +7012,7 @@ migration details belong to the standalone component manuals.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

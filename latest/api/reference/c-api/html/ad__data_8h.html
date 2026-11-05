@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/bluetooth/ad_data.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/bluetooth/ad_data.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_9b6fd0dc17d64e86eea0079a95994ef9.html">bluetooth</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_e51af50b2c7c8faef52338a0e7b0c601.html">bluetooth</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -81,20 +81,21 @@ $(function() {
 
 <p>Bluetooth Advertising Data container framing and zero padding.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">tlv/result.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="reader_2diagnostic_8h.html">tlv/reader/diagnostic.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/builtin/bluetooth/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="result_8h.html">opentlv/core/result.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="io_2reader_2diagnostic_8h.html">opentlv/io/reader/diagnostic.h</a>&quot;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab27dae6d694acb96e074b8ffb21c1f3a" id="r_ab27dae6d694acb96e074b8ffb21c1f3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ad__data_8h.html#ab27dae6d694acb96e074b8ffb21c1f3a">tlv_bluetooth_ad_data_validate</a> (const uint8_t *data, size_t size, size_t *significant_size, <a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memitem:ab27dae6d694acb96e074b8ffb21c1f3a" id="r_ab27dae6d694acb96e074b8ffb21c1f3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ad__data_8h.html#ab27dae6d694acb96e074b8ffb21c1f3a">tlv_bluetooth_ad_data_validate</a> (const uint8_t *data, size_t size, size_t *significant_size, <a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:ab27dae6d694acb96e074b8ffb21c1f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates AD structures and trailing zero padding.  <br /></td></tr>
 <tr class="separator:ab27dae6d694acb96e074b8ffb21c1f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Bluetooth Advertising Data container framing and zero padding. </p>
-<dl class="section note"><dt>Note</dt><dd>Requires <code>OPENTLV_BLUETOOTH=ON</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Requires linking <code>OpenTLV::Bluetooth</code>. </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a id="ab27dae6d694acb96e074b8ffb21c1f3a" name="ab27dae6d694acb96e074b8ffb21c1f3a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab27dae6d694acb96e074b8ffb21c1f3a">&#9670;&#160;</a></span>tlv_bluetooth_ad_data_validate()</h2>
@@ -123,7 +124,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>diagnostic</em>&#160;</td>
         </tr>
         <tr>
@@ -136,7 +137,7 @@ Functions</h2></td></tr>
 
 <p>Validates AD structures and trailing zero padding. </p>
 <p>Uses the generic reader with the strict Bluetooth LTV format. A zero byte at a structure boundary starts padding; every remaining byte must be zero. Zero bytes inside a structure remain part of that structure. Unknown types and empty values are accepted. No schema or value-codec validation occurs. Empty input and all-zero input succeed with a zero significant size.</p>
-<p>The significant prefix can be passed to a generic reader, visitor or schema validator with the original input pointer, preserving source offsets. This function never allocates, copies or retains input bytes. Available when <code>OPENTLV_BLUETOOTH</code> is enabled.</p>
+<p>The significant prefix can be passed to a generic reader, visitor or schema validator with the original input pointer, preserving source offsets. This function never allocates, copies or retains input bytes. Provided by <code>OpenTLV::Bluetooth</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Caller-owned input, unchanged during the call. May be <code>NULL</code> only when <code>size</code> is zero. </td></tr>

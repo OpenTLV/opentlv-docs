@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C++ API: tlv++/builtins/asn1/ber.hpp File Reference</title>
+<title>OpenTLV C++ API: opentlv/builtin/asn1/ber.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_bb4de694aed7e68e236ea99f4ab65f5c.html">tlv++</a></li><li class="navelem"><a class="el" href="dir_f3b6f26a0a54868a34c6867d84a14a23.html">builtins</a></li><li class="navelem"><a class="el" href="dir_5aaa3d10878b61eebe6d27bb290a322e.html">asn1</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_fd82963be15647178a4e9cba6a444c51.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_0fe13026f56fed323f469c20576c46b5.html">builtin</a></li><li class="navelem"><a class="el" href="dir_7a267cec21de89d12dfa0473ae309166.html">asn1</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,10 +84,11 @@ $(function() {
 
 <p>C++ wrapper for explicit BER indefinite-length framing.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="elRef" href="../../c-api/html/ber_8h.html">tlv/builtins/asn1/ber.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="types_8hpp.html">tlv++/types.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="format_8hpp.html">tlv++/format.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="elRef" href="../../c-api/html/config_8h.html">tlv/config.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="elRef" href="../../c-api/html/ber_8h.html">opentlv/builtin/asn1/ber.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="types_8hpp.html">opentlv/core/types.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2format_8hpp.html">opentlv/core/format.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="reader_8hpp.html">opentlv/io/reader/reader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="io_2writer_2builder_8hpp.html">opentlv/io/writer/builder.hpp</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -112,6 +113,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a83eb6e9fe4c657dcfaf3e7921d4ed712" id="r_a83eb6e9fe4c657dcfaf3e7921d4ed712"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; <a class="el" href="classtlv_1_1tag.html">tlv::tag</a>, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1ber.html#a83eb6e9fe4c657dcfaf3e7921d4ed712">tlv::ber::read_identifier</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> <a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7aa43c1b0aa53a0c908810c06ab1ff3967">input</a>, size_t &amp;consumed)</td></tr>
 <tr class="memdesc:a83eb6e9fe4c657dcfaf3e7921d4ed712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read one canonical BER identifier without reading its Length or Value.  <br /></td></tr>
 <tr class="separator:a83eb6e9fe4c657dcfaf3e7921d4ed712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbb2497b03c513078dc4c7b88d7f6ff2" id="r_afbb2497b03c513078dc4c7b88d7f6ff2"><td class="memTemplParams" colspan="2">template&lt;typename Output , typename Callback &gt; </td></tr>
+<tr class="memitem:afbb2497b03c513078dc4c7b88d7f6ff2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1writer__failure.html">writer_failure</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1ber.html#afbb2497b03c513078dc4c7b88d7f6ff2">tlv::ber::encode</a> (Output &amp;&amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a78e6221f6393d1356681db398f14ce6d">output</a>, <a class="el" href="structtlv_1_1writer__workspace.html">writer_workspace</a> workspace, Callback &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca924a8ceeac17f54d3be3f8cdf1c04eb2">callback</a>, <a class="el" href="namespacetlv.html#a1df134eb9e2b476155eb324618396e4d">writer_diagnostic</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr)</td></tr>
+<tr class="memdesc:afbb2497b03c513078dc4c7b88d7f6ff2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build BER output with explicit caller-owned frames and scratch.  <br /></td></tr>
+<tr class="separator:afbb2497b03c513078dc4c7b88d7f6ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a261fee7f82b0457adf2e4ab63f7fd44c" id="r_a261fee7f82b0457adf2e4ab63f7fd44c"><td class="memTemplParams" colspan="2">template&lt;size_t ScratchCapacity = 1024, size_t Depth = TLV_TREE_DEFAULT_DEPTH, typename Output , typename Callback &gt; </td></tr>
+<tr class="memitem:a261fee7f82b0457adf2e4ab63f7fd44c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1writer__failure.html">writer_failure</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1ber.html#a261fee7f82b0457adf2e4ab63f7fd44c">tlv::ber::encode</a> (Output &amp;&amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a78e6221f6393d1356681db398f14ce6d">output</a>, Callback &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca924a8ceeac17f54d3be3f8cdf1c04eb2">callback</a>, <a class="el" href="namespacetlv.html#a1df134eb9e2b476155eb324618396e4d">writer_diagnostic</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr)</td></tr>
+<tr class="memdesc:a261fee7f82b0457adf2e4ab63f7fd44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build BER output using bounded local stack workspace.  <br /></td></tr>
+<tr class="separator:a261fee7f82b0457adf2e4ab63f7fd44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf7d1f59407a15e1ad5064f6179b4ef7" id="r_acf7d1f59407a15e1ad5064f6179b4ef7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1detail_1_1parsing__range.html">detail::parsing_range</a>&lt; <a class="el" href="classtlv_1_1ber_1_1format.html">format</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1ber.html#acf7d1f59407a15e1ad5064f6179b4ef7">tlv::ber::parse</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data)</td></tr>
+<tr class="memdesc:acf7d1f59407a15e1ad5064f6179b4ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse final input as borrowed Elements using the built-in Format.  <br /></td></tr>
+<tr class="separator:acf7d1f59407a15e1ad5064f6179b4ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20ef4bc4d3e4ad4b1515472f4fe099ae" id="r_a20ef4bc4d3e4ad4b1515472f4fe099ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv.html#a20ef4bc4d3e4ad4b1515472f4fe099ae">tlv::ber_write_indefinite</a> (<a class="el" href="namespacetlv.html#aa91df798a712d88cf7d2f1f63a539b51">byte</a> *data, size_t capacity, <a class="el" href="classtlv_1_1tag.html">tlv::tag</a> <a class="el" href="classtlv_1_1tag.html">tag</a>, <a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> children)</td></tr>
 <tr class="memdesc:a20ef4bc4d3e4ad4b1515472f4fe099ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes explicit BER indefinite framing around an already encoded child sequence.  <br /></td></tr>
 <tr class="separator:a20ef4bc4d3e4ad4b1515472f4fe099ae"><td class="memSeparator" colspan="2">&#160;</td></tr>

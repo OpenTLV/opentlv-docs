@@ -105,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aad00eb35527e7f8c9fae7b4b7a0defb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject identifier views into a temporary Query.  <br /></td></tr>
 <tr class="separator:aad00eb35527e7f8c9fae7b4b7a0defb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21151e6abfda7749a7f7c15852848cf4" id="r_a21151e6abfda7749a7f7c15852848cf4"><td class="memTemplParams" colspan="2">template&lt;typename Visitor &gt; </td></tr>
-<tr class="memitem:a21151e6abfda7749a7f7c15852848cf4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; void, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtlv_1_1query.html#a21151e6abfda7749a7f7c15852848cf4">visit_buffer</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data, <a class="el" href="classtlv_1_1format.html">tlv::format</a> wire_format, size_t max_depth, size_t max_elements, Visitor &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca127870930d65c57ee65fcc47f2170d38">visitor</a>, <a class="elRef" href="../../c-api/html/reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr) const</td></tr>
+<tr class="memitem:a21151e6abfda7749a7f7c15852848cf4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; void, <a class="el" href="structtlv_1_1error.html">error</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classtlv_1_1query.html#a21151e6abfda7749a7f7c15852848cf4">visit_buffer</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data, <a class="el" href="classtlv_1_1format.html">tlv::format</a> wire_format, size_t max_depth, size_t max_elements, Visitor &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca127870930d65c57ee65fcc47f2170d38">visitor</a>, <a class="elRef" href="../../c-api/html/io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr) const</td></tr>
 <tr class="memdesc:a21151e6abfda7749a7f7c15852848cf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls a visitor for every element the query addresses.  <br /></td></tr>
 <tr class="separator:a21151e6abfda7749a7f7c15852848cf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -131,7 +131,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A parsed path query such as <code>6F/A5/50</code>. </p>
-<p>Wraps <a class="elRef" href="../../c-api/html/group__traversal.html#ga976e323bdf21f26674eb8ad393f2e2e5">tlv_query_t</a>; the query language is described in <a class="elRef" href="../../c-api/html/query_2query_8h.html">tlv/query/query.h</a>. The object is a small self-contained value; it never allocates and does not refer to the text it was parsed from. </p>
+<p>Wraps <a class="elRef" href="../../c-api/html/group__traversal.html#ga976e323bdf21f26674eb8ad393f2e2e5">tlv_query_t</a>; the query language is described in <a class="elRef" href="../../c-api/html/query_2query_8h.html">opentlv/query/query.h</a>. The object is a small self-contained value; it never allocates and does not refer to the text it was parsed from. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a66873fd47c90ba778ea6426d6dc66ca5" name="a66873fd47c90ba778ea6426d6dc66ca5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66873fd47c90ba778ea6426d6dc66ca5">&#9670;&#160;</a></span>compile()</h2>
@@ -407,7 +407,7 @@ template&lt;typename Visitor &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="elRef" href="../../c-api/html/reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="elRef" href="../../c-api/html/io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>diagnostic</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -424,7 +424,7 @@ template&lt;typename Visitor &gt; </div>
 </div><div class="memdoc">
 
 <p>Calls a visitor for every element the query addresses. </p>
-<p>Wraps tlv_query_visit_buffer(): elements are visited in document order and the rules for limits, offsets and errors are the same. Nothing is allocated and the entries passed to the visitor borrow <code>data</code>.</p>
+<p>Wraps <a class="elRef" href="../../c-api/html/group__traversal.html#gab17b02c0347c85e41bdd5d0c8ff127d0">tlv_query_visit_buffer()</a>: elements are visited in document order and the rules for limits, offsets and errors are the same. Nothing is allocated and the entries passed to the visitor borrow <code>data</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Visitor</td><td>Callable invoked as <code><a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca127870930d65c57ee65fcc47f2170d38">visitor(element_view, depth, absolute_offset)</a></code> returning <a class="elRef" href="../../c-api/html/tree_8h.html#a5685cbc116854f9874253489cb769622">tlv_visit_result_t</a>, as for <a class="el" href="classtlv_1_1tree__reader.html#a857f9459dd0fa032d34fdc30b5e11975" title="Visit remaining items using the canonical C Visitor engine.">tree_reader::visit()</a>.</td></tr>
@@ -442,7 +442,7 @@ template&lt;typename Visitor &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Success, also when nothing matched, or the error of tlv_query_visit_buffer().</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Success, also when nothing matched, or the error of <a class="elRef" href="../../c-api/html/group__traversal.html#gab17b02c0347c85e41bdd5d0c8ff127d0">tlv_query_visit_buffer()</a>.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Visitor side effects are not rolled back on error. </dd></dl>
 
 </div>
@@ -537,7 +537,7 @@ template&lt;typename Visitor &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tlv++/query/<a class="el" href="query_2query_8hpp.html">query.hpp</a></li>
+<li>opentlv/query/<a class="el" href="query_2query_8hpp.html">query.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

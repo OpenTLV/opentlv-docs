@@ -808,7 +808,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-python/edit/2a6aa299037ba43c91ddf43704b769d8ea81958e/docs/guides/python.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-python/edit/f9434e4da5e6e196f3d587f1ae387e109746490c/docs/guides/python.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -817,7 +817,7 @@
 
 
 <h1 id="using-opentlv-from-python">Using OpenTLV from Python<a class="headerlink" href="#using-opentlv-from-python" title="Permanent link">&para;</a></h1>
-<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/quick_start.py">Python quick start</a>
+<p>Start with setup below, then run the <a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/quick_start.py">Python quick start</a>
 for input, expected output and the public API. You can use this guide without
 studying native C implementation contracts.</p>
 <p>The <code>opentlv</code> package is an experimental Python binding for OpenTLV. It binds
@@ -850,7 +850,7 @@ dependency independently of a sibling checkout.</p>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">opentlv</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>  <span class="c1"># Python binding version, independent of Core</span>
 </code></pre></div>
 <p>Runnable round-trip version:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/quick_start.py">quick_start.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/quick_start.py">quick_start.py</a>
 (<code>python examples/quick_start.py</code> from the repository root).</p>
 <h2 id="reading">Reading<a class="headerlink" href="#reading" title="Permanent link">&para;</a></h2>
 <p><code>Reader</code> is a Python iterator over <code>Element</code> values. Each <code>Element</code> has a <code>Tag</code>
@@ -883,7 +883,7 @@ is inspected; its <code>length</code> is then empty. <code>opentlv.read(data)</c
 <code>read_element</code> returns the element and the consumed byte count.</p>
 <p>Runnable version, parsing a nested BER document and handling truncated
 input:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/parse.py">parse.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/parse.py">parse.py</a>
 (<code>python examples/parse.py</code>).</p>
 <h2 id="writing">Writing<a class="headerlink" href="#writing" title="Permanent link">&para;</a></h2>
 <p><code>Writer</code> encodes into a buffer it owns and grows as needed, so <code>write</code> never
@@ -912,12 +912,12 @@ checks that its content is unchanged.
 element into caller storage without a Writer and returns its size;
 <code>opentlv.element_encoded_size(element, format)</code> measures it first.</p>
 <p>Runnable versions:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/write.py">write.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/write.py">write.py</a>
 builds a nested BER document bottom-up (<code>python examples/write.py</code>);
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/writer.py">writer.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/writer.py">writer.py</a>
 shows the growable buffer handling a value far larger than its initial
 capacity, and a genuine format error (<code>python examples/writer.py</code>);
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/stream.py">stream.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/stream.py">stream.py</a>
 streams elements into a fixed buffer, preserving one unchanged and stopping
 when the buffer is full (<code>python examples/stream.py</code>).</p>
 <h2 id="custom-formats">Custom formats<a class="headerlink" href="#custom-formats" title="Permanent link">&para;</a></h2>
@@ -968,7 +968,7 @@ the descriptor's capabilities. Their errors carry the Format's own detail in
 <code>operation</code>, <code>region</code>, <code>offset</code>, <code>required</code> and the tag, length and value offsets.</p>
 <p>Runnable version, a proprietary format through Tree Writer, Reader, Document
 and Query:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/compose.py">compose.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/compose.py">compose.py</a>
 (<code>python examples/compose.py</code>).</p>
 <h2 id="generating-wire-data">Generating wire data<a class="headerlink" href="#generating-wire-data" title="Permanent link">&para;</a></h2>
 <p><code>Generator(format, candidates, max_elements=..., max_depth=...,
@@ -1000,7 +1000,7 @@ raises <code>UnsupportedError</code>, and candidates the Format rejects can end 
 <code>LimitError</code>. The binding sizes and owns the scratch workspace;
 <code>workspace_size</code> reports it.</p>
 <p>Runnable version, a round-trip property over 100 cases of a custom format:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/generate.py">generate.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/generate.py">generate.py</a>
 (<code>python examples/generate.py</code>).</p>
 <h2 id="validating">Validating<a class="headerlink" href="#validating" title="Permanent link">&para;</a></h2>
 <p><code>LengthSchema</code> is a per-tag length table whose lookup and length constraints
@@ -1069,9 +1069,9 @@ value's name or <code>None</code> (<code>tlv_value_constraint_name()</code>).</p
 </code></pre></div>
 <p>Runnable version, validating the document <code>parse.py</code> reads, and rejecting an
 incomplete one:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/validate.py">validate.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/validate.py">validate.py</a>
 (<code>python examples/validate.py</code>).
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/batch.py">batch.py</a> validates a batch of messages against a
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/batch.py">batch.py</a> validates a batch of messages against a
 checked schema and evaluates one compiled Query over each
 (<code>python examples/batch.py</code>).</p>
 <h2 id="generic-definition-registries">Generic Definition registries<a class="headerlink" href="#generic-definition-registries" title="Permanent link">&para;</a></h2>
@@ -1191,9 +1191,9 @@ reimplementing their conversion logic.
 retains operation, original provider result, contract violation and delegated
 cause when supplied by C. Its <code>schema</code> entry is an owned <code>SchemaDiagnostic</code>.</p>
 <p>Runnable version, decoding and encoding an EMV "Amount, Authorised" element:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/codec.py">codec.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/codec.py">codec.py</a>
 (<code>python examples/codec.py</code>).
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/value_codecs.py">value_codecs.py</a> decodes digits, text and an
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/value_codecs.py">value_codecs.py</a> decodes digits, text and an
 IPv4 list from one message (<code>python examples/value_codecs.py</code>).</p>
 <h2 id="documents">Documents<a class="headerlink" href="#documents" title="Permanent link">&para;</a></h2>
 <p><code>Reader</code> retains immutable input or snapshots mutable buffers, and <code>Writer</code>
@@ -1244,14 +1244,14 @@ node's Value removes them from it and its ancestors, inserting or erasing a
 child removes them from its ancestors, and nodes created by edits have none;
 unaffected nodes keep their original coordinates.</p>
 <p>Runnable versions:
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/document.py">document.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/document.py">document.py</a>
 replaces a value and appends an element in an existing message
 (<code>python examples/document.py</code>);
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/query.py">query.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/query.py">query.py</a>
 addresses a deeply nested element by path instead of navigating node by node,
 including a malformed query and a query with no match
 (<code>python examples/query.py</code>);
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/examples/audit.py">audit.py</a>
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/examples/audit.py">audit.py</a>
 validates a decoded INTEGER against named numbers, changes a packed header
 flag and reports the revision and original location of the changed element
 (<code>python examples/audit.py</code>).</p>
@@ -1386,8 +1386,8 @@ keeping its program, providers, workspace and budgets and releasing pinned
 inputs, bindings and the Document snapshot; callback exceptions require reset
 before reuse. Programs and executions retain their native owners until
 the Python objects are collected.
-The <a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/tests/python/test_program.py">consumer tests</a> and
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/tests/query/python_facade.py">common corpus runner</a> exercise these APIs.</p>
+The <a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/tests/python/test_program.py">consumer tests</a> and
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/tests/query/python_facade.py">common corpus runner</a> exercise these APIs.</p>
 <p><code>providers={"num": QueryProvider(id, decode), ...}</code> replaces the closed <code>num</code>,
 <code>bcd</code>, <code>text</code> or <code>date</code> conversion. <code>decode(value, metadata)</code> receives owned bytes
 and optional copied <code>QueryMatch</code> metadata; return an integer or, for <code>text</code>, a
@@ -1454,7 +1454,7 @@ or owned editing, then <a href="https://github.com/OpenTLV/opentlv/blob/5e0aae9c
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -1468,21 +1468,21 @@ or owned editing, then <a href="https://github.com/OpenTLV/opentlv/blob/5e0aae9c
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -1496,7 +1496,7 @@ or owned editing, then <a href="https://github.com/OpenTLV/opentlv/blob/5e0aae9c
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

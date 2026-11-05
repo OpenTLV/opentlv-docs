@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/bluetooth/bluetooth_ltv.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/bluetooth/bluetooth_ltv.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_9b6fd0dc17d64e86eea0079a95994ef9.html">bluetooth</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_e51af50b2c7c8faef52338a0e7b0c601.html">bluetooth</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -81,8 +81,8 @@ $(function() {
 
 <p>Bluetooth LTV: one length byte, one type byte, then the value.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="format_8h.html">tlv/format.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="core_2format_8h.html">opentlv/core/format.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/builtin/bluetooth/export.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -96,10 +96,10 @@ Variables</h2></td></tr>
 <p>Unknown types are structurally valid and are skipped by length alone.</p>
 <p>A length byte of zero is rejected with <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a11e399e826cabbe9fb215922485d3742">TLV_ERR_INVALID_LENGTH</a>: it has no type byte, and in Bluetooth data it is the start of the non-significant zero padding rather than an element.</p>
 <p>This format has no constructed types: nesting is left to the caller.</p>
-<p>This is the configurable Fixed format (<a class="el" href="formats_2fixed_8h.html" title="A configurable fixed-width TLV format: independent tag and length widths, field order and length sema...">tlv/formats/fixed.h</a>) preset to <code>{{1}, {1, TLV_BYTE_ORDER_BIG_ENDIAN}, TLV_ELEMENT_ORDER_LTV, TLV_LENGTH_SCOPE_TAG_AND_VALUE}</code>: every read and write goes through that same generic implementation, so this global exists only to name and expose the preset, not a separate parser or writer.</p>
+<p>This is the configurable Fixed format (<a class="el" href="formats_2fixed_8h.html" title="A configurable fixed-width TLV format: independent tag and length widths, field order and length sema...">opentlv/core/formats/fixed.h</a>) preset to <code>{{1}, {1, TLV_BYTE_ORDER_BIG_ENDIAN}, TLV_ELEMENT_ORDER_LTV, TLV_LENGTH_SCOPE_TAG_AND_VALUE}</code>: every read and write goes through that same generic implementation, so this global exists only to name and expose the preset, not a separate parser or writer.</p>
 <dl class="section note"><dt>Note</dt><dd>Writing any tag size other than one returns <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a10505614abc0b8d1ef8e5eef944dc014">TLV_ERR_INVALID_TAG_SIZE</a>, and a value longer than 254 bytes returns <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a11e399e826cabbe9fb215922485d3742">TLV_ERR_INVALID_LENGTH</a>.</dd>
 <dd>
-Requires <code>OPENTLV_BLUETOOTH=ON</code>. </dd></dl>
+Requires linking <code>OpenTLV::Bluetooth</code>. </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

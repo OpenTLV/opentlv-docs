@@ -3400,6 +3400,8 @@
       
         
       
+        
+      
     
     
     
@@ -3459,6 +3461,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3575,9 +3581,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4250,6 +4340,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4509,6 +4603,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5356,6 +5506,8 @@
       
         
       
+        
+      
     
     
     
@@ -5559,6 +5711,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6078,7 +6258,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/format-roadmap.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/format-roadmap.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6091,7 +6271,7 @@
 CLI and language-preset support; this page records candidates and remaining work.</p>
 <p><a href="../../../">Back to documentation</a></p>
 <p>This is a candidate catalogue, not a release schedule. The
-<a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/README.md#format-and-standard-support">README checklist</a> records built-in support.
+<a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/README.md#format-and-standard-support">README checklist</a> records built-in support.
 Unchecked entries are not implemented; application-defined callbacks may already
 support particular encodings. Each implementation needs a separate scope, chosen
 specification edition, limits, and conformance tests before its checkbox is enabled.
@@ -6112,7 +6292,7 @@ interpretation remain outside that implementation.</p>
 <p>Keep raw framing, nesting rules, structural schemas, value codecs, and protocol
 semantics separate. Generic formats such as Fixed belong to the always-available
 core. Standard-specific built-ins remain selectable through their package
-build options, such as <code>OPENTLV_BLUETOOTH</code>. Preserve caller-owned storage,
+link targets, such as <code>OpenTLV::Bluetooth</code>. Preserve caller-owned storage,
 capacity checks, and zero-copy value reads in the C API.</p>
 <p>The current callback contract decodes a complete element and reports separate
 semantic content and source ranges. The semantic Tag borrows its exact source
@@ -6215,7 +6395,7 @@ so a candidate's "components" show which layers stay separate.</p>
 <tbody>
 <tr>
 <td>Format adapter</td>
-<td><code>tlv_format_t</code> in <code>tlv/format.h</code>; the canonical <code>decode</code>, <code>measure</code> and <code>encode</code> operations handle format-defined framing</td>
+<td><code>tlv_format_t</code> in <code>opentlv/core/format.h</code>; the canonical <code>decode</code>, <code>measure</code> and <code>encode</code> operations handle format-defined framing</td>
 <td>Splits bytes into tag, header, value and trailer, and writes complete framing.</td>
 </tr>
 <tr>
@@ -6225,17 +6405,17 @@ so a candidate's "components" show which layers stay separate.</p>
 </tr>
 <tr>
 <td>Structure schema</td>
-<td><code>tlv_schema_t</code> and <code>tlv_structure_schema_t</code> in <code>tlv/schema/schema.h</code></td>
+<td><code>tlv_schema_t</code> and <code>tlv_structure_schema_t</code> in <code>opentlv/schema/schema.h</code></td>
 <td>Length bounds, occurrence and membership rules.</td>
 </tr>
 <tr>
 <td>DER schema</td>
-<td><code>tlv_der_schema_type_t</code> in <code>tlv/builtins/asn1/der_schema.h</code></td>
+<td><code>tlv_der_schema_type_t</code> in <code>opentlv/builtin/asn1/der_schema.h</code></td>
 <td>ASN.1 type rules with canonical DER semantics; a fixed, small subset.</td>
 </tr>
 <tr>
 <td>Value codecs</td>
-<td><code>tlv/codec/codec.h</code> and <code>tlv/codec/structure.h</code></td>
+<td><code>opentlv/codec/codec.h</code> and <code>opentlv/codec/structure.h</code></td>
 <td>Decode and encode value contents.</td>
 </tr>
 <tr>
@@ -6413,7 +6593,7 @@ so a candidate's "components" show which layers stay separate.</p>
 <h2 id="framing-requirements">Framing requirements<a class="headerlink" href="#framing-requirements" title="Permanent link">&para;</a></h2>
 <p>These are reusable requirements collected from the candidates. Not one of them is a
 commitment. The <strong>fit</strong> column is by inspection of the callback contract in
-<a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tlv/include/tlv/format.h"><code>format.h</code></a>: <code>decode</code> sees the bytes from
+<a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/include/opentlv/core/format.h"><code>format.h</code></a>: <code>decode</code> sees the bytes from
 the start of an element and reports the tag, the header size, the value size and the
 trailer size; <code>encode</code> writes the complete Header/Value/Trailer representation. A tag is any
 number of raw bytes the format accepts. <strong>A generic packed-header fixture and the LLDP framing adapter exercise
@@ -6580,7 +6760,7 @@ recommendations. Re-check the clause and edition of any candidate when it is sco
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6594,21 +6774,21 @@ recommendations. Re-check the clause and edition of any candidate when it is sco
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6622,7 +6802,7 @@ recommendations. Re-check the clause and edition of any candidate when it is sco
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

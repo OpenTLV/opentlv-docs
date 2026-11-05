@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/writer/tree.h File Reference</title>
+<title>OpenTLV C API: opentlv/io/writer/tree.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_5d3e3b9cf84bfc9738dbb87b0ddacb9f.html">writer</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_86ad4a24a1c6f3143f7dea0ee65a338f.html">io</a></li><li class="navelem"><a class="el" href="dir_411833543149141164ea6d940474401b.html">writer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -83,9 +83,10 @@ $(function() {
 
 <p>Allocation-free iterative construction using caller-owned bounded storage.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="writer_8h.html">tlv/writer/writer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="defaults_8h.html">tlv/defaults.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="tree_8h.html">tlv/tree.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/io/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="writer_8h.html">opentlv/io/writer/writer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="defaults_8h.html">opentlv/io/defaults.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tree_8h.html">opentlv/io/tree.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -116,6 +117,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga6100d62044ea782d48db0dddb04ec39e" id="r_ga6100d62044ea782d48db0dddb04ec39e"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga6100d62044ea782d48db0dddb04ec39e">tlv_tree_event_next_fn</a>) (void *context, <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event)</td></tr>
 <tr class="memdesc:ga6100d62044ea782d48db0dddb04ec39e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull one structural event for bounded tree measurement.  <br /></td></tr>
 <tr class="separator:ga6100d62044ea782d48db0dddb04ec39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3ce085fbb123ebe5f732d9a45877363" id="r_gae3ce085fbb123ebe5f732d9a45877363"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#gae3ce085fbb123ebe5f732d9a45877363">tlv_tree_writer_charge_fn</a>) (void *context, size_t amount)</td></tr>
+<tr class="memdesc:gae3ce085fbb123ebe5f732d9a45877363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional budget observer: one unit per event and three per actual Value byte processed by sizing/copying/encoding. Called before the associated operation. Storage capacities never participate in this accounting.  <br /></td></tr>
+<tr class="separator:gae3ce085fbb123ebe5f732d9a45877363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -161,6 +165,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae10ae48fc054294c71cf6c1797225f1d" id="r_gae10ae48fc054294c71cf6c1797225f1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#gae10ae48fc054294c71cf6c1797225f1d">tlv_tree_writer_measure</a> (const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="group__writer.html#ga771aec7d5b9e24b09c9f6e401bc44107">tlv_tree_writer_next_fn</a> next, void *context, <a class="el" href="group__writer.html#gab9db909d8cb7eb930d06a32e07a72fd8">tlv_tree_writer_workspace_t</a> *workspace, size_t max_depth, size_t max_elements, size_t *size, <a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5">tlv_writer_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:gae10ae48fc054294c71cf6c1797225f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure a preorder tree through canonical Tree Writer encoding, without allocating.  <br /></td></tr>
 <tr class="separator:gae10ae48fc054294c71cf6c1797225f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fd84f69856ae3aabb58fb556fd392f8" id="r_ga0fd84f69856ae3aabb58fb556fd392f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga0fd84f69856ae3aabb58fb556fd392f8">tlv_tree_writer_measure_events_observed</a> (const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="group__writer.html#ga6100d62044ea782d48db0dddb04ec39e">tlv_tree_event_next_fn</a> next, void *context, <a class="el" href="group__writer.html#gab9db909d8cb7eb930d06a32e07a72fd8">tlv_tree_writer_workspace_t</a> *workspace, size_t max_depth, size_t max_elements, size_t *size, <a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5">tlv_writer_diagnostic_t</a> *diagnostic, <a class="el" href="group__writer.html#gae3ce085fbb123ebe5f732d9a45877363">tlv_tree_writer_charge_fn</a> charge, void *charge_context)</td></tr>
+<tr class="memdesc:ga0fd84f69856ae3aabb58fb556fd392f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure events with optional budget accounting before each operation. All measurement parameters and failure/storage contracts match <a class="el" href="group__writer.html#ga11ca5a489172b72a33de62e4e645a7dd" title="Measure and stage a canonical balanced event stream through Tree Writer.">tlv_tree_writer_measure_events()</a>. charge may be NULL; otherwise it receives charge_context and a work amount. Provider errors are propagated unchanged; control statuses and unknown results become TLV_ERR_CALLBACK. Observer failures leave diagnostic and size unchanged; the source and staging workspace may already have advanced. The observer may report its own detail through charge_context and must not mutate the measurement workspace.  <br /></td></tr>
+<tr class="separator:ga0fd84f69856ae3aabb58fb556fd392f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Allocation-free iterative construction using caller-owned bounded storage. </p>

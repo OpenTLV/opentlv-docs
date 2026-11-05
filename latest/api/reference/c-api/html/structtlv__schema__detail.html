@@ -124,7 +124,7 @@ Data Fields</h2></td></tr>
 <p>Identifies which rule or <a class="el" href="group__schemas.html#ga0e910d012f13f14d54d2dc0746cacfc9" title="A CHOICE-like group of mutually related alternative rules.">tlv_structure_group_t</a> a violation breaks, the tag involved, the schema field or group name if it has one, and the expected-versus-actual detail for whichever of <code>kind</code>'s cases applies. A field not applicable to <code>kind</code> is left unset, indicated by its paired <code>has_*</code> flag being zero. Every field is a fixed-size value or a borrowed pointer, so filling one never allocates.</p>
 <p><a class="el" href="group__schemas.html#ggae8780ff71af2d72d1dcb5f8189af7dfda45498156b89c6b1e0fd85997a96f3e2e">TLV_SCHEMA_ISSUE_MISSING</a> and <a class="el" href="group__schemas.html#ggae8780ff71af2d72d1dcb5f8189af7dfda05f1c3f3b1d70fc6f313a508592fdaeb">TLV_SCHEMA_ISSUE_DUPLICATE</a> can be reported against a <a class="el" href="group__schemas.html#ga0e910d012f13f14d54d2dc0746cacfc9" title="A CHOICE-like group of mutually related alternative rules.">tlv_structure_group_t</a> instead of a single <a class="el" href="group__schemas.html#gacd252f1238fc84a85a4ebc66d17aeeab" title="Structural rule for one tag within a single parent.">tlv_structure_rule_t</a>, signaled by <code>is_group</code>: <code>tag</code> is then the group's first member rule's tag (missing) or the actual offending member's tag (duplicate), <code>field</code> is the group's <code>name</code>, and the occurrence fields are the group's own bounds and summed occurrences rather than one rule's.</p>
 <p>Native definition failures identify the owning table/type and offending member independently of byte locations.</p>
-<dl class="section note"><dt>Note</dt><dd>This fixed-size value contains no result, location or path. It is the single Schema detail type: <a class="el" href="group__schemas.html#ga76559fb9baaff706b34cab6954926c98" title="Common failure diagnostic paired with one discriminated typed detail.">tlv_schema_diagnostic_t</a> pairs it with one common <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e" title="A structured diagnostic: a stable code plus the state that produced it.">tlv_diagnostic_t</a>, and Codec and Query embed it as their delegated Schema cause. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This fixed-size value contains no result, location or path. It is the single Schema detail type: <a class="el" href="group__schemas.html#ga76559fb9baaff706b34cab6954926c98" title="Common failure diagnostic paired with one discriminated typed detail.">tlv_schema_diagnostic_t</a> pairs it with one common <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e" title="A structured diagnostic: a stable code plus the state that produced it.">tlv_diagnostic_t</a>, and integrations attach it as a delegated Schema cause frame. </dd></dl>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="ac33ec7b1a767ee5a666949ed02470973" name="ac33ec7b1a767ee5a666949ed02470973"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac33ec7b1a767ee5a666949ed02470973">&#9670;&#160;</a></span>actual_constructed</h2>
@@ -397,7 +397,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>tlv/schema/<a class="el" href="detail_8h.html">detail.h</a></li>
+<li>opentlv/schema/<a class="el" href="detail_8h.html">detail.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

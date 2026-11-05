@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4352,6 +4446,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5412,6 +5562,8 @@
       
         
       
+        
+      
     
     
     
@@ -5615,6 +5767,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6190,7 +6370,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs/ci.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/cb81e5818477c7c33dc468d3edabc6ff9acb3403/docs/ci.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6221,7 +6401,7 @@ availability without an APT update or dependency on Ubuntu package mirrors.</p>
 <tr>
 <td>JS Pull Request CI</td>
 <td>PR targeting <code>main</code>, without path filters</td>
-<td>Release build, smoke, parse example, Query facade, WASM Query ABI, private package checks</td>
+<td>Release build, smoke, parse example, Query facade, WASM Query ABI, package checks</td>
 </tr>
 <tr>
 <td>JS Main CI</td>
@@ -6231,12 +6411,12 @@ availability without an APT update or dependency on Ubuntu package mirrors.</p>
 <tr>
 <td>JS Full CI</td>
 <td>Manual or reusable workflow call</td>
-<td>Release and Debug, each with the same checks; separately two fresh Release builds, all checks in each, comparing all four output and private package hashes; upload outputs and the tested archive</td>
+<td>Release and Debug, each with the same checks; separately two fresh Release builds, all checks in each, comparing all four output and package hashes; upload outputs and the tested archive</td>
 </tr>
 <tr>
 <td>JS Release</td>
 <td>Manual dispatch on <code>main</code> with an unused tag</td>
-<td>Requires successful Main CI on the commit, runs Full in the same attempt, then attests and publishes the tested archive as a GitHub release</td>
+<td>Requires successful Main CI on the commit, runs Full in the same attempt, then attests and publishes the tested archive as a GitHub release; with <code>npm: true</code>, publishes that archive to npm after the <code>npm</code> environment approval</td>
 </tr>
 </tbody>
 </table>
@@ -6248,8 +6428,8 @@ Release binary.</p>
 migration verifier, Python infrastructure regressions and actionlint 1.7.7.
 Install contributor tools from <code>requirements-dev.txt</code> using Python 3.10+;
 the existing build helpers still support Python 3.9+. See the
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/README.md#contributing-and-security">contributor instructions</a> for local use
-and <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/THIRD_PARTY.md">attribution scope</a> for generated/runtime files.
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/README.md#contributing-and-security">contributor instructions</a> for local use
+and <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/THIRD_PARTY.md">attribution scope</a> for generated/runtime files.
 The reusable <code>js-checks.yml</code> provides a final
 <code>JS quality gate</code> that requires every infrastructure and runtime job to succeed;
 failed, cancelled or skipped prerequisites cannot pass it. Full CI calls it
@@ -6261,8 +6441,9 @@ require the PR gate.</p>
 manual Full run rehearses it without creating a tag. Tag pushes no longer
 trigger a workflow. Only the <code>JS Release</code> workflow creates a tag, after its
 gates pass, and it publishes the tested archive and attestations to GitHub
-Releases as described in <a href="../../../../languages/javascript/manual/packaging/#github-release">GitHub release</a>. No
-workflow publishes an npm package.</p>
+Releases as described in <a href="../../../../languages/javascript/manual/packaging/#github-release">GitHub release</a>. Only its
+approved <code>npm</code> job publishes to npm, by trusted publishing and only that release's
+archive; see <a href="../../../../languages/javascript/manual/packaging/#npm-publication">npm publication</a>.</p>
 <h2 id="pinned-core-api-reference-report">Pinned Core API reference report<a class="headerlink" href="#pinned-core-api-reference-report" title="Permanent link">&para;</a></h2>
 <p>The <a href="../../../../languages/javascript/manual/webassembly/#generic-api-coverage-review">generic API review</a> records the exact-pin per-header
 inventory, public operations, functional tests and representation exclusions.
@@ -6413,7 +6594,7 @@ completed migration check distinct from post-migration feature validation.</p>
 <p>Each build uses default FetchContent selection and verifies <code>pinned-source</code>
 provenance before and after the integration tests. A sibling development
 receipt is rejected by this CI runner. The native dependency checksum and Git
-version metadata retain the <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/README.md#standalone-build">standalone build contract</a>.</p>
+version metadata retain the <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/README.md#standalone-build">standalone build contract</a>.</p>
 <p>The Query integration additionally verifies every file under the selected
 Core's <code>tests/query/</code> against its exact commit's Git blobs. Modified, missing,
 symlinked and extra files, including ignored files, fail before executing the
@@ -6428,10 +6609,14 @@ is disabled for that subprocess so assertions remain active. This checks the
 public WASM interoperability layout; it does not duplicate native Core tests
 or copy fixture, oracle or ABI snapshot ownership into JS.</p>
 <p>The generated module retains <code>web,worker,node</code> loader support. As in the
-immutable migration baseline, these workflows execute <strong>Node only</strong>. Browser
-and worker runtime validation are not established by this CI.</p>
+immutable migration baseline, the runtime suites execute in <strong>Node only</strong>. The
+<a href="../../../../languages/javascript/manual/packaging/#build-and-check">package checks</a> additionally load the
+installed archive in the runner's headless Chrome, as a module page and a module
+worker, which covers WASM loading, parsing and Document encoding, not the full
+API. Other browsers and bundlers are not established by this CI.</p>
 <h2 id="local-execution">Local execution<a class="headerlink" href="#local-execution" title="Permanent link">&para;</a></h2>
-<p>Activate Emscripten 4.0.10 and put Node 22 first on <code>PATH</code>, then run:</p>
+<p>Activate Emscripten 4.0.10, put Node 22 first on <code>PATH</code> and provide TypeScript
+5.9.3 and Chrome (<a href="../../../../languages/javascript/manual/packaging/#build-and-check">details</a>), then run:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/verify_migration.py
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests<span class="w"> </span>-v
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>--tier<span class="w"> </span>pr
@@ -6450,12 +6635,13 @@ its own fetched Core source and generated files. Every output must exist and
 be nonempty: <code>opentlv-core.js</code>, <code>opentlv-core.wasm</code>, <code>opentlv.mjs</code>, <code>query.mjs</code>.
 These files are in each build's <code>dist/</code> directory, also used by the workflow's
 output artifact upload. Repository source paths are documented in the
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/README.md#repository-layout">layout guide</a>.
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/README.md#repository-layout">layout guide</a>.
 A mismatch in any one fails the run. Main and Full do not implicitly prove
 reproducibility; only the double-build check does. Each build also runs the
-<a href="../../../../languages/javascript/manual/packaging/">private package checks</a>: offline dry-run/real packing, exact
+<a href="../../../../languages/javascript/manual/packaging/">package checks</a>: offline dry-run/real packing, exact
 archive content checks, offline installation, package exports/version/asset
-tests and the existing smoke/example/Query facade against the installed files.
+tests and the existing smoke/example/Query facade against the installed files,
+plus a clean consumer outside the checkout and the headless Chrome check.
 The double-build tier additionally requires identical archive bytes, package
 metadata and file hashes. Node's bundled npm is required and its version is
 recorded in each package report.</p>
@@ -6467,7 +6653,7 @@ Release flags in the immutable source inventory and a fresh
 <code>migration-baseline/</code> build directory. Since the Core <code>v0.8.0</code> pin (#32), the
 current build no longer provides that checkout. The gate first configures the
 reconstructed migration sources with their own Core lock,
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/ci/migration-core-source.json">ci/migration-core-source.json</a>, whose commit
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/ci/migration-core-source.json">ci/migration-core-source.json</a>, whose commit
 and tree must equal the immutable inventory. That fetched and verified
 checkout then provides the historical target. The reconstructed build always
 runs, and the result records <code>current_core_commit</code> with
@@ -6485,19 +6671,19 @@ of the four outputs</strong>. A mismatch fails the overall Full/Release run.</p>
 <p>The CI result includes <code>migration_compatibility</code> only after this check succeeds;
 <code>migration-*-contract.json</code> and command logs accompany the report. This is
 distinct from double-build reproducibility: the latter compares two standalone
-builds and their private archives; migration compares the old and new build
+builds and their archives; migration compares the old and new build
 systems. Core pin upgrades keep this comparison on the recorded baseline
 lock; the current build is then checked only for its reviewed public contract.
 Future intentional runtime or toolchain changes need a reviewed replacement for
 this migration gate, retaining the historical record.
 Neither check establishes browser/worker execution or release authorization.</p>
-<p>See the <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/MIGRATION.md#validation-review-14">dated migration acceptance review</a>
+<p>See the <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/MIGRATION.md#validation-review-14">dated migration acceptance review</a>
 for cross-repository pins, hosted evidence, deviations and remaining gates.</p>
 <h3 id="run-receipts">Run receipts<a class="headerlink" href="#run-receipts" title="Permanent link">&para;</a></h3>
 <p><code>evidence/result.json</code> records the tier, configuration, checkout commit/dirty
 state, tool versions, GitHub repository/SHA/ref/run/attempt when present, Core
 selection receipts, Query input identity, output hashes and command results.
-<code>first-package.json</code> (and <code>second-package.json</code> for Release) record the private
+<code>first-package.json</code> (and <code>second-package.json</code> for Release) record the
 package version, archive/file hashes, npm version and commands. Package staging,
 archives, consumers and detailed logs remain in the local <code>first-package/</code> and
 <code>second-package/</code> directories and are not included in uploaded release artifacts.
@@ -6567,14 +6753,14 @@ informational; references alone do not prove functional parity. Run:</p>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>node<span class="w"> </span>tests/streaming.mjs<span class="w"> </span>&lt;build&gt;/dist
 </code></pre></div>
 <p>Each CI tier runs the streaming suite and example through CTest and again against
-the installed private archive. Full/Release also verifies current additive WASM
+the installed archive. Full/Release also verifies current additive WASM
 exports and reconstructs historical sources from <code>ci/source-evolution.json</code>;
 the immutable migration inventory is unchanged. Limits, callback exceptions,
 memory growth, owned snapshots, every fixture split, balanced events and bounded
 measurement are binding-owned runtime regressions. These checks execute in Node.</p>
 <h2 id="documentation-updates">Documentation updates<a class="headerlink" href="#documentation-updates" title="Permanent link">&para;</a></h2>
 <p>JS owns <a href="../../../../languages/javascript/manual/webassembly/">the WASM manual</a>, the unchanged
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/examples/parse.mjs">parse example</a>, and <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs-examples.json">docs-examples.json</a>.
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/examples/parse.mjs">parse example</a>, and <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/docs-examples.json">docs-examples.json</a>.
 The catalog's <code>component_version</code> must equal the independent version in
 <code>package.json</code>; it is not the embedded Core version. Docs assembles these sources
 at a reviewed commit, retaining JS source/edit links. A documentation update
@@ -6649,7 +6835,7 @@ installs it before the WASM job. Runtime package installation remains offline.</
 <p>Source evolution separately verifies the changed sources and restores the immutable
 migration baseline. Release-tier
 validation still compares the reconstructed baseline's four runtime outputs and
-the current private archives from two independent builds. Local Node and type
+the current archives from two independent builds. Local Node and type
 checks do not establish hosted, browser/worker, publication or release evidence.</p>
 <h2 id="codecgenerator-inventory-6">Codec/Generator inventory (#6)<a class="headerlink" href="#codecgenerator-inventory-6" title="Permanent link">&para;</a></h2>
 <p>Against unchanged Core <code>a9a6f9470c2b285744738b40196bef9d0341fead</code>, the initial
@@ -6734,7 +6920,7 @@ recorded separately from the immutable migration baseline.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6748,21 +6934,21 @@ recorded separately from the immutable migration baseline.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6776,7 +6962,7 @@ recorded separately from the immutable migration baseline.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

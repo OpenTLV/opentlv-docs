@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/asn1/cer_validation.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/asn1/cer_validation.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_c5eacbedfec0e484f2e3bad41c977e92.html">asn1</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_dd38b71010fe5d261e96d1e86f862dba.html">asn1</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -85,12 +85,11 @@ $(function() {
 
 <p>Bounded recursive CER validation, traversal and canonical writing.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">tlv/result.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="diagnostic_8h.html">tlv/diagnostic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="config_8h.html">tlv/config.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="cer_8h.html">tlv/builtins/asn1/cer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="tree_8h.html">tlv/tree.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">opentlv/core/result.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2diagnostic_8h.html">opentlv/core/diagnostic.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cer_8h.html">opentlv/builtin/asn1/cer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tree_8h.html">opentlv/io/tree.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/builtin/asn1/export.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -126,12 +125,21 @@ Functions</h2></td></tr>
 <tr class="memitem:ga165dc376fe293ada1c86715817fdcdc2" id="r_ga165dc376fe293ada1c86715817fdcdc2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga165dc376fe293ada1c86715817fdcdc2">tlv_cer_visit</a> (const uint8_t *data, size_t size, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, <a class="el" href="group__builtins.html#gafd44c8de159cdfa355cf1583d5ea5f85">tlv_cer_visitor_t</a> visitor, void *context, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:ga165dc376fe293ada1c86715817fdcdc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates all concatenated CER elements recursively.  <br /></td></tr>
 <tr class="separator:ga165dc376fe293ada1c86715817fdcdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga253a4fa0c1867621b5506f217a33f40c" id="r_ga253a4fa0c1867621b5506f217a33f40c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga253a4fa0c1867621b5506f217a33f40c">tlv_cer_write</a> (uint8_t *data, size_t capacity, <a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> tag, const uint8_t *value, size_t length, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, size_t *written, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga253a4fa0c1867621b5506f217a33f40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a canonical CER element.  <br /></td></tr>
+<tr class="separator:ga253a4fa0c1867621b5506f217a33f40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga976d55a93c406c934bccd53c098b2303" id="r_ga976d55a93c406c934bccd53c098b2303"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga976d55a93c406c934bccd53c098b2303">tlv_cer_read_strict</a> (const uint8_t *data, size_t size, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *element, size_t *consumed, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:ga976d55a93c406c934bccd53c098b2303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strict counterpart of <a class="el" href="group__builtins.html#ga8f1ba8a6b3db6370539172b68f33e9fd" title="Validates one complete CER element, including all descendants.">tlv_cer_read()</a>.  <br /></td></tr>
 <tr class="separator:ga976d55a93c406c934bccd53c098b2303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4fbf45fd85eba8b741c3b60cae5fc330" id="r_ga4fbf45fd85eba8b741c3b60cae5fc330"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga4fbf45fd85eba8b741c3b60cae5fc330">tlv_cer_visit_strict</a> (const uint8_t *data, size_t size, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, <a class="el" href="group__builtins.html#gafd44c8de159cdfa355cf1583d5ea5f85">tlv_cer_visitor_t</a> visitor, void *context, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:ga4fbf45fd85eba8b741c3b60cae5fc330"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strict counterpart of <a class="el" href="group__builtins.html#ga165dc376fe293ada1c86715817fdcdc2" title="Validates all concatenated CER elements recursively.">tlv_cer_visit()</a>.  <br /></td></tr>
 <tr class="separator:ga4fbf45fd85eba8b741c3b60cae5fc330"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7ac2026d145cbb6e97f782c66130c03b" id="r_ga7ac2026d145cbb6e97f782c66130c03b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga7ac2026d145cbb6e97f782c66130c03b">tlv_cer_write_strict</a> (uint8_t *data, size_t capacity, <a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> tag, const uint8_t *value, size_t length, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, size_t *written, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga7ac2026d145cbb6e97f782c66130c03b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strict counterpart of <a class="el" href="group__builtins.html#ga253a4fa0c1867621b5506f217a33f40c" title="Writes a canonical CER element.">tlv_cer_write()</a>.  <br /></td></tr>
+<tr class="separator:ga7ac2026d145cbb6e97f782c66130c03b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5c2779bd6096f883aa53354e8e33d2fc" id="r_ga5c2779bd6096f883aa53354e8e33d2fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga5c2779bd6096f883aa53354e8e33d2fc">tlv_cer_write_segmented_string</a> (uint8_t *data, size_t capacity, <a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> tag, const uint8_t *content, size_t content_length, const <a class="el" href="group__builtins.html#ga0db492e34a92eb40b65521aaa818ea38">tlv_cer_limits_t</a> *limits, size_t *written, <a class="el" href="group__diagnostics.html#ga2118f30a61e0b0b3ba5d20c73a740b2e">tlv_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga5c2779bd6096f883aa53354e8e33d2fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes logical string content as canonical CER.  <br /></td></tr>
+<tr class="separator:ga5c2779bd6096f883aa53354e8e33d2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>

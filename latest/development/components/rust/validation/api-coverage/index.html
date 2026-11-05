@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4352,6 +4446,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5301,6 +5451,8 @@
       
         
       
+        
+      
     
     
     
@@ -5504,6 +5656,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5968,7 +6148,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/validation/api-coverage.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/1b860286e342fb8872b591029a4efca19eb1895c/docs/validation/api-coverage.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5986,7 +6166,7 @@ comparison baseline is Rust commit <code>01c1c977ec9e6be7aeaadd8d5d0e11ddd10d7b6
 <code>main</code> before this issue's changes.</p>
 <p>For release preparation #33, the baseline was rechecked against Core <code>v0.8.0</code>
 at <code>345c77acb29266036df5f27d04ce315bb61853cc</code>, now pinned by
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/opentlv-sys/core/core-artifact.json"><code>core-artifact.json</code></a>. The pin diff
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/opentlv-sys/core/core-artifact.json"><code>core-artifact.json</code></a>. The pin diff
 has zero added and zero removed public symbols. Coverage and all 82 reviewed
 exclusions remain unchanged; no new facade APIs are needed for this release.</p>
 <p>Core coverage is <strong>215/215 (100.0 %)</strong> with 82 reviewed exclusions, up from
@@ -6014,7 +6194,7 @@ referenced:</p>
   into caller storage. Rust entry points take the exact input or output slice
   and report Core's coordinates in that slice unchanged, so the binding never
   adds an origin. The symbol is now a reviewed exclusion in
-  <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/api-coverage.json"><code>ci/api-coverage.json</code></a>.</li>
+  <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/api-coverage.json"><code>ci/api-coverage.json</code></a>.</li>
 </ul>
 <h2 id="per-header-inventory">Per-header inventory<a class="headerlink" href="#per-header-inventory" title="Permanent link">&para;</a></h2>
 <p><code>Referenced</code> counts the <code>TLV_API</code> symbols that <code>opentlv/src</code> names, excluding
@@ -6309,7 +6489,7 @@ the ABI probes in <code>opentlv-sys/tests/</code>.</p>
 </tbody>
 </table>
 <p>The reason for every exclusion is in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/api-coverage.json"><code>ci/api-coverage.json</code></a>, and the
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/api-coverage.json"><code>ci/api-coverage.json</code></a>, and the
 <a href="../../quality-gates/#core-api-coverage">quality gates</a> summarize the groups:
 primitives, diagnostic producers, callbacks that bound descriptor initializers
 install, NULL-diagnostic wrappers, the Tag/Value write forms,
@@ -6365,7 +6545,7 @@ configuration, failure after a complete report and the workflow wiring.
 <p>On 2026-10-24, the local PR and Main <code>linux-stable</code> configurations passed in WSL
 Ubuntu with Rust 1.99.1 and the pinned Git Core dependency. PR ran 299 tests
 with default features and 276 without features, each matching the inventory in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/matrix.json"><code>ci/matrix.json</code></a>, along with rustfmt, Clippy, Rustdoc, the
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/matrix.json"><code>ci/matrix.json</code></a>, along with rustfmt, Clippy, Rustdoc, the
 runnable examples and the shared Query corpus (171 fixtures, 2,133 native
 executions). Main ran the build and <code>quick_start</code> smoke. All 80 Python
 infrastructure tests, source quality and the core completeness report also
@@ -6391,7 +6571,7 @@ configurations were not run.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6405,21 +6585,21 @@ configurations were not run.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6433,7 +6613,7 @@ configurations were not run.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

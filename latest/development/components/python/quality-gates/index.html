@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://opentlv.github.io/opentlv-docs/latest/development/components/python/quality-gates/">
       
       
-        <link rel="prev" href="../../lua/releases/">
+        <link rel="prev" href="../../lua/release-preview/">
       
       
         <link rel="next" href="../releases/">
@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4369,6 +4463,62 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -4491,6 +4641,28 @@
     <span class="md-ellipsis">
       
         Evidence and required check
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-set-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload set verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release preparation
       
     </span>
   </a>
@@ -5323,6 +5495,8 @@
       
         
       
+        
+      
     
     
     
@@ -5526,6 +5700,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5983,6 +6185,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#upload-set-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload set verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release preparation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#local-validation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6012,7 +6236,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-python/edit/2a6aa299037ba43c91ddf43704b769d8ea81958e/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-python/edit/f9434e4da5e6e196f3d587f1ae387e109746490c/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6042,12 +6266,12 @@ and upload the verified packages to TestPyPI or PyPI through Trusted Publishing.
 <tr>
 <td><code>python-main.yml</code></td>
 <td>Push to <code>main</code></td>
-<td>Linux/CPython 3.11 wheel build, fresh installation, package/Core identity and public Reader smoke</td>
+<td>Linux/CPython 3.11 wheel build, fresh installation, package/Core identity and public Reader, Writer and error smoke</td>
 </tr>
 <tr>
 <td><code>python-full.yml</code></td>
 <td>Manual dispatch or <code>workflow_call</code></td>
-<td>All 15 platform/interpreter configurations, the sdist rebuilt as a portable wheel, full installed-package checks, source quality and CodeQL; informational Core API coverage</td>
+<td>All 15 platform/interpreter configurations, the sdist rebuilt as a portable wheel, full installed-package checks, then the selected upload set installed by name and tested on all 15 configurations, source quality and CodeQL; informational Core API coverage</td>
 </tr>
 </tbody>
 </table>
@@ -6099,7 +6323,7 @@ artifact expiry, rerun the producer. A 204 response means GitHub accepted the
 event; confirm the Docs receiver run and source-update PR separately. Local
 mocked HTTP tests do not establish hosted delivery or publication.</p>
 <h2 id="supported-configurations">Supported configurations<a class="headerlink" href="#supported-configurations" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/cmake/ci-matrix.json"><code>cmake/ci-matrix.json</code></a> is the matrix and runtime-test
+<p><a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/cmake/ci-matrix.json"><code>cmake/ci-matrix.json</code></a> is the matrix and runtime-test
 inventory used by both the workflow planner and the evidence verifier:</p>
 <ul>
 <li>CPython 3.11, 3.12, 3.13, 3.14 and 3.15.</li>
@@ -6112,8 +6336,9 @@ inventory used by both the workflow planner and the evidence verifier:</p>
 currently released stable versions. Python 3.15 was released on
 <a href="https://www.python.org/downloads/release/python-3150/">9 October 2026</a>.
 Every wheel retains <code>cp311-abi3</code>; each matrix interpreter builds and tests
-its own wheel, but the matrix does not claim testing one identical wheel across
-all interpreter versions. Hosted runner architectures are recorded in evidence.
+its own wheel, and Full then installs each platform's one selected wheel on all
+five interpreters (see <a href="#upload-set-verification">upload set verification</a>).
+Hosted runner architectures are recorded in evidence.
 The wheels are repaired to the declared <code>manylinux_2_28_x86_64</code>,
 <code>macosx_11_0_arm64</code> and <code>win_amd64</code> tags and audited for external libraries; see
 <a href="../../../../languages/python/manual/development/python/#portable-wheels">portable wheels</a>.</p>
@@ -6141,21 +6366,22 @@ copied into this repository.</p>
 <p>Source checks parse Python files, validate workflow structure and enforce the
 inherited native <code>.clang-format</code> with Core's pinned clang-format 23.1.1.
 They also run <code>reuse lint</code> with the pinned REUSE 6.2.0, so every tracked file
-needs SPDX license and copyright metadata (see <a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/CONTRIBUTING.md#license-and-provenance">licensing</a>).
+needs SPDX license and copyright metadata (see <a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/CONTRIBUTING.md#license-and-provenance">licensing</a>).
 Package checks require the license text in the wheel and sdist and the Core
 license in the wheel.
 clang-tidy 18 and cppcheck use a filtered compilation database containing every
 Python extension translation unit, without analyzing Core's translation units.
 CodeQL analyzes C and Python. Build/dependency and CI infrastructure regressions
 run with pytest. No new Python formatting policy is imposed on migrated tests.</p>
-<p>Each build configuration also executes the workflow's build and gate shell steps
-with a stub runner before building packages. These eight regression cases verify
+<p>Each build configuration also executes the workflow's build, upload set
+selection, verification and gate shell steps with a stub runner before building
+packages. These sixteen regression cases verify
 optional release arguments, quoting, logs and failure propagation, including
 through <code>tee</code>. Both commands use nonempty arrays so <code>set -u</code> also works with
 macOS Bash 3.2. For local shell-specific checks, set <code>OPENTLV_TEST_BASH</code> to the
 desired Bash executable and run <code>tests/ci/test_shell.py</code> with pytest.</p>
 <p>The native migration has documented analyzer false positives in
-<a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/cmake/static-analysis-baseline.json"><code>static-analysis-baseline.json</code></a>.
+<a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/cmake/static-analysis-baseline.json"><code>static-analysis-baseline.json</code></a>.
 Only the affected checkers in <code>module.c</code> are excluded; cppcheck's remaining
 <code>Py_RETURN_NONE</code> report is suppressed at its exact line. The exclusions
 require the exact reviewed SHA-256 of each source file. Any source change fails
@@ -6183,7 +6409,7 @@ down; the packed field, value constraint and schema number code in <code>compose
 uses. It runs in PR and Full, not Main. The job is informational: it uses
 <code>continue-on-error</code>, is not a <code>Python quality gate</code> prerequisite and has no
 threshold yet. The coverage epic (#18) tracks raising it.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> fetches only the locked
+<p><a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> fetches only the locked
 Core commit and reads every <code>TLV_API</code> function and data declaration under
 <code>tlv/include</code>. A declaration shape it does not recognize fails the report
 instead of being skipped. A symbol counts as referenced when its identifier
@@ -6196,7 +6422,7 @@ as an attempt-scoped artifact.</p>
 the symbols added and removed between the two pins. Added symbols show whether
 the binding already references or ignores them. An unchanged pin is reported
 as such.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
+<p><a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
 ignore list. Each entry has a <code>reason</code> and matches header paths relative to
 <code>tlv/include</code> (<code>headers</code>) or symbol names (<code>symbols</code>); both accept <code>fnmatch</code>
 patterns. Ignored symbols are excluded from the counts. The current entries are
@@ -6259,7 +6485,8 @@ through pip. Every tier repairs the wheel to its portable tag, checks the tag,
 payload and metadata, runs <code>twine check --strict</code> and installs only that wheel
 into an isolated virtualenv. The runner verifies imports, that both <code>_opentlv</code>
 and <code>opentlv</code> come from the <code>opentlv</code> distribution and no <code>opentlv-core</code> is
-installed, <code>pip check</code>, Core identity, all existing tests/examples and the
+installed, <code>pip check</code>, Core identity, a public parse, write and
+<code>TruncatedError</code> smoke, all existing tests/examples and the
 Query adapter. Main uses the same installed
 package validation path with only its smoke check.</p>
 <p>Successful records include the repository, checkout SHA, run ID and attempt,
@@ -6268,11 +6495,21 @@ wheel SHA-256 digests, test counts, elapsed time and hashes of the CI definition
 native/Python sources, tests and dependency configuration. Local runs explicitly
 record <code>hosted: false</code> and their checkout's dirty state.</p>
 <p><code>Python quality gate</code> runs even after failed prerequisites. It requires the
-exact matrix and all applicable job results. Main explicitly permits only the
-source-quality and CodeQL jobs to be skipped. Missing, duplicate, stale,
+exact matrix and all applicable job results. PR and Main must skip the Full-only
+upload set selection and verification; Main also skips the source-quality and
+CodeQL jobs. Missing, duplicate, stale,
 foreign, cancelled, unexpectedly skipped or unsuccessful evidence fails.
 Success evidence is removed before each attempt, so a failed rerun cannot reuse
 an old success. The gate CLI accepts only an official clean hosted checkout.</p>
+<p><strong>Re-run failed jobs</strong> starts another attempt of the same run in which only the
+failed or cancelled jobs and their dependents run again, for example the macOS
+jobs that no hosted runner picked up. The gate therefore downloads the evidence
+of every attempt and counts each configuration with its newest record. That
+record must lie in the artifact that names its tier, configuration and attempt,
+such as <code>python-build-full-macos-3.14-2</code>, and come from this run at this or an
+earlier attempt, with the same repository, commit, definitions and release
+policy; evidence of a later attempt, of another run or in another artifact fails. Every job result must still be successful, so the newest
+attempt of each job succeeded.</p>
 <p>After the first hosted PR run, configure branch protection/rulesets to require
 the check ending in <code>Python quality gate</code> from GitHub Actions; use the exact
 displayed reusable-workflow context (normally <code>checks / Python quality gate</code>).
@@ -6289,24 +6526,64 @@ The gate uploads <code>quality.json</code> only after acceptance. Timing collect
 same run/attempt, excludes itself and retries delayed API completion metadata.
 Reported job seconds are elapsed runner time, not billed minutes. This is the
 first standalone CI baseline; no hosted speedup or measured latency is claimed.</p>
+<h2 id="upload-set-verification">Upload set verification<a class="headerlink" href="#upload-set-verification" title="Permanent link">&para;</a></h2>
+<p>Each Full configuration builds and tests its own bytes, but only one wheel per
+platform and one sdist are published. After all builds succeed, <code>Python upload
+set</code> (<code>scripts/ci.py select</code>) takes each configuration's newest build record,
+checks that it is from this run at this or an earlier attempt and that its
+uploaded packages still have the recorded SHA-256. It then
+selects each platform's CPython 3.11 wheel and the <code>linux-3.11</code> sdist, the same
+choice that release assembly uses. Every configuration rebuilt its wheel from
+its own sdist; the files inside each of those sdists must be byte-identical to
+the selected one, so only the archive metadata differs. The
+<code>python-upload-full-&lt;attempt&gt;</code> artifact holds the files in <code>dist/</code> and
+<code>selection.json</code> with their digests, sources and the Core identity of each wheel.</p>
+<p><code>Python upload set / &lt;configuration&gt;</code> (<code>scripts/ci.py verify</code>) then runs on all
+15 configurations, on their own runners and interpreters, without building
+anything. It takes the newest attempt's upload set, which is an earlier one when
+only failed verifications ran again, and rechecks the downloaded files against
+the selection, this run and the package contract (tags, payload, native module, metadata without
+dependencies and license texts). It installs into a fresh virtualenv by name
+from the upload set alone:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>--no-index<span class="w"> </span>--find-links<span class="w"> </span>build/upload/dist<span class="w"> </span>--only-binary<span class="w"> </span>:all:<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span>--require-hashes<span class="w"> </span>--report<span class="w"> </span>install.json<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># requirements.txt: opentlv==&lt;version&gt; --hash=sha256:&lt;this platform's selected wheel&gt;</span>
+</code></pre></div>
+<p>So pip has to choose the platform's selected wheel for the running interpreter.
+An incompatible or missing wheel finds no distribution, the sdist is never built,
+and other bytes fail the hash. The installation report must name exactly that
+wheel and digest. Like a build, the configuration then runs <code>pip check</code> and
+<code>check_python.py</code> with all tests, examples and the Query adapter. The Query
+corpus comes from the attested Verified Source of the Core release the wheel
+was built with.</p>
+<p>The gate downloads the <code>python-verify-full-&lt;configuration&gt;-&lt;attempt&gt;</code> records
+and derives the upload set from the build records again. It requires one
+successful verification per Full configuration, its newest of this run, that tested
+exactly those digests, installed its own platform's wheel, recorded the build's
+Core identity and ran the complete suite. <code>quality.json</code> records the upload set
+and the verification digests. A missing native module, a dependency on
+<code>opentlv-core</code>, an unsupported wheel tag, or bytes that differ from the tested
+ones therefore fail Full and leave no release candidate.</p>
+<h2 id="release-preparation">Release preparation<a class="headerlink" href="#release-preparation" title="Permanent link">&para;</a></h2>
 <p>The manual <a href="../releases/">release preparation</a> calls Full with verified Core
-required and assembles only the current run attempt's validated packages.
+required and assembles only this run's validated packages, each configuration's
+from its newest attempt as the gate accepted them, with this attempt's quality report.
 Its optional <code>publish_release</code> input creates a GitHub release/tag and notifies
-Docs; its <code>pypi</code> input uploads the verified upload set from a protected
+Docs; its <code>pypi</code> input stages the verified upload set on TestPyPI or promotes a staged one to PyPI from a protected
 environment. See <a href="../../../../languages/python/manual/versioning/">versioning</a> for the binding version
 and the separate Core compatibility policy.</p>
 <h2 id="local-validation">Local validation<a class="headerlink" href="#local-validation" title="Permanent link">&para;</a></h2>
 <p>Use an isolated development environment; leave the global Python/Conan setup
 unchanged:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>build/dev
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Activate build/dev using your shell.</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt<span class="w"> </span>clang-format<span class="o">==</span><span class="m">23</span>.1.1<span class="w"> </span><span class="s1">'reuse[charset-normalizer]==6.2.0'</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_quality.py
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>python<span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-p<span class="w"> </span>no:cacheprovider<span class="w"> </span>-q<span class="w"> </span>tests/build<span class="w"> </span>tests/ci
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>actionlint
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>matrix<span class="w"> </span>--tier<span class="w"> </span>full
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>build<span class="w"> </span>--tier<span class="w"> </span>full<span class="w"> </span>--configuration<span class="w"> </span>linux-3.12<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span>--work<span class="w"> </span>build/full-linux-312<span class="w"> </span>--output<span class="w"> </span>build/full-linux-312.json
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>build/dev
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Activate build/dev using your shell.</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt<span class="w"> </span>clang-format<span class="o">==</span><span class="m">23</span>.1.1<span class="w"> </span><span class="s1">'reuse[charset-normalizer]==6.2.0'</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_quality.py
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>python<span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-p<span class="w"> </span>no:cacheprovider<span class="w"> </span>-q<span class="w"> </span>tests/build<span class="w"> </span>tests/ci
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>actionlint
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>matrix<span class="w"> </span>--tier<span class="w"> </span>full
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/ci.py<span class="w"> </span>build<span class="w"> </span>--tier<span class="w"> </span>full<span class="w"> </span>--configuration<span class="w"> </span>linux-3.12<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span>--work<span class="w"> </span>build/full-linux-312<span class="w"> </span>--output<span class="w"> </span>build/full-linux-312.json
 </code></pre></div>
 <p>Choose a configuration matching the actual interpreter/platform, such as
 <code>windows-3.11</code> or <code>macos-3.15</code>. Every invocation requires a new <code>--work</code> directory.
@@ -6336,7 +6613,7 @@ The #4 package/version changes have a separate <a href="../../../history/python/
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6350,21 +6627,21 @@ The #4 package/version changes have a separate <a href="../../../history/python/
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6378,7 +6655,7 @@ The #4 package/version changes have a separate <a href="../../../history/python/
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     
@@ -6409,7 +6686,7 @@ The #4 package/version changes have a separate <a href="../../../history/python/
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../lua/releases/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lua release quality gate">
+          <a href="../../lua/release-preview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lua candidate release preview">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -6419,7 +6696,7 @@ The #4 package/version changes have a separate <a href="../../../history/python/
                 Previous
               </span>
               <div class="md-ellipsis">
-                Lua release quality gate
+                Lua candidate release preview
               </div>
             </div>
           </a>

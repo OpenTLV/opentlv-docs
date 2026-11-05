@@ -457,7 +457,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-python/edit/2a6aa299037ba43c91ddf43704b769d8ea81958e/docs/versioning.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-python/edit/f9434e4da5e6e196f3d587f1ae387e109746490c/docs/versioning.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -489,7 +489,10 @@ unchanged. Installed distribution versions are also available through:</p>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">assert</span> <span class="n">opentlv</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="n">_opentlv</span><span class="o">.</span><span class="n">version_string</span><span class="p">()</span> <span class="o">==</span> <span class="n">version</span><span class="p">(</span><span class="s2">"opentlv"</span><span class="p">)</span>
 </code></pre></div>
 <p>The first Python release, <strong>0.1.0</strong>, supports exactly Core <strong>0.8.0</strong>; the
-unreleased migration builds used Core 0.7.1. No broader range is claimed
+unreleased migration builds used Core 0.7.1. <strong>0.2.2</strong>, the first release of
+the single <code>opentlv</code> distribution and the first for PyPI, keeps exactly Core
+<strong>0.8.0</strong> and the same lock; <strong>0.2.0</strong> and <strong>0.2.1</strong> were prepared but not
+released. No broader range is claimed
 without validation. <code>compatible_core_versions</code> lists tested versions;
 <code>cmake/core-artifact.json</code> pins the exact Core commit and optional authenticated
 release used for builds. A future Python tag <code>vMAJOR.MINOR.PATCH</code> identifies the
@@ -508,12 +511,13 @@ provenance. Historical validation records keep their original version semantics,
 including the two distributions of the GitHub release <code>v0.1.0</code>.</p>
 <p>To prepare a new binding release, update the policy and the project version
 together, write the versioned
-<a href="../release-notes/">release notes</a> and close the <a href="https://github.com/OpenTLV/opentlv-python/blob/2a6aa299037ba43c91ddf43704b769d8ea81958e/CHANGELOG.md">changelog</a>;
+<a href="../release-notes/">release notes</a> and close the <a href="https://github.com/OpenTLV/opentlv-python/blob/f9434e4da5e6e196f3d587f1ae387e109746490c/CHANGELOG.md">changelog</a>;
 run source checks and installed-package Full validation, then follow
 <a href="../../../../development/components/python/releases/">release preparation</a>. The initial
 policy accepts stable <code>MAJOR.MINOR.PATCH</code> versions. The optional GitHub publisher
-creates <code>v&lt;version&gt;</code> only after verified Full CI; PyPI publication of that
-version follows the GitHub Release, as described in the release guide.</p>
+creates <code>v&lt;version&gt;</code> only after verified Full CI, or when promoting a candidate
+staged on TestPyPI; PyPI publication of that version follows the GitHub Release
+of the promotion, as described in the release guide.</p>
 
 
 
@@ -534,7 +538,7 @@ version follows the GitHub Release, as described in the release guide.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -548,21 +552,21 @@ version follows the GitHub Release, as described in the release guide.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -576,7 +580,7 @@ version follows the GitHub Release, as described in the release guide.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

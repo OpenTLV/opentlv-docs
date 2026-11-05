@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/emv/emv_codec.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/emv/emv_codec.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_2c0615d8644daf2bb55a415c46320d57.html">emv</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_b508226fef31ef32135935041d377890.html">emv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -83,8 +83,8 @@ $(function() {
 
 <p>Semantic codecs and C representations for EMV data element values.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="codec_2codec_8h.html">tlv/codec/codec.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="codec_2codec_8h.html">opentlv/codec/codec.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/builtin/emv/export.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -140,15 +140,15 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:gaaf0044fa9cb624a58696e6660ffea8e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Biometric type; undefined values are rejected by the codec.  <a href="group__codecs.html#gaaf0044fa9cb624a58696e6660ffea8e2">More...</a><br /></td></tr>
 <tr class="separator:gaaf0044fa9cb624a58696e6660ffea8e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga05589fbab0657f08285ebdfe93f5ec9e" id="r_ga05589fbab0657f08285ebdfe93f5ec9e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__codecs.html#gga05589fbab0657f08285ebdfe93f5ec9eae6c14b14e63e8a84a683cbad42f6284c">TLV_EMV_AFL_MAX_ENTRIES</a> = 63
+<tr class="memitem:ga16af7b253440dadd46a80a4b9fddba4d" id="r_ga16af7b253440dadd46a80a4b9fddba4d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__codecs.html#gga16af7b253440dadd46a80a4b9fddba4dae6c14b14e63e8a84a683cbad42f6284c">TLV_EMV_AFL_MAX_ENTRIES</a> = 63
  }</td></tr>
-<tr class="memdesc:ga05589fbab0657f08285ebdfe93f5ec9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of AFL entries: 252 / 4.  <a href="group__codecs.html#ga05589fbab0657f08285ebdfe93f5ec9e">More...</a><br /></td></tr>
-<tr class="separator:ga05589fbab0657f08285ebdfe93f5ec9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga16af7b253440dadd46a80a4b9fddba4d" id="r_ga16af7b253440dadd46a80a4b9fddba4d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__codecs.html#gga16af7b253440dadd46a80a4b9fddba4da5f387811faa1c85d5b50891377301efb">TLV_EMV_TRACK2_PAN_MAX_DIGITS</a> = 19
-, <a class="el" href="group__codecs.html#gga16af7b253440dadd46a80a4b9fddba4daab83be4e64aafbbc8777f4f3b02c98be">TLV_EMV_TRACK2_DISCRETIONARY_MAX_DIGITS</a> = 30
- }</td></tr>
-<tr class="memdesc:ga16af7b253440dadd46a80a4b9fddba4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of PAN digits in Track 2 Equivalent Data, and of discretionary digits.  <a href="group__codecs.html#ga16af7b253440dadd46a80a4b9fddba4d">More...</a><br /></td></tr>
+<tr class="memdesc:ga16af7b253440dadd46a80a4b9fddba4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of AFL entries: 252 / 4.  <a href="group__codecs.html#ga16af7b253440dadd46a80a4b9fddba4d">More...</a><br /></td></tr>
 <tr class="separator:ga16af7b253440dadd46a80a4b9fddba4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba01db17f4a2bfbc3db60dc172972a25" id="r_gaba01db17f4a2bfbc3db60dc172972a25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__codecs.html#ggaba01db17f4a2bfbc3db60dc172972a25a5f387811faa1c85d5b50891377301efb">TLV_EMV_TRACK2_PAN_MAX_DIGITS</a> = 19
+, <a class="el" href="group__codecs.html#ggaba01db17f4a2bfbc3db60dc172972a25aab83be4e64aafbbc8777f4f3b02c98be">TLV_EMV_TRACK2_DISCRETIONARY_MAX_DIGITS</a> = 30
+ }</td></tr>
+<tr class="memdesc:gaba01db17f4a2bfbc3db60dc172972a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of PAN digits in Track 2 Equivalent Data, and of discretionary digits.  <a href="group__codecs.html#gaba01db17f4a2bfbc3db60dc172972a25">More...</a><br /></td></tr>
+<tr class="separator:gaba01db17f4a2bfbc3db60dc172972a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>

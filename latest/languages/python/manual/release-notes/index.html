@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#opentlv-python-v010" class="md-skip">
+        <a href="#opentlv-python-v022" class="md-skip">
           Skip to content
         </a>
       
@@ -455,7 +455,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-python/edit/2a6aa299037ba43c91ddf43704b769d8ea81958e/docs/release-notes.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-python/edit/f9434e4da5e6e196f3d587f1ae387e109746490c/docs/release-notes.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -463,35 +463,47 @@
   
 
 
-<h1 id="opentlv-python-v010">OpenTLV Python v0.1.0<a class="headerlink" href="#opentlv-python-v010" title="Permanent link">&para;</a></h1>
-<p>First standalone Python release: the native <code>opentlv-core</code> distribution
-(<code>_opentlv</code>) and the public <code>opentlv</code> package are versioned together as
-<strong>0.1.0</strong>, independently of Core. The facade requires exactly
-<code>opentlv-core==0.1.0</code>.</p>
+<h1 id="opentlv-python-v022">OpenTLV Python v0.2.2<a class="headerlink" href="#opentlv-python-v022" title="Permanent link">&para;</a></h1>
+<p>First release for PyPI: one distribution, <code>opentlv</code>, now carries both the native
+<code>_opentlv</code> extension and the public <code>opentlv</code> package, and has no dependencies.
+The separate <code>opentlv-core</code> distribution of v0.1.0 is discontinued and is not
+published. Imports, the public API and the Core lock are unchanged from v0.1.0.
+Versions 0.2.0 and 0.2.1 were not released: 0.2.0 was only staged on TestPyPI,
+and the staging of 0.2.1 stopped before its upload. v0.2.2 has the same
+package contents apart from the version and replaces both.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>opentlv
+</code></pre></div>
 <ul>
+<li>If the v0.1.0 packages are installed, run
+  <code>python -m pip uninstall opentlv-core opentlv</code> first: both distributions
+  ship <code>_opentlv</code>.</li>
 <li>Pins OpenTLV Core <strong>v0.8.0</strong> at
-  <code>345c77acb29266036df5f27d04ce315bb61853cc</code> and builds from its attested
-  release artifacts by default. Core is linked statically with every required
-  capability and format enabled; there are no reduced-feature packages.</li>
+  <code>345c77acb29266036df5f27d04ce315bb61853cc</code>, linked statically with every
+  required capability and format enabled.</li>
 <li>Includes the Reader/Writer and Tree Reader/Writer, streaming sessions,
   composed Formats, Schema, Document, Query, Value and structure codecs and the
-  deterministic Generator, with fourteen runnable examples.</li>
-<li>Requires Python 3.11 or newer; the native wheel targets the CPython 3.11
-  stable ABI (<code>cp311-abi3</code>). Full CI covers CPython 3.11 to 3.15 on Linux,
-  Windows and macOS.</li>
-<li>Building from source needs a C99 compiler, CMake 3.26 or newer and an
+  deterministic Generator, with fourteen runnable examples in the repository.</li>
+<li>Publishes one portable <code>cp311-abi3</code> wheel per platform for CPython 3.11 and
+  newer: <code>manylinux_2_28_x86_64</code>, <code>macosx_11_0_arm64</code> and <code>win_amd64</code>. The
+  extension depends only on the C runtime and Python, and wheels bundle no
+  external library. Other platforms build from the sdist, which rebuilds the
+  complete package and needs a C99 compiler, CMake 3.26 or newer and an
   authenticated GitHub CLI for Core verification.</li>
-<li>Distributes <code>opentlv-python-0.1.0.zip</code>, its <code>manifest.json</code> and <code>SHA256SUMS</code>
-  with GitHub build-provenance attestations. The archive holds the wheels and
-  sdists actually tested by each Full CI configuration, their build records and
-  the quality report. See
-  <a href="https://github.com/OpenTLV/opentlv-python/blob/v0.1.0/docs/releases.md">release preparation</a>
+<li>Fixes the native module name for builds with CPython 3.15, whose
+  <code>cp311-abi3</code> wheel CPython 3.11 to 3.14 could not import.</li>
+<li>Every Full CI configuration, CPython 3.11 to 3.15 on Linux, Windows and
+  macOS, installs and tests the exact files of the upload set by name and
+  hash. The release workflow stages those files on TestPyPI and installs them
+  from there on every configuration. Only a successful staging run can be
+  promoted: the promotion uploads the same files, without a rebuild, to PyPI
+  through Trusted Publishing with PEP 740 provenance.</li>
+<li>Distributes <code>opentlv-python-0.2.2.zip</code>, its <code>manifest.json</code> and <code>SHA256SUMS</code>
+  with GitHub build-provenance attestations. See
+  <a href="https://github.com/OpenTLV/opentlv-python/blob/v0.2.2/docs/releases.md">release preparation</a>
   for verifying them.</li>
 </ul>
-<p>PyPI publication remains a separate follow-up; the runner-native wheels are not
-yet portable package-index wheels. Generic Core symbol coverage is complete,
-but symbol references do not prove functional parity, and Builtins-specific
-parity remains outside this release.</p>
+<p>Generic Core symbol coverage is complete, but symbol references do not prove
+functional parity, and Builtins-specific parity remains outside this release.</p>
 
 
 
@@ -512,7 +524,7 @@ parity remains outside this release.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -526,21 +538,21 @@ parity remains outside this release.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -554,7 +566,7 @@ parity remains outside this release.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

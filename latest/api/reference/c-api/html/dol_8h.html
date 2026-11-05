@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/emv/dol.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/emv/dol.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_2c0615d8644daf2bb55a415c46320d57.html">emv</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_b508226fef31ef32135935041d377890.html">emv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -85,10 +85,10 @@ $(function() {
 
 <p>Data Object List (DOL) parsing and construction (EMV Contact Book 3 v4.4, section 5.4).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">tlv/result.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="diagnostic_8h.html">tlv/diagnostic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="tag_8h.html">tlv/tag.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="result_8h.html">opentlv/core/result.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2diagnostic_8h.html">opentlv/core/diagnostic.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tag_8h.html">opentlv/core/tag.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/builtin/emv/export.h&quot;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
@@ -121,10 +121,14 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gabc5c98fcc1211af2b80116dd6e0a035d" id="r_gabc5c98fcc1211af2b80116dd6e0a035d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__builtins.html#ggabc5c98fcc1211af2b80116dd6e0a035da61570dca90d26547701119ac96b1fcbc">TLV_DOL_MAX_VALUE_LENGTH</a> = UINT8_MAX
+<tr class="memitem:gabc5c98fcc1211af2b80116dd6e0a035d" id="r_gabc5c98fcc1211af2b80116dd6e0a035d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__builtins.html#ggabc5c98fcc1211af2b80116dd6e0a035da184e762e82f3c3c4859d7bbe03dd1bd3">TLV_DOL_TAG_MAX_SIZE</a> = 8
  }</td></tr>
-<tr class="memdesc:gabc5c98fcc1211af2b80116dd6e0a035d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed ceiling on <a class="el" href="structtlv__dol__limits.html#a79dde588e843ff8f7a41554a2c967d58">tlv_dol_limits_t::max_value_length</a>.  <a href="group__builtins.html#gabc5c98fcc1211af2b80116dd6e0a035d">More...</a><br /></td></tr>
+<tr class="memdesc:gabc5c98fcc1211af2b80116dd6e0a035d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum encoded tag size accepted by the DOL reader, in bytes.  <a href="group__builtins.html#gabc5c98fcc1211af2b80116dd6e0a035d">More...</a><br /></td></tr>
 <tr class="separator:gabc5c98fcc1211af2b80116dd6e0a035d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac36f475ca5b446f4fde4c9b90bec77c8" id="r_gac36f475ca5b446f4fde4c9b90bec77c8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <a class="el" href="group__builtins.html#ggac36f475ca5b446f4fde4c9b90bec77c8a61570dca90d26547701119ac96b1fcbc">TLV_DOL_MAX_VALUE_LENGTH</a> = UINT8_MAX
+ }</td></tr>
+<tr class="memdesc:gac36f475ca5b446f4fde4c9b90bec77c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed ceiling on <a class="el" href="structtlv__dol__limits.html#a79dde588e843ff8f7a41554a2c967d58">tlv_dol_limits_t::max_value_length</a>.  <a href="group__builtins.html#gac36f475ca5b446f4fde4c9b90bec77c8">More...</a><br /></td></tr>
+<tr class="separator:gac36f475ca5b446f4fde4c9b90bec77c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga40231974817d687dd9d58729da6dd102" id="r_ga40231974817d687dd9d58729da6dd102"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__builtins.html#ga40231974817d687dd9d58729da6dd102">tlv_dol_format</a> { <a class="el" href="group__builtins.html#gga40231974817d687dd9d58729da6dd102aed25651341ce7d8bd72cd8ea1942b0f1">TLV_DOL_FORMAT_BINARY</a> = 0
 , <a class="el" href="group__builtins.html#gga40231974817d687dd9d58729da6dd102a44dbbf04020fc0f4f58fb463ba7d136d">TLV_DOL_FORMAT_NUMERIC</a>
  }</td></tr>
@@ -150,7 +154,7 @@ Variables</h2></td></tr>
 <div class="textblock"><p>Data Object List (DOL) parsing and construction (EMV Contact Book 3 v4.4, section 5.4). </p>
 <p>PDOL, CDOL1/CDOL2 and DDOL all share one wire format: a flat sequence of (tag, requested length) entries with no value bytes of their own. Each entry requests how a later command's data should be formatted, not a serialized value. This makes a DOL value a dedicated component rather than ordinary TLV structure.</p>
 <dl class="section warning"><dt>Warning</dt><dd>Do not read a DOL with <a class="el" href="group__reader.html#gab43f1d0dbbaf69e1dbb3f0e421956939" title="Parses one element from the beginning of a buffer.">tlv_read()</a> or <a class="el" href="group__traversal.html#gae3ba84a11a9dcb411f2ff66a3c8042f4" title="Visit remaining sequential elements from an initialized Reader.">tlv_reader_visit()</a>: they would misinterpret the one raw length byte as a BER length field and then look for value bytes that were never encoded.</dd></dl>
-<p>Tags are ordinary BER tags (<a class="el" href="ber_8h.html" title="ASN.1 BER framing over generic variable-width identifier and length primitives.">tlv/builtins/asn1/ber.h</a>), read generically up to <a class="el" href="group__formats.html#gga385c44f6fb256e5716a2302a5b940388adb6bdd38d8e01027743ce1a4fd82ff4e">TLV_ASN1_TAG_MAX_SIZE</a> bytes; every currently assigned EMV tag is one or two bytes, but this component itself imposes no such restriction. Each requested length is exactly one raw unsigned byte (0..255): there is no BER long form and no value bytes follow it. No allocation and no recursion are used. </p>
+<p>Tags use BER encoding, parsed by Core's generic variable-identifier primitive up to <a class="el" href="group__builtins.html#ggabc5c98fcc1211af2b80116dd6e0a035da184e762e82f3c3c4859d7bbe03dd1bd3">TLV_DOL_TAG_MAX_SIZE</a> bytes; every currently assigned EMV tag is one or two bytes, but this component itself imposes no such restriction. Each requested length is exactly one raw unsigned byte (0..255): there is no BER long form and no value bytes follow it. No allocation and no recursion are used. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4091,6 +4181,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4350,6 +4444,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5362,6 +5512,8 @@
       
         
       
+        
+      
     
     
     
@@ -5565,6 +5717,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6090,7 +6270,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/development/documentation-ownership.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6435,6 +6615,11 @@ structure; this table records ownership rather than replacing that audit.</p>
 <td>Keep: Reader, Format and Field module boundary</td>
 </tr>
 <tr>
+<td><a href="../../naming/">development/naming.md</a></td>
+<td>Core</td>
+<td>Keep: Library/Core glossary, identifier inventory and rename policy for #702</td>
+</tr>
+<tr>
 <td><a href="../../components/lua/implementation/">Lua implementation notes</a></td>
 <td>Lua</td>
 <td>Moved to opentlv-lua/docs/implementation.md</td>
@@ -6753,11 +6938,11 @@ standalone portal repository.</p>
 <td>Core: retain <code>OPENTLV_BUILD_DOCS</code>, <code>c-api-docs</code> and <code>cxx-api-docs</code> generation without a portal checkout; normal builds do not require Doxygen</td>
 </tr>
 <tr>
-<td><code>tlv/include/</code>, <code>tlv++/include/</code></td>
+<td><code>include/</code>, <code>include/</code></td>
 <td>Core: canonical public API declarations and Doxygen comments</td>
 </tr>
 <tr>
-<td><code>examples/tlv/</code>, <code>examples/tlv++/</code>, their README files and tests</td>
+<td><code>examples/</code>, its module directories, README files and tests</td>
 <td>Core: executable native examples and their verification</td>
 </tr>
 <tr>
@@ -6816,7 +7001,7 @@ an assumed single-repository base URL.</p>
 </tr>
 <tr>
 <td><code>reference/c-api.md</code>, <code>reference/cxx-api.md</code>, format guides and native examples</td>
-<td><code>tlv/include/</code>, <code>tlv++/include/</code>, <code>examples/</code>: keep Core-relative source links in canonical Markdown; assembled links must target the selected Core revision</td>
+<td><code>include/</code>, <code>include/</code>, <code>examples/</code>: keep Core-relative source links in canonical Markdown; assembled links must target the selected Core revision</td>
 </tr>
 <tr>
 <td><code>docs/README.md</code>, root/component README files and <code>CONTRIBUTING.md</code></td>
@@ -6969,7 +7154,7 @@ The historical playground and its version history remain unchanged.</p>
    checks of its own sources and API generation. Validate affected portal links
    using its local preview when presentation destinations change.</li>
 </ol>
-<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/CONTRIBUTING.md">contribution workflow</a> for commands and
+<p>Continue with the <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/CONTRIBUTING.md">contribution workflow</a> for commands and
 the <a href="https://github.com/OpenTLV/opentlv/issues/603">extraction epic</a> for migration
 sequencing and preservation requirements.</p>
 
@@ -6992,7 +7177,7 @@ sequencing and preservation requirements.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -7006,21 +7191,21 @@ sequencing and preservation requirements.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -7034,7 +7219,7 @@ sequencing and preservation requirements.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

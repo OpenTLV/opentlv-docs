@@ -23,7 +23,7 @@ var searchData=
   ['anchor_20',['anchor',['../structtlv__query__instruction.html#a19b8c39b5418d7c5cf6762f1deb45af1',1,'tlv_query_instruction']]],
   ['and_20utilities_21',['Core types and utilities',['../group__core.html',1,'']]],
   ['api_20reference_22',['OpenTLV C API reference',['../index.html',1,'']]],
-  ['arcs_23',['arcs',['../structtlv__asn1__oid.html#a9f2d307b3c41c619a7fd14a68cae3208',1,'tlv_asn1_oid::arcs'],['../structtlv__asn1__iri.html#a1c8938f0b348e3cc8a70299cddb73272',1,'tlv_asn1_iri::arcs']]],
+  ['arcs_23',['arcs',['../structtlv__asn1__iri.html#a1c8938f0b348e3cc8a70299cddb73272',1,'tlv_asn1_iri::arcs'],['../structtlv__asn1__oid.html#a9f2d307b3c41c619a7fd14a68cae3208',1,'tlv_asn1_oid::arcs']]],
   ['asn1_5fcodec_2eh_24',['asn1_codec.h',['../asn1__codec_8h.html',1,'']]],
   ['assertion_25',['assertion',['../structtlv__schema__query__rule.html#a699852dc24a818e14a33bbb6b04a2c0c',1,'tlv_schema_query_rule::assertion'],['../structtlv__schema__query__workspace.html#afdd74e193a90a55070d39f89cc985319',1,'tlv_schema_query_workspace::assertion']]],
   ['assertion_5fsize_26',['assertion_size',['../structtlv__schema__query__workspace.html#ad25f2ff7fc24352ee177064a4d7e0101',1,'tlv_schema_query_workspace']]],

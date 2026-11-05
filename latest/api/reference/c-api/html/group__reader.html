@@ -80,8 +80,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:reader_2diagnostic_8h" id="r_reader_2diagnostic_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="reader_2diagnostic_8h.html">diagnostic.h</a></td></tr>
-<tr class="memdesc:reader_2diagnostic_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reader diagnostic vocabulary usable without the Reader implementation. <br /></td></tr>
+<tr class="memitem:io_2reader_2diagnostic_8h" id="r_io_2reader_2diagnostic_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="io_2reader_2diagnostic_8h.html">diagnostic.h</a></td></tr>
+<tr class="memdesc:io_2reader_2diagnostic_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reader diagnostic vocabulary usable without the Reader implementation. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:reader_8h" id="r_reader_8h"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="reader_8h.html">reader.h</a></td></tr>
 <tr class="memdesc:reader_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-copy parsing of TLV elements from a caller-owned buffer. <br /></td></tr>
@@ -104,10 +104,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gab43f1d0dbbaf69e1dbb3f0e421956939" id="r_gab43f1d0dbbaf69e1dbb3f0e421956939"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gab43f1d0dbbaf69e1dbb3f0e421956939">tlv_read</a> (const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, size_t *consumed)</td></tr>
 <tr class="memdesc:gab43f1d0dbbaf69e1dbb3f0e421956939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses one element from the beginning of a buffer.  <br /></td></tr>
 <tr class="separator:gab43f1d0dbbaf69e1dbb3f0e421956939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac84de34d64c807e7cedc9b80442e95df" id="r_gac84de34d64c807e7cedc9b80442e95df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gac84de34d64c807e7cedc9b80442e95df">tlv_reader_diagnostic_init</a> (<a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memitem:gac84de34d64c807e7cedc9b80442e95df" id="r_gac84de34d64c807e7cedc9b80442e95df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gac84de34d64c807e7cedc9b80442e95df">tlv_reader_diagnostic_init</a> (<a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:gac84de34d64c807e7cedc9b80442e95df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets a reader diagnostic to all-unset.  <br /></td></tr>
 <tr class="separator:gac84de34d64c807e7cedc9b80442e95df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa625cbb8ed79172214a9532810a81a09" id="r_gaa625cbb8ed79172214a9532810a81a09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa625cbb8ed79172214a9532810a81a09">tlv_read_diag</a> (const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, size_t *consumed, <a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
+<tr class="memitem:gaa625cbb8ed79172214a9532810a81a09" id="r_gaa625cbb8ed79172214a9532810a81a09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa625cbb8ed79172214a9532810a81a09">tlv_read_diag</a> (const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, size_t *consumed, <a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
 <tr class="memdesc:gaa625cbb8ed79172214a9532810a81a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses one element from the beginning of a buffer, with diagnostic detail on failure.  <br /></td></tr>
 <tr class="separator:gaa625cbb8ed79172214a9532810a81a09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74c459c5842057ffc29a3e00278846e9" id="r_ga74c459c5842057ffc29a3e00278846e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#ga74c459c5842057ffc29a3e00278846e9">tlv_reader_init</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format)</td></tr>
@@ -131,13 +131,13 @@ Functions</h2></td></tr>
 <tr class="memitem:gaddbded36b09dec9db85bf3f7af39b4c2" id="r_gaddbded36b09dec9db85bf3f7af39b4c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaddbded36b09dec9db85bf3f7af39b4c2">tlv_reader_next</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element)</td></tr>
 <tr class="memdesc:gaddbded36b09dec9db85bf3f7af39b4c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next TLV element and advances the reader.  <br /></td></tr>
 <tr class="separator:gaddbded36b09dec9db85bf3f7af39b4c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa7c7cf5d16b93ef98c440915e513bf95" id="r_gaa7c7cf5d16b93ef98c440915e513bf95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa7c7cf5d16b93ef98c440915e513bf95">tlv_reader_next_diag</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, <a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
+<tr class="memitem:gaa7c7cf5d16b93ef98c440915e513bf95" id="r_gaa7c7cf5d16b93ef98c440915e513bf95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa7c7cf5d16b93ef98c440915e513bf95">tlv_reader_next_diag</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, <a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
 <tr class="memdesc:gaa7c7cf5d16b93ef98c440915e513bf95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the next TLV element and advances the reader, with diagnostic detail on failure.  <br /></td></tr>
 <tr class="separator:gaa7c7cf5d16b93ef98c440915e513bf95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa21ab05619de8010cfab99ae9e566538" id="r_gaa21ab05619de8010cfab99ae9e566538"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa21ab05619de8010cfab99ae9e566538">tlv_reader_next_source_diag</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, <a class="el" href="group__formats.html#gaa059c2a96e6efca0a92f863a056a5e1d">tlv_source_t</a> *source, <a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
+<tr class="memitem:gaa21ab05619de8010cfab99ae9e566538" id="r_gaa21ab05619de8010cfab99ae9e566538"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gaa21ab05619de8010cfab99ae9e566538">tlv_reader_next_source_diag</a> (<a class="el" href="group__reader.html#gabf4c5d3902d19aaea312759ab513f034">tlv_reader_t</a> *reader, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *out_element, <a class="el" href="group__formats.html#gaa059c2a96e6efca0a92f863a056a5e1d">tlv_source_t</a> *source, <a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *out_diagnostic)</td></tr>
 <tr class="memdesc:gaa21ab05619de8010cfab99ae9e566538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pulls one element and its borrowed source metadata in one decode.  <br /></td></tr>
 <tr class="separator:gaa21ab05619de8010cfab99ae9e566538"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac198dd10b172471ffd047903cb1b7480" id="r_gac198dd10b172471ffd047903cb1b7480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gac198dd10b172471ffd047903cb1b7480">tlv_read_source_diag</a> (const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *element, size_t *consumed, <a class="el" href="group__formats.html#gaa059c2a96e6efca0a92f863a056a5e1d">tlv_source_t</a> *source, <a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memitem:gac198dd10b172471ffd047903cb1b7480" id="r_gac198dd10b172471ffd047903cb1b7480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__reader.html#gac198dd10b172471ffd047903cb1b7480">tlv_read_source_diag</a> (const uint8_t *data, size_t size, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="structtlv__element__t.html">tlv_element_t</a> *element, size_t *consumed, <a class="el" href="group__formats.html#gaa059c2a96e6efca0a92f863a056a5e1d">tlv_source_t</a> *source, <a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:gac198dd10b172471ffd047903cb1b7480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode once, returning semantic content, source information and failure detail.  <br /></td></tr>
 <tr class="separator:gac198dd10b172471ffd047903cb1b7480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -279,7 +279,7 @@ A permitted decoder error, propagated unchanged. Invalid control statuses, unkno
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>out_diagnostic</em>&#160;</td>
         </tr>
         <tr>
@@ -356,7 +356,7 @@ On success <code>*out_diagnostic</code> is left unchanged. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>diagnostic</em>&#160;</td>
         </tr>
         <tr>
@@ -450,7 +450,7 @@ On success <code>*out_diagnostic</code> is left unchanged. </dd></dl>
         <tr>
           <td class="memname">void tlv_reader_diagnostic_init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>diagnostic</em></td><td>)</td>
           <td></td>
         </tr>
@@ -654,7 +654,7 @@ Any other <a class="el" href="group__reader.html#gab43f1d0dbbaf69e1dbb3f0e421956
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>out_diagnostic</em>&#160;</td>
         </tr>
         <tr>
@@ -709,7 +709,7 @@ On success <code>*out_diagnostic</code> is left unchanged. </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="io_2reader_2diagnostic_8h.html#a24371a524a13cd9d1cd22b3db640de85">tlv_reader_diagnostic_t</a> *&#160;</td>
           <td class="paramname"><em>out_diagnostic</em>&#160;</td>
         </tr>
         <tr>

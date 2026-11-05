@@ -1283,7 +1283,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs/webassembly.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/cb81e5818477c7c33dc468d3edabc6ff9acb3403/docs/webassembly.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1294,7 +1294,7 @@
 <h1 id="webassembly-build-experimental">WebAssembly build (experimental)<a class="headerlink" href="#webassembly-build-experimental" title="Permanent link">&para;</a></h1>
 <p>This manual is owned by <code>opentlv-js</code>. The standalone build compiles the selected
 OpenTLV C Core to WebAssembly with <a href="https://emscripten.org/">Emscripten</a>.
-See the <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/MIGRATION.md">migration record</a> for immutable source provenance.</p>
+See the <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/MIGRATION.md">migration record</a> for immutable source provenance.</p>
 <p>The module provides parse tooling plus owning compiled Query, checked Document
 editing and contextual Query Schema validation. It wraps the existing C API in
 <code>native/opentlv_wasm.c</code>; no parsing or Query semantics are duplicated.
@@ -1306,7 +1306,7 @@ with CMake <strong>3.24+</strong>, Ninja, Python <strong>3.9+</strong> and Git a
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>emcmake<span class="w"> </span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-wasm<span class="w"> </span>-G<span class="w"> </span>Ninja<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build-wasm<span class="w"> </span>--target<span class="w"> </span>opentlv-wasm
 </code></pre></div>
-<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/README.md#standalone-build">standalone build contract</a> describes the
+<p>The <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/README.md#standalone-build">standalone build contract</a> describes the
 checksum-verified Core pin and explicit sibling development override.</p>
 <p>The artifacts are written to <code>build-wasm/dist/</code>:</p>
 <table>
@@ -1521,27 +1521,29 @@ JS documentation pin. See <a href="../../../../development/components/js/ci/#doc
 for credentials, validation, retry and the Docs #93 handoff. This notification
 does not publish a package, a component release or the playground.</p>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/tests/smoke.mjs"><code>tests/smoke.mjs</code></a> runs the module in Node 22 and is
+<p><a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/tests/smoke.mjs"><code>tests/smoke.mjs</code></a> runs the module in Node 22 and is
 registered with CTest unless <code>OPENTLV_BUILD_WASM_TESTS=OFF</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ctest<span class="w"> </span>--test-dir<span class="w"> </span>build-wasm<span class="w"> </span>-L<span class="w"> </span>wasm<span class="w"> </span>--output-on-failure<span class="w"> </span>--no-tests<span class="o">=</span>error
 </code></pre></div>
-<p>The unchanged <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/examples/parse.mjs">Node parse example</a> traverses a nested
+<p>The unchanged <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/examples/parse.mjs">Node parse example</a> traverses a nested
 BER document and checks its four elements:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>node<span class="w"> </span>examples/parse.mjs<span class="w"> </span>build-wasm/dist
 </code></pre></div>
-<p>The <a href="../../../../development/components/js/ci/">CI guide</a> describes Query facade, ABI and private-package checks.
-Automated runtime evidence covers Node only; web/worker loader flags do not
-establish browser or worker runtime validation.</p>
+<p>The <a href="../../../../development/components/js/ci/">CI guide</a> describes Query facade, ABI and package checks.
+Runtime suites execute in Node only. Package checks also load the installed
+archive in headless Chrome as a module page and module worker, covering WASM
+loading, parsing and Document encoding; other browsers and bundlers are not
+established.</p>
 <h2 id="package-version">Package version<a class="headerlink" href="#package-version" title="Permanent link">&para;</a></h2>
-<p>The independent JS package version comes from <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/package.json">package.json</a>.
-The <a href="../packaging/">private package guide</a> documents <code>packageVersion</code> and
-<code>opentlv-js/version</code>. The existing <code>(await loadOpenTLV()).version</code> identifies the
+<p>The independent JS package version comes from <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/package.json">package.json</a>.
+The <a href="../packaging/">package guide</a> documents <code>packageVersion</code> and
+<code>@opentlv/opentlv/version</code>. The existing <code>(await loadOpenTLV()).version</code> identifies the
 embedded Core, not the JS package. The example catalog records the JS version;
 a documentation pin does not establish compatibility with the portal's Core pin.</p>
 <h2 id="binding-contracts-and-examples">Binding contracts and examples<a class="headerlink" href="#binding-contracts-and-examples" title="Permanent link">&para;</a></h2>
 <p>This repository owns WASM, JavaScript and TypeScript integration, including the
 private native adapters, API documentation, examples and tests. TypeScript
-declarations are included by #5 in the checked private package. Core owns the
+declarations are included by #5 in the checked package. Core owns the
 public C execution contracts and canonical Query fixtures/ABI snapshots.</p>
 <h3 id="native-adapters-and-capabilities">Native adapters and capabilities<a class="headerlink" href="#native-adapters-and-capabilities" title="Permanent link">&para;</a></h3>
 <p><code>native/path_query.h</code> translates bounded V1 path failures to Query diagnostics.
@@ -1579,8 +1581,8 @@ runtime interpreter.</p>
 <code>PROFILES</code> and <code>api.profiles</code> became <code>MODULES</code> and <code>api.modules</code>. The old names
 have no compatibility aliases.</p>
 <h3 id="executable-example-coverage">Executable example coverage<a class="headerlink" href="#executable-example-coverage" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/examples/parse.mjs">examples/parse.mjs</a> demonstrates nested BER parsing and
-traversal through the supported JavaScript loader. <a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/examples/fields.mjs">examples/fields.mjs</a>
+<p><a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/examples/parse.mjs">examples/parse.mjs</a> demonstrates nested BER parsing and
+traversal through the supported JavaScript loader. <a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/examples/fields.mjs">examples/fields.mjs</a>
 demonstrates a composed-format round trip. There are no dedicated
 Writer, construction, Document, Query, Schema or Codec
 example programs yet. This is example coverage, not a claim that those APIs all
@@ -1735,7 +1737,7 @@ Format operations and closing a Format during its callback are rejected.</p>
 <p>Run <code>node tests/format_fields.mjs &lt;build&gt;/dist</code> or CTest for binding tests covering
 configuration copies, errors, 64-bit marshalling, packed/tag-only layouts, source
 preservation, heap growth and dependent lifetimes. The same tests and runnable
-example execute against the installed private package in CI. Builtins parity,
+example execute against the installed package in CI. Builtins parity,
 general Reader/Writer APIs and TypeScript declarations are outside #3.</p>
 <h2 id="reader-writer-and-tree-streams">Reader, Writer and tree streams<a class="headerlink" href="#reader-writer-and-tree-streams" title="Permanent link">&para;</a></h2>
 <p>Issue #4 adds <code>Reader</code>, <code>TreeReader</code>, <code>Writer</code>, <code>TreeWriter</code>, <code>StreamError</code>,
@@ -1862,7 +1864,7 @@ of final capacity. No automatic callback replay occurs.</p>
 <p>Run <code>node examples/streaming.mjs &lt;build&gt;/dist</code> for an incremental event round trip.
 <code>tests/streaming.mjs</code> covers every chunk split, visitor stop/resume and errors,
 limits, prefix validation, balanced events, preservation, measurement, rollback,
-retained formats, copied results and memory growth. CTest and private-package
+retained formats, copied results and memory growth. CTest and package
 checks run these tests and the example. See the <a href="../../../../development/components/js/ci/#readerwriter-inventory-4">coverage inventory</a>
 for pinned symbols and equivalent C entry points. Browser/worker execution and
 TypeScript runtime integration beyond the installed consumer checks requires its own validation.</p>
@@ -2010,7 +2012,7 @@ Structural Schema validates encoded buffers; use <code>schema.validate(document.
 when validation of the current canonical Document representation is desired.
 Its locations then refer to that encoding, not the original parsed input.</p>
 <h3 id="typescript-declarations">TypeScript declarations<a class="headerlink" href="#typescript-declarations" title="Permanent link">&para;</a></h3>
-<p>The private package ships <code>.d.mts</code> declarations for the root, facade, Query and
+<p>The package ships <code>.d.mts</code> declarations for the root, facade, Query and
 version entry points, using matching
 <a href="https://www.typescriptlang.org/docs/handbook/modules/theory.html">ES module declarations</a>.
 Runtime constructors are properties of the object returned by <code>loadOpenTLV()</code>;
@@ -2021,7 +2023,7 @@ browser runtime test. Existing Format/streaming types are included; generic
 field-composition option objects remain structurally open.</p>
 <p>The four existing runtime output names are unchanged. Two declaration files are
 also copied beside the build outputs; the checked package adds root/version
-declarations and explicit <code>types</code> exports. Install the checked private archive,
+declarations and explicit <code>types</code> exports. Install the checked archive or the npm package,
 not the source checkout. All owned objects still require explicit <code>close()</code>.</p>
 <h2 id="generic-codecs-and-wire-generator">Generic codecs and wire Generator<a class="headerlink" href="#generic-codecs-and-wire-generator" title="Permanent link">&para;</a></h2>
 <p>Issue #6 adds the Core generic conversion and Generator surfaces. Obtain their
@@ -2179,7 +2181,7 @@ cases; errors preserve their result code and Format callback exceptions.</p>
 <p>Generation delegates to the canonical Core Writer and verifies byte-exact
 Reader/Writer reconstruction. Primitive contents are arbitrary bytes: this API
 does not generate Schema-valid or Codec-valid application values. Builtins
-parity, browser/worker validation and publication remain separate work.</p>
+parity, broader browser/worker coverage and publication remain separate work.</p>
 <h2 id="scalar-constraints-and-tag-operations">Scalar constraints and tag operations<a class="headerlink" href="#scalar-constraints-and-tag-operations" title="Permanent link">&para;</a></h2>
 <p><code>ValueConstraint.none()</code>, <code>ValueConstraint.range(min, max)</code> and
 <code>ValueConstraint.allowed([{ value, name? }, ...])</code> construct checked snapshots
@@ -2595,7 +2597,7 @@ not a claim that every referenced C branch or excluded C function is tested:</p>
 </table>
 <h3 id="reviewed-exclusions-and-representation-boundaries">Reviewed exclusions and representation boundaries<a class="headerlink" href="#reviewed-exclusions-and-representation-boundaries" title="Permanent link">&para;</a></h3>
 <p>The exact symbol lists and reasons live in
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a>. The generated report
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a>. The generated report
 expands them per symbol and header. No broad new header wildcard or artificial
 symbol reference is used to hide later Core additions. Regenerate it with:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/api_coverage.py<span class="w"> </span>--core<span class="w"> </span>../opentlv<span class="w"> </span><span class="se">\</span>
@@ -2668,7 +2670,7 @@ separate follow-ups.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -2682,21 +2684,21 @@ separate follow-ups.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -2710,7 +2712,7 @@ separate follow-ups.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

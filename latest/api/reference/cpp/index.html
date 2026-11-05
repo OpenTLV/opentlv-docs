@@ -3422,6 +3422,8 @@
       
         
       
+        
+      
     
     
     
@@ -3478,6 +3480,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3594,9 +3600,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4106,6 +4196,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4362,6 +4456,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5200,6 +5350,8 @@
       
         
       
+        
+      
     
     
     
@@ -5400,6 +5552,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5801,7 +5981,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/reference/cxx-api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/reference/cxx-api.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5811,25 +5991,28 @@
 
 <h1 id="c-api-reference">C++ API reference<a class="headerlink" href="#c-api-reference" title="Permanent link">&para;</a></h1>
 <p>The C++ API reference is generated from the public
-<a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tlv%2B%2B/include/tlv%2B%2B">tlv++</a> headers with Doxygen and published with this
+<a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf/include/opentlv">tlv++</a> headers with Doxygen and published with this
 site. Open the <a href="../cxx-api/html/">generated C++ API reference</a> for
-the <code>tlv</code> namespace, classes and public headers. Include <code>tlv++/tlv.hpp</code> for
+the <code>tlv</code> namespace, classes and public headers. Include <code>opentlv/tlv.hpp</code> for
 the complete configured header-only C++ API; using it still requires linking the C
 library.</p>
 <p>The <a href="../../../languages/cpp/concepts/cxx-native-boundary/">C++ public/native boundary</a> describes
 the current public facade, borrowed <code>tlv::format</code> views and explicit native
-interoperability. Include <code>tlv++/native.hpp</code> separately for that interoperability API.
+interoperability. Include <code>opentlv/native.hpp</code> separately for that interoperability API.
 The <a href="../../../languages/cpp/concepts/cxx-formats/">Format customization contract</a> defines application
 Formats, traits, capability checks and shared adapters for higher-level consumers.
 The <a href="../../guides/codecs/#c11-typed-fields-and-value-codecs">typed field and Value codec guide</a>
 describes C++11 field definitions, codec customization, typed lookup and writing.
 The <a href="../../../languages/cpp/concepts/cxx-builtins/">built-in standards guide</a> covers domain namespaces,
 framing conveniences, shared ASN.1 codecs and standard-specific typed fields.</p>
-<p>The <code>&lt;tlv++/generator.hpp&gt;</code> facade exposes <code>tlv::generate()</code>,
+<p>The <code>&lt;opentlv/generator/generator.hpp&gt;</code> facade exposes <code>tlv::generate()</code>,
 <code>generator_workspace_size()</code> and <code>make_generator_candidate()</code> using borrowed
 Formats and caller-owned byte spans. See the
 <a href="../c/#deterministic-wire-generation">deterministic wire generation contract</a>
-for limits, reproducibility, workspace and candidate-domain rules.</p>
+for limits, reproducibility, workspace and candidate-domain rules.
+It belongs to the independent <code>OpenTLV::Generator</code> module and remains header-only;
+link that C target and compile as C++11 or later. The aggregate <code>OpenTLV::tlv</code>
+target also propagates Generator. See <a href="../../configuration/#independent-generator">component selection</a>.</p>
 <p><code>tlv::generator</code> copies the options and manages reusable scratch storage.
 <code>generate(case_index)</code> returns <code>expected&lt;std::vector&lt;tlv::byte&gt;, tlv::error&gt;</code>;
 each successful result owns its bytes and survives later calls and generator
@@ -5844,12 +6027,12 @@ The native generator and caller-buffer facade remain allocation-free. Use
 separate instances or external synchronization for concurrent generation.</p>
 <p>The following C++11 example generates three independent cases without managing
 output capacity or workspace:</p>
-<!-- example: examples/tlv++/src/generate.cpp -->
+<!-- example: examples/generator/generate.cpp -->
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// SPDX-License-Identifier: MIT</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">// Copyright (c) 2026 Marek Cingel</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/generator.hpp&gt;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/formats/fixed_format.hpp&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/generator/generator.hpp&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/core/formats/fixed_format.hpp&gt;</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -5889,7 +6072,7 @@ instead of being repeated. For the concepts behind the wrappers, read
 <a href="../../guides/schemas/">schema guide</a>; the C++ layer's ownership and error
 contracts are stated on each declaration.</p>
 <p>To build the reference locally, see the
-"Generate the C++ API reference" section of <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/CONTRIBUTING.md">CONTRIBUTING.md</a>.
+"Generate the C++ API reference" section of <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/CONTRIBUTING.md">CONTRIBUTING.md</a>.
 The generated pages exist only in a built site or in the Documentation
 workflow artifacts, so the direct links above do not resolve when this page is
 read on GitHub.</p>
@@ -5913,7 +6096,7 @@ read on GitHub.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -5927,21 +6110,21 @@ read on GitHub.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -5955,7 +6138,7 @@ read on GitHub.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/query/program.h File Reference</title>
+<title>OpenTLV C API: opentlv/query/program.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_e1e4faac5fbc8e6dcb191b608b8ca664.html">query</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_0add59c078ee7a89845f6a3eb6f2d0b2.html">query</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,10 +84,11 @@ $(function() {
 
 <p>Caller-stored immutable Query programs and bounded event execution.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="query_2query_8h.html">tlv/query/query.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="reader_2diagnostic_8h.html">tlv/reader/diagnostic.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="codec_2codec_8h.html">tlv/codec/codec.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="definition_8h.html">tlv/definition.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/query/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="query_2query_8h.html">opentlv/query/query.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="io_2reader_2diagnostic_8h.html">opentlv/io/reader/diagnostic.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cause_8h.html">opentlv/core/diagnostic/cause.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2definition_8h.html">opentlv/core/definition.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -134,8 +135,11 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ga02827de4b2461e04efd2d10615344210"><td class="mdescLeft">&#160;</td><td class="mdescRight">Earliest publication frontier for the conservatively selected backend.  <br /></td></tr>
 <tr class="separator:ga02827de4b2461e04efd2d10615344210"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3c3179edee44b47d4696489eec098b1" id="r_gaf3c3179edee44b47d4696489eec098b1"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="group__traversal.html#gab59146d8bb1a6e5d0cee42bc752f7170">tlv_query_cause</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#gaf3c3179edee44b47d4696489eec098b1">tlv_query_cause_t</a></td></tr>
-<tr class="memdesc:gaf3c3179edee44b47d4696489eec098b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layer whose typed detail is active in <a class="el" href="structtlv__query__diagnostic.html#a06de2a9a1f4b85727ec0d350cfae568f" title="Discriminated lower-layer detail; only the member selected by cause is active.">tlv_query_diagnostic_t::detail</a>.  <br /></td></tr>
+<tr class="memdesc:gaf3c3179edee44b47d4696489eec098b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layer whose typed detail is active in <a class="el" href="structtlv__query__diagnostic.html#a06de2a9a1f4b85727ec0d350cfae568f">tlv_query_diagnostic_t::detail</a>.  <br /></td></tr>
 <tr class="separator:gaf3c3179edee44b47d4696489eec098b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga38a97d91231b83310a4c8e65a201dd0e" id="r_ga38a97d91231b83310a4c8e65a201dd0e"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="group__traversal.html#ga3696ca755bc035881612e4db96ff3351">tlv_query_conversion_violation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga38a97d91231b83310a4c8e65a201dd0e">tlv_query_conversion_violation_t</a></td></tr>
+<tr class="memdesc:ga38a97d91231b83310a4c8e65a201dd0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query conversion callback contract violation; independent of producer detail.  <br /></td></tr>
+<tr class="separator:ga38a97d91231b83310a4c8e65a201dd0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga17f951dcf47161a07accd081699eff6f" id="r_ga17f951dcf47161a07accd081699eff6f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtlv__query__diagnostic.html">tlv_query_diagnostic</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga17f951dcf47161a07accd081699eff6f">tlv_query_diagnostic_t</a></td></tr>
 <tr class="memdesc:ga17f951dcf47161a07accd081699eff6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed-layout compiler/execution failure, initialized by diagnostic entry points.  <br /></td></tr>
 <tr class="separator:ga17f951dcf47161a07accd081699eff6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -148,9 +152,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga6947c21d5236e9f71a7441603d2e2f7a" id="r_ga6947c21d5236e9f71a7441603d2e2f7a"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="group__traversal.html#gaa33f785f75e65e8d241ed825b2b713ed">tlv_query_conversion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga6947c21d5236e9f71a7441603d2e2f7a">tlv_query_conversion_t</a></td></tr>
 <tr class="memdesc:ga6947c21d5236e9f71a7441603d2e2f7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closed conversion-function selectors; no arbitrary function execution.  <br /></td></tr>
 <tr class="separator:ga6947c21d5236e9f71a7441603d2e2f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa859e937718819dee53cbd70d3d6e130" id="r_gaa859e937718819dee53cbd70d3d6e130"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#gaa859e937718819dee53cbd70d3d6e130">tlv_query_decode_t</a>) (const void *context, const <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event, const uint8_t *data, size_t size, void *scratch, size_t capacity, <a class="el" href="group__traversal.html#ga0da4f42a4d34072621292fbd8f681d77">tlv_query_result_t</a> *result, <a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *diagnostic)</td></tr>
-<tr class="memdesc:gaa859e937718819dee53cbd70d3d6e130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complete-Value decode adapter, returning original codec status.  <br /></td></tr>
-<tr class="separator:gaa859e937718819dee53cbd70d3d6e130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga870dd37e82e53686755a016581252a37" id="r_ga870dd37e82e53686755a016581252a37"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga870dd37e82e53686755a016581252a37">tlv_query_decode_t</a>) (const void *context, const <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event, const uint8_t *data, size_t size, void *scratch, size_t capacity, <a class="el" href="group__traversal.html#ga0da4f42a4d34072621292fbd8f681d77">tlv_query_result_t</a> *result, <a class="el" href="cause_8h.html#aa1b0618dd656157dcab171946f3d43ce">tlv_diagnostic_envelope_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga870dd37e82e53686755a016581252a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complete-Value decode adapter, returning original codec status.  <br /></td></tr>
+<tr class="separator:ga870dd37e82e53686755a016581252a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga46bd20df3a79567b3aa87e7b1a906903" id="r_ga46bd20df3a79567b3aa87e7b1a906903"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtlv__query__hook.html">tlv_query_hook</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga46bd20df3a79567b3aa87e7b1a906903">tlv_query_hook_t</a></td></tr>
 <tr class="memdesc:ga46bd20df3a79567b3aa87e7b1a906903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immutable compile requirement/execution provider. IDs, not pointers, enter programs.  <br /></td></tr>
 <tr class="separator:ga46bd20df3a79567b3aa87e7b1a906903"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,8 +239,15 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__traversal.html#ggab59146d8bb1a6e5d0cee42bc752f7170a3c6d9c7aacb103779607f9b11ee36d43">TLV_QUERY_CAUSE_CODEC</a>
 , <a class="el" href="group__traversal.html#ggab59146d8bb1a6e5d0cee42bc752f7170a26693eb658cad89efdb92a617a8bc644">TLV_QUERY_CAUSE_SCHEMA</a>
  }</td></tr>
-<tr class="memdesc:gab59146d8bb1a6e5d0cee42bc752f7170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layer whose typed detail is active in <a class="el" href="structtlv__query__diagnostic.html#a06de2a9a1f4b85727ec0d350cfae568f" title="Discriminated lower-layer detail; only the member selected by cause is active.">tlv_query_diagnostic_t::detail</a>.  <a href="group__traversal.html#gab59146d8bb1a6e5d0cee42bc752f7170">More...</a><br /></td></tr>
+<tr class="memdesc:gab59146d8bb1a6e5d0cee42bc752f7170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layer whose typed detail is active in <a class="el" href="structtlv__query__diagnostic.html#a06de2a9a1f4b85727ec0d350cfae568f">tlv_query_diagnostic_t::detail</a>.  <a href="group__traversal.html#gab59146d8bb1a6e5d0cee42bc752f7170">More...</a><br /></td></tr>
 <tr class="separator:gab59146d8bb1a6e5d0cee42bc752f7170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3696ca755bc035881612e4db96ff3351" id="r_ga3696ca755bc035881612e4db96ff3351"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga3696ca755bc035881612e4db96ff3351">tlv_query_conversion_violation</a> { <a class="el" href="group__traversal.html#gga3696ca755bc035881612e4db96ff3351a89209c92b1d4c3882cfca1055f89fd87">TLV_QUERY_CONVERSION_NONE</a> = 0
+, <a class="el" href="group__traversal.html#gga3696ca755bc035881612e4db96ff3351a38204f52c65f0f67f134618157bdf88b">TLV_QUERY_CONVERSION_RESULT</a> = 1
+, <a class="el" href="group__traversal.html#gga3696ca755bc035881612e4db96ff3351a68d07fb18e2f004912d83ccde2889e88">TLV_QUERY_CONVERSION_TYPE</a> = 3
+, <a class="el" href="group__traversal.html#gga3696ca755bc035881612e4db96ff3351a3960f602d60b63dee2c983b951ceb1fe">TLV_QUERY_CONVERSION_UTF8</a> = 4
+ }</td></tr>
+<tr class="memdesc:ga3696ca755bc035881612e4db96ff3351"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query conversion callback contract violation; independent of producer detail.  <a href="group__traversal.html#ga3696ca755bc035881612e4db96ff3351">More...</a><br /></td></tr>
+<tr class="separator:ga3696ca755bc035881612e4db96ff3351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga43336be01e068a5916b4b8cdb7081c6b" id="r_ga43336be01e068a5916b4b8cdb7081c6b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga43336be01e068a5916b4b8cdb7081c6b">tlv_query_result_kind</a> { <br />
 &#160;&#160;<a class="el" href="group__traversal.html#gga43336be01e068a5916b4b8cdb7081c6ba85bee7adeb5c3949f0a574cb32b27a29">TLV_QUERY_RESULT_NODES</a>
 , <a class="el" href="group__traversal.html#gga43336be01e068a5916b4b8cdb7081c6ba2b623cf52ce944aa0312276ba2792935">TLV_QUERY_RESULT_BOOL</a>
@@ -264,6 +275,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gaea53a1f0eb0d722e9da7c4bdc6a2383a" id="r_gaea53a1f0eb0d722e9da7c4bdc6a2383a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#gaea53a1f0eb0d722e9da7c4bdc6a2383a">tlv_query_cause_string</a> (<a class="el" href="group__traversal.html#gaf3c3179edee44b47d4696489eec098b1">tlv_query_cause_t</a> value)</td></tr>
 <tr class="memdesc:gaea53a1f0eb0d722e9da7c4bdc6a2383a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the diagnostic name of a query cause.  <br /></td></tr>
 <tr class="separator:gaea53a1f0eb0d722e9da7c4bdc6a2383a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5cbeb270bee61a96065cfc5a616de587" id="r_ga5cbeb270bee61a96065cfc5a616de587"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga5cbeb270bee61a96065cfc5a616de587">tlv_query_conversion_violation_string</a> (<a class="el" href="group__traversal.html#ga38a97d91231b83310a4c8e65a201dd0e">tlv_query_conversion_violation_t</a> value)</td></tr>
+<tr class="memdesc:ga5cbeb270bee61a96065cfc5a616de587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name a conversion violation; unknown values return "unknown". The returned static string must not be freed or modified.  <br /></td></tr>
+<tr class="separator:ga5cbeb270bee61a96065cfc5a616de587"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b03002e8b3fb150a6ab43d6d21e5634" id="r_ga7b03002e8b3fb150a6ab43d6d21e5634"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga7b03002e8b3fb150a6ab43d6d21e5634">tlv_query_program_variable_count</a> (const <a class="el" href="group__traversal.html#ga45bdea1007b9780dba5559a2190f569d">tlv_query_program_t</a> *program)</td></tr>
 <tr class="memdesc:ga7b03002e8b3fb150a6ab43d6d21e5634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count unique referenced variables in first-reference order.  <br /></td></tr>
 <tr class="separator:ga7b03002e8b3fb150a6ab43d6d21e5634"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -327,6 +341,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gacd0d50eee45caf3fd146cbde54c5cc1f" id="r_gacd0d50eee45caf3fd146cbde54c5cc1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#gacd0d50eee45caf3fd146cbde54c5cc1f">tlv_query_exec_finish</a> (<a class="el" href="group__traversal.html#gacff0d3ed0386caf2464d098ae952ebb7">tlv_query_exec_t</a> *exec, <a class="el" href="group__traversal.html#ga17f951dcf47161a07accd081699eff6f">tlv_query_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:gacd0d50eee45caf3fd146cbde54c5cc1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complete the virtual root at final EOF and require balanced events.  <br /></td></tr>
 <tr class="separator:gacd0d50eee45caf3fd146cbde54c5cc1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9fc3283111031d88d448983e57933860" id="r_ga9fc3283111031d88d448983e57933860"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga9fc3283111031d88d448983e57933860">tlv_query_program_visit</a> (<a class="el" href="group__traversal.html#ga74999ab774c60a10d1f759404edb7003">tlv_tree_reader_t</a> *reader, <a class="el" href="group__traversal.html#gacff0d3ed0386caf2464d098ae952ebb7">tlv_query_exec_t</a> *exec, <a class="el" href="group__traversal.html#gaaea95a191d5e5f24e098d3eadf9ffe6a">tlv_query_event_visitor_t</a> visitor, void *context, <a class="el" href="group__traversal.html#ga17f951dcf47161a07accd081699eff6f">tlv_query_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga9fc3283111031d88d448983e57933860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run compiled Query over the canonical Tree Reader with resumable continuation.  <br /></td></tr>
+<tr class="separator:ga9fc3283111031d88d448983e57933860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44a2f28463e80909294fcff80bf03fec" id="r_ga44a2f28463e80909294fcff80bf03fec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga44a2f28463e80909294fcff80bf03fec">tlv_query_program_exists</a> (<a class="el" href="group__traversal.html#ga74999ab774c60a10d1f759404edb7003">tlv_tree_reader_t</a> *reader, <a class="el" href="group__traversal.html#gacff0d3ed0386caf2464d098ae952ebb7">tlv_query_exec_t</a> *exec, int early_return, int *found, <a class="el" href="group__traversal.html#ga17f951dcf47161a07accd081699eff6f">tlv_query_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:ga44a2f28463e80909294fcff80bf03fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test existence with explicit full-validation or early-return behavior.  <br /></td></tr>
+<tr class="separator:ga44a2f28463e80909294fcff80bf03fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga828810e1faea5a6ddc9e6ed2d2c8f1b4" id="r_ga828810e1faea5a6ddc9e6ed2d2c8f1b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__traversal.html#ga828810e1faea5a6ddc9e6ed2d2c8f1b4">tlv_query_eval_size</a> (const <a class="el" href="group__traversal.html#ga45bdea1007b9780dba5559a2190f569d">tlv_query_program_t</a> *program, size_t max_depth, size_t max_nodes, size_t *bytes, size_t *alignment)</td></tr>
 <tr class="memdesc:ga828810e1faea5a6ddc9e6ed2d2c8f1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Discover retained-event workspace for compiled Query results.  <br /></td></tr>
 <tr class="separator:ga828810e1faea5a6ddc9e6ed2d2c8f1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -123,6 +123,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga6100d62044ea782d48db0dddb04ec39e" id="r_ga6100d62044ea782d48db0dddb04ec39e"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga6100d62044ea782d48db0dddb04ec39e">tlv_tree_event_next_fn</a>) (void *context, <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event)</td></tr>
 <tr class="memdesc:ga6100d62044ea782d48db0dddb04ec39e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pull one structural event for bounded tree measurement.  <br /></td></tr>
 <tr class="separator:ga6100d62044ea782d48db0dddb04ec39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3ce085fbb123ebe5f732d9a45877363" id="r_gae3ce085fbb123ebe5f732d9a45877363"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#gae3ce085fbb123ebe5f732d9a45877363">tlv_tree_writer_charge_fn</a>) (void *context, size_t amount)</td></tr>
+<tr class="memdesc:gae3ce085fbb123ebe5f732d9a45877363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional budget observer: one unit per event and three per actual Value byte processed by sizing/copying/encoding. Called before the associated operation. Storage capacities never participate in this accounting.  <br /></td></tr>
+<tr class="separator:gae3ce085fbb123ebe5f732d9a45877363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4348495d7c9e8210b26f511d6ef5b958" id="r_ga4348495d7c9e8210b26f511d6ef5b958"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="group__writer.html#gab650d8082fbcc856730fd85aea1ce33d">tlv_writer_operation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga4348495d7c9e8210b26f511d6ef5b958">tlv_writer_operation_t</a></td></tr>
 <tr class="memdesc:ga4348495d7c9e8210b26f511d6ef5b958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which encoding step a <a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5" title="Structured detail for a failed tlv_write() or tlv_writer_write() call.">tlv_writer_diagnostic_t</a> reports on.  <br /></td></tr>
 <tr class="separator:ga4348495d7c9e8210b26f511d6ef5b958"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,6 +199,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gae10ae48fc054294c71cf6c1797225f1d" id="r_gae10ae48fc054294c71cf6c1797225f1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#gae10ae48fc054294c71cf6c1797225f1d">tlv_tree_writer_measure</a> (const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="group__writer.html#ga771aec7d5b9e24b09c9f6e401bc44107">tlv_tree_writer_next_fn</a> next, void *context, <a class="el" href="group__writer.html#gab9db909d8cb7eb930d06a32e07a72fd8">tlv_tree_writer_workspace_t</a> *workspace, size_t max_depth, size_t max_elements, size_t *size, <a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5">tlv_writer_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:gae10ae48fc054294c71cf6c1797225f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure a preorder tree through canonical Tree Writer encoding, without allocating.  <br /></td></tr>
 <tr class="separator:gae10ae48fc054294c71cf6c1797225f1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0fd84f69856ae3aabb58fb556fd392f8" id="r_ga0fd84f69856ae3aabb58fb556fd392f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga0fd84f69856ae3aabb58fb556fd392f8">tlv_tree_writer_measure_events_observed</a> (const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, <a class="el" href="group__writer.html#ga6100d62044ea782d48db0dddb04ec39e">tlv_tree_event_next_fn</a> next, void *context, <a class="el" href="group__writer.html#gab9db909d8cb7eb930d06a32e07a72fd8">tlv_tree_writer_workspace_t</a> *workspace, size_t max_depth, size_t max_elements, size_t *size, <a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5">tlv_writer_diagnostic_t</a> *diagnostic, <a class="el" href="group__writer.html#gae3ce085fbb123ebe5f732d9a45877363">tlv_tree_writer_charge_fn</a> charge, void *charge_context)</td></tr>
+<tr class="memdesc:ga0fd84f69856ae3aabb58fb556fd392f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure events with optional budget accounting before each operation. All measurement parameters and failure/storage contracts match <a class="el" href="group__writer.html#ga11ca5a489172b72a33de62e4e645a7dd" title="Measure and stage a canonical balanced event stream through Tree Writer.">tlv_tree_writer_measure_events()</a>. charge may be NULL; otherwise it receives charge_context and a work amount. Provider errors are propagated unchanged; control statuses and unknown results become TLV_ERR_CALLBACK. Observer failures leave diagnostic and size unchanged; the source and staging workspace may already have advanced. The observer may report its own detail through charge_context and must not mutate the measurement workspace.  <br /></td></tr>
+<tr class="separator:ga0fd84f69856ae3aabb58fb556fd392f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8bea505ba8d2e9e9f23f54d91ba154f8" id="r_ga8bea505ba8d2e9e9f23f54d91ba154f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__writer.html#ga8bea505ba8d2e9e9f23f54d91ba154f8">tlv_encoded_size</a> (<a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> tag, size_t length, const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *format, size_t *size)</td></tr>
 <tr class="memdesc:ga8bea505ba8d2e9e9f23f54d91ba154f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the encoded size of an element without accessing value bytes.  <br /></td></tr>
 <tr class="separator:ga8bea505ba8d2e9e9f23f54d91ba154f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -285,6 +291,30 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>TLV_OK, <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a9a868594c9a5db5eb4a1e34dcf5b5211">TLV_END</a> at final EOF, or a producer error. </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>BEGIN Tags must outlive measurement; other payloads need only survive until the next callback. No callbacks may mutate the measurement workspace. </dd></dl>
+
+</div>
+</div>
+<a id="gae3ce085fbb123ebe5f732d9a45877363" name="gae3ce085fbb123ebe5f732d9a45877363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3ce085fbb123ebe5f732d9a45877363">&#9670;&#160;</a></span>tlv_tree_writer_charge_fn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>(* tlv_tree_writer_charge_fn) (void *context, size_t amount)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Optional budget observer: one unit per event and three per actual Value byte processed by sizing/copying/encoding. Called before the associated operation. Storage capacities never participate in this accounting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">context</td><td>Borrowed observer state. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">amount</td><td>Work units to charge, possibly zero. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TLV_OK to proceed or an error to abort. Control statuses are invalid. </dd></dl>
 
 </div>
 </div>
@@ -1075,6 +1105,84 @@ Any Format measurement/encoding error, propagated unchanged. </dd></dl>
 
 </div>
 </div>
+<a id="ga0fd84f69856ae3aabb58fb556fd392f8" name="ga0fd84f69856ae3aabb58fb556fd392f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga0fd84f69856ae3aabb58fb556fd392f8">&#9670;&#160;</a></span>tlv_tree_writer_measure_events_observed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> tlv_tree_writer_measure_events_observed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> *&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__writer.html#ga6100d62044ea782d48db0dddb04ec39e">tlv_tree_event_next_fn</a>&#160;</td>
+          <td class="paramname"><em>next</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__writer.html#gab9db909d8cb7eb930d06a32e07a72fd8">tlv_tree_writer_workspace_t</a> *&#160;</td>
+          <td class="paramname"><em>workspace</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>max_depth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>max_elements</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__writer.html#ga62e12d2578bd1747a55ff04c0649aea5">tlv_writer_diagnostic_t</a> *&#160;</td>
+          <td class="paramname"><em>diagnostic</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__writer.html#gae3ce085fbb123ebe5f732d9a45877363">tlv_tree_writer_charge_fn</a>&#160;</td>
+          <td class="paramname"><em>charge</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>charge_context</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Measure events with optional budget accounting before each operation. All measurement parameters and failure/storage contracts match <a class="el" href="group__writer.html#ga11ca5a489172b72a33de62e4e645a7dd" title="Measure and stage a canonical balanced event stream through Tree Writer.">tlv_tree_writer_measure_events()</a>. charge may be NULL; otherwise it receives charge_context and a work amount. Provider errors are propagated unchanged; control statuses and unknown results become TLV_ERR_CALLBACK. Observer failures leave diagnostic and size unchanged; the source and staging workspace may already have advanced. The observer may report its own detail through charge_context and must not mutate the measurement workspace. </p>
+
+</div>
+</div>
 <a id="ga8e349e44b101cc451cdd42885febe9e8" name="ga8e349e44b101cc451cdd42885febe9e8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8e349e44b101cc451cdd42885febe9e8">&#9670;&#160;</a></span>tlv_tree_writer_set_tag_storage()</h2>
 
@@ -1637,8 +1745,8 @@ Any callback error, propagated unchanged.</dd></dl>
 </div><div class="memdoc">
 
 <p>Re-encodes an Element at the writer's current position. </p>
-<p>Serializes with <code>writer-&gt;format</code>, following the same argument, overlap and callback-error contracts as tlv_copy_element().</p>
-<p>Unlike tlv_copy_element(), a <code>NULL</code> writer buffer with zero remaining capacity is treated as a real destination rather than a size query. Every element has a nonzero encoded size under the Format contract, even with an empty value, so the call then returns <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61acbd34cf02b42e70e99648aef5b9ca8b3">TLV_ERR_BUFFER_TOO_SHORT</a>.</p>
+<p>Serializes with <code>writer-&gt;format</code>, following the same argument, overlap and callback-error contracts as <a class="el" href="io_2writer_2copy_8h.html#a819da9ffb95896b67f9487eb66bd9bbd" title="Serializes an element&#39;s tag, length and value using a writer format.">tlv_copy_element()</a>.</p>
+<p>Unlike <a class="el" href="io_2writer_2copy_8h.html#a819da9ffb95896b67f9487eb66bd9bbd" title="Serializes an element&#39;s tag, length and value using a writer format.">tlv_copy_element()</a>, a <code>NULL</code> writer buffer with zero remaining capacity is treated as a real destination rather than a size query. Every element has a nonzero encoded size under the Format contract, even with an empty value, so the call then returns <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61acbd34cf02b42e70e99648aef5b9ca8b3">TLV_ERR_BUFFER_TOO_SHORT</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">writer</td><td>Writer to append to. </td></tr>
@@ -1652,9 +1760,9 @@ Any callback error, propagated unchanged.</dd></dl>
 <dd>
 <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61acbd34cf02b42e70e99648aef5b9ca8b3">TLV_ERR_BUFFER_TOO_SHORT</a> if <code>pos &gt; capacity</code> or capacity is insufficient. </dd>
 <dd>
-Any error of tlv_copy_element(), propagated unchanged.</dd></dl>
+Any error of <a class="el" href="io_2writer_2copy_8h.html#a819da9ffb95896b67f9487eb66bd9bbd" title="Serializes an element&#39;s tag, length and value using a writer format.">tlv_copy_element()</a>, propagated unchanged.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>On any failure, including insufficient capacity, the position is unchanged and the required size is not exposed; use <a class="el" href="group__writer.html#gab82c7065ce0c974c3bcecddb921a9610" title="Measures exact native output storage for a semantic Element without allocating.">tlv_element_encoded_size()</a> for that. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd>tlv_copy_element </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="io_2writer_2copy_8h.html#a819da9ffb95896b67f9487eb66bd9bbd" title="Serializes an element&#39;s tag, length and value using a writer format.">tlv_copy_element</a> </dd></dl>
 
 </div>
 </div>

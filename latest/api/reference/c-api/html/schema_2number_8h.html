@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/schema/number.h File Reference</title>
+<title>OpenTLV C API: opentlv/schema/number.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_1cce1a9c4c0db6f9195f3dbd4253c088.html">schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_eb57ba3042b6b419f4447d030a98abea.html">schema</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -83,8 +83,9 @@ $(function() {
 
 <p>Optional composition of field Schema and numeric Value conversion.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="schema_2schema_8h.html">tlv/schema/schema.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="codec_2number_8h.html">tlv/codec/number.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/schema/number/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="schema_2schema_8h.html">opentlv/schema/schema.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="codec_2number_8h.html">opentlv/codec/number.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -106,6 +107,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6329c07aa428f0652ea5020f5b9b62a1" id="r_a6329c07aa428f0652ea5020f5b9b62a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="schema_2number_8h.html#a6329c07aa428f0652ea5020f5b9b62a1">tlv_schema_number_encode</a> (const void *context, const void *value, size_t size, uint8_t *data, size_t capacity, size_t *written, <a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *diagnostic)</td></tr>
 <tr class="memdesc:a6329c07aa428f0652ea5020f5b9b62a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects a fitting schema-permitted width, then delegates numeric encoding.  <br /></td></tr>
 <tr class="separator:a6329c07aa428f0652ea5020f5b9b62a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68aac2e4f03f6fb6620b37bafa1dfa56" id="r_a68aac2e4f03f6fb6620b37bafa1dfa56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="schema_2number_8h.html#a68aac2e4f03f6fb6620b37bafa1dfa56">tlv_schema_number_validate_length</a> (const <a class="el" href="structtlv__schema__entry__t.html">tlv_schema_entry_t</a> *rule, size_t width, <a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:a68aac2e4f03f6fb6620b37bafa1dfa56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a Schema length rule at a Codec integration boundary.  <br /></td></tr>
+<tr class="separator:a68aac2e4f03f6fb6620b37bafa1dfa56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a08188af2664fa50eb78db675522d3721" id="r_a08188af2664fa50eb78db675522d3721"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="schema_2number_8h.html#a08188af2664fa50eb78db675522d3721">tlv_schema_number_codec</a> (const <a class="el" href="schema_2number_8h.html#a2de42dd777d00bf591083884c5f56a25">tlv_schema_number_t</a> *config)</td></tr>
 <tr class="memdesc:a08188af2664fa50eb78db675522d3721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a codec borrowing an explicit Schema/number composition.  <br /></td></tr>
 <tr class="separator:a08188af2664fa50eb78db675522d3721"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -314,6 +318,51 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a68aac2e4f03f6fb6620b37bafa1dfa56" name="a68aac2e4f03f6fb6620b37bafa1dfa56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68aac2e4f03f6fb6620b37bafa1dfa56">&#9670;&#160;</a></span>tlv_schema_number_validate_length()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> tlv_schema_number_validate_length </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structtlv__schema__entry__t.html">tlv_schema_entry_t</a> *&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *&#160;</td>
+          <td class="paramname"><em>diagnostic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Apply a Schema length rule at a Codec integration boundary. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rule</td><td>Borrowed field rule; NULL returns NULL_ARG. </td></tr>
+    <tr><td class="paramname">width</td><td>Actual Value length in bytes. </td></tr>
+    <tr><td class="paramname">diagnostic</td><td>Optional initialized Codec diagnostic; its operation is retained. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of <a class="el" href="group__schemas.html#ga3391256e3b7bf6aa7c03c8ccb41f1dd2" title="Validates a value length against an entry&#39;s bounds.">tlv_schema_validate_length()</a>. On failure, attaches the Schema rule identity and complete length evidence and records the Codec result. On success, leaves the diagnostic unchanged. No conversion is performed. </dd></dl>
 
 </div>
 </div>

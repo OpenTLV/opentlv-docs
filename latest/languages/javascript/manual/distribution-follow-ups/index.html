@@ -561,7 +561,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-js/edit/22efa490f25e5d947a7b88f451f68f4aab28b6a9/docs/distribution-follow-ups.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-js/edit/cb81e5818477c7c33dc468d3edabc6ff9acb3403/docs/distribution-follow-ups.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -575,28 +575,40 @@
 the <a href="https://github.com/OpenTLV/opentlv-js/issues/14">final migration assessment (#14)</a>.
 This versioned register tracks the scope without creating remote issues or
 claiming publication readiness. Each item needs a separately approved
-implementation before the private-package restriction can change.</p>
+implementation; #40 is the approved publication change that removes the
+private-package restriction.</p>
 <p>Reviewed for #14 on 2026-10-26: publication items remain open. Issue #5 adds
 TypeScript declarations and installed consumer checks; runtime distribution
 items below remain open. The
-<a href="https://github.com/OpenTLV/opentlv-js/blob/22efa490f25e5d947a7b88f451f68f4aab28b6a9/MIGRATION.md#validation-review-14">migration assessment</a> records compatibility
+<a href="https://github.com/OpenTLV/opentlv-js/blob/cb81e5818477c7c33dc468d3edabc6ff9acb3403/MIGRATION.md#validation-review-14">migration assessment</a> records compatibility
 and the outstanding coordinated gates; local archive validation does not
 complete any publication item.</p>
 <h2 id="npm-1-registry-publication-open">NPM-1: Registry publication (open)<a class="headerlink" href="#npm-1-registry-publication-open" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Decide and verify registry name/scope ownership; the local <code>opentlv-js</code> name
-  is not a registry reservation or availability claim.</li>
+<li>Issue #37 selects <code>@opentlv/opentlv</code> in the <code>opentlv</code> organization; see
+  <a href="../packaging/#package-identity">Package identity</a>.</li>
 <li>Issue #32 defines release versions, <code>v</code>-prefixed tag matching and the GitHub
   release of the tested archive against the pinned Core (<code>v0.1.0</code> with Core
-  <code>v0.8.0</code>); see <a href="../packaging/#github-release">GitHub release</a>. Registry
-  dist-tags and prerelease policy remain open.</li>
-<li>Establish authorized publishing identities, trusted publishing or credential
-  handling, protected environments and required hosted gates.</li>
-<li>Bind the exact checked archive to repository commit, workflow run/attempt,
-  checksum and provenance; establish retention and verification of evidence.</li>
-<li>Review package contents/license obligations and publish/install verification,
-  rollback/deprecation policy and registry account recovery.</li>
-<li>Remove <code>private: true</code> only in the separately reviewed publication change.</li>
+  <code>v0.8.0</code>); see <a href="../packaging/#github-release">GitHub release</a>. Prerelease
+  versions remain unsupported.</li>
+<li>Issue #39 adds <a href="../packaging/#npm-publication">npm publication</a> to the release
+  workflow: trusted publishing without a registry token, a protected <code>npm</code>
+  environment with required approval, the attested GitHub release archive bound
+  to its commit, Full evidence and run, and verification of registry bytes,
+  provenance and signatures. The stable-only versioning means npm uses only the
+  <code>latest</code> dist-tag.</li>
+<li>Define the retention of evidence, rollback/deprecation policy and registry
+  account recovery.</li>
+<li>Issue #38 records what publication still has to change; see
+  <a href="../packaging/#archive-audit-38">Archive audit</a>.</li>
+<li>Issue #40 prepared <code>0.2.0</code>; <a href="https://github.com/OpenTLV/opentlv-js/issues/36">epic #36</a>
+  records its manual npm publication and independent consumer verification.</li>
+<li><a href="https://github.com/OpenTLV/opentlv-js/issues/47">Issue #47</a> tracks the configured
+  but not yet live-validated Trusted Publisher, saved environment and npm account
+  policies, release recovery hardening, and the next genuine release (<code>0.2.1</code>).
+  Direct publishing remains the chosen flow. See
+  <a href="../packaging/#direct-publishing-and-configuration-evidence-47">configuration and evidence</a>.
+  Local tests do not complete these hosted configuration/publication gates.</li>
 </ul>
 <h2 id="sec-1-security-and-advisory-process-open">SEC-1: Security and advisory process (open)<a class="headerlink" href="#sec-1-security-and-advisory-process-open" title="Permanent link">&para;</a></h2>
 <ul>
@@ -610,8 +622,9 @@ complete any publication item.</p>
 </ul>
 <h2 id="dist-1-distribution-improvements-open">DIST-1: Distribution improvements (open)<a class="headerlink" href="#dist-1-distribution-improvements-open" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Validate browsers, workers, bundlers and asset URL deployment before claiming
-  those package environments are supported.</li>
+<li>Issue #38 checks the installed archive in headless Chrome, as a module page and
+  a module worker with <code>locateFile</code>. Validate other browsers, the full API in
+  browsers, bundlers and deployed asset URLs before claiming them.</li>
 <li>Decide CDN/static hosting, source maps and any
   additional module interfaces based on tested consumer requirements.</li>
 <li>Keep wrapper semantics, Core ownership and WASM memory/lifetime contracts;
@@ -629,7 +642,7 @@ complete any publication item.</p>
   (<code>ci/migration-core-source.json</code>); a toolchain change still needs a reviewed
   replacement.</li>
 <li>Keep API redesign and broader facade coverage separate from the migration's
-  behavior-preservation result; browser/worker coverage remains tracked under
+  behavior-preservation result; remaining browser/worker coverage is tracked under
   DIST-1. TypeScript declarations were added separately in #5.</li>
 </ul>
 
@@ -652,7 +665,7 @@ complete any publication item.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -666,21 +679,21 @@ complete any publication item.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -694,7 +707,7 @@ complete any publication item.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

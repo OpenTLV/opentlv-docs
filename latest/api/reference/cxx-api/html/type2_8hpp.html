@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C++ API: tlv++/builtins/nfc/type2.hpp File Reference</title>
+<title>OpenTLV C++ API: opentlv/builtin/nfc/type2.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_bb4de694aed7e68e236ea99f4ab65f5c.html">tlv++</a></li><li class="navelem"><a class="el" href="dir_f3b6f26a0a54868a34c6867d84a14a23.html">builtins</a></li><li class="navelem"><a class="el" href="dir_2eccb815efc37cbadb2dfcdb253260b3.html">nfc</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_fd82963be15647178a4e9cba6a444c51.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_0fe13026f56fed323f469c20576c46b5.html">builtin</a></li><li class="navelem"><a class="el" href="dir_b0bfff1b70321e80bbaeac19861ad0b6.html">nfc</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -83,9 +83,10 @@ $(function() {
 
 <p>C++ preset for contiguous NFC Type 2 Tag TLV streams.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="elRef" href="../../c-api/html/type2_8h.html">tlv/builtins/nfc/type2.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="format_8hpp.html">tlv++/format.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="elRef" href="../../c-api/html/config_8h.html">tlv/config.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="elRef" href="../../c-api/html/type2_8h.html">opentlv/builtin/nfc/type2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2format_8hpp.html">opentlv/core/format.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="reader_8hpp.html">opentlv/io/reader/reader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="io_2writer_2builder_8hpp.html">opentlv/io/writer/builder.hpp</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -107,6 +108,17 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a64432ec28c0196fe0293bb4213e639a0" id="r_a64432ec28c0196fe0293bb4213e639a0"><td class="memTemplParams" colspan="2">template&lt;typename Output , typename Callback &gt; </td></tr>
+<tr class="memitem:a64432ec28c0196fe0293bb4213e639a0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1writer__failure.html">writer_failure</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1nfc.html#a64432ec28c0196fe0293bb4213e639a0">tlv::nfc::encode</a> (Output &amp;&amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a78e6221f6393d1356681db398f14ce6d">output</a>, <a class="el" href="structtlv_1_1writer__workspace.html">writer_workspace</a> workspace, Callback &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca924a8ceeac17f54d3be3f8cdf1c04eb2">callback</a>, <a class="el" href="namespacetlv.html#a1df134eb9e2b476155eb324618396e4d">writer_diagnostic</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr)</td></tr>
+<tr class="memdesc:a64432ec28c0196fe0293bb4213e639a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build NFC output with explicit caller-owned frames and scratch.  <br /></td></tr>
+<tr class="separator:a64432ec28c0196fe0293bb4213e639a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae08f46a2506262905d8fa6417f60b92b" id="r_ae08f46a2506262905d8fa6417f60b92b"><td class="memTemplParams" colspan="2">template&lt;size_t ScratchCapacity = 1024, size_t Depth = TLV_TREE_DEFAULT_DEPTH, typename Output , typename Callback &gt; </td></tr>
+<tr class="memitem:ae08f46a2506262905d8fa6417f60b92b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1expected.html">expected</a>&lt; size_t, <a class="el" href="structtlv_1_1writer__failure.html">writer_failure</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1nfc.html#ae08f46a2506262905d8fa6417f60b92b">tlv::nfc::encode</a> (Output &amp;&amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a78e6221f6393d1356681db398f14ce6d">output</a>, Callback &amp;&amp;<a class="el" href="namespacetlv.html#ab9d10b8185e9a80cd73b5a0ef633a22ca924a8ceeac17f54d3be3f8cdf1c04eb2">callback</a>, <a class="el" href="namespacetlv.html#a1df134eb9e2b476155eb324618396e4d">writer_diagnostic</a> *<a class="el" href="namespacetlv.html#a00ca9c69c35ef11f6a22b7eda1b115ba">diagnostic</a>=nullptr)</td></tr>
+<tr class="memdesc:ae08f46a2506262905d8fa6417f60b92b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build NFC output using bounded local stack workspace.  <br /></td></tr>
+<tr class="separator:ae08f46a2506262905d8fa6417f60b92b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76758062fea4e805a729fa0a6843d5aa" id="r_a76758062fea4e805a729fa0a6843d5aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1detail_1_1parsing__range.html">detail::parsing_range</a>&lt; <a class="el" href="classtlv_1_1nfc_1_1format.html">format</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1nfc.html#a76758062fea4e805a729fa0a6843d5aa">tlv::nfc::parse</a> (<a class="el" href="namespacetlv.html#a2abe7003a70af047ef9acae17f31f75d">bytes</a> data)</td></tr>
+<tr class="memdesc:a76758062fea4e805a729fa0a6843d5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse final input as borrowed Elements using the built-in Format.  <br /></td></tr>
+<tr class="separator:a76758062fea4e805a729fa0a6843d5aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebee47dba46e72a576e99bececdad809" id="r_aebee47dba46e72a576e99bececdad809"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aebee47dba46e72a576e99bececdad809">tlv::native::nfc_type2_format</a> () noexcept</td></tr>
 <tr class="memdesc:aebee47dba46e72a576e99bececdad809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the immutable NFC Type 2 framing preset.  <br /></td></tr>
 <tr class="separator:aebee47dba46e72a576e99bececdad809"><td class="memSeparator" colspan="2">&#160;</td></tr>

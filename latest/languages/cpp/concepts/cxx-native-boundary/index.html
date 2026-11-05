@@ -3608,6 +3608,8 @@
       
         
       
+        
+      
     
     
     
@@ -3664,6 +3666,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3780,9 +3786,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4292,6 +4382,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4548,6 +4642,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5386,6 +5536,8 @@
       
         
       
+        
+      
     
     
     
@@ -5586,6 +5738,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6156,7 +6336,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/cxx-native-boundary.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/cxx-native-boundary.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6339,7 +6519,7 @@ pointer/epoch cache after a Document edit retires Nodes. Two threads reading the
 synchronize concurrent access to a Document and its shared handles, including
 const access; read-only traversal does not supply synchronization.</p>
 <h2 id="explicit-interoperability-and-lifetime">Explicit interoperability and lifetime<a class="headerlink" href="#explicit-interoperability-and-lifetime" title="Permanent link">&para;</a></h2>
-<p>Include <code>&lt;tlv++/native.hpp&gt;</code> explicitly to mix C and C++ APIs:</p>
+<p>Include <code>&lt;opentlv/native.hpp&gt;</code> explicitly to mix C and C++ APIs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">borrow_format</span><span class="p">(</span><span class="n">native_descriptor</span><span class="p">);</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">tlv</span><span class="o">::</span><span class="n">reader</span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">reader</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="p">);</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">descriptor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">descriptor</span><span class="p">(</span><span class="n">format</span><span class="p">);</span>
@@ -6361,7 +6541,7 @@ C++ handles are accessed. Never free the borrowed owner or retain raw pointers
 after its destruction. Query path descriptors use <code>native::descriptor(query)</code>; compiled programs and
 mutable continuations use <code>native::handle()</code>. Temporary owning objects cannot
 export retained pointers.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/examples/tlv%2B%2B/src/formats/fixed_format_runtime.cpp">runtime Fixed example</a>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/examples/core/fixed_format_runtime.cpp">runtime Fixed example</a>
 demonstrates <code>runtime_fixed_format</code> with caller-owned configuration. A copied
 owner rebinds its descriptor to its own configuration; existing views continue
 to borrow the original owner. Reader/Writer construction from a C descriptor now
@@ -6556,8 +6736,8 @@ even Value lengths from 2 to 8; the second accepts only lengths 2 and 8.</p>
 copy of every C helper. All ordinary examples and CLI sources pass
 <code>scripts/check_cxx_boundary.py</code>; the CI job also runs the scanner's regression
 tests. The scanner rejects native headers, C identifiers/constants and
-<code>tlv::detail</code>/<code>tlv::native</code> usage. The generated <code>tlv/config.h</code> capability switches
-are allowed. Native parity, malformed-native-input fixtures and the explicit
+<code>tlv::detail</code>/<code>tlv::native</code> usage. The generated <code>opentlv/query/features.h</code> Query-internal switches
+are allowed; obsolete module-selection macros have been removed. Native parity, malformed-native-input fixtures and the explicit
 interoperability example have exact per-path, per-symbol occurrence baselines in
 <code>scripts/cxx_boundary_baseline.json</code>, each with a reason. These files remain
 checked: new symbols, additional occurrences and stale allowances fail the gate.
@@ -6566,7 +6746,7 @@ fixture requires reviewing its baseline alongside the source change; no entire
 file is exempt. Mixed historical parity files are not claimed as pure public
 examples. New public acceptance tests belong in <code>tests/unit/public_api_test.cpp</code>.
 The scanner covers <code>.cpp</code>, <code>.hpp</code>, <code>.h</code>, <code>.cc</code>, <code>.cxx</code> and <code>.inl</code> under the consumer
-roots; tests enter its scope when they directly include <code>tlv++/</code> headers, so pure
+roots; tests enter its scope when they directly include <code>opentlv/</code> <code>.hpp</code> headers, so pure
 C engine harnesses remain outside this gate. Run
 <code>--report build/cxx-boundary.json</code> for the audit.</p>
 <table>
@@ -6730,7 +6910,7 @@ and other errors as failures requiring handling before another pull.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6744,21 +6924,21 @@ and other errors as failures requiring handling before another pull.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6772,7 +6952,7 @@ and other errors as failures requiring handling before another pull.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

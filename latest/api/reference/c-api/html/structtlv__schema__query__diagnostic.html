@@ -89,7 +89,7 @@ Data Fields</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Rule-aware failure preserving native Query/Reader/codec diagnostics. </p>
-<dl class="section note"><dt>Note</dt><dd>After initialization, every failure is described once by <code>query</code>. A failed assertion sets <code>query.diagnostic.code</code> to <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61afe701b08473c7ec9597853fe737a62b4">TLV_ERR_SCHEMA</a>, <code>query.kind</code> to <a class="el" href="group__traversal.html#gga66edcf242c8bc06318ff99b24f1ce0eda988a95fe562429327a997ec69d2988ab">TLV_QUERY_ERROR_SCHEMA</a> and <code>query.cause</code> to <a class="el" href="group__traversal.html#ggab59146d8bb1a6e5d0cee42bc752f7170a26693eb658cad89efdb92a617a8bc644">TLV_QUERY_CAUSE_SCHEMA</a>, with ASSERTION detail (tag, field=name) in <code>query.detail.schema</code>. An execution failure keeps its own result, kind and cause. Invalid program contents initialize <code>query.kind</code> to IMAGE; incompatible rule result types initialize it to TYPE, both with <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a07580ca64f30aa1a72a405fcbca72f10">TLV_ERR_INVALID_VALUE</a>. Other preflight rejection before initialization leaves the object untouched. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>After initialization, every failure is described once by <code>query</code>. A failed assertion sets <code>query.diagnostic.code</code> to <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61afe701b08473c7ec9597853fe737a62b4">TLV_ERR_SCHEMA</a>, <code>query.kind</code> to <a class="el" href="group__traversal.html#gga66edcf242c8bc06318ff99b24f1ce0eda988a95fe562429327a997ec69d2988ab">TLV_QUERY_ERROR_SCHEMA</a> and <code>query.cause</code> to <a class="el" href="group__traversal.html#ggab59146d8bb1a6e5d0cee42bc752f7170a26693eb658cad89efdb92a617a8bc644">TLV_QUERY_CAUSE_SCHEMA</a>, with ASSERTION detail (tag, field=name) in <code>query.detail.causes</code>. An execution failure keeps its own result, kind and cause. Invalid program contents initialize <code>query.kind</code> to IMAGE; incompatible rule result types initialize it to TYPE, both with <a class="el" href="group__core.html#gga516c7250563ee9332e2f45f2d203ae61a07580ca64f30aa1a72a405fcbca72f10">TLV_ERR_INVALID_VALUE</a>. Other preflight rejection before initialization leaves the object untouched. </dd></dl>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a9671b3cf14404095b6b97e08b42af77c" name="a9671b3cf14404095b6b97e08b42af77c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9671b3cf14404095b6b97e08b42af77c">&#9670;&#160;</a></span>query</h2>
@@ -122,7 +122,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>tlv/schema/<a class="el" href="schema_2query_8h.html">query.h</a></li>
+<li>opentlv/schema/<a class="el" href="schema_2query_8h.html">query.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

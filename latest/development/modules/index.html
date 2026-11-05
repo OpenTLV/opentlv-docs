@@ -3400,6 +3400,8 @@
       
         
       
+        
+      
     
     
     
@@ -3461,6 +3463,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3577,9 +3583,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4095,6 +4185,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4354,6 +4448,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5201,6 +5351,8 @@
       
         
       
+        
+      
     
     
     
@@ -5404,6 +5556,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5975,7 +6155,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/development/modules/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/development/modules/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5991,12 +6171,56 @@ and is written for contributors who implement Issues 2 to 12 and for the
 reviewers who approve these contracts. Read the
 <a href="../architecture/architectural-rules/">architectural rules</a> and the
 <a href="../architecture/error-model/">failure model</a> first.</p>
-<p><strong>Status: proposed.</strong> Approval of the pull request that adds this page
-approves the decisions listed in <a href="#decisions-to-approve">Decisions to approve</a>.
-This page changes no source file, build option or behavior; the current
-capability options and the single <code>tlv</code> target stay until the extraction
-issues replace them.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tests/baseline/README.md">pre-refactor behavioral baseline</a> for
+<p><strong>Implementation status:</strong> #647 extracts the C <code>OpenTLV::Core</code> and
+<code>OpenTLV::IO</code> targets, #648 extracts <code>OpenTLV::Document</code>, and #649 extracts
+<code>OpenTLV::Generator</code>; #650 extracts <code>OpenTLV::Query</code> and <code>OpenTLV::QueryDocument</code>, using the
+infrastructure from #646. #651 extracts <code>OpenTLV::Codec</code> and the Query-owned
+<code>OpenTLV::QueryCodec</code> integration. #652 extracts <code>OpenTLV::Schema</code> and the
+<code>SchemaNumber</code>, <code>SchemaQuery</code>, <code>SchemaQueryDocument</code> and <code>CodecStructure</code>
+integrations. #653 extracts all six builtin families: <code>ASN1</code>, <code>EMV</code>,
+<code>Bluetooth</code>, <code>NFC</code>, <code>DHCP</code> and <code>LLDP</code>. Their sources, public
+headers and symbols are registered in <code>cmake/library/modules.cmake</code>; the isolation gate
+checks the compiled dependency graph. #654 associates header-only C++ facades
+with those targets and registers <code>DocumentCodec</code> and <code>IOCodec</code> integrations.
+The <a href="layout-migration/">module-first layout and header migration</a> implements #733.
+The <a href="final-verification/">final verification report and procedure</a> covers #655.
+All C implementations live in modules; <code>OpenTLV::tlv</code> is an optional INTERFACE
+aggregate without an archive. See the <a href="../../api/configuration/">consumer migration guide</a>.</p>
+<p>Document Query declarations now live in <code>opentlv/query/document.h</code>; path matching
+and batch-edit policy live in <code>query/document_path.c</code> and
+<code>query/document_backend.c</code>. Both use <code>opentlv/document/integration.h</code> and public node
+APIs, with no Document or Writer private-header access. The integration is
+registered as Query-owned <code>OpenTLV::QueryDocument</code>; only Query owner-private
+helpers cross its shared-library boundary. Base Query has only Core and IO
+dependencies. Definition resolution stays in Query; Codec conversion providers
+live in <code>query/codec.c</code> and the explicit C++ <code>query/codec.hpp</code> integration,
+registered as <code>OpenTLV::QueryCodec</code>. Schema Query
+uses public plan inspection instead of private Query representations.
+The base Document target has no Query, Schema, Codec, Generator or builtin
+headers, sources or symbols. C++ Query and typed decoding definitions live in their explicit integration headers.</p>
+<p>Codec registers all generic Value conversions and its diagnostic vocabulary with
+only a Core dependency. <code>tlv_codec_detail_t</code> is a Codec-owned leaf; delegated
+Reader and Schema details travel as producer-owned cause frames in
+<code>tlv_codec_diagnostic_t</code>. The <code>codec-structure</code> integration retains its explicit
+ownership and is independently linkable as <code>OpenTLV::CodecStructure</code>.
+Its Reader and Schema validation behavior is preserved. The typed writer
+implementation now lives in the <code>io-codec</code> header <code>opentlv/codec/writer.hpp</code>.</p>
+<p>Schema registers length, structure, constraint, checking/preparation and report
+implementations with public Core and IO dependencies only. Number conversions
+live in <code>SchemaNumber</code>; buffer assertions live in <code>SchemaQuery</code>; Document
+assertions live in <code>SchemaQueryDocument</code>. Shared Schema-owned helpers use only
+public Query APIs. EMV calls the public SchemaNumber length integration.
+Schema diagnostic names and cause payloads belong to Schema; delegated Reader
+and Codec evidence uses producer-owned frames. Common C++ errors have no Schema
+header dependency; <code>opentlv/schema/error.hpp</code> owns <code>schema_failure</code>.</p>
+<p>Generator registers <code>generator.c</code> and <code>opentlv/generator/generator.h</code>, with public Core and
+private IO dependencies and its own export header. Its source and algorithm
+version remain unchanged; IO never depends on Generator. The existing
+<code>opentlv/generator/generator.hpp</code> retains Generator ownership and is checked with an
+independently linked C++11 consumer. It remains header-only and receives its shared C++ support headers from Core. Generator test
+ownership includes the existing native/facade regression scenarios; builtin
+Formats in those scenarios are test fixtures, not Generator dependencies.</p>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/tests/baseline/README.md">pre-refactor behavioral baseline</a> for
 issue #645 pins the released behavior and diagnostic inventory used when applying
 these contracts. Approve that evidence before starting #646.</p>
 <p>The public target names below (<code>OpenTLV::Core</code> and so on) are the working
@@ -6191,7 +6415,7 @@ count as public modules. A <em>facade-only</em> integration target is a header-o
 <tr>
 <td><code>query-codec</code></td>
 <td>Query</td>
-<td>Query, Codec</td>
+<td>Core, IO, Query, Codec</td>
 <td>Codec-backed conversion adapters and builtin hooks</td>
 <td><a href="https://github.com/OpenTLV/opentlv/issues/650">#650</a></td>
 </tr>
@@ -6205,7 +6429,7 @@ count as public modules. A <em>facade-only</em> integration target is a header-o
 <tr>
 <td><code>schema-number</code></td>
 <td>Schema</td>
-<td>Schema, Codec</td>
+<td>Schema, Codec; Core privately</td>
 <td>Numeric Schema constraints through number codecs</td>
 <td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
 </tr>
@@ -6219,7 +6443,7 @@ count as public modules. A <em>facade-only</em> integration target is a header-o
 <tr>
 <td><code>schema-query-document</code></td>
 <td>Schema</td>
-<td>Document, <code>schema-query</code>, <code>query-document</code></td>
+<td>Core, IO, Schema, Document, Query, <code>schema-query</code>, <code>query-document</code></td>
 <td><code>tlv_schema_query_validate_document()</code></td>
 <td><a href="https://github.com/OpenTLV/opentlv/issues/652">#652</a></td>
 </tr>
@@ -6240,10 +6464,11 @@ count as public modules. A <em>facade-only</em> integration target is a header-o
 </tbody>
 </table>
 <p>The <em>aggregate</em> interface target links every public module and integration
-target. It owns the umbrella headers <code>tlv/tlv.h</code>, <code>tlv++/tlv.hpp</code> and
-<code>tlv++/native.hpp</code>, and nothing depends on it. It replaces "link everything"
-use of the former monolithic <code>tlv</code> target; <a href="https://github.com/OpenTLV/opentlv/issues/654">#654</a>
-decides its final name with the #702 contract.</p>
+target. It owns the umbrella headers <code>opentlv/tlv.h</code>, <code>opentlv/tlv.hpp</code> and
+<code>opentlv/native.hpp</code>, and nothing depends on it. It replaces "link everything"
+use of the former monolithic <code>tlv</code> target. #654 retains the existing
+<code>OpenTLV::tlv</code> name as a convenience interface; wider naming decisions remain
+with #702.</p>
 <p>Builtins stay one module per protocol family. Their integrations with Codec,
 Schema and Query stay inside the family module: builtins may depend on any
 generic module or integration target, so no cycle can result, and a separate
@@ -6253,11 +6478,11 @@ privately on ASN.1 for the BER identifier reader of its DOL helper; epic
 with generic composition and then removes the dependency.</p>
 <h3 id="c-facades">C++ facades<a class="headerlink" href="#c-facades" title="Permanent link">&para;</a></h3>
 <p>Every module and integration target owns the header-only C++ facade of its C
-API. The facade is a separate <code>INTERFACE</code> target per module that requires C++11
-and depends on its C target and on the facades of that target's dependencies.
-Pure C consumers never link a facade target, so they never need a C++
-compiler, and <code>OPENTLV_BUILD_CXX</code> keeps controlling only C++ tests, examples
-and tools. A facade may depend on more than its C target only where
+API. Its C++ include directories and C++11 feature are INTERFACE usage
+requirements of the same functional target. CMake applies C++ compile features
+only to C++ sources, so pure C consumers never need a C++ compiler.
+<code>OPENTLV_BUILD_CXX</code> controls only C++ tests, examples and development tools;
+headers and functional targets are always installed. A facade may depend on more than its C target only where
 <a href="ownership.json">ownership.json</a> lists a <code>facade</code> dependency (EMV and NFC
 facades read and write through the IO facade). A facade that combines two
 modules belongs to their integration target.</p>
@@ -6283,7 +6508,7 @@ cycle. Generic modules:</p>
 </code></pre></div>
 <p>Builtins depend on generic modules and integration targets, never the reverse:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>asn1      -&gt; core, io, codec, schema, query
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>emv       -&gt; core, codec, schema, query; asn1, schema-number (private)
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>emv       -&gt; core, codec, schema, query; schema-number (private)
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>bluetooth -&gt; core, io, codec, schema
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>nfc       -&gt; core
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>dhcp      -&gt; core, codec, schema; io (private)
@@ -6314,10 +6539,10 @@ Core, Codec, Schema, Query, ASN.1, Schema numbers and IO available. Static and
 shared builds keep the same graph; neither may need an extra dependency.</p>
 <h2 id="ownership-inventory">Ownership inventory<a class="headerlink" href="#ownership-inventory" title="Permanent link">&para;</a></h2>
 <p><a href="ownership.json">ownership.json</a> <code>files</code> assigns every C source, private
-header, public header, C++ facade header and resource template under <code>tlv/</code>
-and <code>tlv++/</code> (256 files) to one target. Generated headers (<code>tlv/config.h</code>,
-<code>tlv/export.h</code>, <code>tlv/version.h</code>) belong to Core until #654 removes or moves
-their module-selection parts. The inventory and symbol counts below come from
+header, public header, C++ facade header and resource template under <code>include/</code>
+and <code>src/</code> to one target. Version headers belong to Core; each compiled
+module owns its generated export header. #654 removes <code>tlv/config.h</code>, its
+implementation and the obsolete aggregate export header. The inventory and symbol counts below come from
 the current <code>main</code> revision; exported symbols are those of the shared library,
 internal ones are global but hidden.</p>
 <table>
@@ -6533,8 +6758,10 @@ internal ones are global but hidden.</p>
 </tr>
 </tbody>
 </table>
-<p>The four resource templates (<code>tlv/resources/*.in</code>) belong to Core and are not
-counted above. Symbol counts assign each symbol to its target after the <code>api</code>
+<p>This table records the #644 baseline inventory, before extraction. Current
+source and header ownership is authoritative in <code>ownership.json</code>. Version
+templates now belong to Core under <code>src/core/</code>; the Query feature template
+belongs to Query under <code>src/query/internal/</code>. Templates are not counted above. Symbol counts assign each symbol to its target after the <code>api</code>
 moves below; Query and Document files that implement <code>query-document</code> stay in
 their current directories until #650 moves them. The symbols were collected
 from a GCC build of <code>main</code> with <code>nm</code> (static objects for definitions and
@@ -6543,8 +6770,9 @@ for every build.</p>
 <h3 id="public-api-ownership">Public API ownership<a class="headerlink" href="#public-api-ownership" title="Permanent link">&para;</a></h3>
 <p>A public declaration is owned by the target that owns its header. The <code>api</code>
 section of <a href="ownership.json">ownership.json</a> lists every declaration or
-definition whose owner differs from the file it is in today, each with the
-resolution that moves it:</p>
+definition whose owner differed from its file in the #644 baseline, each with
+the resolution that moves it. #647 completes the Core/IO moves and relocates
+the other diagnostic name implementations to their owning directories:</p>
 <table>
 <thead>
 <tr>
@@ -6574,8 +6802,8 @@ resolution that moves it:</p>
 <td><code>io-diagnostic-names</code></td>
 </tr>
 <tr>
-<td><code>tree_writer_measure_events_observed()</code></td>
-<td>IO private header</td>
+<td><code>tlv_tree_writer_measure_events_observed()</code></td>
+<td>IO private helper without <code>tlv_</code> prefix</td>
 <td>IO public API</td>
 <td><code>io-tree-measure</code></td>
 </tr>
@@ -6648,11 +6876,15 @@ consumer that holds a diagnostic of a module has linked it. Cause frames carry
 their domain's name lookup, so a consumer can name a foreign cause without
 linking its module; see <a href="diagnostics/#names">Module diagnostics</a>.</p>
 <h2 id="existing-cycles">Existing cycles<a class="headerlink" href="#existing-cycles" title="Permanent link">&para;</a></h2>
-<p>The current <code>tlv</code> target compiles everything together, so its include and
-symbol graph contains cycles that separate targets cannot have. Assigning the
-current files to their target owners gives these cycles, computed by
+<p>The pre-extraction <code>tlv</code> target compiled everything together, so its include and
+symbol graph contained cycles that separate targets cannot have. Assigning the
+baseline files to their target owners gave these cycles, computed by
 <code>python scripts/check_module_contracts.py --report</code> and by <code>nm</code> symbol
 references:</p>
+<p>The C Core cycles and Core/IO private-header exceptions are resolved by #647.
+The C Codec-to-Schema dependency and the typed Codec-to-Writer include are
+resolved by #651. The table records the original cycle evidence; the C++ error
+facade still needs Schema, and the remaining facade cycles are scheduled below. <code>ownership.json</code> records only the remaining exceptions.</p>
 <table>
 <thead>
 <tr>
@@ -6671,19 +6903,19 @@ references:</p>
 </tr>
 <tr>
 <td>Core ↔ Query</td>
-<td><code>diagnostic_strings.c</code> includes <code>tlv/query/program.h</code></td>
+<td><code>diagnostic_strings.c</code> includes <code>opentlv/query/program.h</code></td>
 <td><code>query-diagnostic-names</code></td>
 <td>#650</td>
 </tr>
 <tr>
 <td>Core ↔ Codec</td>
-<td><code>diagnostic.c</code> defines <code>tlv_codec_diagnostic_init()</code>; both diagnostic files include <code>tlv/codec/diagnostic.h</code></td>
+<td><code>diagnostic.c</code> defines <code>tlv_codec_diagnostic_init()</code>; both diagnostic files include <code>opentlv/codec/diagnostic.h</code></td>
 <td><code>codec-diagnostic-vocabulary</code></td>
 <td>#651</td>
 </tr>
 <tr>
 <td>Core ↔ Schema</td>
-<td><code>diagnostic_strings.c</code> and <code>tlv++/error.hpp</code> include <code>tlv/schema/schema.h</code></td>
+<td><code>diagnostic_strings.c</code> and <code>opentlv/core/error.hpp</code> include <code>opentlv/schema/schema.h</code></td>
 <td><code>schema-diagnostic-causes</code></td>
 <td>#652</td>
 </tr>
@@ -6695,13 +6927,13 @@ references:</p>
 </tr>
 <tr>
 <td>Query ↔ <code>query-codec</code></td>
-<td><code>tlv++/query/options.hpp</code> includes <code>tlv/query/adapters.h</code> for codec hooks</td>
+<td><code>opentlv/query/options.hpp</code> includes <code>opentlv/query/adapters.h</code> for codec hooks</td>
 <td><code>query-codec-hooks</code></td>
 <td>#650</td>
 </tr>
 <tr>
 <td>Document ↔ Query (modules)</td>
-<td><code>document.h</code> includes <code>tlv/query/query.h</code> and declares Document Query; <code>document/query.c</code> and <code>query/document_backend.c</code> use both modules' internals</td>
+<td>C boundary resolved in #648; Query-owned implementations use public Document APIs. Query target extraction and C++ facade separation remain</td>
 <td><code>document-query-boundary</code>, <code>query-document-integration</code></td>
 <td>#648, #650</td>
 </tr>
@@ -6730,7 +6962,7 @@ its entries when it applies the resolution:</p>
 <tbody>
 <tr>
 <td><code>core-copy-element</code></td>
-<td><code>copy.c</code> → <code>tlv/writer/writer.h</code></td>
+<td><code>copy.c</code> → <code>opentlv/io/writer/writer.h</code></td>
 </tr>
 <tr>
 <td><code>core-utf8-api</code></td>
@@ -6750,35 +6982,35 @@ its entries when it applies the resolution:</p>
 </tr>
 <tr>
 <td><code>document-query-boundary</code></td>
-<td><code>document.h</code> → <code>tlv/query/query.h</code>; <code>document.hpp</code> → Query facades</td>
+<td><code>document.h</code> → <code>opentlv/query/query.h</code>; <code>document.hpp</code> → Query facades</td>
 </tr>
 <tr>
 <td><code>document-codec-facade</code></td>
-<td><code>document.hpp</code> → <code>tlv++/codec/typed.hpp</code></td>
+<td><code>document.hpp</code> → <code>opentlv/codec/typed.hpp</code></td>
 </tr>
 <tr>
 <td><code>query-document-integration</code></td>
-<td><code>document/query.c</code> and <code>query/document_backend.c</code> → <code>document_internal.h</code></td>
+<td>Document private-header access resolved in #648; Query owner-internal exports remain for #650</td>
 </tr>
 <tr>
 <td><code>query-codec-hooks</code></td>
-<td><code>tlv/query/program.h</code> → <code>tlv/codec/codec.h</code>; <code>query/evaluation.c</code> → <code>codec/result_internal.h</code>; <code>tlv++/query/options.hpp</code> → <code>tlv/query/adapters.h</code></td>
+<td><code>opentlv/query/program.h</code> → <code>opentlv/codec/codec.h</code>; <code>query/evaluation.c</code> → <code>codec/result_internal.h</code>; <code>opentlv/query/options.hpp</code> → <code>opentlv/query/adapters.h</code></td>
 </tr>
 <tr>
 <td><code>query-diagnostic-names</code></td>
-<td><code>diagnostic_strings.c</code> → <code>tlv/query/program.h</code></td>
+<td><code>diagnostic_strings.c</code> → <code>opentlv/query/program.h</code></td>
 </tr>
 <tr>
 <td><code>codec-diagnostic-vocabulary</code></td>
-<td><code>diagnostic.c</code>, <code>diagnostic_strings.c</code> → <code>tlv/codec/diagnostic.h</code>; <code>tlv/codec/diagnostic.h</code> → Reader and Schema detail headers</td>
+<td><code>diagnostic.c</code>, <code>diagnostic_strings.c</code> → <code>opentlv/codec/diagnostic.h</code>; <code>opentlv/codec/diagnostic.h</code> → Reader and Schema detail headers</td>
 </tr>
 <tr>
 <td><code>io-codec-facade</code></td>
-<td><code>tlv++/codec/typed.hpp</code> → <code>tlv++/writer/writer.hpp</code></td>
+<td><code>opentlv/codec/typed.hpp</code> → <code>opentlv/io/writer/writer.hpp</code></td>
 </tr>
 <tr>
 <td><code>schema-diagnostic-causes</code></td>
-<td><code>tlv/schema/schema.h</code> → <code>tlv/codec/diagnostic.h</code>; <code>diagnostic_strings.c</code> and <code>tlv++/error.hpp</code> → <code>tlv/schema/schema.h</code></td>
+<td><code>opentlv/schema/schema.h</code> → <code>opentlv/codec/diagnostic.h</code>; <code>diagnostic_strings.c</code> and <code>opentlv/core/error.hpp</code> → <code>opentlv/schema/schema.h</code></td>
 </tr>
 <tr>
 <td><code>schema-number-api</code></td>
@@ -6786,7 +7018,7 @@ its entries when it applies the resolution:</p>
 </tr>
 <tr>
 <td><code>schema-query-integration</code></td>
-<td><code>schema/query.c</code> → <code>query/program_internal.h</code>; <code>tlv/schema/query.h</code> → <code>tlv/document/document.h</code></td>
+<td><code>schema/query.c</code> → <code>query/program_internal.h</code>; <code>opentlv/schema/query.h</code> → <code>opentlv/document/document.h</code></td>
 </tr>
 </tbody>
 </table>
@@ -6813,7 +7045,7 @@ targets are separate libraries:</p>
 <td><code>core-utf8-api</code></td>
 </tr>
 <tr>
-<td><code>document_query_callback()</code>, <code>document_edit_targets()</code>, <code>document_node_tag()</code>, <code>document_contains()</code>, <code>document_format()</code></td>
+<td>Resolved in #648: public <code>tlv_document_callback()</code>, <code>tlv_document_callbacks_active()</code>, <code>tlv_document_contains()</code>, <code>tlv_document_options()</code> and <code>tlv_node_tag()</code>; batch-edit helpers are local to Query</td>
 <td><code>query-document</code> → Document</td>
 <td><code>document-query-boundary</code></td>
 </tr>
@@ -6833,7 +7065,7 @@ targets are separate libraries:</p>
 symbol lacks a public declaration.</p>
 <h2 id="private-header-boundaries">Private-header boundaries<a class="headerlink" href="#private-header-boundaries" title="Permanent link">&para;</a></h2>
 <ul>
-<li>A header under <code>tlv/src/</code> is private to the module that owns it. Files of
+<li>A header under <code>src/</code> is private to the module that owns it. Files of
   that module, including its integration targets, may include it; no other
   module may.</li>
 <li>An integration target may use its owner's private headers, but only the
@@ -6909,13 +7141,12 @@ symbol lacks a public declaration.</p>
 <p>The repository stays buildable and testable between the two issues:</p>
 <ol>
 <li>
-<h1 id="648-creates-the-document-target-with-core-and-io-only-the-document-query">648 creates the Document target with Core and IO only. The Document Query<a class="headerlink" href="#648-creates-the-document-target-with-core-and-io-only-the-document-query" title="Permanent link">&para;</a></h1>
-   declarations move to a Query-owned header, and <code>document/query.c</code>,
-   <code>query/document_backend.c</code> and the Query-specific part of <code>document.c</code>
-   (<code>document_query_callback()</code>, <code>document_edit_targets()</code> and the edit
-   helpers) stay with Query in the part of the library that is not extracted
-   yet. They may still use the current private headers, recorded as
-   exceptions.</li>
+<h1 id="648-creates-the-document-target-with-core-and-io-only-document-query">648 creates the Document target with Core and IO only. Document Query<a class="headerlink" href="#648-creates-the-document-target-with-core-and-io-only-document-query" title="Permanent link">&para;</a></h1>
+   declarations move to <code>opentlv/query/document.h</code>. Path matching and selection-edit
+   helpers move to Query-owned sources in the compatibility library. Generic
+   callback lifetime protection stays with Document and is exposed through
+   <code>opentlv/document/integration.h</code>, alongside effective options and ownership checks.
+   Query uses this boundary without accessing Document private headers.</li>
 <li>
 <h1 id="650-creates-the-query-target-completes-query-document-on-public">650 creates the Query target, completes <code>query-document</code> on public<a class="headerlink" href="#650-creates-the-query-target-completes-query-document-on-public" title="Permanent link">&para;</a></h1>
    Document and IO APIs and the Query owner-internal interface, and removes
@@ -6982,9 +7213,9 @@ issues stop using them for their own sources.</p>
 </tr>
 </tbody>
 </table>
-<p>The <code>tlv_config_*()</code> mirrors and <code>tlv/config.h</code> macros of removed options go
-with them. Code that checks them, such as <code>#if OPENTLV_READER</code> in <code>ber.h</code> or
-<code>document.c</code>, takes the always-available branch.</p>
+<p>The <code>tlv_config_*()</code> mirrors and <code>tlv/config.h</code> macros of removed options are
+removed in #654. Source and header conditions now take the always-available
+module branch. Only the Query-internal feature macros and runtime mirrors remain.</p>
 <h2 id="query-features">Query features<a class="headerlink" href="#query-features" title="Permanent link">&para;</a></h2>
 <p>Both Query features stay, as options of the Query target only:</p>
 <table>
@@ -7007,12 +7238,11 @@ with them. Code that checks them, such as <code>#if OPENTLV_READER</code> in <co
 </table>
 <p>Retained features must not change dependencies or what other modules see:</p>
 <ul>
-<li>Their macros and runtime mirrors move from Core <code>tlv/config.h</code> to a
-  Query-owned configuration header (<code>query-features</code>, #650); no other module
-  reads them.</li>
+<li>Their macros and runtime mirrors live in <code>opentlv/query/features.h</code>; Core no
+  longer owns or reads Query feature configuration.</li>
 <li>They no longer turn off unrelated tests, examples, benchmarks or fuzzers
   globally; the Query test targets select what they need (#646, #650).</li>
-<li><code>query_plan_supported()</code> stops checking <code>OPENTLV_DOCUMENT</code>: Document-level
+<li><code>query_plan_supported()</code> does not check <code>OPENTLV_DOCUMENT</code>: Document-level
   plans are valid representations, executable through <code>query-document</code>.</li>
 </ul>
 <h2 id="asn1-granularity">ASN.1 granularity<a class="headerlink" href="#asn1-granularity" title="Permanent link">&para;</a></h2>
@@ -7035,13 +7265,44 @@ BER without compiling DER and CER. Expected footprint:</p>
   IO, Codec, Schema and Query). Size-sensitive shared deployments should link
   ASN.1 statically.</li>
 </ul>
-<p>For scale, a GCC 13 <code>MinSizeRel</code> static build of <code>main</code> has these ASN.1
-object sizes (text + data + bss): BER format and helpers (<code>ber.c</code>,
-<code>ber_internal.c</code>, <code>identifier.c</code>) 4.4 KiB, shared value validation 3.8 KiB,
-DER/CER identifier helpers 0.9 KiB, DER format and validation 3.7 KiB, CER
-format and validation 8.0 KiB, ASN.1 codecs 13.8 KiB, DER Schema 14.7 KiB and
-Query hooks 1.2 KiB; 50.6 KiB in total. #653 records the actual before/after
-footprint.</p>
+<p>Measured for #653 on Linux x86-64 with GCC 13.3.0, <code>MinSizeRel</code> (<code>-Os</code>),
+static libraries and the same BER decode probe. The reference is commit
+<code>070334f3b84abc20032e7e2d5d4a27c475437b75</code>, with all former builtin options ON;
+the candidate is the extracted implementation. Values below are GNU <code>size -B</code>
+text/data/bss byte counts, not archive file sizes or runtime resident memory.</p>
+<table>
+<thead>
+<tr>
+<th>Measurement</th>
+<th>Before (text / data / bss)</th>
+<th>After (text / data / bss)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All 13 ASN.1 objects</td>
+<td>50,309 / 1,584 / 0</td>
+<td>50,309 / 1,584 / 0</td>
+</tr>
+<tr>
+<td>BER-only executable</td>
+<td>19,335 / 928 / 8</td>
+<td>19,359 / 928 / 8</td>
+</tr>
+</tbody>
+</table>
+<p>The linker maps retain only <code>ber.c</code>, <code>ber_internal.c</code> and <code>identifier.c</code> from
+the ASN.1 family in both executable builds. DER, CER, validation, Schema, Codec
+and Query objects are absent. The observed executable text difference is 24
+bytes with the new archive/member ordering; the ASN.1 object totals are
+unchanged. Results depend on compiler, linker and flags.</p>
+<p>To reproduce, configure both revisions with <code>-DCMAKE_BUILD_TYPE=MinSizeRel</code>,
+<code>-DOPENTLV_BUILD_SHARED_LIBS=OFF</code>, tests/examples OFF, build the former <code>tlv</code>
+and the new <code>opentlv_asn1</code>, and compile a C probe that calls
+<code>tlv_format_decode(&amp;tlv_format_ber, ...)</code> on <code>{2, 1, 42}</code>. Link the registered
+archives in a GNU linker group, emit a map with <code>-Wl,-Map=ber.map</code>, then use
+<code>size -B</code> on the probe and each ASN.1 object. This measures default static
+archive selection without section garbage collection or LTO.</p>
 <h2 id="enforcement">Enforcement<a class="headerlink" href="#enforcement" title="Permanent link">&para;</a></h2>
 <p><code>scripts/check_module_contracts.py</code> runs in the static-analysis pre-commit job
 of every Core pull request, with its tests in
@@ -7049,9 +7310,9 @@ of every Core pull request, with its tests in
 <ul>
 <li>the seven generic and six builtin modules, valid targets and an acyclic
   dependency graph including facade dependencies;</li>
-<li>that every <code>.c</code>, <code>.h</code>, <code>.hpp</code> and <code>.in</code> file under <code>tlv/</code> and <code>tlv++/</code> has
+<li>that every <code>.c</code>, <code>.h</code>, <code>.hpp</code> and <code>.in</code> file under <code>include/</code> and <code>src/</code> has
   one owner, with no stale entries;</li>
-<li>that every quoted include stays within its target or a declared
+<li>that every quoted or angle include stays within its target or a declared
   dependency, and never reaches another module's private header, except for
   the recorded exceptions; new and resolved-but-recorded exceptions both fail;</li>
 <li>that every <code>api</code> move and resolution is still current;</li>
@@ -7059,6 +7320,13 @@ of every Core pull request, with its tests in
   of the public diagnostic vocabularies and every Query limit name, with
   unique domains and no merged codes.</li>
 </ul>
+<p>The same ownership contract records public target names for modules, integrations
+and the aggregate. With <code>--examples &lt;build&gt;/examples/examples.jsonl</code>, the checker
+compares public includes with the direct <code>LINK</code> declarations emitted by the
+example helper, including composite headers and skipped examples. See
+<a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/examples/README.md#public-dependencies">example dependencies</a> for the
+intentional umbrella and native interop cases. The static-analysis job builds and
+runs the examples in C99/C++11 mode after this audit.</p>
 <p>An extraction PR updates <a href="ownership.json">ownership.json</a> with the code it
 moves: new files get an owner, applied resolutions lose their exceptions and
 <code>api</code> entries, and a resolution without remaining entries is removed.
@@ -7066,9 +7334,9 @@ The CMake and symbol gates below enforce the implemented build graph as modules
 are registered during extraction.</p>
 <h3 id="cmake-infrastructure-and-naming">CMake infrastructure and naming<a class="headerlink" href="#cmake-infrastructure-and-naming" title="Permanent link">&para;</a></h3>
 <p><a href="https://github.com/OpenTLV/opentlv/issues/646">#646</a> supplies
-<a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/cmake/modules.cmake"><code>cmake/modules.cmake</code></a>. It does not extract a
-functional module or replace the existing <code>OpenTLV::tlv</code> and <code>OpenTLV::tlv++</code>
-targets. The public naming decision remains with #702; explicit <code>EXPORT_NAME</code>
+<a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/cmake/modules.cmake"><code>cmake/modules.cmake</code></a>. It does not extract a
+functional module itself. #654 removes the separate <code>OpenTLV::tlv++</code> target
+and makes <code>OpenTLV::tlv</code> an INTERFACE aggregate. The public naming decision remains with #702; explicit <code>EXPORT_NAME</code>
 arguments keep that decision separate from internal ownership keys.</p>
 <table>
 <thead>
@@ -7104,7 +7372,7 @@ arguments keep that decision separate from internal ownership keys.</p>
 </tr>
 <tr>
 <td>Generated export header</td>
-<td><code>tlv/&lt;key&gt;/export.h</code></td>
+<td><code>opentlv/&lt;module&gt;/export.h</code> (builtin families and integrations follow the <a href="layout-migration/">layout contract</a>)</td>
 </tr>
 <tr>
 <td>Module test build target</td>
@@ -7145,9 +7413,8 @@ installed component registry. Components load their dependencies transitively,
 including private archive dependencies, before importing their own targets.
 Unknown required components reject package discovery; unknown optional components
 report <code>OpenTLV_&lt;name&gt;_FOUND=FALSE</code>. No-component discovery preserves existing
-consumption and includes all available module targets. During the transition,
-<code>tlv</code> and, when enabled, <code>tlv++</code> are the available legacy components; names of
-unextracted modules are not advertised as working components.</p>
+consumption and includes all available module targets plus the optional <code>tlv</code>
+aggregate. <code>tlv++</code> is no longer an available component.</p>
 <p>All compiled modules follow <code>OPENTLV_BUILD_SHARED_LIBS</code>. Shared targets use hidden
 default visibility, disable Windows automatic symbol export and export only
 their public or owner-internal symbol lists through their own macros. Static
@@ -7211,8 +7478,8 @@ the existing native suite to demonstrate that no scenarios disappeared.</p>
 <li>The resolution of every cycle and exception listed above, including
    publishing the Core UTF-8 and callback helpers.</li>
 <li>Owner-internal interfaces as the only non-public exported API.</li>
-<li>Builtin integrations inside their family modules; EMV's private ASN.1
-   dependency until #695.</li>
+<li>Builtin integrations inside their family modules. #733 removes EMV's
+   ASN.1 dependency using Core field primitives; broader DOL composition remains #695.</li>
 <li>Separate C++ facade targets per module, with <code>facade</code> dependencies.</li>
 <li>The diagnostic architecture and code ownership mechanism in
    <a href="diagnostics/">Module diagnostics</a>.</li>
@@ -7241,7 +7508,7 @@ the existing native suite to demonstrate that no scenarios disappeared.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -7255,21 +7522,21 @@ the existing native suite to demonstrate that no scenarios disappeared.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -7283,7 +7550,7 @@ the existing native suite to demonstrate that no scenarios disappeared.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

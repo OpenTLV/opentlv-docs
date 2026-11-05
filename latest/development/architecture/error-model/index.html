@@ -3691,6 +3691,8 @@
       
         
       
+        
+      
     
     
     
@@ -3750,6 +3752,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3866,9 +3872,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4384,6 +4474,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4643,6 +4737,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5490,6 +5640,8 @@
       
         
       
+        
+      
     
     
     
@@ -5693,6 +5845,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6346,7 +6526,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/error-model.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/error-model.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6603,10 +6783,10 @@ not parse context strings to classify an error.</p>
 <p>Every field of a public diagnostic has exactly one meaning (#579). Layer detail
 types (<code>tlv_reader_detail_t</code>, <code>tlv_schema_detail_t</code> and <code>tlv_codec_detail_t</code>)
 contain no result, location or path. An enclosing diagnostic embeds one common
-base and at most one active lower-layer detail, selected by a discriminated
-cause, so a delegated cause is reachable through one path only. Schema
-diagnostics follow the same pattern: <code>cause</code> selects a Schema finding or the
-original Reader detail of a malformed input. See the
+base and a typed finding or a bounded chain of producer-owned cause frames,
+so a delegated cause is reachable through one path only. Schema diagnostics
+use <code>cause</code> to select <code>detail.schema</code> or Reader/Codec frames in <code>detail.causes</code>;
+copy a frame with the producer's typed accessor. See the
 <a href="../../../api/reference/errors/#diagnostic-field-ownership">field table</a>.</p>
 <p>The base carries the returned result, severity, origin layer, primary location
 and optional path/expected/actual information. Specialized detail identifies the
@@ -6622,7 +6802,7 @@ configuration that were previously filed under <code>STORAGE</code>, <code>EVENT
 <code>IMAGE_VERSION</code> for a recognized version mismatch. <code>CODEC</code> denotes conversion
 context; a callback contract violation during conversion uses <code>CALLBACK</code> and
 records the codec operation and reported result, including a reported <code>OK</code>.
-The raw <code>codec.reported</code> field, which Query reaches as <code>detail.codec.reported</code>,
+The raw <code>codec.reported</code> field, and Query's own <code>reported</code> field,
 uses <code>int32_t</code>, preserving unknown and negative foreign callback results
 without invalid C++ enum reads.
 Callback signatures still use <code>tlv_result_t</code>: C++ callbacks must return values
@@ -6790,7 +6970,8 @@ does not make it a wire parser or require Reader/Schema dependencies. Structure
 codecs compose those capabilities and preserve their results. The typed codec
 diagnostic carries Reader or Schema cause detail when it delegates, as well as
 its conversion operation and representation. Codec entry points, descriptor
-callbacks and Query conversion hooks receive an optional typed diagnostic
+callbacks receive an optional typed diagnostic; Query conversion hooks receive
+a producer-independent <code>tlv_diagnostic_envelope_t</code>
 output so that this cause can cross the callback boundary. When NULL, only the
 common result is propagated; the output is neither a second conversion engine
 nor a required allocation.</p>
@@ -7283,7 +7464,7 @@ invariant, DER output-position and path work (#548, #549, #550):</p>
 </tr>
 <tr>
 <td>#578, #580</td>
-<td><code>END</code>, <code>TRUNCATED</code> and <code>SYNTAX</code>; <code>tlv/result.h</code> and <code>tlv_result_string()</code></td>
+<td><code>END</code>, <code>TRUNCATED</code> and <code>SYNTAX</code>; <code>opentlv/core/result.h</code> and <code>tlv_result_string()</code></td>
 </tr>
 <tr>
 <td>#579</td>
@@ -7370,7 +7551,7 @@ contract.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -7384,21 +7565,21 @@ contract.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -7412,7 +7593,7 @@ contract.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

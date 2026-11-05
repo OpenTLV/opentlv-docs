@@ -8,7 +8,7 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "commit": "70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6"
+      "commit": "04e637aa6cc600505a6ba99611f28495bf9a4abf"
     },
     {
       "id": "cli",
@@ -18,17 +18,17 @@
     {
       "id": "lua",
       "repository": "https://github.com/OpenTLV/opentlv-lua",
-      "commit": "2fece68b7b2286656b6f080694f931d3e1730cd6"
+      "commit": "adabdbe9b85187ff5db877142b26d33d20a5917e"
     },
     {
       "id": "python",
       "repository": "https://github.com/OpenTLV/opentlv-python",
-      "commit": "2a6aa299037ba43c91ddf43704b769d8ea81958e"
+      "commit": "f9434e4da5e6e196f3d587f1ae387e109746490c"
     },
     {
       "id": "rust",
       "repository": "https://github.com/OpenTLV/opentlv-rust",
-      "commit": "f297ab3899bafb95716a39a38dfaf7df14e8768d"
+      "commit": "1b860286e342fb8872b591029a4efca19eb1895c"
     },
     {
       "id": "go",
@@ -38,12 +38,13 @@
     {
       "id": "js",
       "repository": "https://github.com/OpenTLV/opentlv-js",
-      "commit": "22efa490f25e5d947a7b88f451f68f4aab28b6a9"
+      "commit": "cb81e5818477c7c33dc468d3edabc6ff9acb3403"
     }
   ],
-  "emscripten": {
-    "version": "4.0.10",
-    "commit": "b7dc6e5747465580df5984e723b9d1f10d8e804b"
+  "playground": {
+    "package": "@opentlv/opentlv",
+    "version": "0.2.1",
+    "integrity": "sha512-hm2etUGCbLBEn9rgWGIf3zYg6NIHaMlRi1sp8KNST0mz1HHzc8kRvUMh6bLx4UVY/mt2Pxdho/sfY405r6gFrQ=="
   },
   "files": {
     "material-LICENSE.txt": "e1150f26b4c0f872627b39fda49ae3bd850304f2f7f3171ae0531c1f8f4dd078",
@@ -52,7 +53,7 @@
     "icons-octicons-LICENSE.txt": "3d8b9d9254e7aa7517ed5abc8df3a4bc230081a613e8e872fb6558e8759c9040",
     "icons-simple-LICENSE.txt": "9046848b63a5c92bff14e4accca80bd987e0623b74adf9226ce5198d312b79d5",
     "portal-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
-    "THIRD_PARTY.txt": "1e8be774fbb116a5d6e30b4934f3fa1b9b342e920eda7e2b3f36f5bbf7fb2e82",
+    "THIRD_PARTY.txt": "d512ad0bf5bdff1bac57a987db303c5d44d5654c8fb24d0dc48ee5188296f69a",
     "Apache-2.0.txt": "074e6e32c86a4c0ef8b3ed25b721ca23aca83df277cd88106ef7177c354615ff",
     "core-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
     "cli-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
@@ -61,9 +62,13 @@
     "rust-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
     "go-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
     "js-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
     "emscripten-LICENSE.txt": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86",
     "musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
-    "compiler-rt-LICENSE.txt": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d",
-    "index.html": "468b26cd847c1f41ed073f979e4e06ec35a319d268a879468cbb41fa98ddadf5"
+    "npm-opentlv-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "npm-opentlv-MIT.txt": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+    "npm-opentlv-THIRD_PARTY.txt": "3868fccaa3b4df23a010fbc3b7e0b821c850f6fa459e3eff9be743fbeb75c529",
+    "npm-opentlv-core-LICENSE.txt": "9d1139c42bde151af259ca7196c9da2f19d85fbd3b8771a3d3f0e1e5f6490c9c",
+    "index.html": "0815a19fb07f3ece1f5c6ae48103a15daff0ab5aed5e6271357084d443c07aa8"
   }
 }

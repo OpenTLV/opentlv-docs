@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/query/adapters.h File Reference</title>
+<title>OpenTLV C API: opentlv/query/adapters.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_e1e4faac5fbc8e6dcb191b608b8ca664.html">query</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_0add59c078ee7a89845f6a3eb6f2d0b2.html">query</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,28 +84,18 @@ $(function() {
 
 <p>Generic Definition and Value codec Query adapters.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="program_8h.html">tlv/query/program.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/query/codec/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="query_2definition_8h.html">opentlv/query/definition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="codec_2codec_8h.html">opentlv/codec/codec.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtlv__query__definition__scope.html">tlv_query_definition_scope</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One explicit namespace of borrowed descriptive definitions.  <a href="structtlv__query__definition__scope.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtlv__query__definition__resolver.html">tlv_query_definition_resolver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time scope collection, not a protocol dictionary.  <a href="structtlv__query__definition__resolver.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtlv__query__codec__adapter.html">tlv_query_codec_adapter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrowed domain composition; codec selection never belongs to Definition.  <a href="structtlv__query__codec__adapter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a560b80b21d5c3da6ff76f520b2ce0d51" id="r_a560b80b21d5c3da6ff76f520b2ce0d51"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtlv__query__definition__scope.html">tlv_query_definition_scope</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a560b80b21d5c3da6ff76f520b2ce0d51">tlv_query_definition_scope_t</a></td></tr>
-<tr class="memdesc:a560b80b21d5c3da6ff76f520b2ce0d51"><td class="mdescLeft">&#160;</td><td class="mdescRight">One explicit namespace of borrowed descriptive definitions.  <br /></td></tr>
-<tr class="separator:a560b80b21d5c3da6ff76f520b2ce0d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f93dd65f55e6a2e21786b6de2837123" id="r_a7f93dd65f55e6a2e21786b6de2837123"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structtlv__query__definition__resolver.html">tlv_query_definition_resolver</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a7f93dd65f55e6a2e21786b6de2837123">tlv_query_definition_resolver_t</a></td></tr>
-<tr class="memdesc:a7f93dd65f55e6a2e21786b6de2837123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time scope collection, not a protocol dictionary.  <br /></td></tr>
-<tr class="separator:a7f93dd65f55e6a2e21786b6de2837123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c962547167a5e2ae7c97cb9ec892b93" id="r_a4c962547167a5e2ae7c97cb9ec892b93"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="adapters_8h.html#aa381b301a89d194f050e1f8d7abb1adc">tlv_query_codec_representation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a4c962547167a5e2ae7c97cb9ec892b93">tlv_query_codec_representation_t</a></td></tr>
 <tr class="memdesc:a4c962547167a5e2ae7c97cb9ec892b93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit decoded C representation for adapting an existing Value codec.  <br /></td></tr>
 <tr class="separator:a4c962547167a5e2ae7c97cb9ec892b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,12 +114,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4a7f2f72ac24d945295f2c1db12964c0" id="r_a4a7f2f72ac24d945295f2c1db12964c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a4a7f2f72ac24d945295f2c1db12964c0">tlv_query_definition_resolve</a> (const void *context, const char *namespace_name, size_t namespace_size, const char *name, size_t name_size, <a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> *tag)</td></tr>
-<tr class="memdesc:a4a7f2f72ac24d945295f2c1db12964c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolve names using exact registry labels in explicit namespaces.  <br /></td></tr>
-<tr class="separator:a4a7f2f72ac24d945295f2c1db12964c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9abe13386b9bbed4c471c34a203964da" id="r_a9abe13386b9bbed4c471c34a203964da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a9abe13386b9bbed4c471c34a203964da">tlv_query_codec_decode</a> (const void *context, const <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event, const uint8_t *data, size_t size, void *scratch, size_t capacity, <a class="el" href="group__traversal.html#ga0da4f42a4d34072621292fbd8f681d77">tlv_query_result_t</a> *result, <a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *diagnostic)</td></tr>
-<tr class="memdesc:a9abe13386b9bbed4c471c34a203964da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a complete Value with an existing codec, preserving codec errors.  <br /></td></tr>
-<tr class="separator:a9abe13386b9bbed4c471c34a203964da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b00f7c7a68cfa8a4b71f94e6de90293" id="r_a5b00f7c7a68cfa8a4b71f94e6de90293"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a5b00f7c7a68cfa8a4b71f94e6de90293">tlv_query_codec_decode</a> (const void *context, const <a class="el" href="tree_8h.html#a3b1e811784f5c9b0085cb0144a0c57c2">tlv_tree_event_t</a> *event, const uint8_t *data, size_t size, void *scratch, size_t capacity, <a class="el" href="group__traversal.html#ga0da4f42a4d34072621292fbd8f681d77">tlv_query_result_t</a> *result, <a class="el" href="cause_8h.html#aa1b0618dd656157dcab171946f3d43ce">tlv_diagnostic_envelope_t</a> *diagnostic)</td></tr>
+<tr class="memdesc:a5b00f7c7a68cfa8a4b71f94e6de90293"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode a complete Value with an existing codec, preserving codec errors.  <br /></td></tr>
+<tr class="separator:a5b00f7c7a68cfa8a4b71f94e6de90293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7909c0e6bb341baf14b3b6049ced9863" id="r_a7909c0e6bb341baf14b3b6049ced9863"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__traversal.html#ga46bd20df3a79567b3aa87e7b1a906903">tlv_query_hook_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="adapters_8h.html#a7909c0e6bb341baf14b3b6049ced9863">tlv_query_builtin_hooks</a> (size_t *count)</td></tr>
 <tr class="memdesc:a7909c0e6bb341baf14b3b6049ced9863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static native generic NUM/BCD/TEXT providers, IDs 1/2/3. NUM uses minimal signed big-endian int64; BCD uses unsigned packed decimal with at most 18 digits; TEXT uses borrowed UTF-8 bytes. Domain codecs may replace these by explicit adapters and distinct stable capability IDs.  <br /></td></tr>
 <tr class="separator:a7909c0e6bb341baf14b3b6049ced9863"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,38 +153,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Explicit decoded C representation for adapting an existing Value codec. </p>
-
-</div>
-</div>
-<a id="a7f93dd65f55e6a2e21786b6de2837123" name="a7f93dd65f55e6a2e21786b6de2837123"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f93dd65f55e6a2e21786b6de2837123">&#9670;&#160;</a></span>tlv_query_definition_resolver_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structtlv__query__definition__resolver.html">tlv_query_definition_resolver</a> <a class="el" href="adapters_8h.html#a7f93dd65f55e6a2e21786b6de2837123">tlv_query_definition_resolver_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Compile-time scope collection, not a protocol dictionary. </p>
-
-</div>
-</div>
-<a id="a560b80b21d5c3da6ff76f520b2ce0d51" name="a560b80b21d5c3da6ff76f520b2ce0d51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a560b80b21d5c3da6ff76f520b2ce0d51">&#9670;&#160;</a></span>tlv_query_definition_scope_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structtlv__query__definition__scope.html">tlv_query_definition_scope</a> <a class="el" href="adapters_8h.html#a560b80b21d5c3da6ff76f520b2ce0d51">tlv_query_definition_scope_t</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>One explicit namespace of borrowed descriptive definitions. </p>
 
 </div>
 </div>
@@ -254,8 +209,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9abe13386b9bbed4c471c34a203964da" name="a9abe13386b9bbed4c471c34a203964da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9abe13386b9bbed4c471c34a203964da">&#9670;&#160;</a></span>tlv_query_codec_decode()</h2>
+<a id="a5b00f7c7a68cfa8a4b71f94e6de90293" name="a5b00f7c7a68cfa8a4b71f94e6de90293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b00f7c7a68cfa8a4b71f94e6de90293">&#9670;&#160;</a></span>tlv_query_codec_decode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -305,7 +260,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="codec_2diagnostic_8h.html#a59f8458396cf6b5047ba62210725b13c">tlv_codec_diagnostic_t</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="cause_8h.html#aa1b0618dd656157dcab171946f3d43ce">tlv_diagnostic_envelope_t</a> *&#160;</td>
           <td class="paramname"><em>diagnostic</em>&#160;</td>
         </tr>
         <tr>
@@ -337,72 +292,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a4a7f2f72ac24d945295f2c1db12964c0" name="a4a7f2f72ac24d945295f2c1db12964c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a7f2f72ac24d945295f2c1db12964c0">&#9670;&#160;</a></span>tlv_query_definition_resolve()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> tlv_query_definition_resolve </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>context</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>namespace_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>namespace_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>name_size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structtlv__tag__t.html">tlv_tag_t</a> *&#160;</td>
-          <td class="paramname"><em>tag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Resolve names using exact registry labels in explicit namespaces. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">context</td><td>Required tlv_query_definition_resolver_t. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">namespace_name</td><td>Bounded optional namespace. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">namespace_size</td><td>Namespace bytes; zero searches all scopes. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>Bounded descriptive name. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">name_size</td><td>Name bytes. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">tag</td><td>Borrowed tag, unchanged on failure. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>OK, INVALID_TAG for unknown, INVALID_ARG for multiple matches, or NULL_ARG for invalid pointer arguments. No allocation or codec policy. </dd></dl>
 
 </div>
 </div>

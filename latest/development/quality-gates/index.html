@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4091,6 +4181,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4350,6 +4444,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5323,6 +5473,8 @@
       
         
       
+        
+      
     
     
     
@@ -5526,6 +5678,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6012,7 +6192,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/development/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/development/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6101,7 +6281,7 @@ substitute for this evidence.</p>
 </tr>
 <tr>
 <td>Public consumers</td>
-<td>Linux/Windows, shared/static, C-only/C++ through FetchContent and relocated installations</td>
+<td>Linux/Windows, shared/static, C-only/C++ through <code>add_subdirectory()</code>, FetchContent under the <code>opentlv_core</code> and <code>opentlv</code> names, and relocated installations, with pinned <a href="../naming/#cmake-identity-audit">CMake identities</a>; copied standalone examples with CMake 3.16 on Linux, Windows DLL lookup, and Query frontend disabled</td>
 </tr>
 <tr>
 <td>Capability contracts</td>
@@ -6256,7 +6436,11 @@ and close it only when preparing the release commit.</p>
 headers and default Core capabilities. Windows packages use the dynamic MSVC
 runtime (<code>MultiThreadedDLL</code>). These packages do not promise compatibility with
 every Linux libc or Windows toolchain. The manifest records the compiler, runtime,
-runner image and Core options. Full CI also tests x86, but x86 and macOS are not published binary
+runner image, module/linkage inventory, Query features and build options. All
+approved binaries enable PIC on every compiled module, including static Linux
+libraries. From v0.9.0 the <a href="../naming/#artifact-contract-2">artifact contract 2</a>
+defines the modular evidence schema and binding migration requirements.
+Full CI also tests x86, but x86 and macOS are not published binary
 configurations in this issue.</p>
 <p>Each release contains:</p>
 <ul>
@@ -6265,7 +6449,9 @@ configurations in this issue.</p>
   preserves the version without <code>.git</code>, even inside an unrelated parent checkout.</li>
 <li>Four <code>OpenTLV-&lt;version&gt;-&lt;os&gt;-x64-&lt;linkage&gt;</code> ZIP/TGZ packages and their JSON
   configuration records. Packaged libraries are tested before packaging; canonical
-  install contents and relocated C/C++ consumers are verified afterward.</li>
+  install contents and relocated C/C++ consumers are verified afterward. Their
+  single extraction roots use the same version/platform/linkage stem as the
+  filename, so static and shared packages can coexist.</li>
 <li><code>performance.json</code> and <code>performance.md</code>: exact candidate/baseline identity,
   measured comparisons, configuration and toolchain metadata.</li>
 <li><code>performance-data.tar.gz</code>: raw benchmark samples, Callgrind profiles, immutable
@@ -6382,7 +6568,7 @@ a controlled prerelease on GitHub before declaring the release gate operational.
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6396,21 +6582,21 @@ a controlled prerelease on GitHub before declaring the release gate operational.
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6424,7 +6610,7 @@ a controlled prerelease on GitHub before declaring the release gate operational.
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

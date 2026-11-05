@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4476,6 +4570,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5323,6 +5473,8 @@
       
         
       
+        
+      
     
     
     
@@ -5526,6 +5678,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6012,7 +6192,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/2fece68b7b2286656b6f080694f931d3e1730cd6/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/adabdbe9b85187ff5db877142b26d33d20a5917e/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6177,7 +6357,7 @@ timings record it as <code>checks / Core API coverage</code>. The
 <a href="../api-coverage/">Core API coverage record</a> is the reviewed baseline: every
 core header with its public Lua API and binding tests, the exclusions, the
 limitations and the procedure for Core pin updates.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
+<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
 script of the Python and Rust repositories, with <code>cmake/api-coverage.json</code> as
 its default configuration. It fetches only the locked Core commit and reads
 every <code>TLV_API</code> function and data declaration under <code>tlv/include</code>. A
@@ -6196,7 +6376,7 @@ examples are not part of the public API.</p>
 the symbols added and removed between the two pins. Added symbols show whether
 the module already references or ignores them. An unchanged pin is reported as
 such.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
+<p><a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/cmake/api-coverage.json"><code>cmake/api-coverage.json</code></a> is the configuration and
 ignore list. It names the Core lock <code>cmake/core-artifact.json</code> and the reference
 directory. Each ignore entry has a <code>reason</code> and matches header paths relative to
 <code>tlv/include</code> (<code>headers</code>) or symbol names (<code>symbols</code>); both accept <code>fnmatch</code>
@@ -6557,7 +6737,7 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6571,21 +6751,21 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6599,7 +6779,7 @@ Compiler/interpreter setup and ownership details are in <a href="../testing/">te
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

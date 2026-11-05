@@ -3558,6 +3558,8 @@
       
         
       
+        
+      
     
     
     
@@ -3614,6 +3616,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3730,9 +3736,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4242,6 +4332,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4498,6 +4592,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5336,6 +5486,8 @@
       
         
       
+        
+      
     
     
     
@@ -5536,6 +5688,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6044,7 +6224,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/guides/queries.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6062,6 +6242,10 @@ input, construction and editing choices.</p>
 one value out of nested data without traversing the whole structure itself. The
 same text works in the C API, the C++ API and the <a href="../../../tools/otlv/manual/#path-queries"><code>otlv query</code></a>
 command.</p>
+<p>Link <code>OpenTLV::Query</code> for buffer/event execution, or <code>OpenTLV::QueryDocument</code>
+for Document operations. Base Query has no Schema or Codec dependency; see
+<a href="../../configuration/#independent-query">independent Query</a> for providers, feature
+headers and the diagnostic migration.</p>
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
 <p>The V1 helpers below retain exact-path syntax. The separately selected compiled
 language uses caller-owned program and execution storage; see the
@@ -6071,11 +6255,11 @@ typed variables and scalar results. The full language is selected explicitly by
 the compiled program APIs; the V1 helpers retain their smaller grammar.</p>
 <h2 id="static-c-plans-and-frontend-free-execution">Static C plans and frontend-free execution<a class="headerlink" href="#static-c-plans-and-frontend-free-execution" title="Permanent link">&para;</a></h2>
 <p>Runtime compilation and static C plans share the native representation in
-<code>&lt;tlv/query/plan.h&gt;</code> and the same S0/S1/S2/Document execution backends. Instructions
+<code>&lt;opentlv/query/plan.h&gt;</code> and the same S0/S1/S2/Document execution backends. Instructions
 contain resolved function selectors, metadata selectors, integer magnitudes,
 tag bytes/masks and parameter names. Execution never interprets query source.
 Source text is optional and used only for diagnostics and frontend formatting.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tests/query/plan.c">standalone C plan test</a> manually defines
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/tests/query/plan.c">standalone C plan test</a> manually defines
 <code>/01[@len = $n]</code> as <code>static const</code> C data without source text. It validates the
 image with <code>tlv_query_plan_open</code>, discovers workspace with <code>tlv_query_exec_size</code>
 or <code>tlv_query_eval_size</code>, binds <code>n</code> with <code>tlv_query_exec_bind</code>, and executes using
@@ -6103,18 +6287,19 @@ assign new IDs. No unstable schema index or model pointer is embedded in a plan.
 A universal model/schema fingerprint is left to the future model architecture.</p>
 <p>Configure <code>OPENTLV_QUERY_FRONTEND=OFF</code> to omit the runtime compiler and V1 text
 parser. Execution, plan validation, parameter introspection and explain remain
-available. Text-dependent CLI, examples, benchmarks, fuzzers and language-extension
-builds are skipped in that configuration, as are the broad frontend test suites;
-the independent C static-plan test remains enabled. Existing source-compilation
+available. Text-dependent Query tests, examples, benchmarks and fuzzers are
+skipped; unrelated tests and examples remain enabled. The independent C
+static-plan test remains enabled. Existing source-compilation
 facades require a frontend-enabled library.</p>
 <p><code>OPENTLV_QUERY_SET_OPERATIONS=OFF</code> omits union/intersection/difference execution
 from both backends. Compilation and static-plan validation reject these operations
 with <code>TLV_ERR_UNSUPPORTED</code>; enabled operations preserve the same semantics.
-Document-only navigation additionally requires <code>OPENTLV_DOCUMENT</code>. These are
+Document-only navigation uses the Query-owned <code>opentlv/query/document.h</code> integration
+and the independently linked Document module. These are
 capability choices within the same plan and execution architecture. Further
 operation-family switches and automatic <code>.otlv</code> code generation are future work.</p>
 <h2 id="c11-constexpr-plans">C++11 constexpr plans<a class="headerlink" href="#c11-constexpr-plans" title="Permanent link">&para;</a></h2>
-<p><code>&lt;tlv++/query/static.hpp&gt;</code> adds a typed compile-time builder over the same C plan:</p>
+<p><code>&lt;opentlv/query/static.hpp&gt;</code> adds a typed compile-time builder over the same C plan:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">tlv</span><span class="o">::</span><span class="nn">static_query</span><span class="p">;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">static</span><span class="w"> </span><span class="k">constexpr</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">selection</span><span class="w"> </span><span class="o">=</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="n">q</span><span class="o">::</span><span class="n">where</span><span class="p">(</span><span class="n">q</span><span class="o">::</span><span class="n">child</span><span class="o">&lt;</span><span class="mh">0x70</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">q</span><span class="o">::</span><span class="n">descendant</span><span class="o">&lt;</span><span class="mh">0x5A</span><span class="o">&gt;</span><span class="p">(),</span>
@@ -6138,11 +6323,11 @@ conflicting types and invalid names fail constant evaluation. The builder bounds
 plans to 128 instructions and 65,536 payload bytes. It composes instructions directly;
 it does not provide a constexpr text parser or duplicate the full Query frontend.
 The existing runtime text builder remains available for the full language.</p>
-<p>The <a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
+<p>The <a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/tests/query/constexpr.cpp">C++11 constexpr test</a> uses <code>static_assert</code>
 checks, allocation instrumentation, runtime/static parity in both execution modes,
 and frontend-disabled builds. C-only static plans remain independently supported.</p>
 <h2 id="full-programs-and-integration">Full programs and integration<a class="headerlink" href="#full-programs-and-integration" title="Permanent link">&para;</a></h2>
-<p>C++ applications include <code>tlv++/query/program.hpp</code> for <code>tlv::query_program</code> and
+<p>C++ applications include <code>opentlv/query/program.hpp</code> for <code>tlv::query_program</code> and
 <code>tlv::query_execution</code>. <code>query_program::compile(std::string, options)</code> preserves
 the text byte length, including embedded NUL diagnostics, and owns immutable
 program storage shared by copies. <code>compile_into</code> borrows explicit aligned caller
@@ -6166,7 +6351,7 @@ final exhaustion. Each independent execution retains the program owner.
 publication and reports NEED_MORE_DATA independently of final exhaustion. Scalar
 programs are rejected before reading input. Copy borrowed payloads explicitly
 when they must outlive the input or workspace.</p>
-<p><code>tlv++/query/builder.hpp</code> provides typed <code>query_nodes</code>, <code>query_boolean</code>,
+<p><code>opentlv/query/builder.hpp</code> provides typed <code>query_nodes</code>, <code>query_boolean</code>,
 <code>query_integer</code>, <code>query_bytes</code> and <code>query_string</code> expressions. Compose <code>where</code>,
 <code>count</code>, <code>exists</code>, boolean operations and numeric comparisons, then call
 <code>compile(options)</code>. The helper builds text and delegates all validation and
@@ -6230,7 +6415,7 @@ handles retain an O(document node count) identity scan only after the revision
 changes. Repeated edits followed by checks can consequently cost O(n squared).
 The <code>document_identity_edit_loop</code> benchmark tracks this worst case at increasing
 node counts; no constant-time stale-handle validation is claimed.</p>
-<p>Contextual Schema assertions are defined in <code>tlv/schema/query.h</code>. Each rule
+<p>Contextual Schema assertions are defined in <code>opentlv/schema/query.h</code>. Each rule
 contains a compiled node context selector, a compiled boolean assertion and an
 optional borrowed environment. <code>assert(...)</code> describes the Schema wrapper and
 is not a new Query function. Empty context selection succeeds. <code>query_size</code>
@@ -6241,7 +6426,7 @@ Reader/codec errors preserve their original codes and diagnostics; false
 assertions report SCHEMA with rule, selected tag and expected boolean context.
 No rules explicitly skips assertion validation. Existing structural rules and
 protocol/domain policies remain independent and optional.</p>
-<p>Semantic diff is available from <code>tlv++/document/diff.hpp</code>. Correspondence is the
+<p>Semantic diff is available from <code>opentlv/query/diff.hpp</code>. Correspondence is the
 sequence of ancestor raw tags and one-based same-tag sibling occurrences.
 Repeated-tag insertions can shift correspondence; there is no alignment heuristic.
 The optional compiled selector runs once on each original complete Document.
@@ -6283,8 +6468,8 @@ their cursor/storage choices and error handling differ.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">C</label><label for="__tabbed_1_2">C++</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/query/query.h"</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/builtins/asn1/ber.h"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/query/query.h"</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/builtin/asn1/ber.h"</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">static</span><span class="w"> </span><span class="n">tlv_visit_result_t</span><span class="w"> </span><span class="nf">print_match</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">tlv_element_t</span><span class="o">*</span><span class="w"> </span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">depth</span><span class="p">,</span>
@@ -6331,7 +6516,7 @@ element to a matcher instead:</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv++/query/query.hpp"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/query/query.hpp"</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kt">size_t</span><span class="w"> </span><span class="n">text_offset</span><span class="p">;</span>
@@ -6369,7 +6554,7 @@ Erased Nodes, descendants of replaced constructed Values, and handles whose
 Document was destroyed become invalid according to the normal Node contract.
 The result does not own the Document. <code>document.find(query)</code> still returns
 only the first match.</p>
-<p>For borrowed traversal, include <code>tlv++/query/query.hpp</code> and use:</p>
+<p>For borrowed traversal, include <code>opentlv/query/query.hpp</code> and use:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">auto</span><span class="w"> </span><span class="n">matches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">"6F/A5/50"</span><span class="p">);</span><span class="w"> </span><span class="c1">// reader is a tlv::tree_reader</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">matches</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="c1">// item.element, item.depth and item.offset are normal Tree Reader results.</span>
@@ -6523,7 +6708,7 @@ existing language and binding behavior.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6537,21 +6722,21 @@ existing language and binding behavior.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6565,7 +6750,7 @@ existing language and binding behavior.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

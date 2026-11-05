@@ -87,7 +87,7 @@ Data Fields</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A structural schema whose definition has passed <a class="el" href="group__schemas.html#ga8c4f6da0e4af2acb0146526c89a9ebae" title="Checks every reachable structural schema table independently of input. Shared and recursive reference...">tlv_schema_check()</a>. </p>
-<p>Lets repeated validation against one immutable schema skip the per-call definition check. Prepare it with <a class="el" href="group__schemas.html#ga68f232c8f3659b565c2e65ba7c68331c" title="Checks a schema definition once and prepares a handle for repeated validation.">tlv_schema_prepare()</a> and use it with tlv_schema_validate_checked() or tlv_schema_validate_all_checked(), which run the same validation as tlv_schema_validate() and tlv_schema_validate_all_diag(); runtime limits are still checked on every call.</p>
+<p>Lets repeated validation against one immutable schema skip the per-call definition check. Prepare it with <a class="el" href="group__schemas.html#ga68f232c8f3659b565c2e65ba7c68331c" title="Checks a schema definition once and prepares a handle for repeated validation.">tlv_schema_prepare()</a> and use it with <a class="el" href="group__schemas.html#ga9bc52975c676d2bad0cdadbbb83f2f13" title="Validates input against a prepared schema without repeating its definition check.">tlv_schema_validate_checked()</a> or <a class="el" href="group__schemas.html#gabcbeb04c1de35a123a7c3097d0efa19e" title="Reports every violation against a prepared schema without repeating its definition check.">tlv_schema_validate_all_checked()</a>, which run the same validation as <a class="el" href="group__schemas.html#gad6e72a9f415c0a26111e4c40b7146b0b" title="Validates framing, nesting, lengths, occurrence counts, ordering, alternative groups and child member...">tlv_schema_validate()</a> and <a class="el" href="group__schemas.html#ga12aebbe4947fcc558a1a517d024497f9" title="Validates a TLV structure and reports every schema violation.">tlv_schema_validate_all_diag()</a>; runtime limits are still checked on every call.</p>
 <p>The handle borrows the schema graph. Every reachable table, rule, entry and group must stay alive and unchanged while the handle is used. The handle cannot detect mutation; prepare it again after changing the definition. It holds no other state and may be copied.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__schemas.html#ga68f232c8f3659b565c2e65ba7c68331c" title="Checks a schema definition once and prepares a handle for repeated validation.">tlv_schema_prepare</a> </dd></dl>
 </div><h2 class="groupheader">Field Documentation</h2>
@@ -107,7 +107,7 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>tlv/schema/<a class="el" href="schema_2schema_8h.html">schema.h</a></li>
+<li>opentlv/schema/<a class="el" href="schema_2schema_8h.html">schema.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

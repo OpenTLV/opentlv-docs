@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4352,6 +4446,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5345,6 +5495,8 @@
       
         
       
+        
+      
     
     
     
@@ -5548,6 +5700,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6056,7 +6236,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/1b860286e342fb8872b591029a4efca19eb1895c/docs/quality-gates.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6092,7 +6272,7 @@ only Rust CI.</p>
 <tr>
 <td><code>rust-full.yml</code></td>
 <td>Manual dispatch or <code>workflow_call</code></td>
-<td>All seven configurations below, Cargo packaging, prebuilt static and shared linking, AddressSanitizer, source quality, CodeQL and Core API completeness</td>
+<td>All seven configurations below, Cargo packaging, registry consumer builds, prebuilt static and shared linking, AddressSanitizer, source quality, CodeQL and Core API completeness</td>
 </tr>
 <tr>
 <td><code>docs-notify.yml</code></td>
@@ -6157,7 +6337,7 @@ mocked HTTP tests do not establish hosted delivery or publication.</p>
 workflow publishes crate assets without sending a Docs release receipt.
 The portal continues to show the manuals of its selected source pin.</p>
 <h2 id="supported-configurations">Supported configurations<a class="headerlink" href="#supported-configurations" title="Permanent link">&para;</a></h2>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/matrix.json"><code>ci/matrix.json</code></a> holds the toolchains, platforms, Cargo
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/matrix.json"><code>ci/matrix.json</code></a> holds the toolchains, platforms, Cargo
 feature sets and the test inventory used by both the workflow planner and the
 evidence verifier.</p>
 <table>
@@ -6176,7 +6356,7 @@ evidence verifier.</p>
 <td>Ubuntu 24.04</td>
 <td>1.99.1</td>
 <td>all five</td>
-<td>rustfmt, Clippy, Rustdoc, examples, Query corpus, packaging, linking</td>
+<td>rustfmt, Clippy, Rustdoc, examples, Query corpus, packaging, registry consumers, linking</td>
 </tr>
 <tr>
 <td><code>windows-stable</code></td>
@@ -6209,7 +6389,8 @@ evidence verifier.</p>
 </tbody>
 </table>
 <p>PR runs <code>linux-stable</code> with the <code>default</code> and <code>none</code> feature sets and without
-packaging or linking. Main runs only the <code>linux-stable</code> smoke.</p>
+packaging, registry consumers or linking. Main runs only the <code>linux-stable</code>
+smoke.</p>
 <ul>
 <li><strong>Toolchains.</strong> Stable is pinned to the exact release, so new Clippy lints or
   compiler warnings arrive through a reviewed update of the matrix, not a
@@ -6252,7 +6433,7 @@ Format compositions, <code>tlv_format_error_t</code> and <code>tlv_encoding_t</c
 imported probe intact. Both run in every <code>default</code> and reduced-feature suite,
 on every platform and toolchain.</p>
 <h2 id="checks">Checks<a class="headerlink" href="#checks" title="Permanent link">&para;</a></h2>
-<p>Each configuration runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/ci.py"><code>scripts/ci.py</code></a> in a fresh work
+<p>Each configuration runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/scripts/ci.py"><code>scripts/ci.py</code></a> in a fresh work
 directory with its own Cargo target directories, the pinned toolchain from
 <code>RUSTUP_TOOLCHAIN</code> and an environment without inherited Core overrides,
 <code>RUSTFLAGS</code> or <code>CC</code>/<code>CFLAGS</code>. Every Cargo command uses <code>--locked</code> and, except
@@ -6284,9 +6465,24 @@ Rustdoc, <code>RUSTFLAGS=-D warnings</code>.</p>
   commit. Each archive's <code>LICENSE</code> must equal the repository license, and its
   normalized <code>Cargo.toml</code> must keep the <a href="../../../../languages/rust/manual/packaging/">package identity</a>
   without a dependency <code>path</code>, with <code>opentlv</code> requiring exactly the
-  <code>opentlv-sys</code> version. The archive SHA-256 digests are recorded.
+  <code>opentlv-sys</code> version. The <code>opentlv-sys</code> archive must contain <code>build.rs</code> and
+  the Core selection files in <code>core/</code>, and <code>opentlv</code> its <code>build.rs</code>. The archive
+  SHA-256 digests are recorded.
   Publication is separate post-migration work; the dependency on <code>opentlv-sys</code>
   now also states its version so that <code>opentlv</code> can be packaged at all.</li>
+<li><strong>Registry consumers.</strong> <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/scripts/registry_consumer.py"><code>scripts/registry_consumer.py</code></a>
+  serves the two archives from a local Cargo registry that replaces crates.io.
+  For each feature set, a new project outside the workspace depends on
+  <code>opentlv = "=&lt;version&gt;"</code>, and one more on <code>opentlv-sys</code> alone. Cargo resolves it
+  offline and unpacks the archives into a Cargo home of its own. These builds have
+  no GitHub token, an empty GitHub CLI configuration and no
+  <code>OPENTLV_REQUIRE_VERIFIED_CORE</code>, so they prove what a machine without a login does:
+  the gate requires <code>attested: false</code>, and the Core provenance check below does not
+  apply to them. <code>Cargo.lock</code> must name crates.io as the source and
+  the archive digests as checksums. The consumer uses the Rust API of its features,
+  runs, and must link the Core version and commit locked in the archive. The
+  <a href="../../../../languages/rust/manual/validation/registry-builds/">registry build validation</a> records the results
+  and what this does not cover.</li>
 <li><strong>Native linking.</strong> Core from the selected tree is built once as a static
   and once as a shared library, with the options of <code>build.rs</code>. The default
   test suite and <code>quick_start</code> then run against each through <code>OPENTLV_LIB_DIR</code>
@@ -6308,11 +6504,12 @@ Rustdoc, <code>RUSTFLAGS=-D warnings</code>.</p>
   <code>opentlv-sys</code> build script in the work directory is checked against the
   lock: repository, commit, version, release tag and a clean tree. With the
   current <code>release_tag: v0.8.0</code> this requires <code>verified-source</code> or
-  <code>verified-binary</code>, with authenticated Core release artifacts.
+  <code>verified-binary</code>, with attested Core release artifacts: every tier runs Cargo
+  with <code>OPENTLV_REQUIRE_VERIFIED_CORE=1</code>.
   Core must have been resolved inside the work directory, so a local
   <code>OPENTLV_CORE_SOURCE</code> is never accepted; <code>build.rs</code> also rejects it in CI.</li>
 </ul>
-<p>Source quality runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/check_quality.py"><code>scripts/check_quality.py</code></a>
+<p>Source quality runs <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/scripts/check_quality.py"><code>scripts/check_quality.py</code></a>
 (Python syntax, workflow structure, whitespace of all files except the
 preserved migration evidence and <code>reuse lint</code>, which requires license and
 copyright metadata for every file from its SPDX header or <code>REUSE.toml</code>), the
@@ -6332,7 +6529,7 @@ desired Bash executable and run <code>tests/test_ci_shell.py</code>.</p>
 runs in PR and Full, not Main, and is a <code>Rust quality gate</code> prerequisite. The
 reviewed per-header baseline, with the public Rust API and binding tests of
 each header, is the <a href="../validation/api-coverage/">Core API coverage record</a>.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/scripts/api_coverage.py"><code>scripts/api_coverage.py</code></a> is the binding-agnostic
 script of the Python repository, with three changes: its default configuration
 is <code>ci/api-coverage.json</code>, the report states that a referenced symbol does not
 prove functional parity, and scopes that the configuration lists as <code>complete</code>
@@ -6355,7 +6552,7 @@ not use is in the ignore list; the
 the symbols added and removed between the two pins. Added symbols show whether
 the safe crate already references or ignores them. An unchanged pin is reported
 as such.</p>
-<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/api-coverage.json"><code>ci/api-coverage.json</code></a> is the configuration and
+<p><a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/api-coverage.json"><code>ci/api-coverage.json</code></a> is the configuration and
 ignore list. It names the Core lock <code>opentlv-sys/core/core-artifact.json</code> and
 the reference directory. Each ignore entry has a <code>reason</code> and matches header
 paths relative to <code>tlv/include</code> (<code>headers</code>) or symbol names (<code>symbols</code>); both
@@ -6434,13 +6631,14 @@ adds no second resolver. A release caller must invoke:</p>
 </code></pre></div>
 <p>That mode requires Full CI and rejects any null release lock before
 building. Core v0.8.0 is locked; every Cargo command runs with
-<code>OPENTLV_REQUIRE_VERIFIED_CORE=1</code>. Each selection must then be
+<code>OPENTLV_REQUIRE_VERIFIED_CORE=1</code>, except the registry consumers. Each selection
+must then be
 <code>verified-binary</code> or <code>verified-source</code>, and its <code>verification.json</code> must name
 the locked release tag, a release ID, the manifest SHA-256 and the
 <code>core-release.yml</code> signer. Failed attestations, checksums or producer evidence
 stop the build in <code>build.rs</code>; they never fall back to Git. Testing fixtures is
 not evidence that a real published Core attestation was consumed.</p>
-<p>Each Verified Source resolution has its own <code>cmake-build</code> directory beside
+<p>Each Verified Source resolution has its own build directory <code>b</code> beside
 the attempt's <code>source/</code> directory. Repeated Cargo commands in one <code>OUT_DIR</code>
 therefore cannot reuse a CMake cache pointing to a previous extraction.
 <code>tests/test_build_script.py</code> compiles the real build script with <code>rustc</code> and
@@ -6448,10 +6646,13 @@ runs it twice with fresh resolver fixtures and a real CMake C library build,
 then checks that a verification failure removes selection evidence and stops
 before linking. This infrastructure test requires Rust, CMake and a C compiler;
 its fixture resolver does not authenticate release artifacts.</p>
-<p>The manual <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/.github/workflows/rust-release.yml">Rust Release workflow</a>
+<p>The manual <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/.github/workflows/rust-release.yml">Rust Release workflow</a>
 uses this mode, revalidates every Full record and publishes the exact Linux
 stable <code>.crate</code> files tested by Cargo packaging. It also requires successful
 Main CI on the dispatch commit. See the <a href="../../../../languages/rust/manual/packaging/#github-release">release procedure</a>.
+The separate manual <code>Rust crates.io</code> workflow revalidates this attested evidence
+before it <a href="../../../../languages/rust/manual/packaging/#cratesio-publication">publishes the same bytes</a> after
+approval, and then verifies the published versions without any credential.
 The compiler evidence includes the verified-binary toolchain probe, even
 when a compatible binary means that no Core source compilation is needed.</p>
 <h2 id="evidence-and-required-check">Evidence and required check<a class="headerlink" href="#evidence-and-required-check" title="Permanent link">&para;</a></h2>
@@ -6482,15 +6683,15 @@ Reported job seconds are elapsed runner time, not billed minutes. This is the
 first standalone CI baseline; no hosted speedup or measured latency is claimed.</p>
 <h2 id="changing-the-inventory">Changing the inventory<a class="headerlink" href="#changing-the-inventory" title="Permanent link">&para;</a></h2>
 <p>Intentional changes to tests, examples, features, toolchains or the pinned
-Core corpus must update <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/ci/matrix.json"><code>ci/matrix.json</code></a> in the same
+Core corpus must update <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/ci/matrix.json"><code>ci/matrix.json</code></a> in the same
 change, with reviewed evidence. Updating the stable toolchain or the sanitizer
 nightly is a deliberate matrix change; raising the MSRV also changes
-<code>rust-version</code>.</p>
+<code>rust-version</code> and the registry identity in <code>scripts/ci.py</code>.</p>
 <h2 id="local-validation">Local validation<a class="headerlink" href="#local-validation" title="Permanent link">&para;</a></h2>
 <p>The runner installs the configured toolchain with rustup; use an isolated
 <code>RUSTUP_HOME</code> and <code>CARGO_HOME</code> to leave your global setup unchanged. It needs
-Python 3.11 or newer, CMake, a C compiler, Git and network access to GitHub and
-crates.io:</p>
+Python 3.11 or newer, CMake, a C compiler, Git, a logged-in GitHub CLI and network
+access to GitHub and crates.io:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>-B<span class="w"> </span>scripts/check_quality.py
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests
@@ -6524,7 +6725,7 @@ new <code>--work</code> directory.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6538,21 +6739,21 @@ new <code>--work</code> directory.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6566,7 +6767,7 @@ new <code>--work</code> directory.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

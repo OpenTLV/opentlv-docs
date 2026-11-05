@@ -3469,6 +3469,8 @@
       
         
       
+        
+      
     
     
     
@@ -3525,6 +3527,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3641,9 +3647,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4153,6 +4243,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4409,6 +4503,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5247,6 +5397,8 @@
       
         
       
+        
+      
     
     
     
@@ -5447,6 +5599,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5878,7 +6058,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/cxx-builtins.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/cxx-builtins.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5905,64 +6085,67 @@ For example, <code>builtins/asn1/ber.hpp</code> exposes <code>tlv::ber::format</
 <tr>
 <th>Domain</th>
 <th>Framing</th>
-<th>CMake option</th>
-<th>Header under <code>tlv++/builtins/</code></th>
+<th>CMake target</th>
+<th>Header under <code>opentlv/builtin/</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>tlv::ber</code></td>
 <td>BER</td>
-<td><code>OPENTLV_FORMAT_BER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 <td><code>asn1/ber.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::der</code></td>
 <td>DER</td>
-<td><code>OPENTLV_FORMAT_DER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 <td><code>asn1/der.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::cer</code></td>
 <td>CER</td>
-<td><code>OPENTLV_FORMAT_CER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 <td><code>asn1/cer.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::emv</code></td>
 <td>EMV Contact Book 3</td>
-<td><code>OPENTLV_EMV</code></td>
+<td><code>OpenTLV::EMV</code></td>
 <td><code>emv/format.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::bluetooth</code></td>
 <td>Bluetooth Advertising Data LTV</td>
-<td><code>OPENTLV_BLUETOOTH</code></td>
+<td><code>OpenTLV::Bluetooth</code></td>
 <td><code>bluetooth/ltv.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::lldp</code></td>
 <td>LLDP information strings</td>
-<td><code>OPENTLV_LLDP</code></td>
+<td><code>OpenTLV::LLDP</code></td>
 <td><code>lldp/lldp.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::dhcp</code></td>
 <td>DHCPv4 options</td>
-<td><code>OPENTLV_DHCP</code></td>
+<td><code>OpenTLV::DHCP</code></td>
 <td><code>dhcp/dhcpv4.hpp</code></td>
 </tr>
 <tr>
 <td><code>tlv::nfc</code></td>
 <td>NFC Type 2 data-area TLV</td>
-<td><code>OPENTLV_NFC</code></td>
+<td><code>OpenTLV::NFC</code></td>
 <td><code>nfc/type2.hpp</code></td>
 </tr>
 </tbody>
 </table>
+<p>The table names the owning C library. Reader/Writer conveniences also need IO;
+The family target supplies its C++ headers and dependencies. The optional
+<code>OpenTLV::tlv</code> interface aggregates all modules in either language.</p>
 <p>These are conveniences over the same <a href="../cxx-formats/">generic Format contracts</a>
 available to user-defined Formats. For example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/asn1/ber.hpp&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/asn1/ber.hpp&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">inspect</span><span class="p">(</span><span class="n">tlv</span><span class="o">::</span><span class="n">bytes</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">ber</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
@@ -5978,7 +6161,7 @@ available to user-defined Formats. For example:</p>
 <code>tlv::ber::parse(data)</code>. Parsing is a borrowed, single-pass final-input range.
 Input must outlive the range and retained Elements. Iteration raises
 <code>parse_error</code> on a failure rather than treating it as end-of-input.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/asn1/der.hpp&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/asn1/der.hpp&gt;</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">auto</span><span class="w"> </span><span class="n">encode_answer</span><span class="p">(</span><span class="n">tlv</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">tlv</span><span class="o">::</span><span class="kt">byte</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output</span><span class="p">)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">expected</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">writer_failure</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -6004,20 +6187,20 @@ indefinite encoding. It rejects primitive writes. To measure a wrapped child
 sequence, pass this preset and its semantic Element to <code>tlv::measure</code>; the
 encoding helpers report insufficient capacity for an empty output buffer.</p>
 <h2 id="value-codecs-and-fields">Value codecs and fields<a class="headerlink" href="#value-codecs-and-fields" title="Permanent link">&para;</a></h2>
-<p>Include the domain's <code>codec.hpp</code> separately, or use <code>&lt;tlv++/tlv.hpp&gt;</code> to
+<p>Include the domain's <code>codec.hpp</code> separately, or use <code>&lt;opentlv/tlv.hpp&gt;</code> to
 aggregate all enabled domains. Framing headers do not require their codec
 headers. All codecs support the generic <code>tlv::field</code> contract: <code>value_type</code>,
 <code>decode(bytes)</code> and <code>encode(value, output, capacity)</code>. Passing <code>nullptr, 0</code>
 to <code>encode</code> validates and measures the Value. Storage must not overlap input.
 The original codec errors and semantic restrictions are preserved. EMV dictionary
-codecs require both <code>OPENTLV_CODEC</code> and <code>OPENTLV_SCHEMA</code>, matching the canonical
-C package. Generic Query environments remain usable without Codec; automatic
+codecs require Codec and Schema, matching the canonical
+C package. Codec is selected by linking; <code>OPENTLV_CODEC</code> is no longer a CMake option. Generic Query environments remain usable without Codec; automatic
 NUM/BCD/TEXT providers and ASN.1 conversions require Codec.</p>
 <table>
 <thead>
 <tr>
 <th>Namespace</th>
-<th>Codec header under <code>tlv++/builtins/</code></th>
+<th>Codec header under <code>opentlv/builtin/</code></th>
 <th>Coverage</th>
 </tr>
 </thead>
@@ -6060,8 +6243,8 @@ even on BER input: BOOLEAN accepts only <code>00</code> or <code>FF</code>, and 
 require minimal signed encoding fitting <code>int64_t</code>. Larger integer content
 can still be read as borrowed raw Value bytes. Primitive universal fields do
 not assemble constructed or fragmented strings.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/asn1/der.hpp&gt;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/asn1/codec.hpp&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/asn1/der.hpp&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/asn1/codec.hpp&gt;</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">decode_integers</span><span class="p">(</span><span class="n">tlv</span><span class="o">::</span><span class="n">bytes</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">tlv</span><span class="o">::</span><span class="n">der</span><span class="o">::</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
@@ -6090,8 +6273,8 @@ The selected descriptor is fixed independently of the input Element tag;
 <code>element.decode&lt;Field&gt;()</code> performs the generic tag check before decoding.
 Existing EMV dictionary codec constraints remain in force. Entries without a
 codec do not acquire an invented semantic representation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/emv/format.hpp&gt;</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;tlv++/builtins/emv/codec.hpp&gt;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/emv/format.hpp&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opentlv/builtin/emv/codec.hpp&gt;</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">write_pan</span><span class="p">(</span><span class="n">tlv</span><span class="o">::</span><span class="n">span</span><span class="o">&lt;</span><span class="n">tlv</span><span class="o">::</span><span class="kt">byte</span><span class="o">&gt;</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">digits</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">tlv</span><span class="o">::</span><span class="n">writer</span><span class="o">&lt;</span><span class="n">tlv</span><span class="o">::</span><span class="n">emv</span><span class="o">::</span><span class="n">format</span><span class="o">&gt;</span><span class="w"> </span><span class="n">writer</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
@@ -6124,7 +6307,7 @@ Format uses exactly the same generic APIs.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6138,21 +6321,21 @@ Format uses exactly the same generic APIs.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6166,7 +6349,7 @@ Format uses exactly the same generic APIs.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

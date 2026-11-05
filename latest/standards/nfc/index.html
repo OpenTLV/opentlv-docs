@@ -3609,6 +3609,8 @@
       
         
       
+        
+      
     
     
     
@@ -3665,6 +3667,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3781,9 +3787,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4293,6 +4383,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4549,6 +4643,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5387,6 +5537,8 @@
       
         
       
+        
+      
     
     
     
@@ -5587,6 +5739,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6158,7 +6338,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/nfc/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/nfc/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6168,10 +6348,10 @@
 
 <h1 id="nfc-forum-type-2-tag-tlv-framing">NFC Forum Type 2 Tag TLV framing<a class="headerlink" href="#nfc-forum-type-2-tag-tlv-framing" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Select <code>tlv_format_nfc_type2</code> from <code>tlv/builtins/nfc/type2.h</code>, or
-<code>tlv::nfc::format{}</code> from <code>tlv++/builtins/nfc/type2.hpp</code>.
-The independent <code>OPENTLV_NFC</code> option defaults to <code>ON</code>;
-<code>tlv_config_nfc()</code> reports availability in the linked library.</p>
+<p>Select <code>tlv_format_nfc_type2</code> from <code>opentlv/builtin/nfc/type2.h</code>, or
+<code>tlv::nfc::format{}</code> from <code>opentlv/builtin/nfc/type2.hpp</code>.
+Link <code>OpenTLV::NFC</code> for framing and add <code>OpenTLV::IO</code> for Reader/Writer.
+<code>tlv_config_nfc()</code> remains a legacy constant mirror, not a linked-module query.</p>
 <p>This implements the TLV block framing in the
 <a href="https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/nfc/3252/1/NFCForum-Type-2-Tag_1.1%20Specification.pdf">NFC Forum Type 2 Tag Operation Specification 1.1, section 2.3</a>.
 Type 2 uses <strong>Tag, Length, Value</strong>, not LTV ordering.</p>
@@ -6227,20 +6407,20 @@ Reserved identifiers remain readable without a dictionary. Framing does not
 validate control Values, their ordering, or the contents of an NDEF message.</p>
 <h3 id="generic-composition">Generic composition<a class="headerlink" href="#generic-composition" title="Permanent link">&para;</a></h3>
 <p>The NFC implementation is immutable configuration over
-<code>tlv_escaped_format_t</code> from <code>tlv/formats/escaped.h</code>. This reusable format
+<code>tlv_escaped_format_t</code> from <code>opentlv/core/formats/escaped.h</code>. This reusable format
 combines fixed-width identifiers, configurable escape-prefixed lengths,
 field ordering, count scope and an optional tag-only identifier table.
 The standalone <code>tlv_escaped_length_read()</code> / <code>tlv_escaped_length_write()</code>
-primitives in <code>tlv/field/escaped.h</code> also support different markers, count widths
+primitives in <code>opentlv/core/field/escaped.h</code> also support different markers, count widths
 and byte orders.
 The minimum extended count and maximum count are configuration, not NFC
 branches in the generic code.</p>
 <p><code>tlv_tagged_fields_composition_t</code> composes tag-only selection with arbitrary field
 encodings. The Escaped format reuses the fixed identifier primitive from
-<code>tlv/field/fixed.h</code>. The existing DHCP binary composition delegates tag-only
+<code>opentlv/core/field/fixed.h</code>. The existing DHCP binary composition delegates tag-only
 selection to the same generic mechanism.
 Neither mechanism imposes protocol termination or padding policy. These
-generic capabilities remain built when <code>OPENTLV_NFC=OFF</code>.</p>
+generic capabilities belong to Core and do not depend on NFC.</p>
 <h2 id="encoding-rules">Encoding rules<a class="headerlink" href="#encoding-rules" title="Permanent link">&para;</a></h2>
 <h3 id="length-encoding">Length encoding<a class="headerlink" href="#length-encoding" title="Permanent link">&para;</a></h3>
 <p>Values of 0 through 254 bytes use a one-byte Length. Values of 255 through
@@ -6265,7 +6445,7 @@ skip NULL or stop at Terminator. The caller applies those policies.</p>
 <tr>
 <td>C++</td>
 <td><code>tlv::nfc::format{}</code></td>
-<td><code>OPENTLV_NFC</code></td>
+<td><code>OpenTLV::NFC</code></td>
 </tr>
 <tr>
 <td>Python</td>
@@ -6280,7 +6460,7 @@ skip NULL or stop at Terminator. The caller applies those policies.</p>
 <tr>
 <td>Lua</td>
 <td><code>opentlv.formats.nfc_type2</code></td>
-<td>Present when <code>OPENTLV_NFC</code> is enabled</td>
+<td>Availability is owned by the standalone Lua binding</td>
 </tr>
 </tbody>
 </table>
@@ -6288,8 +6468,8 @@ skip NULL or stop at Terminator. The caller applies those policies.</p>
 or automatically stops traversal at Terminator.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
-<p>Build and run <code>example-tlv-nfc_type2</code>; its source is
-<a href="https://github.com/marekcingel/OpenTLV/blob/main/examples/tlv/src/nfc_type2.c"><code>examples/tlv/src/nfc_type2.c</code></a>.
+<p>Build and run <code>example-c-nfc-type2</code>; its source is
+<a href="https://github.com/marekcingel/OpenTLV/blob/main/examples/builtins/nfc/type2/type2.c"><code>examples/builtins/nfc/type2/type2.c</code></a>.
 The example reads and re-encodes <code>00 03 09 D1 01 05 54 02 65 6E 48 69 FE</code> byte-for-byte, retains
 NULL in the encoded result, hides it in the display, and stops after Terminator:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>NDEF_MESSAGE: D1 01 05 54 02 65 6E 48 69
@@ -6297,15 +6477,14 @@ NULL in the encoded result, hides it in the display, and stops after Terminator:
 </code></pre></div>
 <p>The Value is opaque: this example demonstrates TLV framing, not NDEF validation.</p>
 <p>The supported file corpus lives in
-<a href="https://github.com/marekcingel/OpenTLV/tree/main/examples/nfc/type2"><code>examples/nfc/type2</code></a>.
+<a href="https://github.com/marekcingel/OpenTLV/tree/main/examples/builtins/nfc/type2"><code>examples/builtins/nfc/type2</code></a>.
 It includes this sample, control TLVs, empty Values, short/extended length
 boundaries, reserved identifiers, and malformed inputs. The corpus README
 documents the bytes, expected Elements, and synthetic provenance. Integration
 tests read the checked-in files and independently verify decoding, encoding
 from expected Elements, and Reader -&gt; Element -&gt; Writer byte equality.</p>
-<p>With <a href="https://github.com/OpenTLV/opentlv-cli">standalone otlv</a> built against a Core
-with <code>OPENTLV_NFC=ON</code>, run from the Core repository root:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>otlv<span class="w"> </span>decode<span class="w"> </span>--format<span class="w"> </span>nfc-type2<span class="w"> </span>--input<span class="w"> </span>examples/nfc/type2/sample.bin
+<p>With <a href="https://github.com/OpenTLV/opentlv-cli">standalone otlv</a> linked with <code>OpenTLV::NFC</code>, run from the Core repository root:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>otlv<span class="w"> </span>decode<span class="w"> </span>--format<span class="w"> </span>nfc-type2<span class="w"> </span>--input<span class="w"> </span>examples/builtins/nfc/type2/sample.bin
 </code></pre></div>
 <p>The JSON contains <code>00</code> and <code>FE</code> as empty Values and the <code>03</code> Value as
 <code>D101055402656E4869</code>. CLI format selection is explicit; no format detection
@@ -6354,8 +6533,8 @@ Retain NULL elements if the desired result must preserve padding.</p>
       <p>Technical content maintained in Core:</p>
       <ul>
         
-          <li><a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/nfc/README.md">docs/formats/nfc/README.md</a>
-            (<a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/nfc/README.md">Edit source</a>)</li>
+          <li><a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/nfc/README.md">docs/formats/nfc/README.md</a>
+            (<a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/nfc/README.md">Edit source</a>)</li>
         
       </ul>
     </div>
@@ -6366,7 +6545,7 @@ Retain NULL elements if the desired result must preserve padding.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6380,21 +6559,21 @@ Retain NULL elements if the desired result must preserve padding.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6408,7 +6587,7 @@ Retain NULL elements if the desired result must preserve padding.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

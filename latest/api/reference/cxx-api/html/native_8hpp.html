@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C++ API: tlv++/native.hpp File Reference</title>
+<title>OpenTLV C++ API: opentlv/native.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,12 +69,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_bb4de694aed7e68e236ea99f4ab65f5c.html">tlv++</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_fd82963be15647178a4e9cba6a444c51.html">opentlv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">native.hpp File Reference</div></div>
 </div><!--header-->
@@ -82,8 +83,14 @@ $(function() {
 
 <p>Explicit interoperability with the canonical C engine.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="format_8hpp.html">tlv++/format.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="elRef" href="../../c-api/html/config_8h.html">tlv/config.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="core_2format_8hpp.html">opentlv/core/format.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="query_2query_8hpp.html">opentlv/query/query.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="query_2options_8hpp.html">opentlv/query/options.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="program_8hpp.html">opentlv/query/program.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dynamic_8hpp.html">opentlv/codec/dynamic.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="typed_8hpp.html">opentlv/codec/typed.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="schema_2definition_8hpp.html">opentlv/schema/definition.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="document_2document_8hpp.html">opentlv/document/document.hpp</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -94,8 +101,78 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespacetlv_1_1native"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit C interoperability; ordinary C++ code uses public C++ types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a6a80398c6121098618acf454e6a54b44" id="r_a6a80398c6121098618acf454e6a54b44"><td class="memTemplParams" colspan="2">template&lt;typename T , const <a class="elRef" href="../../c-api/html/group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a> * Descriptor&gt; </td></tr>
+<tr class="memitem:a6a80398c6121098618acf454e6a54b44"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a6a80398c6121098618acf454e6a54b44">tlv::native::codec_adapter</a> = detail::codec_adapter&lt; T, Descriptor &gt;</td></tr>
+<tr class="memdesc:a6a80398c6121098618acf454e6a54b44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicit typed adaptation of an immutable C Value Codec descriptor.  <br /></td></tr>
+<tr class="separator:a6a80398c6121098618acf454e6a54b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aff1ccced79430566bcf13118a4e25809" id="r_aff1ccced79430566bcf13118a4e25809"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga45bdea1007b9780dba5559a2190f569d">tlv_query_program_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aff1ccced79430566bcf13118a4e25809">tlv::native::handle</a> (const <a class="el" href="classtlv_1_1query__program.html">query_program</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
+<tr class="memdesc:aff1ccced79430566bcf13118a4e25809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow an immutable native program; its owner and providers must outlive use.  <br /></td></tr>
+<tr class="separator:aff1ccced79430566bcf13118a4e25809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a5edff386e098459b2f0432c92eef5f" id="r_a4a5edff386e098459b2f0432c92eef5f"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga45bdea1007b9780dba5559a2190f569d">tlv_query_program_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a4a5edff386e098459b2f0432c92eef5f">tlv::native::handle</a> (<a class="el" href="classtlv_1_1query__program.html">query_program</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a4a5edff386e098459b2f0432c92eef5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject borrowing a native program from a temporary owner.  <br /></td></tr>
+<tr class="separator:a4a5edff386e098459b2f0432c92eef5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2034dab7e03607856b85d2de091a1709" id="r_a2034dab7e03607856b85d2de091a1709"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga45bdea1007b9780dba5559a2190f569d">tlv_query_program_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a2034dab7e03607856b85d2de091a1709">tlv::native::handle</a> (const <a class="el" href="classtlv_1_1query__program.html">query_program</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a2034dab7e03607856b85d2de091a1709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject borrowing a native program from a const temporary owner.  <br /></td></tr>
+<tr class="separator:a2034dab7e03607856b85d2de091a1709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bd3da8f56c938930511de2ff646bc70" id="r_a5bd3da8f56c938930511de2ff646bc70"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="../../c-api/html/group__traversal.html#gacff0d3ed0386caf2464d098ae952ebb7">tlv_query_exec_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a5bd3da8f56c938930511de2ff646bc70">tlv::native::handle</a> (<a class="el" href="classtlv_1_1query__execution.html">query_execution</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
+<tr class="memdesc:a5bd3da8f56c938930511de2ff646bc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a mutable continuation; its owner and borrowed inputs must outlive use.  <br /></td></tr>
+<tr class="separator:a5bd3da8f56c938930511de2ff646bc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3608aec199bd7d8b4aaaefb0fb7107" id="r_aea3608aec199bd7d8b4aaaefb0fb7107"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1query__settings.html">query_settings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aea3608aec199bd7d8b4aaaefb0fb7107">tlv::native::borrow_query_settings</a> (const <a class="elRef" href="../../c-api/html/group__traversal.html#gaf426eeab5c08024d576603e4102962ec">tlv_query_compile_options_t</a> *<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
+<tr class="memdesc:aea3608aec199bd7d8b4aaaefb0fb7107"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly borrow native compiler settings; all referenced state remains borrowed.  <br /></td></tr>
+<tr class="separator:aea3608aec199bd7d8b4aaaefb0fb7107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159b1424d1329743826bc38efdf55999" id="r_a159b1424d1329743826bc38efdf55999"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1query__capabilities.html">query_capabilities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a159b1424d1329743826bc38efdf55999">tlv::native::borrow_query_capabilities</a> (const <a class="elRef" href="../../c-api/html/group__traversal.html#gaf2f1c0d8fe278eb32c61e19e7b108a48">tlv_query_environment_t</a> *<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
+<tr class="memdesc:a159b1424d1329743826bc38efdf55999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly borrow native Query capabilities, including an absent environment.  <br /></td></tr>
+<tr class="separator:a159b1424d1329743826bc38efdf55999"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abac9bcdbcfb037298ef6d1a3ab8436c7" id="r_abac9bcdbcfb037298ef6d1a3ab8436c7"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga976e323bdf21f26674eb8ad393f2e2e5">tlv_query_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#abac9bcdbcfb037298ef6d1a3ab8436c7">tlv::native::descriptor</a> (const <a class="el" href="classtlv_1_1query.html">query</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>) noexcept</td></tr>
+<tr class="memdesc:abac9bcdbcfb037298ef6d1a3ab8436c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a parsed native path; the C++ Query owner must outlive its use.  <br /></td></tr>
+<tr class="separator:abac9bcdbcfb037298ef6d1a3ab8436c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5376a93a7abfad63039a53ce3dcb8b9" id="r_ab5376a93a7abfad63039a53ce3dcb8b9"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga976e323bdf21f26674eb8ad393f2e2e5">tlv_query_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#ab5376a93a7abfad63039a53ce3dcb8b9">tlv::native::descriptor</a> (<a class="el" href="classtlv_1_1query.html">query</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:ab5376a93a7abfad63039a53ce3dcb8b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject descriptor borrowing from a temporary Query.  <br /></td></tr>
+<tr class="separator:ab5376a93a7abfad63039a53ce3dcb8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa514496ac43a9b2502dd0b69488b9055" id="r_aa514496ac43a9b2502dd0b69488b9055"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__traversal.html#ga976e323bdf21f26674eb8ad393f2e2e5">tlv_query_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aa514496ac43a9b2502dd0b69488b9055">tlv::native::descriptor</a> (const <a class="el" href="classtlv_1_1query.html">query</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:aa514496ac43a9b2502dd0b69488b9055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject descriptor borrowing from a const temporary Query.  <br /></td></tr>
+<tr class="separator:aa514496ac43a9b2502dd0b69488b9055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2efe058d271a4516e0cd805a6a0dfe1" id="r_aa2efe058d271a4516e0cd805a6a0dfe1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1dynamic__codec.html">dynamic_codec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aa2efe058d271a4516e0cd805a6a0dfe1">tlv::native::borrow_codec</a> (const <a class="elRef" href="../../c-api/html/group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a> &amp;raw_descriptor) noexcept</td></tr>
+<tr class="memdesc:aa2efe058d271a4516e0cd805a6a0dfe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow an immutable C Codec and context for explicit runtime interoperability.  <br /></td></tr>
+<tr class="separator:aa2efe058d271a4516e0cd805a6a0dfe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae59abebe44793e514f4cfe3e2d8dbc6" id="r_aae59abebe44793e514f4cfe3e2d8dbc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1dynamic__codec.html">dynamic_codec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aae59abebe44793e514f4cfe3e2d8dbc6">tlv::native::borrow_codec</a> (<a class="elRef" href="../../c-api/html/group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:aae59abebe44793e514f4cfe3e2d8dbc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject a dangling view into a temporary C Codec.  <br /></td></tr>
+<tr class="separator:aae59abebe44793e514f4cfe3e2d8dbc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b4933fddef79b3b7103d0b417ed1c5" id="r_aa4b4933fddef79b3b7103d0b417ed1c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1dynamic__codec.html">dynamic_codec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aa4b4933fddef79b3b7103d0b417ed1c5">tlv::native::borrow_codec</a> (const <a class="elRef" href="../../c-api/html/group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:aa4b4933fddef79b3b7103d0b417ed1c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject a dangling view into a const temporary C Codec.  <br /></td></tr>
+<tr class="separator:aa4b4933fddef79b3b7103d0b417ed1c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683f50430a78d2fbdb3816301445e48b" id="r_a683f50430a78d2fbdb3816301445e48b"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__codecs.html#gab79131d94a100a55e0e58473ca95f785">tlv_codec_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a683f50430a78d2fbdb3816301445e48b">tlv::native::descriptor</a> (<a class="el" href="classtlv_1_1dynamic__codec.html">dynamic_codec</a> view) noexcept</td></tr>
+<tr class="memdesc:a683f50430a78d2fbdb3816301445e48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a borrowed runtime Codec, or nullptr for an absent codec.  <br /></td></tr>
+<tr class="separator:a683f50430a78d2fbdb3816301445e48b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0508dca9539d3aabd040c5b42874fcbf" id="r_a0508dca9539d3aabd040c5b42874fcbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1schema.html">schema</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a0508dca9539d3aabd040c5b42874fcbf">tlv::native::borrow_schema</a> (const <a class="elRef" href="../../c-api/html/group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf">tlv_structure_schema_t</a> &amp;raw_descriptor) noexcept</td></tr>
+<tr class="memdesc:a0508dca9539d3aabd040c5b42874fcbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a C structural Schema for explicit interoperability without allocation.  <br /></td></tr>
+<tr class="separator:a0508dca9539d3aabd040c5b42874fcbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e5492a00e7bee361f0f3ce77564ea6d" id="r_a7e5492a00e7bee361f0f3ce77564ea6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1schema.html">schema</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a7e5492a00e7bee361f0f3ce77564ea6d">tlv::native::borrow_schema</a> (<a class="elRef" href="../../c-api/html/group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf">tlv_structure_schema_t</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a7e5492a00e7bee361f0f3ce77564ea6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject borrowing a temporary Schema descriptor.  <br /></td></tr>
+<tr class="separator:a7e5492a00e7bee361f0f3ce77564ea6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd27079455bf884c487398a972b27bf" id="r_a9cd27079455bf884c487398a972b27bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1schema.html">schema</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a9cd27079455bf884c487398a972b27bf">tlv::native::borrow_schema</a> (const <a class="elRef" href="../../c-api/html/group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf">tlv_structure_schema_t</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a9cd27079455bf884c487398a972b27bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reject borrowing a const temporary Schema descriptor.  <br /></td></tr>
+<tr class="separator:a9cd27079455bf884c487398a972b27bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ff79553c83a184be61265878f6343e" id="r_ac8ff79553c83a184be61265878f6343e"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__schemas.html#ga86e8ecc543b5d6b397732cbcf2db59cf">tlv_structure_schema_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#ac8ff79553c83a184be61265878f6343e">tlv::native::descriptor</a> (<a class="el" href="classtlv_1_1schema.html">schema</a> view) noexcept</td></tr>
+<tr class="memdesc:ac8ff79553c83a184be61265878f6343e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the immutable borrowed Schema descriptor, or nullptr for an absent Schema.  <br /></td></tr>
+<tr class="separator:ac8ff79553c83a184be61265878f6343e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6befef2b192b680f2193a2684803e376" id="r_a6befef2b192b680f2193a2684803e376"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="../../c-api/html/group__document.html#gad50a36ea444832274667f45cb81dab83">tlv_document_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a6befef2b192b680f2193a2684803e376">tlv::native::handle</a> (<a class="el" href="classtlv_1_1document.html">document</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>)</td></tr>
+<tr class="memdesc:a6befef2b192b680f2193a2684803e376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a mutable native Document for explicit interoperability; never free it.  <br /></td></tr>
+<tr class="separator:a6befef2b192b680f2193a2684803e376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a523bcbfcc16f30201e2a843da4424a9d" id="r_a523bcbfcc16f30201e2a843da4424a9d"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__document.html#gad50a36ea444832274667f45cb81dab83">tlv_document_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a523bcbfcc16f30201e2a843da4424a9d">tlv::native::handle</a> (const <a class="el" href="classtlv_1_1document.html">document</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>)</td></tr>
+<tr class="memdesc:a523bcbfcc16f30201e2a843da4424a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a read-only native Document; never free it or outlive its owner.  <br /></td></tr>
+<tr class="separator:a523bcbfcc16f30201e2a843da4424a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5975930c95f6b762dc39eb9f78079dc6" id="r_a5975930c95f6b762dc39eb9f78079dc6"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="../../c-api/html/group__document.html#ga9483f2f2d44c9a33a267a462c90d3883">tlv_node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#a5975930c95f6b762dc39eb9f78079dc6">tlv::native::handle</a> (const <a class="el" href="classtlv_1_1node.html">node</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>)</td></tr>
+<tr class="memdesc:a5975930c95f6b762dc39eb9f78079dc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a mutable native Node, or nullptr if invalid; never free its owner.  <br /></td></tr>
+<tr class="separator:a5975930c95f6b762dc39eb9f78079dc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb750e40dd58441ac85d3f9c1dfac599" id="r_afb750e40dd58441ac85d3f9c1dfac599"><td class="memItemLeft" align="right" valign="top">const <a class="elRef" href="../../c-api/html/group__document.html#ga9483f2f2d44c9a33a267a462c90d3883">tlv_node_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#afb750e40dd58441ac85d3f9c1dfac599">tlv::native::handle</a> (const <a class="el" href="classtlv_1_1const__node.html">const_node</a> &amp;<a class="el" href="namespacetlv.html#a55a9e58b26605c8d07848f7a2721b1d7a2063c1608d6e0baf80249c42e2be5804">value</a>)</td></tr>
+<tr class="memdesc:afb750e40dd58441ac85d3f9c1dfac599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow a read-only native Node, or nullptr if invalid.  <br /></td></tr>
+<tr class="separator:afb750e40dd58441ac85d3f9c1dfac599"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4c38cac5b993a96bd6de1d2192f4ada" id="r_aa4c38cac5b993a96bd6de1d2192f4ada"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtlv_1_1format.html">tlv::format</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetlv_1_1native.html#aa4c38cac5b993a96bd6de1d2192f4ada">tlv::native::borrow_format</a> (const <a class="elRef" href="../../c-api/html/group__formats.html#gac461da7e8d46362fa8e09694efb0b062">tlv_format_t</a> &amp;raw_descriptor) noexcept</td></tr>
 <tr class="memdesc:aa4c38cac5b993a96bd6de1d2192f4ada"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borrow an existing immutable C Format without copying or allocation.  <br /></td></tr>
 <tr class="separator:aa4c38cac5b993a96bd6de1d2192f4ada"><td class="memSeparator" colspan="2">&#160;</td></tr>

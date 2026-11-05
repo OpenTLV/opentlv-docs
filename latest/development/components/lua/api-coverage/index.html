@@ -3398,6 +3398,8 @@
       
         
       
+        
+      
     
     
     
@@ -3457,6 +3459,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3573,9 +3579,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4093,6 +4183,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4443,6 +4537,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5290,6 +5440,8 @@
       
         
       
+        
+      
     
     
     
@@ -5493,6 +5645,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5946,7 +6126,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-lua/edit/2fece68b7b2286656b6f080694f931d3e1730cd6/docs/api-coverage.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-lua/edit/adabdbe9b85187ff5db877142b26d33d20a5917e/docs/api-coverage.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -5963,7 +6143,7 @@ the migration Core commit <code>d87dcf96b2707e817dd51163a9f9efa36651e929</code>.
 For <a href="https://github.com/OpenTLV/opentlv-lua/issues/40">release preparation #40</a>,
 the inventory was rechecked against Core v0.8.0 at
 <code>345c77acb29266036df5f27d04ce315bb61853cc</code>, now pinned by
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/cmake/core-artifact.json"><code>core-artifact.json</code></a>: no added or removed
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/cmake/core-artifact.json"><code>core-artifact.json</code></a>: no added or removed
 <code>TLV_API</code> symbols and no stale exclusions. The original #31 comparison baseline
 is Lua commit <code>9c27c7de77c4691e75b998f67d2778844eebcd13</code>.</p>
 <p>Core coverage is <strong>204/204 (100.0 %)</strong> with 93 reviewed exclusions, up from
@@ -5995,7 +6175,7 @@ binds all three, and Rust binds the first two:</p>
   destination, and every entry point passes Core the Lua string it received or
   owned output and reports Core's coordinates unchanged. Incremental Readers
   report absolute offsets through Core. The symbol is now a reviewed exclusion
-  in <a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/cmake/api-coverage.json"><code>api-coverage.json</code></a>.</li>
+  in <a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/cmake/api-coverage.json"><code>api-coverage.json</code></a>.</li>
 </ul>
 <h2 id="per-header-inventory">Per-header inventory<a class="headerlink" href="#per-header-inventory" title="Permanent link">&para;</a></h2>
 <p><code>Referenced</code> counts the <code>TLV_API</code> symbols that <code>src</code> names, excluding the
@@ -6261,7 +6441,7 @@ the binding tests behind it; the test files are in <code>tests/</code>.</p>
 </tbody>
 </table>
 <p>The reason for every exclusion is in
-<a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/cmake/api-coverage.json"><code>api-coverage.json</code></a>, and the
+<a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/cmake/api-coverage.json"><code>api-coverage.json</code></a>, and the
 <a href="../quality-gates/#core-api-coverage">quality gates</a> summarize the groups:
 primitives, diagnostic producers, callbacks that bound descriptor initializers
 and inline codec constructors install, NULL-diagnostic wrappers, the Tag/Value
@@ -6293,7 +6473,7 @@ and caller-storage write forms, <code>tlv_writer_copy_element</code>, <code>tlv_
    The pin-change table lists added and removed symbols and whether each added
    one is already referenced or excluded.</li>
 <li>For every added symbol, bind it as public Lua API with binding tests, or add
-   it to <a href="https://github.com/OpenTLV/opentlv-lua/blob/2fece68b7b2286656b6f080694f931d3e1730cd6/cmake/api-coverage.json"><code>api-coverage.json</code></a> with a reason that
+   it to <a href="https://github.com/OpenTLV/opentlv-lua/blob/adabdbe9b85187ff5db877142b26d33d20a5917e/cmake/api-coverage.json"><code>api-coverage.json</code></a> with a reason that
    explains why Lua has no separate path. Do not reference a symbol only to
    raise the count.</li>
 <li>Remove ignore patterns the report lists as matching nothing.</li>
@@ -6321,7 +6501,7 @@ and caller-storage write forms, <code>tlv_writer_copy_element</code>, <code>tlv_
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6335,21 +6515,21 @@ and caller-storage write forms, <code>tlv_writer_copy_element</code>, <code>tlv_
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6363,7 +6543,7 @@ and caller-storage write forms, <code>tlv_writer_copy_element</code>, <code>tlv_
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

@@ -3458,6 +3458,8 @@
       
         
       
+        
+      
     
     
     
@@ -3514,6 +3516,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3630,9 +3636,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4142,6 +4232,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4398,6 +4492,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5236,6 +5386,8 @@
       
         
       
+        
+      
     
     
     
@@ -5436,6 +5588,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -5870,14 +6050,15 @@
 <li><strong>Capabilities:</strong> parse and inspect input through the JavaScript binding to Core;
   the interface exposes the operations available in its matching binding build.</li>
 <li><strong>Status:</strong> the interface is available in the portal. Parsing requires the
-  matching JavaScript binding assets; the application reports when they are unavailable.</li>
+  published JavaScript package assets; the application reports when they are unavailable.</li>
 <li><strong>Owner:</strong> the portal maintains the interface, <code>opentlv-js</code> maintains the JavaScript
   API and bridge, and Core maintains native parsing and processing.</li>
 </ul>
 <h2 id="access-and-documentation">Access and documentation<a class="headerlink" href="#access-and-documentation" title="Permanent link">&para;</a></h2>
 <p><a href="../">Open the TLV playground</a>. No native installation is
-needed to use a deployed build. The JavaScript binding loads Core as a WebAssembly
-module; local documentation previews may lack those generated assets.</p>
+needed to use a deployed build. It runs the pinned, published <code>@opentlv/opentlv</code>
+npm package, which loads Core as a WebAssembly module; local documentation
+previews may lack those package assets.</p>
 <p>The <a href="../../../standards/">Standards catalog</a> describes protocol scope;
 <a href="../../../api/formats/">generic configurations</a> explain application-defined framing.
 The playground exposes only the choices documented by its interface.</p>
@@ -5906,7 +6087,7 @@ for playground maintenance.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -5920,21 +6101,21 @@ for playground maintenance.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -5948,7 +6129,7 @@ for playground maintenance.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

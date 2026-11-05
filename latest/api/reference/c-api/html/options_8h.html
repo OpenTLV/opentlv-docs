@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/builtins/dhcp/options.h File Reference</title>
+<title>OpenTLV C API: opentlv/builtin/dhcp/options.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_baac3b088f2c15d8f479cf48feadaae4.html">builtins</a></li><li class="navelem"><a class="el" href="dir_16cf47fedc8ebb34267be16679780400.html">dhcp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_3f487c04e3ce0355a06119864137c7a1.html">builtin</a></li><li class="navelem"><a class="el" href="dir_b91e5b95d54ae9590b30808e47b020ce.html">dhcp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -81,7 +81,8 @@ $(function() {
 
 <p>DHCPv4 option Code definitions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="definition_8h.html">tlv/definition.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;opentlv/builtin/dhcp/export.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2definition_8h.html">opentlv/core/definition.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -91,7 +92,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>DHCPv4 option Code definitions. </p>
-<dl class="section note"><dt>Note</dt><dd>Requires <code>OPENTLV_DHCP=ON</code>. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Requires linking <code>OpenTLV::DHCP</code>. </dd></dl>
 </div><h2 class="groupheader">Variable Documentation</h2>
 <a id="ad60508f5afe603417815b23ecc9496d9" name="ad60508f5afe603417815b23ecc9496d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad60508f5afe603417815b23ecc9496d9">&#9670;&#160;</a></span>tlv_dhcpv4_options</h2>
@@ -115,8 +116,8 @@ Variables</h2></td></tr>
 
 <p>Immutable DHCPv4 option registry with static lifetime. </p>
 <p>Maps canonical one-byte Codes to descriptive names. Initial coverage is 0, 1, 3, 6, 12, 15, 50, 51, 53, 54, 55, 57, 58, 59, 60, 61 and 255. This is not an exhaustive list of assigned options. Entries, identifier bytes and names are borrowed immutable storage with static lifetime.</p>
-<p>Use <a class="el" href="definition_8h.html#a4f3eee11f435919963ddbf725442b7d9" title="Finds the first definition with the same tag size and bytes.">tlv_definition_find()</a> for allocation-free lookup. Unknown Codes return NULL and remain valid for structural parsing. The registry neither defines framing nor decodes Values, validates lengths or imposes schema constraints. Requires <code>OPENTLV_DHCP=ON</code>; no Reader or Writer is required.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="definition_8h.html#a4f3eee11f435919963ddbf725442b7d9" title="Finds the first definition with the same tag size and bytes.">tlv_definition_find</a> </dd>
+<p>Use <a class="el" href="core_2definition_8h.html#a4f3eee11f435919963ddbf725442b7d9" title="Finds the first definition with the same tag size and bytes.">tlv_definition_find()</a> for allocation-free lookup. Unknown Codes return NULL and remain valid for structural parsing. The registry neither defines framing nor decodes Values, validates lengths or imposes schema constraints. Requires linking <code>OpenTLV::DHCP</code>; no Reader or Writer is required.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="core_2definition_8h.html#a4f3eee11f435919963ddbf725442b7d9" title="Finds the first definition with the same tag size and bytes.">tlv_definition_find</a> </dd>
 <dd>
 <a href="https://www.rfc-editor.org/rfc/rfc2132.html">https://www.rfc-editor.org/rfc/rfc2132.html</a> </dd></dl>
 

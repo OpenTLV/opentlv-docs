@@ -600,6 +600,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -655,6 +665,146 @@
     
   
     Licensing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/crates-io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    crates.io identity and packages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/registry-builds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registry-style builds
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/crates-io-publication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    crates.io publication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/crates-io-release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    crates.io release
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../validation/trusted-publishing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    crates.io Trusted Publishing
   
 
     
@@ -891,7 +1041,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv-rust/edit/f297ab3899bafb95716a39a38dfaf7df14e8768d/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv-rust/edit/1b860286e342fb8872b591029a4efca19eb1895c/docs/development/rust.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1226,8 +1376,9 @@ than DER/CER; ordinary framing remains available through Reader/Writer. Failures
 <p>Reader and Tree Reader callbacks and resumable Query matching delegate to C.
 The DOL component is not bound yet.</p>
 <h2 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h2>
-<p>Requirements: Rust 1.82 or newer, CMake 3.16 or newer, a C99 compiler, Git,
-Python 3.11 or newer and an authenticated GitHub CLI (<code>gh auth login</code>).
+<p>Requirements: Rust 1.82 or newer, CMake 3.16 or newer, a C99 compiler and
+Python 3.11 or newer. A build needs no GitHub login; with a logged-in GitHub CLI it
+verifies the Core attestations as well, and <code>scripts/ci.py</code> requires them.
 On Windows use the MSVC Rust toolchain with Visual Studio. The first build of
 each configuration downloads Core from GitHub.</p>
 <p>From the repository root:</p>
@@ -1235,13 +1386,13 @@ each configuration downloads Core from GitHub.</p>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--workspace
 </code></pre></div>
 <p>By default the build script of <code>opentlv-sys</code> authenticates the Core release locked in
-<a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
+<a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/opentlv-sys/core/core-artifact.json"><code>opentlv-sys/core/core-artifact.json</code></a>
 and records its identity in Cargo's <code>OUT_DIR</code>. It selects a compatible verified
 static binary or builds the verified source with CMake as a static,
 position-independent Release library and links it. The C++ layer, CLI, tests
 and examples of Core are not built. After building, it checks that Core's
 public <code>tlv/version.h</code> and <code>tlv/config.h</code> report the locked version, commit and
-components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/f297ab3899bafb95716a39a38dfaf7df14e8768d/README.md#core-dependency">repository README</a> describes
+components. The <a href="https://github.com/OpenTLV/opentlv-rust/blob/1b860286e342fb8872b591029a4efca19eb1895c/README.md#core-dependency">repository README</a> describes
 every Core selection mode, including verified Core releases, and the recorded
 selection evidence.</p>
 <h2 id="cargo-features">Cargo features<a class="headerlink" href="#cargo-features" title="Permanent link">&para;</a></h2>
@@ -1301,7 +1452,7 @@ for development only and are not release evidence.</p>
 <h2 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h2>
 <p><code>opentlv</code> and <code>opentlv-sys</code> share the Cargo workspace version
 (<code>version.workspace = true</code> in each crate's <code>Cargo.toml</code>). The first standalone
-release is <code>0.1.0</code>; <code>0.7.1</code> was an unpublished migration baseline. It is independent of the OpenTLV C library's
+release is <code>0.1.0</code>, and the first on crates.io is <code>0.2.0</code>; <code>0.7.1</code> was an unpublished migration baseline. It is independent of the OpenTLV C library's
 version; it is not derived from Core's Git tags. <code>opentlv</code> requires exactly the
 <code>opentlv-sys</code> version it is released with, and each <code>opentlv-sys</code> version
 records its compatible Core dependency. <code>opentlv::version()</code> is a separate
@@ -1400,7 +1551,7 @@ source locations and Query visits of Document nodes.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -1414,21 +1565,21 @@ source locations and Query visits of Document nodes.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -1442,7 +1593,7 @@ source locations and Query visits of Document nodes.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

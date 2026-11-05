@@ -3542,6 +3542,8 @@
       
         
       
+        
+      
     
     
     
@@ -3598,6 +3600,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3714,9 +3720,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4226,6 +4316,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4482,6 +4576,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5320,6 +5470,8 @@
       
         
       
+        
+      
     
     
     
@@ -5520,6 +5672,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6012,7 +6192,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/core-types.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/core-types.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6024,11 +6204,11 @@
 <p>Prerequisite: Recognize Element, Tag and Value in the <a href="../../../tutorials/concepts/learning-model/">basic model</a>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Element = Tag + Value bytes (logical length = Value size)
 </code></pre></div>
-<p>Include <code>&lt;tlv/element.h&gt;</code> for <code>tlv_element_t</code>, <code>&lt;tlv/value.h&gt;</code> for <code>tlv_value_t</code>, and
-<code>&lt;tlv/size.h&gt;</code> for <code>tlv_size_t</code>, or <code>&lt;tlv/tlv.h&gt;</code> to pull in all of them
+<p>Include <code>&lt;opentlv/core/element.h&gt;</code> for <code>tlv_element_t</code>, <code>&lt;opentlv/core/value.h&gt;</code> for <code>tlv_value_t</code>, and
+<code>&lt;opentlv/core/size.h&gt;</code> for <code>tlv_size_t</code>, or <code>&lt;opentlv/tlv.h&gt;</code> to pull in all of them
 along with the rest of the public API. The common <code>tlv_result_t</code> error codes
-come from <code>&lt;tlv/result.h&gt;</code>. Tags and their configuration are declared in
-<code>&lt;tlv/tag.h&gt;</code>, which can also be included directly.</p>
+come from <code>&lt;opentlv/core/result.h&gt;</code>. Tags and their configuration are declared in
+<code>&lt;opentlv/core/tag.h&gt;</code>, which can also be included directly.</p>
 <ul>
 <li><code>tlv_size_t</code> is a fixed 64-bit unsigned logical TLV value length, with
   the same numeric range on every platform regardless of the current build's
@@ -6044,10 +6224,10 @@ come from <code>&lt;tlv/result.h&gt;</code>. Tags and their configuration are de
   a <code>size_t size</code>. It represents arbitrary raw tag bytes in wire order and
   nothing else. It owns no memory, allocates none, has no storage capacity or
   maximum length, and carries no format-specific metadata.</li>
-<li><code>tlv_length_t</code> (in <code>&lt;tlv/length.h&gt;</code>) borrows the original encoded length
+<li><code>tlv_length_t</code> (in <code>&lt;opentlv/core/length.h&gt;</code>) borrows the original encoded length
   field through <code>const uint8_t* data</code> and native <code>size_t size</code>. It preserves
   nonminimal encodings and termination markers without numeric interpretation.</li>
-<li><code>tlv_element_t</code> (in <code>&lt;tlv/element.h&gt;</code>) has exactly two fields: <code>tag</code> and
+<li><code>tlv_element_t</code> (in <code>&lt;opentlv/core/element.h&gt;</code>) has exactly two fields: <code>tag</code> and
   <code>value</code>. All bytes are borrowed. <code>value.size</code> is the resolved
   logical value byte count (<code>tlv_size_t</code>), excluding header and trailer framing.
   The format defines how the raw length maps to this count: Bluetooth's length
@@ -6178,7 +6358,7 @@ is never produced because a tag is "too long for <code>tlv_tag_t</code>".
 <code>TLV_ERR_INVALID_TAG</code> identifies malformed tag encoding.</p>
 <p>See also the <a href="../../reference/c/#core-types-and-utilities">C API reference: core types</a>.</p>
 <h3 id="c-semantic-views">C++ semantic views<a class="headerlink" href="#c-semantic-views" title="Permanent link">&para;</a></h3>
-<p>Include <code>&lt;tlv++/types.hpp&gt;</code> for the allocation-free semantic types:</p>
+<p>Include <code>&lt;opentlv/core/types.hpp&gt;</code> for the allocation-free semantic types:</p>
 <table>
 <thead>
 <tr>
@@ -6229,7 +6409,7 @@ empty Tag; <code>present()</code> distinguishes them. Both compare equal by cont
 exact source preservation rejects changing presence.</p>
 <p>The previous <code>tlv::tag_t</code>, <code>tlv::element</code> and <code>tlv::as_bytes(tlv_value_t)</code> APIs are
 replaced by these strong types. C structures cannot convert implicitly. For
-mixed C/C++ code, include <code>&lt;tlv++/native.hpp&gt;</code> and use <code>native::borrow_tag()</code>,
+mixed C/C++ code, include <code>&lt;opentlv/native.hpp&gt;</code> and use <code>native::borrow_tag()</code>,
 <code>native::borrow_value()</code> or <code>native::borrow_element()</code>, returning <code>expected</code>.
 Native Value imports validate null-pointer requirements and reject logical sizes
 above <code>SIZE_MAX</code> before iteration or narrowing. <code>native::descriptor(view)</code> exports
@@ -6257,7 +6437,7 @@ The C API and its build-independent 64-bit logical size contract remain unchange
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6271,21 +6451,21 @@ The C API and its build-independent 64-bit logical size contract remain unchange
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6299,7 +6479,7 @@ The C API and its build-independent 64-bit logical size contract remain unchange
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

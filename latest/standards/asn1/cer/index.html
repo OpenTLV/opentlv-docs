@@ -3703,6 +3703,8 @@
       
         
       
+        
+      
     
     
     
@@ -3759,6 +3761,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3875,9 +3881,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4387,6 +4477,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4643,6 +4737,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5481,6 +5631,8 @@
       
         
       
+        
+      
     
     
     
@@ -5681,6 +5833,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6346,7 +6526,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/asn1/cer.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/asn1/cer.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6358,7 +6538,7 @@
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p><a href="../../../api/formats/guide/">Format documentation</a></p>
 <h3 id="validation-overview">Validation overview<a class="headerlink" href="#validation-overview" title="Permanent link">&para;</a></h3>
-<p>Include <code>tlv/builtins/asn1/cer_validation.h</code> for allocation-free CER-TLV processing. Tags use the existing
+<p>Include <code>opentlv/builtin/asn1/cer_validation.h</code> for allocation-free CER-TLV processing. Tags use the existing
 <code>tlv_tag_t</code> wire-byte representation; values are borrowed <code>tlv_value_t</code> ranges.
 The caller owns input and output storage. CER is a sibling of the
 <a href="../der/">DER validation</a>: it reuses the shared BER wire helpers and, through
@@ -6459,26 +6639,21 @@ overflow-checked before writing.</p>
 <tbody>
 <tr>
 <td>Format header</td>
-<td><code>tlv/builtins/asn1/cer.h</code></td>
+<td><code>opentlv/builtin/asn1/cer.h</code></td>
 </tr>
 <tr>
 <td>Descriptor</td>
 <td><code>tlv_format_cer</code></td>
 </tr>
 <tr>
-<td>CMake option (default ON)</td>
-<td><code>OPENTLV_FORMAT_CER</code></td>
-</tr>
-<tr>
 <td>Link target</td>
-<td><code>tlv</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 </tr>
 </tbody>
 </table>
-<p>CER is a sibling of DER over the same BER-TLV wire helpers: <code>OPENTLV_FORMAT_CER</code>
-cascades from <code>OPENTLV_FORMAT_BER</code>, not from <code>OPENTLV_FORMAT_DER</code>, and neither
-sibling depends on the other. <code>OPENTLV_EMV</code> cascades only from
-<code>OPENTLV_FORMAT_DER</code> and is unaffected by <code>OPENTLV_FORMAT_CER</code> either way.</p>
+<p>BER, DER and CER share one <code>OpenTLV::ASN1</code> library. Their former CMake
+selection options are removed; canonical encoding and validation behavior is
+unchanged. EMV privately uses ASN1 for its existing DOL identifier helper.</p>
 <p>See <a href="../ber/#shared-asn1-mechanisms">shared ASN.1 mechanisms</a> for the common
 identifier API, framing reuse and division of canonical validation.</p>
 <h3 id="supported-scope">Supported scope<a class="headerlink" href="#supported-scope" title="Permanent link">&para;</a></h3>
@@ -6558,9 +6733,9 @@ as unsupported), a difference from DER's shared dispatch, which returns
 <h3 id="minimal-c-usage">Minimal C usage<a class="headerlink" href="#minimal-c-usage" title="Permanent link">&para;</a></h3>
 <p>This complete example writes and reads one opaque primitive byte. Exit code
 zero means success.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/builtins/asn1/cer.h"</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/reader/reader.h"</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/writer/writer.h"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/builtin/asn1/cer.h"</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/io/reader/reader.h"</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/io/writer/writer.h"</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">tlv_tag_t</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TLV_TAG</span><span class="p">(</span><span class="mh">0x04</span><span class="p">);</span>
@@ -6612,7 +6787,7 @@ for bounded validation of the element and its descendants, including EOC
 placement.</p>
 <p><a href="./">CER validation</a></p>
 <h3 id="read-and-traverse">Read and traverse<a class="headerlink" href="#read-and-traverse" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"tlv/builtins/asn1/cer_validation.h"</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">"opentlv/builtin/asn1/cer_validation.h"</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">input</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">0x30</span><span class="p">,</span><span class="w"> </span><span class="mh">0x80</span><span class="p">,</span><span class="w"> </span><span class="mh">0x02</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="cm">/* SEQUENCE(indefinite){ INTEGER 42 } */</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">tlv_element_t</span><span class="w"> </span><span class="n">element</span><span class="p">;</span>
@@ -6671,7 +6846,7 @@ responsibility with caller-owned storage.</p>
 indefinite (EOC-terminated); a primitive value's length must be definite and
 minimally encoded. Generic I/O validates the current element's identifier and
 length and uses the shared BER scanner to resolve matching EOC boundaries.
-It does not enforce recursive CER canonicality or canonical string segmentation — use <a href="./">tlv/builtins/asn1/cer_validation.h</a>
+It does not enforce recursive CER canonicality or canonical string segmentation — use <a href="./">opentlv/builtin/asn1/cer_validation.h</a>
 for that.</p>
 <p>See <a href="../../../api/guides/memory/">shared memory ownership rules</a> before retaining a
 parsed element.</p>
@@ -6720,11 +6895,11 @@ functions above when those guarantees are required.</p>
       <p>Technical content maintained in Core:</p>
       <ul>
         
-          <li><a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/asn1/cer.md">docs/formats/asn1/cer.md</a>
-            (<a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/asn1/cer.md">Edit source</a>)</li>
+          <li><a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/asn1/cer.md">docs/formats/asn1/cer.md</a>
+            (<a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/asn1/cer.md">Edit source</a>)</li>
         
-          <li><a href="https://github.com/OpenTLV/opentlv/blob/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/standards/cer/README.md">docs/standards/cer/README.md</a>
-            (<a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/standards/cer/README.md">Edit source</a>)</li>
+          <li><a href="https://github.com/OpenTLV/opentlv/blob/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/standards/cer/README.md">docs/standards/cer/README.md</a>
+            (<a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/standards/cer/README.md">Edit source</a>)</li>
         
       </ul>
     </div>
@@ -6735,7 +6910,7 @@ functions above when those guarantees are required.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6749,21 +6924,21 @@ functions above when those guarantees are required.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6777,7 +6952,7 @@ functions above when those guarantees are required.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

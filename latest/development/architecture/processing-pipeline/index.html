@@ -3552,6 +3552,8 @@
       
         
       
+        
+      
     
     
     
@@ -3611,6 +3613,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3727,9 +3733,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4245,6 +4335,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4504,6 +4598,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5351,6 +5501,8 @@
       
         
       
+        
+      
     
     
     
@@ -5554,6 +5706,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6068,7 +6248,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/concepts/processing-pipeline.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/concepts/processing-pipeline.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6087,7 +6267,7 @@ is recorded in the <a href="../../../languages/contracts/#capability-implementat
 Document is the canonical owned mutable representation; structural events are
 the borrowed traversal/construction representation.</p>
 <h2 id="canonical-structural-events-402">Canonical structural events (#402)<a class="headerlink" href="#canonical-structural-events-402" title="Permanent link">&para;</a></h2>
-<p>The canonical streaming representation is <code>tlv_tree_event_t</code> from <code>tlv/tree.h</code>:
+<p>The canonical streaming representation is <code>tlv_tree_event_t</code> from <code>opentlv/io/tree.h</code>:
 <code>BEGIN</code>, <code>ELEMENT</code>, <code>END</code>. Document remains the materialized representation.
 Tree Reader produces events with <code>tlv_tree_reader_next_event[_diag]</code>; Tree Writer
 accepts them with <code>tlv_tree_writer_write_event[_diag]</code>. Neither depends on the
@@ -6220,52 +6400,52 @@ aliases remain. Rebuild consumers after this source/ABI-breaking removal.</p>
 <tbody>
 <tr>
 <td>Reader</td>
-<td><code>tlv/src/reader/reader.c</code></td>
+<td><code>src/io/reader/reader.c</code></td>
 <td><code>tlv_format_decode</code> through one shared read implementation</td>
 </tr>
 <tr>
 <td>Tree Reader</td>
-<td><code>tlv/src/reader/tree.c</code></td>
+<td><code>src/io/reader/tree.c</code></td>
 <td><code>tlv_reader_next_source_diag</code>; iterative scope stack</td>
 </tr>
 <tr>
 <td>Visitor</td>
-<td><code>tlv/src/reader/visitor.c</code></td>
+<td><code>src/io/reader/visitor.c</code></td>
 <td>Reader or Tree Reader pulls</td>
 </tr>
 <tr>
 <td>Query</td>
-<td><code>tlv/src/query/query.c</code></td>
+<td><code>src/query/query.c</code></td>
 <td>Tag/depth matcher; Tree Reader Visitor for buffer traversal</td>
 </tr>
 <tr>
 <td>Document topology</td>
-<td><code>tlv/src/document/document.c</code></td>
+<td><code>src/document/document.c</code></td>
 <td>Owned nodes and programmatic mutation; optional Format measurement validates inserted tags</td>
 </tr>
 <tr>
 <td>Document parsing</td>
-<td><code>tlv/src/document/reader.c</code></td>
+<td><code>src/document/reader.c</code></td>
 <td>Reader + Document integration: resumable Builder consuming canonical structural events</td>
 </tr>
 <tr>
 <td>Document lookup</td>
-<td><code>tlv/src/document/query.c</code></td>
+<td><code>src/query/document_path.c</code></td>
 <td>Query + Document integration: node preorder feeding the same Query matcher</td>
 </tr>
 <tr>
 <td>Document encoding</td>
-<td><code>tlv/src/document/writer.c</code></td>
+<td><code>src/document/writer.c</code></td>
 <td>Writer + Document integration: node events feeding <code>tlv_tree_writer_measure_events</code>, then Writer encoded copy</td>
 </tr>
 <tr>
 <td>Tree Writer</td>
-<td><code>tlv/src/writer/tree.c</code></td>
+<td><code>src/io/writer/tree.c</code></td>
 <td>Writer measurement and encoding; iterative parent stack</td>
 </tr>
 <tr>
 <td>Writer</td>
-<td><code>tlv/src/writer/writer.c</code></td>
+<td><code>src/io/writer/writer.c</code></td>
 <td>Format measurement and encoding</td>
 </tr>
 </tbody>
@@ -6362,7 +6542,7 @@ claim full binding parity.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6376,21 +6556,21 @@ claim full binding parity.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6404,7 +6584,7 @@ claim full binding parity.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

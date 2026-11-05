@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OpenTLV C API: tlv/schema/detail.h File Reference</title>
+<title>OpenTLV C API: opentlv/schema/detail.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_66ac68e87c77bd6a9ebecb2388aea3bb.html">tlv</a></li><li class="navelem"><a class="el" href="dir_1cce1a9c4c0db6f9195f3dbd4253c088.html">schema</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_58f30d0a4f1ed30e056dbbfa3a47ffc7.html">opentlv</a></li><li class="navelem"><a class="el" href="dir_eb57ba3042b6b419f4447d030a98abea.html">schema</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -84,8 +84,9 @@ $(function() {
 
 <p>Schema finding detail, shared by Schema, Codec and Query diagnostics.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="tag_8h.html">tlv/tag.h</a>&quot;</code><br />
-<code>#include &quot;tlv/export.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="tag_8h.html">opentlv/core/tag.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cause_8h.html">opentlv/core/diagnostic/cause.h</a>&quot;</code><br />
+<code>#include &quot;opentlv/schema/export.h&quot;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 </div><table class="memberdecls">
@@ -162,11 +163,78 @@ Functions</h2></td></tr>
 <tr class="memitem:gaafdbd1deb8a555e60d207b32d43d6572" id="r_gaafdbd1deb8a555e60d207b32d43d6572"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__schemas.html#gaafdbd1deb8a555e60d207b32d43d6572">tlv_schema_definition_kind_string</a> (<a class="el" href="group__schemas.html#ga61f8b4cdcf9c639a9a779a20c7bb012a">tlv_schema_definition_kind_t</a> value)</td></tr>
 <tr class="memdesc:gaafdbd1deb8a555e60d207b32d43d6572"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the diagnostic name of a schema definition kind.  <br /></td></tr>
 <tr class="separator:gaafdbd1deb8a555e60d207b32d43d6572"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e686be7e7a01d46316990eaf81fe201" id="r_a9e686be7e7a01d46316990eaf81fe201"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="detail_8h.html#a9e686be7e7a01d46316990eaf81fe201">tlv_schema_detail_attach</a> (<a class="el" href="cause_8h.html#ab75333dc3580f409fc9d62f193641508">tlv_diagnostic_causes_t</a> *causes, const <a class="el" href="group__schemas.html#ga61ce33047a8977b82612d4db2c7a5919">tlv_schema_detail_t</a> *detail)</td></tr>
+<tr class="memdesc:a9e686be7e7a01d46316990eaf81fe201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy producer-owned schema detail into a generic cause chain. Required pointers must be non-NULL; returns the Core append result.  <br /></td></tr>
+<tr class="separator:a9e686be7e7a01d46316990eaf81fe201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43aa2eae2672d1f4fd1a074b765ebf17" id="r_a43aa2eae2672d1f4fd1a074b765ebf17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="detail_8h.html#a43aa2eae2672d1f4fd1a074b765ebf17">tlv_schema_detail_copy</a> (const <a class="el" href="cause_8h.html#abdcd0f8f4488ee31f2c6cfef2dfb7560">tlv_diagnostic_cause_t</a> *cause, <a class="el" href="group__schemas.html#ga61ce33047a8977b82612d4db2c7a5919">tlv_schema_detail_t</a> *detail)</td></tr>
+<tr class="memdesc:a43aa2eae2672d1f4fd1a074b765ebf17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy matching schema detail out of a frame; mismatches leave output unchanged.  <br /></td></tr>
+<tr class="separator:a43aa2eae2672d1f4fd1a074b765ebf17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Schema finding detail, shared by Schema, Codec and Query diagnostics. </p>
-<p>Included by <a class="el" href="schema_2schema_8h.html" title="Length schemas and structural schemas for validating TLV data.">tlv/schema/schema.h</a>. Kept separate so that the Codec detail can embed a Schema cause while the Schema diagnostic embeds a Codec cause. </p>
-</div></div><!-- contents -->
+<p>Included by <a class="el" href="schema_2schema_8h.html" title="Length schemas and structural schemas for validating TLV data.">opentlv/schema/schema.h</a>. Integrations attach and copy this producer-owned leaf through the generic cause transport without embedding foreign detail types. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a9e686be7e7a01d46316990eaf81fe201" name="a9e686be7e7a01d46316990eaf81fe201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e686be7e7a01d46316990eaf81fe201">&#9670;&#160;</a></span>tlv_schema_detail_attach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> tlv_schema_detail_attach </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="cause_8h.html#ab75333dc3580f409fc9d62f193641508">tlv_diagnostic_causes_t</a> *&#160;</td>
+          <td class="paramname"><em>causes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="group__schemas.html#ga61ce33047a8977b82612d4db2c7a5919">tlv_schema_detail_t</a> *&#160;</td>
+          <td class="paramname"><em>detail</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy producer-owned schema detail into a generic cause chain. Required pointers must be non-NULL; returns the Core append result. </p>
+
+</div>
+</div>
+<a id="a43aa2eae2672d1f4fd1a074b765ebf17" name="a43aa2eae2672d1f4fd1a074b765ebf17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43aa2eae2672d1f4fd1a074b765ebf17">&#9670;&#160;</a></span>tlv_schema_detail_copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__core.html#ga164d2817a32e5d7b7aa1472e887b47c3">tlv_result_t</a> tlv_schema_detail_copy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="cause_8h.html#abdcd0f8f4488ee31f2c6cfef2dfb7560">tlv_diagnostic_cause_t</a> *&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__schemas.html#ga61ce33047a8977b82612d4db2c7a5919">tlv_schema_detail_t</a> *&#160;</td>
+          <td class="paramname"><em>detail</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy matching schema detail out of a frame; mismatches leave output unchanged. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8

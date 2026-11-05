@@ -3609,6 +3609,8 @@
       
         
       
+        
+      
     
     
     
@@ -3665,6 +3667,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3781,9 +3787,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4293,6 +4383,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4549,6 +4643,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5387,6 +5537,8 @@
       
         
       
+        
+      
     
     
     
@@ -5587,6 +5739,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6146,7 +6326,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/formats/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/formats/README.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6156,11 +6336,11 @@
 
 <h1 id="c-library-formats">C library formats<a class="headerlink" href="#c-library-formats" title="Permanent link">&para;</a></h1>
 <p>Each page includes a byte example. Standard-specific semantics are documented separately.
-Concrete C implementations live under <code>tlv/builtins/&lt;protocol&gt;/</code> (grouped by
+Concrete C implementations live under <code>opentlv/builtin/&lt;protocol&gt;/</code> (grouped by
 protocol) or, for protocol-agnostic mechanisms like the configurable fixed-width
-format, <code>tlv/formats/</code>; see <a href="../../../development/architecture/architecture/#repository-layout">architecture</a>.</p>
-<p>Generic formats in <code>tlv/formats/</code> are part of the core and always available.
-Built-ins in <code>tlv/builtins/&lt;protocol&gt;/</code> implement specific standards and are
+format, <code>opentlv/core/formats/</code>; see <a href="../../../development/architecture/architecture/#repository-layout">architecture</a>.</p>
+<p>Generic formats in <code>opentlv/core/formats/</code> are part of the core and always available.
+Built-ins in <code>opentlv/builtin/&lt;protocol&gt;/</code> implement specific standards and are
 optional. Both use the same Format, Reader and Writer contracts.</p>
 <p>For proprietary formats, start with the <a href="../../concepts/format-capabilities/">generic Format capability space</a>
 and its configuration matrix. Builtins are representative combinations of wire
@@ -6300,7 +6480,7 @@ explains its wire representation and supported scope.</p>
 <th>Largest value</th>
 <th>Field order on the wire</th>
 <th>Nesting for the tree visitor</th>
-<th>Build option</th>
+<th>Link target</th>
 </tr>
 </thead>
 <tbody>
@@ -6311,7 +6491,7 @@ explains its wire representation and supported scope.</p>
 <td>65534 bytes</td>
 <td>tag, length, value; tag only for controls</td>
 <td>none</td>
-<td><code>OPENTLV_NFC</code></td>
+<td><code>OpenTLV::NFC</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/dhcp/">DHCPv4 options</a></td>
@@ -6320,7 +6500,7 @@ explains its wire representation and supported scope.</p>
 <td>255 bytes; 0 for Pad/End</td>
 <td>code, length, value; code only for Pad/End</td>
 <td>none</td>
-<td><code>OPENTLV_DHCP</code></td>
+<td><code>OpenTLV::DHCP</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/bluetooth/#wire-representation-and-logical-model">Bluetooth LTV</a></td>
@@ -6329,7 +6509,7 @@ explains its wire representation and supported scope.</p>
 <td>254 bytes</td>
 <td>length, type, value</td>
 <td>none</td>
-<td><code>OPENTLV_BLUETOOTH</code></td>
+<td><code>OpenTLV::Bluetooth</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/lldp/#wire-representation-and-logical-model">LLDP</a></td>
@@ -6338,7 +6518,7 @@ explains its wire representation and supported scope.</p>
 <td>511 bytes</td>
 <td>packed Type/Length, Value</td>
 <td>none</td>
-<td><code>OPENTLV_LLDP</code></td>
+<td><code>OpenTLV::LLDP</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/asn1/ber/#framing-and-typical-use">BER-TLV</a></td>
@@ -6347,7 +6527,7 @@ explains its wire representation and supported scope.</p>
 <td>up to <code>SIZE_MAX</code></td>
 <td>identifier, length, contents (and EOC)</td>
 <td><code>tlv_asn1_is_constructed</code></td>
-<td><code>OPENTLV_FORMAT_BER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/asn1/der/#framing-and-typical-use">DER-TLV</a></td>
@@ -6356,7 +6536,7 @@ explains its wire representation and supported scope.</p>
 <td>definite lengths</td>
 <td>identifier, length, contents</td>
 <td><code>tlv_asn1_is_constructed</code></td>
-<td><code>OPENTLV_FORMAT_DER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 </tr>
 <tr>
 <td><a href="../../../standards/asn1/cer/#framing-and-typical-use">CER-TLV</a></td>
@@ -6365,7 +6545,7 @@ explains its wire representation and supported scope.</p>
 <td>definite lengths for primitives</td>
 <td>identifier, length, contents (and EOC)</td>
 <td><code>tlv_asn1_is_constructed</code></td>
-<td><code>OPENTLV_FORMAT_CER</code></td>
+<td><code>OpenTLV::ASN1</code></td>
 </tr>
 </tbody>
 </table>
@@ -6392,7 +6572,7 @@ limits and nesting predicate through the same generic callback contract.</p>
 <a href="../../../standards/asn1/der/">ASN.1 DER-TLV</a> and its sibling <a href="../../../standards/asn1/cer/">ASN.1 CER-TLV</a>.
 <code>tlv_format_der</code> and <code>tlv_format_cer</code> also support the generic I/O below.</p>
 <h2 id="reading-one-element">Reading one element<a class="headerlink" href="#reading-one-element" title="Permanent link">&para;</a></h2>
-<p>Include <code>tlv/reader/reader.h</code> and call <code>tlv_read</code> to parse one element from the
+<p>Include <code>opentlv/io/reader/reader.h</code> and call <code>tlv_read</code> to parse one element from the
 beginning of a buffer:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">/* One tag byte and one length byte; config must outlive its readers. */</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">const</span><span class="w"> </span><span class="n">tlv_fixed_format_t</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.</span><span class="n">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TLV_BYTE_ORDER_BIG_ENDIAN</span><span class="p">}};</span>
@@ -6416,7 +6596,7 @@ returns <code>TLV_END</code>; missing tag, length, or value bytes return
 Custom format callback errors propagate unchanged. The stateful
 <code>tlv_reader_next</code> uses the same parser and advances by the consumed size.</p>
 <h2 id="traversing-multiple-elements">Traversing multiple elements<a class="headerlink" href="#traversing-multiple-elements" title="Permanent link">&para;</a></h2>
-<p>Include <code>tlv/reader/visitor.h</code> to visit concatenated elements with the generic reader:</p>
+<p>Include <code>opentlv/io/reader/visitor.h</code> to visit concatenated elements with the generic reader:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">static</span><span class="w"> </span><span class="n">tlv_visit_result_t</span><span class="w"> </span><span class="nf">count_element</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">tlv_element_t</span><span class="o">*</span><span class="w"> </span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kt">size_t</span><span class="o">*</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="o">*</span><span class="p">)</span><span class="n">context</span><span class="p">;</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">element</span><span class="p">;</span>
@@ -6443,7 +6623,7 @@ the input value. Keep the input and format valid and unchanged during traversal.
 The visitor allocates no memory and never interprets or recurses into values,
 even when they contain nested TLVs.</p>
 <h2 id="writing-one-element">Writing one element<a class="headerlink" href="#writing-one-element" title="Permanent link">&para;</a></h2>
-<p>Include <code>tlv/writer/writer.h</code>. Query the complete encoded size without providing value
+<p>Include <code>opentlv/io/writer/writer.h</code>. Query the complete encoded size without providing value
 bytes, then write into a caller-owned buffer:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/* One tag byte and one length byte; config must outlive its writers. */</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">const</span><span class="w"> </span><span class="n">tlv_fixed_format_t</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{.</span><span class="n">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">TLV_BYTE_ORDER_BIG_ENDIAN</span><span class="p">}};</span>
@@ -6493,7 +6673,7 @@ current element with the immutable source content and rejects mutation instead
 of silently reusing stale Length or Trailer bytes. Ordinary encoding does not
 preserve BER nonminimal lengths or arbitrary header padding.</p>
 <p>Field-based custom formats can compose <code>tlv_field_composition_t</code> from
-<code>tlv/formats/compose.h</code> and initialize a descriptor with <code>tlv_fields_format_init()</code>.
+<code>opentlv/core/formats/compose.h</code> and initialize a descriptor with <code>tlv_fields_format_init()</code>.
 Fixed TLV, Fixed
 LTV and Bluetooth use the same public binary-field primitives. Formats with
 other framing implement the same canonical operations directly.
@@ -6503,8 +6683,8 @@ for the boundary between standalone field primitives and complete framing.</p>
 mutation, preservation, diagnostics and size invariants.</p>
 <h2 id="nested-traversal">Nested traversal<a class="headerlink" href="#nested-traversal" title="Permanent link">&para;</a></h2>
 <p>Concrete descriptors are declared in
-<code>tlv/formats/fixed.h</code>, <code>tlv/builtins/asn1/ber.h</code>,
-<code>tlv/builtins/asn1/der.h</code>, and <code>tlv/builtins/asn1/cer.h</code>. The generic <code>format.h</code>
+<code>opentlv/core/formats/fixed.h</code>, <code>opentlv/builtin/asn1/ber.h</code>,
+<code>opentlv/builtin/asn1/der.h</code>, and <code>opentlv/builtin/asn1/cer.h</code>. The generic <code>format.h</code>
 declares only the contract.</p>
 <p>The optional <code>tlv_format_t::is_constructed</code> field identifies values containing
 child TLVs in the same format. It receives the format's context and a parsed
@@ -6543,7 +6723,7 @@ Value, while configurable Fixed can count Value alone or Tag and Value.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -6557,21 +6737,21 @@ Value, while configurable Fixed can count Value alone or Tag and Value.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -6585,7 +6765,7 @@ Value, while configurable Fixed can count Value alone or Tag and Value.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     

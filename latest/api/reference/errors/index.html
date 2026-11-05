@@ -3625,6 +3625,8 @@
       
         
       
+        
+      
     
     
     
@@ -3681,6 +3683,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -3797,9 +3803,93 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/layout-migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module-first header migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/modules/final-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final modular verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Library and Core naming contract
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4309,6 +4399,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -4565,6 +4659,62 @@
     
   
     Lua release quality gate
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua release description guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/components/lua/release-preview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua candidate release preview
   
 
     
@@ -5403,6 +5553,8 @@
       
         
       
+        
+      
     
     
     
@@ -5603,6 +5755,34 @@
     
   
     Documentation audit (#513)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../development/history/lua/release-notes-v0.2.0-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua v0.2.0 release description example
   
 
     
@@ -6178,7 +6358,7 @@
 
 
   
-    <a href="https://github.com/OpenTLV/opentlv/edit/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6/docs/reference/errors.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/OpenTLV/opentlv/edit/04e637aa6cc600505a6ba99611f28495bf9a4abf/docs/reference/errors.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -6192,7 +6372,7 @@ the <a href="../../../development/architecture/error-model/">failure model</a> (
 contract and why each failure has its class; this page names the values that
 implement it. Epic #547 completed the migration through breaking API and ABI
 changes, with no aliases for removed names.</p>
-<p>Core and Codec operations return the shared <code>tlv_result_t</code> from <code>tlv/result.h</code>. Zero is success. <code>TLV_END</code> (normal end
+<p>Core and Codec operations return the shared <code>tlv_result_t</code> from <code>opentlv/core/result.h</code>. Zero is success. <code>TLV_END</code> (normal end
 of iteration) and <code>TLV_NEED_MORE_DATA</code> (resumable non-final input) are control
 statuses, not failures; every other nonzero result is a failure. <code>tlv_result_string</code> returns a static, readable
 description of any code and <code>"unknown error"</code> for an unrecognized one; never free or
@@ -6210,7 +6390,7 @@ return describes that result:</p>
 <li><code>tlv_query_diagnostic_t</code> has <code>kind != TLV_QUERY_ERROR_NONE</code>. A <code>READER</code> kind
   has cause <code>READER</code> and stores its result, location and path only in
   <code>diagnostic</code>; a <code>CODEC</code> kind has cause <code>CODEC</code> with a non-OK
-  <code>detail.codec.reported</code>; a <code>SCHEMA</code> kind has cause <code>SCHEMA</code>.</li>
+  <code>reported</code>; a <code>SCHEMA</code> kind has cause <code>SCHEMA</code>.</li>
 <li>An initialized Query diagnostic for <code>TLV_ERR_INVALID_STATE</code> has kind
   <code>TLV_QUERY_ERROR_STATE</code>. Pre-initialization preservation exceptions below still apply.</li>
 <li>Schema Query reports every failure once in <code>query</code>: a false assertion has
@@ -6351,7 +6531,7 @@ kind are not an allowed pair; computed results are left to the runtime helper.</
 <code>tlv_diagnostic_t</code> owns the result, severity, primary location, expected and
 actual text, contexts and path. Layer detail types carry only layer-specific
 evidence and never repeat those common fields. An enclosing diagnostic holds at
-most one active lower-layer detail, selected by its cause.</p>
+a typed finding or a bounded chain of delegated producer-owned details.</p>
 <table>
 <thead>
 <tr>
@@ -6371,20 +6551,20 @@ most one active lower-layer detail, selected by its cause.</p>
 <tr>
 <td><code>tlv_schema_diagnostic_t</code></td>
 <td><code>diagnostic</code></td>
-<td>none</td>
-<td><code>cause</code> selects <code>detail.schema</code> (<code>tlv_schema_detail_t</code>), <code>detail.reader</code> or <code>detail.codec</code> (<code>tlv_codec_detail_t</code>)</td>
+<td><code>detail.schema</code> for a Schema finding</td>
+<td><code>cause</code> selects the finding or producer-owned Reader/Codec frames in <code>detail.causes</code>; copy detail through its producer API</td>
 </tr>
 <tr>
 <td><code>tlv_codec_diagnostic_t</code></td>
 <td><code>diagnostic</code></td>
 <td><code>codec.operation</code>, <code>reported</code>, <code>violation</code>, <code>reason</code>, <code>representation</code></td>
-<td><code>codec.cause</code> selects <code>codec.detail.reader</code> or <code>codec.detail.schema</code></td>
+<td><code>causes</code> stores producer-owned Reader or Schema frames; copy detail with its producer accessor</td>
 </tr>
 <tr>
 <td><code>tlv_query_diagnostic_t</code></td>
 <td><code>diagnostic</code></td>
-<td><code>kind</code>, <code>expression</code>, <code>limit</code>, <code>configured</code></td>
-<td><code>cause</code> selects <code>detail.reader</code>, <code>detail.codec</code> or <code>detail.schema</code></td>
+<td><code>kind</code>, <code>expression</code>, <code>limit</code>, <code>configured</code>, <code>reported</code>, <code>violation</code></td>
+<td><code>cause</code> selects <code>detail.reader</code> or producer-owned frames in <code>detail.causes</code></td>
 </tr>
 <tr>
 <td><code>tlv_schema_query_diagnostic_t</code></td>
@@ -6401,7 +6581,7 @@ of a Reader or conversion failure. Otherwise the span itself is primary
 conversion failures without a location, such as a provider output contract that
 Query rejects itself, so the span always remains visible in <code>diagnostic.location</code>. A Reader
 failure inside a conversion hook is reachable only as
-<code>detail.codec.detail.reader</code>; Query cause <code>READER</code> is reserved for its own
+the IO frame following the Codec frame in <code>detail.causes</code>; Query cause <code>READER</code> is reserved for its own
 Reader traversal.</p>
 <p>A Schema diagnostic reports a malformed wire input with cause <code>READER</code> and the
 original Reader detail instead of dropping it; argument and resource failures
@@ -6410,8 +6590,9 @@ Reader cause, so the Reader detail stays reachable through one path. Codec
 <code>reason</code> is the typed explanation of an <code>INVALID_VALUE</code> conversion failure.
 DER Schema reports a leaf Value that its conversion rejects, such as a
 non-canonical INTEGER or one too long for a value constraint, with cause <code>CODEC</code>
-(#589): <code>detail.codec</code> keeps the conversion's operation, result and reason, and
-<code>detail.codec.reported</code> equals the returned result. A valid leaf constraint
+(#589, #652): the Codec frame in <code>detail.causes</code> keeps the conversion's operation,
+result and reason; copy it with <code>tlv_codec_detail_copy()</code>. Its <code>reported</code> field
+equals the returned result. A valid leaf constraint
 rejecting data is <code>SCHEMA</code> with <code>VALUE</code> detail when reading and writing.</p>
 <p>Kind and cause agree in both directions: cause <code>READER</code> accompanies kind
 <code>READER</code> or <code>STATE</code>, cause <code>CODEC</code> accompanies <code>CODEC</code>, <code>CALLBACK</code> or <code>STATE</code>,
@@ -6447,11 +6628,11 @@ Query compilation and plain execution never produce them.</p>
 </tr>
 <tr>
 <td>Query <code>int32_t codec</code></td>
-<td><code>detail.codec.reported</code> under cause <code>CODEC</code></td>
+<td><code>reported</code> under cause <code>CODEC</code></td>
 </tr>
 <tr>
 <td>Query <code>has_codec</code> / <code>codec_detail</code></td>
-<td><code>cause == TLV_QUERY_CAUSE_CODEC</code> / <code>detail.codec</code></td>
+<td><code>cause == TLV_QUERY_CAUSE_CODEC</code> / producer-owned <code>detail.causes</code> frames</td>
 </tr>
 <tr>
 <td>Query <code>has_reader</code> / <code>reader</code></td>
@@ -6459,12 +6640,13 @@ Query compilation and plain execution never produce them.</p>
 </tr>
 <tr>
 <td>Schema Query <code>schema</code></td>
-<td><code>query</code> with kind and cause <code>SCHEMA</code>; Schema detail in <code>query.detail.schema</code>, common evidence in <code>query.diagnostic</code></td>
+<td><code>query</code> with kind and cause <code>SCHEMA</code>; Schema detail in a <code>query.detail.causes</code> frame, common evidence in <code>query.diagnostic</code></td>
 </tr>
 </tbody>
 </table>
 <p><code>tlv_query_cause_string()</code> names the Query cause. The 64-bit Query diagnostic
-shrinks from 1000 to 840 bytes.</p>
+shrank from 1000 to 840 bytes in #579. The #650 module transport changes it
+again; see <a href="../../../development/modules/diagnostics/">module diagnostic layouts</a>.</p>
 <h2 id="codes">Codes<a class="headerlink" href="#codes" title="Permanent link">&para;</a></h2>
 <p>Codes are grouped by category: success, control statuses, invalid input data,
 invalid use of the API, capacity, resources and numeric ranges, capabilities,
@@ -6738,14 +6920,15 @@ A missing field is not an element at its anchor; never decode a tag there to
 explain the failure. Generic report findings now use scope end for missing fields,
 including known offset zero for an empty root. Definition failures have no input
 byte location; <code>definition.kind</code>, <code>owner</code> and <code>index</code> identify native definitions.</p>
-<p>The Schema diagnostic layout and affected signatures changed in #553 and #555. Rebuild
-native clients and use the matching binding version. C++ errors expose
+<p>The Schema diagnostic layout and affected signatures changed in #553, #555 and #652.
+Rebuild native clients and use the matching binding version. C++
+<code>schema_failure</code> in <code>opentlv/schema/error.hpp</code> exposes
 <code>schema_kind()</code>, <code>location()</code> and <code>definition()</code>; Python uses <code>InvalidSchemaError</code> for definitions
 and <code>SchemaError</code> with <code>kind="missing"</code> for required absence.</p>
 <p>Custom Format callback failures permitted by the callback contract propagate
 unchanged through the generic Reader and Writer. Unknown results, forbidden
 control statuses and invalid successful payloads become <code>TLV_ERR_CALLBACK</code>;
-see the public callback contracts in <code>tlv/format.h</code>.</p>
+see the public callback contracts in <code>opentlv/core/format.h</code>.</p>
 <h2 id="diagnostic-enum-names">Diagnostic enum names<a class="headerlink" href="#diagnostic-enum-names" title="Permanent link">&para;</a></h2>
 <p>The C library owns the diagnostic names; callers need no parallel name tables.
 Each function below returns a static NUL-terminated string, never NULL, with
@@ -6928,8 +7111,9 @@ zero is distinct from absence. Related Query expression spans do not replace
 the primary input/output/Value location. Retained paths hold outermost scopes;
 <code>path_omitted</code> counts omitted innermost scopes. Go's <code>HasReader</code> guards the
 Reader-specific part of a Query failure.</p>
-<p>Binding Query and Schema Query projections follow the single-source C layout
-and read each value from one C member:</p>
+<p>Bindings adopting the #650 Core pin must update Query layouts and read delegated
+frames through producer accessors; independently pinned older binding releases
+retain their existing representation. The native-to-binding projection is:</p>
 <table>
 <thead>
 <tr>
@@ -6951,15 +7135,15 @@ and read each value from one C member:</p>
 <td>Query <code>expression</code> location: the related span, unknown when the expression span is the primary <code>location</code></td>
 </tr>
 <tr>
-<td><code>detail.codec</code></td>
-<td>Codec detail; <code>reported</code> is the raw provider result</td>
+<td>Codec frame in <code>detail.causes</code>; Query <code>reported</code> and <code>violation</code></td>
+<td>Codec detail and Query callback contract evidence</td>
 </tr>
 <tr>
 <td><code>detail.reader</code></td>
 <td>Reader detail beside the common evidence</td>
 </tr>
 <tr>
-<td><code>detail.schema</code></td>
+<td>Schema frame in <code>detail.causes</code></td>
 <td>Schema Query <code>schema</code>: <code>kind</code>, <code>tag</code> and <code>field</code> of the failed assertion; absent (<code>None</code>, <code>nil</code>, <code>null</code>) for any other cause</td>
 </tr>
 </tbody>
@@ -7011,7 +7195,7 @@ offset of the element whose read failed, beside the Reader diagnostic.</p>
       
         core
         
-        <a href="https://github.com/OpenTLV/opentlv/tree/70404c90c7a3fbbe516d3c7b56cc4b2db77c70d6">70404c90c7a3</a>
+        <a href="https://github.com/OpenTLV/opentlv/tree/04e637aa6cc600505a6ba99611f28495bf9a4abf">04e637aa6cc6</a>
         
       
     
@@ -7025,21 +7209,21 @@ offset of the element whose read failed, beside the Reader diagnostic.</p>
       
         lua
         
-        <a href="https://github.com/OpenTLV/opentlv-lua/tree/2fece68b7b2286656b6f080694f931d3e1730cd6">2fece68b7b22</a>
+        <a href="https://github.com/OpenTLV/opentlv-lua/tree/adabdbe9b85187ff5db877142b26d33d20a5917e">adabdbe9b851</a>
         
       
     
       
         python
         
-        <a href="https://github.com/OpenTLV/opentlv-python/tree/2a6aa299037ba43c91ddf43704b769d8ea81958e">2a6aa299037b</a>
+        <a href="https://github.com/OpenTLV/opentlv-python/tree/f9434e4da5e6e196f3d587f1ae387e109746490c">f9434e4da5e6</a>
         
       
     
       
         rust
         
-        <a href="https://github.com/OpenTLV/opentlv-rust/tree/f297ab3899bafb95716a39a38dfaf7df14e8768d">f297ab3899ba</a>
+        <a href="https://github.com/OpenTLV/opentlv-rust/tree/1b860286e342fb8872b591029a4efca19eb1895c">1b860286e342</a>
         
       
     
@@ -7053,7 +7237,7 @@ offset of the element whose read failed, beside the Reader diagnostic.</p>
       
         js
         
-        <a href="https://github.com/OpenTLV/opentlv-js/tree/22efa490f25e5d947a7b88f451f68f4aab28b6a9">22efa490f25e</a>
+        <a href="https://github.com/OpenTLV/opentlv-js/tree/cb81e5818477c7c33dc468d3edabc6ff9acb3403">cb81e5818477</a>
         
       
     
