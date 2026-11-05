@@ -5,10 +5,13 @@ nested structure as a tree, a hex dump or JSON. Parsing runs in your browser wit
 [OpenTLV JavaScript binding](../bindings/javascript/index.md), backed by the same C core as
 native applications. Nothing you enter is uploaded.
 
-The published binding uses the JavaScript and Core sources selected for this
-documentation version. Both sources are recorded in the site's
-`source-revision.json` and `playground/wasm/wasm-source.json`. Local previews without generated binding assets
-display an unavailable message.
+The playground runs the published `@opentlv/opentlv` npm package pinned for this
+documentation version, unchanged. That package determines the bundled C core; its Core
+revision may differ from the Core version these pages document. The site's
+`source-revision.json` and `playground/wasm/wasm-source.json` record the package version,
+tarball integrity, publisher provenance and the Core revision the package reports. The
+package's license notices are included with the site's licenses. Local previews without
+staged package assets display an unavailable message.
 
 <!-- markdownlint-disable MD033 -->
 <div id="opentlv-playground" class="otlv-pg">

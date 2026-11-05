@@ -6,6 +6,7 @@
 import hashlib
 import html
 from importlib.metadata import distribution
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -14,13 +15,18 @@ from mkdocs.exceptions import PluginError
 from mkdocs.plugins import event_priority
 from mkdocs.structure.files import File
 
+_spec = importlib.util.spec_from_file_location("opentlv_licensing_wasm", Path(__file__).with_name("wasm.py"))
+wasm = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(wasm)
+
 ROOT = Path(__file__).resolve().parents[2]
 PREFIX = "licenses"
 MANIFEST = "licenses/manifest.json"
+# Historical snapshots record the toolchain of their source-built playground.
 TOOLCHAIN = "4.0.10"
 TOOLCHAIN_COMMIT = "b7dc6e5747465580df5984e723b9d1f10d8e804b"
-# Exact bytes verified against the toolchain tag, independent of the selected
-# JS repository (historical JS/Core producers also use this toolchain).
+# Reviewed runtime notice bytes, kept in notices/. The pinned npm package must
+# ship exactly these bytes; a change requires a new distribution review.
 RUNTIME_NOTICES = {
     "emscripten-LICENSE.txt": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86",
     "musl-COPYRIGHT.txt": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af",
@@ -51,7 +57,30 @@ def theme_notices():
     return notices, package.version
 
 
-def bundle(root, checkouts, sources, with_wasm):
+def playground_identity(manifest):
+    package = manifest["package"]
+    return {"package": package["name"], "version": package["version"], "integrity": package["integrity"]}
+
+
+def playground_notices(root, manifest, directory):
+    """Read the staged package notices and require the reviewed runtime bytes."""
+    names = set(wasm.NOTICES.values())
+    if (manifest.get("schema") != wasm.SCHEMA or not isinstance(manifest.get("notices"), dict)
+            or set(manifest["notices"]) != names):
+        raise PluginError("Playground runtime changed; review its distribution notices first.")
+    notices = {}
+    for name in sorted(names):
+        notices[name] = read_notice(Path(directory) / name)
+        if hashlib.sha256(notices[name]).hexdigest() != manifest["notices"][name]:
+            raise PluginError(f"Playground package notice differs from its provenance: {name}")
+    for name, digest in RUNTIME_NOTICES.items():
+        reviewed = read_notice(root / "notices" / name)
+        if hashlib.sha256(reviewed).hexdigest() != digest or notices[name] != reviewed:
+            raise PluginError(f"Toolchain license differs from reviewed upstream bytes: {name}")
+    return notices
+
+
+def bundle(root, checkouts, sources, playground=None):
     notices, version = theme_notices()
     notices["portal-LICENSE.txt"] = read_notice(root / "LICENSE")
     notices["THIRD_PARTY.txt"] = read_notice(root / "THIRD_PARTY.md")
@@ -67,12 +96,10 @@ def bundle(root, checkouts, sources, with_wasm):
         identities.append({name: source[name] for name in ("id", "repository", "commit")})
     metadata = {"schema": 1, "theme": {"name": "mkdocs-material", "version": version},
                 "sources": identities}
-    if with_wasm:
-        for name in RUNTIME_NOTICES:
-            notices[name] = read_notice(root / "notices" / name)
-            if hashlib.sha256(notices[name]).hexdigest() != RUNTIME_NOTICES[name]:
-                raise PluginError(f"Toolchain license differs from reviewed upstream bytes: {name}")
-        metadata["emscripten"] = {"version": TOOLCHAIN, "commit": TOOLCHAIN_COMMIT}
+    if playground is not None:
+        manifest, directory = playground
+        notices.update(playground_notices(root, manifest, directory))
+        metadata["playground"] = playground_identity(manifest)
     # Static HTML keeps this page independent of the portal's Markdown routing
     # and makes every notice available in offline copies and versioned aliases.
     links = "\n".join(f'<li><a href="{html.escape(name)}">{html.escape(name)}</a></li>'
@@ -95,12 +122,15 @@ def on_files(files, config):
             raise PluginError(f"Documentation cannot replace license output: {file.src_uri}")
     sources = config.extra["sources"]
     checkouts = config.extra["license_checkouts"]
-    with_wasm = any(file.dest_uri == "playground/wasm/opentlv-core.wasm" for file in files)
-    if with_wasm:
+    playground = None
+    if any(file.dest_uri == "playground/wasm/opentlv-core.wasm" for file in files):
         manifest = files.get_file_from_path("playground/wasm/wasm-source.json")
-        if manifest is None or json.loads(manifest.content_string).get("emscripten") != TOOLCHAIN:
-            raise PluginError("Playground toolchain changed; review its distribution notices first.")
-    notices, metadata = bundle(ROOT, checkouts, sources, with_wasm)
+        data = json.loads(manifest.content_string) if manifest is not None else {}
+        if data.get("schema") != wasm.SCHEMA or not manifest.abs_src_path:
+            raise PluginError("Playground runtime changed; review its distribution notices first.")
+        # The package notices are staged next to the manifest, not published there.
+        playground = (data, Path(manifest.abs_src_path).parent)
+    notices, metadata = bundle(ROOT, checkouts, sources, playground)
     for name, data in notices.items():
         files.append(File.generated(config, f"{PREFIX}/{name}", content=data))
     files.append(File.generated(config, MANIFEST, content=json.dumps(metadata, indent=2) + "\n"))
@@ -124,7 +154,11 @@ def verify_site(site, expected=None):
         required.update(f"{item['id']}-LICENSE.txt" for item in metadata["sources"])
         if (site / "playground/wasm/opentlv-core.wasm").exists():
             required.update(RUNTIME_NOTICES)
-            if metadata.get("emscripten") != {"version": TOOLCHAIN, "commit": TOOLCHAIN_COMMIT}:
+            if "playground" in metadata:
+                required.update(wasm.NOTICES.values())
+                if any(metadata["files"].get(name) != digest for name, digest in RUNTIME_NOTICES.items()):
+                    raise ValueError("Playground runtime notices differ from reviewed bytes")
+            elif metadata.get("emscripten") != {"version": TOOLCHAIN, "commit": TOOLCHAIN_COMMIT}:
                 raise ValueError("Missing playground toolchain notices")
         if not required.issubset(metadata["files"]):
             raise ValueError("Incomplete license manifest")
