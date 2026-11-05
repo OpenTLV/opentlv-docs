@@ -4,7 +4,7 @@
     {
       "id": "core",
       "repository": "https://github.com/OpenTLV/opentlv",
-      "revision": "283797be0765cba4ccc3921d52af2e27f0885fa3",
+      "revision": "30d4831fa07bbdf4575aeb48cefb710fc9aec1c2",
       "docs_path": "docs",
       "mount": "",
       "required": true,
