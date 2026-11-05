@@ -21,11 +21,11 @@ are not rewritten.
 | Component manuals and API reference text | `<component>-LICENSE.txt`, copied from each selected checkout |
 | Material for MkDocs templates, JavaScript and CSS | `material-LICENSE.txt`, from the installed distribution's license metadata |
 | Theme icon collections | Original Material, Font Awesome, Octicons and Simple Icons notices from that same installed distribution; full Apache 2.0 text is also included |
-| Playground JS/WASM | Selected Core and JS licenses plus Emscripten, musl and compiler-rt notices below |
+| Playground JS/WASM | Notices shipped by the pinned `@opentlv/opentlv` npm package: `npm-opentlv-LICENSE.txt`, `npm-opentlv-MIT.txt`, `npm-opentlv-THIRD_PARTY.txt`, `npm-opentlv-core-LICENSE.txt` and the Emscripten, musl and compiler-rt notices below |
 | Doxygen-generated reference assets | Original notices remain in generated scripts and jQuery files |
 
 `licenses/manifest.json` records the installed theme version, selected component
-commits, toolchain identity when WASM is present, and SHA-256 hashes of the bundled
+commits, the playground package version and integrity when present, and SHA-256 hashes of the bundled
 notice bytes. The build rejects missing, empty, symlinked, shadowed or modified
 notices. New `source-revision.json` records bind that manifest by SHA-256; publication
 verification checks it again. Component snapshots also hash every distributed file.
@@ -33,8 +33,9 @@ verification checks it again. Component snapshots also hash every distributed fi
 ## Playground runtime notices
 
 The following files are copied byte-for-byte from Emscripten **4.0.10**, commit
-`b7dc6e5747465580df5984e723b9d1f10d8e804b`. The license hook checks their reviewed
-hashes before bundling them, including when building historical Core/JS producers.
+`b7dc6e5747465580df5984e723b9d1f10d8e804b`. The playground package ships its own
+copies; the license hook distributes them only when they equal these reviewed
+bytes and hashes. Historical snapshots built from Core/JS sources used the same notices.
 
 | Local file | Upstream path | Upstream terms |
 | --- | --- | --- |
@@ -45,8 +46,9 @@ hashes before bundling them, including when building historical Core/JS producer
 [Exact upstream tree](https://github.com/emscripten-core/emscripten/tree/b7dc6e5747465580df5984e723b9d1f10d8e804b).
 These notices describe upstream inputs, not a claim that every upstream file is
 linked. Keep their original bytes and terms; the portal's MIT license does not
-relicense the runtime. A toolchain, allocator or optional runtime-library change
-requires reviewing the linked inputs and updating the notice set and hashes.
+relicense the runtime. A toolchain, allocator or optional runtime-library change,
+or a package version with changed or additional notices, requires reviewing the
+linked inputs and updating the notice set and hashes.
 
 The Roboto and Roboto Mono fonts are loaded by browsers from Google Fonts, not
 bundled in the site. Build tools such as MkDocs, mike and Playwright are not

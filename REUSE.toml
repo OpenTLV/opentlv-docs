@@ -47,6 +47,8 @@ path = [
     "docs/tools/index.md",
     "docs/tools/otlv/index.md",
     "docs/tools/playground/overview.md",
+    "tools/playground/package-lock.json",
+    "tools/playground/package.json",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Marek Cingel"

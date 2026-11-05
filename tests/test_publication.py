@@ -3,6 +3,7 @@
 
 """Exercise actual mike builds and fast-forward deployment in disposable Git repos."""
 
+import hashlib
 import io
 import json
 import os
@@ -354,7 +355,7 @@ class PublicationTests(unittest.TestCase):
         metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
         with patch.dict(os.environ, {"OPENTLV_DOCS_REQUIRE_WASM": "1", "GIT_CONFIG_COUNT": "3",
                                     "GIT_CONFIG_KEY_2": "core.autocrlf", "GIT_CONFIG_VALUE_2": "true"}):
-            with self.assertRaisesRegex(ValueError, "WebAssembly"):
+            with self.assertRaisesRegex(ValueError, "playground package"):
                 publication.verify_site(self.portal / "docs", self.selection)
             metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
             self.write("docs/source-revision.json", json.dumps(metadata))
@@ -376,6 +377,87 @@ class PublicationTests(unittest.TestCase):
             self.prepare()
             self.assertEqual(self.git("rev-parse", "gh-pages:1.0.0"), original)
             self.assertEqual(self.remote_head(), before)
+
+
+    def package_site(self):
+        """Stage a site as wasm.py and the license hook do for the reviewed pin."""
+        wasm = publication.wasm
+        directory = self.portal / "docs/playground/wasm"
+        directory.mkdir(parents=True, exist_ok=True)
+        for name in wasm.FILES:
+            (directory / name).write_bytes(b"\0asm\x01\0\0\0" if name.endswith(".wasm") else b"export {};\n")
+        notices = {name: hashlib.sha256(f"Notice {name}\n".encode()).hexdigest() for name in wasm.NOTICES.values()}
+        manifest = {"schema": wasm.SCHEMA, "package": dict(wasm.identity(wasm.load_pin()), sha256="f" * 64),
+                    "provenance": dict(wasm.PUBLISHER, ref="refs/heads/main", commit="e" * 40,
+                                       invocation=wasm.PUBLISHER["repository"] + "/actions/runs/1/attempts/1"),
+                    "signatures": {"tool": "npm audit signatures", "npm": "11.0.0"},
+                    "core": {"repository": "https://github.com/OpenTLV/opentlv.git", "commit": "c" * 40,
+                             "tree": "d" * 40, "tag": "v9.9.9"},
+                    "files": wasm.hashes(directory), "notices": notices}
+        licenses = {"schema": 1, "files": dict(notices), "sources": [],
+                    "playground": publication.licensing.playground_identity(manifest)}
+        metadata = json.loads((self.portal / "docs/source-revision.json").read_text())
+        def save():
+            metadata["wasm"] = dict(manifest, manifest="playground/wasm/wasm-source.json")
+            self.write("docs/source-revision.json", json.dumps(metadata))
+            self.write("docs/playground/wasm/wasm-source.json", json.dumps(manifest))
+            self.write("docs/licenses/manifest.json", json.dumps(licenses))
+        save()
+        return manifest, licenses, save
+
+    def test_package_publication_requires_reviewed_pin_signatures_and_notices(self):
+        self.set_selection("1.0.0")
+        manifest, licenses, save = self.package_site()
+        site = self.portal / "docs"
+        with patch.dict(os.environ, {"OPENTLV_DOCS_REQUIRE_WASM": "1"}):
+            publication.verify_site(site, self.selection)
+        # The package's own Core report is recorded, never matched to the Docs Core pin.
+        self.assertNotEqual(manifest["core"]["commit"], self.selection["commit"])
+        original = json.loads(json.dumps(manifest))
+        for change, message in (({"signatures": None}, "signatures"),
+                                ({"package": dict(original["package"], version="0.0.1")}, "reviewed pin"),
+                                ({"package": dict(original["package"], integrity="sha512-other")}, "reviewed pin"),
+                                ({"provenance": dict(original["provenance"], repository="https://x.invalid")},
+                                 "reviewed pin")):
+            with self.subTest(change=list(change)):
+                manifest.clear()
+                manifest.update(original, **change)
+                save()
+                with self.assertRaisesRegex(Exception, message):
+                    publication.verify_site(site, self.selection)
+        manifest.clear()
+        manifest.update(original)
+        licenses["files"]["musl-COPYRIGHT.txt"] = "0" * 64
+        save()
+        with self.assertRaisesRegex(ValueError, "notices differ"):
+            publication.verify_site(site, self.selection)
+        licenses["files"] = dict(original["notices"])
+        save()
+        (site / "playground/wasm/query.mjs").write_text("tampered", encoding="utf-8")
+        with self.assertRaisesRegex(Exception, "checksums"):
+            publication.verify_site(site, self.selection)
+
+    def test_existing_release_cannot_be_replayed_with_another_playground_package(self):
+        self.set_selection("1.0.0")
+        self.package_site()
+        self.git("add", ".")
+        self.git("commit", "-m", "Package playground")
+        self.git("push", "origin", "main")
+        self.prepare()
+        self.deploy_bundle()
+        before = self.remote_head()
+        pin = publication.wasm.load_pin()
+        for change in ({"version": "9.9.9"}, {"integrity": "sha512-other"}):
+            with self.subTest(change=change):
+                self.fresh_checkout()
+                self.set_selection("1.0.0")
+                with patch.object(publication.wasm, "load_pin", return_value=dict(pin, **change)), \
+                        self.assertRaisesRegex(ValueError, "different playground package"):
+                    self.prepare()
+        self.fresh_checkout()
+        self.set_selection("1.0.0")
+        self.prepare()
+        self.assertEqual(self.remote_head(), before)
 
 
 class EventPublicationTests(unittest.TestCase):

@@ -62,11 +62,20 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("cli_release.py", commands)
         self.assertIn("browser_smoke.py", commands)
         source_check = next(i for i, step in enumerate(steps) if step.get("id") == "source")
-        wasm = next(i for i, step in enumerate(steps) if "setup-emsdk@" in step.get("uses", ""))
+        node = next(i for i, step in enumerate(steps) if "setup-node@" in step.get("uses", ""))
+        wasm = next(i for i, step in enumerate(steps) if "wasm.py" in step.get("run", ""))
+        build = next(i for i, step in enumerate(steps) if "publication.py" in step.get("run", ""))
         self.assertLess(source_check, wasm)
+        self.assertLess(node, wasm)
+        self.assertLess(wasm, build)
+        # The playground uses the pinned published package with its signatures
+        # audited; Docs compiles neither JS nor Core for it.
+        self.assertEqual(steps[wasm]["run"], "python -B tools/docs/wasm.py --verify-signatures")
+        self.assertEqual(steps[build]["env"]["OPENTLV_DOCS_REQUIRE_WASM"], "1")
+        self.assertFalse(any("emsdk" in step.get("uses", "") for step in steps))
         generator = (ROOT / "tools/docs/wasm.py").read_text()
-        self.assertIn("-DOPENTLV_BUILD_WASM_TESTS=OFF", generator)
-        self.assertNotIn('"ctest"', generator)
+        for compiler in ('"emcc"', '"emcmake"', '"cmake"', '"ctest"'):
+            self.assertNotIn(compiler, generator)
         self.assertNotIn("test_doc_inventory.py", (ROOT / "tools/docs/ci.py").read_text())
 
     def test_updates_serialize_one_branch_per_source_and_auto_merge_is_opt_in(self):

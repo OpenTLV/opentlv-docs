@@ -172,7 +172,7 @@ upstream technical sources or establish current release/deployment evidence.
 Local documentation previews require the CLI, Lua, Python, Rust and Go documentation sources but do not
 build their executables or native modules, or require binding runtimes,
 or Emscripten. Publishing the playground requires the additional
-[JavaScript binding and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
+[npm package and browser tools](#playground-builds). C++ remains part of Core; generating its reference does not require
 building the C++ library, bindings, CLI, examples, or tests.
 
 ## Setup
@@ -1313,9 +1313,10 @@ extraction will update the selected content and navigation.
 
 The portal owns the playground UI. Exact-path overlays also support old Core
 revisions that still contain its page, JavaScript and stylesheet. The component
-owns the JavaScript binding, Emscripten build target and Node smoke tests in
-`opentlv-js`. Current playground builds combine the selected JS and Core sources;
-historical source selections retain support for the original Core-hosted target.
+owns the JavaScript binding, Emscripten build target, Node smoke tests and npm
+publication in `opentlv-js`. Current playground builds serve the exact pinned
+`@opentlv/opentlv` npm package; Docs compiles neither JS nor Core for them.
+Historical snapshots built from selected JS/Core sources stay verifiable on replay.
 See [Playground builds](#playground-builds) for verified artifacts and preview.
 
 ## Validation and scope
@@ -1381,14 +1382,14 @@ Four entry points separate fast feedback from comprehensive publication checks:
 
 Require **Docs PR gate** in branch protection or a ruleset. Aggregate gates reject
 failed, cancelled, missing and unexpectedly skipped prerequisites. Main does not
-dispatch Full CI or publish. PR/Main skip Emscripten, browser installation,
+dispatch Full CI or publish. PR/Main skip the playground package, browser installation,
 publication preparation and publication regression suites. Main also skips the
 PR formatting and contract suites.
 
 Full resolves all revisions once into `build/sources.lock.json`; source checks,
 API generation and the single strict mike build use that selection. The existing
 API cache is reused only after source fingerprints and file checksums match.
-Full builds the playground distribution but does not run Core CTest or any
+Full stages the pinned playground package but does not run Core CTest or any
 component behavioral suites. Its browser smoke validates the published UI.
 Core retains native tests, ABI, fuzzing and performance; CLI and bindings retain
 their executable/API tests. Docs owns generation, navigation, links and snapshots.
@@ -1609,7 +1610,7 @@ Docs owns the current portal publication workflow. Core supplies technical
 documentation and verified artifacts; its historical portal publisher is no
 longer the current publication path. Local checks cannot verify repository Pages
 settings, environment protection, or hosted deployment.
-Publication builds the selected JavaScript binding and Core sources, verifies provenance, and
+Publication stages the pinned npm package, verifies its integrity, provenance and signatures, and
 exercises the prepared playground in Chromium. PR/Main builds and local previews
 may omit WASM; Full and publication require the verified playground.
 
@@ -1930,43 +1931,70 @@ and validate its exact-SHA pin PR. HTTP acceptance is not receiver, hosted
 validation or publication evidence. JS has no release/publication policy in
 this source registration; its package version is separate from Core's version.
 
-The playground uses the selected JS producer and Core dependency as described
-below. Its provenance and browser validation are separate from manual assembly.
+The playground does not use the selected JS source; it serves the published npm
+package described below. Its provenance and browser validation are separate from
+manual assembly.
 
 ## Playground builds
 
-Install Emscripten **4.0.10**, Ninja and Node.js **24** in addition to the normal
-documentation tools, then run from the activated portal environment:
+The playground serves the published `@opentlv/opentlv` npm package exactly as
+delivered to users. Docs does not compile JS or Core for it and needs no
+Emscripten, CMake or separately selected Core revision. The package determines
+its bundled Core; Docs records the Core revision the package reports and makes no
+separate compatibility claim. Core documentation and API references keep their
+independent pin in `docs-sources.json`.
+
+[tools/playground/package.json](tools/playground/package.json) names one exact
+version and [package-lock.json](tools/playground/package-lock.json) locks its
+registry tarball and SHA-512 integrity. Floating ranges, tags, other registries
+and additional dependencies are rejected. Stage the package from the activated
+portal environment, then preview:
 
 ```sh
 python tools/docs/wasm.py
 python -m mkdocs serve -f mkdocs.local.yml
 ```
 
-The command builds the selected standalone JS source against the portal's exact
-selected Core checkout, with component tests disabled. Schema 2 provenance
-records both repositories, commits, local/dirty states and source fingerprints,
-plus the toolchain and output SHA-256 hashes in `build/wasm/dist/wasm-source.json`.
-The four outputs are `opentlv.mjs`, `query.mjs`, `opentlv-core.js` and
-`opentlv-core.wasm`. Changing either source invalidates old artifacts.
+The command downloads the locked tarball and rejects bytes that differ from the
+lock. It checks the package name, version and the export map the playground
+uses, the four assets `opentlv.mjs`, `query.mjs`, `opentlv-core.js` and
+`opentlv-core.wasm`, and the output hashes declared in the package's
+`package-info.json`. The registry's SLSA provenance statement must name the exact
+tarball and the reviewed publisher, `OpenTLV/opentlv-js`
+`.github/workflows/js-release.yml`. The package's license, third-party and
+runtime notices are staged too; Emscripten, musl and compiler-rt notices must
+equal the reviewed bytes in `notices/`, and a new notice file requires review.
 
-Historical selections without a standalone JS manual retain the in-tree Core
-producer and schema 1 manifest in `build/wasm/bindings/wasm/dist/`. A Core without
-that producer requires standalone JS; it cannot silently use old artifacts.
-Use `OPENTLV_DOCS_LOCAL=1` for uncommitted source previews. Publication requires
-clean, immutable Core and JS sources and verifies both against the selected set.
+`build/playground/dist/wasm-source.json` (schema 3) records the package identity,
+tarball SHA-256, lock digest, publisher provenance, signature evidence, the
+reported Core revision and the SHA-256 of every asset and notice. Repeated runs
+produce identical bytes.
 
-Alternatively set `OPENTLV_WASM_DIR` to a complete previously generated directory
-including its manifest. Explicit missing, stale, modified or unproven artifacts
-fail; they never silently fall back. Transferred source bytes and Git metadata
-must match the selected checkout, as with API artifacts. Checksums establish
-integrity, not authentication of an arbitrary external producer.
+Full CI runs `python tools/docs/wasm.py --verify-signatures`. It installs the lock
+with `npm ci --ignore-scripts`, runs `npm audit signatures` to verify the registry
+signatures and Sigstore attestations, and requires the installed files to equal
+the verified tarball. Install Node.js **24** to run this locally. Publication
+rejects assets without this evidence. Networks that intercept TLS may block the
+Sigstore TUF repository; previews do not need the audit.
 
-Ordinary previews may omit artifacts and display the unavailable message.
-Full CI sets `OPENTLV_DOCS_REQUIRE_WASM=1`, generates playground assets, and verifies
-its provenance again in both the site and versioned publication. Metadata is
-included in `source-revision.json` and `playground/wasm/wasm-source.json`.
-Existing archived versions are preserved; they are not rebuilt by a new event.
+Alternatively set `OPENTLV_WASM_DIR` to a complete previously staged directory
+including its manifest and notices. Missing, stale, modified or unproven assets
+fail; they never silently fall back. Assets staged for an older pin fail until
+`tools/docs/wasm.py` runs again.
+
+To adopt a new package version, change the exact version in `package.json`,
+run `npm install --package-lock-only --ignore-scripts` in `tools/playground/`,
+and review the package's notices, API and provenance before merging.
+
+Ordinary previews may omit assets and display the unavailable message.
+Full CI sets `OPENTLV_DOCS_REQUIRE_WASM=1`, stages the package, and verifies its
+evidence again against the reviewed pin in both the site and versioned
+publication. Metadata is included in `source-revision.json` and
+`playground/wasm/wasm-source.json`; the license manifest records the package.
+An existing release cannot be replaced with a different package. Existing
+archived versions are preserved; they are not rebuilt by a new event. Snapshots
+built from selected JS/Core sources (schema 1 and 2) are verified on replay
+against their recorded sources.
 
 Browser validation uses an optional isolated dependency set:
 
@@ -1977,7 +2005,9 @@ python tools/docs/browser_smoke.py build/publication/site --version latest
 ```
 
 It serves the prepared output under the project URL prefix and checks module
-loading, successful BER parsing and a truncated-input error. It checks the
+loading, successful BER parsing and a truncated-input error. For package-built
+snapshots it also imports the served package API and checks its exports, parse
+results, a Document round trip and a path lookup. It checks the
 selected version and its aliases, including `stable` when publishing the newest
 release. A browser failure prevents artifact upload and deployment. CI installs
 Chromium OS dependencies with `playwright install --with-deps chromium`.
@@ -2011,8 +2041,9 @@ published page shows the copyright and links to `licenses/index.html` inside
 its own snapshot. The bundle contains complete component, theme, icon and
 playground notices, with source versions and hashes in `licenses/manifest.json`.
 The installed theme supplies its notices; selected checkouts supply their own
-licenses. Reviewed Emscripten 4.0.10 notices are kept byte-for-byte in `notices/`
-for both current and historical producers. Build and publication checks reject
+licenses. The pinned playground package supplies its own license, third-party
+and runtime notices; reviewed Emscripten 4.0.10 notices are kept byte-for-byte in
+`notices/`, and the package's copies must match them. Build and publication checks reject
 missing or changed notices. See [third-party notices](THIRD_PARTY.md) for the
 update procedure. Existing published releases remain immutable.
 

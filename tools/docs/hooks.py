@@ -8,7 +8,7 @@ index docs/README.md point at the site landing page docs/index.md.
 
 The Doxygen HTML for the C and C++ APIs is added to the site as static files
 under api/reference/, so it is validated by the strict build like any page.
-The WebAssembly module used by the playground is added under playground/wasm/.
+The playground's JS/WASM files from the pinned npm package are added under playground/wasm/.
 """
 
 import logging
@@ -28,7 +28,7 @@ _js_spec = importlib.util.spec_from_file_location("opentlv_docs_js", Path(__file
 js = importlib.util.module_from_spec(_js_spec)
 _js_spec.loader.exec_module(js)
 
-log = logging.getLogger("mkdocs.hooks.opentlv")
+log =logging.getLogger("mkdocs.hooks.opentlv")
 
 _api_spec = importlib.util.spec_from_file_location("opentlv_docs_api", Path(__file__).with_name("api.py"))
 api = importlib.util.module_from_spec(_api_spec)
@@ -45,7 +45,7 @@ API_DIR_ENV = "OPENTLV_API_DOCS_DIR"
 API_TREES = ("c-api", "cxx-api")
 API_SITE_PREFIX = api.PREFIX
 
-# Optional in local previews; publication builds and verifies the exact source.
+# Optional in local previews; publication requires the verified pinned package.
 WASM_FILES = wasm.FILES
 WASM_SITE_PREFIX = "playground/wasm"
 
@@ -111,9 +111,7 @@ def on_post_build(config):
 
 def add_wasm_files(files, config):
     portal = Path(config.config_file_path).resolve().parent
-    js_root, js_source = config.extra.get("wasm_js", (None, None))
-    directory, manifest = wasm.prepare(portal, Path(config.extra["core_checkout"]), config.extra["core_source"],
-                                       Path(js_root) if js_root else None, js_source)
+    directory, manifest = wasm.prepare(portal)
     if directory is None:
         log.info("WebAssembly artifacts absent; local playground unavailable. Run tools/docs/wasm.py.")
         return

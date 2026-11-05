@@ -56,16 +56,30 @@ def verify_site(site, selection):
                 or (item.get("included") and not re.fullmatch(r"[0-9a-f]{40}", item.get("commit", "")))
                 or (item.get("required") and not item.get("included"))):
             raise ValueError("Publication requires a clean, immutable source set.")
-    if os.environ.get("OPENTLV_DOCS_REQUIRE_WASM") == "1" or "wasm" in source:
-        metadata = source.get("wasm", {})
+    metadata = source.get("wasm")
+    if isinstance(metadata, dict) and metadata.get("schema") == wasm.SCHEMA:
+        # The pinned npm package determines the playground's Core; it is not
+        # claimed compatible with, or tied to, the selected documentation Core.
+        verified = wasm.verify(site / "playground/wasm", wasm.load_pin(), publish=True, notices=False)
+        if metadata != dict(verified, manifest="playground/wasm/wasm-source.json"):
+            raise ValueError("Published playground provenance differs from the site metadata.")
+        notices = json.loads((site / licensing.MANIFEST).read_text(encoding="utf-8"))
+        if (notices.get("playground") != licensing.playground_identity(verified)
+                or any(notices["files"].get(name) != digest for name, digest in verified["notices"].items())):
+            raise ValueError("Published playground notices differ from the package provenance.")
+    elif metadata is None:
+        if os.environ.get("OPENTLV_DOCS_REQUIRE_WASM") == "1":
+            raise ValueError("Publication requires the verified playground package.")
+    else:
+        # Immutable snapshots built from selected JS/Core sources (schema 1/2).
         if (metadata.get("commit") != selection["commit"]
                 or metadata.get("repository") != source["repository"]
                 or metadata.get("local") is not False or metadata.get("dirty") is not False):
             raise ValueError("Publication requires WebAssembly for the exact clean Core source.")
         directory = site / "playground/wasm"
         _root, js_source = wasm.js_selection([(None, item) for item in selected])
-        verified = wasm.verify(directory, source, metadata.get("source_sha256"), js_source,
-                               metadata.get("js", {}).get("source_sha256"))
+        verified = wasm.verify_legacy(directory, source, metadata.get("source_sha256"), js_source,
+                                      metadata.get("js", {}).get("source_sha256"))
         if metadata != dict(verified, manifest="playground/wasm/wasm-source.json"):
             raise ValueError("Published WebAssembly provenance differs from the site metadata.")
 
@@ -106,6 +120,10 @@ def prepare(portal, selection):
             raise ValueError("An existing release cannot be replaced with a different Core source.")
         if previous.get("sources") != selection.get("sources"):
             raise ValueError("An existing release cannot be replaced with a different source set.")
+        package = previous.get("wasm", {}).get("package")
+        pin = wasm.identity(wasm.load_pin())
+        if package is not None and {key: package.get(key) for key in pin} != pin:
+            raise ValueError("An existing release cannot be replaced with a different playground package.")
         # A matching source set does not make a rebuild immutable: the theme,
         # navigation and renderer may have changed. Reuse the original bytes.
         return export_history(portal, version, selection)
