@@ -14,6 +14,40 @@ from playwright.sync_api import sync_playwright, expect
 
 from navigation_smoke import check_navigation
 
+# Exercise the pinned package's public API from the served assets, independent
+# of the UI: export names, loader, parse results and Document round trips.
+PACKAGE_API = r"""async () => {
+  const script = [...document.scripts].find((item) => /playground\/playground\.js(\?|$)/.test(item.src));
+  const base = new URL("wasm/", script.src);
+  const module = await import(new URL("opentlv.mjs", base).href);
+  for (const name of ["loadOpenTLV", "hexToBytes", "FORMATS", "MODULES"]) {
+    if (!(name in module)) throw new Error(`missing export ${name}`);
+  }
+  const api = await module.loadOpenTLV({ locateFile: (name) => new URL(name, base).href });
+  const input = module.hexToBytes("6F 0A 84 03 41 42 43 A5 03 50 01 01");
+  const parsed = api.parse(input, { format: "ber" });
+  if (parsed.error || parsed.elements.length !== 1 || parsed.elements[0].tag !== "6F") {
+    throw new Error(`unexpected parse result ${JSON.stringify(parsed)}`);
+  }
+  if (!api.parse(module.hexToBytes("04 02 41"), { format: "ber" }).error) throw new Error("truncated input accepted");
+  const tree = new api.Document(input, { format: "ber" });
+  try {
+    const encoded = tree.encode();
+    if (encoded.length !== input.length || encoded.some((byte, index) => byte !== input[index])) {
+      throw new Error("Document round trip changed the bytes");
+    }
+    if (!tree.findPath("6F/84")) throw new Error("Document query did not find 6F/84");
+  } finally {
+    tree.close();
+  }
+  return { version: api.version, formats: [...api.formats] };
+}"""
+
+
+def package_built(site, prefix):
+    manifest = site / prefix / "playground/wasm/wasm-source.json"
+    return manifest.is_file() and json.loads(manifest.read_text(encoding="utf-8")).get("schema") == 3
+
 
 def check(site, version):
     versions = json.loads((site / "versions.json").read_text(encoding="utf-8"))
@@ -71,6 +105,9 @@ def check(site, version):
                 page.locator("#otlv-pg-input").fill("04 02 41")
                 page.locator("#otlv-pg-parse").click()
                 expect(page.locator("#otlv-pg-error")).to_contain_text("Parse error")
+                if package_built(site, prefix):
+                    loaded = page.evaluate(PACKAGE_API)
+                    assert loaded["version"] and "ber" in loaded["formats"], loaded
                 assert not failures, failures
                 if portal_layout:
                     check_navigation(page, f"http://127.0.0.1:{server.server_port}/opentlv-docs/{prefix}/")

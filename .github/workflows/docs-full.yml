@@ -95,15 +95,10 @@ jobs:
         run: |
           npm install --global markdownlint-cli@0.45.0
           markdownlint --config .markdownlint.json README.md CHANGELOG.md DOCUMENTATION-MIGRATION.md DOCUMENTATION-OWNERSHIP.md DOCUMENTATION-CONTENT-REVIEW.md DOCUMENTATION-VALIDATION.md 'docs/**/*.md' build/sources/core/README.md 'build/assembled/docs/**/*.md'
-      - uses: mymindstorm/setup-emsdk@v14
+      # The playground serves the exact pinned npm package; Docs compiles no JS/Core.
+      - name: Stage pinned playground package
         if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
-        with:
-          version: '4.0.10'
-      - name: Generate playground assets
-        if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'
-        env:
-          OPENTLV_DOCS_CHANNEL: ${{ steps.source.outputs.channel }}
-        run: python -B tools/docs/wasm.py
+        run: python -B tools/docs/wasm.py --verify-signatures
       # mike performs the one strict build under the actual version prefix.
       - name: Build and prepare Core snapshot
         if: github.event.action != 'cli-docs-released' && github.event.action != 'component-release-published'

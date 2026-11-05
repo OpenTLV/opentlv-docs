@@ -91,8 +91,8 @@ WebAssembly only. Rust's retained Core development guide now renders at
 The generated C and C++ reference trees contain the same files as the Doxygen
 output of the selected Core revision: 441 and 651 files. The deployed trees
 (451 and 661 files) come from the older Core revision and the hosted Doxygen
-version. Full CI regenerates both. The playground WebAssembly distribution is
-built only in Full CI, where its browser smoke must pass before publication.
+version. Full CI regenerates both. The playground's pinned npm package is
+staged only in Full CI, where its browser smoke must pass before publication.
 
 ## Navigation
 

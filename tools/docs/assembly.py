@@ -346,9 +346,6 @@ def on_pre_build(config):
     config.extra["sources_dirty"] = any(item["dirty"] for item in source["sources"])
     config.extra["core_source"] = source
     config.extra["core_checkout"] = str(root)
-    config.extra["wasm_js"] = next(
-        (str(checkout), item) for checkout, item in selected if item["id"] == "js"
-    ) if js.ready(source["sources"]) else (None, None)
 
 
 def on_serve(server, config, builder):

@@ -1,0 +1,10 @@
+{
+  "name": "opentlv-docs-playground",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Exact published OpenTLV JavaScript package served by the documentation playground",
+  "license": "MIT",
+  "dependencies": {
+    "@opentlv/opentlv": "0.2.1"
+  }
+}

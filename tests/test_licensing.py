@@ -97,8 +97,23 @@ class DistributedLicenseTests(unittest.TestCase):
         self.sources = [{"id": "core", "repository": "https://github.com/OpenTLV/opentlv",
                          "commit": "a" * 40, "included": True}]
 
+    def playground(self, directory=None, **changed):
+        """Stage pinned package notices as tools/docs/wasm.py does."""
+        directory = directory or self.root / "playground"
+        directory.mkdir(parents=True, exist_ok=True)
+        digests = {}
+        for name in licensing.wasm.NOTICES.values():
+            reviewed = ROOT / "notices" / name
+            data = changed.get(name) or (reviewed.read_bytes() if reviewed.is_file() else f"Package {name}\n".encode())
+            (directory / name).write_bytes(data)
+            digests[name] = hashlib.sha256(data).hexdigest()
+        manifest = {"schema": licensing.wasm.SCHEMA, "notices": digests,
+                    "package": {"name": "@opentlv/opentlv", "version": "1.2.3", "integrity": "sha512-fixture"}}
+        return manifest, directory
+
     def bundle(self, with_wasm=True):
-        return licensing.bundle(ROOT, {"core": self.component}, self.sources, with_wasm)
+        return licensing.bundle(ROOT, {"core": self.component}, self.sources,
+                                self.playground() if with_wasm else None)
 
     def stage(self):
         notices, metadata = self.bundle()
@@ -120,9 +135,25 @@ class DistributedLicenseTests(unittest.TestCase):
                                               for key in ("id", "repository", "commit")}])
         for name, digest in licensing.RUNTIME_NOTICES.items():
             self.assertEqual(hashlib.sha256(notices[name]).hexdigest(), digest)
-        without_runtime, metadata = self.bundle(False)
+        self.assertEqual(metadata["playground"], {"package": "@opentlv/opentlv", "version": "1.2.3",
+                                                  "integrity": "sha512-fixture"})
+        self.assertEqual(notices["npm-opentlv-THIRD_PARTY.txt"], b"Package npm-opentlv-THIRD_PARTY.txt\n")
         self.assertNotIn("emscripten", metadata)
+        without_runtime, metadata = self.bundle(False)
+        self.assertNotIn("playground", metadata)
         self.assertNotIn("emscripten-LICENSE.txt", without_runtime)
+
+    def test_package_runtime_notices_must_match_reviewed_bytes(self):
+        playground = self.playground(**{"musl-COPYRIGHT.txt": b"Changed upstream notice\n"})
+        with self.assertRaisesRegex(PluginError, "reviewed upstream bytes"):
+            licensing.bundle(ROOT, {"core": self.component}, self.sources, playground)
+        manifest, directory = self.playground()
+        (directory / "npm-opentlv-THIRD_PARTY.txt").write_bytes(b"rewritten after staging")
+        with self.assertRaisesRegex(PluginError, "provenance"):
+            licensing.bundle(ROOT, {"core": self.component}, self.sources, (manifest, directory))
+        del manifest["notices"]["npm-opentlv-THIRD_PARTY.txt"]
+        with self.assertRaisesRegex(PluginError, "review"):
+            licensing.bundle(ROOT, {"core": self.component}, self.sources, (manifest, directory))
 
     def test_missing_empty_and_changed_source_notices_fail(self):
         notice = self.component / "LICENSE"
@@ -182,7 +213,7 @@ class DistributedLicenseTests(unittest.TestCase):
         manifest = File("playground/wasm/wasm-source.json", str(self.root), str(self.root / "site"), True)
         manifest.content_string = json.dumps({"emscripten": "unreviewed"})
         for files in (Files([wasm]), Files([wasm, manifest])):
-            with self.assertRaisesRegex(PluginError, "toolchain changed"):
+            with self.assertRaisesRegex(PluginError, "runtime changed"):
                 licensing.on_files(files, config)
 
     def test_actual_theme_build_links_local_notices_from_nested_pages(self):
@@ -194,7 +225,8 @@ class DistributedLicenseTests(unittest.TestCase):
         runtime = docs / "playground/wasm"
         runtime.mkdir(parents=True)
         (runtime / "opentlv-core.wasm").write_bytes(b"\0asm\1\0\0\0")
-        (runtime / "wasm-source.json").write_text(json.dumps({"emscripten": licensing.TOOLCHAIN}), encoding="utf-8")
+        manifest, _directory = self.playground(runtime)
+        (runtime / "wasm-source.json").write_text(json.dumps(manifest), encoding="utf-8")
         config = {"site_name": "Fixture", "docs_dir": str(docs), "site_dir": str(self.root / "site"),
                   "theme": {"name": "material", "custom_dir": str(ROOT / "tools/docs/overrides")},
                   "hooks": [str(ROOT / "tools/docs/licensing.py")], "plugins": [],
@@ -209,6 +241,8 @@ class DistributedLicenseTests(unittest.TestCase):
         self.assertIn("Material for MkDocs", (site / "index.html").read_text())
         for name in licensing.RUNTIME_NOTICES:
             self.assertEqual((site / "licenses" / name).read_bytes(), (ROOT / "notices" / name).read_bytes())
+        for name in licensing.wasm.NOTICES.values():
+            self.assertEqual((site / "licenses" / name).read_bytes(), (runtime / name).read_bytes())
         licensing.verify_record(site, json.loads((site / "source-revision.json").read_text()))
         # A source page must not shadow the static notices, even by case folding.
         loaded = load_config(str(path))
